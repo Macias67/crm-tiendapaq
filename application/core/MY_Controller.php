@@ -181,13 +181,14 @@ abstract class AbstractAccess extends AbstractController {
 	 * @param  string $vista Nombre de la vista
 	 * @param  string $folder Nombre del directorio de la vista
 	 */
-	protected function _vista($vista, $folder = '')
+	protected function _vista($folder = '', $vista)
 	{
-		$this->load->view('admin/head/'.$folder.'/head', $this->data);
-		$this->load->view('admin/header/header', $this->data);
-		$this->load->view('admin/container/sidebar/'.$folder.'/sidebar', $this->data);
-		$this->load->view('admin/container/content/'.$folder.'/'.$vista, $this->data);
-		$this->load->view('admin/footer/'.$folder.'/footer', $this->data);
+		$this->load->view($folder.'/head/head', $this->data);
+		$this->load->view($folder.'/header/header', $this->data);
+		$this->load->view($folder.'/container/sidebar/sidebar', $this->data);
+		$this->load->view($folder.'/container/content/'.$vista, $this->data);
+		$this->load->view($folder.'/container/quick-sidebar/quick-sidebar', $this->data);
+		$this->load->view($folder.'/footer/footer', $this->data);
 	}
 
 	/**
