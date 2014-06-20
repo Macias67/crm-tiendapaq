@@ -41,7 +41,11 @@
 $route['default_controller'] = "admin";
 $route['404_override'] = '';
 
+// Vista login
 $route['login'] = "admin/login";
+$route['cookiescreen'] = "admin/cookiescreen";
+$route['validation'] = "admin/validation";
+$route['logout'] = "admin/logout";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

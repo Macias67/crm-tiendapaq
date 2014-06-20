@@ -12,7 +12,7 @@ abstract class AbstractController extends CI_Controller {
 	 *
 	 * @var array
 	 **/
-	protected $data = array();
+	public $data = array();
 
 	/**
 	 * Patron para el titulo en las vistas
@@ -78,7 +78,7 @@ abstract class AbstractAccess extends AbstractController {
 	 *
 	 * @var string
 	 **/
-	protected $controller;
+	protected $privilegios;
 
 	/**
 	 * Nombre de usuario con
@@ -102,14 +102,14 @@ abstract class AbstractAccess extends AbstractController {
 	public function __construct()
 	{
 		parent::__construct();
-		// Consigo nombre de la clase
-		$this->controller = strtolower(get_class($this));
 		// Asignamos el item 'usuario_activo' a la variable
 		$this->usuario_activo = @$this->session->userdata('usuario_activo');
 		// Paso los datos del admin al array data para la vista
 		$this->data['usuario_activo'] = $this->usuario_activo;
+		// Privilegios del usuario activo
+		$this->privilegios = $this->data['usuario_activo']['privilegios'];
 		// Nombre del controlador
-		$this->data['controlador'] = $this->controller;
+		$this->data['privilegios'] = $this->privilegios;
 	}
 
 	/**
@@ -126,14 +126,10 @@ abstract class AbstractAccess extends AbstractController {
 	public function _remap($method, $params = array())
 	{
 		if (method_exists($this, $method)) {
+			// SI el metodo ($method) que llamo son difrentes a cualquiera de estos
+			// entonces llamos a _admin() para validar que haya una sesion activa
 			if ($method != 'login' && $method != 'validation' && $method != 'cookiescreen') {
 				$this->_admin();
-			}
-			// Si es cliente y esta iniciada la sesion
-			if ($this->controller == 'cliente' && isset($this->usuario_activo['codigo']) && !$this->usuario_activo['activo']) {
-				if ($method != 'offline' && $method != 'logout') {
-					redirect($this->controller.'/offline', 'refresh');
-				}
 			}
 			return call_user_func_array(array($this, $method), $params);
 		} else {
@@ -145,53 +141,12 @@ abstract class AbstractAccess extends AbstractController {
 	 * Vista del formulario del logueo
 	 * @param string $supervisor	Si el login es para cliente, aqui se inica de que supervisor viene.
 	 **/
-	protected function login($supervisor = null)
+	protected function login()
 	{
-		switch ($this->controller) {
-			case 'admin':
-				$titulo			= 'Bienvenido'.self::TITULO_PATRON;
-				$encabezado	= 'Bienvenido al Sistema';
-				$descripcion	= 'Administración de Relación con los Clientes.';
-				break;
-			case 'supervisor':
-				$titulo 		= 'Supervisor'.self::TITULO_PATRON;
-				$encabezado	= 'Supervisión del Sistema';
-				$descripcion	= '<i class="icon-warning-sign"></i> Solo acceso a personal <b>autorizado</b>.';
-				break;
-			case 'cliente':
-				$titulo 		= 'Bienvenido'.self::TITULO_PATRON;
-				$encabezado	= 'Bienvenido al Sistema';
-				$descripcion	= 'Aplicación web para la elaboración de pedidos en línea.';
-				$this->load->model('supervisormodel');
-				// Si no existe tabla supervisores la creo
-				if(!$this->supervisormodel->supervisorTableExists()) {
-					$this->supervisormodel->createTableSupervisores();
-				}
-				// Si el paramatro $supervisor es NULL
-				if (is_null($supervisor)) {
-					// Obtengo empresas
-					$empresas = $this->supervisormodel->get('empresa');
-					// SI el array es vacio
-					if(empty($empresas)) {
-						// Redirecciona a admin login
-						redirect('admin/login?i=1', 'refresh');
-					} else {
-						// Muestro empresas
-						$this->data['empresas'] = $empresas;
-					}
-				} else {
-					if($empresa = $this->supervisormodel->get('empresa', array('url_name' => $supervisor), null, null, 1)) {
-						$this->data['empresa'] = $empresa->empresa;
-					} else {
-						show_404();
-					}
-				}
-				break;
-		}
 		// Datos para la vista de logueo
-		$this->data['titulo'] 		= $titulo;
-		$this->data['encabezado']	=  $encabezado;
-		$this->data['descripcion'] 	= $descripcion;
+		$this->data['titulo'] 		= 'Bienvenido'.self::TITULO_PATRON;
+		$this->data['encabezado']	= 'Bienvenido al Sistema';
+		$this->data['descripcion'] 	= 'Administración de Relación con los Clientes.';
 		$this->_vista_completa('login');
 	}
 
@@ -203,7 +158,7 @@ abstract class AbstractAccess extends AbstractController {
 	{
 		$this->session->unset_userdata('usuario_activo');
 		$this->session->sess_destroy();
-		redirect($this->controller.'/login',  'refresh');
+		redirect('/login',  'refresh');
 	}
 
 	/**
@@ -246,24 +201,40 @@ abstract class AbstractAccess extends AbstractController {
 		$usuario	= $this->input->post('usuario');
 		$password	= $this->input->post('password');
 		$remember= $this->input->post('remember');
-		// Si existe el admin
-		if ($usuario == self::USUARIO && $password == self::PASSWORD) {
-			// Si selecciona recordar, agrego cookie para recordar el usuario
-			if ($remember == 'true') {
-				/*
-				* APRUEBA PARA LA COOKIE DE RECUERDAME
-				 */
-				// $tiempo	= time()+60*60*24*30*6; // 6 Meses de duracion de la cookie
-				// $this->session->sess_expiration = $tiempo;
-				// $this->session->sess_expire_on_close = FALSE;
+		// Si usuario y password no vienen nulas
+		if (isset($usuario) && isset($password)) {
+			$this->load->model('ejecutivoModel');
+			$ejecutivo = $this->ejecutivoModel->get_where(array('usuario' => $usuario));
+			// Si ejectivo existe
+			if ($ejecutivo) {
+				// Valido que los datos sean correcto
+				if ($ejecutivo->usuario == $usuario && $ejecutivo->password == $password) {
+					// Si selecciona recordar, agrego cookie para recordar el usuario
+					if ($remember == 'true') {
+						/*
+						* APRUEBA PARA LA COOKIE DE RECUERDAME
+						 */
+						// $tiempo	= time()+60*60*24*30*6; // 6 Meses de duracion de la cookie
+						// $this->session->sess_expiration = $tiempo;
+						// $this->session->sess_expire_on_close = FALSE;
+						// $time 		= 60*60*24*30*6;
+						// $domain 	= substr($this->input->server('SERVER_NAME'), 4);
+						// $this->input->set_cookie('remember', 'true', $time, $domain, '/');
+					}
+					// Parseo objeto a array
+					$dataUser = (array) $ejecutivo;
+					// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
+					$this->session->set_userdata('usuario_activo', $dataUser);
+					$respuesta	= TRUE;
+					$mensaje	= 'Bienvenido, espera unos segundos...';
+				} else {
+					$respuesta	= FALSE;
+					$mensaje	= 'El usuario o contraseña son incorrectos';
+				}
+			} else {
+				$respuesta	= FALSE;
+				$mensaje	= 'El usuario no existe';
 			}
-			// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
-			$this->session->set_userdata('usuario_activo', array('tipo' => $this->controller));
-			$respuesta	= TRUE;
-			$mensaje	= 'Bienvenido, espera unos segundos...';
-		} else {
-			$respuesta = FALSE;
-			$mensaje 	= 'Usuario o contraseña inválidos.';
 		}
 		// Imprimo la respuesta
 		echo json_encode(array('respuesta' => $respuesta, 'mensaje' => $mensaje));
@@ -277,7 +248,10 @@ abstract class AbstractAccess extends AbstractController {
 	 **/
 	private function _isLogin()
 	{
-		if (!@$this->usuario_activo || $this->usuario_activo['tipo'] != $this->controller) {
+		if (!@$this->usuario_activo || $this->usuario_activo['privilegios'] != $this->privilegios) {
+			log_message('error','me redirecciona a login');
+			log_message('error',$this->usuario_activo['privilegios']);
+			log_message('error',$this->privilegios);
 			redirect('/login',  'refresh');
 		}
 	}

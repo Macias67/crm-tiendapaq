@@ -4,7 +4,7 @@ class Admin extends AbstractAccess {
 
 	public function index()
 	{
-		echo "hola :)";
+		var_dump($this->data);
 	}
 
 }

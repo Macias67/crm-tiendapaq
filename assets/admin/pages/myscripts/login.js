@@ -8,11 +8,10 @@ var Login = function () {
 		var username	= $('[name="username"]').val();
 		var password	= $('[name="password"]').val();
 		var remember	= $('[name="remember"]').is(':checked');
-		var controller	= $('#login').attr('name');
 		var notice		= $('#notice');
 		var message 	= notice.html();
 		$.ajax({
-			url: '/'+controller+'/validation',
+			url: '/validation',
 			type: 'post',
 			dataType: 'json',
 			cache: false,

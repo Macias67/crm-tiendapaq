@@ -103,7 +103,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				<label class="checkbox">
 					<input type="checkbox" name="remember" value="1"/> Recordarme
 				</label>
-				<button type="submit"  id="login" name="<?php echo $controlador ?>" class="btn blue pull-right">Entrar <i class="m-icon-swapright m-icon-white"></i></button>
+				<button type="submit"  id="login"  class="btn blue pull-right">Entrar <i class="m-icon-swapright m-icon-white"></i></button>
 			</div>
 			<div class="login-options">
 				<h4>O entrar con</h4>
@@ -512,7 +512,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			Login.init();
 			// Funcion para obtener dimensiones de la pantalla
 			var controller	= $('#login').attr('name');
-			$.post('/'+controller+'/cookiescreen', {alto: screen.height, ancho: screen.width}, function(data, textStatus, xhr) {
+			$.post('/cookiescreen', {alto: screen.height, ancho: screen.width}, function(data, textStatus, xhr) {
 				console.log('Screen Cookie: '+textStatus);
 			});
 		});
