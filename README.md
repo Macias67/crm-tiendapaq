@@ -1,4 +1,4 @@
-crm-tiendapaq
+TiendaPAQ CRM
 =============
 
-CRM para TiendaPAQ
+CRM para TiendaPAQ en desarollo

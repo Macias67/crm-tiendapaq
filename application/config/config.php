@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.metronic.com/';
+$config['base_url']	= 'http://www.crm-tiendapaq.com/';
 
 /*
 |--------------------------------------------------------------------------
