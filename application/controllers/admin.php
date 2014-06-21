@@ -4,8 +4,8 @@ class Admin extends AbstractAccess {
 
 	public function index()
 	{
-		echo $this->controller;
-		$this->_vista($this->controller,'principal');
+		//var_dump($this->data);
+		$this->_vista($this->privilegios,'principal');
 	}
 
 }

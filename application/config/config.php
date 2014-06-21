@@ -246,9 +246,9 @@ $config['encryption_key'] = 'a8b874ddaf9e72211fdf337c5837ef2c';
 |
 */
 $config['sess_cookie_name']		= 'user_logged';
-$config['sess_expiration']			= 7200;
+$config['sess_expiration']			= 60*60*24*30*6; // 6 meses
 $config['sess_expire_on_close']	= FALSE;
-$config['sess_encrypt_cookie']		= FALSE;
+$config['sess_encrypt_cookie']		= TRUE;
 $config['sess_use_database']		= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']			= FALSE;
