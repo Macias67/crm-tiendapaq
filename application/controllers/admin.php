@@ -8,6 +8,10 @@ class Admin extends AbstractAccess {
 		$this->_vista($this->privilegios,'principal');
 	}
 
+	public function add(){
+		$this->_vista($this->privilegios,'form-nuevo-cliente');
+	}
+
 }
 
 /* End of file admin.php */
