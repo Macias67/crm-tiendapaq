@@ -38,14 +38,14 @@
 |
 */
 
-$route['default_controller'] = "admin";
+$route['default_controller'] = "inicio";
 $route['404_override'] = '';
 
-// Vista login
-$route['login'] = "admin/login";
-$route['cookiescreen'] = "admin/cookiescreen";
-$route['validation'] = "admin/validation";
-$route['logout'] = "admin/logout";
+// Funciones generales
+$route['login']			= "inicio/login";
+$route['cookiescreen']	= "inicio/cookiescreen";
+$route['validation']		= "inicio/validation";
+$route['logout']		= "inicio/logout";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

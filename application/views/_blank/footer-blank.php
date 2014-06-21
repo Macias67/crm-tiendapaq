@@ -15,8 +15,8 @@
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 	<!-- BEGIN CORE PLUGINS -->
 	<!--[if lt IE 9]>
-	<script src="../../assets/global/plugins/respond.min.js"></script>
-	<script src="../../assets/global/plugins/excanvas.min.js"></script>
+	<script src="<?php echo $assets_global_plugins ?>respond.min.js"></script>
+	<script src="<?php echo $assets_global_plugins ?>excanvas.min.js"></script>
 	<![endif]-->
 	<script src="<?php echo $assets_global_plugins ?>jquery-1.11.0.min.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_global_plugins ?>jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
@@ -35,12 +35,12 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script>
-	      jQuery(document).ready(function() {
-	          Metronic.init(); // init metronic core components
-						Layout.init(); // init current layout
-						QuickSidebar.init() // init quick sidebar
-	      });
-	   </script>
+		jQuery(document).ready(function() {
+			Metronic.init(); // init metronic core components
+			Layout.init(); // init current layout
+			QuickSidebar.init() // init quick sidebar
+		});
+	</script>
 	<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

@@ -73,12 +73,21 @@ abstract class AbstractAccess extends AbstractController {
 	protected $usuario_activo;
 
 	/**
-	 * Nombre del controlador, lo uso
-	 * para la redireccion
+	 * Variable para saber que privilegios
+	 * tiene el usuario activo
 	 *
 	 * @var string
 	 **/
 	protected $privilegios;
+
+	/**
+	 * Variable para saber que controlador
+	 * estoy utilizando, me sirve para dirigir
+	 * a la ruta de la vista correspondiente
+	 *
+	 * @var string
+	 **/
+	protected $controlador;
 
 	/**
 	 * Nombre de usuario con
@@ -104,12 +113,16 @@ abstract class AbstractAccess extends AbstractController {
 		parent::__construct();
 		// Asignamos el item 'usuario_activo' a la variable
 		$this->usuario_activo = @$this->session->userdata('usuario_activo');
+		// Privilegios del usuario activo
+		$this->privilegios = $this->usuario_activo['privilegios'];
+		// Controlador que estoy usando actualmente
+		$this->controlador = strtolower(get_class($this));
 		// Paso los datos del admin al array data para la vista
 		$this->data['usuario_activo'] = $this->usuario_activo;
-		// Privilegios del usuario activo
-		$this->privilegios = $this->data['usuario_activo']['privilegios'];
-		// Nombre del controlador
+		// Paso que privilegios tiene el usuario al array data para la vista
 		$this->data['privilegios'] = $this->privilegios;
+		// Paso que controlador se usa al array data para la vista
+		$this->data['controlador'] = $this->controlador;
 	}
 
 	/**
@@ -147,7 +160,7 @@ abstract class AbstractAccess extends AbstractController {
 		$this->data['titulo'] 		= 'Bienvenido'.self::TITULO_PATRON;
 		$this->data['encabezado']	= 'Bienvenido al Sistema';
 		$this->data['descripcion'] 	= 'Administración de Relación con los Clientes.';
-		$this->_vista_completa('login');
+		$this->load->view('login/login', $this->data);
 	}
 
 	/**
@@ -162,33 +175,34 @@ abstract class AbstractAccess extends AbstractController {
 	}
 
 	/**
-	 * Funcion para mostrar alguna vista
+	 * Funcion para mostrar alguna vista completa
 	 * @param  string $vista Nombre de la vista
 	 * @param  string $html Si  retorna el html stng
 	 */
-	protected function _vista_completa($vista, $html = FALSE)
+	protected function _vista_completa($privilegios, $controlador, $vista, $html = FALSE)
 	{
 		if ($html) {
-			$vista = $this->load->view('admin/full-pages/'.$vista, $this->data, $html);
+			$vista = $this->load->view($privilegios.'/'.$controlador.'/full-pages/'.$vista, $this->data, TRUE);
 			return $vista;
 		} else {
-			$this->load->view('admin/full-pages/'.$vista, $this->data);
+			$this->load->view($privilegios.'/'.$controlador.'/full-pages/'.$vista, $this->data);
 		}
 	}
 
 	/**
 	 * Funcion para mostrar alguna vista
+	 * @param  string $privilegios Nombre del los privilegios que tenie el usuario
+	 * @param  string $controlador El controlador que se esta utilizando
 	 * @param  string $vista Nombre de la vista
-	 * @param  string $folder Nombre del directorio de la vista
 	 */
-	protected function _vista($folder = '', $vista)
+	protected function _vista($privilegios, $controlador, $vista)
 	{
-		$this->load->view($folder.'/head/head', $this->data);
-		$this->load->view($folder.'/header/header', $this->data);
-		$this->load->view($folder.'/container/sidebar/sidebar', $this->data);
-		$this->load->view($folder.'/container/content/'.$vista, $this->data);
-		$this->load->view($folder.'/container/quick-sidebar/quick-sidebar', $this->data);
-		$this->load->view($folder.'/footer/footer', $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/head/head', $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/header/header', $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/container/sidebar/sidebar', $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/container/content/'.$vista, $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/container/quick-sidebar/quick-sidebar', $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/footer/footer', $this->data);
 	}
 
 	/**
