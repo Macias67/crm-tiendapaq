@@ -36,16 +36,22 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<!-- END TABLE MANAGED PLUGINS -->
 
+	<!-- BEGIN COMPONENT FORM TOOLS PLUGIS -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+	<!-- END COMPONENT FORM TOOLS PLUGINS -->
+
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_pages ?>myscripts/table-managed-admin.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_pages ?>myscripts/components-form-tools-admin.js"></script>
 	<script>
 	      jQuery(document).ready(function() {
 	          Metronic.init(); // init metronic core components
 						Layout.init(); // init current layout
 						QuickSidebar.init() // init quick sidebar
 						TableManaged.init();
+						ComponentsFormTools.init();
 	      });
 	   </script>
 	<!-- END JAVASCRIPTS -->

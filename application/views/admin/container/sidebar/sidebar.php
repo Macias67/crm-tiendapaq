@@ -50,7 +50,7 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('admin/add'); ?>">
+								<a href="#">
 								<i class="fa fa-plus"></i> Añadir</a>
 							</li>
 							<li>
@@ -67,7 +67,7 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="#"><i class="fa fa-plus"></i> Añadir</a>
+								<a href="<?php echo site_url('admin/add'); ?>"><i class="fa fa-plus"></i> Añadir</a>
 							</li>
 							<li>
 								<a href="#"><i class="fa fa-cogs"></i> Gestionar</a>
