@@ -19,7 +19,7 @@ abstract class AbstractController extends CI_Controller {
 	 *
 	 * @var string
 	 **/
-	const TITULO_PATRON = ' | Metronic v 3.1.0';
+	const TITULO_PATRON = ' | TiendaPAQ';
 
 	/**
 	 * Constructor
