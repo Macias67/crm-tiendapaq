@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8"/>
-	<title>CRM | TiendaPaq</title>
+	<title><?php echo $titulo ?></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 	<meta content="" name="description"/>
@@ -22,6 +22,12 @@
 	<link href="<?php echo $assets_global_plugins ?>uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_plugins ?>bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 	<!-- END GLOBAL MANDATORY STYLES -->
+
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
+	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN THEME STYLES -->
 	<link href="<?php echo $assets_global_css ?>components.css" rel="stylesheet" type="text/css"/>

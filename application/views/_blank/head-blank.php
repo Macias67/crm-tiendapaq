@@ -23,6 +23,10 @@
 	<link href="<?php echo $assets_global_plugins ?>bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 	<!-- END GLOBAL MANDATORY STYLES -->
 
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<!-- Aqui van los css de los plugins -->
+	<!-- END PAGE LEVEL STYLES -->
+
 	<!-- BEGIN THEME STYLES -->
 	<link href="<?php echo $assets_global_css ?>components.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_css ?>plugins.css" rel="stylesheet" type="text/css"/>

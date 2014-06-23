@@ -4,12 +4,13 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
-		//var_dump($this->data);
+		// Titulo header
+		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+		// Muestro Vista
 		$this->_vista($this->privilegios, $this->controlador,'principal');
 	}
 
 	public function add(){
-		$this->_vista($this->privilegios, $this->controlador,'principal');
 		$this->_vista($this->privilegios, $this->controlador,'form-nuevo-cliente');
 	}
 }

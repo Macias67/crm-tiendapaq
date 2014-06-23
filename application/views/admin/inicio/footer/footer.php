@@ -31,29 +31,35 @@
 	<script src="<?php echo $assets_global_plugins ?>bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 	<!-- END CORE PLUGINS -->
 
-	<!-- BEGIN TABLE MANAGED PLUGINS -->
+	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-	<!-- END TABLE MANAGED PLUGINS -->
+	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
+	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js" type="text/javascript" ></script>
+	<script src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js" type="text/javascript"></script>
+	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN COMPONENT FORM TOOLS PLUGIS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 	<!-- END COMPONENT FORM TOOLS PLUGINS -->
 
+	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
-	<script src="<?php echo $assets_admin_pages ?>myscripts/table-managed-admin.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_pages ?>myscripts/components-form-tools-admin.js"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
 	<script>
-	      jQuery(document).ready(function() {
-	          Metronic.init(); // init metronic core components
-						Layout.init(); // init current layout
-						QuickSidebar.init() // init quick sidebar
-						TableManaged.init();
-						ComponentsFormTools.init();
-	      });
-	   </script>
+		jQuery(document).ready(function() {
+			Metronic.init(); // init metronic core components
+			Layout.init(); // init current layout
+			QuickSidebar.init() // init quick sidebar
+			TableManaged.init(); // table-managed
+			FormValidation.init(); // form-validation-cliente
+			ComponentsFormTools.init(); //form-components-tools de agregar clientes
+		});
+	</script>
 	<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
