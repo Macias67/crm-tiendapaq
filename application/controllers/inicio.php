@@ -9,10 +9,6 @@ class Inicio extends AbstractAccess {
 		// Muestro Vista
 		$this->_vista($this->privilegios, $this->controlador,'principal');
 	}
-
-	public function add(){
-		$this->_vista($this->privilegios, $this->controlador,'form-nuevo-cliente');
-	}
 }
 
 /* End of file inicio.php */
