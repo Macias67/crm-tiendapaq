@@ -8,7 +8,7 @@
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-header-fixed page-quick-sidebar-over-content page-header-fixed-mobile page-footer-fixed1">
+<body class="page-header-fixed page-header-fixed-mobile page-sidebar-closed page-sidebar-closed-hide-logo page-quick-sidebar-over-content">
 
 	<!-- BEGIN HEADER -->
 	<div class="page-header navbar navbar-fixed-top">
@@ -33,7 +33,6 @@
 			<!-- BEGIN TOP NAVIGATION MENU -->
 			<div class="top-menu">
 				<ul class="nav navbar-nav pull-right">
-
 					<!-- BEGIN NOTIFICATION DROPDOWN -->
 					<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -384,8 +383,7 @@
 					<li class="dropdown dropdown-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
-						<span class="username">
-						TiendaPaq </span>
+						<span class="username"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></span>
 						<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
@@ -416,7 +414,7 @@
 								<i class="icon-lock"></i> Lock Screen </a>
 							</li>
 							<li>
-								<a href="login.html">
+								<a href="<?php echo site_url('logout') ?>">
 								<i class="icon-key"></i> Cerrar Sesion </a>
 							</li>
 						</ul>
@@ -433,7 +431,6 @@
 				</ul>
 			</div>
 			<!-- END TOP NAVIGATION MENU -->
-
 		</div>
 		<!-- END HEADER INNER -->
 	</div>

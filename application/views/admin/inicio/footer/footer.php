@@ -1,0 +1,60 @@
+
+	<!-- BEGIN FOOTER -->
+	<div class="page-footer">
+		<div class="page-footer-inner">
+			 2014 &copy; TiendaPaq.com
+		</div>
+		<div class="page-footer-tools">
+			<span class="go-top">
+			<i class="fa fa-angle-up"></i>
+			</span>
+		</div>
+	</div>
+	<!-- END FOOTER -->
+
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	<!-- BEGIN CORE PLUGINS -->
+	<!--[if lt IE 9]>
+	<script src="<?php echo $assets_global_plugins ?>respond.min.js"></script>
+	<script src="<?php echo $assets_global_plugins ?>excanvas.min.js"></script>
+	<![endif]-->
+	<script src="<?php echo $assets_global_plugins ?>jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+	<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+	<script src="<?php echo $assets_global_plugins ?>jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery.blockui.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery.cokie.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>uniform/jquery.uniform.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+	<!-- END CORE PLUGINS -->
+
+	<!-- BEGIN TABLE MANAGED PLUGINS -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<!-- END TABLE MANAGED PLUGINS -->
+
+	<!-- BEGIN COMPONENT FORM TOOLS PLUGIS -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+	<!-- END COMPONENT FORM TOOLS PLUGINS -->
+
+	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_pages ?>myscripts/table-managed-admin.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_pages ?>myscripts/components-form-tools-admin.js"></script>
+	<script>
+	      jQuery(document).ready(function() {
+	          Metronic.init(); // init metronic core components
+						Layout.init(); // init current layout
+						QuickSidebar.init() // init quick sidebar
+						TableManaged.init();
+						ComponentsFormTools.init();
+	      });
+	   </script>
+	<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
