@@ -37,6 +37,7 @@
 	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js" type="text/javascript" ></script>
 	<script src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -45,13 +46,15 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-ticket') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			QuickSidebar.init() // init quick sidebar
 			TableManaged.init(); // table-managed
-			FormValidation.init(); // form-validation-cliente
+			FormValidationCliente.init(); // form-validation-cliente
+			FormValidationTicket.init(); // form-validation-ticket
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

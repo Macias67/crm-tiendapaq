@@ -414,7 +414,7 @@
 					</div>
 					<form action="<?php echo site_url('cliente/add') ?>" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div class="scroller" style="height: 500px">
+							<div class="scroller" style="height: 300px">
 								<div class="form-body">
 									<div class="col-md-6">
 										<h4>Información Básica</h4>
@@ -804,16 +804,34 @@
 						</div>
 					</form>
 				</div>
-
 				<!-- Nuevo Ticket -->
 				<div id="nuevo-ticket" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-					<div class="modal-body">
-						<p>Would you like to continue with some arbitrary task?</p>
+					<div class="modal-header">
+						<h3 class="modal-title">
+							<b>Apertura de Nuevo Ticket</b>
+						</h3>
+						<small>Nuevo ticket por atender</small>
 					</div>
-					<div class="modal-footer">
-						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-						<button type="button" data-dismiss="modal" class="btn blue">Continue Task</button>
-					</div>
+					<form action="<?php echo site_url('ticket/add') ?>" method="post" accept-charset="utf-8">
+						<div class="modal-body form-horizontal">
+							<div class="scroller" style="height: 300px">
+								<div class="form-body">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label class="control-label col-md-4">Razón Social</label>
+											<div class="col-md-8">
+												<input type="hidden" id="razon_social" class="form-control select2">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+							<button type="submit" class="btn green">Abrir</button>
+						</div>
+					</form>
 				</div>
 				<!-- END VENTANAS MODALES -->
 			</div>
