@@ -41,6 +41,7 @@
 
 	<!-- BEGIN COMPONENT FORM TOOLS PLUGIS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<!-- END COMPONENT FORM TOOLS PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

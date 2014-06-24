@@ -1,11 +1,12 @@
 var FormValidation = function () {
 
+	// Spinner para la memoria ram
 	var handleSpinners = function () {
 		$('#memoria-ram').spinner();
 	}
 
-	// basic validation
-	var handleValidation1 = function() {
+	// Validacion para formulario de cliente nuevo
+	var validationCliente = function() {
 		// for more info visit the official plugin documentation:
 		// http://docs.jquery.com/Plugins/Validation
 
@@ -18,12 +19,6 @@ var FormValidation = function () {
 			errorClass: 'help-block help-block-error', // default input error message class
 			focusInvalid: false, // do not focus the last invalid input
 			ignore: "",  // validate all fields including form hidden input
-			messages: {
-				select_multi: {
-					maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
-					minlength: jQuery.validator.format("At least {0} items must be selected")
-				}
-			},
 			rules: {
 				razon_social: {
 					maxlength: 80,
@@ -34,7 +29,6 @@ var FormValidation = function () {
 					required: true,
 				},
 				email: {
-					required: true,
 					maxlength: 50,
 					email: true
 				},
@@ -42,24 +36,24 @@ var FormValidation = function () {
 					required: true
 				},
 				calle: {
-					maxlength: 50
+					maxlength: 50,
+					required: true
 				},
 				no_exterior: {
 					required: true
 				},
 				no_interior: {
-					required: true,
 				},
 				colonia: {
 					maxlength: 20
 				},
 				codigo_postal: {
 					maxlength: 7,
-					number: true
+					digits: true
 				},
 				ciudad: {
 					required: true,
-					maxlength: 7
+					maxlength: 50
 				},
 				minucipio: {
 					maxlength: 50
@@ -71,16 +65,145 @@ var FormValidation = function () {
 					required: true
 				},
 				telefono_1: {
-					number: true
+					required: true
 				},
 				telefono_2: {
-					number: true
+				},
+				nombre_contacto: {
+					maxlength: 50,
+					required: true
+				},
+				email_comtacto: {
+					maxlength: 30,
+					email: true
+				},
+				telefono_contacto: {
+					maxlength: 14
+				},
+				puesto_contacto: {
+					maxlength: 20
+				},
+				sistema: {
+				},
+				version: {
+				},
+				no_serie: {
+				},
+				nombre_equipo: {
+					maxlength: 20
+				},
+				sistema_operativo: {
+				},
+				arquitectura: {
+				},
+				maquina_virtual: {
+				},
+				memoria_ram: {
+					maxlength: 2
+				},
+				sql_server: {
+				},
+				sql_management: {
+				},
+				instancia_sql: {
+				},
+				password_sql: {
+					maxlength: 10
+				}
+			},
+			messages: {
+				razon_social: {
+					maxlength: "Razón social debe tener menos de 80 caracteres",
+					required: "Escribe la razon social"
+				},
+				rfc: {
+					maxlength: "El RFC debe tener menos de 13 caracteres",
+					required: "Escribe el RFC"
+				},
+				email: {
+					maxlength: "El email debe tener menos de 30 caracteres",
+					email: "Escribe un email valido"
+				},
+				tipo: {
+					required: "Escribe el tipo"
+				},
+				calle: {
+					maxlength: "La calle debe tener menos de 50 caracteres"
+				},
+				no_exterior: {
+					required: "Escribe el No. exterior",
+				},
+				no_interior: {
+				},
+				colonia: {
+					maxlength: "La colonia debe tener menos de 20 caracteres"
+				},
+				codigo_postal: {
+					maxlength: "El código postal debe tener menos de 7 digitos",
+					digits: "El código postal debe contener solo digitos "
+				},
+				ciudad: {
+					required: "Escribe la ciudad",
+					maxlength: "La ciudad debe tener menos de 50 caracteres"
+				},
+				minucipio: {
+					maxlength: "El municipio debe tener menos de 50 caracteres"
+				},
+				estado: {
+				},
+				pais: {
+				},
+				telefono_1: {
+					required: "Escribe el telefono"
+				},
+				telefono_2: {
+				},
+				nombre_contacto: {
+					maxlength: "El nombre del contacto debe tener menos de 50 caracteres"
+					required: "Escribe nombre del contacto"
+				},
+				email_comtacto: {
+					maxlength: "El email del contacto debe tener menos de 30 caracteres",
+					email: "Escribe un email valido"
+				},
+				telefono_contacto: {
+					maxlength:  "El telefono del contacto debe tener menos de 14 digitos"
+				},
+				puesto_contacto: {
+					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
+				},
+				sistema: {
+				},
+				version: {
+				},
+				no_serie: {
+				},
+				nombre_equipo: {
+					maxlength:  "El nombre del equipo debe tener menos de 20 caracteres"
+				},
+				sistema_operativo: {
+				},
+				arquitectura: {
+				},
+				maquina_virtual: {
+				},
+				memoria_ram: {
+					maxlength:  "La memoria RAM debe tener menos de 2 digitos"
+				},
+				sql_server: {
+				},
+				sql_management: {
+				},
+				instancia_sql: {
+				},
+				password_sql: {
+					maxlength:  "La contraseña debe tener menos de 10 caracteres"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
 				success1.hide();
 				error1.show();
-				Metronic.scrollTo(error1, -200);
+				//Metronic.scrollTo(error1, -200);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -95,80 +218,28 @@ var FormValidation = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				//ajax
-			}
-		});
-	}
-
-	// validation using icons
-	var handleValidation2 = function() {
-		// for more info visit the official plugin documentation:
-		// http://docs.jquery.com/Plugins/Validation
-
-		var form2 = $('#form_sample_2');
-		var error2 = $('.alert-danger', form2);
-		var success2 = $('.alert-success', form2);
-
-		form2.validate({
-			errorElement: 'span', //default input error message container
-			errorClass: 'help-block help-block-error', // default input error message class
-			focusInvalid: false, // do not focus the last invalid input
-			ignore: "",  // validate all fields including form hidden input
-			rules: {
-				name: {
-					minlength: 2,
-					required: true
-				},
-				email: {
-					required: true,
-					email: true
-				},
-				email: {
-					required: true,
-					email: true
-				},
-				url: {
-					required: true,
-					url: true
-				},
-				number: {
-					required: true,
-					number: true
-				},
-				digits: {
-					required: true,
-					digits: true
-				},
-				creditcard: {
-					required: true,
-					creditcard: true
-				},
-			},
-			invalidHandler: function (event, validator) { //display error alert on form submit
-				success2.hide();
-				error2.show();
-				Metronic.scrollTo(error2, -200);
-			},
-			errorPlacement: function (error, element) { // render error placement for each input type
-				var icon = $(element).parent('.input-icon').children('i');
-				icon.removeClass('fa-check').addClass("fa-warning");
-				icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-			},
-			highlight: function (element) { // hightlight error inputs
-				$(element)
-				.closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group
-			},
-			unhighlight: function (element) { // revert the change done by hightlight
-
-			},
-			success: function (label, element) {
-				var icon = $(element).parent('.input-icon').children('i');
-				$(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-				icon.removeClass("fa-warning").addClass("fa-check");
-			},
-			submitHandler: function (form) {
-				success2.show();
-				error2.hide();
+				alert('exito');
+				// $.ajax({
+				// 	url: $('#form-nuevo-cliente').attr('action'),
+				// 	type: 'post',
+				// 	cache: false,
+				// 	dataType: 'json',
+				// 	data: $('#form-nuevo-cliente').serialize(),
+				// 	beforeSend: function () {
+				// 		$('#nuevo-cliente').fadeTo('slow', 0.1);
+				// 		$('body').modalmanager('loading');
+				// 	},
+				// 	error: function(jqXHR, status, error) {
+				// 		$('#nuevo-cliente').show('fast')
+				// 		console.log("ERROR: "+error);
+				// 		alert('ERROR: revisa la consola del navegador para más detalles.');
+				// 	},
+				// 	success: function(data) {
+				// 		if (data.exito) {
+				// 			parent.location.reload();
+				// 		};
+				// 	}
+				// });
 			}
 		});
 	}
@@ -189,8 +260,7 @@ var FormValidation = function () {
 		init: function () {
 			handleWysihtml5();
 			handleSpinners();
-			// handleValidation1();
-			// handleValidation2();
+		  validationCliente();
 		}
 	};
 }();

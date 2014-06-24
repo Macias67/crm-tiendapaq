@@ -8,5 +8,5 @@
  **/
 function load_myscript($base, $privilegios, $controlador, $myscript)
 {
-	return $base.'/'.$privilegios.'/'.$controlador.'/'.$myscript.'.js';
+	return $base.$privilegios.'/'.$controlador.'/'.$myscript.'.js';
 }
