@@ -47,5 +47,8 @@ $route['cookiescreen']	= "inicio/cookiescreen";
 $route['validation']		= "inicio/validation";
 $route['logout']		= "inicio/logout";
 
+// Funciones cliente
+$route['cliente/(:any)']			= "cliente/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

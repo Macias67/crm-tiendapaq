@@ -426,8 +426,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-asterisk"></i>
-													<input type="text" class="form-control" placeholder="Razón Social">
-													<!-- <span class="help-block">A block of help text. </span> -->
+													<input type="text" class="form-control" placeholder="Razón Social" name="razon_social">
 												</div>
 											</div>
 										</div>
@@ -439,7 +438,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-barcode"></i>
-													<input type="text" class="form-control" placeholder="R.F.C.">
+													<input type="text" class="form-control" placeholder="R.F.C." name="rfc">
 												</div>
 											</div>
 										</div>
@@ -448,8 +447,18 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa  fa-envelope"></i>
-													<input type="text" class="form-control" placeholder="Email">
+													<input type="text" class="form-control" placeholder="Email" name="email">
 												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-4">Tipo</label>
+											<div class="col-md-8">
+												<select class="form-control">
+													<option value="Normal">Normal</option>
+													<option value="Distribuidor">Distribuidor</option>
+													<option value="Prospecto">Prospecto</option>
+												</select>
 											</div>
 										</div>
 
@@ -464,7 +473,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Calle">
+													<input type="text" class="form-control" placeholder="Calle" name="calle">
 												</div>
 											</div>
 										</div>
@@ -476,7 +485,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="No. Exterior">
+													<input type="text" class="form-control" placeholder="No. Exterior" name="no_exterior">
 												</div>
 											</div>
 										</div>
@@ -485,7 +494,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="No. Interior">
+													<input type="text" class="form-control" placeholder="No. Interior" name="no_interior">
 												</div>
 											</div>
 										</div>
@@ -494,7 +503,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Colonia">
+													<input type="text" class="form-control" placeholder="Colonia" name="colonia">
 												</div>
 											</div>
 										</div>
@@ -503,7 +512,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Código Postal">
+													<input type="text" class="form-control" placeholder="Código Postal" name="codigo_postal">
 												</div>
 											</div>
 										</div>
@@ -512,7 +521,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Ciudad">
+													<input type="text" class="form-control" placeholder="Ciudad" name="ciudad">
 												</div>
 											</div>
 										</div>
@@ -521,7 +530,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Municipio">
+													<input type="text" class="form-control" placeholder="Municipio" name="minucipio">
 												</div>
 											</div>
 										</div>
@@ -530,7 +539,40 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Estado">
+													<select class="form-control">
+														<option value="Aguascalientes">Aguascalientes</option>
+														<option value="Baja California">Baja California</option>
+														<option value="Baja California Sur">Baja California Sur</option>
+														<option value="Campeche">Campeche</option>
+														<option value="Chiapas">Chiapas</option>
+														<option value="Chihuahua">Chihuahua</option>
+														<option value="Coahuila">Coahuila</option>
+														<option value="Colima">Colima</option>
+														<option value="Distrito Federal">Distrito Federal</option>
+														<option value="Durango">Durango</option>
+														<option value="Estado de México">Estado de México</option>
+														<option value="Guanajuato">Guanajuato</option>
+														<option value="Guerrero">Guerrero</option>
+														<option value="Hidalgo">Hidalgo</option>
+														<option value="Jalisco" selected>Jalisco</option>
+														<option value="Michoacán">Michoacán</option>
+														<option value="Morelos">Morelos</option>
+														<option value="Nayarit">Nayarit</option>
+														<option value="Nuevo León">Nuevo León</option>
+														<option value="Oaxaca">Oaxaca</option>
+														<option value="Puebla">Puebla</option>
+														<option value="Querétaro">Querétaro</option>
+														<option value="Quintana Roo">Quintana Roo</option>
+														<option value="San Luis Potosí">San Luis Potosí</option>
+														<option value="Sinaloa">Sinaloa</option>
+														<option value="Sonora">Sonora</option>
+														<option value="Tabasco">Tabasco</option>
+														<option value="Tamaulipas">Tamaulipas</option>
+														<option value="Tlaxcala">Tlaxcala</option>
+														<option value="Veracruz">Veracruz</option>
+														<option value="Yucatán">Yucatán</option>
+														<option value="Zacatecas">Zacatecas</option>
+													</select>
 												</div>
 											</div>
 										</div>
@@ -539,7 +581,9 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="País">
+													<select class="form-control">
+														<option value="MX" selected>México</option>
+													</select>
 												</div>
 											</div>
 										</div>
@@ -552,7 +596,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" placeholder="(999) 999-9999">
+													<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono_1">
 												</div>
 											</div>
 										</div>
@@ -561,11 +605,12 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" placeholder="(999) 999-9999">
+													<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono_2">
 												</div>
 											</div>
 										</div>
 									</div>
+									<!-- CONTACTO -->
 									<div class="col-md-6">
 										<h4>Contácto <small>- Puedes añadir más contactos en la seccion de gestión</small></h4>
 										<div class="form-group">
@@ -623,11 +668,13 @@
 												<div class="input-icon">
 													<i class="fa fa-desktop"></i>
 													<select class="form-control">
-														<option>Option 1</option>
-														<option>Option 2</option>
-														<option>Option 3</option>
-														<option>Option 4</option>
-														<option>Option 5</option>
+														<option>CONTPAQi® CONTABILIDAD</option>
+														<option>CONTPAQi® NÓMINAS</option>
+														<option>CONTPAQi® BANCOS</option>
+														<option>CONTPAQi® ADMINPAQ®</option>
+														<option>CONTPAQi® COMERCIAL</option>
+														<option>CONTPAQi® FACTURA ELECTRÓNICA</option>
+														<option>CONTPAQi® PUNTO DE VENTA</option>
 													</select>
 													<!-- <span class="help-block">A block of help text. </span> -->
 												</div>
@@ -639,11 +686,63 @@
 												<div class="input-icon">
 													<i class="fa fa-history"></i>
 													<select class="form-control">
-														<option>Option 1</option>
-														<option>Option 2</option>
-														<option>Option 3</option>
-														<option>Option 4</option>
-														<option>Option 5</option>
+														<optgroup label="CONTPAQi® CONTABILIDAD">
+															<option>7.2.0</option>
+															<option>7.1.1</option>
+															<option>7.1.0</option>
+															<option>6.1.1</option>
+															<option>6.0.2</option>
+															<option>6.0.1</option>
+															<option>6.0.0</option>
+															<option>5.1.5</option>
+															<option>5.1.4</option>
+															<option>5.1.3</option>
+															<option>5.1.2</option>
+															<option>5.1.1</option>
+															<option>5.1.0</option>
+															<option>5.0.0</option>
+														</optgroup>
+														<optgroup label="CONTPAQi® NÓMINAS">
+															<option>Chicago Bears</option>
+															<option>Detroit Lions</option>
+															<option>Green Bay Packers</option>
+															<option>Minnesota Vikings</option>
+														</optgroup>
+														<optgroup label="CONTPAQi® BANCOS">
+															<option>Atlanta Falcons</option>
+															<option>Carolina Panthers</option>
+															<option>New Orleans Saints</option>
+															<option>Tampa Bay Buccaneers</option>
+														</optgroup>
+														<optgroup label="CONTPAQi® ADMINPAQ®">
+															<option>7.3.3</option>
+															<option>7.3.2</option>
+															<option>7.3.1</option>
+															<option>7.3.0</option>
+															<option>7.2.1</option>
+															<option>7.2.0</option>
+															<option>7.1.2</option>
+															<option>7.1.1</option>
+															<option>7.0.0</option>
+														</optgroup>
+														<optgroup label="CONTPAQi® COMERCIAL">
+															<option>Buffalo Bills</option>
+															<option>Miami Dolphins</option>
+															<option>New England Patriots</option>
+															<option>New York Jets</option>
+														</optgroup>
+															<optgroup label="CONTPAQi® FACTURA ELECTRÓNICA">
+															<option>Baltimore Ravens</option>
+															<option>Cincinnati Bengals</option>
+															<option>Cleveland Browns</option>
+															<option>Pittsburgh Steelers</option>
+														</optgroup>
+														<optgroup label="CONTPAQi® PUNTO DE VENTA">
+															<option>Houston Texans</option>
+															<option>Indianapolis Colts</option>
+															<option>Jacksonville Jaguars</option>
+															<option>Tennessee Titans</option>
+														</optgroup>
 													</select>
 												</div>
 											</div>

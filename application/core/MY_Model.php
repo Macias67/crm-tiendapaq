@@ -109,13 +109,17 @@ class MY_Model extends CI_Model
 	 * @param  [array] $like [Array con los datos]
 	 * @return [object|array]        [Datos devueltos]
 	 */
-	public function get_like($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC')
+	public function get_like($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC', $limit = null)
 	{
 		$this->db->select($campos);
 		$this->db->like($where, $like);
 		if($orderBy)
 		{
 			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit)
+		{
+			$this->db->limit($limit);
 		}
 		$this->query = $this->db->get($this->table);
 		return $this->query->result();

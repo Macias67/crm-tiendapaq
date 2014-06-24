@@ -40,6 +40,10 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
+	<!-- BEGIN COMPONENT FORM TOOLS PLUGIS -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+	<!-- END COMPONENT FORM TOOLS PLUGINS -->
+
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
@@ -47,6 +51,7 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-ticket') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-cliente') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -55,6 +60,7 @@
 			TableManaged.init(); // table-managed
 			FormValidationCliente.init(); // form-validation-cliente
 			FormValidationTicket.init(); // form-validation-ticket
+			ComponentsFormTools.init(); //form-components-tools de agregar clientes
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

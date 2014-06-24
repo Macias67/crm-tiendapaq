@@ -10,6 +10,7 @@ class Inicio extends AbstractAccess {
 		$this->_vista($this->privilegios, $this->controlador,'principal');
 	}
 
+	public function add(){}
 }
 
 /* End of file inicio.php */
