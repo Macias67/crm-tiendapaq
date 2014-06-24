@@ -469,7 +469,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-4">Tipo : </label>
 											<div class="col-md-8">
-												<select class="form-control">
+												<select class="form-control" name="tipo">
 													<option value="Normal">Normal</option>
 													<option value="Distribuidor">Distribuidor</option>
 													<option value="Prospecto">Prospecto</option>
@@ -607,8 +607,8 @@
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
 													<select class="form-control" name="pais">
-			                      <option value="US">Estados Unidos</option>
-			                      <option value="MX" selected>México</option>
+			                      <option value="Estados Unidos">Estados Unidos</option>
+			                      <option value="México" selected>México</option>
 													</select>
 												</div>
 											</div>

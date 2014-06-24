@@ -176,6 +176,13 @@ class MY_Model extends CI_Model
 	{
 		return $this->db->count_all($this->table);
 	}
+
+/**
+ * metodo para converit un arreglo asociativo en objeto
+ * con atributos para ser usado
+ **/
+	abstract function toObject();
+
 }
 
 /* End of file MY_Model.php */

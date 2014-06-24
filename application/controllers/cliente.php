@@ -25,7 +25,7 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('minucipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('estado', 'Estado', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
-		$this->form_validation->set_rules('pais', 'País', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+		$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
 		//Telefonos
 		$this->form_validation->set_rules('telefono_1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('telefono_2', 'Teléfono 2', 'trim|max_length[14]');
@@ -51,9 +51,8 @@ class Cliente extends AbstractAccess {
 		// Validamos formulario
 		if ($this->form_validation->run() === FALSE) {
 			// SI es FALSO, vuelvo a mostrar vista
-			echo json_encode(array('exito' => FALSE));
+			echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
 		} else {
-			echo json_encode(array('exito' => TRUE));
 			// Array con la informacion
 				$data = array(
 					'razon_social'	=> $this->input->post('razon_social'),
@@ -69,8 +68,14 @@ class Cliente extends AbstractAccess {
 					'minucipio'	  	=> $this->input->post('minucipio'),
 					'estado'		    => $this->input->post('estado'),
 					'pais'	        => $this->input->post('pais'),
-					'telefono_1'		=> $this->input->post('telefono_1')
+					'telefono_1'		=> $this->input->post('telefono_1'),
+					'telefono_2'		=> $this->input->post('telefono_2')
 				);
+				// convierto en arreglo de objetos
+				// mando la insercion y extraigo el id
+				// mando las demas inserciones
+
+				echo json_encode(array('exito' => TRUE, 'cliente' => $data));
 		//$this->_vista($this->privilegios, $this->controlador,'form-nuevo-cliente');
 			}
 

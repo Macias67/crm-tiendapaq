@@ -159,7 +159,7 @@ var FormValidation = function () {
 				telefono_2: {
 				},
 				nombre_contacto: {
-					maxlength: "El nombre del contacto debe tener menos de 50 caracteres"
+					maxlength: "El nombre del contacto debe tener menos de 50 caracteres",
 					required: "Escribe nombre del contacto"
 				},
 				email_comtacto: {
@@ -218,28 +218,28 @@ var FormValidation = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				alert('exito');
-				// $.ajax({
-				// 	url: $('#form-nuevo-cliente').attr('action'),
-				// 	type: 'post',
-				// 	cache: false,
-				// 	dataType: 'json',
-				// 	data: $('#form-nuevo-cliente').serialize(),
-				// 	beforeSend: function () {
-				// 		$('#nuevo-cliente').fadeTo('slow', 0.1);
-				// 		$('body').modalmanager('loading');
-				// 	},
-				// 	error: function(jqXHR, status, error) {
-				// 		$('#nuevo-cliente').show('fast')
-				// 		console.log("ERROR: "+error);
-				// 		alert('ERROR: revisa la consola del navegador para más detalles.');
-				// 	},
-				// 	success: function(data) {
-				// 		if (data.exito) {
-				// 			parent.location.reload();
-				// 		};
-				// 	}
-				// });
+				$.ajax({
+					url: $('#form-nuevo-cliente').attr('action'),
+					type: 'post',
+					cache: false,
+					dataType: 'json',
+					data: $('#form-nuevo-cliente').serialize(),
+					beforeSend: function () {
+						$('#nuevo-cliente').fadeTo('slow', 0.1);
+						$('body').modalmanager('loading');
+					},
+					error: function(jqXHR, status, error) {
+						$('#nuevo-cliente').fadeTo('slow', 1);
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+					},
+					success: function(data) {
+						console.log(data);
+						// if (data.exito) {
+						// 	parent.location.reload();
+						// }
+					}
+				});
 			}
 		});
 	}

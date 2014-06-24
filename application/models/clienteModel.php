@@ -14,6 +14,14 @@ class ClienteModel extends MY_Model {
 	 **/
 	const TABLE = 'clientes';
 
+	/**
+	 * variable que sera convertida a sdtClass
+	 * y retornada como objeto
+	 *
+	 * @var $clientes
+	 **/
+	private $cliente;
+
 /**
 	 * Constructor
 	 */
@@ -21,6 +29,26 @@ class ClienteModel extends MY_Model {
 	{
 		parent::__construct();
 		$this->table = self::TABLE;
+		$this->supervisor = new stdClass();
+	}
+
+	public function toObject($data)
+	{
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
+		$this->cliente->razon_social = $data['razon_social'];
 	}
 
 }
