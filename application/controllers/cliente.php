@@ -67,8 +67,10 @@ class Cliente extends AbstractAccess {
 			$res = array();
 			if (!empty($resultados)) {
 				foreach ($resultados as $value) {
-					array_push($res, array("text" => $value->razon_social, "id" => (int)$value->codigo));
+					array_push($res, array("id" => (int)$value->codigo, "text" => $value->razon_social));
 				}
+			} else {
+				$res = array("id"=>"0","text"=>"No Results Found..");
 			}
 			//add the header here
 			header('Content-Type: application/json');

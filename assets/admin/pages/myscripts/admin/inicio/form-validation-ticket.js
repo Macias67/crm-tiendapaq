@@ -5,21 +5,21 @@ var FormValidationTicket = function () {
 		$("#razon_social").select2({
 			placeholder: "Razón Social...",
 			allowClear: true,
-			minimumInputLength: 1,
+			minimumInputLength: 3,
 			ajax: {
 				url: "/cliente/json",
 				type: 'post',
-				dataType: 'jsonp',
+				dataType: 'json',
 				quietMillis: 500,
 				data: function (term, page) {
 					return {
 						q: term, // search term
-						page_limit: 5
+						//page_limit: 5
 					};
 				},
 				results: function (data, page) { // parse the results into the format expected by Select2.
 					// since we are using custom formatting functions we do not need to alter remote JSON data
-					return {results: data.text};
+					return {results: data};
 				}
 			}
 		});
