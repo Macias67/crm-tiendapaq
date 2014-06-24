@@ -9,7 +9,7 @@ var FormValidation = function () {
 		// for more info visit the official plugin documentation:
 		// http://docs.jquery.com/Plugins/Validation
 
-		var form1 = $('#form_sample_1');
+		var form1 = $('#form-nuevo-cliente');
 		var error1 = $('.alert-danger', form1);
 		var success1 = $('.alert-success', form1);
 
@@ -25,40 +25,56 @@ var FormValidation = function () {
 				}
 			},
 			rules: {
-				name: {
-					minlength: 2,
+				razon_social: {
+					maxlength: 80,
 					required: true
+				},
+				rfc: {
+					maxlength: 13,
+					required: true,
 				},
 				email: {
 					required: true,
+					maxlength: 50,
 					email: true
 				},
-				url: {
-					required: true,
-					url: true
-				},
-				number: {
-					required: true,
-					number: true
-				},
-				digits: {
-					required: true,
-					digits: true
-				},
-				creditcard: {
-					required: true,
-					creditcard: true
-				},
-				occupation: {
-					minlength: 5,
-				},
-				select: {
+				tipo: {
 					required: true
 				},
-				select_multi: {
+				calle: {
+					maxlength: 50
+				},
+				no_exterior: {
+					required: true
+				},
+				no_interior: {
 					required: true,
-					minlength: 1,
-					maxlength: 3
+				},
+				colonia: {
+					maxlength: 20
+				},
+				codigo_postal: {
+					maxlength: 7,
+					number: true
+				},
+				ciudad: {
+					required: true,
+					maxlength: 7
+				},
+				minucipio: {
+					maxlength: 50
+				},
+				estado: {
+					required: true
+				},
+				pais: {
+					required: true
+				},
+				telefono_1: {
+					number: true
+				},
+				telefono_2: {
+					number: true
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
@@ -79,8 +95,7 @@ var FormValidation = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				success1.show();
-				error1.hide();
+				//ajax
 			}
 		});
 	}
