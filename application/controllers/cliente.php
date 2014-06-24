@@ -72,7 +72,7 @@ class Cliente extends AbstractAccess {
 			} else {
 				$res = array("id"=>"0","text"=>"No Results Found..");
 			}
-			//add the header here
+			// Encabezado para json
 			header('Content-Type: application/json');
 			echo json_encode($res);
 		}

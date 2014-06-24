@@ -106,7 +106,9 @@ class MY_Model extends CI_Model
 
 	/**
 	 * Obtener datos segun parametros
-	 * @param  [array] $like [Array con los datos]
+	 * @param array $campos Array con los campos a extraer
+	 * @param string $where String con el campo a hacer where
+	 * @param string $like String con el valor o patron a extraer
 	 * @return [object|array]        [Datos devueltos]
 	 */
 	public function get_like($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC', $limit = null)

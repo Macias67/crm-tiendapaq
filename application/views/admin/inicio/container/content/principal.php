@@ -610,7 +610,6 @@
 											</div>
 										</div>
 									</div>
-									<!-- CONTACTO -->
 									<div class="col-md-6">
 										<h4>Contácto <small>- Puedes añadir más contactos en la seccion de gestión</small></h4>
 										<div class="form-group">
@@ -916,10 +915,31 @@
 							<div class="scroller" style="height: 300px">
 								<div class="form-body">
 									<div class="col-md-12">
+										<!-- Empresa -->
 										<div class="form-group">
 											<label class="control-label col-md-4">Razón Social</label>
 											<div class="col-md-8">
 												<input type="hidden" id="razon_social" class="form-control select2">
+											</div>
+										</div>
+										<!-- Ejectuivo -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Ejecutivo principal</label>
+											<div class="col-md-8">
+												<select class="form-control">
+													<option value=""></option>
+													<option value="Normal">Luis Macias</option>
+													<option value="Distribuidor">Diego Rodriguez</option>
+													<option value="Prospecto">Brenda Zermeno</option>
+												</select>
+											</div>
+										</div>
+										<!-- Fecha -->
+										<div class="form-group">
+											<label class="col-md-4 control-label">Descripción</label>
+											<div class="col-md-8">
+												<textarea class="form-control" rows="3" style="resize: none;
+												"></textarea>
 											</div>
 										</div>
 									</div>
