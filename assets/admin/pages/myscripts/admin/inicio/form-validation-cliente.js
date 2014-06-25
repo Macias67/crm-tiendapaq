@@ -235,9 +235,13 @@ var FormValidationCliente = function () {
 					},
 					success: function(data) {
 						console.log(data);
-						// if (data.exito) {
-						// 	parent.location.reload();
-						// }
+						if (data.exito) { 
+							alert("Cliente "+data.cliente.razon_social+" añadido con éxito");
+							parent.location.reload();
+						}else{
+							console.log("ERROR: "+data.msg);
+						  alert('ERROR: revisa la consola del navegador para más detalles.');
+						}
 					}
 				});
 			}

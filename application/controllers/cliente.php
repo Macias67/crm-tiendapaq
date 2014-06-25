@@ -12,6 +12,9 @@ class Cliente extends AbstractAccess {
 	{
 		parent::__construct();
 		$this->load->model('clienteModel');
+		$this->load->model('contactosModel');
+		$this->load->model('sistemasModel');
+		$this->load->model('equiposComputoModel');
 	}
 
 	public function index()
@@ -73,7 +76,8 @@ class Cliente extends AbstractAccess {
 			echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
 		} else {
 			// Array con la informacion
-				$info_basica = array(
+				$data = array(
+					//Datos basicos
 					'razon_social'	=> $this->input->post('razon_social'),
 					'rfc'			      => $this->input->post('rfc'),
 					'email'			    => $this->input->post('email'),
@@ -88,15 +92,42 @@ class Cliente extends AbstractAccess {
 					'estado'		    => $this->input->post('estado'),
 					'pais'	        => $this->input->post('pais'),
 					'telefono1'		=> $this->input->post('telefono1'),
-					'telefono2'		=> $this->input->post('telefono2')
+					'telefono2'		=> $this->input->post('telefono2'),
+					//Contacto
+					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+					'email_comtacto'		=> $this->input->post('email_comtacto'),
+					'telefono_contacto'		=> $this->input->post('telefono_contacto'),
+					'puesto_contacto'		=> $this->input->post('telefono2'),
+					'telefono2'		=> $this->input->post('puesto_contacto'),
+					//Sistema
+					'sistema'		=> $this->input->post('sistema'),
+					'version'		=> $this->input->post('version'),
+					'no_serie'		=> $this->input->post('no_serie'),
+					//Info del equipo
+					'nombre_equipo'		=> $this->input->post('telefono2'),
+					'sistema_operativo'		=> $this->input->post('telefono2'),
+					'arquitectura'		=> $this->input->post('telefono2'),
+					'maquina_virtual'		=> $this->input->post('telefono2'),
+					'memoria_ram'		=> $this->input->post('telefono2'),
+					'sql_server'		=> $this->input->post('telefono2'),
+					'instancia_sql'		=> $this->input->post('telefono2'),
+					'password_sql'		=> $this->input->post('telefono2')
 				);
-				// convierto en arreglo de objetos
-				$cliente = $this->clienteModel->arrayToObject($info_basica);
-				  //inserto en la bd para generar el id
-					if($this->clienteModel->insert($cliente)){
-							//extraigo el id
-							$id_cliente = $this->clienteModel->get(array('id'), array('razon_social' => $cliente->razon_social, 'rfc' => $cliente->rfc));
-						  // mando las demas inserciones
+				// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
+				$basica_cliente = $this->clienteModel->arrayToObject($data);
+				  //se inserta el objeto en la bd para generar el id y poder usarlo como llave foranea
+					if($this->clienteModel->insert($basica_cliente)){
+							//se extrae el id
+							$id_cliente = $this->clienteModel->get(array('id'), array('razon_social' => $basica_cliente->razon_social, 'rfc' => $basica_cliente->rfc));
+						  //se crean los demas objetos con su respectiva informacion, se le añade la llave foranea y se insertan en sus tablas
+						  $contacto_cliente = $this->contactosModel->arrayToObject($id_cliente, $data);
+
+						  
+						  	if($this->contactosModel->insert($basica_cliente)){
+
+						  	}else{
+
+						  	}
 
 							echo json_encode(array('exito' => TRUE, 'cliente' => $cliente, 'id_cliente' => $id_cliente));
 					}else{
@@ -118,8 +149,8 @@ class Cliente extends AbstractAccess {
 		$limit 	= $this->input->post('page_limit');
 
 		if (isset($query) && isset($limit)) {
-			$resultados = $this->clientemodel->get_like(
-				array('codigo','razon_social'),
+			$resultados = $this->clienteModel->get_like(
+				array('id','razon_social'),
 				'razon_social',
 				$query,
 				'razon_social',
@@ -128,7 +159,7 @@ class Cliente extends AbstractAccess {
 			$res = array();
 			if (!empty($resultados)) {
 				foreach ($resultados as $value) {
-					array_push($res, array("id" => (int)$value->codigo, "text" => $value->razon_social));
+					array_push($res, array("id" => (int)$value->id, "text" => $value->razon_social));
 				}
 			} else {
 				$res = array("id"=>"0","text"=>"No Results Found..");
