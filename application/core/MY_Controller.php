@@ -182,10 +182,10 @@ abstract class AbstractAccess extends AbstractController {
 	protected function _vista_completa($privilegios, $controlador, $vista, $html = FALSE)
 	{
 		if ($html) {
-			$vista = $this->load->view($privilegios.'/'.$controlador.'/full-pages/'.$vista, $this->data, TRUE);
+			$vista = $this->load->view($privilegios.'/general/full-pages/'.$vista, $this->data, TRUE);
 			return $vista;
 		} else {
-			$this->load->view($privilegios.'/'.$controlador.'/full-pages/'.$vista, $this->data);
+			$this->load->view($privilegios.'/general/full-pages/'.$vista, $this->data);
 		}
 	}
 
@@ -198,10 +198,10 @@ abstract class AbstractAccess extends AbstractController {
 	protected function _vista($privilegios, $controlador, $vista)
 	{
 		$this->load->view($privilegios.'/'.$controlador.'/head/head', $this->data);
-		$this->load->view($privilegios.'/'.$controlador.'/header/header', $this->data);
-		$this->load->view($privilegios.'/'.$controlador.'/container/sidebar/sidebar', $this->data);
-		$this->load->view($privilegios.'/'.$controlador.'/container/content/'.$vista, $this->data);
-		$this->load->view($privilegios.'/'.$controlador.'/container/quick-sidebar/quick-sidebar', $this->data);
+		$this->load->view($privilegios.'/general/header/header', $this->data);
+		$this->load->view($privilegios.'/general/sidebar/sidebar', $this->data);
+		$this->load->view($privilegios.'/'.$controlador.'/container/'.$vista, $this->data);
+		$this->load->view($privilegios.'/general/quick-sidebar/quick-sidebar', $this->data);
 		$this->load->view($privilegios.'/'.$controlador.'/footer/footer', $this->data);
 	}
 
