@@ -2,6 +2,12 @@
 
 class Cliente extends AbstractAccess {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('clienteModel');
+	}
+
 	public function index()
 	{
 	}
@@ -72,10 +78,11 @@ class Cliente extends AbstractAccess {
 					'telefono_2'		=> $this->input->post('telefono_2')
 				);
 				// convierto en arreglo de objetos
+				$cliente = $this->clienteModel->toObject($data);
 				// mando la insercion y extraigo el id
 				// mando las demas inserciones
 
-				echo json_encode(array('exito' => TRUE, 'cliente' => $data));
+				echo json_encode(array('exito' => TRUE, 'cliente' => $cliente));
 		//$this->_vista($this->privilegios, $this->controlador,'form-nuevo-cliente');
 			}
 
