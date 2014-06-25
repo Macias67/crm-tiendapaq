@@ -1,6 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Controlador para la seccion
+ * de clientes y sus funciones
+ *
+ * @author Diego Rodriguez | Luis Macias
+ **/
 class Cliente extends AbstractAccess {
+
 
 	public function __construct()
 	{
@@ -12,6 +18,13 @@ class Cliente extends AbstractAccess {
 	{
 	}
 
+	/**
+	 * Funcion para añadir un nuevo
+	 * cliente a la BD
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
 	public function add()
 	{
 		//cargo la libreria
@@ -24,17 +37,17 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('tipo', 'Tipo', 'required');
 		//Datos del domicilio
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtolower|xss_clean');
-		$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtolower|xss_clean');
+		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
+		$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
 		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
 		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('minucipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('estado', 'Estado', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+		$this->form_validation->set_rules('estado', 'Estado', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
 		//Telefonos
-		$this->form_validation->set_rules('telefono_1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
-		$this->form_validation->set_rules('telefono_2', 'Teléfono 2', 'trim|max_length[14]');
+		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 		//Contacto
 		$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('email_comtacto', 'Email', 'trim|strtolower|valid_email|max_length[30]|xss_clean');
@@ -60,7 +73,7 @@ class Cliente extends AbstractAccess {
 			echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
 		} else {
 			// Array con la informacion
-				$data = array(
+				$info_basica = array(
 					'razon_social'	=> $this->input->post('razon_social'),
 					'rfc'			      => $this->input->post('rfc'),
 					'email'			    => $this->input->post('email'),
@@ -71,22 +84,61 @@ class Cliente extends AbstractAccess {
 					'colonia'		    => $this->input->post('colonia'),
 					'codigo_postal'	=> $this->input->post('codigo_postal'),
 					'ciudad'		    => $this->input->post('ciudad'),
-					'minucipio'	  	=> $this->input->post('minucipio'),
+					'municipio'	  	=> $this->input->post('municipio'),
 					'estado'		    => $this->input->post('estado'),
 					'pais'	        => $this->input->post('pais'),
-					'telefono_1'		=> $this->input->post('telefono_1'),
-					'telefono_2'		=> $this->input->post('telefono_2')
+					'telefono1'		=> $this->input->post('telefono1'),
+					'telefono2'		=> $this->input->post('telefono2')
 				);
 				// convierto en arreglo de objetos
-				$cliente = $this->clienteModel->toObject($data);
-				// mando la insercion y extraigo el id
-				// mando las demas inserciones
+				$cliente = $this->clienteModel->arrayToObject($info_basica);
+				  //inserto en la bd para generar el id
+					if($this->clienteModel->insert($cliente)){
+							//extraigo el id
+							$id_cliente = $this->clienteModel->get(array('id'), array('razon_social' => $cliente->razon_social, 'rfc' => $cliente->rfc));
+						  // mando las demas inserciones
 
-				echo json_encode(array('exito' => TRUE, 'cliente' => $cliente));
-		//$this->_vista($this->privilegios, $this->controlador,'form-nuevo-cliente');
-			}
-
+							echo json_encode(array('exito' => TRUE, 'cliente' => $cliente, 'id_cliente' => $id_cliente));
+					}else{
+						echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
+					}
+				}
 	}
+
+	/**
+	 * Metodo para mostrar las empresas
+	 * de menera de JSON
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function json()
+	{
+		$query	= $this->input->post('q');
+		$limit 	= $this->input->post('page_limit');
+
+		if (isset($query) && isset($limit)) {
+			$resultados = $this->clientemodel->get_like(
+				array('codigo','razon_social'),
+				'razon_social',
+				$query,
+				'razon_social',
+				'ASC',
+				$limit);
+			$res = array();
+			if (!empty($resultados)) {
+				foreach ($resultados as $value) {
+					array_push($res, array("id" => (int)$value->codigo, "text" => $value->razon_social));
+				}
+			} else {
+				$res = array("id"=>"0","text"=>"No Results Found..");
+			}
+			// Encabezado para json
+			header('Content-Type: application/json');
+			echo json_encode($res);
+		}
+	}
+
 }
 
 /* End of file cliente.php */

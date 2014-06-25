@@ -106,16 +106,22 @@ class MY_Model extends CI_Model
 
 	/**
 	 * Obtener datos segun parametros
-	 * @param  [array] $like [Array con los datos]
+	 * @param array $campos Array con los campos a extraer
+	 * @param string $where String con el campo a hacer where
+	 * @param string $like String con el valor o patron a extraer
 	 * @return [object|array]        [Datos devueltos]
 	 */
-	public function get_like($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC')
+	public function get_like($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC', $limit = null)
 	{
 		$this->db->select($campos);
 		$this->db->like($where, $like);
 		if($orderBy)
 		{
 			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit)
+		{
+			$this->db->limit($limit);
 		}
 		$this->query = $this->db->get($this->table);
 		return $this->query->result();
@@ -176,12 +182,6 @@ class MY_Model extends CI_Model
 	{
 		return $this->db->count_all($this->table);
 	}
-
-/**
- * metodo para converit un arreglo asociativo en objeto
- * con atributos para ser usado
- **/
-	abstract function toObject();
 
 }
 

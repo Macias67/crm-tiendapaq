@@ -553,7 +553,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Municipio" name="minucipio">
+													<input type="text" class="form-control" placeholder="Municipio" name="municipio">
 												</div>
 											</div>
 										</div>
@@ -618,11 +618,13 @@
 										<h4>Teléfonos</h4>
 										<!-- Telefono 1 -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Teléfono 1</label>
+											<label class="col-md-4 control-label">
+												Teléfono 1<span class="required" aria-required="true">*</span>
+											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono_1">
+													<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono1">
 												</div>
 											</div>
 										</div>
@@ -632,7 +634,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono_2">
+													<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono2">
 												</div>
 											</div>
 										</div>
@@ -784,7 +786,7 @@
 														<optgroup label="CONTPAQi® COMERCIAL">
 															<option value="1.0.1">1.0.1</option>
 														</optgroup>
-															<optgroup label="CONTPAQi® FACTURA ELECTRÓNICA">
+														<optgroup label="CONTPAQi® FACTURA ELECTRÓNICA">
 															<option value="2.5.2">2.5.2</option>
 															<option value="2.5.1">2.5.1</option>
 															<option value="2.5.0">2.5.0</option>
@@ -993,13 +995,53 @@
 
 				<!-- Nuevo Ticket -->
 				<div id="nuevo-ticket" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-					<div class="modal-body">
-						<p>Would you like to continue with some arbitrary task?</p>
+					<div class="modal-header">
+						<h3 class="modal-title">
+							<b>Apertura de Nuevo Ticket</b>
+						</h3>
+						<small>Nuevo ticket por atender</small>
 					</div>
-					<div class="modal-footer">
-						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-						<button type="button" data-dismiss="modal" class="btn blue">Continue Task</button>
-					</div>
+					<form action="<?php echo site_url('ticket/add') ?>" method="post" accept-charset="utf-8">
+						<div class="modal-body form-horizontal">
+							<div class="scroller" style="height: 300px">
+								<div class="form-body">
+									<div class="col-md-12">
+										<!-- Empresa -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Razón Social</label>
+											<div class="col-md-8">
+												<input type="hidden" id="razon_social" class="form-control select2">
+											</div>
+										</div>
+										<!-- Ejectuivo -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Ejecutivo principal</label>
+											<div class="col-md-8">
+												<select class="form-control">
+													<option value=""></option>
+													<option value="Normal">Luis Macias</option>
+													<option value="Distribuidor">Diego Rodriguez</option>
+													<option value="Prospecto">Brenda Zermeno</option>
+												</select>
+											</div>
+										</div>
+										<!-- Fecha -->
+										<div class="form-group">
+											<label class="col-md-4 control-label">Descripción</label>
+											<div class="col-md-8">
+												<textarea class="form-control" rows="3" style="resize: none;
+												"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+							<button type="submit" class="btn green">Abrir</button>
+						</div>
+					</form>
 				</div>
 				<!-- END VENTANAS MODALES -->
 			</div>

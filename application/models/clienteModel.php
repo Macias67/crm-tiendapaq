@@ -29,11 +29,12 @@ class ClienteModel extends MY_Model {
 	{
 		parent::__construct();
 		$this->table = self::TABLE;
-		$this->supervisor = new stdClass();
 	}
 
-	public function toObject($data)
+	public function arrayToObject($data)
 	{
+		$this->cliente = new stdClass();
+
 		$this->cliente->razon_social = $data['razon_social'];
 		$this->cliente->rfc = $data['rfc'];
 		$this->cliente->email = $data['email'];
@@ -44,11 +45,13 @@ class ClienteModel extends MY_Model {
 		$this->cliente->colonia = $data['colonia'];
 		$this->cliente->codigo_postal = $data['codigo_postal'];
 		$this->cliente->ciudad = $data['ciudad'];
-		$this->cliente->minucipio = $data['minucipio'];
+		$this->cliente->municipio = $data['municipio'];
 		$this->cliente->estado = $data['estado'];
 		$this->cliente->pais = $data['pais'];
-		$this->cliente->telefono_1 = $data['telefono_1'];
-		$this->cliente->razon_social = $data['telefono_2'];
+		$this->cliente->telefono1 = $data['telefono1'];
+		$this->cliente->telefono2 = $data['telefono2'];
+
+		return $this->cliente;
 	}
 
 }

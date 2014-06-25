@@ -1,4 +1,4 @@
-var FormValidation = function () {
+var FormValidationCliente = function () {
 
 	// Spinner para la memoria ram
 	var handleSpinners = function () {

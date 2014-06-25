@@ -76,7 +76,13 @@
 						</ul>
 					</li>
 					<li>
-						<a href="#">
+						<a href="<?php echo site_url('calendario') ?>">
+							<i class="fa fa-calendar"></i>
+							<span class="title">Calendario</span>
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo site_url('logout') ?>">
 						<i class="icon-settings"></i>
 						<span class="title">Cerrar Sesion</span></a>
 					</li>
