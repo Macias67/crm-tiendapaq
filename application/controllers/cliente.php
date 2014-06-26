@@ -39,7 +39,7 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_frc_check|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
-		$this->form_validation->set_rules('tipo', 'Tipo', 'required');
+		$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
 		//Datos del domicilio
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
@@ -54,7 +54,9 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 		//Contacto
-		$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+		$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('email_comtacto', 'Email', 'trim|strtolower|valid_email|max_length[30]|xss_clean');
 		$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
@@ -97,6 +99,8 @@ class Cliente extends AbstractAccess {
 				'telefono2'			=> $this->input->post('telefono2'),
 				//Contacto
 				'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+				'apellido_materno'	=> $this->input->post('apellido_materno'),
 				'email_contacto'		=> $this->input->post('email_contacto'),
 				'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 				'puesto_contacto'		=> $this->input->post('puesto_contacto'),
@@ -130,21 +134,10 @@ class Cliente extends AbstractAccess {
 				  $bol_sistemas=$this->sistemasModel->insert($sistemas_cliente);
 				  $bol_equipos=$this->equiposComputoModel->insert($equipos_cliente);
 
-			  	 if($bol_contactos and $bol_sistemas and $bol_equipos)
-			  	 	{
-			  	 		echo json_encode(array('exito' => TRUE,
-																		 'id_cliente' => $id_cliente,
-																		 'cliente' => $basica_cliente,
-																		 'contactos_cliente' => $contactos_cliente,
-																		 'sistemas_cliente' => $sistemas_cliente,
-																		 'equipos_cliente' => $equipos_cliente
-												      			)
-															);
-
-				  	 }else{
-				  	 				echo json_encode(array('exito' => FALSE));
-				  	 }
+					header('Content-Type: application/json');
+			  	echo json_encode(array('exito' => ($bol_contactos and $bol_sistemas and $bol_equipos), 'razon_social' => $basica_cliente->razon_social));
 			}else{
+				header('Content-Type: application/json');
 				echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
 			}
 		}
@@ -189,10 +182,12 @@ class Cliente extends AbstractAccess {
 	| CALLBACKS
 	|--------------------------------------------------------------------------
 	*/
+
 	/**
-	 * Callback para revisar un nombre de la empresa
+	 * Callback para revisar que no se repitan registros
 	 * @param  string $nombre Nombre a revisar
 	 * @return boolean
+	 * @author Diego Rodriguez | Luis Macias
 	 */
 	public function razon_frc_check($razon_social)
 	{

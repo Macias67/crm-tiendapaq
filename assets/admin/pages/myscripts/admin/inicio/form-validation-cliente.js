@@ -48,8 +48,6 @@ var FormValidationCliente = function () {
 					maxlength: 20
 				},
 				codigo_postal: {
-					maxlength: 7,
-					digits: true
 				},
 				ciudad: {
 					required: true,
@@ -70,10 +68,18 @@ var FormValidationCliente = function () {
 				telefono_2: {
 				},
 				nombre_contacto: {
-					maxlength: 50,
+					maxlength: 30,
 					required: true
 				},
-				email_comtacto: {
+				apellido_paterno: {
+					maxlength: 20,
+					required: true
+				},
+				apellido_materno: {
+					maxlength: 20,
+					required: true
+				},
+				email_contacto: {
 					maxlength: 30,
 					email: true
 				},
@@ -147,7 +153,7 @@ var FormValidationCliente = function () {
 					required: "Escribe la ciudad",
 					maxlength: "La ciudad debe tener menos de 50 caracteres"
 				},
-				minucipio: {
+				municipio: {
 					maxlength: "El municipio debe tener menos de 50 caracteres"
 				},
 				estado: {
@@ -160,10 +166,18 @@ var FormValidationCliente = function () {
 				telefono_2: {
 				},
 				nombre_contacto: {
-					maxlength: "El nombre del contacto debe tener menos de 50 caracteres",
+					maxlength: "El nombre del contacto debe tener menos de 30 caracteres",
 					required: "Escribe nombre del contacto"
 				},
-				email_comtacto: {
+				apellido_paterno: {
+					maxlength: "El apellido paterno del contacto debe tener menos de 20 caracteres",
+					required: "Escribe apellido_paterno del contacto"
+				},
+				apellido_materno: {
+					maxlength: "El apellido materno del contacto debe tener menos de 20 caracteres",
+					required: "Escribe apellido_materno del contacto"
+				},
+				email_contacto: {
 					maxlength: "El email del contacto debe tener menos de 30 caracteres",
 					email: "Escribe un email valido"
 				},
@@ -238,7 +252,7 @@ var FormValidationCliente = function () {
 					success: function(data) {
 						console.log(data);
 						if (data.exito) { 
-							alert("Cliente "+data.cliente.razon_social+" añadido con éxito.");
+							alert("Cliente "+data.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						}else{
 							console.log("ERROR: "+data.msg);
