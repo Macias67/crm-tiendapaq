@@ -472,7 +472,7 @@
 												<select class="form-control" name="tipo">
 													<option value="Normal">Normal</option>
 													<option value="Distribuidor">Distribuidor</option>
-													<option value="Prospecto">Prospecto</option>
+													<option value="Prospecto" selected>Prospecto</option>
 												</select>
 											</div>
 										</div>
@@ -661,7 +661,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa  fa-envelope"></i>
-													<input type="text" class="form-control" placeholder="Email" name="email_comtacto">
+													<input type="text" class="form-control" placeholder="Email" name="email_contacto">
 													<span class="help-block">Email personal de la empresa</span>
 												</div>
 											</div>
@@ -699,7 +699,8 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-desktop"></i>
-													<select class="form-control" name="sistema-contpaqi" name="sistema">
+													<select class="form-control" name="sistema">
+														<option value=""></option>
 														<option value="CONTABILIDAD">CONTPAQi® CONTABILIDAD</option>
 														<option value="NOMINAS">CONTPAQi® NÓMINAS</option>
 														<option value="BANCOS">CONTPAQi® BANCOS</option>
@@ -718,6 +719,7 @@
 												<div class="input-icon">
 													<i class="fa fa-history"></i>
 													<select class="form-control" name="version">
+														<option value=""></option>
 														<optgroup label="CONTPAQi® CONTABILIDAD">
 															<option value="7.2.0">7.2.0</option>
 															<option value="7.1.1">7.1.1</option>
@@ -841,6 +843,7 @@
 												<div class="input-icon">
 													<i class="fa fa-desktop"></i>
 													<select class="form-control" name="sistema_operativo">
+														<option value=""></option>
 														<option value="Windows XP">Windows XP</option>
 														<option value=">Windows Vista Starter">Windows Vista Starter</option>
 														<option value=">Windows Vista Home Basic">Windows Vista Home Basic</option>
@@ -853,7 +856,7 @@
 														<option value="Windows 7 Home Basic">Windows 7 Home Basic</option>
 														<option value="Windows 7 Home Premium">Windows 7 Home Premium</option>
 														<option value="Windows 7 Professional">Windows 7 Professional</option>
-														<option value="Windows 7 Ultimate" selected>Windows 7 Ultimate</option>
+														<option value="Windows 7 Ultimate">Windows 7 Ultimate</option>
 														<option value="Windows 7 Enterprise">Windows 7 Enterprise</option>
 														<option value="Windows 8">Windows 8  </option>
 														<option value="Windows 8 Single">Windows 8 Single</option>

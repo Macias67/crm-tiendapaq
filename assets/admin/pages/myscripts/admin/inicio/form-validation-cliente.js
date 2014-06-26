@@ -128,6 +128,7 @@ var FormValidationCliente = function () {
 					required: "Escribe el tipo"
 				},
 				calle: {
+					required: "Escribe la calle",
 					maxlength: "La calle debe tener menos de 50 caracteres"
 				},
 				no_exterior: {
@@ -202,6 +203,7 @@ var FormValidationCliente = function () {
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
 				success1.hide();
+				error1.html("Tienes Errores en tu formulario");
 				error1.show();
 				//Metronic.scrollTo(error1, -200);
 			},
@@ -236,11 +238,15 @@ var FormValidationCliente = function () {
 					success: function(data) {
 						console.log(data);
 						if (data.exito) { 
-							alert("Cliente "+data.cliente.razon_social+" añadido con éxito");
+							alert("Cliente "+data.cliente.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						}else{
 							console.log("ERROR: "+data.msg);
-						  alert('ERROR: revisa la consola del navegador para más detalles.');
+						  error1.html(data.msg);
+						  error1.show();
+						  $('#nuevo-cliente').fadeTo(100, 1, function(){
+						  	$('body').modalmanager('removeLoading');
+						  });
 						}
 					}
 				});

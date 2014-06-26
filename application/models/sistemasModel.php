@@ -20,6 +20,7 @@ class SistemasModel extends MY_Model {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->table = self::TABLE;
 	}
 
 	public function arrayToObject($id_cliente, $data)

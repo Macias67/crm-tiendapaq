@@ -15,24 +15,25 @@ class ContactosModel extends MY_Model {
 	 *
 	 * @var $contacto_clientes
 	 **/
-	private $contacto_cliente;
+	private $contactos_cliente;
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->table = self::TABLE;
 	}
 
 	public function arrayToObject($id_cliente, $data)
 	{
-		$this->cliente = new stdClass();
+		$this->contactos_cliente = new stdClass();
 
-		$this->contacto_cliente->id_cliente 		   = $id_cliente;
-		$this->contacto_cliente->nombre_contacto 	 = $data['nombre_contacto'];
-		$this->contacto_cliente->email_comtacto 	 = $data['email_comtacto'];
-		$this->contacto_cliente->telefono_contacto = $data['telefono_contacto'];
-		$this->contacto_cliente->puesto_contacto	 = $data['puesto_contacto'];
+		$this->contactos_cliente->id_cliente 		   = $id_cliente;
+		$this->contactos_cliente->nombre_contacto 	 = $data['nombre_contacto'];
+		$this->contactos_cliente->email_contacto 	 = $data['email_contacto'];
+		$this->contactos_cliente->telefono_contacto = $data['telefono_contacto'];
+		$this->contactos_cliente->puesto_contacto	 = $data['puesto_contacto'];
 
-		return $this->contacto_cliente;
+		return $this->contactos_cliente;
 	}
 
 }
