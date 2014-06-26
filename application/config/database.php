@@ -48,12 +48,17 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname']	= '7moz.com';
-$db['default']['username']	= 'mozcom_macias';
-$db['default']['password']	= '761992LMacias';
-// $db['default']['hostname']	= 'localhost';
-// $db['default']['username']	= 'root';
-// $db['default']['password']	= '';
+$local = TRUE;
+
+if ($local) {
+	$db['default']['hostname']	= 'localhost';
+	$db['default']['username']	= 'root';
+	$db['default']['password']	= '';
+} else {
+	$db['default']['hostname']	= '7moz.com';
+	$db['default']['username']	= 'mozcom_macias';
+	$db['default']['password']	= '761992LMacias';
+}
 
 $db['default']['database']	= 'mozcom_tienda-paq';
 $db['default']['dbdriver']	= 'mysql';
