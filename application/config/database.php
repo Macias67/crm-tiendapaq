@@ -59,7 +59,6 @@ if ($local) {
 	$db['default']['username']	= 'mozcom_macias';
 	$db['default']['password']	= '761992LMacias';
 }
-
 $db['default']['database']	= 'mozcom_tienda-paq';
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';

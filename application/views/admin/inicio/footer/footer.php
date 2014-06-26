@@ -42,12 +42,14 @@
 
 	<!-- BEGIN COMPONENT FORM TOOLS PLUGIS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<!-- END COMPONENT FORM TOOLS PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_pages ?>scripts/ui-extended-modals.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-ticket') ?>" type="text/javascript"></script>
@@ -61,6 +63,7 @@
 			FormValidationCliente.init(); // form-validation-cliente
 			FormValidationTicket.init(); // form-validation-ticket
 			ComponentsFormTools.init(); //form-components-tools de agregar clientes
+			UIExtendedModals.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

@@ -7,41 +7,143 @@
  **/
 class Cliente extends AbstractAccess {
 
+
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('clientemodel');
+		//cargo la libreria de las validaciones
+		$this->load->library('form_validation');
+		//cargo los modelos a usar
+		$this->load->model('clienteModel');
+		$this->load->model('contactosModel');
+		$this->load->model('sistemasModel');
+		$this->load->model('equiposComputoModel');
 	}
 
 	public function index()
-	{}
+	{
+	}
 
 	/**
 	 * Funcion para añadir un nuevo
-	 * cliente a la BD
+	 * cliente a la BD que inserta en varias tablas diferentes
+	 * referenciando los datoscon el id principal
 	 *
-	 * @return void
 	 * @author Diego Rodriguez
 	 **/
 	public function add()
 	{
 		//Reglas de formularios
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[15]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|strtolower|valid_email|xss_clean');
-		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('minucipio', 'Municipio', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('estado', 'Estado', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('pais', 'País', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('telefono_1', 'Teléfono 1', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('telefono_2', 'Teléfono 2', 'trim|required|max_length[14]');
+		//Datos basicos
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_frc_check|xss_clean');
+		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 		$this->form_validation->set_rules('tipo', 'Tipo', 'required');
-		//$this->_vista($this->privilegios, $this->controlador,'form-nuevo-cliente');
+		//Datos del domicilio
+		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
+		$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
+		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('municipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('estado', 'Estado', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
+		//Telefonos
+		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
+		//Contacto
+		$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('email_comtacto', 'Email', 'trim|strtolower|valid_email|max_length[30]|xss_clean');
+		$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		//Sistema Contpaq
+		$this->form_validation->set_rules('sistema', 'Sistema', 'trim|xss_clean');
+		$this->form_validation->set_rules('version', 'Versión', 'trim|xss_clean');
+		$this->form_validation->set_rules('no_serie', 'No. de Serie', 'trim|xss_clean');
+		//Info del equipo
+		$this->form_validation->set_rules('nombre_equipo', 'Nombre del Equipo', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|xss_clean');
+		$this->form_validation->set_rules('arquitectura', 'Arquitectura', 'trim|xss_clean');
+		$this->form_validation->set_rules('maquina_virtual', 'Máquina Virtual', 'trim|xss_clean');
+		$this->form_validation->set_rules('memoria_ram', 'Memoria RAM', 'trim|xss_clean');
+		$this->form_validation->set_rules('sql_server', 'SQL Server', 'trim|xss_clean');
+		$this->form_validation->set_rules('sql_management', 'SQL Server Management', 'trim|xss_clean');
+		$this->form_validation->set_rules('instancia_sql', 'Instancia SQL', 'trim|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[10]|xss_clean');
+		// Validamos formulario
+		if ($this->form_validation->run() === FALSE) {
+			// SI es FALSO, vuelvo a mostrar vista
+			// // Encabezado para json
+			header('Content-Type: application/json');
+			echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
+		} else {
+			// Array con la informacion
+			$data = array(
+				//Datos basicos
+				'razon_social'			=> $this->input->post('razon_social'),
+				'rfc'					=> $this->input->post('rfc'),
+				'email'					=> $this->input->post('email'),
+				'tipo'					=> $this->input->post('tipo'),
+				'calle'					=> $this->input->post('calle'),
+				'no_exterior'			=> $this->input->post('no_exterior'),
+				'no_interior'			=> $this->input->post('no_interior'),
+				'colonia'				=> $this->input->post('colonia'),
+				'codigo_postal'			=> $this->input->post('codigo_postal'),
+				'ciudad'					=> $this->input->post('ciudad'),
+				'municipio'				=> $this->input->post('municipio'),
+				'estado'				=> $this->input->post('estado'),
+				'pais'					=> $this->input->post('pais'),
+				'telefono1'				=> $this->input->post('telefono1'),
+				'telefono2'				=> $this->input->post('telefono2'),
+				//Contacto
+				'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+				'email_contacto'		=> $this->input->post('email_contacto'),
+				'telefono_contacto'	=> $this->input->post('telefono_contacto'),
+				'puesto_contacto'		=> $this->input->post('puesto_contacto'),
+				//Sistema
+				'sistema'				=> $this->input->post('sistema'),
+				'version'				=> $this->input->post('version'),
+				'no_serie'				=> $this->input->post('no_serie'),
+				//Info del equipo
+				'nombre_equipo'		=> $this->input->post('nombre_equipo'),
+				'sistema_operativo'	=> $this->input->post('sistema_operativo'),
+				'arquitectura'			=> $this->input->post('arquitectura'),
+				'maquina_virtual'		=> $this->input->post('maquina_virtual'),
+				'memoria_ram'			=> $this->input->post('memoria_ram'),
+				'sql_server'				=> $this->input->post('sql_server'),
+				'sql_management'		=> $this->input->post('sql_management'),
+				'instancia_sql'			=> $this->input->post('instancia_sql'),
+				'password_sql'			=> $this->input->post('password_sql')
+			);
+			// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
+			$basica_cliente = $this->clienteModel->arrayToObject($data);
+		  	//se inserta el objeto en la bd para generar el id y poder usarlo como llave foranea
+			if($this->clienteModel->insert($basica_cliente))
+			{
+				//se extrae el id
+				$id_cliente = $this->clienteModel->get(array('id'), array('razon_social' => $basica_cliente->razon_social, 'rfc' => $basica_cliente->rfc));
+				//se crean los demas objetos con su respectiva informacion, se le añade la llave foranea y se insertan en sus tablas
+				$contactos_cliente 	= $this->contactosModel->arrayToObject($id_cliente[0]->id, $data);
+				$sistemas_cliente 		= $this->sistemasModel->arrayToObject($id_cliente[0]->id, $data);
+				$equipos_cliente		= $this->equiposComputoModel->arrayToObject($id_cliente[0]->id, $data);
+
+				$exito_contacto		= $this->contactosModel->insert($contactos_cliente);
+				$exito_sistemas		= $this->sistemasModel->insert($sistemas_cliente);
+				$exito_equipos			= $this->equiposComputoModel->insert($equipos_cliente);
+
+				// Encabezado para json
+				header('Content-Type: application/json');
+				echo json_encode(array('exito' => ($exito_contacto and
+													$exito_sistemas and
+													$exito_equipos)));
+			} else
+			{
+				// Encabezado para json
+				header('Content-Type: application/json');
+				echo json_encode(array('exito' => FALSE, 'msg' => 'No se inserto los datos basicos de los clientes.'));
+			}
+		}
 	}
 
 	/**
@@ -57,8 +159,8 @@ class Cliente extends AbstractAccess {
 		$limit 	= $this->input->post('page_limit');
 
 		if (isset($query) && isset($limit)) {
-			$resultados = $this->clientemodel->get_like(
-				array('codigo','razon_social'),
+			$resultados = $this->clienteModel->get_like(
+				array('id','razon_social'),
 				'razon_social',
 				$query,
 				'razon_social',
@@ -67,7 +169,7 @@ class Cliente extends AbstractAccess {
 			$res = array();
 			if (!empty($resultados)) {
 				foreach ($resultados as $value) {
-					array_push($res, array("id" => (int)$value->codigo, "text" => $value->razon_social));
+					array_push($res, array("id" => (int)$value->id, "text" => $value->razon_social));
 				}
 			} else {
 				$res = array("id"=>"0","text"=>"No Results Found..");
@@ -78,6 +180,28 @@ class Cliente extends AbstractAccess {
 		}
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| CALLBACKS
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Callback para revisar un nombre de la empresa
+	 * @param  string $nombre Nombre a revisar
+	 * @return boolean
+	 */
+	public function razon_frc_check($razon_social)
+	{
+		// SI el nombre existe
+		$rfc = $this->input->post('rfc');
+		if ($this->clienteModel->exist(array('razon_social' => $razon_social, 'rfc' => $rfc))) {
+			$this->form_validation->set_message('razon_frc_check', 'El cliente de ya está registrado.');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
 }
 
 /* End of file cliente.php */
