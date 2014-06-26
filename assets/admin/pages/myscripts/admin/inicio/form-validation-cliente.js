@@ -147,7 +147,7 @@ var FormValidationCliente = function () {
 					required: "Escribe la ciudad",
 					maxlength: "La ciudad debe tener menos de 50 caracteres"
 				},
-				minucipio: {
+				municipio: {
 					maxlength: "El municipio debe tener menos de 50 caracteres"
 				},
 				estado: {
@@ -163,7 +163,7 @@ var FormValidationCliente = function () {
 					maxlength: "El nombre del contacto debe tener menos de 50 caracteres",
 					required: "Escribe nombre del contacto"
 				},
-				email_comtacto: {
+				email_contacto: {
 					maxlength: "El email del contacto debe tener menos de 30 caracteres",
 					email: "Escribe un email valido"
 				},
@@ -238,7 +238,7 @@ var FormValidationCliente = function () {
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
-							alert("Cliente "+data.cliente.razon_social+" añadido con éxito.");
+							alert("Cliente "+data.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						} else {
 							console.log("ERROR: "+data.msg);

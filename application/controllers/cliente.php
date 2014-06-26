@@ -38,7 +38,7 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_frc_check|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
-		$this->form_validation->set_rules('tipo', 'Tipo', 'required');
+		$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
 		//Datos del domicilio
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
@@ -136,7 +136,8 @@ class Cliente extends AbstractAccess {
 				header('Content-Type: application/json');
 				echo json_encode(array('exito' => ($exito_contacto and
 													$exito_sistemas and
-													$exito_equipos)));
+													$exito_equipos),
+										'razon_social' => $basica_cliente->razon_social));
 			} else
 			{
 				// Encabezado para json
