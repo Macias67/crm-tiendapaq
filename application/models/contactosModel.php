@@ -23,15 +23,24 @@ class ContactosModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
+/**
+ * funcion para convertir un arreglo asociativo a un objeto
+ * con sus metodos
+ *
+ * @return $basica clientes
+ * @author Diego Rodriguez
+ **/
 	public function arrayToObject($id_cliente, $data)
 	{
 		$this->contactos_cliente = new stdClass();
 
-		$this->contactos_cliente->id_cliente 		   = $id_cliente;
-		$this->contactos_cliente->nombre_contacto 	 = $data['nombre_contacto'];
-		$this->contactos_cliente->email_contacto 	 = $data['email_contacto'];
+		$this->contactos_cliente->id_cliente 		    = $id_cliente;
+		$this->contactos_cliente->nombre_contacto   = $data['nombre_contacto'];
+		$this->contactos_cliente->apellido_paterno 	= $data['apellido_paterno'];
+		$this->contactos_cliente->apellido_materno 	= $data['apellido_materno'];
+		$this->contactos_cliente->email_contacto 	  = $data['email_contacto'];
 		$this->contactos_cliente->telefono_contacto = $data['telefono_contacto'];
-		$this->contactos_cliente->puesto_contacto	 = $data['puesto_contacto'];
+		$this->contactos_cliente->puesto_contacto	  = $data['puesto_contacto'];
 
 		return $this->contactos_cliente;
 	}

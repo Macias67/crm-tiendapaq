@@ -31,11 +31,18 @@ class ClienteModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
+/**
+ * funcion para convertir un arreglo asociativo a un objeto
+ * con sus metodos
+ *
+ * @return $basica clientes
+ * @author Diego Rodriguez
+ **/
 	public function arrayToObject($data)
 	{
 		$this->basica_cliente = new stdClass();
 
-		$this->basica_cliente->codigo 			 = date('His');
+		$this->basica_cliente->codigo 			 = date('dmHis');
 		$this->basica_cliente->razon_social  = $data['razon_social'];
 		$this->basica_cliente->rfc 					 = $data['rfc'];
 		$this->basica_cliente->email 				 = $data['email'];

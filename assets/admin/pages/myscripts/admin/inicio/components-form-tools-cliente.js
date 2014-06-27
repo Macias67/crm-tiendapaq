@@ -10,6 +10,9 @@ var ComponentsFormTools = function () {
 		$("#telefono_2").inputmask("mask", {
 			"mask": "(999) 999-9999"
 		});
+		$("#codigo_postal_mask").inputmask("mask", {
+			"mask": "99999"
+		});
 	}
 
 	return {

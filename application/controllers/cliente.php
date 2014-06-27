@@ -53,7 +53,9 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 		//Contacto
-		$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+		$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('email_comtacto', 'Email', 'trim|strtolower|valid_email|max_length[30]|xss_clean');
 		$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
@@ -98,6 +100,8 @@ class Cliente extends AbstractAccess {
 				'telefono2'				=> $this->input->post('telefono2'),
 				//Contacto
 				'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+				'apellido_materno'	=> $this->input->post('apellido_materno'),
 				'email_contacto'		=> $this->input->post('email_contacto'),
 				'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 				'puesto_contacto'		=> $this->input->post('puesto_contacto'),
@@ -127,7 +131,6 @@ class Cliente extends AbstractAccess {
 				$contactos_cliente 	= $this->contactosModel->arrayToObject($id_cliente[0]->id, $data);
 				$sistemas_cliente 		= $this->sistemasModel->arrayToObject($id_cliente[0]->id, $data);
 				$equipos_cliente		= $this->equiposComputoModel->arrayToObject($id_cliente[0]->id, $data);
-
 				$exito_contacto		= $this->contactosModel->insert($contactos_cliente);
 				$exito_sistemas		= $this->sistemasModel->insert($sistemas_cliente);
 				$exito_equipos			= $this->equiposComputoModel->insert($equipos_cliente);
@@ -188,9 +191,10 @@ class Cliente extends AbstractAccess {
 	*/
 
 	/**
-	 * Callback para revisar un nombre de la empresa
+	 * Callback para revisar que no se repitan registros
 	 * @param  string $nombre Nombre a revisar
 	 * @return boolean
+	 * @author Diego Rodriguez | Luis Macias
 	 */
 	public function razon_frc_check($razon_social)
 	{

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 26-06-2014 a las 21:16:16
--- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.16
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-06-2014 a las 01:57:33
+-- Versión del servidor: 5.6.17
+-- Versión de PHP: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
-CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `mozcom_tienda-paq`;
 
 -- --------------------------------------------------------
 
@@ -39,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `no_exterior` varchar(5) NOT NULL,
   `no_interior` varchar(5) NOT NULL,
   `colonia` varchar(20) NOT NULL,
-  `codigo_postal` varchar(7) NOT NULL,
+  `codigo_postal` varchar(6) NOT NULL,
   `ciudad` varchar(50) NOT NULL,
   `municipio` varchar(50) NOT NULL,
   `estado` varchar(30) NOT NULL,
@@ -48,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `telefono2` varchar(13) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -58,7 +56,9 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 
 CREATE TABLE IF NOT EXISTS `contactos` (
   `id_cliente` int(11) NOT NULL,
-  `nombre_contacto` varchar(50) NOT NULL,
+  `nombre_contacto` varchar(30) NOT NULL,
+  `apellido_paterno` varchar(20) NOT NULL,
+  `apellido_materno` varchar(20) NOT NULL,
   `email_contacto` varchar(30) NOT NULL,
   `telefono_contacto` varchar(14) NOT NULL,
   `puesto_contacto` varchar(20) NOT NULL,

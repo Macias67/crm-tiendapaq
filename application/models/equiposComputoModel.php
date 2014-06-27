@@ -23,6 +23,13 @@ class EquiposComputoModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
+/**
+ * funcion para convertir un arreglo asociativo a un objeto
+ * con sus metodos
+ *
+ * @return $basica clientes
+ * @author Diego Rodriguez
+ **/
 	public function arrayToObject($id_cliente, $data)
 	{
 		$this->equipos_cliente = new stdClass();

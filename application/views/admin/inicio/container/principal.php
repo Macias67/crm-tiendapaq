@@ -120,8 +120,12 @@
 							</div>
 							<div class="portlet-body">
 								<a href="#" class="icon-btn" data-target="#nuevo-cliente" data-toggle="modal">
-									<i class="fa fa-building"></i>
-									<div>Nuevo Cliente</div>
+									<i class="fa fa-bomb"></i>
+									<div>Registro rápido</div>
+								</a>
+								<a href="#" class="icon-btn" data-target="#" data-toggle="modal">
+									<i class="fa fa-recycle"></i>
+									<div>Convertir Cliente</div>
 								</a>
 								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
 									<i class="fa fa-ticket"></i>
@@ -532,7 +536,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Código Postal" name="codigo_postal">
+													<input type="text" class="form-control" id="codigo_postal_mask" placeholder="99999" name="codigo_postal">
 												</div>
 											</div>
 										</div>
@@ -646,12 +650,34 @@
 										<!-- Nombre del contacto -->
 										<div class="form-group">
 											<label class="col-md-4 control-label">
-												Nombre<span class="required" aria-required="true">*</span>
+												Nombre(s)<span class="required" aria-required="true">*</span>
 											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-user"></i>
 													<input type="text" class="form-control" placeholder="Nombre" name="nombre_contacto">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-4 control-label">
+												Apellido Paterno <span class="required" aria-required="true">*</span>
+											</label>
+											<div class="col-md-8">
+												<div class="input-icon">
+													<i class="fa fa-user"></i>
+													<input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-4 control-label">
+												Apellido Materno <span class="required" aria-required="true">*</span>
+											</label>
+											<div class="col-md-8">
+												<div class="input-icon">
+													<i class="fa fa-user"></i>
+													<input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno">
 												</div>
 											</div>
 										</div>
