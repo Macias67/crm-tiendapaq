@@ -33,6 +33,8 @@ class Cliente extends AbstractAccess {
 	 **/
 	public function add()
 	{
+		// // Encabezado para json
+		header('Content-Type: application/json');
 		//Reglas de formularios
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_frc_check|xss_clean');
@@ -76,8 +78,6 @@ class Cliente extends AbstractAccess {
 		// Validamos formulario
 		if ($this->form_validation->run() === FALSE) {
 			// SI es FALSO, vuelvo a mostrar vista
-			// // Encabezado para json
-			header('Content-Type: application/json');
 			echo json_encode(array('exito' => FALSE, 'msg' => validation_errors()));
 		} else {
 			// Array con la informacion
@@ -100,8 +100,8 @@ class Cliente extends AbstractAccess {
 				'telefono2'				=> $this->input->post('telefono2'),
 				//Contacto
 				'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
-				'apellido_materno'	=> $this->input->post('apellido_materno'),
+				'apellido_paterno'		=> $this->input->post('apellido_paterno'),
+				'apellido_materno'		=> $this->input->post('apellido_materno'),
 				'email_contacto'		=> $this->input->post('email_contacto'),
 				'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 				'puesto_contacto'		=> $this->input->post('puesto_contacto'),
@@ -131,20 +131,17 @@ class Cliente extends AbstractAccess {
 				$contactos_cliente 	= $this->contactosModel->arrayToObject($id_cliente[0]->id, $data);
 				$sistemas_cliente 		= $this->sistemasModel->arrayToObject($id_cliente[0]->id, $data);
 				$equipos_cliente		= $this->equiposComputoModel->arrayToObject($id_cliente[0]->id, $data);
+				// Inserciones a la BD
 				$exito_contacto		= $this->contactosModel->insert($contactos_cliente);
 				$exito_sistemas		= $this->sistemasModel->insert($sistemas_cliente);
 				$exito_equipos			= $this->equiposComputoModel->insert($equipos_cliente);
 
-				// Encabezado para json
-				header('Content-Type: application/json');
 				echo json_encode(array('exito' => ($exito_contacto and
 													$exito_sistemas and
 													$exito_equipos),
 										'razon_social' => $basica_cliente->razon_social));
 			} else
 			{
-				// Encabezado para json
-				header('Content-Type: application/json');
 				echo json_encode(array('exito' => FALSE, 'msg' => 'No se inserto los datos basicos de los clientes.'));
 			}
 		}
