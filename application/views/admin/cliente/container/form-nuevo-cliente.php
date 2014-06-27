@@ -150,7 +150,7 @@
 							</div>
 							<div class="portlet-body form">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('inicio/add/add') ?>" class="form-horizontal" id="form-cliente-completo">
+								<form action="<?php echo site_url('cliente/add/addNormal') ?>" class="form-horizontal" id="form-cliente-completo">
 									<div class="form-body">
 										<!-- INFORMACION BASICA -->
 										<div class="col-md-6">
@@ -196,9 +196,8 @@
 												<label class="control-label col-md-4">Tipo : </label>
 												<div class="col-md-8">
 													<select class="form-control" name="tipo">
-														<option value="Normal" selected>Normal</option>
-														<option value="Distribuidor">Distribuidor</option>
-														<option value="Prospecto">Prospecto</option>
+														<option value="normal" selected>Normal</option>
+														<option value="distribuidor">Distribuidor</option>
 													</select>
 												</div>
 											</div>

@@ -24,48 +24,21 @@ var FormValidationCliente = function () {
 					maxlength: 80,
 					required: true
 				},
-				rfc: {
-					maxlength: 13,
-					required: true,
-				},
 				email: {
 					maxlength: 50,
-					email: true
-				},
-				tipo: {
+					email: true,
 					required: true
 				},
 				calle: {
-					maxlength: 50,
-					required: true
-				},
-				no_exterior: {
-					required: true
-				},
-				no_interior: {
-				},
-				colonia: {
-					maxlength: 20
-				},
-				codigo_postal: {
-				},
-				ciudad: {
-					required: true,
 					maxlength: 50
 				},
-				minucipio: {
+				ciudad: {
 					maxlength: 50
 				},
 				estado: {
-					required: true
-				},
-				pais: {
-					required: true
 				},
 				telefono_1: {
 					required: true
-				},
-				telefono_2: {
 				},
 				nombre_contacto: {
 					maxlength: 30,
@@ -85,36 +58,6 @@ var FormValidationCliente = function () {
 				},
 				telefono_contacto: {
 					maxlength: 14
-				},
-				puesto_contacto: {
-					maxlength: 20
-				},
-				sistema: {
-				},
-				version: {
-				},
-				no_serie: {
-				},
-				nombre_equipo: {
-					maxlength: 20
-				},
-				sistema_operativo: {
-				},
-				arquitectura: {
-				},
-				maquina_virtual: {
-				},
-				memoria_ram: {
-					maxlength: 2
-				},
-				sql_server: {
-				},
-				sql_management: {
-				},
-				instancia_sql: {
-				},
-				password_sql: {
-					maxlength: 10
 				}
 			},
 			messages: {
@@ -122,48 +65,21 @@ var FormValidationCliente = function () {
 					maxlength: "Razón social debe tener menos de 80 caracteres",
 					required: "Escribe la razon social"
 				},
-				rfc: {
-					maxlength: "El RFC debe tener menos de 13 caracteres",
-					required: "Escribe el RFC"
-				},
 				email: {
 					maxlength: "El email debe tener menos de 30 caracteres",
-					email: "Escribe un email valido"
-				},
-				tipo: {
-					required: "Escribe el tipo"
+					email: "Escribe un email valido",
+					required: "Escribe el RFC"
 				},
 				calle: {
-					required: "Escribe la calle",
 					maxlength: "La calle debe tener menos de 50 caracteres"
 				},
-				no_exterior: {
-					required: "Escribe el No. exterior",
-				},
-				no_interior: {
-				},
-				colonia: {
-					maxlength: "La colonia debe tener menos de 20 caracteres"
-				},
-				codigo_postal: {
-					maxlength: "El código postal debe tener menos de 7 digitos",
-					digits: "El código postal debe contener solo digitos "
-				},
 				ciudad: {
-					required: "Escribe la ciudad",
 					maxlength: "La ciudad debe tener menos de 50 caracteres"
-				},
-				municipio: {
-					maxlength: "El municipio debe tener menos de 50 caracteres"
 				},
 				estado: {
 				},
-				pais: {
-				},
 				telefono_1: {
 					required: "Escribe el telefono"
-				},
-				telefono_2: {
 				},
 				nombre_contacto: {
 					maxlength: "El nombre del contacto debe tener menos de 30 caracteres",
@@ -183,36 +99,6 @@ var FormValidationCliente = function () {
 				},
 				telefono_contacto: {
 					maxlength:  "El telefono del contacto debe tener menos de 14 digitos"
-				},
-				puesto_contacto: {
-					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
-				},
-				sistema: {
-				},
-				version: {
-				},
-				no_serie: {
-				},
-				nombre_equipo: {
-					maxlength:  "El nombre del equipo debe tener menos de 20 caracteres"
-				},
-				sistema_operativo: {
-				},
-				arquitectura: {
-				},
-				maquina_virtual: {
-				},
-				memoria_ram: {
-					maxlength:  "La memoria RAM debe tener menos de 2 digitos"
-				},
-				sql_server: {
-				},
-				sql_management: {
-				},
-				instancia_sql: {
-				},
-				password_sql: {
-					maxlength:  "La contraseña debe tener menos de 10 caracteres"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
