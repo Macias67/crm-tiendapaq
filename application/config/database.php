@@ -54,12 +54,13 @@ if ($local) {
 	$db['default']['hostname']	= 'localhost';
 	$db['default']['username']	= 'root';
 	$db['default']['password']	= '';
+	$db['default']['database']	= 'mozcom_tienda-paq';
 } else {
-	$db['default']['hostname']	= '7moz.com';
-	$db['default']['username']	= 'mozcom_macias';
-	$db['default']['password']	= '761992LMacias';
+	$db['default']['hostname']	= 'eventcity.mx';
+	$db['default']['username']	= 'eventcit_tiendap';
+	$db['default']['password']	= 'LX8P+Z223wST';
+	$db['default']['database']	= 'eventcit_tiendapaq';
 }
-$db['default']['database']	= 'mozcom_tienda-paq';
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';
 $db['default']['pconnect']	= TRUE;

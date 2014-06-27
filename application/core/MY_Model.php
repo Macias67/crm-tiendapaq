@@ -95,6 +95,25 @@ class MY_Model extends CI_Model
 
 	/**
 	 * Obtener datos segun parametros
+	 * @param array $campos Los campos que se desean extraer
+	 * @param  [string] $campo [nombre del campo de la tabla]
+	 * @param  [string] $array [valores a encontrar]
+	 * @return [object|array]        [Datos devueltos]
+	 */
+	public function where_in($campos = array('*'), $campo, $array, $orderBy = null)
+	{
+		$this->db->select($campos);
+		$this->db->where_in($campo, $array);
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy);
+		}
+		$this->query = $this->db->get($this->table);
+		return ($this->query->num_rows() === 1) ? $this->query->row() : $this->query->result();
+	}
+
+	/**
+	 * Obtener datos segun parametros
 	 * @param  [array] $where [Array con los datos]
 	 * @return [object|array]        [Datos devueltos]
 	 */

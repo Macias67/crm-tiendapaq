@@ -120,12 +120,8 @@
 							</div>
 							<div class="portlet-body">
 								<a href="#" class="icon-btn" data-target="#nuevo-cliente" data-toggle="modal">
-									<i class="fa fa-bomb"></i>
+									<i class="fa fa-user"></i>
 									<div>Registro rápido</div>
-								</a>
-								<a href="#" class="icon-btn" data-target="#" data-toggle="modal">
-									<i class="fa fa-recycle"></i>
-									<div>Convertir Cliente</div>
 								</a>
 								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
 									<i class="fa fa-ticket"></i>
@@ -1048,9 +1044,9 @@
 											<div class="col-md-8">
 												<select class="form-control">
 													<option value=""></option>
-													<option value="Normal">Luis Macias</option>
-													<option value="Distribuidor">Diego Rodriguez</option>
-													<option value="Prospecto">Brenda Zermeno</option>
+													<?php foreach ($ejecutivos as $ejecutivo): ?>
+													<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+													<?php endforeach ?>
 												</select>
 											</div>
 										</div>
