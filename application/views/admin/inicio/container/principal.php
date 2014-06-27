@@ -412,11 +412,11 @@
 				<div id="nuevo-cliente" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
-							<b>Registrar nuevo cliente</b>
+							<b>Registrar prospecto</b>
 						</h3>
 						<small>Registro de un cliente en TiendaPAQ</small>
 					</div>
-					<form action="<?php echo site_url('cliente/add') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
+					<form action="<?php echo site_url('cliente/addNormal') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div class="scroller" style="height: 400px">
 								<!-- DIV ERROR -->

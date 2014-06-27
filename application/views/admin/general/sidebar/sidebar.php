@@ -68,7 +68,7 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('cliente/add'); ?>"><i class="fa fa-plus"></i> Añadir</a>
+								<a href="<?php echo site_url('inicio/add/vista'); ?>"><i class="fa fa-plus"></i> Añadir</a>
 							</li>
 							<li>
 								<a href="#"><i class="fa fa-cogs"></i> Gestionar</a>
