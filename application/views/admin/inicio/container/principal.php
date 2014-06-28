@@ -120,8 +120,8 @@
 							</div>
 							<div class="portlet-body">
 								<a href="#" class="icon-btn" data-target="#nuevo-cliente" data-toggle="modal">
-									<i class="fa fa-user"></i>
-									<div>Registro rápido</div>
+									<i class="fa  fa-male"></i>
+									<div>Prospecto</div>
 								</a>
 								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
 									<i class="fa fa-ticket"></i>

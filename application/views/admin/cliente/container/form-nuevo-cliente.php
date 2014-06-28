@@ -136,21 +136,15 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="portlet gren" id="nuevo-cliente-completo">
+						<div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="fa fa-gift"></i>Formulario de Nuevo Cliente
 								</div>
-								<div class="tools">
-									<a href="javascript:;" class="collapse">
-									</a>
-									<a href="javascript:;" class="reload">
-									</a>
-								</div>
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('cliente/add/normal') ?>" class="" id="form-cliente-completo" accept-charset="utf-8">
+								<form action="<?php echo site_url('cliente/add/normal') ?>" id="form-cliente-completo" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- INFORMACION BASICA -->
 										<div class="col-md-6">
@@ -201,7 +195,9 @@
 													</select>
 												</div>
 											</div>
+
 											<hr>
+
 											<!-- INFORMACION DEL DOMICILIO -->
 											<h4>Domicilio</h4>
 											<!-- Calle -->
@@ -332,13 +328,15 @@
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
 														<select class="form-control" name="pais">
-				                      <option value="Estados Unidos">Estados Unidos</option>
-				                      <option value="México" selected>México</option>
+															<option value="Estados Unidos">Estados Unidos</option>
+															<option value="México" selected>México</option>
 														</select>
 													</div>
 												</div>
 											</div>
+
 											<hr>
+
 											<!-- TELEFONOS -->
 											<h4>Teléfonos</h4>
 											<!-- Telefono 1 -->
@@ -738,6 +736,7 @@
 												<div class="col-md-offset-2 col-md-10">
 													<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
 													<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Limpiar</button>
+												</div>
 											</div>
 										</div>
 									</div>
