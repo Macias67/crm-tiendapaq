@@ -2,6 +2,11 @@
 
 class Inicio extends AbstractAccess {
 
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
 	public function index()
 	{
 		$this->load->model('ejecutivoModel');
@@ -17,6 +22,7 @@ class Inicio extends AbstractAccess {
 	}
 
 	public function add(){}
+
 }
 
 /* End of file inicio.php */
