@@ -44,23 +44,6 @@
 						</a>
 					</li>
 					<li>
-						<a href="javascript:;">
-						<i class="fa fa-user"></i>
-						<span class="title"> Ejecutivos</span>
-						<span class="arrow "></span>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a href="#">
-								<i class="fa fa-plus"></i> Añadir</a>
-							</li>
-							<li>
-								<a href="#">
-								<i class="fa fa-cogs"></i> Gestionar</a>
-							<li>
-						</ul>
-					</li>
-					<li>
 						<a href="#">
 						<i class="fa fa-users"></i>
 						<span class="title"> Clientes</span>
@@ -73,6 +56,23 @@
 							<li>
 								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-cogs"></i> Gestionar</a>
 							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="javascript:;">
+						<i class="fa fa-user"></i>
+						<span class="title"> Ejecutivos</span>
+						<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('ejecutivo/nuevo') ?>">
+								<i class="fa fa-plus"></i> Añadir</a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="fa fa-cogs"></i> Gestionar</a>
+							<li>
 						</ul>
 					</li>
 					<li>
