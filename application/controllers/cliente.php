@@ -39,7 +39,7 @@ class Cliente extends AbstractAccess {
 			case 'addRapido':
 				//Reglas de formularios para agregar completo
 				//Datos basicos
-				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_frc_check|xss_clean');
+				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_rfc_check|xss_clean');
 				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 				$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -95,8 +95,7 @@ class Cliente extends AbstractAccess {
 			break;
 			case 'addNormal':
 				//Reglas de formularios para agregar completo
-				//Datos basicos
-				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_frc_check|xss_clean');
+				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtolower|ucwords|max_length[80]|callback_razon_rfc_check|xss_clean');
 				$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 				$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
@@ -257,12 +256,12 @@ class Cliente extends AbstractAccess {
 	 * @return boolean
 	 * @author Diego Rodriguez | Luis Macias
 	 */
-	public function razon_frc_check($razon_social)
+	public function razon_rfc_check($razon_social)
 	{
-		// SI el nombre existe
+		// SI el frc y la razon social se repiten
 		$rfc = $this->input->post('rfc');
 		if ($this->clienteModel->exist(array('razon_social' => $razon_social, 'rfc' => $rfc))) {
-			$this->form_validation->set_message('razon_frc_check',
+			$this->form_validation->set_message('razon_rfc_check',
 				'El cliente de ya está registrado.');
 			return FALSE;
 		} else {

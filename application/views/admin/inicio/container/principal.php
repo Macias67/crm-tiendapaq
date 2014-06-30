@@ -418,7 +418,7 @@
 					</div>
 					<form action="<?php echo site_url('cliente/add/addRapido') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div class="scroller" style="height: 400px">
+							<div>
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>
@@ -428,7 +428,7 @@
 									<button class="close" data-close="alert"></button>
 									Exito en el formulario
 								</div>
-								<!-- BEGIN FORM BOY -->
+								<!-- BEGIN FORM BODY -->
 								<div class="form-body">
 									<!-- INFORMACION BASICA -->
 									<div class="col-md-6">

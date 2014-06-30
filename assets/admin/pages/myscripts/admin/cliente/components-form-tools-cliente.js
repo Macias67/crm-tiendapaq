@@ -1,4 +1,4 @@
-var ComponentsFormTools = function () {
+var ComponentsFormToolsCliente = function () {
 
 	var handleInputMasks = function () {
 		$.extend($.inputmask.defaults, {

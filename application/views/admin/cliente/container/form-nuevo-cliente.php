@@ -152,6 +152,15 @@
 								<!-- BEGIN FORM-->
 								<form action="<?php echo site_url('cliente/add/addNormal') ?>" class="form-horizontal" id="form-cliente-completo">
 									<div class="form-body">
+										<!-- DIV ERROR -->
+										<div class="alert alert-danger display-hide">
+											<button class="close" data-close="alert"></button>
+											Tienes Errores en tu formulario
+										</div>
+										<div class="alert alert-success display-hide">
+											<button class="close" data-close="alert"></button>
+											Exito en el formulario
+										</div>
 										<!-- INFORMACION BASICA -->
 										<div class="col-md-6">
 											<h4>Información Básica</h4>

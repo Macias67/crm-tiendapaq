@@ -51,9 +51,9 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_pages ?>scripts/ui-extended-modals.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
-	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente-rapido') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-ticket') ?>" type="text/javascript"></script>
-	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-cliente') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-cliente-rapido') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -62,7 +62,7 @@
 			TableManaged.init(); // table-managed
 			FormValidationCliente.init(); // form-validation-cliente
 			FormValidationTicket.init(); // form-validation-ticket
-			ComponentsFormTools.init(); //form-components-tools de agregar clientes
+			ComponentsFormToolsClienteRapido.init(); //form-components-tools de agregar clientes
 			UIExtendedModals.init();
 		});
 	</script>
