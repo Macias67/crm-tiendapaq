@@ -195,14 +195,14 @@ abstract class AbstractAccess extends AbstractController {
 	 * @param  string $controlador El controlador que se esta utilizando
 	 * @param  string $vista Nombre de la vista
 	 */
-	protected function _vista($privilegios, $controlador, $vista)
+	protected function _vista($vista)
 	{
-		$this->load->view($privilegios.'/'.$controlador.'/head/head', $this->data);
-		$this->load->view($privilegios.'/general/header/header', $this->data);
-		$this->load->view($privilegios.'/general/sidebar/sidebar', $this->data);
-		$this->load->view($privilegios.'/'.$controlador.'/container/'.$vista, $this->data);
-		$this->load->view($privilegios.'/general/quick-sidebar/quick-sidebar', $this->data);
-		$this->load->view($privilegios.'/'.$controlador.'/footer/footer', $this->data);
+		$this->load->view($this->privilegios.'/'.$this->controlador.'/head/head', $this->data);
+		$this->load->view($this->privilegios.'/general/header/header', $this->data);
+		$this->load->view($this->privilegios.'/general/sidebar/sidebar', $this->data);
+		$this->load->view($this->privilegios.'/'.$this->controlador.'/container/'.$vista, $this->data);
+		$this->load->view($this->privilegios.'/general/quick-sidebar/quick-sidebar', $this->data);
+		$this->load->view($this->privilegios.'/'.$this->controlador.'/footer/footer', $this->data);
 	}
 
 	/**
