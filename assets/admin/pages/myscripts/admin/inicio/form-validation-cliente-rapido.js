@@ -1,4 +1,4 @@
-var FormValidationCliente = function () {
+var FormValidationClienteRapido = function () {
 
     // Spinner para la memoria ram
     var handleSpinners = function () {
@@ -83,7 +83,7 @@ var FormValidationCliente = function () {
                 },
                 nombre_contacto: {
                     maxlength: "El nombre del contacto debe tener menos de 30 caracteres",
-                    required: "Escribe nombre del contacto"
+                    required: "Escribe el nombre del contacto"
                 },
                 apellido_paterno: {
                     maxlength: "El apellido paterno del contacto debe tener menos de 20 caracteres",

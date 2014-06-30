@@ -58,7 +58,7 @@
 			QuickSidebar.init() // init quick sidebar
 			// MyScripts
 			TableManaged.init(); // table-managed
-			FormValidationCliente.init(); // form-validation-cliente
+			FormValidationClienteRapido.init(); // form-validation-cliente
 			FormValidationTicket.init(); // form-validation-ticket
 			ComponentsFormToolsClienteRapido.init(); //form-components-tools de agregar clientes
 			UIExtendedModals.init();

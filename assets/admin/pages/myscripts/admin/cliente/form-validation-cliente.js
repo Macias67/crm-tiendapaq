@@ -40,8 +40,7 @@ var FormValidationCliente = function () {
 					required: true
 				},
 				no_exterior: {
-					required: true,
-					digits: true
+					required: true
 				},
 				no_interior: {
 				},
@@ -139,7 +138,7 @@ var FormValidationCliente = function () {
 					maxlength: "La calle debe tener menos de 50 caracteres"
 				},
 				no_exterior: {
-					required: "Escribe el No. exterior",
+					required: "Escribe el No. exterior"
 				},
 				no_interior: {
 				},

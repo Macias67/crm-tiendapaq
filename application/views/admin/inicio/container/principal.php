@@ -457,7 +457,7 @@
 										<!-- Calle -->
 										<div class="form-group">
 											<label class="col-md-4 control-label">
-												Calle
+												Calle<span class="required" aria-required="true">*</span>
 											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
@@ -469,7 +469,7 @@
 										<!-- Ciudad -->
 										<div class="form-group">
 											<label class="col-md-4 control-label">
-												Ciudad
+												Ciudad<span class="required" aria-required="true">*</span>
 											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
@@ -517,19 +517,6 @@
 														<option value="Veracruz">Veracruz</option>
 														<option value="Yucatán">Yucatán</option>
 														<option value="Zacatecas">Zacatecas</option>
-													</select>
-												</div>
-											</div>
-										</div>
-										<!-- Pais -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">País</label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-map-marker"></i>
-													<select class="form-control" name="pais">
-														<option value="Estados Unidos">Estados Unidos</option>
-														<option value="México" selected>México</option>
 													</select>
 												</div>
 											</div>
