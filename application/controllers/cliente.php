@@ -21,6 +21,9 @@ class Cliente extends AbstractAccess {
 
 	public function index()
 	{
+		$clientes = $this->clienteModel->get(
+			array('id','codigo','razon_social','rfc','tipo'));
+		$this->_vista('index');
 	}
 
 	public function nuevo()
@@ -28,7 +31,7 @@ class Cliente extends AbstractAccess {
 		// Titulo header
 		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 		//Vista de formulario a mostrar
-		$this->_vista($this->privilegios,$this->controlador,'form-nuevo-cliente');
+		$this->_vista('form-nuevo-cliente');
 	}
 
 
@@ -148,16 +151,17 @@ class Cliente extends AbstractAccess {
 					$contactos	= $this->contactosModel->arrayToObject($id, $data);
 					$sistemas		= $this->sistemasModel->arrayToObject($id, $data);
 					$equipos		= $this->equiposComputoModel->arrayToObject($id, $data);
-
+					// Inserto en las demas tablas
 					$exito_contactos	= $this->contactosModel->insert($contactos);
 					$exito_sistemas	= $this->sistemasModel->insert($sistemas);
 					$exito_equipos		= $this->equiposComputoModel->insert($equipos);
-
+					// Armo la respuesta para el JSON
 					$respuesta = array(
 						'exito'			=> ($exito_contactos and $exito_sistemas and $exito_equipos),
 						'razon_social'	=> $basica_cliente->razon_social);
 				} else
 				{
+					// Armo la respuesta para el JSON
 					$respuesta = array(
 						'exito'			=> FALSE,
 						'razon_social'	=> $basica_cliente->razon_social);
@@ -192,12 +196,13 @@ class Cliente extends AbstractAccess {
 					$contactos_cliente = $this->contactosModel->arrayToObject($id_cliente[0]->id, $data, $data['tipo']);
 
 					$bol_contactos=$this->contactosModel->insert($contactos_cliente);
-
+					// Armo la respuesta para el JSON
 					$respuesta = array(
 						'exito' => $bol_contactos,
 						'razon_social' => $basica_cliente->razon_social);
 				} else
 				{
+					// Armo la respuesta para el JSON
 					$respuesta = array(
 						'exito' => FALSE,
 						'msg' => 'No se inserto cliente en la BD');

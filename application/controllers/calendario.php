@@ -15,7 +15,7 @@ class Calendario extends AbstractAccess {
 	public function index()
 	{
 		$this->data['titulo'] = 'hola';
-		$this->_vista($this->privilegios, $this->controlador, 'principal');
+		$this->_vista('index');
 	}
 
 	/*
