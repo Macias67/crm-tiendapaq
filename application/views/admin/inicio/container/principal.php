@@ -120,12 +120,8 @@
 							</div>
 							<div class="portlet-body">
 								<a href="#" class="icon-btn" data-target="#nuevo-cliente" data-toggle="modal">
-									<i class="fa fa-bomb"></i>
-									<div>Registro rápido</div>
-								</a>
-								<a href="#" class="icon-btn" data-target="#" data-toggle="modal">
-									<i class="fa fa-recycle"></i>
-									<div>Convertir Cliente</div>
+									<i class="fa  fa-male"></i>
+									<div>Prospecto</div>
 								</a>
 								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
 									<i class="fa fa-ticket"></i>
@@ -416,7 +412,7 @@
 						</h3>
 						<small>Registro de un cliente en TiendaPAQ</small>
 					</div>
-					<form action="<?php echo site_url('cliente/add/addRapido') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
+					<form action="<?php echo site_url('cliente/add') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div>
 								<!-- DIV ERROR -->
@@ -424,6 +420,7 @@
 									<button class="close" data-close="alert"></button>
 									Tienes Errores en tu formulario
 								</div>
+								<!-- DIV SUCCESS -->
 								<div class="alert alert-success display-hide">
 									<button class="close" data-close="alert"></button>
 									Exito en el formulario
@@ -524,10 +521,26 @@
 												</div>
 											</div>
 										</div>
+										<!-- Pais -->
+										<div class="form-group">
+											<label class="col-md-4 control-label">País</label>
+											<div class="col-md-8">
+												<div class="input-icon">
+													<i class="fa fa-map-marker"></i>
+													<select class="form-control" name="pais">
+														<option value="Estados Unidos">Estados Unidos</option>
+														<option value="México" selected>México</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<hr>
+										<!-- TELEFONOS -->
+										<h4>Teléfonos</h4>
 										<!-- Telefono 1 -->
 										<div class="form-group">
 											<label class="col-md-4 control-label">
-												Teléfono 1<span class="required" aria-required="true">*</span>
+												Teléfono 1 <span class="required" aria-required="true">*</span>
 											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
@@ -635,9 +648,9 @@
 											<div class="col-md-8">
 												<select class="form-control">
 													<option value=""></option>
-													<option value="Normal">Luis Macias</option>
-													<option value="Distribuidor">Diego Rodriguez</option>
-													<option value="Prospecto">Brenda Zermeno</option>
+													<?php foreach ($ejecutivos as $ejecutivo): ?>
+													<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+													<?php endforeach ?>
 												</select>
 											</div>
 										</div>

@@ -9,6 +9,12 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
+		$this->load->model('ejecutivoModel');
+		$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
+			array('id','primer_nombre', 'apellido_paterno'),
+			'privilegios',
+			array('soporte', 'admin'),
+			'primer_nombre');
 		// Titulo header
 		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 		// Muestro Vista

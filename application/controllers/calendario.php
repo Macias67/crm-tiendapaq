@@ -18,6 +18,9 @@ class Calendario extends AbstractAccess {
 		$this->_vista($this->privilegios, $this->controlador, 'principal');
 	}
 
+	/*
+	* Metodo implementado desde MY_Controller
+	 */
 	public function add(){}
 
 }
