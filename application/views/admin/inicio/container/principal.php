@@ -123,9 +123,9 @@
 									<i class="fa  fa-male"></i>
 									<div>Prospecto</div>
 								</a>
-								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
-									<i class="fa fa-ticket"></i>
-									<div>Abrir Ticket</div>
+								<a href="#" class="icon-btn" data-target="#nuevo-pendiente" data-toggle="modal">
+									<i class="fa fa-check-square-o"></i>
+									<div>Pendiente</div>
 								</a>
 								<a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>
@@ -610,12 +610,12 @@
 				<!-- END FORM NUEVO CLIENTE -->
 
 				<!-- Nuevo Ticket -->
-				<div id="nuevo-ticket" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+				<div id="nuevo-pendiente" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
-							<b>Apertura de Nuevo Ticket</b>
+							<b>Asignar Pendiente</b>
 						</h3>
-						<small>Nuevo ticket por atender</small>
+						<small>Nuevo pendiente por atender</small>
 					</div>
 					<form action="<?php echo site_url('ticket/add') ?>" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
@@ -629,9 +629,22 @@
 												<input type="hidden" id="razon_social" class="form-control select2">
 											</div>
 										</div>
+										<!-- Actividad -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Actividad</label>
+											<div class="col-md-8">
+												<select class="form-control">
+													<option value=""></option>
+													<option value="Solicitud de Cotización">Solicitud de Cotización</option>
+													<option value="Asesoria en Específico">Asesoria en Específico</option>
+													<option value="Asesoria a Diagnosticar">Asesoria a Diagnosticar</option>
+													<option value="Solcitud de Información">Solcitud de Información</option>
+												</select>
+											</div>
+										</div>
 										<!-- Ejectuivo -->
 										<div class="form-group">
-											<label class="control-label col-md-4">Ejecutivo principal</label>
+											<label class="control-label col-md-4">Ejecutivo</label>
 											<div class="col-md-8">
 												<select class="form-control">
 													<option value=""></option>
