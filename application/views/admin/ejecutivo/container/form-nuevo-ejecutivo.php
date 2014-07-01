@@ -114,7 +114,7 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="portlet gren">
+						<div class="portlet gren" id="nuevo-ejecutivo">
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="fa fa-gift"></i>Formulario de Nuevo Ejecutivo
@@ -122,7 +122,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('ejecutivo/add') ?>" id="form-cliente-completo" accept-charset="utf-8">
+								<form action="<?php echo site_url('ejecutivo/add') ?>" id="form-ejecutivo" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- DIV ERROR -->
 										<div class="alert alert-danger display-hide">
@@ -227,10 +227,9 @@
 												<label class="control-label col-md-4">Departamento </label>
 												<div class="col-md-8">
 													<select class="form-control" name="departamento">
-														<option value="soporte">Soporte</option>
-														<option value="banco">Facturación</option>
-														<option value="contador">Contaduria</option>
-														<option value="desarrollo">Desarrollo</option>
+														<?php foreach ($tabladepartamentos as $departamento): ?>
+															<option value="<?php echo $departamento->area?>"><?php echo $departamento->area?></option>
+														<?php endforeach ?>
 													</select>
 												</div>
 											</div>
