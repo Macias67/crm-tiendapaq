@@ -80,6 +80,10 @@ class Ejecutivo extends AbstractAccess {
 				->set_output(json_encode($respuesta));
 	}
 
+	public function edit()
+	{
+		echo 'hola kokin';
+	}
 
 	/*
 	|--------------------------------------------------------------------------

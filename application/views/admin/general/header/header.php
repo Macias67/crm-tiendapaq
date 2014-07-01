@@ -388,8 +388,8 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="extra_profile.html">
-								<i class="icon-user"></i> Perfil </a>
+								<a href="<?php echo site_url('perfil') ?>">
+								<i class="icon-user"></i> Mi Perfil </a>
 							</li>
 							<li>
 								<a href="page_calendar.html">

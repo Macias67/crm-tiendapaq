@@ -202,7 +202,6 @@
 											<div class="form-group">
 												<label class="control-label col-md-4">Oficina </label>
 												<div class="col-md-8">
-													<option value=""></option>
 													<select class="form-control" name="oficina">
 														<option value="Ocotlán">Ocotlán</option>
 														<option value="Morelia">Morelia</option>
