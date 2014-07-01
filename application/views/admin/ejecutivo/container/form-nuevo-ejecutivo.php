@@ -1,28 +1,6 @@
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
 			<div class="page-content">
-				<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-				<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-								<h4 class="modal-title">Modal title</h4>
-							</div>
-							<div class="modal-body">
-								 Widget settings form goes here
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn blue">Save changes</button>
-								<button type="button" class="btn default" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
-				<!-- /.modal -->
-				<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 				<!-- BEGIN STYLE CUSTOMIZER -->
 				<div class="theme-panel hidden-xs hidden-sm">
 					<div class="toggler">
@@ -96,7 +74,7 @@
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title">
-						Bienvenido - <small>blank page</small>
+						Bienvenido - <small> Gestionar ejecutivos</small>
 						</h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
@@ -164,20 +142,16 @@
 													Primer Nombre <span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
-													<div class="input-icon">
-														<input type="text" class="form-control" placeholder="Primer Nombre" name="primer_nombre">
-													</div>
+													<input type="text" class="form-control" placeholder="Primer Nombre" name="primer_nombre">
 												</div>
 											</div>
 											<!-- Segundo nombre -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Segundo Nombre
+													Segundo Nombre 
 												</label>
 												<div class="col-md-8">
-													<div class="input-icon">
-														<input type="text" class="form-control" placeholder="Segundo Nombre" name="segundo_nombre">
-													</div>
+													<input type="text" class="form-control" placeholder="Segundo Nombre" name="segundo_nombre">
 												</div>
 											</div>
 											<!-- Apellido paterno -->
@@ -186,9 +160,7 @@
 													Apellido Paterno <span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
-													<div class="input-icon">
-														<input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno">
-													</div>
+													<input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno">
 												</div>
 											</div>
 											<!-- Apellido materno -->
@@ -197,14 +169,12 @@
 													Apellido Materno <span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
-													<div class="input-icon">
-														<input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno">
-													</div>
+													<input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno">
 												</div>
 											</div>
 											<!-- Email -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Email</label>
+												<label class="col-md-4 control-label">Email </label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa  fa-envelope"></i>
@@ -215,7 +185,7 @@
 											<!-- Telefono -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Teléfono<span class="required" aria-required="true">*</span>
+													Teléfono <span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -223,42 +193,42 @@
 														<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono">
 													</div>
 												</div>
-											</div>>
+											</div>
 										</div>
 										<!-- INFORMACION DEL SISTEMA -->
 										<div class="col-md-6">
 											<h4>Datos del Sistema</h4>
 											<!-- Oficina -->
 											<div class="form-group">
-												<label class="control-label col-md-4">Oficina : </label>
+												<label class="control-label col-md-4">Oficina </label>
 												<div class="col-md-8">
+													<option value=""></option>
 													<select class="form-control" name="oficina">
-														<option value="normal" selected>Ocotlán</option>
-														<option value="distribuidor">Morelia</option>
-														<option value="distribuidor">León</option>
-														<option value="distribuidor">Uruapan</option>
+														<option value="Ocotlán">Ocotlán</option>
+														<option value="Morelia">Morelia</option>
+														<option value="León">León</option>
+														<option value="Uruapan">Uruapan</option>
 													</select>
 												</div>
 											</div>
 											<!-- Privilegios -->
 											<div class="form-group">
-												<label class="control-label col-md-4">Privilegios : </label>
+												<label class="control-label col-md-4">Privilegios </label>
 												<div class="col-md-8">
 													<select class="form-control" name="privilegios">
-														<option value=""></option>
-														<?php foreach ($privilegios as $privilegio): ?>
-														<option value="<?php echo $privilegio->privilegios; ?>"><?php echo $privilegio->privilegios; ?></option>
+														<?php foreach ($tablaprivilegios as $privi): ?>
+														<option value="<?php echo $privi->privilegios; ?>"><?php echo $privi->privilegios; ?></option>
 														<?php endforeach ?>
 													</select>
 												</div>
 											</div>
 											<!-- Departamento -->
 											<div class="form-group">
-												<label class="control-label col-md-4">Departamento : </label>
+												<label class="control-label col-md-4">Departamento </label>
 												<div class="col-md-8">
 													<select class="form-control" name="departamento">
 														<option value="soporte">Soporte</option>
-														<option value="banco">Banco</option>
+														<option value="banco">Facturación</option>
 														<option value="contador">Contaduria</option>
 														<option value="desarrollo">Desarrollo</option>
 													</select>
@@ -266,20 +236,24 @@
 											</div>
 											<!-- Usuario -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Usuario</label>
+												<label class="col-md-4 control-label">
+													Usuario <span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
-														<i class="fa fa-certificate"></i>
+														<i class="fa fa-user"></i>
 														<input type="text" class="form-control" placeholder="Usuario" name="usuario">
 													</div>
 												</div>
 											</div>
 											<!-- Contraseña -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Contraseña</label>
+												<label class="col-md-4 control-label">
+													Contraseña <span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
-														<i class="fa  fa-database"></i>
+														<i class="fa fa-unlock-alt"></i>
 														<input type="text" class="form-control" placeholder="Contraseña" name="password">
 													</div>
 												</div>
@@ -289,7 +263,8 @@
 									<div class="form-actions fluid">
 										<div class="row">
 											<div class="col-md-12">
-												<div class="col-md-offset-2 col-md-10">
+											<hr>
+												<div class="col-md-offset-5 col-md-10">
 													<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
 													<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Limpiar</button>
 												</div>

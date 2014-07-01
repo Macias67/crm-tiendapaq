@@ -18,8 +18,7 @@ class Ejecutivo extends AbstractAccess {
 		// Titulo header
 		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 		//Vista de formulario a mostrar
-		$this->data['privilegios']= $this->privilegiosModel->get(array('privilegios'));
-		var_dump($this->data['privilegios']);
+		$this->data['tablaprivilegios']= $this->privilegiosModel->get(array('privilegios'));
 		$this->_vista('form-nuevo-ejecutivo');
 	}
 
