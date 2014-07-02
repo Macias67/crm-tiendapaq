@@ -50,9 +50,13 @@ $route['logout']		= "inicio/logout";
 // Funciones cliente
 $route['cliente/(:any)']	= "cliente/$1";
 
-// Funciones cliente
+// Funciones calendario
 $route['calendario']		= "calendario";
 $route['calendario/(:any)']	= "calendario/$1";
+
+// Funciones pendiente
+$route['pendiente']		= "pendiente";
+$route['pendiente/(:any)']	= "pendiente/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

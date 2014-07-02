@@ -414,7 +414,7 @@
 					</div>
 					<form action="<?php echo site_url('cliente/add') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div>
+							<div class="scroller" style="height: 300px">
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>
@@ -609,7 +609,7 @@
 				</div>
 				<!-- END FORM NUEVO CLIENTE -->
 
-				<!-- Nuevo Ticket -->
+				<!-- Nuevo Pendiente -->
 				<div id="nuevo-pendiente" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
@@ -617,36 +617,26 @@
 						</h3>
 						<small>Nuevo pendiente por atender</small>
 					</div>
-					<form action="<?php echo site_url('ticket/add') ?>" method="post" accept-charset="utf-8">
+					<form action="<?php echo site_url('pendiente/add') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div class="scroller" style="height: 300px">
+								<!-- DIV ERROR -->
+								<div class="alert alert-danger display-hide">
+									<button class="close" data-close="alert"></button>
+									Tienes Errores en tu formulario
+								</div>
+								<!-- DIV SUCCESS -->
+								<div class="alert alert-success display-hide">
+									<button class="close" data-close="alert"></button>
+									Exito en el formulario
+								</div>
 								<div class="form-body">
 									<div class="col-md-12">
-										<!-- Empresa -->
-										<div class="form-group">
-											<label class="control-label col-md-4">Razón Social</label>
-											<div class="col-md-8">
-												<input type="hidden" id="razon_social" class="form-control select2">
-											</div>
-										</div>
-										<!-- Actividad -->
-										<div class="form-group">
-											<label class="control-label col-md-4">Actividad</label>
-											<div class="col-md-8">
-												<select class="form-control">
-													<option value=""></option>
-													<option value="Solicitud de Cotización">Solicitud de Cotización</option>
-													<option value="Asesoria en Específico">Asesoria en Específico</option>
-													<option value="Asesoria a Diagnosticar">Asesoria a Diagnosticar</option>
-													<option value="Solcitud de Información">Solcitud de Información</option>
-												</select>
-											</div>
-										</div>
 										<!-- Ejectuivo -->
 										<div class="form-group">
 											<label class="control-label col-md-4">Ejecutivo</label>
 											<div class="col-md-8">
-												<select class="form-control">
+												<select class="form-control" name="ejecutivo">
 													<option value=""></option>
 													<?php foreach ($ejecutivos as $ejecutivo): ?>
 													<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
@@ -654,12 +644,31 @@
 												</select>
 											</div>
 										</div>
+										<!-- Empresa -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Razón Social</label>
+											<div class="col-md-8">
+												<input type="hidden" id="razon_social" name="razon_social" class="form-control select2">
+											</div>
+										</div>
+										<!-- Actividad -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Actividad</label>
+											<div class="col-md-8">
+												<select class="form-control" name="actividad">
+													<option value=""></option>
+													<option value="1">Solicitud de Cotización</option>
+													<option value="2">Asesoria en Específico</option>
+													<option value="3">Asesoria a Diagnosticar</option>
+													<option value="4">Solcitud de Información</option>
+												</select>
+											</div>
+										</div>
 										<!-- Fecha -->
 										<div class="form-group">
 											<label class="col-md-4 control-label">Descripción</label>
 											<div class="col-md-8">
-												<textarea class="form-control" rows="3" style="resize: none;
-												"></textarea>
+												<textarea class="form-control" rows="3" style="resize: none;" name="descripcion"></textarea>
 											</div>
 										</div>
 									</div>

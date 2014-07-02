@@ -32,7 +32,7 @@ class ClienteModel extends MY_Model {
 
 	/**
 	* funcion para convertir un arreglo asociativo a un objeto
-	* con sus metodos
+	* con sus atributos
 	*
 	* @return $basica clientes
 	* @author Diego Rodriguez | Luis Macias
@@ -41,26 +41,26 @@ class ClienteModel extends MY_Model {
 	{
 		$this->basica_cliente = new stdClass();
 
-		$this->basica_cliente->codigo		  	= 'p_'.date('dmHis');
+		$this->basica_cliente->codigo			= 'p_'.date('dmHis');
 		$this->basica_cliente->razon_social	= $data['razon_social'];
-		$this->basica_cliente->email		  	= $data['email'];
-		$this->basica_cliente->tipo			    = "prospecto";
-		$this->basica_cliente->calle			  = $data['calle'];
-		$this->basica_cliente->ciudad			  = $data['ciudad'];
-		$this->basica_cliente->estado			  = $data['estado'];
+		$this->basica_cliente->email			= $data['email'];
+		$this->basica_cliente->tipo			= "prospecto";
+		$this->basica_cliente->calle			= $data['calle'];
+		$this->basica_cliente->ciudad			= $data['ciudad'];
+		$this->basica_cliente->estado			= $data['estado'];
 		$this->basica_cliente->telefono1		= $data['telefono1'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos
 		if ($tipo != 'prospecto') {
-			$this->basica_cliente->rfc				    = $data['rfc'];
-			$this->basica_cliente->tipo			      = $data['tipo'];
-			$this->basica_cliente->no_exterior	  = $data['no_exterior'];
+			$this->basica_cliente->rfc				= $data['rfc'];
+			$this->basica_cliente->tipo			= $data['tipo'];
+			$this->basica_cliente->no_exterior	= $data['no_exterior'];
 			$this->basica_cliente->no_interior		= $data['no_interior'];
-			$this->basica_cliente->colonia			  = $data['colonia'];
+			$this->basica_cliente->colonia			= $data['colonia'];
 			$this->basica_cliente->codigo_postal	= $data['codigo_postal'];
-			$this->basica_cliente->municipio		  = $data['municipio'];
-			$this->basica_cliente->pais			      = $data['pais'];
-			$this->basica_cliente->telefono2		  = $data['telefono2'];
+			$this->basica_cliente->municipio		= $data['municipio'];
+			$this->basica_cliente->pais			= $data['pais'];
+			$this->basica_cliente->telefono2		= $data['telefono2'];
 		}
 
 		return $this->basica_cliente;

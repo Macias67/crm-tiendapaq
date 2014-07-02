@@ -1,4 +1,4 @@
-var FormValidationTicket = function () {
+var FormValidationPendiente = function () {
 
 	// Select para escoger la razón social
 	var handleSelect2RazonSocial = function () {
@@ -26,66 +26,60 @@ var FormValidationTicket = function () {
 	}
 
 	// basic validation
-	var handleValidation1 = function() {
+	var handleValidationPendiente = function() {
 		// for more info visit the official plugin documentation:
 		// http://docs.jquery.com/Plugins/Validation
 
-		var form1 = $('#form_sample_1');
-		var error1 = $('.alert-danger', form1);
-		var success1 = $('.alert-success', form1);
+		$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+		'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+			'<div class="progress progress-striped active">' +
+				'<div class="progress-bar" style="width: 100%;"></div>' +
+			'</div>' +
+		'</div>';
 
-		form1.validate({
+		$.fn.modalmanager.defaults.resize = true;
+
+		var form = $('#form-pendiente');
+		var error1 = $('.alert-danger', form);
+		var success1 = $('.alert-success', form);
+
+		form.validate({
 			errorElement: 'span', //default input error message container
 			errorClass: 'help-block help-block-error', // default input error message class
 			focusInvalid: false, // do not focus the last invalid input
 			ignore: "",  // validate all fields including form hidden input
-			messages: {
-				select_multi: {
-					maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
-					minlength: jQuery.validator.format("At least {0} items must be selected")
+			rules: {
+				ejecutivo: {
+					required: true
+				},
+				razon_social: {
+				},
+				actividad: {
+					required: true
+				},
+				descripcion: {
+					required: true,
+					minlength: 5,
+					maxlength: 140
 				}
 			},
-			rules: {
-				name: {
-					minlength: 2,
-					required: true
+			messages: {
+				ejecutivo: {
+					required: "Se necesita seleccionar a un ejecutivo."
 				},
-				email: {
-					required: true,
-					email: true
+				actividad: {
+					required: "Selecciona una actividad."
 				},
-				url: {
-					required: true,
-					url: true
-				},
-				number: {
-					required: true,
-					number: true
-				},
-				digits: {
-					required: true,
-					digits: true
-				},
-				creditcard: {
-					required: true,
-					creditcard: true
-				},
-				occupation: {
-					minlength: 5,
-				},
-				select: {
-					required: true
-				},
-				select_multi: {
-					required: true,
-					minlength: 1,
-					maxlength: 3
+				descripcion: {
+					required: "Especifíca la descripción del pendiente.",
+					minlength: "Escribe al menos 5 letras",
+					maxlength: "Máximo 140 caracteres."
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
 				success1.hide();
 				error1.show();
-				Metronic.scrollTo(error1, -200);
+				//Metronic.scrollTo(error1, -200);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -100,8 +94,34 @@ var FormValidationTicket = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				success1.show();
-				error1.hide();
+
+				$.ajax({
+					url: $('#form-pendiente').attr('action'),
+					type: 'post',
+					cache: false,
+					dataType: 'json',
+					data: $('#form-pendiente').serialize(),
+					beforeSend: function () {
+						$('body').modalmanager('loading');
+					},
+					error: function(jqXHR, status, error) {
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+						$('body').modalmanager('removeLoading');
+					},
+					success: function(data) {
+						console.log(data);
+						if (data.exito) {
+							alert("Se le ha notificado a "+data.nombre+" de nuevo pendiente asignado.");
+							parent.location.reload();
+						} else {
+							console.log("ERROR: "+data.msg);
+							error1.html(data.msg);
+							error1.show();
+							$('body').modalmanager('removeLoading');
+						}
+					}
+				});
 			}
 		});
 	}
@@ -110,7 +130,7 @@ var FormValidationTicket = function () {
 		//main function to initiate the module
 		init: function () {
 			handleSelect2RazonSocial();
-			// handleValidation1();
+			handleValidationPendiente();
 		}
 	};
 }();
