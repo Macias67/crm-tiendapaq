@@ -11,7 +11,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							THEME COLOR </span>
+							Color </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -75,11 +75,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Perfil - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
+						<h3 class="page-title"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?> - <small>Perfil</small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-								<span>Actions</span><i class="fa fa-angle-down"></i>
+								<span>Acciones</span><i class="fa fa-angle-down"></i>
 								</button>
 								<ul class="dropdown-menu pull-right" role="menu">
 									<li>
@@ -147,7 +147,7 @@
 												</li>
 												<li>
 													<a href="#">
-													Proyectis </a>
+													Proyectos </a>
 												</li>
 												<li>
 													<a href="#">
@@ -169,9 +169,14 @@
 											<div class="row">
 												<div class="col-md-8 profile-info">
 													<h1><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['segundo_nombre'].' '.$usuario_activo['apellido_paterno'].' '.$usuario_activo['apellido_materno'] ?></h1>
-													<div class="portlet box blue">
+													<label>Eslogan : </label>
+													<p>
+														 <?php echo $usuario_activo['mensaje_personal'] ?>
+													</p>
+													<hr>
+													<div class="portlet box grey">
 														<div class="portlet-title">
-															<div class="caption">
+															<div class="caption" style="color: black">
 																 Datos Básicos
 															</div>
 															<div class="tools">
@@ -189,9 +194,6 @@
 															</ul>
 														</div>
 													</div>
-													<p>
-														 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt laoreet dolore magna aliquam tincidunt erat volutpat laoreet dolore magna aliquam tincidunt erat volutpat.
-													</p>
 													<p>
 														<a href="#">
 														www.mywebsite.com </a>
@@ -841,61 +843,104 @@
 										<div class="col-md-9">
 											<div class="tab-content">
 												<div id="tab_1-1" class="tab-pane active">
-													<form role="form" action="#">
+													<form action="<?php echo site_url('ejecutivo/edit/info') ?>" id="form-ejecutivo-info">
+														<!-- DIV ERROR -->
+														<div class="alert alert-danger display-hide">
+															<button class="close" data-close="alert"></button>
+															Tienes Errores en tu formulario
+														</div>
+														<div class="alert alert-success display-hide">
+															<button class="close" data-close="alert"></button>
+															Exito en el formulario
+														</div>
 														<div class="col-md-6">
 															<div class="form-group">
 																<label class="control-label">Primer Nombre</label>
-																<input type="text" value="<?php echo $usuario_activo['primer_nombre'] ?>" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-user"></i>
+																	<input type="text" name="primer_nombre" value="<?php echo $usuario_activo['primer_nombre'] ?>" class="form-control"/>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Segundo Nombre</label>
-																<input type="text" value="<?php echo $usuario_activo['segundo_nombre'] ?>" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-user"></i>
+																	<input type="text" name="segundo_nombre" value="<?php echo $usuario_activo['segundo_nombre'] ?>" class="form-control"/>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Apellido Paterno</label>
-																<input type="text" value="<?php echo $usuario_activo['apellido_paterno'] ?>" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-user"></i>
+																	<input type="text" name="apellido_paterno" value="<?php echo $usuario_activo['apellido_paterno'] ?>" class="form-control"/>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Apellido Materno</label>
-																<input type="text" value="<?php echo $usuario_activo['apellido_materno'] ?>" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-user"></i>
+																	<input type="text" name="apellido_materno" value="<?php echo $usuario_activo['apellido_materno'] ?>" class="form-control"/>
+																</div>
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
 																<label class="control-label">Oficina</label>
-																<select class="form-control" name="oficina">
-																	<option value="Ocotlán" <?php echo ($usuario_activo['oficina']=='Ocotlán')? 'selected':'' ;?>>Ocotlán</option>
-																	<option value="Morelia" <?php echo ($usuario_activo['oficina']=='Morelia')? 'selected':'' ;?>>Morelia</option>
-																	<option value="León" <?php echo ($usuario_activo['oficina']=='León')? 'selected':'' ;?>>León</option>
-																	<option value="Uruapan" <?php echo ($usuario_activo['oficina']=='Uruapan')? 'selected':'' ;?>>Uruapan</option>
-																</select>
+																<div class="input-icon">
+																	<i class="fa fa-building"></i>
+																	<select class="form-control" name="oficina">
+																		<option value="Ocotlán" <?php echo ($usuario_activo['oficina']=='Ocotlán')? 'selected':'' ;?>>Ocotlán</option>
+																		<option value="Morelia" <?php echo ($usuario_activo['oficina']=='Morelia')? 'selected':'' ;?>>Morelia</option>
+																		<option value="León" <?php echo ($usuario_activo['oficina']=='León')? 'selected':'' ;?>>León</option>
+																		<option value="Uruapan" <?php echo ($usuario_activo['oficina']=='Uruapan')? 'selected':'' ;?>>Uruapan</option>
+																	</select>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Email</label>
-																<input type="text" value="<?php echo $usuario_activo['email'] ?>" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-envelope"></i>
+																	<input type="text" name="email" value="<?php echo $usuario_activo['email'] ?>" class="form-control"/>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Telefono</label>
-																<input type="text" value="<?php echo $usuario_activo['telefono'] ?>" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-phone"></i>
+																	<input type="text" name="telefono" value="<?php echo $usuario_activo['telefono'] ?>" id="telefono_1" class="form-control"/>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Departamento</label>
-																<select class="form-control" name="departamento">
-																	<?php foreach ($tabladepartamentos as $departamento): ?>
-																		<option value="<?php echo $departamento->area?>" <?php echo ($usuario_activo['departamento']=='$departamento->area')? 'selected':'selected' ;?>><?php echo $departamento->area?></option>
-																	<?php endforeach ?>
-																</select>
+																<div class="input-icon">
+																	<i class="fa fa-group"></i>
+																	<select class="form-control" name="departamento">
+																		<option value="<?php echo $usuario_activo['departamento'] ?>"><?php echo $usuario_activo['departamento'] ?></option>
+																		<?php foreach ($tabladepartamentos as $departamento ): ?>
+																			<?php if ($usuario_activo['departamento']!=$departamento->area): ?>
+																				<option value="<?php echo $departamento->area ?>"><?php echo $departamento->area ?></option>
+																			<?php endif ?>
+																		<?php endforeach ?>
+																	</select>
+																</div>
 															</div>
 															<div class="form-group">
 																<label class="control-label">Mensaje Personal</label>
-																<input type="text" placeholder="Web Developer" class="form-control"/>
+																<div class="input-icon">
+																	<i class="fa fa-heart"></i>
+																	<textarea name="mensaje_personal" placeholder="Cambia tu mensaje..." class="form-control" style="resize: none" col="4"><?php echo $usuario_activo['mensaje_personal'] ?></textarea>
+																</div>
 															</div>
 														</div>
-														<div class="margiv-top-10">
-															<a href="#" class="btn green">
-															Guardar </a>
-															<a href="#" class="btn default">
-															Cancelar </a>
+														<div class="form-actions fluid">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="col-md-offset-2 col-md-10">
+																		<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+																		<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
+																	</div>
+																</div>
+															</div>
 														</div>
 													</form>
 												</div>
@@ -903,24 +948,21 @@
 													<p>
 														 Selecciona una foto de perfil (menos de 2MB)
 													</p>
-													<form action="#" role="form">
+													<form action="<?php echo site_url('ejecutivo/edit/img') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 														<div class="form-group">
 															<div class="fileinput fileinput-new" data-provides="fileinput">
 																<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
 																	<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
 																</div>
-																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height: 200px;">
 																</div>
 																<div>
 																	<span class="btn default btn-file">
-																	<span class="fileinput-new">
-																	Buscar... </span>
-																	<span class="fileinput-exists">
-																	Cambiar </span>
-																	<input type="file" name="...">
+																	<span class="fileinput-new">Buscar... </span>
+																	<span class="fileinput-exists">Cambiar </span>
+																	<input type="file" class="default" name="userfile">
 																	</span>
-																	<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
-																	Borrar </a>
+																	<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Borrar </a>
 																</div>
 															</div>
 															<div class="clearfix margin-top-10">
@@ -930,33 +972,34 @@
 																Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
 															</div>
 														</div>
-														<div class="margin-top-10">
-															<a href="#" class="btn green">
-															Guardar </a>
-															<a href="#" class="btn default">
-															Cancelar </a>
+														<div class="form-actions fluid">
+															<div class="row">
+																<div class="col-md-12">
+																<hr>
+																	<div class="col-md-offset-5 col-md-10">
+																		<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+																		<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
+																	</div>
+																</div>
+															</div>
 														</div>
 													</form>
 												</div>
 												<div id="tab_3-3" class="tab-pane">
 													<form action="#">
 														<div class="form-group">
-															<label class="control-label">Current Password</label>
-															<input type="password" class="form-control"/>
+															<label class="control-label">Usuario</label>
+															<input type="text" value="<?php echo $usuario_activo['usuario'] ?>" class="form-control"/>
 														</div>
 														<div class="form-group">
-															<label class="control-label">New Password</label>
-															<input type="password" class="form-control"/>
-														</div>
-														<div class="form-group">
-															<label class="control-label">Re-type New Password</label>
-															<input type="password" class="form-control"/>
+															<label class="control-label">Contraseña</label>
+															<input type="password" value="<?php echo $usuario_activo['password'] ?>" class="form-control"/>
 														</div>
 														<div class="margin-top-10">
 															<a href="#" class="btn green">
-															Change Password </a>
+															Guardar </a>
 															<a href="#" class="btn default">
-															Cancel </a>
+															Cancelar </a>
 														</div>
 													</form>
 												</div>

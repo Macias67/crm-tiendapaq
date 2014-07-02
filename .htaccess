@@ -1,4 +1,4 @@
 Options -Indexes
 RewriteEngine on
-RewriteCond $1 !^(index\.php|assets|robots\.txt)
+RewriteCond $1 !^(index\.php|assets|users|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]

@@ -13,9 +13,9 @@ class EjecutivoModel extends MY_Model {
 	 * variable que sera convertida a sdtClass
 	 * y retornada como objeto
 	 *
-	 * @var $ejecutivo_nuevo
+	 * @var $ejecutivo
 	 **/
-	private $ejecutivo_nuevo;
+	private $ejecutivo;
 
 	/**
 	 * Constructor
@@ -30,26 +30,36 @@ class EjecutivoModel extends MY_Model {
 	* funcion para convertir un arreglo asociativo a un objeto
 	* con sus metodos
 	*
+	* @param array $data Datos del ejecutivo
+	* @param boolean $edirtado Esta variable es falsa si el ejecutivo es nuevo
+	*                          y es verdadera el el ejecutivo se esta editando para
+	*                          que datos agregar en el objeto
 	* @return $basica clientes
 	* @author Diego Rodriguez | Luis Macias
 	**/
-	public function arrayToObject($data)
+	public function arrayToObject($data, $editado)
 	{
-		$this->ejecutivo_nuevo = new stdClass();
+		$this->ejecutivo = new stdClass();
 
-		$this->ejecutivo_nuevo->primer_nombre	    = $data['primer_nombre'];
-		$this->ejecutivo_nuevo->segundo_nombre		= $data['segundo_nombre'];
-		$this->ejecutivo_nuevo->apellido_paterno	= $data['apellido_paterno'];
-		$this->ejecutivo_nuevo->apellido_materno	= $data['apellido_materno'];
-		$this->ejecutivo_nuevo->email			  			= $data['email'];
-		$this->ejecutivo_nuevo->telefono			    = $data['telefono'];
-		$this->ejecutivo_nuevo->oficina		        = $data['oficina'];
-		$this->ejecutivo_nuevo->privilegios		    = $data['privilegios'];
-		$this->ejecutivo_nuevo->departamento		  = $data['departamento'];
-		$this->ejecutivo_nuevo->usuario		        = $data['usuario'];
-		$this->ejecutivo_nuevo->password		      = $data['password'];
+		$this->ejecutivo->primer_nombre	    = $data['primer_nombre'];
+		$this->ejecutivo->segundo_nombre		= $data['segundo_nombre'];
+		$this->ejecutivo->apellido_paterno	= $data['apellido_paterno'];
+		$this->ejecutivo->apellido_materno	= $data['apellido_materno'];
+		$this->ejecutivo->email			  			= $data['email'];
+		$this->ejecutivo->telefono			    = $data['telefono'];
+		$this->ejecutivo->oficina		        = $data['oficina'];
+		$this->ejecutivo->departamento		  = $data['departamento'];
 
-		return $this->ejecutivo_nuevo;
+		if($editado=FALSE){
+			$this->ejecutivo->privilegios		= $data['privilegios'];
+			$this->ejecutivo->usuario		    = $data['usuario'];
+			$this->ejecutivo->password		  = $data['password'];
+		}
+		if($editado=TRUE){
+			$this->ejecutivo->mensaje_personal	= $data['mensaje_personal'];
+		}
+
+		return $this->ejecutivo;
 	}
 
 }
