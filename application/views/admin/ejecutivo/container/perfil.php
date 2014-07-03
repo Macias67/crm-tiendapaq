@@ -141,7 +141,7 @@
 										<div class="col-md-3">
 											<ul class="list-unstyled profile-nav">
 												<li>
-													<img src="../../assets/admin/pages/media/profile/profile-img.png" class="img-responsive" alt=""/>
+													<img src="<?php echo site_url('/users/'.$usuario_activo["usuario"].'_img/img_perfil.jpg') ?>" class="img-responsive" alt=""/>
 													<a href="#" class="profile-edit">
 													edit </a>
 												</li>
@@ -186,11 +186,11 @@
 														</div>
 														<div class="portlet-body">
 															<ul>
-																<li>Privilegios :  <?php echo $usuario_activo['privilegios'] ?></li>
-																<li>Usuario : <?php echo $usuario_activo['usuario'] ?></li>
-																<li>Email: <?php echo $usuario_activo['email'] ?></li>
-																<li>Teléfono: <?php echo $usuario_activo['telefono'] ?></li>
-																<li>Departamento: <?php echo $usuario_activo['departamento'] ?></li>
+																<li><strong>Privilegios</strong> :  <?php echo $usuario_activo['privilegios'] ?></li>
+																<li><strong>Usuario</strong> : <?php echo $usuario_activo['usuario'] ?></li>
+																<li><strong>Email</strong>: <?php echo $usuario_activo['email'] ?></li>
+																<li><strong>Teléfono</strong>: <?php echo $usuario_activo['telefono'] ?></li>
+																<li><strong>Departamento</strong>: <?php echo $usuario_activo['departamento'] ?></li>
 															</ul>
 														</div>
 													</div>
@@ -946,9 +946,18 @@
 												</div>
 												<div id="tab_2-2" class="tab-pane">
 													<p>
-														 Selecciona una foto de perfil (menos de 2MB)
+														 Selecciona una foto de perfil (max 2MB)
 													</p>
-													<form action="<?php echo site_url('ejecutivo/edit/img') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+													<form action="<?php echo site_url('ejecutivo/edit/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+														<!-- DIV ERROR -->
+														<div class="alert alert-danger display-hide">
+															<button class="close" data-close="alert"></button>
+															Tienes algun error
+														</div>
+														<div class="alert alert-success display-hide">
+															<button class="close" data-close="alert"></button>
+															Exito en el formulario
+														</div>
 														<div class="form-group">
 															<div class="fileinput fileinput-new" data-provides="fileinput">
 																<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">

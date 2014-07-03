@@ -1,7 +1,7 @@
 <?php
 
 $lang['upload_userfile_not_set'] = "No se ha podido encontrar una variable de tipo POST llamada userfile.";
-$lang['upload_file_exceeds_limit'] = "El archivo subido excede el tamaño máximo permitido en la configuración de su PHP";
+$lang['upload_file_exceeds_limit'] = "El archivo subido excede el tamaño máximo permitido en la configuración del sistema CRM-TiendaPaq";
 $lang['upload_file_partial'] = "El archivo fue subido parcialmente";
 $lang['upload_no_file_selected'] = "No ha seleccionado ningún archivo para subir";
 $lang['upload_invalid_filetype'] = "El tipo de archivo que esta tratando de subir no está permitido";

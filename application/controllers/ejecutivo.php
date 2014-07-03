@@ -16,9 +16,24 @@ class Ejecutivo extends AbstractAccess {
 		$this->load->model('privilegiosModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('departamentoModel');
+
+		//cargamos la lista de departamentos para mostrarla en un select en la vista perfil
+		$this->data['tabladepartamentos']= $this->departamentoModel->get(array('area'));
 	}
+
 	public function index()
 	{}
+
+	/**
+	 * Funcion para mostrar el perfil del usuario
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function perfil()
+	{
+		$this->_vista('perfil');
+		//var_dump($this->data);
+	}
 
 	public function nuevo()
 	{
@@ -172,69 +187,36 @@ class Ejecutivo extends AbstractAccess {
 					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
 					$config_upload['overwrite'] 		= TRUE;
 					$config_upload['remove_spaces']	= TRUE;
+					$config_upload['max_size']      = 1024;
+					$config_upload['file_name']     = 'img_perfil.jpg';
 					// Cargo libreria upload
 					$this->load->library('upload', $config_upload);
 					// Si no es exitosa la subida
 					if (!$this->upload->do_upload()) {
 						// Formato para mostrar los mensajes de error
-						$this->data['upload_error'] = $this->upload->display_errors('<div class="notice error"><i class="icon-remove-sign icon-large"></i>',
-							'<a href="#close" class="icon-remove"></a></div>');
+						$this->data['upload_error'] = $this->upload->display_errors('<p>',
+							'</p>');
 						// Muestro vista de nuevo con errores de subida
-						//$this->vista('form/upload_txt');
-						echo "error al cargar, verifica tu archivo";
-						var_dump($this->data['upload_error']);
+						//var_dump($this->data['upload_error']);
+						$respuesta = array(
+								'exito' => FALSE,
+								'msg' => $this->data['upload_error']);
 					} else {
-						echo "cargue el archivo";
-						// Asigno el objeto modelo a usar
-						// $objectModel = ($tipo === 'clientes') ? $this->clienteModel : $this->productoModel;
-						// // Asigno info de la subida a la variable
-						// $file_info = $this->upload->data();
-						// // Si no hay ningun cliente en la BD
-						// if (!$objectModel->count()) {
-						// 	// Transformo el contenido del TXT a un array de arrays asociativos
-						// 	$arrayDataTxt = $objectModel->transformTXT($file_info['full_path'], 'array');
-						// 	// Guardo array de todos los clientes en la BD, si es exitoso
-						// 	if ($objectModel->insertBatch($arrayDataTxt)) {
-						// 		// Si es prodcutos hago lista de precios por default
-						// 		if ($tipo === 'productos') {
-						// 			echo "estoy en productos";
-						// 			// Cargo modelo
-						// 			$this->load->model('listaPreciosModel');
-						// 			$this->listaPreciosModel->setPrefijo($this->supervisor->prefijo);
-						// 			// Creo lista de precios por Default
-						// 			$lista_json = $this->listaPreciosModel->arrayAssocToJson($arrayDataTxt);
-						// 			$this->listaPreciosModel->insert(array('nombre' => 'Mis Productos', 'lista_json' => $lista_json));
-						// 		}
-						// 		// Borro el archivo que fue subido
-						// 		unlink($file_info['full_path']);
-						// 		//Borro carpeta
-						// 		rmdir($uploadDir);
-						// 		// Cargo vista success
-						// 		//$this->vistaSuccess('Se ha registrado su lista de '.$tipo.'.');
-						// 		echo "cargado con exito";
-						// 	}
-						// } else {
-						// 	// Transformo el contenido del TXT a un array de objetos
-						// 	$arrayDataTxt = $objectModel->transformTXT($file_info['full_path'], 'objeto');
-						// 	// Comparo datos de la BD con los del TXT
-						// 	if($objectModel->compararDatos($arrayDataTxt)) {
-						// 		// Borro el archivo que fue subido
-						// 		unlink($file_info['full_path']);
-						// 		//Borro carpeta
-						// 		rmdir($uploadDir);
-						// 		// Cargo vista success
-						// 		//$this->vistaSuccess('Se ha actualizado la lista de '.$tipo.'.');
-						// 		echo "actualizado con exito";
-						// 	}
-						// }
+						$respuesta = array(
+								'exito' => TRUE,
+								'usuario' => $this->data['usuario_activo']['usuario']);
 					}
+
+					//Muestro la salida
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode($respuesta));
 			break;
 			case 'password':
 				echo "hola kokin ;)";
 			break;
 
 			default:
-				$this->_vista('perfil');
 			break;
 		}
 	}
