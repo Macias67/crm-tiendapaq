@@ -170,47 +170,64 @@ class Ejecutivo extends AbstractAccess {
 			break;
 
 			//IMAGENES
-			
-			case 'img':
-				// Cargo helper form
-				$this->load->helper('form');
-					//establecemos las rutas para guardar la imagen
-					$users		= 'users';
-					$Dir		= $this->data['usuario_activo']['usuario'].'_img';
-					$imgDir	= $users.'/'.$Dir.'/';
-					// Si no existe la carpeta la creamos
-					if (!is_dir($imgDir)) {
-						mkdir($imgDir, 0777, TRUE);
-					}
-					//Configuracion para la subida del archivo
-					$config_upload['upload_path']		= $imgDir;
-					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-					$config_upload['overwrite'] 		= TRUE;
-					$config_upload['remove_spaces']	= TRUE;
-					$config_upload['max_size']      = 1024;
-					$config_upload['file_name']     = 'img_perfil.jpg';
-					// Cargo libreria upload
-					$this->load->library('upload', $config_upload);
-					// Si no es exitosa la subida
-					if (!$this->upload->do_upload()) {
-						// Formato para mostrar los mensajes de error
-						$this->data['upload_error'] = $this->upload->display_errors('<p>',
-							'</p>');
-						// Muestro vista de nuevo con errores de subida
-						//var_dump($this->data['upload_error']);
-						$respuesta = array(
-								'exito' => FALSE,
-								'msg' => $this->data['upload_error']);
-					} else {
-						$respuesta = array(
-								'exito' => TRUE,
-								'usuario' => $this->data['usuario_activo']['usuario']);
-					}
 
-					//Muestro la salida
-				$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode($respuesta));
+			case 'img':
+
+				// Reglas de validacion
+				$this->form_validation->set_rules('userfile', 'Avatar',
+					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[image]|file_image_mindim[100,100]|file_image_maxdim[1200,1200]');
+				// Validacion
+				if ($this->form_validation->run() === FALSE)
+				{
+					// La forma de mostrar los errores
+					$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error: </strong>
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
+						' <b><a href="'.site_url('perfil#avatar').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+					// Muestro vista con errores
+					$this->_vista('perfil');
+				}
+				else
+				{
+				// 	// Cargo helper form
+				// 	$this->load->helper('form');
+				// 	//establecemos las rutas para guardar la imagen
+				// 	$users		= 'users';
+				// 	$Dir		= $this->data['usuario_activo']['usuario'].'_img';
+				// 	$imgDir	= $users.'/'.$Dir.'/';
+				// 	// Si no existe la carpeta la creamos
+				// 	if (!is_dir($imgDir)) {
+				// 		mkdir($imgDir, 0777, TRUE);
+				// 	}
+				// 	//Configuracion para la subida del archivo
+				// 	$config_upload['upload_path']		= $imgDir;
+				// 	$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+				// 	$config_upload['overwrite'] 		= TRUE;
+				// 	$config_upload['remove_spaces']	= TRUE;
+				// 	$config_upload['max_size']      = 1024;
+				// 	$config_upload['file_name']     = 'img_perfil.jpg';
+				// 	// Cargo libreria upload
+				// 	$this->load->library('upload', $config_upload);
+				// 	// Si no es exitosa la subida
+				// 	if (!$this->upload->do_upload()) {
+				// 		// Formato para mostrar los mensajes de error
+				// 		$this->data['upload_error'] = $this->upload->display_errors('<p>',
+				// 			'</p>');
+				// 		// Muestro vista de nuevo con errores de subida
+				// 		//var_dump($this->data['upload_error']);
+				// 		$respuesta = array(
+				// 				'exito' => FALSE,
+				// 				'msg' => $this->data['upload_error']);
+				// 	} else {
+				// 		$respuesta = array(
+				// 				'exito' => TRUE,
+				// 				'usuario' => $this->data['usuario_activo']['usuario']);
+				// 	}
+
+				// 	//Muestro la salida
+				// $this->output
+				// 		->set_content_type('application/json')
+				// 		->set_output(json_encode($respuesta));}
+			}
 			break;
 			case 'password':
 				echo "hola kokin ;)";
