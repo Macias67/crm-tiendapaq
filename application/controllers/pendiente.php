@@ -12,8 +12,10 @@ class Pendiente extends AbstractAccess {
 		parent::__construct();
 		//cargo la libreria de las validaciones
 		$this->load->library('form_validation');
-		// Cargo modelo
+		// Cargo modelos
 		$this->load->model('pendienteModel');
+		$this->load->model('estatusModel');
+		$this->load->model('actividadPendienteModel');
 	}
 
 	public function index()
@@ -41,12 +43,12 @@ class Pendiente extends AbstractAccess {
 		{
 			// Captruo los datos en un array
 			$data = array(
-				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
-				'id_creador'	=> $this->usuario_activo['id'],
-				'id_empresa'	=>$this->input->post('razon_social'),
-				'actividad'		=> $this->input->post('actividad'),
-				'estatus'		=> 0,
-				'descripcion'	=> $this->input->post('descripcion')
+				'id_ejecutivo'		=> $this->input->post('ejecutivo'),
+				'nombre_creador'	=> $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'],
+				'id_empresa'		=> (empty($this->input->post('razon_social'))) ? NULL : $this->input->post('razon_social'),
+				'actividad'			=> $this->input->post('actividad'),
+				'estatus'			=> $this->estatusModel->PENDIENTE,
+				'descripcion'		=> $this->input->post('descripcion')
 			);
 			// Transfomo arreglo a objeto
 			$objeto_pendiente = $this->pendienteModel->arrayToObject($data);

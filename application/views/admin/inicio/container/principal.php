@@ -215,86 +215,23 @@
 									<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
 										<thead>
 											<tr>
-												<th>Username</th>
-												<th>Email</th>
-												<th>Status</th>
+												<th>No.</th>
+												<th>Asignado por</th>
+												<th>Actvidad</th>
+												<th>Empresa</th>
+												<th>Fecha</th>
 											</tr>
 										</thead>
 										<tbody>
+										<?php foreach ($pendientes_usuario as $pendiente) : ?>
 											<tr class="odd gradeX">
-												<td>shuxer</td>
-												<td>
-													<a href="mailto:shuxer@gmail.com">shuxer@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
+												<td><?php echo $pendiente->id_pendiente ?></td>
+												<td><?php echo $pendiente->nombre_creador ?></td>
+												<td><?php echo $pendiente->actividad ?></td>
+												<td><?php echo $pendiente->razon_social ?></td>
+												<td><?php echo date('d/m/Y g:i:s a', strtotime($pendiente->fecha_origen)) ?></td>
 											</tr>
-											<tr class="odd gradeX">
-												<td>looper</td>
-												<td>
-													<a href="mailto:looper90@gmail.com">looper90@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-warning">Suspended </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>
-													userwow
-												</td>
-												<td>
-													<a href="mailto:userwow@yahoo.com">userwow@yahoo.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>user1wow</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">userwow@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-default">Blocked </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>restest</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">test@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>foopl</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>weep</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>coop</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
+										<?php endforeach ?>
 										</tbody>
 									</table>
 								</div>
@@ -303,7 +240,7 @@
 						<!-- END TABLA MIS PENDIENTES-->
 					</div>
 					<div class="col-md-5">
-						<!-- BEGIN TABLA MIS PENDIENTES-->
+						<!-- BEGIN TABLA PENDIENTES GENERALES-->
 						<div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption"><i class="fa fa-user"></i>Pendientes Generales</div>
@@ -337,68 +274,12 @@
 													<span class="label label-sm label-warning">Suspended </span>
 												</td>
 											</tr>
-											<tr class="odd gradeX">
-												<td>
-													userwow
-												</td>
-												<td>
-													<a href="mailto:userwow@yahoo.com">userwow@yahoo.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>user1wow</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">userwow@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-default">Blocked </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>restest</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">test@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>foopl</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>weep</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>coop</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
-						<!-- END TABLA MIS PENDIENTES-->
+						<!-- END TABLA PENDIENTES GENERALES-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
@@ -657,10 +538,9 @@
 											<div class="col-md-8">
 												<select class="form-control" name="actividad">
 													<option value=""></option>
-													<option value="1">Solicitud de Cotización</option>
-													<option value="2">Asesoria en Específico</option>
-													<option value="3">Asesoria a Diagnosticar</option>
-													<option value="4">Solcitud de Información</option>
+													<?php foreach ($actividades_pendientes as $actividad_pendiente): ?>
+														<option value="<?php echo $actividad_pendiente->id_actividad ?>"><?php echo $actividad_pendiente->actividad ?></option>
+													<?php endforeach ?>
 												</select>
 											</div>
 										</div>
