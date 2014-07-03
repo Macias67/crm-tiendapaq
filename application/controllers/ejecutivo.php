@@ -19,6 +19,8 @@ class Ejecutivo extends AbstractAccess {
 
 		//cargamos la lista de departamentos para mostrarla en un select en la vista perfil
 		$this->data['tabladepartamentos']= $this->departamentoModel->get(array('area'));
+		// Variable vacia para mostrar errores de subida
+		$this->data['upload_error'] = '';
 	}
 
 	public function index()
@@ -174,8 +176,8 @@ class Ejecutivo extends AbstractAccess {
 			case 'img':
 
 				// Reglas de validacion
-				$this->form_validation->set_rules('userfile', 'Avatar',
-					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[image]|file_image_mindim[100,100]|file_image_maxdim[1200,1200]');
+				$this->form_validation->set_rules('userfile', 'El archivo',
+					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[imagen]|file_image_mindim[100,100]|file_image_maxdim[1200,1200]');
 				// Validacion
 				if ($this->form_validation->run() === FALSE)
 				{
@@ -188,6 +190,53 @@ class Ejecutivo extends AbstractAccess {
 				}
 				else
 				{
+					echo "entre al else despues de form validation";
+					// Armo las rutas y nombres del avatar segun usuario activo
+					$usuario_activo	= $this->usuario_activo['usuario'];
+					$ruta				= 'assets/admin/pages/media/profile/';
+					$ruta_completa	= $ruta.$usuario_activo.'/';
+
+					//Si no existe directorio lo creo
+					if (!is_dir($ruta_completa))
+					{
+						mkdir($ruta_completa, 0777, TRUE);
+					}
+					//Configuracion para la subida del archivo
+					$config_upload['upload_path']		= $ruta_completa;
+					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+					$config_upload['file_name']		= strtolower($usuario_activo);
+					$config_upload['max_size']			= 1024;
+					$config_upload['remove_spaces']	= TRUE;
+					// Cargo la libreria upload y paso configuracion
+					$this->load->library('upload', $config_upload);
+
+					//SI NO se sube la imagen
+					if (!$this->upload->do_upload())
+					{
+						// Envio a la variable los errores de subida
+						$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error: </strong>
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
+							' <b><a href="'.site_url('perfil#avatar').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+						// Muestro vista con errores de subida
+						$this->_vista('perfil');
+					} else
+					{
+						// Paso datos de la subida del archivo
+						$upload_data = $this->upload->data();
+						// Si la imagen es menos a 800px
+						if ($upload_data['image_width'] > 800) {
+							// Configuracion para el recorte
+							$config_resize['image_library']		= 'gd2';
+							$config_resize['source_image']	= $upload_data['full_path'];
+							$config_resize['maintain_ratio']	= TRUE;
+							$config_resize['width']				= 800;
+							$config_resize['height']			= 800;
+							$this->load->library('image_lib', $config_resize);
+							$this->image_lib->resize();
+						}
+						// DEBUG info del archivo subido ANTES DE RECORTARLO
+						var_dump($upload_data);
+					}
 				// 	// Cargo helper form
 				// 	$this->load->helper('form');
 				// 	//establecemos las rutas para guardar la imagen

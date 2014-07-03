@@ -115,6 +115,8 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row profile">
 					<div class="col-md-12">
+						<?php echo $upload_error ?>
+						<?php echo validation_errors() ?>
 						<!--BEGIN TABS-->
 						<div class="tabbable tabbable-custom tabbable-full-width">
 							<ul class="nav nav-tabs">
@@ -136,12 +138,13 @@
 								</li>
 							</ul>
 							<div class="tab-content">
+								<!-- vista_rapida -->
 								<div class="tab-pane active" id="tab_1_1">
 									<div class="row">
 										<div class="col-md-3">
 											<ul class="list-unstyled profile-nav">
 												<li>
-													<img src="<?php echo site_url('/users/'.$usuario_activo["usuario"].'_img/img_perfil.jpg') ?>" class="img-responsive" alt=""/>
+													<img src="<?php echo site_url('assets/admin/pages/media/profile/'.$usuario_activo["usuario"].'/img_perfil.jpg') ?>" class="img-responsive" alt=""/>
 													<a href="#" class="profile-edit">
 													Cambiar imagen </a>
 												</li>
