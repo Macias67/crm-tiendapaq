@@ -104,7 +104,7 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="<?php echo site_url('perfil') ?>">Perfil</a>
+								<a href="<?php echo site_url('ejecutivo/perfil') ?>">Perfil</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -143,7 +143,7 @@
 												<li>
 													<img src="<?php echo site_url('/users/'.$usuario_activo["usuario"].'_img/img_perfil.jpg') ?>" class="img-responsive" alt=""/>
 													<a href="#" class="profile-edit">
-													edit </a>
+													Cambiar imagen </a>
 												</li>
 												<li>
 													<a href="#">
@@ -185,12 +185,12 @@
 															</div>
 														</div>
 														<div class="portlet-body">
-															<ul>
-																<li><strong>Privilegios</strong> :  <?php echo $usuario_activo['privilegios'] ?></li>
-																<li><strong>Usuario</strong> : <?php echo $usuario_activo['usuario'] ?></li>
-																<li><strong>Email</strong>: <?php echo $usuario_activo['email'] ?></li>
-																<li><strong>Teléfono</strong>: <?php echo $usuario_activo['telefono'] ?></li>
-																<li><strong>Departamento</strong>: <?php echo $usuario_activo['departamento'] ?></li>
+															<ul class="list-unstyled">
+																<li><i class="fa fa-cogs"></i><strong> Privilegios</strong> :  <?php echo $usuario_activo['privilegios'] ?></li>
+																<li><i class="fa fa-user"></i><strong> Usuario</strong> : <?php echo $usuario_activo['usuario'] ?></li>
+																<li><i class="fa fa-envelope"></i><strong> Email</strong>: <?php echo $usuario_activo['email'] ?></li>
+																<li><i class="fa fa-phone"></i><strong> Teléfono</strong>: <?php echo $usuario_activo['telefono'] ?></li>
+																<li><i class="fa fa-briefcase"></i><strong> Departamento</strong>: <?php echo $usuario_activo['departamento'] ?></li>
 															</ul>
 														</div>
 													</div>
