@@ -30,11 +30,13 @@ class Pendiente extends AbstractAccess {
 	 **/
 	public function add()
 	{
+		// Reglas de validacion
 		$this->form_validation->set_rules('ejecutivo', 'Ejecutivo', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|require|xss_clean');
 		$this->form_validation->set_rules('actividad', 'Actividad', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|min_length[5]|max_length[140]|xss_clean');
 
+		// Valido formulario
 		if ($this->form_validation->run() === FALSE)
 		{
 			// SI es FALSO, vuelvo a mostrar vista

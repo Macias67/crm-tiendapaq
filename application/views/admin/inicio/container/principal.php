@@ -216,7 +216,6 @@
 										<thead>
 											<tr>
 												<th>No.</th>
-												<th>Asignado por</th>
 												<th>Actvidad</th>
 												<th>Empresa</th>
 												<th>Fecha</th>
@@ -226,10 +225,9 @@
 										<?php foreach ($pendientes_usuario as $pendiente) : ?>
 											<tr class="odd gradeX">
 												<td><?php echo $pendiente->id_pendiente ?></td>
-												<td><?php echo $pendiente->nombre_creador ?></td>
 												<td><?php echo $pendiente->actividad ?></td>
 												<td><?php echo $pendiente->razon_social ?></td>
-												<td><?php echo date('d/m/Y g:i:s a', strtotime($pendiente->fecha_origen)) ?></td>
+												<td><?php echo date('d/m/Y g:i a', strtotime($pendiente->fecha_origen)) ?></td>
 											</tr>
 										<?php endforeach ?>
 										</tbody>

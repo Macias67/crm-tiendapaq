@@ -112,8 +112,32 @@ var FormValidationPendiente = function () {
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
-							alert("Se le ha notificado a "+data.nombre+" de nuevo pendiente asignado.");
-							parent.location.reload();
+							// alert("Se le ha notificado a "+data.nombre+" de nuevo pendiente asignado.");
+							// parent.location.reload();
+							$('#nuevo-pendiente').modal('hide');
+							//when hidden
+							$('#nuevo-pendiente').on('hidden.bs.modal', function(e) {
+								$("#razon_social").select2("val", "");
+
+								$(this).find('form').each (function(){
+									this.reset();
+								});
+
+								$.gritter.add({
+									// (string | mandatory) the heading of the notification
+									title: 'Nuevo pendiente registrado.',
+									// (string | mandatory) the text inside the notification
+									text: 'Se le ha notificado a '+data.nombre+' de nuevo pendiente asignado',
+									// (bool | optional) if you want it to fade out on its own or just sit there
+									sticky: false,
+									// (int | optional) the time you want it to be alive for before fading out (milliseconds)
+									time: 8000,
+									// (function | optional) function called before it opens
+									before_open: function(){
+										$('body').modalmanager('removeLoading');
+									}
+								});
+							});
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
