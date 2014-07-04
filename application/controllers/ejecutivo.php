@@ -24,7 +24,9 @@ class Ejecutivo extends AbstractAccess {
 	}
 
 	public function index()
-	{}
+	{
+		$this->_vista('perfil');
+	}
 
 	/**
 	 * Funcion para mostrar el perfil del usuario
@@ -34,7 +36,7 @@ class Ejecutivo extends AbstractAccess {
 	public function perfil()
 	{
 		$this->_vista('perfil');
-		//var_dump($this->data);
+		var_dump($this->data);
 	}
 
 	public function nuevo()
@@ -57,20 +59,21 @@ class Ejecutivo extends AbstractAccess {
 	{
 		//Se establecen las reglas de validacion
 		//Datos Personales
-		$this->form_validation->set_rules('primer_nombre', 'Primer Nombre', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-		$this->form_validation->set_rules('segundo_nombre', 'Segundo Nombre', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('primer_nombre',    'Primer Nombre',    'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('segundo_nombre',   'Segundo Nombre',   'trim|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|max_length[50]|xss_clean|callback_email_check');
-		$this->form_validation->set_rules('telefono', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('email',            'Email',            'trim|strtolower|valid_email|max_length[50]|xss_clean|callback_email_check');
+		$this->form_validation->set_rules('telefono',         'Teléfono',         'trim|required|max_length[14]|xss_clean');
 		//Datos del Sistema
-		$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('privilegios', 'Privilegios', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('oficina',      'Oficina',      'trim|required|xss_clean');
+		$this->form_validation->set_rules('privilegios',  'Privilegios',  'trim|required|xss_clean');
 		$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[20]|xss_clean|callback_usuario_check');
-		$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('usuario',      'Usuario',      'trim|required|max_length[20]|xss_clean|callback_usuario_check');
+		$this->form_validation->set_rules('password',     'Contraseña',   'trim|required|max_length[20]|xss_clean');
 
-		if ($this->form_validation->run() === FALSE) {
+		if ($this->form_validation->run() === FALSE)
+		{
 			// SI es FALSO, guardo la respuesta
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 		} else {
@@ -98,8 +101,7 @@ class Ejecutivo extends AbstractAccess {
 				$respuesta = array(
 						'exito' => $exito_ejecutivo,
 						'ejecutivo' => $ejecutivo_nuevo);
-
-		}
+			}
 
 		// Muestro la salida
 		$this->output
@@ -131,7 +133,8 @@ class Ejecutivo extends AbstractAccess {
 				$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
 
 				$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
-				if ($this->form_validation->run() === FALSE) {
+				if ($this->form_validation->run() === FALSE) 
+				{
 					// SI es FALSO, guardo la respuesta
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 				} else {
@@ -145,8 +148,8 @@ class Ejecutivo extends AbstractAccess {
 							'email'				     => $this->input->post('email'),
 							'telefono'       	 => $this->input->post('telefono'),
 							//Datos del Sistema
-							'oficina'	     	  => $this->input->post('oficina'),
-							'departamento'		=> $this->input->post('departamento'),
+							'oficina'	     	   => $this->input->post('oficina'),
+							'departamento'		 => $this->input->post('departamento'),
 							'mensaje_personal' => $this->input->post('mensaje_personal')
 						);
 
@@ -177,23 +180,22 @@ class Ejecutivo extends AbstractAccess {
 
 				// Reglas de validacion
 				$this->form_validation->set_rules('userfile', 'El archivo',
-					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[imagen]|file_image_mindim[100,100]|file_image_maxdim[1200,1200]');
+					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[imagen]|file_image_mindim[200,200]|file_image_maxdim[1600,1600]');
 				// Validacion
 				if ($this->form_validation->run() === FALSE)
 				{
 					// La forma de mostrar los errores
 					$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error: </strong>
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
-						' <b><a href="'.site_url('perfil#avatar').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+						' <b><a href="'.site_url('ejecutivo/perfil#tab_2-2').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 					// Muestro vista con errores
 					$this->_vista('perfil');
 				}
 				else
 				{
-					echo "entre al else despues de form validation";
 					// Armo las rutas y nombres del avatar segun usuario activo
 					$usuario_activo	= $this->usuario_activo['usuario'];
-					$ruta				= 'assets/admin/pages/media/profile/';
+					$ruta						= 'assets/admin/pages/media/profile/';
 					$ruta_completa	= $ruta.$usuario_activo.'/';
 
 					//Si no existe directorio lo creo
@@ -204,8 +206,9 @@ class Ejecutivo extends AbstractAccess {
 					//Configuracion para la subida del archivo
 					$config_upload['upload_path']		= $ruta_completa;
 					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-					$config_upload['file_name']		= strtolower($usuario_activo);
-					$config_upload['max_size']			= 1024;
+					$config_upload['overwrite'] 		= TRUE;
+					$config_upload['file_name']			= 'perfil';
+					$config_upload['max_size']			= 2000;
 					$config_upload['remove_spaces']	= TRUE;
 					// Cargo la libreria upload y paso configuracion
 					$this->load->library('upload', $config_upload);
@@ -216,7 +219,7 @@ class Ejecutivo extends AbstractAccess {
 						// Envio a la variable los errores de subida
 						$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error: </strong>
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
-							' <b><a href="'.site_url('perfil#avatar').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+							' <b><a href="'.site_url('ejecutivo/perfil#tab_2-2').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 						// Muestro vista con errores de subida
 						$this->_vista('perfil');
 					} else
@@ -224,7 +227,8 @@ class Ejecutivo extends AbstractAccess {
 						// Paso datos de la subida del archivo
 						$upload_data = $this->upload->data();
 						// Si la imagen es menos a 800px
-						if ($upload_data['image_width'] > 800) {
+						if ($upload_data['image_width'] > 800 || $upload_data['image_height'] > 800)
+					  {
 							// Configuracion para el recorte
 							$config_resize['image_library']		= 'gd2';
 							$config_resize['source_image']	= $upload_data['full_path'];
@@ -235,47 +239,12 @@ class Ejecutivo extends AbstractAccess {
 							$this->image_lib->resize();
 						}
 						// DEBUG info del archivo subido ANTES DE RECORTARLO
-						var_dump($upload_data);
+						//$this->data['detalles_img']=$upload_data;
+						$this->data['ruta_img'] = $ruta_completa.$upload_data['file_name'];
+						//var_dump($this->data);
+						$this->_vista('recortar-imagen');
 					}
-				// 	// Cargo helper form
-				// 	$this->load->helper('form');
-				// 	//establecemos las rutas para guardar la imagen
-				// 	$users		= 'users';
-				// 	$Dir		= $this->data['usuario_activo']['usuario'].'_img';
-				// 	$imgDir	= $users.'/'.$Dir.'/';
-				// 	// Si no existe la carpeta la creamos
-				// 	if (!is_dir($imgDir)) {
-				// 		mkdir($imgDir, 0777, TRUE);
-				// 	}
-				// 	//Configuracion para la subida del archivo
-				// 	$config_upload['upload_path']		= $imgDir;
-				// 	$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-				// 	$config_upload['overwrite'] 		= TRUE;
-				// 	$config_upload['remove_spaces']	= TRUE;
-				// 	$config_upload['max_size']      = 1024;
-				// 	$config_upload['file_name']     = 'img_perfil.jpg';
-				// 	// Cargo libreria upload
-				// 	$this->load->library('upload', $config_upload);
-				// 	// Si no es exitosa la subida
-				// 	if (!$this->upload->do_upload()) {
-				// 		// Formato para mostrar los mensajes de error
-				// 		$this->data['upload_error'] = $this->upload->display_errors('<p>',
-				// 			'</p>');
-				// 		// Muestro vista de nuevo con errores de subida
-				// 		//var_dump($this->data['upload_error']);
-				// 		$respuesta = array(
-				// 				'exito' => FALSE,
-				// 				'msg' => $this->data['upload_error']);
-				// 	} else {
-				// 		$respuesta = array(
-				// 				'exito' => TRUE,
-				// 				'usuario' => $this->data['usuario_activo']['usuario']);
-				// 	}
 
-				// 	//Muestro la salida
-				// $this->output
-				// 		->set_content_type('application/json')
-				// 		->set_output(json_encode($respuesta));}
 			}
 			break;
 			case 'password':
@@ -286,6 +255,57 @@ class Ejecutivo extends AbstractAccess {
 			break;
 		}
 	}
+
+		/**
+	 * Funcion recortar la imagen de
+	 * perfil del ejecutivo
+	 *
+	 * @author Diego Rodriguez | Luis Macias
+	 **/
+
+		public function recortar()
+		{
+				//cargo la libreria
+				$this->load->library('image_lib');
+				//var_dump($this->data);
+				$src = $this->input->post('ruta_img');
+
+				echo ' x '.$pos_x = $this->input->post('x');
+				echo ' y '.$pos_y = $this->input->post('y');
+				echo ' ancho '.$ancho = $this->input->post('w');
+				echo ' alto '.$alto  = $this->input->post('h');
+				$usuario_activo	= $this->usuario_activo['usuario'];
+				$ruta						= 'assets/admin/pages/media/profile/';
+				$ruta_completa	= $ruta.$usuario_activo.'/';
+
+				$config_perfil['image_library'] = 'gd2';
+				$config_perfil['source_image']  = $src;
+				$config_perfil['width'] 				 = $alto;
+				$config_perfil['height'] 			 = $alto;
+				$config_perfil['x_axis']        = $pos_x;
+				$config_perfil['y_axis']        = $pos_y;
+				$config_perfil['maintain_ratio']= FALSE;
+				$config_perfil['new_image']     = $ruta_completa.'block.jpg';
+
+				$this->image_lib->initialize($config_perfil);
+
+				if(!$this->image_lib->crop())
+				{
+					echo $this->image_lib->display_errors();
+				}else{
+						$config_miniatura['image_library'] = 'gd2';
+						$config_miniatura['source_image']  = $ruta_completa.'block.jpg';
+						$config_miniatura['width'] 				 = 30;
+						$config_miniatura['height'] 			 = 30;
+						$config_miniatura['new_image']    		 = $ruta_completa.'mini.jpg';
+						$this->image_lib->initialize($config_miniatura);
+						if(!$this->image_lib->resize()){
+							echo $this->image_lib->display_errors();
+						}else{
+							echo $this->image_lib->display_errors();
+						}
+				}
+		}
 
 	/*
 	|--------------------------------------------------------------------------

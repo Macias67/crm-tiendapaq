@@ -144,7 +144,7 @@
 										<div class="col-md-3">
 											<ul class="list-unstyled profile-nav">
 												<li>
-													<img src="<?php echo site_url('assets/admin/pages/media/profile/'.$usuario_activo["usuario"].'/img_perfil.jpg') ?>" class="img-responsive" alt=""/>
+													<img src="<?php echo site_url('assets/admin/pages/media/profile/'.$usuario_activo["usuario"].'/'.$usuario_activo["imagenes"][2]) ?>" class="img-responsive" alt=""/>
 													<a href="#" class="profile-edit">
 													Cambiar imagen </a>
 												</li>
@@ -843,6 +843,7 @@
 												</li>
 											</ul>
 										</div>
+										<!-- Formulario editar informacion basica -->
 										<div class="col-md-9">
 											<div class="tab-content">
 												<div id="tab_1-1" class="tab-pane active">
@@ -949,7 +950,7 @@
 												</div>
 												<div id="tab_2-2" class="tab-pane">
 													<p>
-														 Selecciona una foto de perfil (max 2MB)
+														 Selecciona una foto de perfil (resolucion maxima 1600 x 1600 px.)
 													</p>
 													<form action="<?php echo site_url('ejecutivo/edit/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 														<!-- DIV ERROR -->
@@ -966,7 +967,7 @@
 																<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
 																	<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
 																</div>
-																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 250px; max-height: 200px;">
+																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 400px; max-height: 400px;">
 																</div>
 																<div>
 																	<span class="btn default btn-file">
@@ -981,7 +982,7 @@
 																<span class="label label-danger">
 																NOTA! </span>
 																<span>
-																Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
+																La imagen debe estar en formato .jpg 'o .png con un tamaño no mayor a 2 MB' </span>
 															</div>
 														</div>
 														<div class="form-actions fluid">
