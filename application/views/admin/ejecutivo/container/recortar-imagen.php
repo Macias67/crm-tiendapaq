@@ -148,10 +148,9 @@
 								<img src="<?php echo site_url($ruta_img) ?>" id="demo8" alt="Jcrop Example"/>
 							</div>
 							<div class="col-md-5 responsive-1024">
-								<h4>An example server-side crop script.</h4>
+								<h4>Recorta tu imagen.</h4>
 								<p>
-									 Hidden form values are set when a selection is made. If you press the <i>Crop Image</i>
-									button, the form will be submitted and a 150x150 thumbnail will be dumped to the browser. Try it!
+									 El recorte sera utilizado como imagen de bloqueo de sesion, miniatura de perfil e imagen de chat
 								</p>
 								<!-- This is the form that our event handler fills -->
 								<form action="<?php echo site_url('ejecutivo/recortar') ?>" target="_blank" method="post" id="demo8_form">

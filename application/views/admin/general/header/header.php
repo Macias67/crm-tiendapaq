@@ -382,7 +382,7 @@
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown dropdown-user">
 						<a href="<?php echo site_url('ejecutivo/perfil') ?>" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
+						<img alt="" class="img-circle" src="<?php echo site_url($usuario_activo['ruta_imagenes'].'mini.jpg') ?>"/>
 						<span class="username"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></span>
 						<i class="fa fa-angle-down"></i>
 						</a>

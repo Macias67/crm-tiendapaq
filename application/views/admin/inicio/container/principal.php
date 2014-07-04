@@ -11,7 +11,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							Elige un color </span>
+							Color </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -76,7 +76,7 @@
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title">
-						Bienvenido - <small>blank page</small>
+						Bienvenido - <small> <?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small>
 						</h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">

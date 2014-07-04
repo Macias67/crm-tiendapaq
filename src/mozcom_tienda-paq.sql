@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2014 a las 01:57:33
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Servidor: localhost
+-- Tiempo de generación: 04-07-2014 a las 17:30:33
+-- Versión del servidor: 5.6.12-log
+-- Versión de PHP: 5.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
+CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
+USE `mozcom_tienda-paq`;
 
 -- --------------------------------------------------------
 
@@ -28,25 +30,32 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(10) NOT NULL,
-  `razon_social` varchar(80) NOT NULL,
-  `rfc` varchar(13) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `tipo` varchar(15) NOT NULL,
-  `calle` varchar(50) NOT NULL,
-  `no_exterior` varchar(5) NOT NULL,
-  `no_interior` varchar(5) NOT NULL,
-  `colonia` varchar(20) NOT NULL,
-  `codigo_postal` varchar(6) NOT NULL,
-  `ciudad` varchar(50) NOT NULL,
-  `municipio` varchar(50) NOT NULL,
-  `estado` varchar(30) NOT NULL,
-  `pais` varchar(30) NOT NULL,
-  `telefono1` varchar(13) NOT NULL,
-  `telefono2` varchar(13) NOT NULL,
+  `codigo` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `razon_social` varchar(80) CHARACTER SET utf8 NOT NULL,
+  `rfc` varchar(13) CHARACTER SET utf8 NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `tipo` varchar(15) CHARACTER SET utf8 NOT NULL,
+  `calle` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `no_exterior` varchar(5) CHARACTER SET utf8 NOT NULL,
+  `no_interior` varchar(5) CHARACTER SET utf8 NOT NULL,
+  `colonia` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `codigo_postal` varchar(6) CHARACTER SET utf8 NOT NULL,
+  `ciudad` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `municipio` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `estado` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `pais` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `telefono1` varchar(13) CHARACTER SET utf8 NOT NULL,
+  `telefono2` varchar(13) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='Datos de los clientes' AUTO_INCREMENT=43 ;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `codigo`, `razon_social`, `rfc`, `email`, `tipo`, `calle`, `no_exterior`, `no_interior`, `colonia`, `codigo_postal`, `ciudad`, `municipio`, `estado`, `pais`, `telefono1`, `telefono2`) VALUES
+(42, 'p_30061928', 'PLASTICOS HéRNANDEZ', 'PLSH0987UGBH', 'pasticos@gmail.com', 'distribuidor', 'Cuarzo', '9A', '9', 'Solidaridad', '47810', 'Ocotlán', 'Ocotlán', 'Jalisco', 'México', '(392) 927-223', '(391) 917-223');
 
 -- --------------------------------------------------------
 
@@ -56,14 +65,21 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 
 CREATE TABLE IF NOT EXISTS `contactos` (
   `id_cliente` int(11) NOT NULL,
-  `nombre_contacto` varchar(30) NOT NULL,
-  `apellido_paterno` varchar(20) NOT NULL,
-  `apellido_materno` varchar(20) NOT NULL,
-  `email_contacto` varchar(30) NOT NULL,
-  `telefono_contacto` varchar(14) NOT NULL,
-  `puesto_contacto` varchar(20) NOT NULL,
+  `nombre_contacto` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `apellido_paterno` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `apellido_materno` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `email_contacto` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `telefono_contacto` varchar(14) CHARACTER SET utf8 NOT NULL,
+  `puesto_contacto` varchar(20) CHARACTER SET utf8 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='tabla donde se guarda la información del contacto del cliente';
+
+--
+-- Volcado de datos para la tabla `contactos`
+--
+
+INSERT INTO `contactos` (`id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
+(42, 'Luis', 'Macias', 'Angulo', 'kokin@gmail.com', '3310657421', 'Programador');
 
 -- --------------------------------------------------------
 
@@ -97,12 +113,14 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `segundo_nombre` varchar(20) NOT NULL,
   `apellido_paterno` varchar(20) NOT NULL,
   `apellido_materno` varchar(20) NOT NULL,
+  `oficina` varchar(30) NOT NULL,
   `usuario` varchar(20) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `email` varchar(60) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `telefono` varchar(14) NOT NULL,
   `departamento` varchar(30) NOT NULL,
   `privilegios` varchar(30) NOT NULL,
+  `mensaje_personal` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario` (`usuario`),
   KEY `area` (`departamento`,`privilegios`),
@@ -113,9 +131,9 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 -- Volcado de datos para la tabla `ejecutivos`
 --
 
-INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 9418119', 'Desarrollo', 'admin'),
-(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte');
+INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', '"Cuando alguien desea algo debe saber que corre riesgos y por eso la vida vale la pena." Paulo Coelho'),
+(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', '', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte', '');
 
 -- --------------------------------------------------------
 
@@ -130,12 +148,19 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `arquitectura` varchar(10) CHARACTER SET latin1 NOT NULL,
   `maquina_virtual` varchar(2) CHARACTER SET latin1 NOT NULL,
   `memoria_ram` varchar(3) CHARACTER SET latin1 NOT NULL,
-  `sql_server` varchar(50) NOT NULL,
+  `sql_server` varchar(50) CHARACTER SET utf8 NOT NULL,
   `sql_management` varchar(50) CHARACTER SET latin1 NOT NULL,
   `instancia_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   `password_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con informacion de los equipos de computo del cliente';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='tabla con informacion de los equipos de computo del cliente';
+
+--
+-- Volcado de datos para la tabla `equipos_computo`
+--
+
+INSERT INTO `equipos_computo` (`id_cliente`, `nombre_equipo`, `sistema_operativo`, `arquitectura`, `maquina_virtual`, `memoria_ram`, `sql_server`, `sql_management`, `instancia_sql`, `password_sql`) VALUES
+(42, 'Kokin-pc', 'Windows 7 Ultimate', 'x64', 'Si', '4', 'SQL Server 2008 R2', '2008 R2', '4534534534', '56456456');
 
 -- --------------------------------------------------------
 
@@ -169,7 +194,14 @@ CREATE TABLE IF NOT EXISTS `sistemas` (
   `version` varchar(10) CHARACTER SET latin1 NOT NULL,
   `no_serie` varchar(30) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
+
+--
+-- Volcado de datos para la tabla `sistemas`
+--
+
+INSERT INTO `sistemas` (`id_cliente`, `sistema`, `version`, `no_serie`) VALUES
+(42, 'CONTABILIDAD', '7.2.0', '3546354365');
 
 --
 -- Restricciones para tablas volcadas

@@ -1,4 +1,3 @@
-
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
 			<div class="page-content">
@@ -115,64 +114,44 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row profile">
 					<div class="col-md-12">
+						<!-- Errores de imagen -->
 						<?php echo $upload_error ?>
 						<?php echo validation_errors() ?>
 						<!--BEGIN TABS-->
 						<div class="tabbable tabbable-custom tabbable-full-width">
 							<ul class="nav nav-tabs">
 								<li class="active">
-									<a href="#tab_1_1" data-toggle="tab">
+									<a href="#vista_rapida" data-toggle="tab">
 									Vista Rapida </a>
 								</li>
 								<li>
-									<a href="#tab_1_3" data-toggle="tab">
+									<a href="#editar" data-toggle="tab">
 									Editar </a>
 								</li>
 								<li>
-									<a href="#tab_1_4" data-toggle="tab">
+									<a href="#proyectos" data-toggle="tab">
 									Proyectos </a>
 								</li>
 								<li>
-									<a href="#tab_1_6" data-toggle="tab">
+									<a href="#acerca_de" data-toggle="tab">
 									Acerca de </a>
 								</li>
 							</ul>
 							<div class="tab-content">
-								<!-- vista_rapida -->
-								<div class="tab-pane active" id="tab_1_1">
+								<!-- Vista Rapida -->
+								<div class="tab-pane active" id="vista_rapida">
 									<div class="row">
 										<div class="col-md-3">
 											<ul class="list-unstyled profile-nav">
 												<li>
-													<img src="<?php echo site_url('assets/admin/pages/media/profile/'.$usuario_activo["usuario"].'/'.$usuario_activo["imagenes"][2]) ?>" class="img-responsive" alt=""/>
+													<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" class="img-responsive" alt=""/>
 													<a href="#" class="profile-edit">
 													Cambiar imagen </a>
 												</li>
-												<li>
-													<a href="#">
-													Proyectos </a>
-												</li>
-												<li>
-													<a href="#">
-													Mensajes<span>
-													3 </span>
-													</a>
-												</li>
-												<li>
-													<a href="#">
-													Amigos </a>
-												</li>
-												<li>
-													<a href="#">
-													Configuraciones </a>
-												</li>
 											</ul>
-										</div>
-										<div class="col-md-9">
 											<div class="row">
-												<div class="col-md-8 profile-info">
-													<h1><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['segundo_nombre'].' '.$usuario_activo['apellido_paterno'].' '.$usuario_activo['apellido_materno'] ?></h1>
-													<label>Eslogan : </label>
+												<div class="col-md-12 profile-info">
+													<h1><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></h1>
 													<p>
 														 <?php echo $usuario_activo['mensaje_personal'] ?>
 													</p>
@@ -219,53 +198,12 @@
 														</li>
 													</ul>
 												</div>
-												<!--end col-md-8-->
-												<div class="col-md-4">
-													<div class="portlet sale-summary">
-														<div class="portlet-title">
-															<div class="caption">
-																 Sales Summary
-															</div>
-															<div class="tools">
-																<a class="reload" href="javascript:;">
-																</a>
-															</div>
-														</div>
-														<div class="portlet-body">
-															<ul class="list-unstyled">
-																<li>
-																	<span class="sale-info">
-																	TODAY SOLD <i class="fa fa-img-up"></i>
-																	</span>
-																	<span class="sale-num">
-																	23 </span>
-																</li>
-																<li>
-																	<span class="sale-info">
-																	WEEKLY SALES <i class="fa fa-img-down"></i>
-																	</span>
-																	<span class="sale-num">
-																	87 </span>
-																</li>
-																<li>
-																	<span class="sale-info">
-																	TOTAL SOLD </span>
-																	<span class="sale-num">
-																	2377 </span>
-																</li>
-																<li>
-																	<span class="sale-info">
-																	EARNS </span>
-																	<span class="sale-num">
-																	$37.990 </span>
-																</li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<!--end col-md-4-->
 											</div>
+										</div>
+										<div class="col-md-9">
 											<!--end row-->
+											<h1><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['segundo_nombre'].' '.$usuario_activo['apellido_paterno'].' '.$usuario_activo['apellido_materno'] ?></h1>
+											<hr>
 											<div class="tabbable tabbable-custom tabbable-custom-profile">
 												<ul class="nav nav-tabs">
 													<li class="active">
@@ -818,8 +756,8 @@
 										</div>
 									</div>
 								</div>
-								<!--tab_1_2-->
-								<div class="tab-pane" id="tab_1_3">
+								<!-- Editar -->
+								<div class="tab-pane" id="editar">
 									<div class="row profile-account">
 										<div class="col-md-3">
 											<ul class="ver-inline-menu tabbable margin-bottom-10">
@@ -1074,8 +1012,8 @@
 										<!--end col-md-9-->
 									</div>
 								</div>
-								<!--end tab-pane-->
-								<div class="tab-pane" id="tab_1_4">
+								<!--Proyectos-->
+								<div class="tab-pane" id="proyectos">
 									<div class="row">
 										<div class="col-md-12">
 											<div class="add-portfolio">
@@ -1189,8 +1127,8 @@
 									</div>
 									<!--end row-->
 								</div>
-								<!--end tab-pane-->
-								<div class="tab-pane" id="tab_1_6">
+								<!--Acerda de-->
+								<div class="tab-pane" id="acerca_de">
 									<div class="row">
 										<div class="col-md-3">
 											<ul class="ver-inline-menu tabbable margin-bottom-10">
@@ -1526,7 +1464,6 @@
 										</div>
 									</div>
 								</div>
-								<!--end tab-pane-->
 							</div>
 						</div>
 						<!--END TABS-->
