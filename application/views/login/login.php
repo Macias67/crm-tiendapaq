@@ -60,9 +60,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <body class="login">
 
 	<!-- BEGIN LOGO -->
-	<div class="logo">
-		<a href="index.html">
-			<img src="<?php echo $assets_admin_layout ?>img/logo-big.png" alt=""/>
+	<div class="logo" style="margin-top: 20px">
+		<a href="<?php echo site_url() ?>">
+			<img src="<?php echo $assets_admin_layout ?>img/logo-big.gif" alt=""/>
 		</a>
 	</div>
 	<!-- END LOGO -->
@@ -99,7 +99,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Contraseña" name="password"/>
 				</div>
 			</div>
-			<div class="form-actions">
+			<div class="form-actions" style="padding: 0px 30px 0px 30px;">
 				<label class="checkbox">
 					<input type="checkbox" name="remember" value="1"/> Recordarme
 				</label>
@@ -122,7 +122,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					</li>
 				</ul>
 			</div>
-			<div class="forget-password">
+			<div class="forget-password"  style="margin-top: 0px">
 				<h4>¿Olvidaste la contraseña?</h4>
 				<p>No hay problema, haz cick <a href="javascript:;" id="forget-password">aquí </a>para recuperar tu contraseña.</p>
 			</div>

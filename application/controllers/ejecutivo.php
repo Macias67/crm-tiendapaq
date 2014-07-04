@@ -297,8 +297,8 @@ class Ejecutivo extends AbstractAccess {
 			//reglas para la creacion de la imagen miniatura
 			$config_miniatura['image_library'] = 'gd2';
 			$config_miniatura['source_image']  = $ruta_completa.'block.jpg';
-			$config_miniatura['width'] 				 = 30;
-			$config_miniatura['height'] 			 = 30;
+			$config_miniatura['width'] 				 = 29;
+			$config_miniatura['height'] 			 = 29;
 			$config_miniatura['new_image']    		 = $ruta_completa.'mini.jpg';
 			//reglas para la creacion de la imagen de chat
 			$config_chat['image_library'] = 'gd2';
@@ -324,7 +324,7 @@ class Ejecutivo extends AbstractAccess {
 				echo $this->image_lib->display_errors();
 			}else
 			{
-				redirect ('ejecutivo/perfil');
+				redirect('/ejecutivo/perfil', 'refresh');
 			}
 		}
 

@@ -121,8 +121,8 @@
 						<div class="tabbable tabbable-custom tabbable-full-width">
 							<ul class="nav nav-tabs">
 								<li class="active">
-									<a href="#vista_rapida" data-toggle="tab">
-									Vista Rapida </a>
+									<a href="#principal" data-toggle="tab">
+									Principal </a>
 								</li>
 								<li>
 									<a href="#editar" data-toggle="tab">
@@ -139,13 +139,13 @@
 							</ul>
 							<div class="tab-content">
 								<!-- Vista Rapida -->
-								<div class="tab-pane active" id="vista_rapida">
+								<div class="tab-pane active" id="principal">
 									<div class="row">
 										<div class="col-md-3">
 											<ul class="list-unstyled profile-nav">
 												<li>
 													<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" class="img-responsive" alt=""/>
-													<a href="#" class="profile-edit">
+													<a href="<?php echo site_url('ejecutivo/perfil#cambiar_imagen') ?>" class="profile-edit">
 													Cambiar imagen </a>
 												</li>
 											</ul>
@@ -203,6 +203,11 @@
 										<div class="col-md-9">
 											<!--end row-->
 											<h1><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['segundo_nombre'].' '.$usuario_activo['apellido_paterno'].' '.$usuario_activo['apellido_materno'] ?></h1>
+											<div class="portlet-body">
+												<ul class="list-unstyled">
+													<li><i class="fa fa-briefcase"></i><strong> <?php echo $usuario_activo['departamento'] ?></strong></li>
+												</ul>
+											</div>
 											<hr>
 											<div class="tabbable tabbable-custom tabbable-custom-profile">
 												<ul class="nav nav-tabs">
@@ -762,21 +767,21 @@
 										<div class="col-md-3">
 											<ul class="ver-inline-menu tabbable margin-bottom-10">
 												<li class="active">
-													<a data-toggle="tab" href="#tab_1-1">
+													<a data-toggle="tab" href="#informacion_general">
 													<i class="fa fa-cog"></i> Información General </a>
 													<span class="after">
 													</span>
 												</li>
 												<li>
-													<a data-toggle="tab" href="#tab_2-2">
+													<a data-toggle="tab" href="#cambiar_imagen">
 													<i class="fa fa-picture-o"></i> Cambiar Imagen </a>
 												</li>
 												<li>
-													<a data-toggle="tab" href="#tab_3-3">
+													<a data-toggle="tab" href="#usuario_password">
 													<i class="fa fa-lock"></i> Usuario y Contraseña </a>
 												</li>
 												<li>
-													<a data-toggle="tab" href="#tab_4-4">
+													<a data-toggle="tab" href="#otros">
 													<i class="fa fa-eye"></i> Otras Opciones </a>
 												</li>
 											</ul>
@@ -784,7 +789,8 @@
 										<!-- Formulario editar informacion basica -->
 										<div class="col-md-9">
 											<div class="tab-content">
-												<div id="tab_1-1" class="tab-pane active">
+												<!-- Informacion General -->
+												<div id="informacion_general" class="tab-pane active">
 													<form action="<?php echo site_url('ejecutivo/edit/info') ?>" id="form-ejecutivo-info">
 														<!-- DIV ERROR -->
 														<div class="alert alert-danger display-hide">
@@ -886,7 +892,8 @@
 														</div>
 													</form>
 												</div>
-												<div id="tab_2-2" class="tab-pane">
+												<!-- Cambiar Imagen -->
+												<div id="cambiar_imagen" class="tab-pane">
 													<p>
 														 Selecciona una foto de perfil (resolucion maxima 1600 x 1600 px.)
 													</p>
@@ -936,7 +943,8 @@
 														</div>
 													</form>
 												</div>
-												<div id="tab_3-3" class="tab-pane">
+												<!-- Usuario y contraseña -->
+												<div id="usuario_password" class="tab-pane">
 													<form action="#">
 														<div class="form-group">
 															<label class="control-label">Usuario</label>
@@ -954,7 +962,8 @@
 														</div>
 													</form>
 												</div>
-												<div id="tab_4-4" class="tab-pane">
+												<!-- Otras opciones -->
+												<div id="otros" class="tab-pane">
 													<form action="#">
 														<table class="table table-bordered table-striped">
 														<tr>
