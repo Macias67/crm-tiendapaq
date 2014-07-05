@@ -55,7 +55,7 @@
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
 			ComponentsFormToolsEjecutivo.init();//init de las mascaras de ejecutivo
-			FormValidationEjecutivo.init();
+			FormValidationEjecutivo.init(); //validacion para editar imagen en perfil
 			FormImageCropEjecutivo.init();//para recortar imagenes
 		});
 	</script>

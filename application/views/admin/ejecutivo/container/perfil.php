@@ -145,8 +145,6 @@
 											<ul class="list-unstyled profile-nav">
 												<li>
 													<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" class="img-responsive" alt=""/>
-													<a href="<?php echo site_url('ejecutivo/perfil#cambiar_imagen') ?>" class="profile-edit">
-													Cambiar imagen </a>
 												</li>
 											</ul>
 											<div class="row">
@@ -894,25 +892,14 @@
 												</div>
 												<!-- Cambiar Imagen -->
 												<div id="cambiar_imagen" class="tab-pane">
-													<p>
-														 Selecciona una foto de perfil (resolucion maxima 1600 x 1600 px.)
-													</p>
-													<form action="<?php echo site_url('ejecutivo/edit/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-														<!-- DIV ERROR -->
-														<div class="alert alert-danger display-hide">
-															<button class="close" data-close="alert"></button>
-															Tienes algun error
-														</div>
-														<div class="alert alert-success display-hide">
-															<button class="close" data-close="alert"></button>
-															Exito en el formulario
-														</div>
+													<div class="col-md-5">
+														<form action="<?php echo site_url('ejecutivo/edit/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 														<div class="form-group">
 															<div class="fileinput fileinput-new" data-provides="fileinput">
-																<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-																	<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+																<div class="fileinput-new thumbnail" style="width: 300px; height: 300px;">
+																	<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'block.jpg') ?>" alt=""/>
 																</div>
-																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 400px; max-height: 400px;">
+																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 300px;">
 																</div>
 																<div>
 																	<span class="btn default btn-file">
@@ -923,42 +910,76 @@
 																	<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Borrar </a>
 																</div>
 															</div>
-															<div class="clearfix margin-top-10">
-																<span class="label label-danger">
-																NOTA! </span>
-																<span>
-																La imagen debe estar en formato .jpg 'o .png con un tamaño no mayor a 2 MB' </span>
+														</div>
+													</div>
+													<div class="col-md-7">
+														<h3>Selecciona una foto de perfil</h3>
+														<br>
+														<ul>
+															<li> Resolución mínima 300 x 300 px.</li>
+															<li> Resolución máxima 1600 x 1600 px.</li>
+															<li> Tamaño mínimo a 10 KB </li>
+															<li> Tamaño máximo a 2 MB </li>
+															<li> Formato .jpg ó .png </li>
+														</ul>
+														<br>
+														<hr>
+														<div class="col-md-offset-1 col-md-12">
+															<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+															<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
+														</div>
+													</div>
+													</form>
+												</div>
+												<!-- Usuario y contraseña -->
+												<div id="usuario_password" class="tab-pane">
+													<form action="<?php echo site_url('ejecutivo/edit/password') ?>" id="form-ejecutivo-password">
+														<!-- DIV ERROR -->
+														<div class="alert alert-danger display-hide">
+															<button class="close" data-close="alert"></button>
+															Tienes Errores en tu formulario
+														</div>
+														<div class="alert alert-success display-hide">
+															<button class="close" data-close="alert"></button>
+															Exito en el formulario
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="control-label">Usuario actual </label>
+																<label class="form-control"  style="margin-top: 0px; border: #FFFFFF;"><strong><?php echo $usuario_activo['usuario'] ?></strong> </label>
+																<input type="hidden" name="usuario_actual" value="<?php echo $usuario_activo['usuario'] ?>" class="form-control"/>
+															</div>
+															<hr>
+															<div class="form-group">
+																<label class="control-label">Nuevo usuario </label>
+																<input type="text" name="usuario_nuevo" placeholder="Nuevo usuario" class="form-control"/>
 															</div>
 														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label class="control-label">Contraseña actual</label>
+																<input type="password" name="password_actual" class="form-control"/>
+															</div>
+															<hr>
+															<div class="form-group">
+																<label class="control-label">Nueva contraseña</label>
+																<input type="password" name="password_nuevo_1" class="form-control"/>
+															</div>
+															<div class="form-group">
+																<label class="control-label">Confirmar nueva contraseña</label>
+																<input type="password" name="password_nuevo_2" class="form-control"/>
+															</div>
+														</div>
+														<hr>
 														<div class="form-actions fluid">
 															<div class="row">
 																<div class="col-md-12">
-																<hr>
-																	<div class="col-md-offset-5 col-md-10">
+																	<div class="col-md-offset-2 col-md-10">
 																		<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
 																		<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
 																	</div>
 																</div>
 															</div>
-														</div>
-													</form>
-												</div>
-												<!-- Usuario y contraseña -->
-												<div id="usuario_password" class="tab-pane">
-													<form action="#">
-														<div class="form-group">
-															<label class="control-label">Usuario</label>
-															<input type="text" value="<?php echo $usuario_activo['usuario'] ?>" class="form-control"/>
-														</div>
-														<div class="form-group">
-															<label class="control-label">Contraseña</label>
-															<input type="password" value="<?php echo $usuario_activo['password'] ?>" class="form-control"/>
-														</div>
-														<div class="margin-top-10">
-															<a href="#" class="btn green">
-															Guardar </a>
-															<a href="#" class="btn default">
-															Cancelar </a>
 														</div>
 													</form>
 												</div>
