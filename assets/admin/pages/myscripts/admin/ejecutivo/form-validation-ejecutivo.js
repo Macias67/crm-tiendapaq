@@ -383,7 +383,7 @@ var FormValidationEjecutivo = function () {
                         console.log(data);
                         if (data.exito) {
                             alert("Actualizado con éxito.");
-                            //parent.location.reload();
+                            parent.location.reload();
                         } else {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);

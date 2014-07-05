@@ -269,12 +269,33 @@ class Ejecutivo extends AbstractAccess {
 								$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 							} else
 							{
-								$respuesta = array('exito' => TRUE);
+								// Array con la informacion
+								$data = array(
+									'password'	=> $this->input->post('password_nuevo_1'),
+									'usuario'	  => $this->input->post('usuario_nuevo')
+								);
+
+								$usuario_password = $this->ejecutivoModel->arrayToObjectPassword($data);
+								$usuario = $this->data['usuario_activo']['usuario'];
+								//actualizo en la bd y guardo la respuesta
+								$exito_editado = $this->ejecutivoModel->update($usuario_password,array('usuario' => $usuario));
+								//actualizo la variable usuario_activo con los nuevos datos
+								$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('usuario' => $data['usuario']));
+								$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
+								//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+								$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$usuario.'/';
+								$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
+								//armo la respuesta
+								$respuesta = array('exito' => $exito_editado);
 							}
 
 					$this->output
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
+
+					 if($respuesta['exito']){
+					 		redirect('logout');
+					 }
 			break;
 
 			default:
