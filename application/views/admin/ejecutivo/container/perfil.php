@@ -145,8 +145,7 @@
 											<ul class="list-unstyled profile-nav">
 												<li>
 													<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" class="img-responsive" alt=""/>
-													<a href="<?php echo site_url('ejecutivo/perfil#cambiar_imagen') ?>" class="profile-edit">
-													Cambiar imagen </a>
+													<a href="<?php echo site_url('ejecutivo/perfil#cambiar_imagen') ?>" class="profile-edit">Cambiar imagen </a>
 												</li>
 											</ul>
 											<div class="row">
