@@ -302,8 +302,7 @@ var FormValidationEjecutivo = function () {
             ignore: "",  // validate all fields including form hidden input
             rules: {
                 usuario_nuevo: {
-                    maxlength: 20,
-                    required: true
+                    maxlength: 20
                 },
                 password_actual: {
                     maxlength: 20,
@@ -320,8 +319,7 @@ var FormValidationEjecutivo = function () {
             },
             messages: {
                 usuario_nuevo: {
-                    maxlength: "El nuevo usuario debe tener menos de 20 caracteres",
-                    required: "Escribe el nuevo usuario"
+                    maxlength: "El nuevo usuario debe tener menos de 20 caracteres"
                 },
                 password_actual: {
                     maxlength: "La contraseña actual debe tener menos de 20 caracteres",

@@ -239,7 +239,7 @@ abstract class AbstractAccess extends AbstractController {
 					// Parseo objeto a array
 					$dataUser = (array) $ejecutivo;
 					//le añado la ruta de las imagenes a usuario activo
-					$dataUser['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$usuario.'/';
+					$dataUser['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$dataUser['id'].'/';
 					// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
 					$this->session->set_userdata('usuario_activo', $dataUser);
 					$respuesta	= TRUE;

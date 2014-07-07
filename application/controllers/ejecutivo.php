@@ -30,17 +30,7 @@ class Ejecutivo extends AbstractAccess {
 	public function index()
 	{
 		$this->_vista('perfil');
-	}
-
-	/**
-	 * Funcion para mostrar el perfil del usuario
-	 *
-	 * @author Diego Rodriguez
-	 **/
-	public function perfil()
-	{
-		$this->_vista('perfil');
-		//var_dump($this->data);
+		var_dump($this->data);
 	}
 
 	/**
@@ -162,30 +152,28 @@ class Ejecutivo extends AbstractAccess {
 							'mensaje_personal' => $this->input->post('mensaje_personal')
 						);
 						//el parametro TRUE indica al metodo del modelo ejecutivoModel que se trata de una actualizacion no de un nuevo registro
-						//Extraigo el usuario para saber donde actualizar los datos en la bd
+						//Extraigo el id para saber donde actualizar los datos en la bd
 						$ejecutivo_editado = $this->ejecutivoModel->arrayToObject($data, TRUE);
-						$usuario = $this->data['usuario_activo']['usuario'];
+						$id = $this->data['usuario_activo']['id'];
 						//actualizo en la bd y guardo la respuesta
-						$exito_editado = $this->ejecutivoModel->update($ejecutivo_editado,array('usuario' => $usuario));
+						$exito_editado = $this->ejecutivoModel->update($ejecutivo_editado,array('id' => $id));
 						//actualizo la variable usuario_activo con los nuevos datos
-						$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('usuario' => $usuario));
+						$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
 						$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
 						//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
-						$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$usuario.'/';
+						$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$id.'/';
 						$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
 						//armo la respuesta
 						$respuesta = array(
 								'exito' => $exito_editado,
 								'ejecutivo' => $ejecutivo_editado,
-								'usuario' => $usuario);
+								'id' => $id);
 				}
 				// Muestro la salida
 				$this->output
 						 ->set_content_type('application/json')
 						 ->set_output(json_encode($respuesta));
 			break;
-
-			///////////////////////IMAGENES////////////////////////
 
 			case 'img':
 				// Reglas de validacion
@@ -204,9 +192,9 @@ class Ejecutivo extends AbstractAccess {
 				else
 				{
 					// Armo las rutas y nombres de la imagen segun usuario activo
-					$usuario_activo	= $this->usuario_activo['usuario'];
+					$id_activo	= $this->usuario_activo['id'];
 					$ruta						= 'assets/admin/pages/media/profile/';
-					$ruta_completa	= $ruta.$usuario_activo.'/';
+					$ruta_completa	= $ruta.$id_activo.'/';
 					//Si no existe directorio lo creo
 					if (!is_dir($ruta_completa))
 					{
@@ -257,8 +245,8 @@ class Ejecutivo extends AbstractAccess {
 
 			case 'password':
 						//reglas para cambiar usuario y password
-						$this->form_validation->set_rules('usuario_actual',   'Usuario Actual',   		           'trim|required|max_length[20]|xss_clean');
-						$this->form_validation->set_rules('usuario_nuevo',    'Usuario Nuevo',    						   'trim|required|max_length[20]|xss_clean|callback_usuario_check');
+						$this->form_validation->set_rules('usuario_actual',   'Usuario Actual',   		           'trim|max_length[20]|xss_clean');
+						$this->form_validation->set_rules('usuario_nuevo',    'Usuario Nuevo',    						   'trim|max_length[20]|xss_clean');
 						$this->form_validation->set_rules('password_actual',  'Contraseña Actual', 					     'trim|required|max_length[20]|xss_clean|callback_password_check');
 						$this->form_validation->set_rules('password_nuevo_1', 'Contraseña Nueva', 					 		 'trim|required|max_length[20]|xss_clean|callback_confirmacion_check');
 						$this->form_validation->set_rules('password_nuevo_2', 'Confirmacion de Contraseña Nueva','trim|required|max_length[20]|xss_clean');
@@ -271,31 +259,43 @@ class Ejecutivo extends AbstractAccess {
 							{
 								// Array con la informacion
 								$data = array(
-									'password'	=> $this->input->post('password_nuevo_1'),
-									'usuario'	  => $this->input->post('usuario_nuevo')
+									'password'			 => $this->input->post('password_nuevo_1'),
+									'usuario'	  		 => $this->input->post('usuario_nuevo')
 								);
 
-								$usuario_password = $this->ejecutivoModel->arrayToObjectPassword($data);
-								$usuario = $this->data['usuario_activo']['usuario'];
-								//actualizo en la bd y guardo la respuesta
-								$exito_editado = $this->ejecutivoModel->update($usuario_password,array('usuario' => $usuario));
+								//se extrae el id del usuario para saber a quien se actualizara en la bd
+								$id = $this->data['usuario_activo']['id'];
+								$usuario_actual = $this->input->post('usuario_actual');
+
+								//filtros para saber que hacer en caso de que no cambien de usuario y solo de contraseña
+								//si no escribieron nuevo usuario o el usuario es el mismo, solo cambio la contraseña
+								if($data['usuario'] == "" || ($data['usuario']==$usuario_actual))
+								{
+									$exito_editado = $this->ejecutivoModel->update(array('password' => $data['password']), array('id' => $id));
+									$respuesta = array('exito' => TRUE);
+								}else
+								{
+									//si cambiaron usuario y contraseña verifico que el usuario no este repetido en la db
+									if(!$this->usuario_check($data['usuario'])){
+											$respuesta = array('exito' => FALSE, 'msg' => 'El nuevo usuario ya esta en uso, intenta con otro');
+									}else
+									{
+											//si el usuario no esta repetido inserto todo en la bd
+											$exito_editado = $this->ejecutivoModel->update($data, array('id' => $id));
+											$respuesta = array('exito' => TRUE);
+									}
+								}
 								//actualizo la variable usuario_activo con los nuevos datos
-								$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('usuario' => $data['usuario']));
+								$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
 								$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
 								//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
-								$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$usuario.'/';
+								$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$id.'/';
 								$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
-								//armo la respuesta
-								$respuesta = array('exito' => $exito_editado);
 							}
 
 					$this->output
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
-
-					 if($respuesta['exito']){
-					 		redirect('logout');
-					 }
 			break;
 
 			default:
@@ -323,9 +323,9 @@ class Ejecutivo extends AbstractAccess {
 			$alto  = $this->input->post('h');
 
 			//armo la ruta completa donde se guardaran las imagenes
-			$usuario_activo	= $this->usuario_activo['usuario'];
+			$id_activo	= $this->usuario_activo['id'];
 			$ruta						= 'assets/admin/pages/media/profile/';
-			$ruta_completa	= $ruta.$usuario_activo.'/';
+			$ruta_completa	= $ruta.$id_activo.'/';
 
 			//reglas para crear la imagen de bloqueo de sesion
 			$config_block['image_library'] = 'gd2';
