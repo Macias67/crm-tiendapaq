@@ -12,6 +12,7 @@ class Ejecutivo extends AbstractAccess {
 		parent::__construct();
 		//cargo la libreria de las validaciones
 		$this->load->library('form_validation');
+		$this->load->library('image_lib');
 		//cargo los modelos a usar
 		$this->load->model('privilegiosModel');
 		$this->load->model('ejecutivoModel');
@@ -30,7 +31,7 @@ class Ejecutivo extends AbstractAccess {
 	public function index()
 	{
 		$this->_vista('perfil');
-		var_dump($this->data);
+		//var_dump($this->data);
 	}
 
 	/**
@@ -101,6 +102,62 @@ class Ejecutivo extends AbstractAccess {
 				$respuesta = array(
 						'exito' => $exito_ejecutivo,
 						'ejecutivo' => $ejecutivo_nuevo);
+			}
+			//si la insercion fue correcta creamos una imagen por defecto para el nuevo usuario
+			if($respuesta['exito'])
+			{
+				//armo la ruta completa donde se guardaran las imagenes y la creo
+				$id_nuevo	= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
+				$ruta						= 'assets/admin/pages/media/profile/';
+				$ruta_completa	= $ruta.$id_nuevo->id.'/';
+				mkdir($ruta_completa, 0777, TRUE);
+
+				//reglas para crear la imagen de bloqueo de perfil
+				$config_perfil['image_library'] = 'gd2';
+				$config_perfil['source_image']  = $ruta.'default.jpg';
+				$config_perfil['x_axis']        = 0;
+				$config_perfil['y_axis']        = 0;
+				$config_perfil['new_image']     = $ruta_completa.'perfil.jpg';
+
+				//reglas para crear la imagen de bloqueo de sesion
+				$config_block['image_library'] = 'gd2';
+				$config_block['source_image']  = $ruta_completa.'perfil.jpg';
+				$config_block['maintain_ratio']= FALSE;
+				$config_block['width'] 				 = 366;
+				$config_block['height'] 			 = 281;
+				$config_block['x_axis']        = 0;
+				$config_block['y_axis']        = 0;
+				$config_block['maintain_ratio']= FALSE;
+				$config_block['new_image']     = $ruta_completa.'block.jpg';
+
+				//reglas para la creacion de la imagen miniatura
+				$config_miniatura['image_library'] = 'gd2';
+				$config_miniatura['source_image']  = $ruta_completa.'block.jpg';
+				$config_miniatura['width'] 				 = 29;
+				$config_miniatura['height'] 			 = 29;
+				$config_miniatura['new_image']     = $ruta_completa.'mini.jpg';
+
+				//reglas para la creacion de la imagen de chat
+				$config_chat['image_library'] = 'gd2';
+				$config_chat['source_image']  = $ruta_completa.'block.jpg';
+				$config_chat['width'] 			  = 45;
+				$config_chat['height'] 			  = 45;
+				$config_chat['new_image']     = $ruta_completa.'chat.jpg';
+
+				//inicio las reglas de imagen de perfil
+				$this->image_lib->initialize($config_perfil);
+				//corto la imagen de perfil y creo las demas
+				$this->image_lib->crop();
+				//limpio las reglas para leer nuevas
+				$this->image_lib->clear();
+				//creo las demas imagenes banado en las reglas definidas arriba
+				$this->image_lib->initialize($config_block);
+				$this->image_lib->crop();
+				$this->image_lib->initialize($config_miniatura);
+				$exito_mini = $this->image_lib->resize();
+				$this->image_lib->clear();
+				$this->image_lib->initialize($config_chat);
+				$this->image_lib->resize();
 			}
 		// Muestro la salida
 		$this->output
@@ -345,9 +402,9 @@ class Ejecutivo extends AbstractAccess {
 			//reglas para la creacion de la imagen de chat
 			$config_chat['image_library'] = 'gd2';
 			$config_chat['source_image']  = $ruta_completa.'block.jpg';
-			$config_chat['width'] 				 = 45;
-			$config_chat['height'] 			 = 45;
-			$config_chat['new_image']    		 = $ruta_completa.'chat.jpg';
+			$config_chat['width'] 				= 45;
+			$config_chat['height'] 			  = 45;
+			$config_chat['new_image']    	= $ruta_completa.'chat.jpg';
 
 			//inicio las reglas de imagen de block
 			$this->image_lib->initialize($config_block);
