@@ -95,7 +95,7 @@ class MY_Form_validation extends CI_Form_validation {
 		case UPLOAD_ERR_PARTIAL:
 			return 'The uploaded file was only partially uploaded';
 		case UPLOAD_ERR_NO_FILE:
-			return 'Ningún archivo fue subido';
+			return 'No cambio el archivo';
 		case UPLOAD_ERR_NO_TMP_DIR:
 			return 'Missing a temporary folder';
 		case UPLOAD_ERR_CANT_WRITE:

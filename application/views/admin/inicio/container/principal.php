@@ -125,7 +125,7 @@
 								</a>
 								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
 									<i class="fa fa-ticket"></i>
-									<div>Abrir Ticket</div>
+									<div>Abrir Pendiente</div>
 								</a>
 								<a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>

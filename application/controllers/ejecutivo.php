@@ -170,6 +170,8 @@ class Ejecutivo extends AbstractAccess {
 						//actualizo la variable usuario_activo con los nuevos datos
 						$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('usuario' => $usuario));
 						$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
+						//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+						$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$usuario.'/';
 						$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
 						//armo la respuesta
 						$respuesta = array(
@@ -188,7 +190,7 @@ class Ejecutivo extends AbstractAccess {
 			case 'img':
 				// Reglas de validacion
 				$this->form_validation->set_rules('userfile', 'El archivo',
-					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[imagen]|file_image_mindim[200,200]|file_image_maxdim[1600,1600]');
+					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1601,1601]');
 				// Validacion
 				if ($this->form_validation->run() === FALSE)
 				{
@@ -252,8 +254,27 @@ class Ejecutivo extends AbstractAccess {
 					}
 			}
 			break;
+
 			case 'password':
-				echo "hola kokin ;) aditando contraseña";
+						//reglas para cambiar usuario y password
+						$this->form_validation->set_rules('usuario_actual',   'Usuario Actual',   		           'trim|required|max_length[20]|xss_clean');
+						$this->form_validation->set_rules('usuario_nuevo',    'Usuario Nuevo',    						   'trim|required|max_length[20]|xss_clean|callback_usuario_check');
+						$this->form_validation->set_rules('password_actual',  'Contraseña Actual', 					     'trim|required|max_length[20]|xss_clean|callback_password_check');
+						$this->form_validation->set_rules('password_nuevo_1', 'Contraseña Nueva', 					 		 'trim|required|max_length[20]|xss_clean|callback_confirmacion_check');
+						$this->form_validation->set_rules('password_nuevo_2', 'Confirmacion de Contraseña Nueva','trim|required|max_length[20]|xss_clean');
+
+							if ($this->form_validation->run() === FALSE)
+							{
+								// SI es FALSO, guardo la respuesta
+								$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+							} else
+							{
+								$respuesta = array('exito' => TRUE);
+							}
+
+					$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
 			break;
 
 			default:
@@ -324,9 +345,10 @@ class Ejecutivo extends AbstractAccess {
 				echo $this->image_lib->display_errors();
 			}else
 			{
-				redirect('/ejecutivo/perfil', 'refresh');
+				redirect('/ejecutivo',  'refresh');
 			}
 		}
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -335,7 +357,7 @@ class Ejecutivo extends AbstractAccess {
 	*/
 
 	/**
-	 * Callback para revisar que no se repitan registros
+	 * Callback para revisar que no se repitan usuarios
 	 * @param  string $nombre Nombre a revisar
 	 * @return boolean
 	 * @author Diego Rodriguez | Luis Macias
@@ -351,11 +373,54 @@ class Ejecutivo extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * Callback para revisar que no se repitan los emails
+	 * @param  string $email correo a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez | Luis Macias
+	 */
 	public function email_check($email)
 	{
 		// SI el frc y la razon social se repiten
 		if ($this->ejecutivoModel->exist(array('email' => $email))) {
 			$this->form_validation->set_message('email_check', 'El email ya está registrado.');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+
+	/**
+	 * revisa que la contraseña actual sea correcta para poder cambiar de contraseña y usuario
+	 * en el apartado de editar usuario y contraseña del perfil de usuario
+	 * @param  string $password contraseña a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez
+	 **/
+	public function password_check($password)
+	{
+		$usuario = $this->input->post('usuario_actual');
+		if (!$this->ejecutivoModel->exist(array('usuario' => $usuario,'password' => $password))) 
+		{
+			$this->form_validation->set_message('password_check', 'Tu contraseña actual es incorrecta');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+
+	/**
+	 * revisa que la contraseña nueva y su confirmacion sean iguales
+	 * @param  string $password1 password a revisar el otro se obtiene por post
+	 * @return boolean
+	 * @author Diego Rodriguez
+	 **/
+	public function confirmacion_check($password1)
+	{
+		$password2 = $this->input->post('password_nuevo_2');
+		if ($password1 != $password2) 
+		{
+			$this->form_validation->set_message('confirmacion_check', 'La contraseña nueva no coincide!');
 			return FALSE;
 		} else {
 			return TRUE;
