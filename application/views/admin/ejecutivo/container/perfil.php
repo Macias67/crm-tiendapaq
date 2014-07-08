@@ -180,13 +180,13 @@
 													</p>
 													<ul class="list-inline">
 														<li>
-															<i class="fa fa-map-marker"></i> Spain
+															<i class="fa fa-map-marker"></i> México
 														</li>
 														<li>
-															<i class="fa fa-calendar"></i> 18 Jan 1982
+															<i class="fa fa-calendar"></i> Junio 1992
 														</li>
 														<li>
-															<i class="fa fa-briefcase"></i> Design
+															<i class="fa fa-briefcase"></i> Desarrollo
 														</li>
 														<li>
 															<i class="fa fa-star"></i> Top Seller
