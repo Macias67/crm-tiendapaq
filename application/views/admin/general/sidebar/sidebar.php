@@ -43,6 +43,7 @@
 						<span class="title"> Inicio</span>
 						</a>
 					</li>
+					<!-- Clientes -->
 					<li>
 						<a href="#">
 						<i class="fa fa-users"></i>
@@ -58,6 +59,7 @@
 							</li>
 						</ul>
 					</li>
+					<!-- Ejecutivos -->
 					<li>
 						<a href="javascript:;">
 						<i class="fa fa-user"></i>
@@ -81,6 +83,14 @@
 							<span class="title">Calendario</span>
 						</a>
 					</li>
+					<!-- Importar Catalagos -->
+					<li>
+						<a href="<?php echo site_url('catalogo') ?>">
+							<i class="fa fa-upload"></i>
+							<span class="title"> Importar Catálogos</span>
+						</a>
+					</li>
+					<!-- Cerrar Sesion -->
 					<li>
 						<a href="<?php echo site_url('logout') ?>">
 						<i class="icon-settings"></i>
