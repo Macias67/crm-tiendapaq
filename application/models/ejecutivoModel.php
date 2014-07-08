@@ -49,13 +49,14 @@ class EjecutivoModel extends MY_Model {
 		$this->ejecutivo->telefono			    = $data['telefono'];
 		$this->ejecutivo->oficina		        = $data['oficina'];
 		$this->ejecutivo->departamento		  = $data['departamento'];
+		$this->ejecutivo->mensaje_personal	= "Bienenido a CRM Tiendapaq";
 
-		if($editado=FALSE){
+		if($editado==FALSE){
 			$this->ejecutivo->privilegios		= $data['privilegios'];
 			$this->ejecutivo->usuario		    = $data['usuario'];
 			$this->ejecutivo->password		  = $data['password'];
 		}
-		if($editado=TRUE){
+		if($editado==TRUE){
 			$this->ejecutivo->mensaje_personal	= $data['mensaje_personal'];
 		}
 

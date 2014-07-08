@@ -144,16 +144,16 @@
 					<div class="col-md-12">
 							<div class="col-md-8 responsive-1024">
 								<!-- This is the image we're attaching Jcrop to -->
-								<img src="<?php echo site_url($ruta_img) ?>" id="imagen_ejecutivo" alt="Jcrop Example"/>
+								<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" id="imagen_ejecutivo" alt="Jcrop Example"/>
 							</div>
 							<div class="col-md-4 responsive-1024">
-								<h4>Recorta tu imagen.</h4>
+								<h3>Recorta tu imagen.</h3>
 								<p>
 									 El recorte sera utilizado como imagen de bloqueo de sesion, miniatura de perfil e imagen de chat
 								</p>
+								<br>
 								<!-- This is the form that our event handler fills -->
 								<form action="<?php echo site_url('ejecutivo/recortar') ?>" target="_blank" method="post" id="form-recorte-imagen">
-									<input type="hidden" name="ruta_img" value="<?php echo $ruta_img ?>">
 									<input type="hidden" id="crop_x" name="x"/>
 									<input type="hidden" id="crop_y" name="y"/>
 									<input type="hidden" id="crop_w" name="w"/>

@@ -388,7 +388,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="<?php echo site_url('ejecutivo/perfil') ?>">
+								<a href="<?php echo site_url('ejecutivo') ?>">
 								<i class="icon-user"></i> Mi Perfil </a>
 							</li>
 							<li>
