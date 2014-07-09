@@ -321,7 +321,7 @@ class MY_Form_validation extends CI_Form_validation {
 		}
 
 		//is type a group type? image, application, word_document, code, zip .... -> load proper array
-		$ext_groups = array();
+		$ext_groups['txt'] = array('txt');
 		$ext_groups['imagen'] = array('jpg','jpeg','gif','png');
 		$ext_groups['application'] = array('exe','dll','so','cgi');
 		$ext_groups['php_code'] = array('php','php4','php5','inc','phtml');

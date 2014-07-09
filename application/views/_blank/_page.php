@@ -34,7 +34,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							THEME COLOR </span>
+							COLOR </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -123,15 +123,15 @@
 							</li>
 							<li>
 								<i class="fa fa-home"></i>
-								<a href="index.html">Home</a>
+								<a href="<?php echo site_url() ?>">Inicio</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Page Layouts</a>
+								<a href="#">Pagina</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Blank Page</a>
+								<a href="#">Seccion</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->

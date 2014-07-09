@@ -392,11 +392,11 @@
 								<i class="icon-user"></i> Mi Perfil </a>
 							</li>
 							<li>
-								<a href="page_calendar.html">
+								<a href="#">
 								<i class="icon-calendar"></i> Calendario </a>
 							</li>
 							<li>
-								<a href="inbox.html">
+								<a href="#">
 								<i class="icon-envelope-open"></i> Inbox <span class="badge badge-danger">
 								3 </span>
 								</a>
@@ -410,7 +410,7 @@
 							<li class="divider">
 							</li>
 							<li>
-								<a href="extra_lock.html">
+								<a href="#">
 								<i class="icon-lock"></i> Lock Screen </a>
 							</li>
 							<li>

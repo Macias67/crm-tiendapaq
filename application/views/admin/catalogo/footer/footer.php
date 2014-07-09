@@ -32,7 +32,7 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<!-- Aqui van las librerias de los plugins -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

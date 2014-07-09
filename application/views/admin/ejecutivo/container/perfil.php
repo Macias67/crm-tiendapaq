@@ -183,7 +183,7 @@
 															<i class="fa fa-map-marker"></i> México
 														</li>
 														<li>
-															<i class="fa fa-calendar"></i> Junio 1992
+															<i class="fa fa-calendar"></i> 1992
 														</li>
 														<li>
 															<i class="fa fa-briefcase"></i> Desarrollo

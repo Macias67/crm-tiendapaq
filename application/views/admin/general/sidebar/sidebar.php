@@ -87,7 +87,7 @@
 					<li>
 						<a href="<?php echo site_url('catalogo') ?>">
 							<i class="fa fa-upload"></i>
-							<span class="title"> Importar Catálogos</span>
+							<span class="title"> Importar</span>
 						</a>
 					</li>
 					<!-- Cerrar Sesion -->

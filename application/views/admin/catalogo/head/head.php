@@ -24,7 +24,7 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
-	<!-- Aqui van los css de los plugins -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
