@@ -2,13 +2,13 @@
 
 class estatusModel extends MY_Model {
 
-	var $CANCELADA	= 'cancelada';
-	var $CERRADA		= 'cerrada';
-	var $PENDIENTE	= 'pendiente';
-	var $PRECIERRE	= 'precierre';
-	var $PROCESO		= 'proceso';
-	var $SUSPENDIDA	= 'suspendida';
-	var $SUSTITUIDA	= 'sustituida';
+	var $CANCELADA	= 1;
+	var $CERRADA		= 2;
+	var $PENDIENTE	= 3;
+	var $PRECIERRE	= 4;
+	var $PROCESO		= 5;
+	var $SUSPENDIDA	= 6;
+	var $SUSTITUIDA	= 7;
 }
 
 /* End of file estatusModel.php */

@@ -110,7 +110,6 @@ var FormValidationPendiente = function () {
 						$('body').modalmanager('removeLoading');
 					},
 					success: function(data) {
-						console.log(data);
 						if (data.exito) {
 							// alert("Se le ha notificado a "+data.nombre+" de nuevo pendiente asignado.");
 							// parent.location.reload();
@@ -127,7 +126,7 @@ var FormValidationPendiente = function () {
 									// (string | mandatory) the heading of the notification
 									title: 'Nuevo pendiente registrado.',
 									// (string | mandatory) the text inside the notification
-									text: 'Se le ha notificado a '+data.nombre+' de nuevo pendiente asignado',
+									text: 'Se le ha notificado a '+data.nombre+' de nuevo pendiente asignado.',
 									// (bool | optional) if you want it to fade out on its own or just sit there
 									sticky: false,
 									// (int | optional) the time you want it to be alive for before fading out (milliseconds)

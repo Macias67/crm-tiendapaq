@@ -14,6 +14,9 @@ class Inicio extends AbstractAccess {
 		$this->load->model('actividadPendienteModel');
 		$this->load->model('pendienteModel');
 
+		//Helper
+		$this->load->helper('formatofechas');
+
 		// Nombre de ejecutivos
 		$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
 			array('id','primer_nombre', 'apellido_paterno'),
@@ -24,7 +27,6 @@ class Inicio extends AbstractAccess {
 		$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 		// Listado de pendientes DEL USUARIO ACTIVO
 		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes($this->usuario_activo['id']);
-		//var_dump($this->data['pendientes_usuario']);
 		// Titulo header
 		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 		// Muestro Vista

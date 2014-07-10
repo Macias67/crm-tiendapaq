@@ -46,7 +46,6 @@ class Pendiente extends AbstractAccess {
 			// Captruo los datos en un array
 			$data = array(
 				'id_ejecutivo'		=> $this->input->post('ejecutivo'),
-				'nombre_creador'	=> $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'],
 				'id_empresa'		=> (empty($this->input->post('razon_social'))) ? NULL : $this->input->post('razon_social'),
 				'actividad'			=> $this->input->post('actividad'),
 				'estatus'			=> $this->estatusModel->PENDIENTE,
@@ -59,6 +58,12 @@ class Pendiente extends AbstractAccess {
 
 				// Cargo modelo ejecutivos
 				$this->load->model('ejecutivoModel');
+				$this->load->model('creaPendienteModel');
+
+				$id_pendiente_nuevo = $this->pendienteModel->getUltimoPendiente();
+
+				$this->creaPendienteModel->insert(array('id_creador'	=> $this->usuario_activo['id'], 'id_pendiente'	=> $id_pendiente_nuevo->id_pendiente));
+
 				$ejecutivo_asignado = $this->ejecutivoModel->get(
 					array('primer_nombre', 'apellido_paterno', 'email'),
 					array('id' => $objeto_pendiente->id_ejecutivo),

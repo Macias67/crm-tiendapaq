@@ -218,7 +218,7 @@
 												<th>No.</th>
 												<th>Actvidad</th>
 												<th>Empresa</th>
-												<th>Fecha</th>
+												<th>Apertura</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -226,8 +226,8 @@
 											<tr class="odd gradeX">
 												<td><?php echo $pendiente->id_pendiente ?></td>
 												<td><?php echo $pendiente->actividad ?></td>
-												<td><?php echo $pendiente->razon_social ?></td>
-												<td><?php echo date('d/m/Y g:i a', strtotime($pendiente->fecha_origen)) ?></td>
+												<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+												<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
 											</tr>
 										<?php endforeach ?>
 										</tbody>

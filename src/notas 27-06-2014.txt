@@ -1,6 +1,0 @@
-Kokin duda en la organizacion, donde colocar los metodos de añadir rapido y añadir normal pasa saber donde gurdar los validatio js y de donde cargarlos y eso
-
-idea es cambiar el addRapido al controlador inicio y el addNormal posiblemente al controlador cliente, o tenerlos los dos en el contolador inicio pero con un switch
-
-Ya funciona el formulario añadir cliente completo del sidebar
-controlador/metodo/switchCaso -> inicio/add/addNormal

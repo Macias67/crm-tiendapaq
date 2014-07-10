@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2014 a las 01:57:33
+-- Tiempo de generación: 10-07-2014 a las 02:59:05
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -19,6 +19,25 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actividad_pendiente`
+--
+
+CREATE TABLE IF NOT EXISTS `actividad_pendiente` (
+  `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
+  `actividad` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_actividad`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `actividad_pendiente`
+--
+
+INSERT INTO `actividad_pendiente` (`id_actividad`, `actividad`) VALUES
+(1, 'Solicitud de Cotización');
 
 -- --------------------------------------------------------
 
@@ -68,6 +87,19 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `crea_pendiente`
+--
+
+CREATE TABLE IF NOT EXISTS `crea_pendiente` (
+  `id_creador` int(11) NOT NULL COMMENT 'Ejecutivo que hizo el pendiente',
+  `id_pendiente` int(11) NOT NULL,
+  KEY `id_creador` (`id_creador`,`id_pendiente`),
+  KEY `id_pendiente` (`id_pendiente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `departamento`
 --
 
@@ -97,12 +129,14 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `segundo_nombre` varchar(20) NOT NULL,
   `apellido_paterno` varchar(20) NOT NULL,
   `apellido_materno` varchar(20) NOT NULL,
+  `oficina` varchar(30) NOT NULL,
   `usuario` varchar(20) NOT NULL,
   `password` varchar(64) NOT NULL,
   `email` varchar(60) NOT NULL,
   `telefono` varchar(14) NOT NULL,
   `departamento` varchar(30) NOT NULL,
   `privilegios` varchar(30) NOT NULL,
+  `mensaje_personal` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario` (`usuario`),
   KEY `area` (`departamento`,`privilegios`),
@@ -113,9 +147,9 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 -- Volcado de datos para la tabla `ejecutivos`
 --
 
-INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 9418119', 'Desarrollo', 'admin'),
-(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte');
+INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', '', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 9418119', 'Desarrollo', 'admin', NULL),
+(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', '', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte', NULL);
 
 -- --------------------------------------------------------
 
@@ -136,6 +170,53 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `password_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con informacion de los equipos de computo del cliente';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus`
+--
+
+CREATE TABLE IF NOT EXISTS `estatus` (
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `estatus`
+--
+
+INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
+(1, 'cancelada'),
+(2, 'cerrada'),
+(3, 'pendiente'),
+(4, 'precierre'),
+(5, 'proceso'),
+(6, 'suspendida'),
+(7, 'sustituida');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pendientes`
+--
+
+CREATE TABLE IF NOT EXISTS `pendientes` (
+  `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ejecutivo` int(11) NOT NULL,
+  `id_empresa` int(11) DEFAULT NULL,
+  `actividad` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_finaliza` timestamp NOT NULL,
+  PRIMARY KEY (`id_pendiente`),
+  KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`estatus`),
+  KEY `id_empresa` (`id_empresa`),
+  KEY `actividad` (`actividad`),
+  KEY `estatus` (`estatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -182,6 +263,13 @@ ALTER TABLE `contactos`
   ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `crea_pendiente`
+--
+ALTER TABLE `crea_pendiente`
+  ADD CONSTRAINT `crea_pendiente_ibfk_2` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
+  ADD CONSTRAINT `crea_pendiente_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`);
+
+--
 -- Filtros para la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
@@ -193,6 +281,15 @@ ALTER TABLE `ejecutivos`
 --
 ALTER TABLE `equipos_computo`
   ADD CONSTRAINT `equipos_computo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pendientes`
+--
+ALTER TABLE `pendientes`
+  ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --
 -- Filtros para la tabla `sistemas`
