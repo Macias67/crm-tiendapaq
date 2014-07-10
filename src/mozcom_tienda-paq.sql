@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 10-07-2014 a las 09:22:38
--- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.12
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-07-2014 a las 21:36:43
+-- Versión del servidor: 5.6.17
+-- Versión de PHP: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
-CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `mozcom_tienda-paq`;
 
 -- --------------------------------------------------------
 
@@ -63,8 +61,10 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `municipio` varchar(50) NOT NULL,
   `estado` varchar(30) NOT NULL,
   `pais` varchar(30) NOT NULL,
-  `telefono1` varchar(13) NOT NULL,
-  `telefono2` varchar(13) NOT NULL,
+  `telefono_1` varchar(13) NOT NULL,
+  `telefono_2` varchar(13) NOT NULL,
+  `usuario` varchar(10) NOT NULL,
+  `password` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo` (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
@@ -268,8 +268,8 @@ ALTER TABLE `contactos`
 -- Filtros para la tabla `crea_pendiente`
 --
 ALTER TABLE `crea_pendiente`
-  ADD CONSTRAINT `crea_pendiente_ibfk_2` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
-  ADD CONSTRAINT `crea_pendiente_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`);
+  ADD CONSTRAINT `crea_pendiente_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `crea_pendiente_ibfk_2` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`);
 
 --
 -- Filtros para la tabla `ejecutivos`

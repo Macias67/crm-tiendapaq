@@ -133,6 +133,7 @@
 								<form action="<?php echo site_url('catalogo/importar_clientes') ?>" class="form-horizontal form-bordered" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 									<div class="form-body">
 										<?php echo validation_errors() ?>
+										<?php echo $upload_error ?>
 										<div class="form-group">
 											<div class="col-md-12">
 												<h5>
