@@ -90,20 +90,12 @@ abstract class AbstractAccess extends AbstractController {
 	protected $controlador;
 
 	/**
-	 * Nombre de usuario con
-	 * el que se identifica el admin.
+	 * Ruta avatar
 	 *
 	 * @var string
 	 **/
-	const USUARIO = 'tiendapaq';
+	const RUTA_AVATAR = 'assets/admin/pages/media/profile/';
 
-	/**
-	 * Password de usuario con
-	 * el que se identifica el admin.
-	 *
-	 * @var string
-	 **/
-	const PASSWORD = 'gtsts1000';
 
 	/**
 	 * Constructor
@@ -239,7 +231,7 @@ abstract class AbstractAccess extends AbstractController {
 					// Parseo objeto a array
 					$dataUser = (array) $ejecutivo;
 					//le añado la ruta de las imagenes a usuario activo
-					$dataUser['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$dataUser['id'].'/';
+					$dataUser['ruta_imagenes'] = self::RUTA_AVATAR.$dataUser['id'].'/';
 					// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
 					$this->session->set_userdata('usuario_activo', $dataUser);
 					$respuesta	= TRUE;

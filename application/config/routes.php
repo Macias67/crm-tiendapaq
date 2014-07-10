@@ -58,5 +58,9 @@ $route['calendario/(:any)']	= "calendario/$1";
 $route['pendiente']		= "pendiente";
 $route['pendiente/(:any)']	= "pendiente/$1";
 
+// Funciones ejecutivo
+$route['perfil']				= "ejecutivo";
+$route['ejecutivo/(:any)']	= "ejecutivo/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -201,20 +201,20 @@ class Ejecutivo extends AbstractAccess {
 					// Array con la informacion
 					$data = array(
 						//Datos Personales
-						'primer_nombre'  	 => $this->input->post('primer_nombre'),
-						'segundo_nombre'	 => $this->input->post('segundo_nombre'),
-						'apellido_paterno' => $this->input->post('apellido_paterno'),
-						'apellido_materno' => $this->input->post('apellido_materno'),
-						'email'				     => $this->input->post('email'),
-						'telefono'       	 => $this->input->post('telefono'),
+						'primer_nombre'	=> $this->input->post('primer_nombre'),
+						'segundo_nombre'	=> $this->input->post('segundo_nombre'),
+						'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+						'apellido_materno'	=> $this->input->post('apellido_materno'),
+						'email'				=> $this->input->post('email'),
+						'telefono'			=> $this->input->post('telefono'),
 						//Datos del Sistema
-						'oficina'	     	   => $this->input->post('oficina'),
-						'departamento'		 => $this->input->post('departamento'),
-						'mensaje_personal' => $this->input->post('mensaje_personal')
+						'oficina'			=> $this->input->post('oficina'),
+						'departamento'	=> $this->input->post('departamento'),
+						'mensaje_personal'	=> $this->input->post('mensaje_personal')
 					);
 					//el parametro TRUE indica al metodo del modelo ejecutivoModel que se trata de una actualizacion no de un nuevo registro para crear el objeto
-					//Extraigo el id para saber donde actualizar los datos en la bd
 					$ejecutivo_editado = $this->ejecutivoModel->arrayToObject($data, TRUE);
+					//Extraigo el id para saber donde actualizar los datos en la bd
 					$id = $this->data['usuario_activo']['id'];
 					//actualizo en la bd y guardo la respuesta
 					$exito_editado = $this->ejecutivoModel->update($ejecutivo_editado,array('id' => $id));
@@ -226,9 +226,9 @@ class Ejecutivo extends AbstractAccess {
 					$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
 					//armo la respuesta
 					$respuesta = array(
-						'exito' => $exito_editado,
-						'ejecutivo' => $ejecutivo_editado,
-						'id' => $id
+						'exito'		=> $exito_editado,
+						'ejecutivo'	=> $ejecutivo_editado,
+						'id'			=> $id
 					);
 				}
 				// Muestro la salida
@@ -253,8 +253,8 @@ class Ejecutivo extends AbstractAccess {
 				else
 				{
 					// Armo las rutas y nombres de la imagen segun usuario activo
-					$id_activo	= $this->usuario_activo['id'];
-					$ruta						= 'assets/admin/pages/media/profile/';
+					$id_activo			= $this->usuario_activo['id'];
+					$ruta				= 'assets/admin/pages/media/profile/';
 					$ruta_completa	= $ruta.$id_activo.'/';
 					//Si no existe directorio lo creo
 					if (!is_dir($ruta_completa))
@@ -265,7 +265,7 @@ class Ejecutivo extends AbstractAccess {
 					$config_upload['upload_path']		= $ruta_completa;
 					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
 					$config_upload['overwrite'] 		= TRUE;
-					$config_upload['file_name']			= 'perfil.jpg';
+					$config_upload['file_name']		= 'perfil.jpg';
 					$config_upload['max_size']			= 2048;
 					$config_upload['remove_spaces']	= TRUE;
 					// Cargo la libreria upload y paso configuracion
@@ -285,13 +285,13 @@ class Ejecutivo extends AbstractAccess {
 						$upload_data = $this->upload->data();
 						// Si la imagen es mas de 800px se redimenciona
 						if ($upload_data['image_width'] > 800 || $upload_data['image_height'] > 800)
-					  {
+					  	{
 							// Configuracion para el recorte
 							$config_resize['image_library']		= 'gd2';
-							$config_resize['source_image']	  = $upload_data['full_path'];
+							$config_resize['source_image']	= $upload_data['full_path'];
 							$config_resize['maintain_ratio']	= TRUE;
-							$config_resize['width']				    = 800;
-							$config_resize['height']			    = 800;
+							$config_resize['width']				= 800;
+							$config_resize['height']			= 800;
 							$this->image_lib->clear();
 							$this->image_lib->initialize($config_resize);
 							$this->image_lib->resize();
@@ -305,10 +305,10 @@ class Ejecutivo extends AbstractAccess {
 			break;
 			case 'password':
 				//reglas para cambiar usuario y password
-				$this->form_validation->set_rules('usuario_actual',   'Usuario Actual',   		 'trim|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('usuario_nuevo',    'Usuario Nuevo',    						   'trim|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('password_actual',  'Contraseña Actual', 					     'trim|required|max_length[20]|xss_clean|callback_password_check');
-				$this->form_validation->set_rules('password_nuevo_1', 'Contraseña Nueva', 					 		 'trim|required|max_length[20]|xss_clean|callback_confirmacion_check');
+				$this->form_validation->set_rules('usuario_actual', 'Usuario Actual','trim|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('usuario_nuevo', 'Usuario Nuevo', 'trim|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('password_actual',  'Contraseña Actual', 'trim|required|max_length[20]|xss_clean|callback_password_check');
+				$this->form_validation->set_rules('password_nuevo_1', 'Contraseña Nueva', 'trim|required|max_length[20]|xss_clean|callback_confirmacion_check');
 				$this->form_validation->set_rules('password_nuevo_2', 'Confirmacion de Contraseña Nueva','trim|required|max_length[20]|xss_clean');
 
 				if ($this->form_validation->run() === FALSE)
@@ -369,67 +369,69 @@ class Ejecutivo extends AbstractAccess {
 	 *
 	 * @author Diego Rodriguez | Luis Macias
 	 **/
-		public function recortar()
+	public function recortar()
+	{
+		//cargo la libreria
+		$this->load->library('image_lib');
+		//obtengo la ruta donde se encuentra la imagen base para crear las demas
+		$src = $this->usuario_activo['ruta_imagenes'].'perfil.jpg';
+
+		//obtengo los puntos claves del recorte
+		$pos_x	= $this->input->post('x');
+		$pos_y	= $this->input->post('y');
+		$ancho	= $this->input->post('w');
+		$alto	= $this->input->post('h');
+
+		//armo la ruta completa donde se guardaran las imagenes
+		$id_activo			= $this->usuario_activo['id'];
+		$ruta				= 'assets/admin/pages/media/profile/';
+		$ruta_completa	= $ruta.$id_activo.'/';
+
+		//reglas para crear la imagen de bloqueo de sesion
+		$config_block['image_library']	= 'gd2';
+		$config_block['source_image']	= $src;
+		$config_block['width']			= $alto;
+		$config_block['height']			= $ancho;
+		$config_block['x_axis']			= $pos_x;
+		$config_block['y_axis']			= $pos_y;
+		$config_block['maintain_ratio']	= FALSE;
+		$config_block['new_image']	= $ruta_completa.'block.jpg';
+		//reglas para la creacion de la imagen miniatura
+		$config_miniatura['image_library']	= 'gd2';
+		$config_miniatura['source_image']	= $ruta_completa.'block.jpg';
+		$config_miniatura['width']			= 29;
+		$config_miniatura['height']		= 29;
+		$config_miniatura['new_image']	= $ruta_completa.'mini.jpg';
+		//reglas para la creacion de la imagen de chat
+		$config_chat['image_library']	= 'gd2';
+		$config_chat['source_image']	= $ruta_completa.'block.jpg';
+		$config_chat['width']			= 45;
+		$config_chat['height']			= 45;
+		$config_chat['new_image']		= $ruta_completa.'chat.jpg';
+
+		//inicio las reglas de imagen de block
+		$this->image_lib->initialize($config_block);
+		//ejecuto el recorte y guardo el booleano
+		$exito_block = $this->image_lib->crop();
+		//limpio las reglas para hacer los redimencionados
+		$this->image_lib->clear();
+		$this->image_lib->initialize($config_miniatura);
+		$exito_mini = $this->image_lib->resize();
+
+		$this->image_lib->clear();
+		$this->image_lib->initialize($config_chat);
+		$exito_chat = $this->image_lib->resize();
+
+		$this->image_lib->clear();
+
+		if(!$exito_block || !$exito_mini || !$exito_chat)
 		{
-			//cargo la libreria
-			$this->load->library('image_lib');
-			//obtengo la ruta donde se encuentra la imagen base para crear las demas
-			$src = $this->usuario_activo['ruta_imagenes'].'perfil.jpg';
-
-			//obtengo los puntos claves del recorte
-			$pos_x = $this->input->post('x');
-			$pos_y = $this->input->post('y');
-			$ancho = $this->input->post('w');
-			$alto  = $this->input->post('h');
-
-			//armo la ruta completa donde se guardaran las imagenes
-			$id_activo			= $this->usuario_activo['id'];
-			$ruta						= 'assets/admin/pages/media/profile/';
-			$ruta_completa	= $ruta.$id_activo.'/';
-
-			//reglas para crear la imagen de bloqueo de sesion
-			$config_block['image_library'] = 'gd2';
-			$config_block['source_image']  = $src;
-			$config_block['width'] 				 = $alto;
-			$config_block['height'] 			 = $ancho;
-			$config_block['x_axis']        = $pos_x;
-			$config_block['y_axis']        = $pos_y;
-			$config_block['maintain_ratio']= FALSE;
-			$config_block['new_image']     = $ruta_completa.'block.jpg';
-			//reglas para la creacion de la imagen miniatura
-			$config_miniatura['image_library'] = 'gd2';
-			$config_miniatura['source_image']  = $ruta_completa.'block.jpg';
-			$config_miniatura['width'] 				 = 29;
-			$config_miniatura['height'] 			 = 29;
-			$config_miniatura['new_image']    		 = $ruta_completa.'mini.jpg';
-			//reglas para la creacion de la imagen de chat
-			$config_chat['image_library'] = 'gd2';
-			$config_chat['source_image']  = $ruta_completa.'block.jpg';
-			$config_chat['width'] 				= 45;
-			$config_chat['height'] 			  = 45;
-			$config_chat['new_image']    	= $ruta_completa.'chat.jpg';
-
-			//inicio las reglas de imagen de block
-			$this->image_lib->initialize($config_block);
-			//ejecuto el recorte y guardo el booleano
-			$exito_block = $this->image_lib->crop();
-			//limpio las reglas para hacer los redimencionados
-			$this->image_lib->clear();
-			$this->image_lib->initialize($config_miniatura);
-			$exito_mini = $this->image_lib->resize();
-			$this->image_lib->clear();
-			$this->image_lib->initialize($config_chat);
-			$exito_chat = $this->image_lib->resize();
-			$this->image_lib->clear();
-
-			if(!$exito_block || !$exito_mini || !$exito_chat)
-			{
-				echo $this->image_lib->display_errors();
-			}else
-			{
-				redirect('ejecutivo',  'refresh');
-			}
+			echo $this->image_lib->display_errors();
+		}else
+		{
+			redirect('ejecutivo',  'refresh');
 		}
+	}
 
 
 	/*
