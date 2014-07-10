@@ -123,9 +123,9 @@
 									<i class="fa  fa-male"></i>
 									<div>Prospecto</div>
 								</a>
-								<a href="#" class="icon-btn" data-target="#nuevo-ticket" data-toggle="modal">
-									<i class="fa fa-ticket"></i>
-									<div>Abrir Pendiente</div>
+								<a href="#" class="icon-btn" data-target="#nuevo-pendiente" data-toggle="modal">
+									<i class="fa fa-check-square-o"></i>
+									<div>Pendiente</div>
 								</a>
 								<a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>
@@ -215,86 +215,21 @@
 									<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
 										<thead>
 											<tr>
-												<th>Username</th>
-												<th>Email</th>
-												<th>Status</th>
+												<th>No.</th>
+												<th>Actvidad</th>
+												<th>Empresa</th>
+												<th>Apertura</th>
 											</tr>
 										</thead>
 										<tbody>
+										<?php foreach ($pendientes_usuario as $pendiente) : ?>
 											<tr class="odd gradeX">
-												<td>shuxer</td>
-												<td>
-													<a href="mailto:shuxer@gmail.com">shuxer@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
+												<td><?php echo $pendiente->id_pendiente ?></td>
+												<td><?php echo $pendiente->actividad ?></td>
+												<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+												<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
 											</tr>
-											<tr class="odd gradeX">
-												<td>looper</td>
-												<td>
-													<a href="mailto:looper90@gmail.com">looper90@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-warning">Suspended </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>
-													userwow
-												</td>
-												<td>
-													<a href="mailto:userwow@yahoo.com">userwow@yahoo.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>user1wow</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">userwow@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-default">Blocked </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>restest</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">test@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>foopl</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>weep</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>coop</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
+										<?php endforeach ?>
 										</tbody>
 									</table>
 								</div>
@@ -303,7 +238,7 @@
 						<!-- END TABLA MIS PENDIENTES-->
 					</div>
 					<div class="col-md-5">
-						<!-- BEGIN TABLA MIS PENDIENTES-->
+						<!-- BEGIN TABLA PENDIENTES GENERALES-->
 						<div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption"><i class="fa fa-user"></i>Pendientes Generales</div>
@@ -337,68 +272,12 @@
 													<span class="label label-sm label-warning">Suspended </span>
 												</td>
 											</tr>
-											<tr class="odd gradeX">
-												<td>
-													userwow
-												</td>
-												<td>
-													<a href="mailto:userwow@yahoo.com">userwow@yahoo.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>user1wow</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">userwow@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-default">Blocked </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>restest</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">test@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>foopl</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>weep</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>coop</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
-						<!-- END TABLA MIS PENDIENTES-->
+						<!-- END TABLA PENDIENTES GENERALES-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
@@ -414,7 +293,7 @@
 					</div>
 					<form action="<?php echo site_url('cliente/add') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div>
+							<div class="scroller" style="height: 300px">
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>
@@ -609,34 +488,56 @@
 				</div>
 				<!-- END FORM NUEVO CLIENTE -->
 
-				<!-- Nuevo Ticket -->
-				<div id="nuevo-ticket" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+				<!-- Nuevo Pendiente -->
+				<div id="nuevo-pendiente" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
-							<b>Apertura de Nuevo Ticket</b>
+							<b>Asignar Pendiente</b>
 						</h3>
-						<small>Nuevo ticket por atender</small>
+						<small>Nuevo pendiente por atender</small>
 					</div>
-					<form action="<?php echo site_url('ticket/add') ?>" method="post" accept-charset="utf-8">
+					<form action="<?php echo site_url('pendiente/add') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div class="scroller" style="height: 300px">
+								<!-- DIV ERROR -->
+								<div class="alert alert-danger display-hide">
+									<button class="close" data-close="alert"></button>
+									Tienes Errores en tu formulario
+								</div>
+								<!-- DIV SUCCESS -->
+								<div class="alert alert-success display-hide">
+									<button class="close" data-close="alert"></button>
+									Exito en el formulario
+								</div>
 								<div class="form-body">
 									<div class="col-md-12">
+										<!-- Ejectuivo -->
+										<div class="form-group">
+											<label class="control-label col-md-4">Ejecutivo</label>
+											<div class="col-md-8">
+												<select class="form-control" name="ejecutivo">
+													<option value=""></option>
+													<?php foreach ($ejecutivos as $ejecutivo): ?>
+													<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+													<?php endforeach ?>
+												</select>
+											</div>
+										</div>
 										<!-- Empresa -->
 										<div class="form-group">
 											<label class="control-label col-md-4">Razón Social</label>
 											<div class="col-md-8">
-												<input type="hidden" id="razon_social" class="form-control select2">
+												<input type="hidden" id="razon_social" name="razon_social" class="form-control select2">
 											</div>
 										</div>
-										<!-- Ejectuivo -->
+										<!-- Actividad -->
 										<div class="form-group">
-											<label class="control-label col-md-4">Ejecutivo principal</label>
+											<label class="control-label col-md-4">Actividad</label>
 											<div class="col-md-8">
-												<select class="form-control">
+												<select class="form-control" name="actividad">
 													<option value=""></option>
-													<?php foreach ($ejecutivos as $ejecutivo): ?>
-													<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+													<?php foreach ($actividades_pendientes as $actividad_pendiente): ?>
+														<option value="<?php echo $actividad_pendiente->id_actividad ?>"><?php echo $actividad_pendiente->actividad ?></option>
 													<?php endforeach ?>
 												</select>
 											</div>
@@ -645,8 +546,7 @@
 										<div class="form-group">
 											<label class="col-md-4 control-label">Descripción</label>
 											<div class="col-md-8">
-												<textarea class="form-control" rows="3" style="resize: none;
-												"></textarea>
+												<textarea class="form-control" rows="3" style="resize: none;" name="descripcion"></textarea>
 											</div>
 										</div>
 									</div>

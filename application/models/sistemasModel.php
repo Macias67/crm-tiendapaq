@@ -34,10 +34,10 @@ class SistemasModel extends MY_Model {
 	{
 		$this->sistemas_cliente = new stdClass();
 
-		$this->sistemas_cliente->id_cliente = $id_cliente;
-		$this->sistemas_cliente->sistema  	= $data['sistema'];
-		$this->sistemas_cliente->version 	  = $data['version'];
-		$this->sistemas_cliente->no_serie	 	= $data['no_serie'];
+		$this->sistemas_cliente->id_cliente	= $id_cliente;
+		$this->sistemas_cliente->sistema		= $data['sistema'];
+		$this->sistemas_cliente->version		= $data['version'];
+		$this->sistemas_cliente->no_serie	= $data['no_serie'];
 
 		return $this->sistemas_cliente;
 	}

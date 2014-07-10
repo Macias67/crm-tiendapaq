@@ -242,7 +242,7 @@ class Cliente extends AbstractAccess {
 					array_push($res, array("id" => (int)$value->id, "text" => $value->razon_social));
 				}
 			} else {
-				$res = array("id"=>"0","text"=>"No Results Found..");
+				$res = array("id"=>"0","text"=>"No se encontraron resultados...");
 			}
 
 			// Muestro la salida

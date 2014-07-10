@@ -31,7 +31,6 @@ class Ejecutivo extends AbstractAccess {
 	public function index()
 	{
 		$this->_vista('perfil');
-		//var_dump($this->data);
 	}
 
 	/**
@@ -43,10 +42,10 @@ class Ejecutivo extends AbstractAccess {
 	public function nuevo()
 	{
 		// Titulo header
-		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+		$this->data['titulo']				= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 		//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
-		$this->data['tablaprivilegios']= $this->privilegiosModel->get(array('privilegios'));
-		$this->data['tabladepartamentos']= $this->departamentoModel->get(array('area'));
+		$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
+		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		//se muestra el formulario
 		$this->_vista('form-nuevo-ejecutivo');
 	}
@@ -61,18 +60,18 @@ class Ejecutivo extends AbstractAccess {
 	{
 		//Se establecen las reglas de validacion
 		//Datos Personales
-		$this->form_validation->set_rules('primer_nombre',    'Primer Nombre',    'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-		$this->form_validation->set_rules('segundo_nombre',   'Segundo Nombre',   'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('primer_nombre', 'Primer Nombre', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('segundo_nombre', 'Segundo Nombre', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
 		$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-		$this->form_validation->set_rules('email',            'Email',            'trim|strtolower|valid_email|max_length[50]|xss_clean|callback_email_check');
-		$this->form_validation->set_rules('telefono',         'Teléfono',         'trim|required|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|max_length[50]|xss_clean|callback_email_check');
+		$this->form_validation->set_rules('telefono', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
 		//Datos del Sistema
-		$this->form_validation->set_rules('oficina',      'Oficina',      'trim|required|xss_clean');
-		$this->form_validation->set_rules('privilegios',  'Privilegios',  'trim|required|xss_clean');
+		$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('privilegios', 'Privilegios', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('usuario',      'Usuario',      'trim|required|max_length[20]|xss_clean|callback_usuario_check');
-		$this->form_validation->set_rules('password',     'Contraseña',   'trim|required|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[20]|xss_clean|callback_usuario_check');
+		$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[20]|xss_clean');
 		//se ejecutan las reglas para ver si se cumplen
 		if ($this->form_validation->run() === FALSE)
 		{
@@ -83,26 +82,26 @@ class Ejecutivo extends AbstractAccess {
 			// Array con la informacion
 			$data = array(
 				//Datos Personales
-				'primer_nombre'  	 => $this->input->post('primer_nombre'),
-				'segundo_nombre'	 => $this->input->post('segundo_nombre'),
-				'apellido_paterno' => $this->input->post('apellido_paterno'),
-				'apellido_materno' => $this->input->post('apellido_materno'),
-				'email'				     => $this->input->post('email'),
-				'telefono'       	 => $this->input->post('telefono'),
+				'primer_nombre'	=> $this->input->post('primer_nombre'),
+				'segundo_nombre'	=> $this->input->post('segundo_nombre'),
+				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+				'apellido_materno'	=> $this->input->post('apellido_materno'),
+				'email'				=> $this->input->post('email'),
+				'telefono'			=> $this->input->post('telefono'),
 				//Datos del Sistema
-				'oficina'	      => $this->input->post('oficina'),
-				'privilegios'		=> $this->input->post('privilegios'),
+				'oficina'			=> $this->input->post('oficina'),
+				'privilegios'			=> $this->input->post('privilegios'),
 				'departamento'	=> $this->input->post('departamento'),
-				'usuario'				=> $this->input->post('usuario'),
+				'usuario'			=> $this->input->post('usuario'),
 				'password'			=> $this->input->post('password')
 			);
 			//convierto array a objeto e inserto en la bd
-			$ejecutivo_nuevo = $this->ejecutivoModel->arrayToObject($data, FALSE);
-			$exito_ejecutivo = $this->ejecutivoModel->insert($ejecutivo_nuevo);
+			$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data, FALSE);
+			$exito_ejecutivo	= $this->ejecutivoModel->insert($ejecutivo_nuevo);
 			//armo la respuesta
 			$respuesta = array(
-				'exito' => $exito_ejecutivo,
-				'ejecutivo' => $ejecutivo_nuevo
+				'exito'		=> $exito_ejecutivo,
+				'ejecutivo'	=> $ejecutivo_nuevo
 			);
 		}
 
@@ -110,42 +109,42 @@ class Ejecutivo extends AbstractAccess {
 		if($respuesta['exito'])
 		{
 			//armo la ruta completa donde se guardaran las imagenes y creo el directorio
-			$id_nuevo	= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
-			$ruta						= 'assets/admin/pages/media/profile/';
+			$id_nuevo			= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
+			$ruta				= 'assets/admin/pages/media/profile/';
 			$ruta_completa	= $ruta.$id_nuevo->id.'/';
 			mkdir($ruta_completa, 0777, TRUE);
 
 			//reglas para crear la imagen de bloqueo de perfil
-			$config_perfil['image_library'] = 'gd2';
-			$config_perfil['source_image']  = $ruta.'default.jpg';
-			$config_perfil['x_axis']        = 0;
-			$config_perfil['y_axis']        = 0;
-			$config_perfil['new_image']     = $ruta_completa.'perfil.jpg';
+			$config_perfil['image_library']	= 'gd2';
+			$config_perfil['source_image']	= $ruta.'default.jpg';
+			$config_perfil['x_axis']			= 0;
+			$config_perfil['y_axis']			= 0;
+			$config_perfil['new_image']	= $ruta_completa.'perfil.jpg';
 
 			//reglas para crear la imagen de bloqueo de sesion
-			$config_block['image_library'] = 'gd2';
-			$config_block['source_image']  = $ruta_completa.'perfil.jpg';
-			$config_block['maintain_ratio']= FALSE;
-			$config_block['width'] 				 = 366;
-			$config_block['height'] 			 = 281;
-			$config_block['x_axis']        = 0;
-			$config_block['y_axis']        = 0;
-			$config_block['maintain_ratio']= FALSE;
-			$config_block['new_image']     = $ruta_completa.'block.jpg';
+			$config_block['image_library']	= 'gd2';
+			$config_block['source_image']	= $ruta_completa.'perfil.jpg';
+			$config_block['maintain_ratio']	= FALSE;
+			$config_block['width']			= 366;
+			$config_block['height']			= 281;
+			$config_block['x_axis']			= 0;
+			$config_block['y_axis']			= 0;
+			$config_block['maintain_ratio']	= FALSE;
+			$config_block['new_image']	= $ruta_completa.'block.jpg';
 
 			//reglas para la creacion de la imagen miniatura
-			$config_miniatura['image_library'] = 'gd2';
-			$config_miniatura['source_image']  = $ruta_completa.'block.jpg';
-			$config_miniatura['width'] 				 = 29;
-			$config_miniatura['height'] 			 = 29;
-			$config_miniatura['new_image']     = $ruta_completa.'mini.jpg';
+			$config_miniatura['image_library']	= 'gd2';
+			$config_miniatura['source_image']	= $ruta_completa.'block.jpg';
+			$config_miniatura['width']			= 29;
+			$config_miniatura['height']		= 29;
+			$config_miniatura['new_image']	= $ruta_completa.'mini.jpg';
 
 			//reglas para la creacion de la imagen de chat
-			$config_chat['image_library'] = 'gd2';
-			$config_chat['source_image']  = $ruta_completa.'block.jpg';
-			$config_chat['width'] 			  = 45;
-			$config_chat['height'] 			  = 45;
-			$config_chat['new_image']     = $ruta_completa.'chat.jpg';
+			$config_chat['image_library']	= 'gd2';
+			$config_chat['source_image']	= $ruta_completa.'block.jpg';
+			$config_chat['width']			= 45;
+			$config_chat['height']			= 45;
+			$config_chat['new_image']		= $ruta_completa.'chat.jpg';
 
 			//inicio las reglas de imagen de perfil
 			$this->image_lib->initialize($config_perfil);
@@ -237,7 +236,6 @@ class Ejecutivo extends AbstractAccess {
 						 ->set_content_type('application/json')
 						 ->set_output(json_encode($respuesta));
 			break;
-
 			case 'img':
 				// Reglas de validacion
 				$this->form_validation->set_rules('userfile', 'El archivo',
@@ -305,10 +303,9 @@ class Ejecutivo extends AbstractAccess {
 					}
 				}
 			break;
-
 			case 'password':
 				//reglas para cambiar usuario y password
-				$this->form_validation->set_rules('usuario_actual',   'Usuario Actual',   		           'trim|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('usuario_actual',   'Usuario Actual',   		 'trim|max_length[20]|xss_clean');
 				$this->form_validation->set_rules('usuario_nuevo',    'Usuario Nuevo',    						   'trim|max_length[20]|xss_clean');
 				$this->form_validation->set_rules('password_actual',  'Contraseña Actual', 					     'trim|required|max_length[20]|xss_clean|callback_password_check');
 				$this->form_validation->set_rules('password_nuevo_1', 'Contraseña Nueva', 					 		 'trim|required|max_length[20]|xss_clean|callback_confirmacion_check');
@@ -361,7 +358,6 @@ class Ejecutivo extends AbstractAccess {
 				 ->set_content_type('application/json')
 				 ->set_output(json_encode($respuesta));
 			break;
-
 			default:
 			break;
 		}

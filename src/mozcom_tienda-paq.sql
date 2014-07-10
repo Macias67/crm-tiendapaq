@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-07-2014 a las 17:30:33
+-- Tiempo de generación: 10-07-2014 a las 09:22:38
 -- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.16
+-- Versión de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
-CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
+CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mozcom_tienda-paq`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actividad_pendiente`
+--
+
+CREATE TABLE IF NOT EXISTS `actividad_pendiente` (
+  `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
+  `actividad` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_actividad`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `actividad_pendiente`
+--
+
+INSERT INTO `actividad_pendiente` (`id_actividad`, `actividad`) VALUES
+(1, 'Solicitud de Cotización');
 
 -- --------------------------------------------------------
 
@@ -30,32 +49,25 @@ USE `mozcom_tienda-paq`;
 
 CREATE TABLE IF NOT EXISTS `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `razon_social` varchar(80) CHARACTER SET utf8 NOT NULL,
-  `rfc` varchar(13) CHARACTER SET utf8 NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `tipo` varchar(15) CHARACTER SET utf8 NOT NULL,
-  `calle` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `no_exterior` varchar(5) CHARACTER SET utf8 NOT NULL,
-  `no_interior` varchar(5) CHARACTER SET utf8 NOT NULL,
-  `colonia` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `codigo_postal` varchar(6) CHARACTER SET utf8 NOT NULL,
-  `ciudad` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `municipio` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `estado` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `pais` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `telefono1` varchar(13) CHARACTER SET utf8 NOT NULL,
-  `telefono2` varchar(13) CHARACTER SET utf8 NOT NULL,
+  `codigo` varchar(10) NOT NULL,
+  `razon_social` varchar(80) NOT NULL,
+  `rfc` varchar(13) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `tipo` varchar(15) NOT NULL,
+  `calle` varchar(50) NOT NULL,
+  `no_exterior` varchar(5) NOT NULL,
+  `no_interior` varchar(5) NOT NULL,
+  `colonia` varchar(20) NOT NULL,
+  `codigo_postal` varchar(6) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `municipio` varchar(50) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `pais` varchar(30) NOT NULL,
+  `telefono1` varchar(13) NOT NULL,
+  `telefono2` varchar(13) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='Datos de los clientes' AUTO_INCREMENT=43 ;
-
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`id`, `codigo`, `razon_social`, `rfc`, `email`, `tipo`, `calle`, `no_exterior`, `no_interior`, `colonia`, `codigo_postal`, `ciudad`, `municipio`, `estado`, `pais`, `telefono1`, `telefono2`) VALUES
-(42, 'p_30061928', 'PLASTICOS HéRNANDEZ', 'PLSH0987UGBH', 'pasticos@gmail.com', 'distribuidor', 'Cuarzo', '9A', '9', 'Solidaridad', '47810', 'Ocotlán', 'Ocotlán', 'Jalisco', 'México', '(392) 927-223', '(391) 917-223');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -65,21 +77,27 @@ INSERT INTO `clientes` (`id`, `codigo`, `razon_social`, `rfc`, `email`, `tipo`, 
 
 CREATE TABLE IF NOT EXISTS `contactos` (
   `id_cliente` int(11) NOT NULL,
-  `nombre_contacto` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `apellido_paterno` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `apellido_materno` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `email_contacto` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `telefono_contacto` varchar(14) CHARACTER SET utf8 NOT NULL,
-  `puesto_contacto` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `nombre_contacto` varchar(30) NOT NULL,
+  `apellido_paterno` varchar(20) NOT NULL,
+  `apellido_materno` varchar(20) NOT NULL,
+  `email_contacto` varchar(30) NOT NULL,
+  `telefono_contacto` varchar(14) NOT NULL,
+  `puesto_contacto` varchar(20) NOT NULL,
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='tabla donde se guarda la información del contacto del cliente';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente';
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `contactos`
+-- Estructura de tabla para la tabla `crea_pendiente`
 --
 
-INSERT INTO `contactos` (`id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
-(42, 'Luis', 'Macias', 'Angulo', 'kokin@gmail.com', '3310657421', 'Programador');
+CREATE TABLE IF NOT EXISTS `crea_pendiente` (
+  `id_creador` int(11) NOT NULL COMMENT 'Ejecutivo que hizo el pendiente',
+  `id_pendiente` int(11) NOT NULL,
+  KEY `id_creador` (`id_creador`,`id_pendiente`),
+  KEY `id_pendiente` (`id_pendiente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -115,12 +133,12 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `apellido_materno` varchar(20) NOT NULL,
   `oficina` varchar(30) NOT NULL,
   `usuario` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `email` varchar(60) NOT NULL,
   `telefono` varchar(14) NOT NULL,
   `departamento` varchar(30) NOT NULL,
   `privilegios` varchar(30) NOT NULL,
-  `mensaje_personal` varchar(200) NOT NULL,
+  `mensaje_personal` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario` (`usuario`),
   KEY `area` (`departamento`,`privilegios`),
@@ -132,8 +150,8 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 --
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', '"Cuando alguien desea algo debe saber que corre riesgos y por eso la vida vale la pena." Paulo Coelho'),
-(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', '', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte', '');
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', '', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 9418119', 'Desarrollo', 'admin', NULL),
+(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', '', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte', NULL);
 
 -- --------------------------------------------------------
 
@@ -148,19 +166,59 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `arquitectura` varchar(10) CHARACTER SET latin1 NOT NULL,
   `maquina_virtual` varchar(2) CHARACTER SET latin1 NOT NULL,
   `memoria_ram` varchar(3) CHARACTER SET latin1 NOT NULL,
-  `sql_server` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `sql_server` varchar(50) NOT NULL,
   `sql_management` varchar(50) CHARACTER SET latin1 NOT NULL,
   `instancia_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   `password_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='tabla con informacion de los equipos de computo del cliente';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con informacion de los equipos de computo del cliente';
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `equipos_computo`
+-- Estructura de tabla para la tabla `estatus`
 --
 
-INSERT INTO `equipos_computo` (`id_cliente`, `nombre_equipo`, `sistema_operativo`, `arquitectura`, `maquina_virtual`, `memoria_ram`, `sql_server`, `sql_management`, `instancia_sql`, `password_sql`) VALUES
-(42, 'Kokin-pc', 'Windows 7 Ultimate', 'x64', 'Si', '4', 'SQL Server 2008 R2', '2008 R2', '4534534534', '56456456');
+CREATE TABLE IF NOT EXISTS `estatus` (
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `estatus`
+--
+
+INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
+(1, 'cancelada'),
+(2, 'cerrada'),
+(3, 'pendiente'),
+(4, 'precierre'),
+(5, 'proceso'),
+(6, 'suspendida'),
+(7, 'sustituida');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pendientes`
+--
+
+CREATE TABLE IF NOT EXISTS `pendientes` (
+  `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ejecutivo` int(11) NOT NULL,
+  `id_empresa` int(11) DEFAULT NULL,
+  `actividad` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id_pendiente`),
+  KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`estatus`),
+  KEY `id_empresa` (`id_empresa`),
+  KEY `actividad` (`actividad`),
+  KEY `estatus` (`estatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -194,14 +252,7 @@ CREATE TABLE IF NOT EXISTS `sistemas` (
   `version` varchar(10) CHARACTER SET latin1 NOT NULL,
   `no_serie` varchar(30) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
-
---
--- Volcado de datos para la tabla `sistemas`
---
-
-INSERT INTO `sistemas` (`id_cliente`, `sistema`, `version`, `no_serie`) VALUES
-(42, 'CONTABILIDAD', '7.2.0', '3546354365');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
 
 --
 -- Restricciones para tablas volcadas
@@ -212,6 +263,13 @@ INSERT INTO `sistemas` (`id_cliente`, `sistema`, `version`, `no_serie`) VALUES
 --
 ALTER TABLE `contactos`
   ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `crea_pendiente`
+--
+ALTER TABLE `crea_pendiente`
+  ADD CONSTRAINT `crea_pendiente_ibfk_2` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
+  ADD CONSTRAINT `crea_pendiente_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`);
 
 --
 -- Filtros para la tabla `ejecutivos`
@@ -225,6 +283,15 @@ ALTER TABLE `ejecutivos`
 --
 ALTER TABLE `equipos_computo`
   ADD CONSTRAINT `equipos_computo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pendientes`
+--
+ALTER TABLE `pendientes`
+  ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --
 -- Filtros para la tabla `sistemas`

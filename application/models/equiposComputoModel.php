@@ -34,16 +34,16 @@ class EquiposComputoModel extends MY_Model {
 	{
 		$this->equipos_cliente = new stdClass();
 
-		$this->equipos_cliente->id_cliente 				= $id_cliente;
-		$this->equipos_cliente->nombre_equipo 		= $data['nombre_equipo'];
-		$this->equipos_cliente->sistema_operativo = $data['sistema_operativo'];
-		$this->equipos_cliente->arquitectura 			= $data['arquitectura'];
-		$this->equipos_cliente->maquina_virtual 	= $data['maquina_virtual'];
-		$this->equipos_cliente->memoria_ram 			= $data['memoria_ram'];
-		$this->equipos_cliente->sql_server 				= $data['sql_server'];
-		$this->equipos_cliente->sql_management 		= $data['sql_management'];
-		$this->equipos_cliente->instancia_sql 		= $data['instancia_sql'];
-		$this->equipos_cliente->password_sql 			= $data['password_sql'];
+		$this->equipos_cliente->id_cliente			= $id_cliente;
+		$this->equipos_cliente->nombre_equipo		= $data['nombre_equipo'];
+		$this->equipos_cliente->sistema_operativo	= $data['sistema_operativo'];
+		$this->equipos_cliente->arquitectura			= $data['arquitectura'];
+		$this->equipos_cliente->maquina_virtual		= $data['maquina_virtual'];
+		$this->equipos_cliente->memoria_ram		= $data['memoria_ram'];
+		$this->equipos_cliente->sql_server			= $data['sql_server'];
+		$this->equipos_cliente->sql_management		= $data['sql_management'];
+		$this->equipos_cliente->instancia_sql			= $data['instancia_sql'];
+		$this->equipos_cliente->password_sql			= $data['password_sql'];
 
 		return $this->equipos_cliente;
 	}
