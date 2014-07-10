@@ -892,7 +892,7 @@
 												</div>
 												<!-- Cambiar Imagen -->
 												<div id="cambiar_imagen" class="tab-pane">
-													<div class="col-md-5">
+													<div class="col-md-4">
 														<form action="<?php echo site_url('ejecutivo/edit/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 														<div class="form-group">
 															<div class="fileinput fileinput-new" data-provides="fileinput">
@@ -912,7 +912,7 @@
 															</div>
 														</div>
 													</div>
-													<div class="col-md-7">
+													<div class="col-md-8">
 														<h3>Selecciona una foto de perfil</h3>
 														<br>
 														<ul>
@@ -924,7 +924,7 @@
 														</ul>
 														<br>
 														<hr>
-														<div class="col-md-offset-1 col-md-12">
+														<div class="col-md-12">
 															<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
 															<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
 														</div>
