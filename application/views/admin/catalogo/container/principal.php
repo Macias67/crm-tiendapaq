@@ -116,9 +116,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PORTLET-->
-						<div class="portlet box blue-hoki">
+						<div class="portlet box gren">
 							<div class="portlet-title">
-								<div class="caption">
+								<div class="caption" style="color: black;">
 									<i class="fa fa-gift"></i>Formulario para importar clientes
 								</div>
 								<div class="tools">
@@ -133,6 +133,7 @@
 								<form action="<?php echo site_url('catalogo/importar_clientes') ?>" class="form-horizontal form-bordered" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 									<div class="form-body">
 										<?php echo validation_errors() ?>
+										<?php echo $upload_error ?>
 										<div class="form-group">
 											<div class="col-md-12">
 												<h5>

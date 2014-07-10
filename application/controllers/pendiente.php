@@ -45,11 +45,11 @@ class Pendiente extends AbstractAccess {
 		{
 			// Captruo los datos en un array
 			$data = array(
-				'id_ejecutivo'		=> $this->input->post('ejecutivo'),
-				'id_empresa'		=> (empty($this->input->post('razon_social'))) ? NULL : $this->input->post('razon_social'),
-				'actividad'			=> $this->input->post('actividad'),
-				'estatus'			=> $this->estatusModel->PENDIENTE,
-				'descripcion'		=> $this->input->post('descripcion')
+				'id_ejecutivo' => $this->input->post('ejecutivo'),
+				'id_empresa'	 => (empty($this->input->post('razon_social'))) ? NULL : $this->input->post('razon_social'),
+				'actividad'		 => $this->input->post('actividad'),
+				'estatus'			 => $this->estatusModel->PENDIENTE,
+				'descripcion'	 => $this->input->post('descripcion')
 			);
 			// Transfomo arreglo a objeto
 			$objeto_pendiente = $this->pendienteModel->arrayToObject($data);
