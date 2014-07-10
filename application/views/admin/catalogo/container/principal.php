@@ -116,9 +116,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PORTLET-->
-						<div class="portlet box blue-hoki">
+						<div class="portlet box gren">
 							<div class="portlet-title">
-								<div class="caption">
+								<div class="caption" style="color: black;">
 									<i class="fa fa-gift"></i>Formulario para importar clientes
 								</div>
 								<div class="tools">

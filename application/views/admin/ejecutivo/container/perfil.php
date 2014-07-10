@@ -156,7 +156,7 @@
 													<hr>
 													<div class="portlet box grey">
 														<div class="portlet-title">
-															<div class="caption" style="color: black">
+															<div class="caption" style="color: black;">
 																 Datos Básicos
 															</div>
 															<div class="tools">
