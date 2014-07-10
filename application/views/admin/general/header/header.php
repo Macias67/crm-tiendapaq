@@ -17,7 +17,7 @@
 			<!-- BEGIN LOGO -->
 			<div class="page-logo">
 				<a href="index.html">
-				<img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+				<img src="<?php echo $assets_admin_layout ?>img/logo.png" alt="logo" class="logo-default"/>
 				</a>
 				<div class="menu-toggler sidebar-toggler hide">
 					<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -381,22 +381,22 @@
 
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown dropdown-user">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
+						<a href="<?php echo site_url('ejecutivo/perfil') ?>" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+						<img alt="" class="img-circle" src="<?php echo site_url($usuario_activo['ruta_imagenes'].'mini.jpg') ?>"/>
 						<span class="username"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></span>
 						<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="extra_profile.html">
-								<i class="icon-user"></i> Perfil </a>
+								<a href="<?php echo site_url('ejecutivo') ?>">
+								<i class="icon-user"></i> Mi Perfil </a>
 							</li>
 							<li>
-								<a href="page_calendar.html">
+								<a href="#">
 								<i class="icon-calendar"></i> Calendario </a>
 							</li>
 							<li>
-								<a href="inbox.html">
+								<a href="#">
 								<i class="icon-envelope-open"></i> Inbox <span class="badge badge-danger">
 								3 </span>
 								</a>
@@ -410,7 +410,7 @@
 							<li class="divider">
 							</li>
 							<li>
-								<a href="extra_lock.html">
+								<a href="#">
 								<i class="icon-lock"></i> Lock Screen </a>
 							</li>
 							<li>

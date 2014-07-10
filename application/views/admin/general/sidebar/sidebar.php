@@ -43,23 +43,7 @@
 						<span class="title"> Inicio</span>
 						</a>
 					</li>
-					<li>
-						<a href="javascript:;">
-						<i class="fa fa-user"></i>
-						<span class="title"> Ejecutivos</span>
-						<span class="arrow "></span>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a href="#">
-								<i class="fa fa-plus"></i> Añadir</a>
-							</li>
-							<li>
-								<a href="#">
-								<i class="fa fa-cogs"></i> Gestionar</a>
-							<li>
-						</ul>
-					</li>
+					<!-- Clientes -->
 					<li>
 						<a href="#">
 						<i class="fa fa-users"></i>
@@ -75,12 +59,38 @@
 							</li>
 						</ul>
 					</li>
+					<!-- Ejecutivos -->
+					<li>
+						<a href="javascript:;">
+						<i class="fa fa-user"></i>
+						<span class="title"> Ejecutivos</span>
+						<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('ejecutivo/nuevo') ?>">
+								<i class="fa fa-plus"></i> Añadir</a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="fa fa-cogs"></i> Gestionar</a>
+							<li>
+						</ul>
+					</li>
 					<li>
 						<a href="<?php echo site_url('calendario') ?>">
 							<i class="fa fa-calendar"></i>
 							<span class="title">Calendario</span>
 						</a>
 					</li>
+					<!-- Importar Catalagos -->
+					<li>
+						<a href="<?php echo site_url('catalogo') ?>">
+							<i class="fa fa-upload"></i>
+							<span class="title"> Importar</span>
+						</a>
+					</li>
+					<!-- Cerrar Sesion -->
 					<li>
 						<a href="<?php echo site_url('logout') ?>">
 						<i class="icon-settings"></i>

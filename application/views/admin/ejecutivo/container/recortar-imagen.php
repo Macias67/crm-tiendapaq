@@ -11,7 +11,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							Color </span>
+							COLOR </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -75,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?> - <small>Cortar imagen</small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -100,15 +100,15 @@
 							</li>
 							<li>
 								<i class="fa fa-home"></i>
-								<a href="index.html">Home</a>
+								<a href="<?php echo site_url() ?>">inicio</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Page Layouts</a>
+								<a href="#">Perfil</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Blank Page</a>
+								<a href="#">Cortar Imagen</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -119,102 +119,26 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						<!-- BEGIN TABLA MIS PENDIENTES-->
-						<div class="portlet gren">
-							<div class="portlet-title">
-								<div class="caption"><i class="fa fa-user"></i>Mis Pendientes</div>
+							<div class="col-md-8 responsive-1024">
+								<!-- This is the image we're attaching Jcrop to -->
+								<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" id="imagen_ejecutivo" alt="Jcrop Example"/>
 							</div>
-							<div class="portlet-body">
-								<div class="scroller" style="height:400px">
-									<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
-										<thead>
-											<tr>
-												<th>Username</th>
-												<th>Email</th>
-												<th>Status</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="odd gradeX">
-												<td>shuxer</td>
-												<td>
-													<a href="mailto:shuxer@gmail.com">shuxer@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>looper</td>
-												<td>
-													<a href="mailto:looper90@gmail.com">looper90@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-warning">Suspended </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>
-													userwow
-												</td>
-												<td>
-													<a href="mailto:userwow@yahoo.com">userwow@yahoo.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>user1wow</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">userwow@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-default">Blocked </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>restest</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">test@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>foopl</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>weep</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-											<tr class="odd gradeX">
-												<td>coop</td>
-												<td>
-													<a href="mailto:userwow@gmail.com">good@gmail.com </a>
-												</td>
-												<td>
-													<span class="label label-sm label-success">Approved </span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+							<div class="col-md-4 responsive-1024">
+								<h3>Recorta tu imagen.</h3>
+								<p>
+									 El recorte sera utilizado como imagen de bloqueo de sesion, miniatura de perfil e imagen de chat
+								</p>
+								<br>
+								<!-- This is the form that our event handler fills -->
+								<form action="<?php echo site_url('ejecutivo/recortar') ?>" target="_blank" method="post" id="form-recorte-imagen">
+									<input type="hidden" id="crop_x" name="x"/>
+									<input type="hidden" id="crop_y" name="y"/>
+									<input type="hidden" id="crop_w" name="w"/>
+									<input type="hidden" id="crop_h" name="h"/>
+									<input type="submit" value="Cortar Imagen" class="btn btn-large green"/>
+								</form>
 							</div>
 						</div>
-						<!-- END TABLA MIS PENDIENTES-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->

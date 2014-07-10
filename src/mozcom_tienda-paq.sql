@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-07-2014 a las 02:59:05
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Servidor: localhost
+-- Tiempo de generación: 10-07-2014 a las 09:22:38
+-- Versión del servidor: 5.6.12-log
+-- Versión de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
+CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mozcom_tienda-paq`;
 
 -- --------------------------------------------------------
 
@@ -210,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   `estatus` int(11) NOT NULL,
   `descripcion` text NOT NULL,
   `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fecha_finaliza` timestamp NOT NULL,
+  `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_pendiente`),
   KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`estatus`),
   KEY `id_empresa` (`id_empresa`),

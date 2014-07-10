@@ -2,29 +2,6 @@
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
 			<div class="page-content">
-				<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-				<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-								<h4 class="modal-title">Modal title</h4>
-							</div>
-							<div class="modal-body">
-								 Widget settings form goes here
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn blue">Save changes</button>
-								<button type="button" class="btn default" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
-				<!-- /.modal -->
-				<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
 				<!-- BEGIN STYLE CUSTOMIZER -->
 				<div class="theme-panel hidden-xs hidden-sm">
 					<div class="toggler">
@@ -34,7 +11,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							THEME COLOR </span>
+							COLOR </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -98,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title">Importar Catálogos</h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -123,15 +100,11 @@
 							</li>
 							<li>
 								<i class="fa fa-home"></i>
-								<a href="index.html">Home</a>
+								<a href="<?php echo site_url() ?>">Inicio</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Page Layouts</a>
-								<i class="fa fa-angle-right"></i>
-							</li>
-							<li>
-								<a href="#">Blank Page</a>
+								<a href="#">Importar Catálogos</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -142,7 +115,64 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<!-- BEGIN PORTLET-->
+						<div class="portlet box blue-hoki">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-gift"></i>Formulario para importar clientes
+								</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse">
+									</a>
+									<a href="javascript:;" class="reload">
+									</a>
+								</div>
+							</div>
+							<div class="portlet-body form">
+								<!-- BEGIN FORM-->
+								<form action="<?php echo site_url('catalogo/importar_clientes') ?>" class="form-horizontal form-bordered" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+									<div class="form-body">
+										<?php echo validation_errors() ?>
+										<div class="form-group">
+											<div class="col-md-12">
+												<h5>
+													El archivo debe ser formato <strong>.TXT</strong> y debe tener el <strong>mismo patrón</strong>
+													señalado por <strong>CRM TiendaPAQ</strong>. Este archivo es exportado desde <strong>CONTPAQi Comercial®</strong>.
+												</h5>
+												<br>
+												<div class="fileinput fileinput-new" data-provides="fileinput">
+													<div class="input-group input-xlarge">
+														<div class="form-control uneditable-input span3" data-trigger="fileinput">
+															<i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+															</span>
+														</div>
+														<span class="input-group-addon btn default btn-file">
+														<span class="fileinput-new">
+														Seleccionar archivo </span>
+														<span class="fileinput-exists">
+														Cambiar </span>
+														<input type="file" name="userfile">
+														</span>
+														<a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+														Eliminar </a>
+													</div>
+													<br>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-offset-5 col-md-10">
+												<button type="submit" class="btn green"><i class="fa fa-check"></i> Enviar</button>
+											</div>
+										</div>
+									</div>
+								</form>
+								<!-- END FORM-->
+							</div>
+						</div>
+						<!-- END PORTLET-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
