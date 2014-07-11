@@ -10,7 +10,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							THEME COLOR </span>
+							COLOR </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -203,10 +203,9 @@
 												<label class="control-label col-md-4">Oficina </label>
 												<div class="col-md-8">
 													<select class="form-control" name="oficina">
-														<option value="Ocotlán">Ocotlán</option>
-														<option value="Morelia">Morelia</option>
-														<option value="León">León</option>
-														<option value="Uruapan">Uruapan</option>
+														<?php foreach ($tablaoficinas as $oficina): ?>
+															<option value="<?php echo $oficina->ciudad_estado?>"><?php echo $oficina->ciudad_estado?></option>
+														<?php endforeach ?>
 													</select>
 												</div>
 											</div>
