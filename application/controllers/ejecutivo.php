@@ -86,18 +86,18 @@ class Ejecutivo extends AbstractAccess {
 			// Array con la informacion
 			$data = array(
 				//Datos Personales
-				'primer_nombre'	=> $this->input->post('primer_nombre'),
-				'segundo_nombre'	=> $this->input->post('segundo_nombre'),
+				'primer_nombre'   	=> $this->input->post('primer_nombre'),
+				'segundo_nombre'	  => $this->input->post('segundo_nombre'),
 				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
 				'apellido_materno'	=> $this->input->post('apellido_materno'),
-				'email'				=> $this->input->post('email'),
-				'telefono'			=> $this->input->post('telefono'),
+				'email'				      => $this->input->post('email'),
+				'telefono'			    => $this->input->post('telefono'),
 				//Datos del Sistema
-				'oficina'			=> $this->input->post('oficina'),
-				'privilegios'			=> $this->input->post('privilegios'),
-				'departamento'	=> $this->input->post('departamento'),
-				'usuario'			=> $this->input->post('usuario'),
-				'password'			=> $this->input->post('password')
+				'oficina'			 => $this->input->post('oficina'),
+				'privilegios'	 => $this->input->post('privilegios'),
+				'departamento' => $this->input->post('departamento'),
+				'usuario'			 => $this->input->post('usuario'),
+				'password'		 => $this->input->post('password')
 			);
 			//convierto array a objeto e inserto en la bd
 			$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data, FALSE);

@@ -134,7 +134,7 @@
 									</div>
 								</div>
 								<div class="portlet-body">
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+									<table class="table table-striped table-hover table-bordered" id="tabla_oficinas_editable">
 										<thead>
 											<tr>
 												<th>Ciudad</th>
@@ -190,7 +190,7 @@
 									</div>
 								</div>
 								<div class="portlet-body">
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+									<table class="table table-striped table-hover table-bordered" id="">
 										<thead>
 											<tr>
 												<th>Departamento</th>

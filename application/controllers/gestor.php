@@ -27,6 +27,30 @@ class Gestor extends AbstractAccess {
  {
 
  }
+
+ public function oficinas($accion=null)
+ {
+ 	switch ($accion) {
+ 		case 'editar':
+			$kokin = $this->input->post('Variable');
+
+			$respuesta = array(
+				'exito'		=> TRUE,
+				'msg'	=> $kokin
+			);
+
+			$this->output
+				 ->set_content_type('application/json')
+				 ->set_output(json_encode($respuesta));
+ 		break;
+ 		case 'eliminar':
+
+ 		break;
+ 		default:
+
+ 			break;
+ 	}
+ }
 }
 
 /* End of file gestorGeneral.php */
