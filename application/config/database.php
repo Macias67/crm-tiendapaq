@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$local = FALSE;
+$local = TRUE;
 
 if ($local) {
 	$db['default']['hostname']	= 'localhost';

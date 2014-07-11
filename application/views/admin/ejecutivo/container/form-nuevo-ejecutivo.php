@@ -261,11 +261,9 @@
 									<div class="form-actions fluid">
 										<div class="row">
 											<div class="col-md-12">
-											<hr>
-												<div class="col-md-offset-5 col-md-10">
-													<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
-													<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Limpiar</button>
-												</div>
+												<hr>
+												<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+												<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Limpiar</button>
 											</div>
 										</div>
 									</div>

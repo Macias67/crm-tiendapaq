@@ -116,21 +116,15 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PORTLET-->
-						<div class="portlet box gren">
+						<div class="portlet gren">
 							<div class="portlet-title">
-								<div class="caption" style="color: black;">
+								<div class="caption">
 									<i class="fa fa-gift"></i>Formulario para importar clientes
 								</div>
-								<div class="tools">
-									<a href="javascript:;" class="collapse">
-									</a>
-									<a href="javascript:;" class="reload">
-									</a>
-								</div>
 							</div>
-							<div class="portlet-body form">
+							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('catalogo/importar_clientes') ?>" class="form-horizontal form-bordered" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+								<form action="<?php echo site_url('catalogo/clientes') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 									<div class="form-body">
 										<?php echo validation_errors() ?>
 										<?php echo $upload_error ?>
@@ -161,11 +155,9 @@
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="col-md-offset-5 col-md-10">
-												<button type="submit" class="btn green"><i class="fa fa-check"></i> Enviar</button>
+										<div class="form-group">
+											<div class="col-md-12">
+												<button type="submit" class="btn green"><i class="fa fa-sign-in"></i> Importar</button>
 											</div>
 										</div>
 									</div>

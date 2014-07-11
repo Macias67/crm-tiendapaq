@@ -25,12 +25,12 @@ class Catalogo extends AbstractAccess {
 	public function add()
 	{}
 
- /**
- * Funcion que insertara los clientes a la bd de CRM tiendapaq
- * basandose en un txt cargado por el ejecutivo
- * @author Diego Rodriguez
- **/
- 	public function importar_clientes()
+	 /**
+	 * Funcion que insertara los clientes a la bd de CRM tiendapaq
+	 * basandose en un txt cargado por el ejecutivo
+	 * @author Diego Rodriguez
+	 **/
+	public function clientes()
 	{
 		// Reglas de validacion
 		$this->form_validation->set_rules('userfile',"El archivo", "file_required|file_min_size[5KB]|file_allowed_type[txt]|callback_pattern_check_clientes");
@@ -38,30 +38,34 @@ class Catalogo extends AbstractAccess {
 		{
 			// Muestro vista de nuevo con errores
 			$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error: </strong>
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
-					' <b><a href="'.site_url('catalogo').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
+			' <b><a href="'.site_url('catalogo').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 
 			$this->_vista('principal');
 		} else
 		{
 			$ruta	= 'src/'.$this->usuario_activo['usuario'];
+
 			// Si no existe la carpeta upload
 			if (!is_dir($ruta)) {
 				mkdir($ruta, 0777, TRUE);
 			}
+
 			//Configuracion para la subida del archivo
 			$config_upload['upload_path']		= $ruta;
 			$config_upload['allowed_types']	= 'txt';
 			$config_upload['overwrite'] 		= TRUE;
 			$config_upload['remove_spaces']	= TRUE;
+
 			// Cargo libreria upload
 			$this->load->library('upload', $config_upload);
+
 			// Si no es exitosa la subida
 			if (!$this->upload->do_upload())
 			{
 				// Formato para mostrar los mensajes de error
 				$this->data['upload_error'] = $this->upload->display_errors('<div class="notice error"><i class="icon-remove-sign icon-large"></i>',
-					'<a href="#close" class="icon-remove"></a></div>');
+				'<a href="#close" class="icon-remove"></a></div>');
 				// Muestro vista de nuevo con errores de subida
 				$this->_vista('principal');
 			} else
@@ -81,7 +85,7 @@ class Catalogo extends AbstractAccess {
 						unlink($file_info['full_path']);
 						//Borro carpeta
 						rmdir($ruta);
-						// Cargo vista success
+						// Cargo vista a pagina principal
 						redirect(base_url());
 					}
 				} else
@@ -101,9 +105,9 @@ class Catalogo extends AbstractAccess {
 				}
 			}
 		}
-}
+	}
 
-		/*
+	/*
 	|--------------------------------------------------------------------------
 	| CALLBACKS
 	|--------------------------------------------------------------------------
