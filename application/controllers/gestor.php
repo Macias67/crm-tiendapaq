@@ -11,11 +11,17 @@ class Gestor extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
-		
+		//carga de los modelos a usar en el controlador
+		$this->load->model('departamentoModel');
+		$this->load->model('oficinasModel');
+		//carda de las variables con los datos que usaremos
+		$this->data['oficinas'] = $this->oficinasModel->get(array('*'));
+		$this->data['departamentos'] = $this->departamentoModel->get(array('*'));
 	}
 	public function index()
 	{
-		$this->_vista('principal');
+		//var_dump($this->data);
+		$this->_vista('oficinas_dptos');
 	}
  public function add()
  {

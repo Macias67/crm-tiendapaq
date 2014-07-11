@@ -74,7 +74,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?> - <small>Perfil</small></h3>
+						<h3 class="page-title"> Perfil - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">

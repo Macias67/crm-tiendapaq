@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2014 a las 21:00:45
+-- Tiempo de generación: 11-07-2014 a las 21:05:45
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   KEY `oficina` (`oficina`,`departamento`,`privilegios`),
   KEY `departamento` (`departamento`),
   KEY `privilegios` (`privilegios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `ejecutivos`

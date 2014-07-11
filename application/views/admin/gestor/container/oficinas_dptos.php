@@ -75,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title"> Oficinas y Departamentos - <small> Gestor General</small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -104,11 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
+								<a href="#">Gestor General</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Seccion</a>
+								<a href="#">Oficinas y Departamentos</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -119,7 +119,106 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<div class="col-md-9">
+							<!-- BEGIN TABLA OFICINAS-->
+							<div class="portlet box grey">
+								<div class="portlet-title">
+									<div class="caption" style="color: black">
+										<i class="fa fa-building"></i> Oficinas
+									</div>
+									<div class="tools" style="color: black">
+										<a href="javascript:;" class="collapse">
+										</a>
+										<a href="javascript:;" class="reload">
+										</a>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+										<thead>
+											<tr>
+												<th>Ciudad</th>
+												<th>Estado</th>
+												<th>Colonia</th>
+												<th>Calle</th>
+												<th>Numero</th>
+												<th>Email</th>
+												<th>Telefono</th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach ($oficinas as $oficina) : ?>
+												<tr>
+													<td><?php echo $oficina->ciudad ?></td>
+													<td><?php echo $oficina->estado ?></td>
+													<td><?php echo $oficina->colonia ?></td>
+													<td><?php echo $oficina->calle ?></td>
+													<td><?php echo $oficina->numero ?></td>
+													<td><?php echo $oficina->email ?></td>
+													<td><?php echo $oficina->telefono ?></td>
+													<td><a class="edit" href="javascript:;">Editar </a></td>
+													<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												</tr>
+											<?php endforeach ?>
+										</tbody>
+									</table>
+									<div class="table-toolbar">
+										<div class="btn-group pull-right">
+											<button id="sample_editable_1_new" class="btn green btn-xs">
+												<i class="fa fa-plus"></i> Nueva oficina
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END TABLA OFICINAS-->
+						</div>
+						<div class="col-md-3">
+														<!-- BEGIN TABLA OFICINAS-->
+							<div class="portlet box grey">
+								<div class="portlet-title">
+									<div class="caption" style="color: black">
+										<i class="fa fa-briefcase"></i> Departamentos
+									</div>
+									<div class="tools" style="color: black">
+										<a href="javascript:;" class="collapse">
+										</a>
+										<a href="javascript:;" class="reload">
+										</a>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+										<thead>
+											<tr>
+												<th>Departamento</th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach ($departamentos as $departamento) : ?>
+												<tr>
+													<td><?php echo $departamento->area ?></td>
+													<td><a class="edit" href="javascript:;">Editar </a></td>
+													<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												</tr>
+											<?php endforeach ?>
+										</tbody>
+									</table>
+									<div class="table-toolbar">
+										<div class="btn-group pull-right">
+											<button id="sample_editable_1_new" class="btn green btn-xs">
+												<i class="fa fa-plus"></i> Nuevo departamento
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- END TABLA OFICINAS-->
+						</div>
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
