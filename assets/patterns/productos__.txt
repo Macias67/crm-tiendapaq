@@ -1,3 +1,0 @@
-Vista_productos_ipedido
-
-Código del producto             	Nombre del producto                                           	                            Precio 1	                          Impuesto 1	                          Impuesto 2	                         Retención 1	                         Retención 2	
