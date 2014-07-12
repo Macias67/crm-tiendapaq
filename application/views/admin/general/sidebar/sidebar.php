@@ -46,9 +46,9 @@
 					<!-- Clientes -->
 					<li>
 						<a href="#">
-						<i class="fa fa-users"></i>
-						<span class="title"> Clientes</span>
-						<span class="arrow "></span>
+							<i class="fa fa-users"></i>
+							<span class="title"> Clientes</span>
+							<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
 							<li>
@@ -89,6 +89,14 @@
 							<i class="fa fa-upload"></i>
 							<span class="title"> Importar</span>
 						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('catalogo/clientes'); ?>"><i class="fa fa-plus"></i> Clientes</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('catalogo/productos'); ?>"><i class="fa fa-cogs"></i> Productos</a>
+							</li>
+						</ul>
 					</li>
 					<!-- Cerrar Sesion -->
 					<li>

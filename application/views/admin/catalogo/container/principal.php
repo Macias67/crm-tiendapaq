@@ -119,12 +119,12 @@
 						<div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption">
-									<i class="fa fa-gift"></i>Formulario para importar clientes
+									<i class="fa fa-gift"></i>Formulario para importar <?php echo $tipo ?>
 								</div>
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('catalogo/clientes') ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+								<form action="<?php echo site_url('catalogo/importar/'.$tipo) ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 									<div class="form-body">
 										<?php echo validation_errors() ?>
 										<?php echo $upload_error ?>

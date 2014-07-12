@@ -62,5 +62,10 @@ $route['pendiente/(:any)']	= "pendiente/$1";
 $route['perfil']				= "ejecutivo";
 $route['ejecutivo/(:any)']	= "ejecutivo/$1";
 
+// Funciones catalago
+$route['catalogo/clientes']		= "catalogo";
+$route['catalogo/productos']	= "catalogo";
+$route['catalogo/(:any)']		= "catalogo/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

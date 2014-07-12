@@ -1,0 +1,5 @@
+Vista_clientes_ipedido
+
+
+
+Código Cliente                  	Razón Social                                                  	R.F.C.                	eMail                                               	Calle                                                         	Número Exterior                 	Número Interior                 	Colonia                                                       	Código Postal	Ciudad                                                        	Municipio                                                     	Estado                                                        	País                                                          	Télefono 1       	Télefono 2       	
