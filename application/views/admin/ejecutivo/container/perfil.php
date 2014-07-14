@@ -74,7 +74,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title"><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?> - <small>Perfil</small></h3>
+						<h3 class="page-title"> Perfil - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -170,6 +170,7 @@
 																<li><i class="fa fa-user"></i><strong> Usuario</strong> : <?php echo $usuario_activo['usuario'] ?></li>
 																<li><i class="fa fa-envelope"></i><strong> Email</strong>: <?php echo $usuario_activo['email'] ?></li>
 																<li><i class="fa fa-phone"></i><strong> Teléfono</strong>: <?php echo $usuario_activo['telefono'] ?></li>
+																<li><i class="fa fa-building"></i><strong> Oficina</strong>: <?php echo $usuario_activo['oficina'] ?></li>
 																<li><i class="fa fa-briefcase"></i><strong> Departamento</strong>: <?php echo $usuario_activo['departamento'] ?></li>
 															</ul>
 														</div>
@@ -835,10 +836,12 @@
 																<div class="input-icon">
 																	<i class="fa fa-building"></i>
 																	<select class="form-control" name="oficina">
-																		<option value="Ocotlán" <?php echo ($usuario_activo['oficina']=='Ocotlán')? 'selected':'' ;?>>Ocotlán</option>
-																		<option value="Morelia" <?php echo ($usuario_activo['oficina']=='Morelia')? 'selected':'' ;?>>Morelia</option>
-																		<option value="León" <?php echo ($usuario_activo['oficina']=='León')? 'selected':'' ;?>>León</option>
-																		<option value="Uruapan" <?php echo ($usuario_activo['oficina']=='Uruapan')? 'selected':'' ;?>>Uruapan</option>
+																		<option value="<?php echo $usuario_activo['oficina'] ?>"><?php echo $usuario_activo['oficina'] ?></option>
+																		<?php foreach ($tablaoficinas as $oficina ): ?>
+																			<?php if ($usuario_activo['oficina']!=$oficina->ciudad_estado): ?>
+																				<option value="<?php echo $oficina->ciudad_estado ?>"><?php echo $oficina->ciudad_estado ?></option>
+																			<?php endif ?>
+																		<?php endforeach ?>
 																	</select>
 																</div>
 															</div>

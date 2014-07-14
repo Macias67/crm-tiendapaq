@@ -98,10 +98,26 @@
 							</li>
 						</ul>
 					</li>
+					<!-- Gestor General -->
+					<li>
+						<a href="#">
+						<i class="fa fa-cogs"></i>
+						<span class="title"> Gestor General</span>
+						<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('gestor') ?>"></i> Oficinas y Dptos.</a>
+							</li>
+							<li>
+								<a href="#"></i> Sistemas <strong>CONTPAQi®</strong></a>
+							</li>
+						</ul>
+					</li>
 					<!-- Cerrar Sesion -->
 					<li>
 						<a href="<?php echo site_url('logout') ?>">
-						<i class="icon-settings"></i>
+						<i class="fa fa-key"></i>
 						<span class="title">Cerrar Sesion</span></a>
 					</li>
 				</ul>

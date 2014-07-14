@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-07-2014 a las 21:36:43
+-- Tiempo de generación: 11-07-2014 a las 21:05:45
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -131,27 +131,28 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `segundo_nombre` varchar(20) NOT NULL,
   `apellido_paterno` varchar(20) NOT NULL,
   `apellido_materno` varchar(20) NOT NULL,
-  `oficina` varchar(30) NOT NULL,
+  `oficina` varchar(80) NOT NULL,
   `usuario` varchar(20) NOT NULL,
-  `password` varchar(64) NOT NULL,
+  `password` varchar(20) NOT NULL,
   `email` varchar(60) NOT NULL,
   `telefono` varchar(14) NOT NULL,
   `departamento` varchar(30) NOT NULL,
   `privilegios` varchar(30) NOT NULL,
-  `mensaje_personal` text,
+  `mensaje_personal` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario` (`usuario`),
-  KEY `area` (`departamento`,`privilegios`),
+  KEY `oficina` (`oficina`,`departamento`,`privilegios`),
+  KEY `departamento` (`departamento`),
   KEY `privilegios` (`privilegios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Tabla con los datos de los ejecutivos' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `ejecutivos`
 --
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', '', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 9418119', 'Desarrollo', 'admin', NULL),
-(2, 'Diego', 'Iván', 'Rodriguez', 'Cuevas', '', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(392) 9818718', 'Desarrollo', 'soporte', NULL);
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM'),
+(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq');
 
 -- --------------------------------------------------------
 
@@ -197,6 +198,32 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 (5, 'proceso'),
 (6, 'suspendida'),
 (7, 'sustituida');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `oficinas`
+--
+
+CREATE TABLE IF NOT EXISTS `oficinas` (
+  `ciudad_estado` varchar(80) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `colonia` varchar(30) NOT NULL,
+  `calle` varchar(50) NOT NULL,
+  `numero` varchar(5) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telefono` varchar(14) NOT NULL,
+  PRIMARY KEY (`ciudad_estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='informacion basica de las oficinas';
+
+--
+-- Volcado de datos para la tabla `oficinas`
+--
+
+INSERT INTO `oficinas` (`ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
+('Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia de León', '#315', 'Ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
+('Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
 
 -- --------------------------------------------------------
 
@@ -275,8 +302,9 @@ ALTER TABLE `crea_pendiente`
 -- Filtros para la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`),
-  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`);
+  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`),
+  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`),
+  ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`);
 
 --
 -- Filtros para la tabla `equipos_computo`

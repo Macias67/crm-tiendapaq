@@ -17,8 +17,10 @@ class Ejecutivo extends AbstractAccess {
 		$this->load->model('privilegiosModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('departamentoModel');
-		//cargamos la lista de departamentos para mostrarla en un select en la vista perfil
-		$this->data['tabladepartamentos']= $this->departamentoModel->get(array('area'));
+		$this->load->model('oficinasModel');
+		//variables que contienen ls valores de la bd para mostrarlo en los select en caso de editar
+		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
+		$this->data['tablaoficinas']      = $this->oficinasModel->get(array('ciudad_estado'));
 		// Variable vacia para mostrar errores de subida
 		$this->data['upload_error'] = '';
 	}
@@ -31,6 +33,7 @@ class Ejecutivo extends AbstractAccess {
 	public function index()
 	{
 		$this->_vista('perfil');
+		//var_dump($this->data);
 	}
 
 	/**
@@ -46,6 +49,7 @@ class Ejecutivo extends AbstractAccess {
 		//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
 		$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
+		$this->data['tablaoficinas']      = $this->oficinasModel->get(array('ciudad_estado'));
 		//se muestra el formulario
 		$this->_vista('form-nuevo-ejecutivo');
 	}
@@ -82,18 +86,18 @@ class Ejecutivo extends AbstractAccess {
 			// Array con la informacion
 			$data = array(
 				//Datos Personales
-				'primer_nombre'	=> $this->input->post('primer_nombre'),
-				'segundo_nombre'	=> $this->input->post('segundo_nombre'),
+				'primer_nombre'   	=> $this->input->post('primer_nombre'),
+				'segundo_nombre'	  => $this->input->post('segundo_nombre'),
 				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
 				'apellido_materno'	=> $this->input->post('apellido_materno'),
-				'email'				=> $this->input->post('email'),
-				'telefono'			=> $this->input->post('telefono'),
+				'email'				      => $this->input->post('email'),
+				'telefono'			    => $this->input->post('telefono'),
 				//Datos del Sistema
-				'oficina'			=> $this->input->post('oficina'),
-				'privilegios'			=> $this->input->post('privilegios'),
-				'departamento'	=> $this->input->post('departamento'),
-				'usuario'			=> $this->input->post('usuario'),
-				'password'			=> $this->input->post('password')
+				'oficina'			 => $this->input->post('oficina'),
+				'privilegios'	 => $this->input->post('privilegios'),
+				'departamento' => $this->input->post('departamento'),
+				'usuario'			 => $this->input->post('usuario'),
+				'password'		 => $this->input->post('password')
 			);
 			//convierto array a objeto e inserto en la bd
 			$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data, FALSE);
