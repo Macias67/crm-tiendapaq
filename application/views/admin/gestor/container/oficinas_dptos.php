@@ -137,7 +137,7 @@
 									<table class="table table-striped table-hover table-bordered" id="tabla_oficinas_editable">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th type="hidden">ID</th>
 												<th>Ciudad</th>
 												<th>Estado</th>
 												<th>Colonia</th>
@@ -152,7 +152,7 @@
 										<tbody>
 											<?php foreach ($oficinas as $oficina) : ?>
 												<tr>
-													<td><?php echo $oficina->id_oficina ?></td>
+													<td type="hidden"><?php echo $oficina->id_oficina ?></td>
 													<td><?php echo $oficina->ciudad ?></td>
 													<td><?php echo $oficina->estado ?></td>
 													<td><?php echo $oficina->colonia ?></td>

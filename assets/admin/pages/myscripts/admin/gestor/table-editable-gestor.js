@@ -15,7 +15,7 @@ var TableEditable = function () {
         function editRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
+            jqTds[0].innerHTML = '<input type="hidden" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
             jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
@@ -49,31 +49,69 @@ var TableEditable = function () {
                                 'numero='+jqInputs[5].value+'&'+
                                 'email='+jqInputs[6].value+'&'+
                                 'telefono='+jqInputs[7].value;
-            //insertar los nuevos elementos en la bd
-            $.ajax({
-                url: "gestor/oficinas/editar",
-                type: 'post',
-                cache: false,
-                dataType: 'json',
-                data: oficina_editada,
-                beforeSend: function () {
-                   //('body').modalmanager('loading');
-                },
-                error: function(jqXHR, status, error) {
-                    console.log("ERROR: "+error);
-                    alert('ERROR: revisa la consola del navegador para más detalles.');
-                    //$('body').modalmanager('removeLoading');
-                },
-                success: function(data) {
-                    if (data.exito) {
-                        alert("oficina "+data.oficina_editada+" actualizada");
-                        //parent.location.reload();
-                    } else {
-                        alert('Error :'+data.msg);
+            //si hay is es edicion, si no, es nuevo
+            console.log("el id a editar es "+jqInputs[0].value);
+            if(jqInputs[0].value!="")
+            {
+                $.ajax({
+                    url: "gestor/oficinas/editar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: oficina_editada,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
                         //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Oficina de : "+data.oficina_editada+" actualizada con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error :'+data.msg);
+                            //parent.location.reload();
+                            //var nRow = $(this).parents('tr')[0];
+                            //restoreRow(oTable, nEditing);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
                     }
-                }
-            });
+                });
+            }else
+            {
+                $.ajax({
+                    url: "gestor/oficinas/nueva",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: oficina_editada,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Oficina de : "+data.oficina_nueva+" añadida con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error :'+data.msg);
+                            //arent.location.reload();
+                            editRow(oTable, nRow);
+                            nEditing = null;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }
         }
 
         function cancelEditRow(oTable, nRow) {
@@ -178,8 +216,35 @@ var TableEditable = function () {
             }
 
             var nRow = $(this).parents('tr')[0];
+            var aData = oTable.fnGetData(nRow);
+            console.log("Borrada oficina "+aData[0]);
+            //ajax para borrar la oficina
+            $.ajax({
+                    url: "gestor/oficinas/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id_oficina="+aData[0]+"&ciudad="+aData[1]+"&estado="+aData[2],
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Oficina de : "+data.oficina_eliminada+" eliminada con éxito");
+                            //parent.location.reload();
+                        } else {
+                            alert('Error :'+data.msg);
+                            //$('body').modalmanager('removeLoading');
+                            parent.location.reload();
+                        }
+                    }
+                });
             oTable.fnDeleteRow(nRow);
-            alert("Borrado, aqui va el ajax par hacerlo en la bd :)");
         });
 
         table.on('click', '.cancel', function (e) {

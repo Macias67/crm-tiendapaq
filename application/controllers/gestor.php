@@ -33,6 +33,43 @@ class Gestor extends AbstractAccess {
  public function oficinas($accion=null)
  {
  	switch ($accion) {
+ 		case 'nueva':
+ 			$this->load->library('form_validation');
+			//reglas de oficinas
+			$this->form_validation->set_rules('ciudad','Ciudad','trim|required|strtolower|ucwords|max_length[40]|xss_clean');
+			$this->form_validation->set_rules('estado','Estado','trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+			$this->form_validation->set_rules('colonia','Colonia','trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+			$this->form_validation->set_rules('calle','Calle','trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+			$this->form_validation->set_rules('numero','Número','trim|required|max_length[5]|xss_clean');
+			$this->form_validation->set_rules('email','Email','trim|required|strtolower|valid_email|max_length[50]|xss_clean');
+			$this->form_validation->set_rules('telefono','Teléfono','trim|required|max_length[14]|xss_clean');
+
+			if($this->form_validation->run() === FALSE)
+			{
+				$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+			}else
+			{
+				//si las reglas son correctas preparo los datos para insertar
+				$oficina_nueva = array(
+					'ciudad' 		 => $this->input->post('ciudad'),
+					'estado' 		 => $this->input->post('estado'),
+					'colonia' 	 => $this->input->post('colonia'),
+					'calle' 	 	 => $this->input->post('calle'),
+					'numero' 	 	 => $this->input->post('numero'),
+					'email' 	 	 => $this->input->post('email'),
+					'telefono' 	 => $this->input->post('telefono')
+				);
+				//el compo ciudad estado lo creo maualmnte
+				$oficina_nueva['ciudad_estado']=$oficina_nueva['ciudad'].', '.$oficina_nueva['estado'];
+				//inserto en la bd
+				$this->oficinasModel->insert($oficina_nueva);
+				$respuesta = array('exito' => TRUE, 'oficina_nueva' => $oficina_nueva['ciudad_estado']);
+			}
+			//mando la repuesta
+			$this->output
+				 ->set_content_type('application/json')
+				 ->set_output(json_encode($respuesta));
+ 		break;
  		case 'editar':
 			$this->load->library('form_validation');
 			//reglas de oficinas
@@ -73,7 +110,21 @@ class Gestor extends AbstractAccess {
 				 ->set_output(json_encode($respuesta));
  		break;
  		case 'eliminar':
+ 			$id_oficina = $this->input->post('id_oficina');
+ 			$ciudad = $this->input->post('ciudad');
+ 			$estado = $this->input->post('estado');
 
+			if (!$this->oficinasModel->delete(array('id_oficina' => $id_oficina))) 
+			{
+				$respuesta = array('exito' => FALSE, 'msg' => 'no se elimino');
+			}else
+			{
+				$respuesta = array('exito' => TRUE, 'oficina_eliminada' => $ciudad.', '.$estado);
+			}
+      //mando la repuesta
+			$this->output
+				 ->set_content_type('application/json')
+				 ->set_output(json_encode($respuesta));
  		break;
  		default:
 
