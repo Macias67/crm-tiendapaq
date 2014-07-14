@@ -32,11 +32,11 @@ class Gestor extends AbstractAccess {
  {
  	switch ($accion) {
  		case 'editar':
-			$kokin = $this->input->post('Variable');
+			$oficina_editada = json_decode(stripslashes($_POST['oficina_editada']));
 
 			$respuesta = array(
 				'exito'		=> TRUE,
-				'msg'	=> $kokin
+				'msg'	=> $oficina_editada
 			);
 
 			$this->output

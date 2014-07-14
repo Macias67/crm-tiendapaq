@@ -1,6 +1,6 @@
 var TableEditable = function () {
 
-    var handleTable = function () {
+    var handleTableOficinas = function () {
 
         function restoreRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
@@ -38,14 +38,26 @@ var TableEditable = function () {
             oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 7, false);
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 8, false);
             oTable.fnDraw();
+
+            var oficina_editada = {
+                'ciudad'  :jqInputs[0].value,
+                'estado'  :jqInputs[1].value,
+                'colonia' :jqInputs[2].value,
+                'calle'   :jqInputs[3].value,
+                'numero'  :jqInputs[4].value,
+                'email'   :jqInputs[5].value,
+                'telefono':jqInputs[6].value,
+
+            };
+
             $.ajax({
-                url: $('gestor/oficinas/editar'),
+                url: "gestor/oficinas/editar",
                 type: 'post',
                 cache: false,
                 dataType: 'json',
-                data: $("Variable="+kokin),
+                data: {oficina_editada:JSON.stringify(oficina_editada)},
                 beforeSend: function () {
-                    $('body').modalmanager('loading');
+                   //('body').modalmanager('loading');
                 },
                 error: function(jqXHR, status, error) {
                     console.log("ERROR: "+error);
@@ -54,7 +66,7 @@ var TableEditable = function () {
                 },
                 success: function(data) {
                     if (data.exito) {
-                        alert("recibi "+data.msg);
+                        console.log(data.msg);
                         //parent.location.reload();
                     } else {
                         $('body').modalmanager('removeLoading');
@@ -193,7 +205,7 @@ var TableEditable = function () {
 
         //main function to initiate the module
         init: function () {
-            handleTable();
+            handleTableOficinas();
         }
 
     };
