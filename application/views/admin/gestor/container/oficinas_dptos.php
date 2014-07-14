@@ -137,13 +137,14 @@
 									<table class="table table-striped table-hover table-bordered" id="tabla_oficinas_editable">
 										<thead>
 											<tr>
+												<th>ID</th>
 												<th>Ciudad</th>
 												<th>Estado</th>
 												<th>Colonia</th>
 												<th>Calle</th>
-												<th>Numero</th>
+												<th>Número</th>
 												<th>Email</th>
-												<th>Telefono</th>
+												<th>Teléfono</th>
 												<th></th>
 												<th></th>
 											</tr>
@@ -151,6 +152,7 @@
 										<tbody>
 											<?php foreach ($oficinas as $oficina) : ?>
 												<tr>
+													<td><?php echo $oficina->id_oficina ?></td>
 													<td><?php echo $oficina->ciudad ?></td>
 													<td><?php echo $oficina->estado ?></td>
 													<td><?php echo $oficina->colonia ?></td>
@@ -166,7 +168,7 @@
 									</table>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
-											<button id="sample_editable_1_new" class="btn green btn-xs">
+											<button id="tabla_oficinas_editable_new" class="btn green btn-xs">
 												<i class="fa fa-plus"></i> Nueva oficina
 											</button>
 										</div>

@@ -22,8 +22,9 @@ var TableEditable = function () {
             jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
             jqTds[5].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[5] + '">';
             jqTds[6].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[6] + '">';
-            jqTds[7].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[8].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[7].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[7] + '">';
+            jqTds[8].innerHTML = '<a class="edit" href="">Guardar</a>';
+            jqTds[9].innerHTML = '<a class="cancel" href="">Cancelar</a>';
         }
 
         function saveRow(oTable, nRow) {
@@ -32,44 +33,44 @@ var TableEditable = function () {
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
             oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 5, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 6, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 7, false);
-            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 8, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
+            oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
+            oTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 8, false);
+            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 9, false);
             oTable.fnDraw();
-
-            var oficina_editada = {
-                'ciudad'  :jqInputs[0].value,
-                'estado'  :jqInputs[1].value,
-                'colonia' :jqInputs[2].value,
-                'calle'   :jqInputs[3].value,
-                'numero'  :jqInputs[4].value,
-                'email'   :jqInputs[5].value,
-                'telefono':jqInputs[6].value,
-
-            };
-
+            //
+            var oficina_editada='id_oficina='+jqInputs[0].value+'&'+
+                                'ciudad='+jqInputs[1].value+'&'+
+                                'estado='+jqInputs[2].value+'&'+
+                                'colonia='+jqInputs[3].value+'&'+
+                                'calle='+jqInputs[4].value+'&'+
+                                'numero='+jqInputs[5].value+'&'+
+                                'email='+jqInputs[6].value+'&'+
+                                'telefono='+jqInputs[7].value;
+            //insertar los nuevos elementos en la bd
             $.ajax({
                 url: "gestor/oficinas/editar",
                 type: 'post',
                 cache: false,
                 dataType: 'json',
-                data: {oficina_editada:JSON.stringify(oficina_editada)},
+                data: oficina_editada,
                 beforeSend: function () {
                    //('body').modalmanager('loading');
                 },
                 error: function(jqXHR, status, error) {
                     console.log("ERROR: "+error);
                     alert('ERROR: revisa la consola del navegador para más detalles.');
-                    $('body').modalmanager('removeLoading');
+                    //$('body').modalmanager('removeLoading');
                 },
                 success: function(data) {
                     if (data.exito) {
-                        console.log(data.msg);
+                        alert("oficina "+data.oficina_editada+" actualizada");
                         //parent.location.reload();
                     } else {
-                        $('body').modalmanager('removeLoading');
+                        alert('Error :'+data.msg);
+                        //$('body').modalmanager('removeLoading');
                     }
                 }
             });
@@ -81,10 +82,11 @@ var TableEditable = function () {
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
             oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 5, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 6, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 7, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
+            oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
+            oTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 8, false);
             oTable.fnDraw();
         }
 
@@ -93,6 +95,18 @@ var TableEditable = function () {
         var oTable = table.dataTable({
             searching: false,
             "lengthChange": false,
+            "columns": [
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": false },
+                { "orderable": false },
+                { "orderable": false }
+            ],
             "language": {
                 "emptyTable":     "No hay oficinas registradas",
                 "info":           "Mostrando _START_ a _END_ de _TOTAL_ oficinas",
@@ -106,13 +120,16 @@ var TableEditable = function () {
                 "zeroRecords":    "No se encontraron coincidencias",
                 "lengthMenu": "_MENU_ registros"
             },
-            "columnDefs": [{ // set default column settings
+            "columnDefs": [
+                { // set default column settings
                 'orderable': true,
                 'targets': [0]
-            }, {
+                },
+                {
                 "searchable": true,
                 "targets": [0]
-            }],
+                }
+            ],
             "order": [
                 [0, "asc"]
             ] // set first column as a default sort by asc
@@ -131,9 +148,9 @@ var TableEditable = function () {
             e.preventDefault();
 
             if (nNew && nEditing) {
-                if (confirm("Previose row not saved. Do you want to save it ?")) {
+                if (confirm("Aun no ternimas de editar. ¿Deseas guardar?")) {
                     saveRow(oTable, nEditing); // save
-                    $(nEditing).find("td:first").html("Untitled");
+                    $(nEditing).find("td:first").html("Editando");
                     nEditing = null;
                     nNew = false;
 
@@ -146,7 +163,7 @@ var TableEditable = function () {
                 }
             }
 
-            var aiNew = oTable.fnAddData(['', '', '', '', '', '']);
+            var aiNew = oTable.fnAddData(['','', '', '', '', '', '','','','']);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow);
             nEditing = nRow;
@@ -192,7 +209,6 @@ var TableEditable = function () {
                 /* Editing this row and want to save it */
                 saveRow(oTable, nEditing);
                 nEditing = null;
-                alert("Guardado aqui va el ajax para guardarlo en la bd");
             } else {
                 /* No edit in progress - let's start one */
                 editRow(oTable, nRow);
