@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2014 a las 21:05:45
+-- Tiempo de generación: 14-07-2014 a las 20:45:06
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -30,14 +30,7 @@ CREATE TABLE IF NOT EXISTS `actividad_pendiente` (
   `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
   `actividad` varchar(40) NOT NULL,
   PRIMARY KEY (`id_actividad`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `actividad_pendiente`
---
-
-INSERT INTO `actividad_pendiente` (`id_actividad`, `actividad`) VALUES
-(1, 'Solicitud de Cotización');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -222,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
 --
 
 INSERT INTO `oficinas` (`ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
-('Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia de León', '#315', 'Ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
+('Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia de León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
 ('Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
 
 -- --------------------------------------------------------
@@ -266,6 +259,24 @@ INSERT INTO `privilegios` (`privilegios`) VALUES
 ('admin'),
 ('ejecutivo'),
 ('soporte');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE IF NOT EXISTS `productos` (
+  `codigo` varchar(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `unidad` varchar(30) NOT NULL DEFAULT 'Pieza',
+  `precio` float NOT NULL,
+  `impuesto1` float NOT NULL,
+  `impuesto2` float NOT NULL,
+  `retencion1` float NOT NULL,
+  `retencion2` float NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -316,9 +327,9 @@ ALTER TABLE `equipos_computo`
 -- Filtros para la tabla `pendientes`
 --
 ALTER TABLE `pendientes`
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --

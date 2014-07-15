@@ -137,7 +137,7 @@ var FormValidationClienteRapido = function () {
                     },
                     success: function(data) {
                         console.log(data);
-                        if (data.exito) { 
+                        if (data.exito) {
                             alert("Cliente "+data.razon_social+" añadido con éxito.");
                             parent.location.reload();
                         }else{

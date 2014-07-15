@@ -119,14 +119,24 @@
 								<div class="caption"><i class="fa fa-user"></i>Menú</div>
 							</div>
 							<div class="portlet-body">
+								<!-- Prospecto -->
 								<a href="#" class="icon-btn" data-target="#nuevo-cliente" data-toggle="modal">
 									<i class="fa  fa-male"></i>
 									<div>Prospecto</div>
 								</a>
+								<!-- Pendiente -->
 								<a href="#" class="icon-btn" data-target="#nuevo-pendiente" data-toggle="modal">
 									<i class="fa fa-check-square-o"></i>
 									<div>Pendiente</div>
 								</a>
+								<!-- Cotizador -->
+								<a href="<?php echo site_url('cotizador') ?>" class="icon-btn">
+									<i class="fa fa-file-o"></i>
+									<div>
+										Cotizador
+									</div>
+								</a>
+								<!-- Calendario -->
 								<a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>
 									<div>Calendario</div>
@@ -155,10 +165,10 @@
 								</div>
 								</a>
 								<a href="#" class="icon-btn">
-								<i class="fa fa-money"><i></i></i>
-								<div>
-								Finance
-								</div>
+									<i class="fa fa-money"></i>
+									<div>
+										Finance
+									</div>
 								</a>
 								<a href="#" class="icon-btn">
 								<i class="fa fa-plane"></i>

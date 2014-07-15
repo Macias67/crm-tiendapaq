@@ -102,14 +102,14 @@ class Cliente extends AbstractAccess {
 				// Array con la informacion
 				$data = array(
 					//Datos basicos
-					'razon_social'  => $this->input->post('razon_social'),
-					'rfc'					  => $this->input->post('rfc'),
-					'email'				  => $this->input->post('email'),
-					'tipo'				  => $this->input->post('tipo'),
-					'calle'				  => $this->input->post('calle'),
-					'no_exterior'  	=> $this->input->post('no_exterior'),
-					'no_interior'	  => $this->input->post('no_interior'),
-					'colonia'			  => $this->input->post('colonia'),
+					'razon_social'	=> $this->input->post('razon_social'),
+					'rfc'						=> $this->input->post('rfc'),
+					'email'					=> $this->input->post('email'),
+					'tipo'					=> $this->input->post('tipo'),
+					'calle'					=> $this->input->post('calle'),
+					'no_exterior'		=> $this->input->post('no_exterior'),
+					'no_interior'		=> $this->input->post('no_interior'),
+					'colonia'				=> $this->input->post('colonia'),
 					'codigo_postal'	=> $this->input->post('codigo_postal'),
 					'ciudad'				=> $this->input->post('ciudad'),
 					'municipio'			=> $this->input->post('municipio'),

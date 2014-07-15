@@ -43,7 +43,6 @@ class Catalogo extends AbstractAccess {
 	public function importar($tipo)
 	{
 		if ($tipo === 'clientes' || $tipo === 'productos') {
-			$this->data['tipo'] = $tipo;
 			// Reglas de validacion
 			$this->form_validation->set_rules('userfile',"El archivo", "file_required|file_min_size[5KB]|file_allowed_type[txt]|callback_pattern_check_".$tipo);
 			// Valido
@@ -53,6 +52,7 @@ class Catalogo extends AbstractAccess {
 				$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error: </strong>
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
 				' <b><a href="'.site_url('catalogo/importar/'.$tipo).'" style="color:red">(Intentar de nuevo)</a></b></div>');
+				$this->data['tipo'] = $tipo;
 				$this->_vista('principal');
 			} else
 			{

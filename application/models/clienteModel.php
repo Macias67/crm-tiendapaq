@@ -50,7 +50,7 @@ class ClienteModel extends TxtManager {
 		$this->basica_cliente->calle			= $data['calle'];
 		$this->basica_cliente->ciudad			= $data['ciudad'];
 		$this->basica_cliente->estado			= $data['estado'];
-		$this->basica_cliente->telefono1		= $data['telefono1'];
+		$this->basica_cliente->telefono_1		= $data['telefono1'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos
 		if ($tipo != 'prospecto') {
@@ -62,7 +62,7 @@ class ClienteModel extends TxtManager {
 			$this->basica_cliente->codigo_postal	= $data['codigo_postal'];
 			$this->basica_cliente->municipio		= $data['municipio'];
 			$this->basica_cliente->pais			= $data['pais'];
-			$this->basica_cliente->telefono2		= $data['telefono2'];
+			$this->basica_cliente->telefono_2		= $data['telefono2'];
 		}
 
 		return $this->basica_cliente;
@@ -80,7 +80,7 @@ class ClienteModel extends TxtManager {
 	 */
 	public function transformTXT($pathTXT, $dataType)
 	{
-		$data		= $this->cleanData($pathTXT);
+		$data		= $this->cleanData($pathTXT, 'cliente');
 		$total_info	= count($data);
 		$transform	= array();
 		if ($dataType === 'objeto') {
