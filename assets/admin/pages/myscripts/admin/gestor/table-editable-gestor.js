@@ -16,7 +16,7 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             //en el priumer campo (id) deshabilitamos que lo puedan editar, los demas quedan como editables
-            jqTds[0].innerHTML = '<input type="hidden" class="form-control input-small" value="">'+ aData[0];
+            jqTds[0].innerHTML = '<input type="hidden" class="form-control input-small" value="'+ aData[0] +'">'+ aData[0];
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
             jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
@@ -73,7 +73,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina_editada+" actualizada con éxito");
+                            alert("Oficina de : "+data.oficina_editada+", actualizada con éxito");
                             parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
@@ -101,7 +101,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina_nueva+" añadida con éxito");
+                            alert("Oficina de : "+data.oficina_nueva+", añadida con éxito");
                             parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
