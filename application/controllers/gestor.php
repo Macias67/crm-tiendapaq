@@ -116,7 +116,7 @@ class Gestor extends AbstractAccess {
 
 			if (!$this->oficinasModel->delete(array('id_oficina' => $id_oficina))) 
 			{
-				$respuesta = array('exito' => FALSE, 'msg' => 'no se elimino');
+				$respuesta = array('exito' => FALSE, 'msg' => 'no se elimino, revisa la consola o la base de datos');
 			}else
 			{
 				$respuesta = array('exito' => TRUE, 'oficina_eliminada' => $ciudad.', '.$estado);
