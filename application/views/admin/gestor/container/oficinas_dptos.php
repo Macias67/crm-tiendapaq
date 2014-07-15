@@ -192,7 +192,7 @@
 									</div>
 								</div>
 								<div class="portlet-body">
-									<table class="table table-striped table-hover table-bordered" id="">
+									<table class="table table-striped table-hover table-bordered" id="tabla_departamentos_editable">
 										<thead>
 											<tr>
 												<th>Departamento</th>
@@ -202,7 +202,7 @@
 										</thead>
 										<tbody>
 											<?php foreach ($departamentos as $departamento) : ?>
-												<tr>
+												<tr id="<?php echo $departamento->id_departamento?>">
 													<td><?php echo $departamento->area ?></td>
 													<td><a class="edit" href="javascript:;">Editar </a></td>
 													<td><a class="delete" href="javascript:;">Eliminar </a></td>
@@ -212,7 +212,7 @@
 									</table>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
-											<button id="sample_editable_1_new" class="btn green btn-xs">
+											<button id="tabla_departamentos_editable_new" class="btn green btn-xs">
 												<i class="fa fa-plus"></i> Nuevo departamento
 											</button>
 										</div>

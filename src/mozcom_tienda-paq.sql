@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-07-2014 a las 18:41:25
+-- Tiempo de generación: 16-07-2014 a las 00:55:15
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -106,18 +106,22 @@ CREATE TABLE IF NOT EXISTS `crea_pendiente` (
 --
 
 CREATE TABLE IF NOT EXISTS `departamento` (
+  `id_departamento` int(3) NOT NULL AUTO_INCREMENT,
   `area` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_departamento`),
   UNIQUE KEY `area` (`area`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina' AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `departamento`
 --
 
-INSERT INTO `departamento` (`area`) VALUES
-('Desarrollo'),
-('Soporte Técnico'),
-('Ventas');
+INSERT INTO `departamento` (`id_departamento`, `area`) VALUES
+(5, 'Bancos'),
+(4, 'Contaduria'),
+(1, 'Desarrollo'),
+(2, 'Soporte Técnico'),
+(3, 'Ventas');
 
 -- --------------------------------------------------------
 
@@ -224,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
 --
 
 INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
-(2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(433) 314-7934'),
+(2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De Léon', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
 (1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
 
 -- --------------------------------------------------------
@@ -272,6 +276,24 @@ INSERT INTO `privilegios` (`privilegios`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE IF NOT EXISTS `productos` (
+  `codigo` varchar(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `unidad` varchar(30) NOT NULL DEFAULT 'Pieza',
+  `precio` float NOT NULL,
+  `impuesto1` float NOT NULL,
+  `impuesto2` float NOT NULL,
+  `retencion1` float NOT NULL,
+  `retencion2` float NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `sistemas`
 --
 
@@ -304,7 +326,7 @@ ALTER TABLE `crea_pendiente`
 -- Filtros para la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`),
   ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`),
   ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`);
 
