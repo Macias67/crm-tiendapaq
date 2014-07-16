@@ -17,21 +17,21 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             //en el priumer campo (id) deshabilitamos que lo puedan editar, los demas quedan como editables
-            jqTds[0].innerHTML = '<input type="hidden" class="form-control input-small" value="'+ aData[0] +'">'+ aData[0];
+            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
             jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
             jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
             jqTds[5].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[5] + '">';
             jqTds[6].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[6] + '">';
-            jqTds[7].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[7] + '">';
-            jqTds[8].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[9].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[7].innerHTML = '<a class="edit" href="">Guardar</a>';
+            jqTds[8].innerHTML = '<a class="cancel" href="">Cancelar</a>';
         }
         //funcion para obtener los valores de los inputs y guardarlos en la bd
         //ya sea creando nueva oficina o editando una existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
+            var id_oficina = $(nRow).attr('id');
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
@@ -39,31 +39,30 @@ var TableEditable = function () {
             oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
             oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
             oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-            oTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 8, false);
-            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 9, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 7, false);
+            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 8, false);
             oTable.fnDraw();
 
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor/oficinas
-            var oficina_editada='id_oficina='+jqInputs[0].value+'&'+
-                                'ciudad='+jqInputs[1].value+'&'+
-                                'estado='+jqInputs[2].value+'&'+
-                                'colonia='+jqInputs[3].value+'&'+
-                                'calle='+jqInputs[4].value+'&'+
-                                'numero='+jqInputs[5].value+'&'+
-                                'email='+jqInputs[6].value+'&'+
-                                'telefono='+jqInputs[7].value;
+            var oficina='id_oficina='+id_oficina+'&'+
+                        'ciudad='+jqInputs[0].value+'&'+
+                        'estado='+jqInputs[1].value+'&'+
+                        'colonia='+jqInputs[2].value+'&'+
+                        'calle='+jqInputs[3].value+'&'+
+                        'numero='+jqInputs[4].value+'&'+
+                        'email='+jqInputs[5].value+'&'+
+                        'telefono='+jqInputs[6].value;
 
             //if para saber si se trata de una oficina editada o de una nueva
             //si no tiene id es nueva, si tiene un id existente es editada
-            if(jqInputs[0].value!="")
+            if(id_oficina!=undefined)
             {
                 $.ajax({
                     url: "gestor/oficinas/editar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: oficina_editada,
+                    data: oficina,
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -74,7 +73,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina_editada+", actualizada con éxito");
+                            alert("Oficina de : "+data.oficina+", actualizada con éxito");
                             parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
@@ -91,7 +90,7 @@ var TableEditable = function () {
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: oficina_editada,
+                    data: oficina,
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -102,7 +101,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina_nueva+", añadida con éxito");
+                            alert("Oficina de : "+data.oficina+", añadida con éxito");
                             parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
@@ -124,8 +123,7 @@ var TableEditable = function () {
             oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
             oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
             oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-            oTable.fnUpdate(jqInputs[7].value, nRow, 7, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 8, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 7, false);
             oTable.fnDraw();
         }
 
@@ -135,7 +133,6 @@ var TableEditable = function () {
             searching: false,
             "lengthChange": false,
             "columns": [
-                { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
@@ -187,28 +184,18 @@ var TableEditable = function () {
         $('#tabla_oficinas_editable_new').click(function (e) {
             e.preventDefault();
 
-            if (nNew && nEditing) {
-                if (confirm("Aun no ternimas de editar!")) {
-                    saveRow(oTable, nEditing); // save
-                    $(nEditing).find("td:first").html("Editando");
-                    nEditing = null;
-                    nNew = false;
-
-                } else {
-                    oTable.fnDeleteRow(nEditing); // cancel
-                    nEditing = null;
-                    nNew = false;
-
-                    return;
-                }
+            if (nNew && nEditing)
+            {
+                alert("Aun no ternimas de editar!");
+            } else
+            {
+                //valores por default en ls inputs al crear nueva oficina
+                var aiNew = oTable.fnAddData(['', '', '', '', '#', '','(999) 999-9999','','']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
             }
-
-            //valores por default en ls inputs al crear nueva oficina
-            var aiNew = oTable.fnAddData(['','', '', '', '', '#', '','(999) 999-9999','','']);
-            var nRow = oTable.fnGetNodes(aiNew[0]);
-            editRow(oTable, nRow);
-            nEditing = nRow;
-            nNew = true;
         });
 
         //funcion para eliminar oficina
@@ -218,8 +205,9 @@ var TableEditable = function () {
             //valores de la fila a eliminar guardados en aData
             var nRow = $(this).parents('tr')[0];
             var aData = oTable.fnGetData(nRow);
+            var id_oficina = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar la oficina de "+aData[1]+", "+aData[2]+"?") == false) {
+            if (confirm("¿Seguro que quieres borrar la oficina de "+aData[0]+", "+aData[1]+"?") == false) {
                 return;
             }
 
@@ -229,7 +217,7 @@ var TableEditable = function () {
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: "id_oficina="+aData[0]+"&ciudad="+aData[1]+"&estado="+aData[2],
+                    data: "id_oficina="+id_oficina+"&ciudad="+aData[0]+"&estado="+aData[1],
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -240,7 +228,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina_eliminada+", eliminada con éxito");
+                            alert("Oficina de : "+data.oficina+", eliminada con éxito");
                             //parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
@@ -258,6 +246,7 @@ var TableEditable = function () {
             if (nNew) {
                 oTable.fnDeleteRow(nEditing);
                 nNew = false;
+                parent.location.reload();
             } else {
                 restoreRow(oTable, nEditing);
                 nEditing = null;
@@ -300,17 +289,17 @@ var TableEditable = function () {
             }
             oTable.fnDraw();
         }
-        //funcion que abre los inputs para poder ser editados y pinta sus valores correspondientes
+        //funcion que abre los inputs para poder ser editados e imprime sus valores correspondientes
         function editRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            //en el priumer campo (id) deshabilitamos que lo puedan editar, los demas quedan como editables
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
             jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
         }
+
         //funcion para obtener los valores de los inputs y guardarlos en la bd
-        //ya sea creando nueva oficina o editando una existente
+        //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
             var id_departamento = $(nRow).attr('id');
@@ -319,12 +308,11 @@ var TableEditable = function () {
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
             oTable.fnDraw();
 
-            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor/oficinas
+            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
             var departamento='id_departamento='+id_departamento+'&'+
-                                'area='+jqInputs[0].value;
-            console.log("enviado "+departamento);
-            //if para saber si se trata de una oficina editada o de una nueva
-            //si no tiene id es nueva, si tiene un id existente es editada
+                              'area='+jqInputs[0].value;
+            //if para saber si se trata editar o nuevo
+            //si no tiene id es nuevo, si tiene un id existente es editar
             if(id_departamento!=undefined)
             {
                 $.ajax({
@@ -343,10 +331,10 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Departamento : "+data.departamento+", actualizado con éxito");
+                            alert("Departamento: "+data.departamento+" actualizado con éxito");
                             parent.location.reload();
                         } else {
-                            alert('Error :'+data.msg);
+                            alert('Error: '+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -371,10 +359,10 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Departamento : "+data.departamento+", añadido con éxito");
+                            alert("Departamento: "+data.departamento+" añadido con éxito");
                             parent.location.reload();
                         } else {
-                            alert('Error :'+data.msg);
+                            alert('Error: '+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -393,6 +381,7 @@ var TableEditable = function () {
 
         var table = $('#tabla_departamentos_editable');
 
+        //mensajes y caracteristicas de la tabla
         var oTable = table.dataTable({
             searching: false,
             "lengthChange": false,
@@ -438,54 +427,42 @@ var TableEditable = function () {
         var nEditing = null;
         var nNew = false;
 
-        //funcion para crear nueva oficina
+        //funcion para crear nuevo
         $('#tabla_departamentos_editable_new').click(function (e) {
             e.preventDefault();
-
+            //verificacion de que no este editando una fila antes de crear otra
             if (nNew && nEditing) {
-                if (confirm("Aun no ternimas de editar!")) {
-                    saveRow(oTable, nEditing); // save
-                    $(nEditing).find("td:first").html("Editando");
-                    nEditing = null;
-                    nNew = false;
-
-                } else {
-                    oTable.fnDeleteRow(nEditing); // cancel
-                    nEditing = null;
-                    nNew = false;
-
-                    return;
-                }
+                alert("Aun no ternimas de editar!");
+            }else{
+                //valores por default en los inputs al crear nuevo
+                var aiNew = oTable.fnAddData(['','','']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
             }
-
-            //valores por default en ls inputs al crear nueva oficina
-            var aiNew = oTable.fnAddData(['','','']);
-            var nRow = oTable.fnGetNodes(aiNew[0]);
-            //$(nRow).attr('id', 'nuevo');
-            editRow(oTable, nRow);
-            nEditing = nRow;
-            nNew = true;
         });
 
-        //funcion para eliminar oficina
+        //funcion para eliminar
         table.on('click', '.delete', function (e) {
             e.preventDefault();
 
-            //valores de la fila a eliminar guardados en aData
             var nRow = $(this).parents('tr')[0];
+            //valores de la fila a eliminar guardados en aData ademas el id para guiarnos en la bd
             var aData = oTable.fnGetData(nRow);
+            var id_departamento = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar la oficina de "+aData[1]+", "+aData[2]+"?") == false) {
+            if (confirm("¿Seguro que quieres borrar el departamento "+aData[0]+"?") == false) {
                 return;
             }
 
-            //ajax para borrar la oficina
+            //ajax para borrar
             $.ajax({
-                    url: "gestor/oficinas/eliminar",
+                    url: "gestor/departamentos/eliminar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: "id_oficina="+aData[0]+"&ciudad="+aData[1]+"&estado="+aData[2],
+                    data: "id_departamento="+id_departamento+"&area="+aData[0],
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -496,7 +473,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina_eliminada+" eliminada con éxito");
+                            alert("Departamento: '"+data.departamento+"' eliminado con éxito");
                             //parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
@@ -508,12 +485,14 @@ var TableEditable = function () {
             oTable.fnDeleteRow(nRow);
         });
 
+        //funcion cancelar
         table.on('click', '.cancel', function (e) {
             e.preventDefault();
 
             if (nNew) {
                 oTable.fnDeleteRow(nEditing);
                 nNew = false;
+                parent.location.reload();
             } else {
                 restoreRow(oTable, nEditing);
                 nEditing = null;

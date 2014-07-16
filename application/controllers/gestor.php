@@ -56,7 +56,7 @@ class Gestor extends AbstractAccess {
 				}else
 				{
 					//si las reglas son correctas preparo los datos para insertar
-					$oficina_nueva = array(
+					$oficina = array(
 						'ciudad' 		 => $this->input->post('ciudad'),
 						'estado' 		 => $this->input->post('estado'),
 						'colonia' 	 => $this->input->post('colonia'),
@@ -66,10 +66,15 @@ class Gestor extends AbstractAccess {
 						'telefono' 	 => $this->input->post('telefono')
 					);
 					//el compo ciudad estado lo creo maualmnte
-					$oficina_nueva['ciudad_estado']=$oficina_nueva['ciudad'].', '.$oficina_nueva['estado'];
+					$oficina['ciudad_estado']=$oficina['ciudad'].', '.$oficina['estado'];
 					//inserto en la bd
-					$this->oficinasModel->insert($oficina_nueva);
-					$respuesta = array('exito' => TRUE, 'oficina_nueva' => $oficina_nueva['ciudad_estado']);
+					if(!$this->oficinasModel->insert($oficina))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'oficina' => $oficina['ciudad_estado']);
+					}
 				}
 				//mando la repuesta
 				$this->output
@@ -93,7 +98,7 @@ class Gestor extends AbstractAccess {
 				}else
 				{
 					//si las reglas son correctas preparo los datos para insertar
-					$oficina_editada = array(
+					$oficina = array(
 						'ciudad' 		 => $this->input->post('ciudad'),
 						'estado' 		 => $this->input->post('estado'),
 						'colonia' 	 => $this->input->post('colonia'),
@@ -103,12 +108,17 @@ class Gestor extends AbstractAccess {
 						'telefono' 	 => $this->input->post('telefono')
 					);
 					//el compo ciudad estado lo creo maualmnte
-					$oficina_editada['ciudad_estado']=$oficina_editada['ciudad'].', '.$oficina_editada['estado'];
+					$oficina['ciudad_estado']=$oficina['ciudad'].', '.$oficina['estado'];
 					//obterngo el id de la oficina para saber cual actualizar
 					$id_oficina=$this->input->post('id_oficina');
-					//actualizo y creo respuesta
-					$this->oficinasModel->update($oficina_editada,array('id_oficina' => $id_oficina));
-					$respuesta = array('exito' => TRUE, 'oficina_editada' => $oficina_editada['ciudad_estado']);
+
+					if(!$this->oficinasModel->update($oficina,array('id_oficina' => $id_oficina)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'oficina' => $oficina['ciudad_estado']);
+					}
 				}
 				//mando la repuesta
 				$this->output
@@ -133,7 +143,7 @@ class Gestor extends AbstractAccess {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 					}else
 					{
-						$respuesta = array('exito' => TRUE, 'oficina_eliminada' => $ciudad.', '.$estado);
+						$respuesta = array('exito' => TRUE, 'oficina' => $ciudad.', '.$estado);
 					}
 	 			}
 	      //mando la repuesta
@@ -152,7 +162,6 @@ class Gestor extends AbstractAccess {
  	 * Funcion para la gestion de departamentos
  	 * @author Diego Rodriguez
  	 **/
-
  	public function departamentos($accion=null)
  	{
  		switch ($accion) {
@@ -204,7 +213,28 @@ class Gestor extends AbstractAccess {
  			break;
 
  			case 'eliminar':
- 				# code...
+ 				//se eliminara con el id, la ciudad y estado es colo para mostrar que oficina se borro mas esteticamente
+	 			$id_departamento = $this->input->post('id_departamento');
+	 			$area = $this->input->post('area');
+
+	 			$cont=count($this->ejecutivoModel->get_where(array('departamento' => $area)));
+	 			if($cont!=0)
+	 			{
+	 				$respuesta=array('exito' => FALSE, 'msg' => 'No se puede eliminar, hay ejecutivos asignados a este departamento!');
+	 			}else
+	 			{
+	 				if (!$this->departamentoModel->delete(array('id_departamento' => $id_departamento)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'departamento' => $area);
+					}
+	 			}
+	      //mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
  			break;
 
  			default:
