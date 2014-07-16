@@ -141,7 +141,28 @@
 									</form>
 								</div>
 								<div class="col-md-12">
-									<p>jola</p>
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Código</th>
+												<th>Nombre</th>
+												<th class="hidden-480">Unidad</th>
+												<th class="hidden-480">Precio</th>
+												<th>Total</th>
+											</tr>
+										</thead>
+										<tbody id="lista">
+											<script id="fila" type="text/x-jquery-tmpl">
+												<tr>
+													<td>${codigo}</td>
+													<td>${nombre}</td>
+													<td class="hidden-480">${unidad}</td>
+													<td class="hidden-480">$ ${precio}</td>
+													<td class="hidden-480"> $75</td>
+												</tr>
+											</script>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>

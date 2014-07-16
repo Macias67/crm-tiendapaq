@@ -33,6 +33,7 @@
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-tmpl/jquery.tmpl.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

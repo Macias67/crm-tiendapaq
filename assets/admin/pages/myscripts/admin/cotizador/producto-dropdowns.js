@@ -24,23 +24,28 @@ var ProductoDropdowns = function() {
 		});
 	}
 
-	var ajaxRequest = function(codigo) {
-		$.ajax({
-			url: '/cotizador/json/'+codigo,
-			cache: false,
-			dataType: 'json',
-			beforeSend: function() {},
-			error: function() {},
-			success: function(data) {
-				console.log(data);
-			}
-		});
-	}
-
 	var addRowTable = function() {
 		$("#add").on('click', function() {
+
 			var codigo = $("#producto").val();
-			ajaxRequest(codigo);
+
+			if (codigo != "") {
+				$.ajax({
+					url: '/cotizador/json/'+codigo,
+					cache: false,
+					dataType: 'json',
+					beforeSend: function() {},
+					error: function() {},
+					success: function(data) {
+						console.log(data);
+						if (data != null) {
+							$("#producto").select2('data', null)
+							$('#fila').tmpl(data).appendTo('#lista');
+						};
+					}
+				});
+			};
+
 		});
 	}
 
