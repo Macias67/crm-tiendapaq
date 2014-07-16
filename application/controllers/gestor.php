@@ -243,6 +243,24 @@ class Gestor extends AbstractAccess {
  		}
  	}
 
+ 	public function sistemas_contpaqi($accion=null)
+ 	{
+ 		switch ($accion) {
+ 			case 'nuevo':
+ 				# code...
+ 			break;
+ 			case 'editar':
+ 				# code...
+ 			break;
+ 			case 'eliminar':
+ 				# code...
+ 			break;
+ 			default:
+ 				$this->_vista('sistemas_contpaqi');
+ 			break;
+ 		}
+ 	}
+
 }
 
 /* End of file gestorGeneral.php */

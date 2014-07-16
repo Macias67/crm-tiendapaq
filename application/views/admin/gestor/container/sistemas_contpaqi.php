@@ -1,4 +1,3 @@
-
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
 			<div class="page-content">
@@ -75,7 +74,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title"> Sistemas <strong>CONTPAQi®</strong> - <small>Gestor General</small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -104,11 +103,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
+								<a href="#">Gestor Geleral</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Seccion</a>
+								<a href="#">Sistemas CONTPAQi®</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -119,7 +118,12 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<div class="col-md-6">
+							kokin1
+						</div>
+						<div class="col-md-6">
+							kokin2
+						</div>
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
