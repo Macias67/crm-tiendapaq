@@ -184,7 +184,7 @@ var TableEditable = function () {
         $('#tabla_oficinas_editable_new').click(function (e) {
             e.preventDefault();
 
-            if (nNew && nEditing)
+            if (nNew || nEditing)
             {
                 alert("Aun no ternimas de editar!");
             } else
@@ -256,23 +256,30 @@ var TableEditable = function () {
         //funcion para editar una oficina
         table.on('click', '.edit', function (e) {
             e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
-            var nRow = $(this).parents('tr')[0];
-
-            if (nEditing !== null && nEditing != nRow) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
-                restoreRow(oTable, nEditing);
-                editRow(oTable, nRow);
-                nEditing = nRow;
-            } else if (nEditing == nRow && this.innerHTML == "Guardar") {
-                /* Editing this row and want to save it */
+            if(nNew)
+            {
                 saveRow(oTable, nEditing);
-                nEditing = null;
-            } else {
-                /* No edit in progress - let's start one */
-                editRow(oTable, nRow);
                 nEditing = nRow;
+                nNew = true;
+            }else
+            {
+                /* Get the row as a parent of the link that was clicked on */
+                var nRow = $(this).parents('tr')[0];
+
+                if (nEditing !== null && nEditing != nRow) {
+                    /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                    restoreRow(oTable, nEditing);
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                } else if (nEditing == nRow && this.innerHTML == "Guardar") {
+                    /* Editing this row and want to save it */
+                    saveRow(oTable, nEditing);
+                    nEditing = null;
+                } else {
+                    /* No edit in progress - let's start one */
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
             }
         });
     }
@@ -431,7 +438,7 @@ var TableEditable = function () {
         $('#tabla_departamentos_editable_new').click(function (e) {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
-            if (nNew && nEditing) {
+            if (nNew || nEditing) {
                 alert("Aun no ternimas de editar!");
             }else{
                 //valores por default en los inputs al crear nuevo
@@ -502,23 +509,30 @@ var TableEditable = function () {
         //funcion para editar una oficina
         table.on('click', '.edit', function (e) {
             e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
-            var nRow = $(this).parents('tr')[0];
-
-            if (nEditing !== null && nEditing != nRow) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
-                restoreRow(oTable, nEditing);
-                editRow(oTable, nRow);
-                nEditing = nRow;
-            } else if (nEditing == nRow && this.innerHTML == "Guardar") {
-                /* Editing this row and want to save it */
+            if(nNew)
+            {
                 saveRow(oTable, nEditing);
-                nEditing = null;
-            } else {
-                /* No edit in progress - let's start one */
-                editRow(oTable, nRow);
                 nEditing = nRow;
+                nNew = true;
+            }else
+            {
+                /* Get the row as a parent of the link that was clicked on */
+                var nRow = $(this).parents('tr')[0];
+
+                if (nEditing !== null && nEditing != nRow) {
+                    /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                    restoreRow(oTable, nEditing);
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                } else if (nEditing == nRow && this.innerHTML == "Guardar") {
+                    /* Editing this row and want to save it */
+                    saveRow(oTable, nEditing);
+                    nEditing = null;
+                } else {
+                    /* No edit in progress - let's start one */
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
             }
         });
     }
