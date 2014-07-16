@@ -129,15 +129,31 @@
 							</div>
 							<div class="portlet-body">
 								<div class="col-md-12">
-									<form class="form-horizontal">
+									<form class="form-inline">
 										<!-- Empresa -->
 										<div class="form-group">
-											<label class="col-md-2 control-label">Producto/Servicio</label>
-											<div class="col-md-10">
+											<div class="col-md-6">
 												<input type="hidden" class="form-control input-inline input-large select2" id="producto" name="producto">
-												<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
 											</div>
 										</div>
+										<div class="form-group">
+											<div class="col-md-6">
+												<div id="cantidad">
+													<div class="input-group input-small">
+														<input type="text" class="spinner-input form-control" maxlength="3" readonly="">
+														<div class="spinner-buttons input-group-btn btn-group-vertical">
+															<button type="button" class="btn spinner-up btn-xs gray">
+																<i class="fa fa-angle-up"></i>
+															</button>
+															<button type="button" class="btn spinner-down btn-xs gray">
+																<i class="fa fa-angle-down"></i>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
 									</form>
 								</div>
 								<div class="col-md-12">

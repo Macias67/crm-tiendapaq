@@ -24,10 +24,16 @@ var ProductoDropdowns = function() {
 		});
 	}
 
+	// Spinner para la memoria ram
+	var handleSpinners = function () {
+		$('#cantidad').spinner();
+	}
+
 	var addRowTable = function() {
 		$("#add").on('click', function() {
 
-			var codigo = $("#producto").val();
+			var codigo		= $("#producto").val();
+			var canitdad	= $('#cantidad').spinner('value');
 
 			if (codigo != "") {
 				$.ajax({
@@ -39,7 +45,8 @@ var ProductoDropdowns = function() {
 					success: function(data) {
 						console.log(data);
 						if (data != null) {
-							$("#producto").select2('data', null)
+							$("#producto").select2('data', null);
+							data.precio = parseFloat(data.precio)*cantidad;
 							$('#fila').tmpl(data).appendTo('#lista');
 						};
 					}
@@ -52,6 +59,7 @@ var ProductoDropdowns = function() {
 	return {
 		init: function() {
 			handleSelect2Productos();
+			handleSpinners();
 			addRowTable();
 		}
 	}
