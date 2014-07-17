@@ -7,13 +7,13 @@ class SistemasModel extends MY_Model {
 	 *
 	 * @var string
 	 **/
-	const TABLE = 'sistemas';
+	const TABLE = 'sistemas_clientes';
 
 	/**
 	 * variable que sera convertida a sdtClass
 	 * y retornada como objeto
 	 *
-	 * @var $contacto_clientes
+	 * @var $sistemas_clientes
 	 **/
 	private $sistemas_cliente;
 

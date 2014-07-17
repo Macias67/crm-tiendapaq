@@ -119,8 +119,8 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
+						<!-- BEGIN TABLA OFICINAS -->
 						<div class="col-md-9">
-							<!-- BEGIN TABLA OFICINAS-->
 							<div class="portlet box grey">
 								<div class="portlet-title">
 									<div class="caption" style="color: black">
@@ -173,10 +173,10 @@
 									</div>
 								</div>
 							</div>
-							<!-- END TABLA OFICINAS-->
 						</div>
+						<!-- END TABLA OFICINAS -->
+						<!-- BEGIN DEPARTAMENTOS -->
 						<div class="col-md-3">
-														<!-- BEGIN TABLA OFICINAS-->
 							<div class="portlet box grey">
 								<div class="portlet-title">
 									<div class="caption" style="color: black">
@@ -217,8 +217,8 @@
 									</div>
 								</div>
 							</div>
-							<!-- END TABLA OFICINAS-->
 						</div>
+						<!-- END DEPARTAMENTOS -->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->

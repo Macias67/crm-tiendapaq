@@ -58,7 +58,7 @@ var TableEditable = function () {
             if(id_oficina!=undefined)
             {
                 $.ajax({
-                    url: "gestor/oficinas/editar",
+                    url: "/gestor/oficinas/editar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
@@ -86,7 +86,7 @@ var TableEditable = function () {
             }else
             {
                 $.ajax({
-                    url: "gestor/oficinas/nuevo",
+                    url: "/gestor/oficinas/nuevo",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
@@ -213,7 +213,7 @@ var TableEditable = function () {
 
             //ajax para borrar la oficina
             $.ajax({
-                    url: "gestor/oficinas/eliminar",
+                    url: "/gestor/oficinas/eliminar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
@@ -323,7 +323,7 @@ var TableEditable = function () {
             if(id_departamento!=undefined)
             {
                 $.ajax({
-                    url: "gestor/departamentos/editar",
+                    url: "/gestor/departamentos/editar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
@@ -351,7 +351,7 @@ var TableEditable = function () {
             }else
             {
                 $.ajax({
-                    url: "gestor/departamentos/nuevo",
+                    url: "/gestor/departamentos/nuevo",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
@@ -465,7 +465,7 @@ var TableEditable = function () {
 
             //ajax para borrar
             $.ajax({
-                    url: "gestor/departamentos/eliminar",
+                    url: "/gestor/departamentos/eliminar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
@@ -536,6 +536,8 @@ var TableEditable = function () {
             }
         });
     }
+
+    
 
     return {
         //main function to initiate the module

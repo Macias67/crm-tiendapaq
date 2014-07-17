@@ -102,7 +102,7 @@
 								<a href="<?php echo site_url('gestor/oficinas') ?>"></i> Oficinas y Dptos.</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('gestor/sistemas_contpaqi') ?>"></i> Sistemas <strong>CONTPAQi®</strong></a>
+								<a href="<?php echo site_url('gestor/sistemas') ?>"></i> Sistemas <strong>CONTPAQi®</strong></a>
 							</li>
 						</ul>
 					</li>

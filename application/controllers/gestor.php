@@ -17,15 +17,12 @@ class Gestor extends AbstractAccess {
 		$this->load->model('departamentoModel');
 		$this->load->model('oficinasModel');
 		$this->load->model('ejecutivoModel');
-		//carda de las variables con los datos que usaremos
-		$this->data['oficinas'] = $this->oficinasModel->get(array('*'));
-		$this->data['departamentos'] = $this->departamentoModel->get(array('*'));
+		$this->load->model('sistemasContpaqiModel');
 	}
 
 	public function index()
 	{
-		//var_dump($this->data);
-		$this->_vista('oficinas_dptos');
+		echo "entraste a index";
 	}
 
  public function add()
@@ -39,6 +36,9 @@ class Gestor extends AbstractAccess {
 	**/
  	public function oficinas($accion=null)
  	{
+ 		//paso a la vista los datos a manejar de la tabla en la bd
+ 		$this->data['oficinas'] = $this->oficinasModel->get(array('*'));
+ 		$this->data['departamentos'] = $this->departamentoModel->get(array('*'));
 	 	switch ($accion) {
 	 		case 'nuevo':
 				//reglas de oficinas
@@ -243,11 +243,32 @@ class Gestor extends AbstractAccess {
  		}
  	}
 
- 	public function sistemas_contpaqi($accion=null)
+ 	public function sistemas($accion=null)
  	{
+ 		$this->data['sistemascontpaqi'] = $this->sistemasContpaqiModel->get(array('*'));
+
  		switch ($accion) {
  			case 'nuevo':
- 				# code...
+ 				$this->form_validation->set_rules('sistema','Sistema','trim|required|strtoupper|max_length[30]|xss_clean');
+
+ 				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+ 				}else
+ 				{
+ 					$sistema= $this->input->post('sistema');
+
+					if (!$this->sistemasContpaqiModel->insert(array('sistema' => $sistema)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					}else{
+						$respuesta = array('exito' => TRUE, 'sistema' => $sistema);
+					}
+ 				}
+ 				//mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
  			break;
  			case 'editar':
  				# code...

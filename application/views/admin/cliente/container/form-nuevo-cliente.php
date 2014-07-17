@@ -430,7 +430,7 @@
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
-														<i class="fa fa-desktop"></i>
+														<i class="fa fa-info"></i>
 														<select class="form-control" name="sistema">
 															<option value=""></option>
 															<option value="CONTABILIDAD">CONTPAQi® CONTABILIDAD</option>
