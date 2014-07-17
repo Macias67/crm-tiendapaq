@@ -155,6 +155,7 @@
 										</div>
 										<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
 									</form>
+									<hr>
 								</div>
 								<div class="col-md-12">
 									<table class="table table-striped table-hover">
@@ -164,6 +165,7 @@
 												<th>Nombre</th>
 												<th class="hidden-480">Unidad</th>
 												<th class="hidden-480">Precio</th>
+												<th class="hidden-480">Cantidad</th>
 												<th>Total</th>
 											</tr>
 										</thead>
@@ -174,7 +176,8 @@
 													<td>${nombre}</td>
 													<td class="hidden-480">${unidad}</td>
 													<td class="hidden-480">$ ${precio}</td>
-													<td class="hidden-480"> $75</td>
+													<td class="hidden-480">${cantidad}</td>
+													<td class="hidden-480">$ ${importe}</td>
 												</tr>
 											</script>
 										</tbody>

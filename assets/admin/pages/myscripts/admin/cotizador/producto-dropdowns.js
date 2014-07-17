@@ -1,5 +1,22 @@
 var ProductoDropdowns = function() {
 
+	var calcula = function(data, cantidad) {
+		var importe = parseFloat(data.precio) * cantidad;
+		var info = {
+			'codigo' : data.codigo,
+			'impuesto1' : data.impuesto1,
+			'impuesto2' : data.impuesto2,
+			'nombre' : data.nombre,
+			'precio' : data.precio,
+			'retencion1' : data.retencion1,
+			'retencion2' : data.retencion2,
+			'unidad' : data.unidad,
+			'importe': importe,
+			'cantidad' : cantidad
+		}
+		return info;
+	};
+
 	var handleSelect2Productos = function() {
 		$("#producto").select2({
 			placeholder: 'Selecciona producto/servcio',
@@ -33,7 +50,7 @@ var ProductoDropdowns = function() {
 		$("#add").on('click', function() {
 
 			var codigo		= $("#producto").val();
-			var canitdad	= $('#cantidad').spinner('value');
+			var cantidad	= $('#cantidad').spinner('value');
 
 			if (codigo != "") {
 				$.ajax({
@@ -43,11 +60,14 @@ var ProductoDropdowns = function() {
 					beforeSend: function() {},
 					error: function() {},
 					success: function(data) {
-						console.log(data);
 						if (data != null) {
-							$("#producto").select2('data', null);
-							data.precio = parseFloat(data.precio)*cantidad;
-							$('#fila').tmpl(data).appendTo('#lista');
+							$('#producto').select2('data', null);
+							$('#cantidad').spinner('value', 1);
+
+							var producto = calcula(data, cantidad);
+							console.log(producto);
+
+							$('#fila').tmpl(producto).appendTo('#lista');
 						};
 					}
 				});
