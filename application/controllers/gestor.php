@@ -27,7 +27,6 @@ class Gestor extends AbstractAccess {
 
  public function add()
  {
-
  }
 
 	/**
@@ -326,6 +325,63 @@ class Gestor extends AbstractAccess {
  			break;
  			default:
  				$this->_vista('sistemas_contpaqi');
+ 			break;
+ 		}
+ 	}
+
+ 	/**
+ 	 * funciona para la gestion de las versines de
+ 	 * los sistemas ontpaqui
+ 	 * @author Diego Rodriguez
+ 	 **/
+ 	public function versiones($accion=null)
+ 	{
+ 		switch ($accion) {
+ 			case 'mostrar':
+ 				$id_sistema = $this->input->post('id_sistema');
+
+ 				$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('id_sistema' => $id_sistema));
+
+ 				$respuesta=array(
+ 					'exito' => TRUE,
+ 					'versiones' => $versiones[0]->versiones);
+
+ 				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+ 			break;
+
+ 			case'actualizar':
+ 				$id_sistema=$this->input->post('id_sistema');
+ 				$nuevas_versiones=$this->input->post('nuevas_versiones');
+
+ 				$array=explode(',', $nuevas_versiones);
+
+ 				$j=count($array);
+
+ 				$nuevas_versiones2=$array[0];
+ 				for ($i=0; $i < $j; $i++) {
+ 					if($i!=0){
+ 						$nuevas_versiones2.=', '.$array[$i];
+ 					}
+ 				}
+
+ 				if(!$this->sistemasContpaqiModel->update(array('versiones' => $nuevas_versiones2), array('id_sistema' => $id_sistema))){
+ 					$respuesta=array(
+ 						'exito' => FALSE,
+ 						'msg' => 'No se actualizo, revisa la consola o la base de datos');
+ 				}else{
+ 					$respuesta=array(
+ 					'exito' => TRUE);
+ 				}
+
+ 				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+ 			break;
+
+ 			default:
+ 				echo "opcion no valda kokin";
  			break;
  		}
  	}

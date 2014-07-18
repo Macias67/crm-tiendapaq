@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-07-2014 a las 19:18:49
+-- Tiempo de generación: 19-07-2014 a las 01:13:57
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
 CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
   `id_sistema` int(11) NOT NULL AUTO_INCREMENT,
   `sistema` varchar(30) NOT NULL,
-  `versiones` text,
+  `versiones` text NOT NULL,
   PRIMARY KEY (`id_sistema`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi' AUTO_INCREMENT=8 ;
 
@@ -323,11 +323,11 @@ CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
 INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
 (1, 'CONTPAQi® CONTABILIDAD', ''),
 (2, 'CONTPAQi® NÓMINAS', ''),
-(3, 'CONTPAQI® BANCOS', NULL),
-(4, 'CONTPAQI® ADMINPAQ®', NULL),
-(5, 'CONTPAQI® COMERCIAL', NULL),
-(6, 'CONTPAQI® FACTURA ELECTRÓNICA', NULL),
-(7, 'CONTPAQI® PUNTO DE VENTA', NULL);
+(3, 'CONTPAQI® BANCOS', ''),
+(4, 'CONTPAQI® ADMINPAQ®', ''),
+(5, 'CONTPAQI® COMERCIAL', ''),
+(6, 'CONTPAQI® FACTURA ELECTRÓNICA', ''),
+(7, 'CONTPAQI® PUNTO DE VENTA', '');
 
 --
 -- Restricciones para tablas volcadas

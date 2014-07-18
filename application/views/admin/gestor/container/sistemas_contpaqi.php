@@ -185,9 +185,10 @@
 										<div class="col-md-10">
 											<div class="input-icon">
 												<i class="fa fa-info"></i>
-												<select class="form-control" name="sistema">
+												<select class="form-control" name="sistema" id="select_sistemas">
+													<option></option>
 													<?php foreach ($sistemascontpaqi as $sistema): ?>
-													<option value="<?php echo $sistema->sistema ?>"><?php echo $sistema->sistema ?></option>
+													<option value="<?php echo $sistema->id_sistema ?>"><?php echo $sistema->sistema ?></option>
 													<?php endforeach ?>
 												</select>
 											</div>
@@ -201,7 +202,19 @@
 										<label class="control-label col-md-3"> Versiones registradas: 
 										</label>
 										<div class="col-md-9">
-											<input type="hidden" id="select2_sample5" class="form-control select2" value="7.2.0, 7.1.5">
+											<input type="hidden" name="input_versiones" id="input_versiones" class="form-control select2" value="">
+										</div>
+									</div>
+									<br>
+									<br>
+									<br>
+									<br>
+									<div class="table-toolbar">
+										<br>
+										<div class="btn-group pull-right">
+											<button id="guardar_versiones" class="btn green btn-xs">
+												<i class="fa fa-plus"></i> Guardar Versiones
+											</button>
 										</div>
 									</div>
 								</div>

@@ -734,7 +734,7 @@ var TableEditable = function () {
                     success: function(data) {
                         if (data.exito) {
                             alert("Sistema: '"+data.sistema+"' eliminado con éxito");
-                            //parent.location.reload();
+                            parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
                             //$('body').modalmanager('removeLoading');
