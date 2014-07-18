@@ -18,11 +18,11 @@ class Gestor extends AbstractAccess {
 		$this->load->model('oficinasModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('sistemasContpaqiModel');
+		$this->load->model('sistemasClienteModel');
 	}
 
 	public function index()
 	{
-		echo "entraste a index";
 	}
 
  public function add()
@@ -164,6 +164,9 @@ class Gestor extends AbstractAccess {
  	 **/
  	public function departamentos($accion=null)
  	{
+ 		//paso a la vista los datos a manejar de la tabla en la bd
+ 		$this->data['oficinas'] = $this->oficinasModel->get(array('*'));
+ 		$this->data['departamentos'] = $this->departamentoModel->get(array('*'));
  		switch ($accion) {
  			case 'nuevo':
  				$this->form_validation->set_rules('area','Departamento','trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -243,13 +246,17 @@ class Gestor extends AbstractAccess {
  		}
  	}
 
+	/**
+ 	 * Funcion para la gestion de sistemas contpaq
+ 	 * @author Diego Rodriguez
+ 	 **/
  	public function sistemas($accion=null)
  	{
  		$this->data['sistemascontpaqi'] = $this->sistemasContpaqiModel->get(array('*'));
 
  		switch ($accion) {
  			case 'nuevo':
- 				$this->form_validation->set_rules('sistema','Sistema','trim|required|strtoupper|max_length[30]|xss_clean');
+ 				$this->form_validation->set_rules('sistema','Sistema','trim|required|strtoupper|callback_sistema_check|max_length[30]|xss_clean');
 
  				if($this->form_validation->run() === FALSE)
 				{
@@ -271,16 +278,78 @@ class Gestor extends AbstractAccess {
 					 ->set_output(json_encode($respuesta));
  			break;
  			case 'editar':
- 				# code...
+ 				$this->form_validation->set_rules('sistema','Sistema','trim|required|strtoupper|callback_sistema_check|max_length[50]|xss_clean');
+
+ 				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+ 				}else
+ 				{
+ 					$sistema = $this->input->post('sistema');
+ 					$id_sistema = $this->input->post('id_sistema');
+
+					if (!$this->sistemasContpaqiModel->update(array('sistema' => $sistema),array('id_sistema' => $id_sistema)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
+					}else{
+						$respuesta = array('exito' => TRUE, 'sistema' => $sistema);
+					}
+ 				}
+ 				//mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
  			break;
  			case 'eliminar':
- 				# code...
+ 				//se eliminara con el id
+	 			$id_sistema = $this->input->post('id_sistema');
+	 			$sistema = $this->input->post('sistema');
+
+	 			$cont=count($this->sistemasClienteModel->get_where(array('sistema' => $sistema)));
+	 			if($cont!=0)
+	 			{
+	 				$respuesta=array('exito' => FALSE, 'msg' => 'No se puede eliminar, hay clientes que tienen este sistema!');
+	 			}else
+	 			{
+	 				if (!$this->sistemasContpaqiModel->delete(array('id_sistema' => $id_sistema)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'sistema' => $sistema);
+					}
+	 			}
+	      //mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
  			break;
  			default:
  				$this->_vista('sistemas_contpaqi');
  			break;
  		}
  	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| CALLBACKS
+	|--------------------------------------------------------------------------
+	*/
+	/**
+	 * Callback para revisar el sistema este correctamente añadido
+	 * @param  string $nombre Nombre a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez | Luis Macias
+	 */
+	public function sistema_check($sistema)
+	{
+		if ($sistema==='CONTPAQi® ' || $sistema==='CONTPAQI® ') {
+			$this->form_validation->set_message('sistema_check', 'Sistema sin nombre!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
 
 }
 

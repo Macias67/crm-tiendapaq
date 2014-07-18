@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-07-2014 a las 21:55:13
+-- Tiempo de generación: 18-07-2014 a las 19:18:49
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -292,16 +292,42 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sistemas`
+-- Estructura de tabla para la tabla `sistemas_clientes`
 --
 
-CREATE TABLE IF NOT EXISTS `sistemas` (
+CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
   `id_cliente` int(11) NOT NULL,
   `sistema` varchar(50) CHARACTER SET latin1 NOT NULL,
   `version` varchar(10) CHARACTER SET latin1 NOT NULL,
   `no_serie` varchar(30) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistemas_contpaqi`
+--
+
+CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
+  `id_sistema` int(11) NOT NULL AUTO_INCREMENT,
+  `sistema` varchar(30) NOT NULL,
+  `versiones` text,
+  PRIMARY KEY (`id_sistema`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi' AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `sistemas_contpaqi`
+--
+
+INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
+(1, 'CONTPAQi® CONTABILIDAD', ''),
+(2, 'CONTPAQi® NÓMINAS', ''),
+(3, 'CONTPAQI® BANCOS', NULL),
+(4, 'CONTPAQI® ADMINPAQ®', NULL),
+(5, 'CONTPAQI® COMERCIAL', NULL),
+(6, 'CONTPAQI® FACTURA ELECTRÓNICA', NULL),
+(7, 'CONTPAQI® PUNTO DE VENTA', NULL);
 
 --
 -- Restricciones para tablas volcadas
@@ -324,9 +350,9 @@ ALTER TABLE `crea_pendiente`
 -- Filtros para la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-  ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`) ON UPDATE CASCADE,
   ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equipos_computo`
@@ -344,10 +370,10 @@ ALTER TABLE `pendientes`
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --
--- Filtros para la tabla `sistemas`
+-- Filtros para la tabla `sistemas_clientes`
 --
-ALTER TABLE `sistemas`
-  ADD CONSTRAINT `sistemas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sistemas_clientes`
+  ADD CONSTRAINT `sistemas_clientes_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

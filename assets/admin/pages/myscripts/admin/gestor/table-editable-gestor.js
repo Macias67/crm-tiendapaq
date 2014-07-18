@@ -31,7 +31,9 @@ var TableEditable = function () {
         //ya sea creando nueva oficina o editando una existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
+            //extraemos el id del tr para saber que objeto manipulamos
             var id_oficina = $(nRow).attr('id');
+
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
@@ -183,7 +185,7 @@ var TableEditable = function () {
         //funcion para crear nueva oficina
         $('#tabla_oficinas_editable_new').click(function (e) {
             e.preventDefault();
-
+            //si hay una nueva en edicion o esta editando otra no podemos crear otra nueva
             if (nNew || nEditing)
             {
                 alert("Aun no ternimas de editar!");
@@ -202,7 +204,7 @@ var TableEditable = function () {
         table.on('click', '.delete', function (e) {
             e.preventDefault();
 
-            //valores de la fila a eliminar guardados en aData
+            //valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
             var nRow = $(this).parents('tr')[0];
             var aData = oTable.fnGetData(nRow);
             var id_oficina = $(nRow).attr('id');
@@ -420,9 +422,7 @@ var TableEditable = function () {
                 "targets": [0]
                 }
             ],
-            "order": [
-                [0, "asc"]
-            ] // set first column as a default sort by asc
+             "order": []
         });
 
         var tableWrapper = $("#tabla_departamentos_editable_wrapper");
@@ -537,13 +537,265 @@ var TableEditable = function () {
         });
     }
 
-    
+    //Tabla de gestion de departamentos
+    var handleTableSistemas = function () {
+
+        function restoreRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                oTable.fnUpdate(aData[i], nRow, i, false);
+            }
+            oTable.fnDraw();
+        }
+        //funcion que abre los inputs para poder ser editados e imprime sus valores correspondientes
+        function editRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
+            jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
+            jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+        }
+
+        //funcion para obtener los valores de los inputs y guardarlos en la bd
+        //ya sea creando nuevo o editando existente
+        function saveRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            //id del tr pasa saber que linea estamos usando
+            var id_sistema = $(nRow).attr('id');
+
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
+            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
+            oTable.fnDraw();
+
+            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
+            var sistema='id_sistema='+id_sistema+'&'+
+                              'sistema='+jqInputs[0].value;
+            //if para saber si se trata editar o nuevo
+            //si no tiene id es nuevo, si tiene un id existente es editar
+            if(id_sistema!=undefined)
+            {
+                $.ajax({
+                    url: "/gestor/sistemas/editar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: sistema,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema: "+data.sistema+" actualizado con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }else
+            {
+                $.ajax({
+                    url: "/gestor/sistemas/nuevo",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: sistema,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema: "+data.sistema+" añadido con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }
+        }
+
+        function cancelEditRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 2, false);
+            oTable.fnDraw();
+        }
+
+        var table = $('#tabla_sistemas_editable');
+
+        //mensajes y caracteristicas de la tabla
+        var oTable = table.dataTable({
+            searching: false,
+            "lengthChange": false,
+            "columns": [
+                { "orderable": true },
+                { "orderable": false },
+                { "orderable": false }
+            ],
+            "language": {
+                "emptyTable":     "No hay sistemas registrados",
+                "info":           "Mostrando _START_ a _END_ de _TOTAL_ sistemas",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 sistemas",
+                "infoFiltered":   "(de un total de _MAX_ sistemas registrados)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Show _MENU_ entries",
+                "loadingRecords": "Cargando...",
+                "processing":     "Procesando...",
+                "zeroRecords":    "No se encontraron coincidencias",
+                "lengthMenu": "_MENU_ registros"
+            },
+            "columnDefs": [
+                { // set default column settings
+                'orderable': true,
+                'targets': [0]
+                },
+                {
+                "searchable": true,
+                "targets": [0]
+                }
+            ],
+             "order": []
+        });
+
+        var tableWrapper = $("#tabla_sistemas_editable_wrapper");
+
+        tableWrapper.find(".dataTables_length select").select2({
+            showSearchInput: false //hide search box with special css class
+        }); // initialize select2 dropdown
+
+        var nEditing = null;
+        var nNew = false;
+
+        //funcion para crear nuevo
+        $('#tabla_sistemas_editable_new').click(function (e) {
+            e.preventDefault();
+            //verificacion de que no este editando una fila antes de crear otra
+            if (nNew || nEditing) {
+                alert("Aun no ternimas de editar!");
+            }else{
+                //valores por default en los inputs al crear nuevo
+                var aiNew = oTable.fnAddData(['CONTPAQi® ','','']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
+            }
+        });
+
+        //funcion para eliminar
+        table.on('click', '.delete', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            //valores de la fila a eliminar guardados en aData ademas el id para guiarnos en la bd
+            var aData = oTable.fnGetData(nRow);
+            var id_sistema = $(nRow).attr('id');
+
+            if (confirm("¿Seguro que quieres borrar el sistema "+aData[0]+"?") == false) {
+                return;
+            }
+
+            //ajax para borrar
+            $.ajax({
+                    url: "/gestor/sistemas/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id_sistema="+id_sistema+"&sistema="+aData[0],
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema: '"+data.sistema+"' eliminado con éxito");
+                            //parent.location.reload();
+                        } else {
+                            alert('Error :'+data.msg);
+                            //$('body').modalmanager('removeLoading');
+                            parent.location.reload();
+                        }
+                    }
+                });
+            oTable.fnDeleteRow(nRow);
+        });
+
+        //funcion cancelar
+        table.on('click', '.cancel', function (e) {
+            e.preventDefault();
+
+            if (nNew) {
+                oTable.fnDeleteRow(nEditing);
+                nNew = false;
+                parent.location.reload();
+            } else {
+                restoreRow(oTable, nEditing);
+                nEditing = null;
+            }
+        });
+
+        //funcion para editar una oficina
+        table.on('click', '.edit', function (e) {
+            e.preventDefault();
+            if(nNew)
+            {
+                saveRow(oTable, nEditing);
+                nEditing = nRow;
+                nNew = true;
+            }else
+            {
+                /* Get the row as a parent of the link that was clicked on */
+                var nRow = $(this).parents('tr')[0];
+
+                if (nEditing !== null && nEditing != nRow) {
+                    /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                    restoreRow(oTable, nEditing);
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                } else if (nEditing == nRow && this.innerHTML == "Guardar") {
+                    /* Editing this row and want to save it */
+                    saveRow(oTable, nEditing);
+                    nEditing = null;
+                } else {
+                    /* No edit in progress - let's start one */
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
+            }
+        });
+    }
 
     return {
         //main function to initiate the module
         init: function () {
             handleTableOficinas();
             handleTableDepartamentos();
+            handleTableSistemas();
         }
     };
 

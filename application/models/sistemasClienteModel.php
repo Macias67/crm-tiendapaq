@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class SistemasModel extends MY_Model {
+class SistemasClienteModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse
