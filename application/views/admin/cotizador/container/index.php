@@ -155,35 +155,45 @@
 													</div>
 												</div>
 												<div class="portlet-body">
-													
-												</div>
-											</div>
-										</div>
-										<!-- FIN Cliente -->
-										<!-- Empresa -->
-										<div class="form-group">
-											<div class="col-md-6">
-												<input type="hidden" class="form-control input-inline input-large select2" id="producto" name="producto">
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-md-6">
-												<div id="cantidad">
-													<div class="input-group input-small">
-														<input type="text" class="spinner-input form-control" maxlength="3" readonly="">
-														<div class="spinner-buttons input-group-btn btn-group-vertical">
-															<button type="button" class="btn spinner-up btn-xs gray">
-																<i class="fa fa-angle-up"></i>
-															</button>
-															<button type="button" class="btn spinner-down btn-xs gray">
-																<i class="fa fa-angle-down"></i>
-															</button>
+													<!-- Empresa -->
+													<div class="col-md-12">
+														<label class="control-label col-md-3">Razón Social</label>
+														<div class="col-md-9">
+															<input type="hidden" id="razon_social" name="razon_social" class="form-control input-inline input-large select2">
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-										<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
+										<!-- FIN Cliente -->
+										<div class="col-md-12">
+											<!-- Empresa -->
+											<div class="form-group">
+												<div class="col-md-6">
+													<input type="hidden" class="form-control input-inline input-large select2" id="producto" name="producto">
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-md-6">
+													<div id="cantidad">
+														<div class="input-group input-small">
+															<input type="text" class="spinner-input form-control" maxlength="3" readonly="">
+															<div class="spinner-buttons input-group-btn btn-group-vertical">
+																<button type="button" class="btn spinner-up btn-xs gray">
+																	<i class="fa fa-angle-up"></i>
+																</button>
+																<button type="button" class="btn spinner-down btn-xs gray">
+																	<i class="fa fa-angle-down"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
+											<!-- FIN Empresa -->
+											<hr>
+										</div>
 									</form>
 									<hr>
 								</div>
