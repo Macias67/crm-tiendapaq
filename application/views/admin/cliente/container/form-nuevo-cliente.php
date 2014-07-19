@@ -10,7 +10,7 @@
 					<div class="theme-options">
 						<div class="theme-option theme-colors clearfix">
 							<span>
-							THEME COLOR </span>
+							COLOR </span>
 							<ul>
 								<li class="color-default current tooltips" data-style="default" data-original-title="Default">
 								</li>
@@ -431,15 +431,11 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-info"></i>
-														<select class="form-control" name="sistema">
+														<select class="form-control" name="sistema" id="select_sistemas">
 															<option value=""></option>
-															<option value="CONTABILIDAD">CONTPAQi® CONTABILIDAD</option>
-															<option value="NOMINAS">CONTPAQi® NÓMINAS</option>
-															<option value="BANCOS">CONTPAQi® BANCOS</option>
-															<option value="ADMINPAQ">CONTPAQi® ADMINPAQ®</option>
-															<option value="COMERCIAL">CONTPAQi® COMERCIAL</option>
-															<option value="FACTURA ELECTRONICA">CONTPAQi® FACTURA ELECTRÓNICA</option>
-															<option value="PUNTO DE VENTA">CONTPAQi® PUNTO DE VENTA</option>
+															<?php foreach ($sistemascontpaqi as $sistema): ?>
+															<option value="<?php echo $sistema->id_sistema?>"><?php echo $sistema->sistema ?></option>
+															<?php endforeach ?>
 														</select>
 													</div>
 												</div>
@@ -450,94 +446,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-history"></i>
-														<select class="form-control" name="version">
-															<option value=""></option>
-															<optgroup label="CONTPAQi® CONTABILIDAD">
-																<option value="7.2.0">7.2.0</option>
-																<option value="7.1.1">7.1.1</option>
-																<option value="7.1.0">7.1.0</option>
-																<option value="6.1.1">6.1.1</option>
-																<option value="6.0.2">6.0.2</option>
-																<option value="6.0.1">6.0.1</option>
-																<option value="6.0.0">6.0.0</option>
-																<option value="5.1.5">5.1.5</option>
-																<option value="5.1.4">5.1.4</option>
-																<option value="5.1.3">5.1.3</option>
-																<option value="5.1.2">5.1.2</option>
-																<option value="5.1.1">5.1.1</option>
-																<option value="5.1.0">5.1.0</option>
-																<option value="5.0.0">5.0.0</option>
-															</optgroup>
-															<optgroup label="CONTPAQi® NÓMINAS">
-																<option value="6.3.0">6.3.0</option>
-																<option value="6.2.2">6.2.2</option>
-																<option value="6.2.1">6.2.1</option>
-																<option value="6.2.0">6.2.0</option>
-																<option value="6.1.0">6.1.0</option>
-																<option value="6.0.2">6.0.2</option>
-																<option value="6.0.1">6.0.1</option>
-																<option value="6.0.0">6.0.0</option>
-																<option value="5.1.3">5.1.3</option>
-																<option value="5.1.2">5.1.2</option>
-																<option value="5.1.0">5.1.0</option>
-																<option value="5.0.1">5.0.1</option>
-																<option value="5.0.0">5.0.0</option>
-																<option value="4.0.6">4.0.6</option>
-																<option value="4.0.5">4.0.5</option>
-																<option value="4.0.4">4.0.4</option>
-																<option value="4.0.3">4.0.3</option>
-																<option value="4.0.2">4.0.2</option>
-																<option value="4.0.1">4.0.1</option>
-																<option value="4.0.0">4.0.0</option>
-															</optgroup>
-															<optgroup label="CONTPAQi® BANCOS">
-																<option value="7.2.0">7.2.0</option>
-																<option value="7.1.1">7.1.1</option>
-																<option value="7.1.0">7.1.0</option>
-																<option value="6.1.0">6.1.0</option>
-																<option value="6.0.2">6.0.2</option>
-																<option value="6.0.1">6.0.1</option>
-																<option value="6.0.0">6.0.0</option>
-																<option value="5.1.5">5.1.5</option>
-																<option value="5.1.4">5.1.4</option>
-																<option value="5.1.3">5.1.3</option>
-																<option value="5.1.2">5.1.2</option>
-																<option value="5.1.1">5.1.1</option>
-																<option value="5.1.0">5.1.0</option>
-																<option value="5.0.0">5.0.0</option>
-															</optgroup>
-															<optgroup label="CONTPAQi® ADMINPAQ®">
-																<option value="7.3.3">7.3.3</option>
-																<option value="7.3.2">7.3.2</option>
-																<option value="7.3.1">7.3.1</option>
-																<option value="7.3.0">7.3.0</option>
-																<option value="7.2.1">7.2.1</option>
-																<option value="7.2.0">7.2.0</option>
-																<option value="7.1.2">7.1.2</option>
-																<option value="7.1.1">7.1.1</option>
-																<option value="7.0.0">7.0.0</option>
-															</optgroup>
-															<optgroup label="CONTPAQi® COMERCIAL">
-																<option value="1.0.1">1.0.1</option>
-															</optgroup>
-															<optgroup label="CONTPAQi® FACTURA ELECTRÓNICA">
-																<option value="2.5.2">2.5.2</option>
-																<option value="2.5.1">2.5.1</option>
-																<option value="2.5.0">2.5.0</option>
-																<option value="2.3.2">2.3.2</option>
-																<option value="2.3.1">2.3.1</option>
-																<option value="2.3.0">2.3.0</option>
-																<option value="2.2.1">2.2.1</option>
-																<option value="2.2.0">2.2.0</option>
-																<option value="2.1.0">2.1.0</option>
-																<option value="2.2.0">2.2.0</option>
-															</optgroup>
-															<optgroup label="CONTPAQi® PUNTO DE VENTA">
-																<option value="3.2.2">3.2.2</option>
-																<option value="3.2.0">3.2.0</option>
-																<option value="3.1.1">3.1.1</option>
-																<option value="3.0.0">3.0.0</option>
-															</optgroup>
+														<select class="form-control" name="version" id="select_versiones">
 														</select>
 													</div>
 												</div>

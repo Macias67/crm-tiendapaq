@@ -24,6 +24,7 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css"/>
 	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />

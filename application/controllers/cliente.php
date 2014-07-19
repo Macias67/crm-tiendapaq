@@ -15,8 +15,9 @@ class Cliente extends AbstractAccess {
 		//cargo los modelos a usar
 		$this->load->model('clienteModel');
 		$this->load->model('contactosModel');
-		$this->load->model('sistemasModel');
+		$this->load->model('sistemasClienteModel');
 		$this->load->model('equiposComputoModel');
+		$this->load->model('sistemasContpaqiModel');
 	}
 
 	public function index()
@@ -30,6 +31,8 @@ class Cliente extends AbstractAccess {
 	{
 		// Titulo header
 		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+		//datos a usar en el formulario de nuevo cliente
+		$this->data['sistemascontpaqi']=$this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
 		//Vista de formulario a mostrar
 		$this->_vista('form-nuevo-cliente');
 	}
@@ -149,11 +152,11 @@ class Cliente extends AbstractAccess {
 					$id = $id_cliente[0]->id;
 					//se crean los demas objetos con su respectiva informacion, se le añade la llave foranea y se insertan en sus tablas
 					$contactos	= $this->contactosModel->arrayToObject($id, $data);
-					$sistemas		= $this->sistemasModel->arrayToObject($id, $data);
+					$sistemas		= $this->sistemasClienteModel->arrayToObject($id, $data);
 					$equipos		= $this->equiposComputoModel->arrayToObject($id, $data);
 					// Inserto en las demas tablas
 					$exito_contactos	= $this->contactosModel->insert($contactos);
-					$exito_sistemas	= $this->sistemasModel->insert($sistemas);
+					$exito_sistemas	= $this->sistemasClienteModel->insert($sistemas);
 					$exito_equipos		= $this->equiposComputoModel->insert($equipos);
 					// Armo la respuesta para el JSON
 					$respuesta = array(
@@ -215,6 +218,28 @@ class Cliente extends AbstractAccess {
 				->set_content_type('application/json')
 				->set_output(json_encode($respuesta));
 	}//del metodo add
+
+	/**
+	 * funcion para mostrar las versiones de los sistemas contpaqi
+	 * dependiendo la opcion del select
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function versiones()
+	{
+		$id_sistema=$this->input->post('id_sistema');
+		$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('id_sistema' => $id_sistema));
+
+		$versiones_array=explode(',',$versiones[0]->versiones);
+		$num_versiones=count($versiones_array);
+
+		//var_dump($versiones_array);
+		$respuesta = array('exito' => TRUE, 'versiones' => $versiones_array, 'num_versiones' => $num_versiones);
+
+		$this->output
+		->set_content_type('application/json')
+		->set_output(json_encode($respuesta));
+	}
 
 	/**
 	 * Metodo para mostrar las empresas

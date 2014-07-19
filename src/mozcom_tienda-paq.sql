@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-07-2014 a las 01:13:57
+-- Tiempo de generación: 19-07-2014 a las 20:08:10
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -30,7 +30,14 @@ CREATE TABLE IF NOT EXISTS `actividad_pendiente` (
   `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
   `actividad` varchar(40) NOT NULL,
   PRIMARY KEY (`id_actividad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `actividad_pendiente`
+--
+
+INSERT INTO `actividad_pendiente` (`id_actividad`, `actividad`) VALUES
+(1, 'Solicitud de Cotización');
 
 -- --------------------------------------------------------
 
@@ -218,15 +225,9 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
 -- Volcado de datos para la tabla `oficinas`
 --
 
-<<<<<<< HEAD
-INSERT INTO `oficinas` (`ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
-('Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia de León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
-('Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
-=======
 INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
 (2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
 (1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
->>>>>>> 283620fb871896c58e8e3a86d6d6e3e19c65ded7
 
 -- --------------------------------------------------------
 
@@ -320,13 +321,13 @@ CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
 --
 
 INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
-(1, 'CONTPAQi® CONTABILIDAD', ''),
-(2, 'CONTPAQi® NÓMINAS', ''),
-(3, 'CONTPAQI® BANCOS', ''),
-(4, 'CONTPAQI® ADMINPAQ®', ''),
-(5, 'CONTPAQI® COMERCIAL', ''),
-(6, 'CONTPAQI® FACTURA ELECTRÓNICA', ''),
-(7, 'CONTPAQI® PUNTO DE VENTA', '');
+(1, 'CONTPAQi® CONTABILIDAD', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.1, 7.1.0, 7.1.1, 7.2.0'),
+(2, 'CONTPAQi® NÓMINAS', '4.0.0, 4.0.1, 4.0.2, 4.0.3, 4.0.4, 4.0.5, 4.0.6, 5.0.0, 5.0.1, 5.1.0, 5.1.2, 5.1.3, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 6.2.0, 6.2.1, 6.2.2, 6.3.0'),
+(3, 'CONTPAQI® BANCOS', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 7.1.0, 7.1.1, 7.2.0'),
+(4, 'CONTPAQI® ADMINPAQ®', '7.0.0, 7.1.1, 7.1.2, 7.2.0, 7.2.1, 7.3.0, 7.3.1, 7.3.2, 7.3.3'),
+(5, 'CONTPAQI® COMERCIAL', '1.0.1'),
+(6, 'CONTPAQI® FACTURA ELECTRÓNICA', '2.1.0, 2.2.0, 2.2.1, 2.3.0, 2.3.1, 2.3.2, 2.5.0, 2.5.1, 2.5.2'),
+(7, 'CONTPAQI® PUNTO DE VENTA', '3.0.0, 3.1.1, 3.2.0, 3.2.2');
 
 --
 -- Restricciones para tablas volcadas
@@ -363,9 +364,9 @@ ALTER TABLE `equipos_computo`
 -- Filtros para la tabla `pendientes`
 --
 ALTER TABLE `pendientes`
-  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --

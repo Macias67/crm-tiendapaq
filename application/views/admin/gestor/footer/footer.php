@@ -49,8 +49,8 @@
 			Layout.init(); // init current layout
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
-			TableEditable.init();
-			ComponentsDropdowns.init();
+			TableEditable.init(); //
+			ComponentsDropdowns.init(); //funciones del select y de los tags de versiones
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

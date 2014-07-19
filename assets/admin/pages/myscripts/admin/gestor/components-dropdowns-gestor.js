@@ -9,7 +9,6 @@ var ComponentsDropdowns = function () {
         $("#select_sistemas").change(function(){
             id_sistema = $('#select_sistemas').val();
             //filtro para verificar que hay un sistema seleccionado
-            console.log(id_sistema);
             if(id_sistema!=undefined && id_sistema!="")
             {
                 $.ajax({
@@ -37,6 +36,11 @@ var ComponentsDropdowns = function () {
                             //$('body').modalmanager('removeLoading');
                         }
                     }
+                });
+            }else{
+                $('#input_versiones').val("");
+                $("#input_versiones").select2({
+                    tags: []
                 });
             }
         });
