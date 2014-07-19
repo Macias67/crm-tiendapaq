@@ -130,6 +130,36 @@
 							<div class="portlet-body">
 								<div class="col-md-12">
 									<form class="form-inline">
+										<!-- Cotización -->
+										<div class="col-md-4">
+											<div class="portlet gren">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="fa fa-gift"></i> Cotización
+													</div>
+												</div>
+												<div class="portlet-body">
+													<h5>Folio: <b>1290</b></h5>
+													<h5>Ejecutivo: <b>Luis Alberto Macias Angulo</b></h5>
+													<h5>Fecha: <b>02/06/2013</b></h5>
+												</div>
+											</div>
+										</div>
+										<!-- FIN Cotización -->
+										<!-- Cliente -->
+										<div class="col-md-8">
+											<div class="portlet gren">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="fa fa-gift"></i> Cliente
+													</div>
+												</div>
+												<div class="portlet-body">
+													
+												</div>
+											</div>
+										</div>
+										<!-- FIN Cliente -->
 										<!-- Empresa -->
 										<div class="form-group">
 											<div class="col-md-6">
