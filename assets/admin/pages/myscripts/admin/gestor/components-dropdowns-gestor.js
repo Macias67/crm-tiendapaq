@@ -9,7 +9,8 @@ var ComponentsDropdowns = function () {
         $("#select_sistemas").change(function(){
             id_sistema = $('#select_sistemas').val();
             //filtro para verificar que hay un sistema seleccionado
-            if(id_sistema!=undefined || id_sistema!="")
+            console.log(id_sistema);
+            if(id_sistema!=undefined && id_sistema!="")
             {
                 $.ajax({
                     url: "/gestor/versiones/mostrar",
