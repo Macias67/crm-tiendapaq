@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-07-2014 a las 20:45:06
+-- Tiempo de generación: 19-07-2014 a las 01:13:57
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -99,18 +99,20 @@ CREATE TABLE IF NOT EXISTS `crea_pendiente` (
 --
 
 CREATE TABLE IF NOT EXISTS `departamento` (
+  `id_departamento` int(3) NOT NULL AUTO_INCREMENT,
   `area` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_departamento`),
   UNIQUE KEY `area` (`area`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina' AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `departamento`
 --
 
-INSERT INTO `departamento` (`area`) VALUES
-('Desarrollo'),
-('Soporte Técnico'),
-('Ventas');
+INSERT INTO `departamento` (`id_departamento`, `area`) VALUES
+(1, 'Desarrollo'),
+(2, 'Soporte Técnico'),
+(3, 'Ventas');
 
 -- --------------------------------------------------------
 
@@ -145,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
 (1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM'),
-(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq');
+(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)');
 
 -- --------------------------------------------------------
 
@@ -199,24 +201,32 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oficinas` (
-  `ciudad_estado` varchar(80) NOT NULL,
-  `ciudad` varchar(50) NOT NULL,
+  `id_oficina` int(3) NOT NULL AUTO_INCREMENT,
+  `ciudad_estado` varchar(70) NOT NULL,
+  `ciudad` varchar(40) NOT NULL,
   `estado` varchar(30) NOT NULL,
   `colonia` varchar(30) NOT NULL,
   `calle` varchar(50) NOT NULL,
   `numero` varchar(5) NOT NULL,
   `email` varchar(50) NOT NULL,
   `telefono` varchar(14) NOT NULL,
-  PRIMARY KEY (`ciudad_estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='informacion basica de las oficinas';
+  PRIMARY KEY (`ciudad_estado`),
+  UNIQUE KEY `id_oficina` (`id_oficina`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `oficinas`
 --
 
+<<<<<<< HEAD
 INSERT INTO `oficinas` (`ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
 ('Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia de León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
 ('Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
+=======
+INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
+(2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
+(1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
+>>>>>>> 283620fb871896c58e8e3a86d6d6e3e19c65ded7
 
 -- --------------------------------------------------------
 
@@ -281,16 +291,42 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sistemas`
+-- Estructura de tabla para la tabla `sistemas_clientes`
 --
 
-CREATE TABLE IF NOT EXISTS `sistemas` (
+CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
   `id_cliente` int(11) NOT NULL,
   `sistema` varchar(50) CHARACTER SET latin1 NOT NULL,
   `version` varchar(10) CHARACTER SET latin1 NOT NULL,
   `no_serie` varchar(30) CHARACTER SET latin1 NOT NULL,
   KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistemas_contpaqi`
+--
+
+CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
+  `id_sistema` int(11) NOT NULL AUTO_INCREMENT,
+  `sistema` varchar(30) NOT NULL,
+  `versiones` text NOT NULL,
+  PRIMARY KEY (`id_sistema`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi' AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `sistemas_contpaqi`
+--
+
+INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
+(1, 'CONTPAQi® CONTABILIDAD', ''),
+(2, 'CONTPAQi® NÓMINAS', ''),
+(3, 'CONTPAQI® BANCOS', ''),
+(4, 'CONTPAQI® ADMINPAQ®', ''),
+(5, 'CONTPAQI® COMERCIAL', ''),
+(6, 'CONTPAQI® FACTURA ELECTRÓNICA', ''),
+(7, 'CONTPAQI® PUNTO DE VENTA', '');
 
 --
 -- Restricciones para tablas volcadas
@@ -313,9 +349,9 @@ ALTER TABLE `crea_pendiente`
 -- Filtros para la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`),
-  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`),
-  ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`);
+  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equipos_computo`
@@ -333,10 +369,10 @@ ALTER TABLE `pendientes`
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --
--- Filtros para la tabla `sistemas`
+-- Filtros para la tabla `sistemas_clientes`
 --
-ALTER TABLE `sistemas`
-  ADD CONSTRAINT `sistemas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sistemas_clientes`
+  ADD CONSTRAINT `sistemas_clientes_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
