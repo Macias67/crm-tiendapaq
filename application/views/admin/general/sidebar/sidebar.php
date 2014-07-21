@@ -116,6 +116,9 @@
 							<li>
 								<a href="<?php echo site_url('gestor/productos'); ?>"><i class="fa fa-shopping-cart"></i> Productos</a>
 							</li>
+							<li>
+								<a href="<?php echo site_url('gestor/operativos'); ?>"><i class="fa fa-windows"></i> Sistemas Operativos</a>
+							</li>
 						</ul>
 					</li>
 					<!-- Cerrar Sesion -->

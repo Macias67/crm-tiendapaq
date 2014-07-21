@@ -460,6 +460,24 @@ class Gestor extends AbstractAccess {
 		}
 	}
 
+	public function operativos($accion=null)
+	{
+		switch ($accion) {
+			case 'nuevo':
+			break;
+
+			case 'editar':
+			break;
+
+			case 'eliminar':
+			break;
+
+			default:
+				$this->_vista('sistemas_operativos');
+			break;
+		}
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| CALLBACKS

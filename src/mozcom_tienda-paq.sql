@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-07-2014 a las 20:08:10
+-- Tiempo de generación: 22-07-2014 a las 00:45:09
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -328,6 +328,18 @@ INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
 (5, 'CONTPAQI® COMERCIAL', '1.0.1'),
 (6, 'CONTPAQI® FACTURA ELECTRÓNICA', '2.1.0, 2.2.0, 2.2.1, 2.3.0, 2.3.1, 2.3.2, 2.5.0, 2.5.1, 2.5.2'),
 (7, 'CONTPAQI® PUNTO DE VENTA', '3.0.0, 3.1.1, 3.2.0, 3.2.2');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistemas_operativos`
+--
+
+CREATE TABLE IF NOT EXISTS `sistemas_operativos` (
+  `id_so` int(11) NOT NULL AUTO_INCREMENT,
+  `sistema_operativo` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_so`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con registro de los tistemas operativos' AUTO_INCREMENT=1 ;
 
 --
 -- Restricciones para tablas volcadas
