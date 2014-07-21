@@ -276,6 +276,7 @@ class Gestor extends AbstractAccess {
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
  			break;
+
  			case 'editar':
  				$this->form_validation->set_rules('sistema','Sistema','trim|required|strtoupper|callback_sistema_check|max_length[50]|xss_clean');
 
@@ -299,6 +300,7 @@ class Gestor extends AbstractAccess {
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
  			break;
+
  			case 'eliminar':
  				//se eliminara con el id
 	 			$id_sistema = $this->input->post('id_sistema');
@@ -338,14 +340,15 @@ class Gestor extends AbstractAccess {
  	{
  		switch ($accion) {
  			case 'mostrar':
+ 				//se obtiene el id del sistema para saber de que sistema se editaran las versiones
  				$id_sistema = $this->input->post('id_sistema');
-
+ 				//obtenemos la cadena con las versiones
  				$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('id_sistema' => $id_sistema));
 
  				$respuesta=array(
  					'exito' => TRUE,
  					'versiones' => $versiones[0]->versiones);
-
+ 				//mandamos la respuesta
  				$this->output
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
@@ -355,8 +358,8 @@ class Gestor extends AbstractAccess {
  				$id_sistema=$this->input->post('id_sistema');
  				$nuevas_versiones=$this->input->post('nuevas_versiones');
 
+ 				//obtenemos las nuevas versiones y le damos formato
  				$array=explode(',', $nuevas_versiones);
-
  				$j=count($array);
 
  				$nuevas_versiones2=$array[0];
@@ -381,10 +384,81 @@ class Gestor extends AbstractAccess {
  			break;
 
  			default:
- 				echo "opcion no valda kokin";
+ 				$this->_vista('sistemas_contpaqi');
  			break;
  		}
  	}
+
+ 	/**
+ 	 * funciona para gestionar los productos y servicios
+ 	 * @author Diego Rodriguez
+ 	 **/
+ 	public function productos($accion=null)
+	{
+		switch ($accion) {
+			case 'nuevo':
+				$producto = array(
+					'codigo' 	    => $this->input->post('codigo_new'),
+					'descripcion' => $this->input->post('descripcion'),
+					'precio' 	    => $this->input->post('precio'),
+					'unidad' 	    => $this->input->post('unidad'),
+					'impuesto_1' 	=> $this->input->post('impuesto_1'),
+					'impuesto_2' 	=> $this->input->post('impuesto_2'),
+					'retencion_1' => $this->input->post('retencion_1'),
+					'retencion_2' => $this->input->post('retencion_2')
+					 );
+
+				$respuesta=array(
+ 					'exito' => TRUE,
+ 					'producto' => $producto);
+
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+			break;
+
+			case 'editar':
+				$codigo = $this->input->post('codigo_old');
+
+				$producto = array(
+					'codigo' 	    => $this->input->post('codigo_new'),
+					'descripcion' => $this->input->post('descripcion'),
+					'precio' 	    => $this->input->post('precio'),
+					'unidad' 	    => $this->input->post('unidad'),
+					'impuesto_1' 	=> $this->input->post('impuesto_1'),
+					'impuesto_2' 	=> $this->input->post('impuesto_2'),
+					'retencion_1' => $this->input->post('retencion_1'),
+					'retencion_2' => $this->input->post('retencion_2')
+					 );
+
+				$respuesta=array(
+ 					'exito' => TRUE,
+ 					'producto' => $producto,
+ 					'codigo_old' => $codigo);
+
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+			break;
+
+			case 'eliminar':
+				$codigo=$this->input->post('codigo');
+				$producto=$this->input->post('producto');
+
+				$respuesta=array(
+ 					'exito' => TRUE,
+ 					'producto' => $producto);
+
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+			break;
+
+			default:
+				$this->_vista('productos');
+			break;
+		}
+	}
 
 	/*
 	|--------------------------------------------------------------------------

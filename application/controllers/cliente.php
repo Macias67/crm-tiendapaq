@@ -156,7 +156,7 @@ class Cliente extends AbstractAccess {
 					$equipos		= $this->equiposComputoModel->arrayToObject($id, $data);
 					// Inserto en las demas tablas
 					$exito_contactos	= $this->contactosModel->insert($contactos);
-					$exito_sistemas	= $this->sistemasClienteModel->insert($sistemas);
+					$exito_sistemas	  = $this->sistemasClienteModel->insert($sistemas);
 					$exito_equipos		= $this->equiposComputoModel->insert($equipos);
 					// Armo la respuesta para el JSON
 					$respuesta = array(
@@ -180,7 +180,7 @@ class Cliente extends AbstractAccess {
 					'calle'					=> $this->input->post('calle'),
 					'ciudad'				=> $this->input->post('ciudad'),
 					'estado'				=> $this->input->post('estado'),
-					'telefono1'				=> $this->input->post('telefono1'),
+					'telefono1'			=> $this->input->post('telefono1'),
 					//Contacto
 					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
 					'apellido_paterno'	=> $this->input->post('apellido_paterno'),

@@ -83,18 +83,19 @@
 							<span class="title">Calendario</span>
 						</a>
 					</li>
-					<!-- Importar Catalagos -->
+					<!-- Importar -->
 					<li>
 						<a href="<?php echo site_url('catalogo') ?>">
 							<i class="fa fa-upload"></i>
 							<span class="title"> Importar</span>
+							<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('catalogo/clientes'); ?>"><i class="fa fa-plus"></i> Clientes</a>
+								<a href="<?php echo site_url('catalogo/clientes'); ?>"><i class="fa fa-users"></i> Clientes</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('catalogo/productos'); ?>"><i class="fa fa-cogs"></i> Productos</a>
+								<a href="<?php echo site_url('catalogo/productos'); ?>"><i class="fa fa-shopping-cart"></i> Productos</a>
 							</li>
 						</ul>
 					</li>
@@ -107,10 +108,13 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('gestor/oficinas') ?>"></i> Oficinas y Dptos.</a>
+								<a href="<?php echo site_url('gestor/oficinas') ?>"><i class="fa fa-building"></i> Oficinas y Dptos.</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('gestor/sistemas') ?>"></i> Sistemas <strong>CONTPAQi®</strong></a>
+								<a href="<?php echo site_url('gestor/sistemas') ?>"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('gestor/productos'); ?>"><i class="fa fa-shopping-cart"></i> Productos</a>
 							</li>
 						</ul>
 					</li>

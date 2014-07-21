@@ -48,7 +48,6 @@ var ComponentsDropdowns = function () {
 
     var guardarVersiones = function () {
         $('#guardar_versiones').click(function() {
-            /* Act on the event */
             var id_sistema=$('#select_sistemas').val();
             var nuevas_versiones=$('#input_versiones').val();
             if(nuevas_versiones!=""){
