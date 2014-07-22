@@ -218,15 +218,9 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
 -- Volcado de datos para la tabla `oficinas`
 --
 
-<<<<<<< HEAD
-INSERT INTO `oficinas` (`ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
-('Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia de León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
-('Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
-=======
 INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
 (2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
 (1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
->>>>>>> 283620fb871896c58e8e3a86d6d6e3e19c65ded7
 
 -- --------------------------------------------------------
 

@@ -15,7 +15,7 @@ class Cliente extends AbstractAccess {
 		//cargo los modelos a usar
 		$this->load->model('clienteModel');
 		$this->load->model('contactosModel');
-		$this->load->model('sistemasModel');
+		$this->load->model('sistemasClienteModel');
 		$this->load->model('equiposComputoModel');
 	}
 

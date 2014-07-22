@@ -130,8 +130,9 @@
 							<div class="portlet-body">
 								<div class="col-md-12">
 									<form class="form-inline">
+
 										<!-- Cotización -->
-										<div class="col-md-4">
+										<div class="col-md-2">
 											<div class="portlet gren">
 												<div class="portlet-title">
 													<div class="caption">
@@ -146,8 +147,9 @@
 											</div>
 										</div>
 										<!-- FIN Cotización -->
+
 										<!-- Cliente -->
-										<div class="col-md-8">
+										<div class="col-md-5">
 											<div class="portlet gren">
 												<div class="portlet-title">
 													<div class="caption">
@@ -155,45 +157,65 @@
 													</div>
 												</div>
 												<div class="portlet-body">
-													<!-- Empresa -->
 													<div class="col-md-12">
-														<label class="control-label col-md-3">Razón Social</label>
-														<div class="col-md-9">
+														<div class="col-md-12">
 															<input type="hidden" id="razon_social" name="razon_social" class="form-control input-inline input-large select2">
+														</div>
+														<div class="col-md-6">
+															<h5>Folio: <b>1290</b></h5>
+															<h5>Fecha: <b>02/06/2013</b></h5>
+														</div>
+														<div class="col-md-6">
+															<h5>Ejecutivo: <b>Luis Alberto Macias Angulo</b></h5>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 										<!-- FIN Cliente -->
-										<div class="col-md-12">
-											<!-- Empresa -->
-											<div class="form-group">
-												<div class="col-md-6">
-													<input type="hidden" class="form-control input-inline input-large select2" id="producto" name="producto">
+
+										<!-- Producto -->
+										<div class="col-md-5">
+											<div class="portlet gren">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="fa fa-gift"></i> Producto
+													</div>
 												</div>
-											</div>
-											<div class="form-group">
-												<div class="col-md-6">
-													<div id="cantidad">
-														<div class="input-group input-small">
-															<input type="text" class="spinner-input form-control" maxlength="3" readonly="">
-															<div class="spinner-buttons input-group-btn btn-group-vertical">
-																<button type="button" class="btn spinner-up btn-xs gray">
-																	<i class="fa fa-angle-up"></i>
-																</button>
-																<button type="button" class="btn spinner-down btn-xs gray">
-																	<i class="fa fa-angle-down"></i>
-																</button>
+												<div class="portlet-body">
+													<!-- Empresa -->
+													<div class="col-md-12">
+														<!-- Empresa -->
+														<div class="form-group">
+															<div class="col-md-6">
+																<input type="hidden" class="form-control input-inline input-large select2" id="producto" name="producto">
 															</div>
 														</div>
+
+														<div class="form-group">
+															<div class="col-md-6">
+																<div id="cantidad">
+																	<div class="input-group input-small">
+																		<input type="text" class="spinner-input form-control" maxlength="3" readonly="">
+																		<div class="spinner-buttons input-group-btn btn-group-vertical">
+																			<button type="button" class="btn spinner-up btn-xs gray">
+																				<i class="fa fa-angle-up"></i>
+																			</button>
+																			<button type="button" class="btn spinner-down btn-xs gray">
+																				<i class="fa fa-angle-down"></i>
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
+														<!-- FIN Empresa -->
 													</div>
 												</div>
 											</div>
-											<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
-											<!-- FIN Empresa -->
-											<hr>
 										</div>
+										<!-- FIN Producto -->
 									</form>
 									<hr>
 								</div>
