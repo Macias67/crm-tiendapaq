@@ -144,32 +144,19 @@
 											</tr>
 										</thead>
 										<tbody>
-												<tr id="1">
-													<td>Windows XP</td>
+											<?php foreach ($sistemasoperativos as $sistema): ?>
+												<tr id="<?php echo $sistema->id_so ?>">
+													<td><?php echo $sistema->sistema_operativo ?></td>
 													<td><a class="edit" href="javascript:;">Editar </a></td>
 													<td><a class="delete" href="javascript:;">Eliminar </a></td>
 												</tr>
-												<tr id="1">
-													<td>Windows 7 Home Premimum</td>
-													<td><a class="edit" href="javascript:;">Editar </a></td>
-													<td><a class="delete" href="javascript:;">Eliminar </a></td>
-												</tr>
-												<tr id="1">
-													<td>Windows 7 Ultimate</td>
-													<td><a class="edit" href="javascript:;">Editar </a></td>
-													<td><a class="delete" href="javascript:;">Eliminar </a></td>
-												</tr>
-												<tr id="1">
-													<td>Windows 8 Pro</td>
-													<td><a class="edit" href="javascript:;">Editar </a></td>
-													<td><a class="delete" href="javascript:;">Eliminar </a></td>
-												</tr>
+											<?php endforeach ?>
 										</tbody>
 									</table>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
 											<button id="tabla_operativos_editable_new" class="btn green btn-xs">
-												<i class="fa fa-plus"></i> Nuevo Sistema
+												<i class="fa fa-plus"></i> Nuevo Sistema Operativo
 											</button>
 										</div>
 									</div>

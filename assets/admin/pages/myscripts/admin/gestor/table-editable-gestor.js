@@ -1109,74 +1109,75 @@ var TableEditable = function () {
         //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            var id_departamento = $(nRow).attr('id');
+            var id_so = $(nRow).attr('id');
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
             oTable.fnDraw();
 
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
-            // var departamento='id_departamento='+id_departamento+'&'+
-            //                   'area='+jqInputs[0].value;
-            // //if para saber si se trata editar o nuevo
-            // //si no tiene id es nuevo, si tiene un id existente es editar
-            // if(id_departamento!=undefined)
-            // {
-            //     $.ajax({
-            //         url: "/gestor/operativos/editar",
-            //         type: 'post',
-            //         cache: false,
-            //         dataType: 'json',
-            //         data: departamento,
-            //         beforeSend: function () {
-            //            //('body').modalmanager('loading');
-            //         },
-            //         error: function(jqXHR, status, error) {
-            //             console.log("ERROR: "+error);
-            //             alert('ERROR: revisa la consola del navegador para más detalles.');
-            //             //$('body').modalmanager('removeLoading');
-            //         },
-            //         success: function(data) {
-            //             if (data.exito) {
-            //                 alert("Departamento: "+data.departamento+" actualizado con éxito");
-            //                 parent.location.reload();
-            //             } else {
-            //                 alert('Error: '+data.msg);
-            //                 editRow(oTable, nRow);
-            //                 nEditing = nRow;
-            //                 //$('body').modalmanager('removeLoading');
-            //             }
-            //         }
-            //     });
-            // }else
-            // {
-            //     $.ajax({
-            //         url: "/gestor/operativos/nuevo",
-            //         type: 'post',
-            //         cache: false,
-            //         dataType: 'json',
-            //         data: departamento,
-            //         beforeSend: function () {
-            //            //('body').modalmanager('loading');
-            //         },
-            //         error: function(jqXHR, status, error) {
-            //             console.log("ERROR: "+error);
-            //             alert('ERROR: revisa la consola del navegador para más detalles.');
-            //             //$('body').modalmanager('removeLoading');
-            //         },
-            //         success: function(data) {
-            //             if (data.exito) {
-            //                 alert("Departamento: "+data.departamento+" añadido con éxito");
-            //                 parent.location.reload();
-            //             } else {
-            //                 alert('Error: '+data.msg);
-            //                 editRow(oTable, nRow);
-            //                 nEditing = nRow;
-            //                 //$('body').modalmanager('removeLoading');
-            //             }
-            //         }
-            //     });
-            // }
+            var so='id_so='+id_so+'&'+
+                    'sistema_operativo='+jqInputs[0].value;
+            console.log('id_so : '+id_so);
+            //if para saber si se trata editar o nuevo
+            //si no tiene id es nuevo, si tiene un id existente es editar
+            if(id_so!=undefined)
+            {
+                $.ajax({
+                    url: "/gestor/operativos/editar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: so,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema operativo: "+data.so+" actualizado con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }else
+            {
+                $.ajax({
+                    url: "/gestor/operativos/nuevo",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: so,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema operativo: "+data.so+" añadido con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }
         }
 
         function cancelEditRow(oTable, nRow) {
@@ -1255,38 +1256,38 @@ var TableEditable = function () {
             var nRow = $(this).parents('tr')[0];
             //valores de la fila a eliminar guardados en aData ademas el id para guiarnos en la bd
             var aData = oTable.fnGetData(nRow);
-            var id_departamento = $(nRow).attr('id');
+            var id_so = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar el departamento "+aData[0]+"?") == false) {
+            if (confirm("¿Seguro que quieres borrar el Sistema Operativo "+aData[0]+"?") == false) {
                 return;
             }
 
-            // //ajax para borrar
-            // $.ajax({
-            //         url: "/gestor/departamentos/eliminar",
-            //         type: 'post',
-            //         cache: false,
-            //         dataType: 'json',
-            //         data: "id_departamento="+id_departamento+"&area="+aData[0],
-            //         beforeSend: function () {
-            //            //('body').modalmanager('loading');
-            //         },
-            //         error: function(jqXHR, status, error) {
-            //             console.log("ERROR: "+error);
-            //             alert('ERROR: revisa la consola del navegador para más detalles.');
-            //             //$('body').modalmanager('removeLoading');
-            //         },
-            //         success: function(data) {
-            //             if (data.exito) {
-            //                 alert("Departamento: '"+data.departamento+"' eliminado con éxito");
-            //                 //parent.location.reload();
-            //             } else {
-            //                 alert('Error :'+data.msg);
-            //                 //$('body').modalmanager('removeLoading');
-            //                 parent.location.reload();
-            //             }
-            //         }
-            //     });
+            //ajax para borrar
+            $.ajax({
+                    url: "/gestor/operativos/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id_so="+id_so+"&sistema_operativo="+aData[0],
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema operativo:'"+data.so+"' eliminado con éxito");
+                            //parent.location.reload();
+                        } else {
+                            alert('Error :'+data.msg);
+                            //$('body').modalmanager('removeLoading');
+                            parent.location.reload();
+                        }
+                    }
+                });
             oTable.fnDeleteRow(nRow);
         });
 

@@ -460,16 +460,70 @@ class Gestor extends AbstractAccess {
 		}
 	}
 
+ /**
+ * funcion para gestionar los sistemas operativos
+ * @author Diego Rodriguez
+ **/
 	public function operativos($accion=null)
 	{
+		$this->load->model('sistemasOperativosModel');
+		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'));
+
 		switch ($accion) {
 			case 'nuevo':
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|max_length[30]|strtolower|ucwords|xss_clean');
+
+				if (!$this->form_validation->run()) {
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else{
+					$sistema_operativo = $this->input->post('sistema_operativo');
+
+					if(!$this->sistemasOperativosModel->insert(array('sistema_operativo' => $sistema_operativo))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agredo, revisa la consola o la base de datos');
+					}else{
+						$respuesta = array('exito' => TRUE, 'so' => $sistema_operativo );
+					}
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
 
 			case 'editar':
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|max_length[30]|strtolower|ucwords|xss_clean');
+
+				if (!$this->form_validation->run()) {
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else{
+					$id_so = $this->input->post('id_so');
+					$sistema_operativo = $this->input->post('sistema_operativo');
+
+					if(!$this->sistemasOperativosModel->update(array('sistema_operativo' => $sistema_operativo), array('id_so' => $id_so))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agredo, revisa la consola o la base de datos');
+					}else{
+						$respuesta = array('exito' => TRUE, 'so' => $sistema_operativo );
+					}
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
 
 			case 'eliminar':
+			 	$id_so = $this->input->post('id_so');
+			 	$sistema_operativo = $this->input->post('sistema_operativo');
+
+			 	if(!$this->sistemasOperativosModel->delete(array('id_so' => $id_so))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+			 	}else{
+						$respuesta = array('exito' => TRUE, 'so' => $sistema_operativo );
+			 	}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
 
 			default:
