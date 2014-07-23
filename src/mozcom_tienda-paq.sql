@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2014 a las 00:45:09
+-- Tiempo de generación: 24-07-2014 a las 00:47:14
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 --
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM'),
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Soy Kokin'),
 (2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)');
 
 -- --------------------------------------------------------
@@ -173,7 +173,8 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `sql_management` varchar(50) CHARACTER SET latin1 NOT NULL,
   `instancia_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   `password_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
-  KEY `id_cliente` (`id_cliente`)
+  KEY `id_cliente` (`id_cliente`),
+  KEY `sistema_operativo` (`sistema_operativo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con informacion de los equipos de computo del cliente';
 
 -- --------------------------------------------------------
@@ -278,8 +279,8 @@ INSERT INTO `privilegios` (`privilegios`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `productos` (
-  `codigo` varchar(20) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `codigo` varchar(10) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
   `unidad` varchar(30) NOT NULL DEFAULT 'Pieza',
   `precio` float NOT NULL,
   `impuesto1` float NOT NULL,
@@ -338,8 +339,34 @@ INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
 CREATE TABLE IF NOT EXISTS `sistemas_operativos` (
   `id_so` int(11) NOT NULL AUTO_INCREMENT,
   `sistema_operativo` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_so`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con registro de los tistemas operativos' AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id_so`),
+  KEY `sistema_operativo` (`sistema_operativo`),
+  KEY `sistema_operativo_2` (`sistema_operativo`),
+  KEY `sistema_operativo_3` (`sistema_operativo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='tabla con registro de los tistemas operativos' AUTO_INCREMENT=19 ;
+
+--
+-- Volcado de datos para la tabla `sistemas_operativos`
+--
+
+INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
+(14, 'Windows 7 Enterprise'),
+(10, 'Windows 7 Home Basic'),
+(11, 'Windows 7 Home Premium'),
+(12, 'Windows 7 Professional'),
+(9, 'Windows 7 Starter'),
+(13, 'Windows 7 Ultimate'),
+(17, 'Windows 8 Enterprise'),
+(16, 'Windows 8 Pro'),
+(15, 'Windows 8 Single Language'),
+(18, 'Windows 8.1'),
+(5, 'Windows Vista Business'),
+(6, 'Windows Vista Enterprise'),
+(3, 'Windows Vista Home Basic'),
+(4, 'Windows Vista Home Premium'),
+(2, 'Windows Vista Starter'),
+(7, 'Windows Vista Ultimate'),
+(1, 'Windows XP');
 
 --
 -- Restricciones para tablas volcadas

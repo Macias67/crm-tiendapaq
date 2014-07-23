@@ -497,10 +497,9 @@
 															<option value="Windows 7 Home Basic">Windows 7 Home Basic</option>
 															<option value="Windows 7 Home Premium">Windows 7 Home Premium</option>
 															<option value="Windows 7 Professional">Windows 7 Professional</option>
-															<option value="Windows 7 Ultimate">Windows 7 Ultimate</option>
 															<option value="Windows 7 Enterprise">Windows 7 Enterprise</option>
-															<option value="Windows 8">Windows 8  </option>
-															<option value="Windows 8 Single">Windows 8 Single</option>
+															<option value="Windows 7 Ultimate">Windows 7 Ultimate</option>
+															<option value="Windows 8 Single">Windows 8 Single Language</option>
 															<option value="Windows 8 Pro">Windows 8 Pro</option>
 															<option value="Windows 8 Enterprise">Windows 8 Enterprise</option>
 															<option value="Windows 8.1">Windows 8.1 </option>

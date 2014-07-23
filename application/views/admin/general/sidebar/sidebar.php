@@ -59,6 +59,13 @@
 							</li>
 						</ul>
 					</li>
+					<!-- Productos -->
+					<li>
+						<a href="<?php echo site_url('producto') ?>">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="title"> Productos</span>
+						</a>
+					</li>
 					<!-- Ejecutivos -->
 					<li>
 						<a href="javascript:;">
@@ -77,6 +84,7 @@
 							<li>
 						</ul>
 					</li>
+					<!-- Calendario -->
 					<li>
 						<a href="<?php echo site_url('calendario') ?>">
 							<i class="fa fa-calendar"></i>
@@ -112,9 +120,6 @@
 							</li>
 							<li>
 								<a href="<?php echo site_url('gestor/sistemas') ?>"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
-							</li>
-							<li>
-								<a href="<?php echo site_url('gestor/productos'); ?>"><i class="fa fa-shopping-cart"></i> Productos</a>
 							</li>
 							<li>
 								<a href="<?php echo site_url('gestor/operativos'); ?>"><i class="fa fa-windows"></i> Sistemas Operativos</a>
