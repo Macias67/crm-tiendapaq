@@ -154,24 +154,40 @@
 									</div>
 
 									<div class="portlet-body">
-										<div class="col-md-12">
-											<input type="hidden" id="razon_social" name="razon_social" class="form-control input-inline select2" style="width: 100%">
-										</div>
-										<div class="col-md-12">
-											<br>
-											<div class="col-md-4">
-												<h5>Contacto: </h5>
-												<b>Luis Alberto Macias Angulo</b>
+										<form role="form">
+											<div class="form-body">
+
+												<div class="col-md-12">
+													<div class="form-group">
+														<input type="hidden" id="razon_social" name="razon_social" class="form-control input-inline select2" style="width: 100%">
+													</div>
+												</div>
+
+												<div class="col-md-12">
+
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Contactos</label>
+															<select class="form-control" id="contactos" name="contactos"></select>
+														</div>
+													</div>
+
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Teléfono</label>
+															<input class="form-control" id="telefono" type="text">
+														</div>
+													</div>
+
+													<div class="col-md-4">
+														<div class="form-group">
+															<label>Email</label>
+															<input class="form-control" id="email" type="text">
+														</div>
+													</div>
+												</div>
 											</div>
-											<div class="col-md-4">
-												<h5>Teléfono: </h5>
-												 <b>5553892406</b>
-											</div>
-											<div class="col-md-4">
-												<h5>Email: </h5>
-												<b>silvia_hernandez@hotmail.com</b>
-											</div>
-										</div>
+										</form>
 									</div>
 								</div>
 							</div>

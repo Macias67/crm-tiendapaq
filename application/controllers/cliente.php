@@ -267,14 +267,11 @@ class Cliente extends AbstractAccess {
 
 			$total_contactos = count($contactos);
 
-			if ($total_contactos > 1)
+			if ($total_contactos > 0)
 			{
 				$res = array(
 					'total_contactos'	=> $total_contactos,
 					'contactos'			=> $contactos);
-
-			} elseif ($total_contactos == 1)
-			{
 
 			} else
 			{

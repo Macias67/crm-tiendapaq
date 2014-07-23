@@ -1,7 +1,10 @@
-var ProductoDropdowns = function() {
+var ProductoDropdowns	= function() {
 
 	var handlerCliente = function() {
-		var select = $("#razon_social");
+		var select				= $('#razon_social');
+		var select_contactos	= $('#contactos');
+		var input_telefono		= $('#telefono');
+		var input_email			= $('#email');
 
 		select.select2({
 			placeholder: "Razón Social...",
@@ -25,37 +28,23 @@ var ProductoDropdowns = function() {
 			}
 		});
 
+		var contactos = [];
+
 		select.on('change', function() {
 			var id_cliente = $(this).val();
 			if (id_cliente != "")
 			{
 				$.post('/cliente/json/', {id_cliente: id_cliente}, function(data, textStatus, xhr) {
-					
-					if (data.total_contactos > 1)
+					if (data.total_contactos > 0)
 					{
-						var radio = '<form role="form"><div class="form-body"><div class="form-group"><label>Radio</label><div class="radio-list">';
-
-						radio += '<label><div class="radio" id="uniform-optionsRadios1"><span class="checked"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div> Option 1</label>';
-						radio +='<label><div class="radio" id="uniform-optionsRadios2"><span class=""><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"></span></div> Option 2 </label>';
-						
-						radio +='</div></div></div></form>';
-
-						bootbox.dialog({
-							message: radio,
-							title: 'No hay contactos registrados',
-							buttons: {
-								registrar: {
-									label: 'Registrar',
-									className: 'red',
-									callback: function() {
-										window.location = '/cliente/nuevo';
-									}
-								}
-							}
-						});
-					} else if(data.total_contactos == 1)
-					{
-
+						contactos = data.contactos;
+						var option = '<option value=""></option>';
+						for (var i = 0; i < data.total_contactos; i++)
+						{
+							var nombre = data.contactos[i].nombre_contacto+' '+data.contactos[i].apellido_paterno+' '+data.contactos[i].apellido_materno;
+							option += '<option value="'+i+'">'+nombre+'</option>';
+						}
+						select_contactos.html(option);
 					} else
 					{
 						bootbox.dialog({
@@ -71,9 +60,22 @@ var ProductoDropdowns = function() {
 								}
 							}
 						});
+						select_contactos.html('<option value=""></option>');
+						input_telefono.val('');
+						input_email.val('');
 					}
-
 				}, 'json');
+			}
+		});
+
+		select_contactos.on('change', function() {
+			var index = $(this).val();
+			if (index != '') {
+				input_telefono.val(contactos[index].telefono_contacto);
+				input_email.val(contactos[index].email_contacto);
+			} else {
+				input_telefono.val('');
+				input_email.val('');
 			}
 		});
 	}
