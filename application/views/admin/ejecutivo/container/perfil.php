@@ -216,7 +216,7 @@
 													</li>
 													<li>
 														<a href="#tab_1_22" data-toggle="tab">
-														Feeds </a>
+														Casos </a>
 													</li>
 												</ul>
 												<div class="tab-content">
@@ -232,7 +232,7 @@
 																	<i class="fa fa-question"></i> Descripcion
 																</th>
 																<th>
-																	<i class="fa fa-bookmark"></i> Amount
+																	<i class="fa fa-bookmark"></i> Deposito
 																</th>
 																<th>
 																</th>
@@ -253,7 +253,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs green-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															<tr>
@@ -270,7 +270,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs blue-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															<tr>
@@ -287,7 +287,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs blue-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															<tr>
@@ -304,7 +304,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs red-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															<tr>
@@ -321,7 +321,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs green-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															<tr>
@@ -338,7 +338,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs blue-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															<tr>
@@ -355,7 +355,7 @@
 																</td>
 																<td>
 																	<a class="btn default btn-xs blue-stripe" href="#">
-																	View </a>
+																	Ver detalles </a>
 																</td>
 															</tr>
 															</tbody>
