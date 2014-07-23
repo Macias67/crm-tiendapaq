@@ -225,30 +225,67 @@ class Cliente extends AbstractAccess {
 	 **/
 	public function json()
 	{
-		$query	= $this->input->post('q');
-		$limit 	= $this->input->post('page_limit');
+		$id_cliente = $this->input->post('id_cliente');
 
-		if (isset($query) && isset($limit)) {
-			$resultados = $this->clienteModel->get_like(
-				array('id','razon_social'),
-				'razon_social',
-				$query,
-				'razon_social',
-				'ASC',
-				$limit);
-			$res = array();
-			if (!empty($resultados)) {
-				foreach ($resultados as $value) {
-					array_push($res, array("id" => (int)$value->id, "text" => $value->razon_social));
+		if (empty($id_cliente))
+		{
+			$query	= $this->input->post('q');
+			$limit 	= $this->input->post('page_limit');
+
+			if (isset($query) && isset($limit))
+			{
+				$resultados = $this->clienteModel->get_like(
+					array('id','razon_social'),
+					'razon_social',
+					$query,
+					'razon_social',
+					'ASC',
+					$limit);
+
+				$res = array();
+
+				if (!empty($resultados))
+				{
+					foreach ($resultados as $value)
+					{
+						array_push($res, array("id" => (int)$value->id, "text" => $value->razon_social));
+					}
+				} else
+				{
+					$res = array("id"=>"0","text"=>"No se encontraron resultados...");
 				}
-			} else {
-				$res = array("id"=>"0","text"=>"No se encontraron resultados...");
-			}
 
-			// Muestro la salida
+				// Muestro la salida
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode($res));
+			}
+		} else
+		{
+			$cliente		= $this->clienteModel->get_like(array('telefono_1'), 'id', $id_cliente);
+			$contactos	= $this->contactosModel->get_like(array('*'),'id_cliente', $id_cliente);
+
+			$total_contactos = count($contactos);
+
+			if ($total_contactos > 1)
+			{
+				$res = array(
+					'total_contactos'	=> $total_contactos,
+					'contactos'			=> $contactos);
+
+			} elseif ($total_contactos == 1)
+			{
+
+			} else
+			{
+				$res = array(
+					'total_contactos'	=> $total_contactos,
+					'msg'				=> 'La empresa no tiene contactos registrados.');
+			}
+			// Muestro salida
 			$this->output
-					->set_content_type('application/json')
-					->set_output(json_encode($res));
+				->set_content_type('application/json')
+				->set_output(json_encode($res));
 		}
 	}
 

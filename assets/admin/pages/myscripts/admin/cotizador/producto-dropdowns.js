@@ -1,7 +1,9 @@
 var ProductoDropdowns = function() {
 
 	var handlerCliente = function() {
-		$("#razon_social").select2({
+		var select = $("#razon_social");
+
+		select.select2({
 			placeholder: "Razón Social...",
 			allowClear: true,
 			minimumInputLength: 3,
@@ -20,6 +22,58 @@ var ProductoDropdowns = function() {
 					// since we are using custom formatting functions we do not need to alter remote JSON data
 					return {results: data};
 				}
+			}
+		});
+
+		select.on('change', function() {
+			var id_cliente = $(this).val();
+			if (id_cliente != "")
+			{
+				$.post('/cliente/json/', {id_cliente: id_cliente}, function(data, textStatus, xhr) {
+					
+					if (data.total_contactos > 1)
+					{
+						var radio = '<form role="form"><div class="form-body"><div class="form-group"><label>Radio</label><div class="radio-list">';
+
+						radio += '<label><div class="radio" id="uniform-optionsRadios1"><span class="checked"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div> Option 1</label>';
+						radio +='<label><div class="radio" id="uniform-optionsRadios2"><span class=""><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"></span></div> Option 2 </label>';
+						
+						radio +='</div></div></div></form>';
+
+						bootbox.dialog({
+							message: radio,
+							title: 'No hay contactos registrados',
+							buttons: {
+								registrar: {
+									label: 'Registrar',
+									className: 'red',
+									callback: function() {
+										window.location = '/cliente/nuevo';
+									}
+								}
+							}
+						});
+					} else if(data.total_contactos == 1)
+					{
+
+					} else
+					{
+						bootbox.dialog({
+							message: data.msg,
+							title: 'No hay contactos registrados',
+							buttons: {
+								registrar: {
+									label: 'Registrar',
+									className: 'red',
+									callback: function() {
+										window.location = '/cliente/nuevo';
+									}
+								}
+							}
+						});
+					}
+
+				}, 'json');
 			}
 		});
 	}
@@ -65,7 +119,7 @@ var ProductoDropdowns = function() {
 		});
 	}
 
-	// Spinner para la memoria ram
+	// Spinner para la cantidad de productos
 	var handleSpinners = function () {
 		$('#cantidad').spinner();
 	}
