@@ -482,27 +482,12 @@
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
-														<i class="fa fa-desktop"></i>
+														<i class="fa fa-windows"></i>
 														<select class="form-control" name="sistema_operativo">
 															<option value=""></option>
-															<option value="Windows XP">Windows XP</option>
-															<option value=">Windows Vista Starter">Windows Vista Starter</option>
-															<option value=">Windows Vista Home Basic">Windows Vista Home Basic</option>
-															<option value=">Windows Vista Home Premium">Windows Vista Home Premium</option>
-															<option value=">Windows Vista Business">Windows Vista Business</option>
-															<option value=">Windows Vista Enterprise">Windows Vista Enterprise</option>
-															<option value=">Windows Vista Ultimate">Windows Vista Ultimate</option>
-															<option value=">Windows Vista Starter">Windows Vista Starter</option>
-															<option value="Windows 7 Starter">Windows 7 Starter</option>
-															<option value="Windows 7 Home Basic">Windows 7 Home Basic</option>
-															<option value="Windows 7 Home Premium">Windows 7 Home Premium</option>
-															<option value="Windows 7 Professional">Windows 7 Professional</option>
-															<option value="Windows 7 Enterprise">Windows 7 Enterprise</option>
-															<option value="Windows 7 Ultimate">Windows 7 Ultimate</option>
-															<option value="Windows 8 Single">Windows 8 Single Language</option>
-															<option value="Windows 8 Pro">Windows 8 Pro</option>
-															<option value="Windows 8 Enterprise">Windows 8 Enterprise</option>
-															<option value="Windows 8.1">Windows 8.1 </option>
+															<?php foreach ($sistemasoperativos as $operativo): ?>
+																<option value="Windows XP"><?php echo $operativo->sistema_operativo ?></option>
+															<?php endforeach ?>
 														</select>
 													</div>
 												</div>

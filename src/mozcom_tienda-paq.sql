@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-07-2014 a las 00:47:14
+-- Tiempo de generación: 24-07-2014 a las 18:06:20
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -350,12 +350,12 @@ CREATE TABLE IF NOT EXISTS `sistemas_operativos` (
 --
 
 INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
-(14, 'Windows 7 Enterprise'),
+(13, 'Windows 7 Enterprise'),
 (10, 'Windows 7 Home Basic'),
 (11, 'Windows 7 Home Premium'),
 (12, 'Windows 7 Professional'),
 (9, 'Windows 7 Starter'),
-(13, 'Windows 7 Ultimate'),
+(14, 'Windows 7 Ultimate'),
 (17, 'Windows 8 Enterprise'),
 (16, 'Windows 8 Pro'),
 (15, 'Windows 8 Single Language'),

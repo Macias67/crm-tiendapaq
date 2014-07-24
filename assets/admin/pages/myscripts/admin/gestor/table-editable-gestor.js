@@ -1191,6 +1191,7 @@ var TableEditable = function () {
 
         //mensajes y caracteristicas de la tabla
         var oTable = table.dataTable({
+            "pageLength": 30,
             searching: false,
             "lengthChange": false,
             "columns": [

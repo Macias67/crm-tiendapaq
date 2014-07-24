@@ -18,12 +18,13 @@ class Cliente extends AbstractAccess {
 		$this->load->model('sistemasClienteModel');
 		$this->load->model('equiposComputoModel');
 		$this->load->model('sistemasContpaqiModel');
+		$this->load->model('sistemasOperativosModel');
 	}
 
 	public function index()
 	{
-		$clientes = $this->clienteModel->get(
-			array('id','codigo','razon_social','rfc','tipo'));
+		$clientes = $this->clienteModel->get(array('id','codigo','razon_social','rfc','tipo'));
+		var_dump($this->data);
 		$this->_vista('index');
 	}
 
@@ -33,6 +34,7 @@ class Cliente extends AbstractAccess {
 		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 		//datos a usar en el formulario de nuevo cliente
 		$this->data['sistemascontpaqi']=$this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
+		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
 		//Vista de formulario a mostrar
 		$this->_vista('form-nuevo-cliente');
 	}

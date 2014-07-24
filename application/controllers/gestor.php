@@ -396,7 +396,7 @@ class Gestor extends AbstractAccess {
 	public function operativos($accion=null)
 	{
 		$this->load->model('sistemasOperativosModel');
-		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'));
+		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
 
 		switch ($accion) {
 			case 'nuevo':
@@ -456,6 +456,7 @@ class Gestor extends AbstractAccess {
 			break;
 
 			default:
+				var_dump($this->data);
 				$this->_vista('sistemas_operativos');
 			break;
 		}
