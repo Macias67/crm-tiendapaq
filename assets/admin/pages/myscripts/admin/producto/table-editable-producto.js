@@ -79,7 +79,7 @@ var TableEditable = function () {
                     success: function(data) {
                         if (data.exito) {
                             alert("Producto : "+data.producto+", actualizado con éxito");
-                            //parent.location.reload();
+                            parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
                             editRow(oTable, nRow);
@@ -107,7 +107,7 @@ var TableEditable = function () {
                     success: function(data) {
                         if (data.exito) {
                             alert("Producto : "+data.producto+", añadido con éxito");
-                            // parent.location.reload();
+                            parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
                             editRow(oTable, nRow);
@@ -153,8 +153,8 @@ var TableEditable = function () {
             "language": {
                 "emptyTable":     "No hay productos registrados",
                 "info":           "Mostrando _START_ a _END_ de _TOTAL_ productos",
-                "infoEmpty":      "Mostrando 0 a 0 de 0 oficinas",
-                "infoFiltered":   "(de un total de _MAX_ productos registradas)",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 productos",
+                "infoFiltered":   "(de un total de _MAX_ productos registrados)",
                 "infoPostFix":    "",
                 "thousands":      ",",
                 "lengthMenu":     "Show _MENU_ entries",

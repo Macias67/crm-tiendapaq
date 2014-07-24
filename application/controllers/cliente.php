@@ -24,7 +24,6 @@ class Cliente extends AbstractAccess {
 	public function index()
 	{
 		$clientes = $this->clienteModel->get(array('id','codigo','razon_social','rfc','tipo'));
-		var_dump($this->data);
 		$this->_vista('index');
 	}
 

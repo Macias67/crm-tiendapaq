@@ -148,42 +148,20 @@
 										</tr>
 									</thead>
 									<tbody>
-											<tr id="1">
-												<td>P001</td>
-												<td>SOPORTE TECNICO</td>
-												<td>400.00</td>
-												<td>Hr</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
+										<?php foreach ($productos as $producto): ?>
+											<tr id="<?php echo $producto->codigo ?>">
+												<td><?php echo $producto->codigo ?></td>
+												<td><?php echo $producto->descripcion ?></td>
+												<td><?php echo $producto->precio ?></td>
+												<td><?php echo $producto->unidad ?></td>
+												<td><?php echo $producto->impuesto1 ?></td>
+												<td><?php echo $producto->impuesto2 ?></td>
+												<td><?php echo $producto->retencion1 ?></td>
+												<td><?php echo $producto->retencion2 ?></td>
 												<td><a class="edit" href="javascript:;">Editar </a></td>
 												<td><a class="delete" href="javascript:;">Eliminar </a></td>
 											</tr>
-											<tr id="2">
-												<td>P028</td>
-												<td>INSTALACION DE SISTEMA</td>
-												<td>600.00</td>
-												<td>Hr</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
-											</tr>
-											<tr id="3">
-												<td>P102</td>
-												<td>ACTUALIZACION DE SISTEMA</td>
-												<td>800.00</td>
-												<td>Hr</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td>0.00</td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
-											</tr>
+										<?php endforeach ?>
 									</tbody>
 								</table>
 								<div class="table-toolbar">

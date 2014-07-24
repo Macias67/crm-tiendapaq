@@ -67,7 +67,7 @@ class ProductoModel extends TxtManager {
 			$producto = new stdClass();
 			// Atributos
 			$producto->codigo		= $data_producto[0];
-			$producto->nombre		= mb_strtoupper($data_producto[1]);
+			$producto->descripcion		= mb_strtoupper($data_producto[1]);
 			$producto->precio			= (float) $data_producto[2];
 			$producto->impuesto1	= (float) $data_producto[3];
 			$producto->impuesto2	= (float) $data_producto[4];
@@ -102,7 +102,7 @@ class ProductoModel extends TxtManager {
 			$producto = array();
 			// Atributos
 			$producto['codigo']			= $data_producto[0];
-			$producto['nombre']			= mb_strtoupper($data_producto[1]);
+			$producto['descripcion']			= mb_strtoupper($data_producto[1]);
 			$producto['precio']			= (float) $data_producto[2];
 			$producto['impuesto1']		= (float) $data_producto[3];
 			$producto['impuesto2']		= (float) $data_producto[4];

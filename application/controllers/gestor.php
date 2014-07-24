@@ -456,7 +456,6 @@ class Gestor extends AbstractAccess {
 			break;
 
 			default:
-				var_dump($this->data);
 				$this->_vista('sistemas_operativos');
 			break;
 		}
