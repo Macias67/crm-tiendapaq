@@ -253,8 +253,8 @@ var TableEditable = function () {
 
             if (nNew) {
                 oTable.fnDeleteRow(nEditing);
+                nEditing = null;
                 nNew = false;
-                parent.location.reload();
             } else {
                 restoreRow(oTable, nEditing);
                 nEditing = null;
