@@ -34,12 +34,9 @@ class Cotizador extends AbstractAccess {
 			$query	= $this->input->post('q');
 			$limit 	= $this->input->post('page_limit');
 			if (!empty($query) && !empty($limit)) {
-				$resultados = $this->productoModel->get_like(
+				$resultados = $this->productoModel->get_select_query(
 					array('codigo','nombre'),
-					'nombre',
 					$query,
-					'nombre',
-					'ASC',
 					$limit);
 				$res = array();
 				if (!empty($resultados)) {
