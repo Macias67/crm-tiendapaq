@@ -119,7 +119,63 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<div class="col-md-3">
+						</div>
+						<div class="col-md-6">
+							<div class="portlet box grey">
+								<div class="portlet-title">
+									<div class="caption" style="color: black">
+										<i class="fa fa-windows"></i> Observaciones
+									</div>
+									<div class="tools" style="color: black">
+										<a href="javascript:;" class="collapse">
+										</a>
+										<a href="javascript:;" class="reload">
+										</a>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<table class="table table-striped table-hover table-bordered" id="tabla_operativos_editable">
+										<thead>
+											<tr>
+												<th>Descripcion</th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr id="1">
+												<td>PRECIOS MAS IVA SUJETOS A CAMBIOS SIN PREVIO AVISO</td>
+												<td><a class="edit" href="javascript:;">Editar </a></td>
+												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+											</tr>
+											<tr id="2">
+												<td>FORMA DE PAGO POR ANTICIPADO</td>
+												<td><a class="edit" href="javascript:;">Editar </a></td>
+												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+											</tr>
+											<tr id="3">
+												<td>TIEMPO DE ENTREGA DE 8 A 5 DIAS HABILES</td>
+												<td><a class="edit" href="javascript:;">Editar </a></td>
+												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+											</tr>
+											<tr id="4">
+												<td>EL PRECIO NO INCLUYE SERVICIOS DE IMPLEMENTACION, CAPACITACION O ASESORIA ADICIONAL A LA EXPRESANTE SEÑALADA EN ESTA COTIZACION</td>
+												<td><a class="edit" href="javascript:;">Editar </a></td>
+												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="table-toolbar">
+										<div class="btn-group pull-right">
+											<button id="tabla_operativos_editable_new" class="btn green btn-xs">
+												<i class="fa fa-plus"></i> Nuevo observacion
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->

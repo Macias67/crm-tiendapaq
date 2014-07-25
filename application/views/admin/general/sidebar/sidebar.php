@@ -110,9 +110,9 @@
 					<!-- Gestor General -->
 					<li>
 						<a href="#">
-						<i class="fa fa-cogs"></i>
-						<span class="title"> Gestor General</span>
-						<span class="arrow "></span>
+							<i class="fa fa-cogs"></i>
+							<span class="title"> Gestor General</span>
+							<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
 							<li>
@@ -125,10 +125,19 @@
 								<a href="<?php echo site_url('gestor/operativos'); ?>"><i class="fa fa-windows"></i> Sistemas Operativos</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
-							</li>
-							<li>
-								<a href="<?php echo site_url('gestor/observaciones'); ?>"><i class="fa fa-file-text-o"></i> Observaciones de pago</a>
+								<a href="javascript:;">
+									<i class="fa fa-file-o"></i>
+									<span class="title"> Cotización</span>
+									<span class="arrow "></span>
+								</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
+								</li>
+								<li>
+									<a href="<?php echo site_url('gestor/observaciones'); ?>"><i class="fa fa-eye"></i> Observaciones</a>
+								</li>
+							</ul>
 							</li>
 						</ul>
 					</li>
