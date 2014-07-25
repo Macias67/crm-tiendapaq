@@ -14,10 +14,7 @@ class Gestor extends AbstractAccess {
 		//cargamos la libreria
 		$this->load->library('form_validation');
 		//carga de los modelos a usar en el controlador
-		$this->load->model('departamentoModel');
-		$this->load->model('oficinasModel');
 		$this->load->model('ejecutivoModel');
-		$this->load->model('sistemasContpaqiModel');
 		$this->load->model('sistemasClienteModel');
 	}
 
@@ -35,9 +32,12 @@ class Gestor extends AbstractAccess {
 	**/
  	public function oficinas($accion=null)
  	{
- 		//paso a la vista los datos a manejar de la tabla en la bd
+ 		//carga de los modelos y datosa usar
+ 		$this->load->model('departamentoModel');
+		$this->load->model('oficinasModel');
  		$this->data['oficinas'] = $this->oficinasModel->get(array('*'));
  		$this->data['departamentos'] = $this->departamentoModel->get(array('*'));
+
 	 	switch ($accion) {
 	 		case 'nuevo':
 				//reglas de oficinas
@@ -163,9 +163,12 @@ class Gestor extends AbstractAccess {
  	 **/
  	public function departamentos($accion=null)
  	{
- 		//paso a la vista los datos a manejar de la tabla en la bd
+ 		//carga de los modelos y datos a usar
+ 		$this->load->model('departamentoModel');
+		$this->load->model('oficinasModel');
  		$this->data['oficinas'] = $this->oficinasModel->get(array('*'));
  		$this->data['departamentos'] = $this->departamentoModel->get(array('*'));
+
  		switch ($accion) {
  			case 'nuevo':
  				$this->form_validation->set_rules('area','Departamento','trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -246,11 +249,13 @@ class Gestor extends AbstractAccess {
  	}
 
 	/**
- 	 * Funcion para la gestion de sistemas contpaq
+ 	 * Funcion para la gestion de sistemas contpaqi
  	 * @author Diego Rodriguez
  	 **/
  	public function sistemas($accion=null)
  	{
+ 		//carga de los modelos y datos a usar
+		$this->load->model('sistemasContpaqiModel');
  		$this->data['sistemascontpaqi'] = $this->sistemasContpaqiModel->get(array('*'));
 
  		switch ($accion) {
@@ -338,6 +343,9 @@ class Gestor extends AbstractAccess {
  	 **/
  	public function versiones($accion=null)
  	{
+ 		//carga de los modelos y datos a usar
+		$this->load->model('sistemasContpaqiModel');
+
  		switch ($accion) {
  			case 'mostrar':
  				//se obtiene el id del sistema para saber de que sistema se editaran las versiones
@@ -395,6 +403,8 @@ class Gestor extends AbstractAccess {
  **/
 	public function operativos($accion=null)
 	{
+		//carga de los modelos y datos a usar
+		$this->load->model('sistemasClienteModel');
 		$this->load->model('sistemasOperativosModel');
 		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
 
@@ -457,6 +467,111 @@ class Gestor extends AbstractAccess {
 
 			default:
 				$this->_vista('sistemas_operativos');
+			break;
+		}
+	}
+
+	public function bancos($accion=null)
+	{
+		//carga de los modelos a usar en el controlador
+		$this->load->model('bancoModel');
+		$this->data['bancos']=$this->bancoModel->get(array('*'));
+
+		switch ($accion) {
+			case 'nuevo':
+				$this->form_validation->set_rules('banco', 'Banco', 'trim|required|max_length[30]|strtoupper|xss_clean');
+				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|numeric|max_length[8]|xss_clean');
+				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|numeric|max_length[8]|xss_clean');
+				$this->form_validation->set_rules('titular', 'Titular', 'trim|required|max_length[50]|strtoupper|xss_clean');
+				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|numeric|min_length[18]|max_length[18]|strtoupper|xss_clean');
+
+				if(!$this->form_validation->run()){
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else{
+					$banco = array(
+						'banco' 	 => $this->input->post('banco'),
+						'sucursal' => $this->input->post('sucursal'),
+						'cta' 	   => $this->input->post('cta'),
+						'titular'  => $this->input->post('titular'),
+						'cib' 		 => $this->input->post('cib'),
+					);
+
+					if(!$this->bancoModel->insert($banco)){
+						$respuesta = array('exito' => FALSE, 'msg' => "No se agrego, revisa la consola o la base de datos");
+					}else{
+						$respuesta = array('exito' => TRUE, 'banco' => $banco['banco']);
+					}
+				}
+
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			break;
+			case 'editar':
+				$this->form_validation->set_rules('banco', 'Banco', 'trim|required|max_length[30]|strtoupper|xss_clean');
+				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|numeric|max_length[8]|xss_clean');
+				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|numeric|max_length[8]|xss_clean');
+				$this->form_validation->set_rules('titular', 'Titular', 'trim|required|max_length[50]|strtoupper|xss_clean');
+				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|numeric|min_length[18]|max_length[18]|strtoupper|xss_clean');
+
+				if(!$this->form_validation->run()){
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else{
+
+					$id_banco = $this->input->post('id_banco');
+					$banco = array(
+						'banco' 	 => $this->input->post('banco'),
+						'sucursal' => $this->input->post('sucursal'),
+						'cta' 	   => $this->input->post('cta'),
+						'titular'  => $this->input->post('titular'),
+						'cib' 		 => $this->input->post('cib'),
+					);
+
+					if(!$this->bancoModel->update($banco, array('id_banco' => $id_banco))){
+						$respuesta = array('exito' => FALSE, 'msg' => "No se agrego, revisa la consola o la base de datos");
+					}else{
+						$respuesta = array('exito' => TRUE, 'banco' => $banco['banco']);
+					}
+				}
+
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			break;
+			case 'eliminar':
+				$id_banco=$this->input->post('id_banco');
+				$banco=$this->input->post('banco');
+
+				if(!$this->bancoModel->delete(array('id_banco' => $id_banco))){
+						$respuesta = array('exito' => FALSE, 'msg' => "No se elimino, revisa la consola o la base de datos");
+				}else{
+						$respuesta = array('exito' => TRUE, 'banco' => $banco);
+				}
+
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			break;
+			default:
+				$this->_vista('bancos');
+			break;
+		}
+	}
+
+	public function observaciones($accion=null)
+	{
+		switch ($accion) {
+			case 'nuevo':
+				# code...
+			break;
+			case 'editar':
+				# code...
+			break;
+			case 'eliminar':
+				# code...
+			break;
+			default:
+				$this->_vista('observaciones');
 			break;
 		}
 	}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-07-2014 a las 19:40:00
+-- Tiempo de generación: 25-07-2014 a las 22:18:42
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -38,6 +38,29 @@ CREATE TABLE IF NOT EXISTS `actividad_pendiente` (
 
 INSERT INTO `actividad_pendiente` (`id_actividad`, `actividad`) VALUES
 (1, 'Solicitud de Cotización');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bancos`
+--
+
+CREATE TABLE IF NOT EXISTS `bancos` (
+  `id_banco` int(2) NOT NULL AUTO_INCREMENT,
+  `banco` varchar(30) NOT NULL,
+  `sucursal` int(11) NOT NULL,
+  `cta` int(11) NOT NULL,
+  `titular` varchar(50) NOT NULL,
+  `cib` bigint(18) NOT NULL,
+  PRIMARY KEY (`id_banco`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='datos relacionados a los bancos' AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `bancos`
+--
+
+INSERT INTO `bancos` (`id_banco`, `banco`, `sucursal`, `cta`, `titular`, `cib`) VALUES
+(1, 'BANAMEX', 4320, 9518, 'GLORIA GUADALUPE CAMARENA FLORES', 2362432000095183);
 
 -- --------------------------------------------------------
 

@@ -2,7 +2,7 @@
 /**
  * Modelo para la gestion de datos de los clientes
  *
- * @author Diego Rodriguez
+ * @author Diego Rodriguez | Luis Macias
  **/
 class ClienteModel extends TxtManager {
 

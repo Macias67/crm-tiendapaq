@@ -125,10 +125,10 @@
 								<a href="<?php echo site_url('gestor/operativos'); ?>"><i class="fa fa-windows"></i> Sistemas Operativos</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('#'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
+								<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('#'); ?>"><i class="fa fa-file-text-o"></i> Observaciones de pago</a>
+								<a href="<?php echo site_url('gestor/observaciones'); ?>"><i class="fa fa-file-text-o"></i> Observaciones de pago</a>
 							</li>
 						</ul>
 					</li>

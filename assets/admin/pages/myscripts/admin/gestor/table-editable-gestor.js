@@ -168,9 +168,7 @@ var TableEditable = function () {
                 "targets": [0]
                 }
             ],
-            "order": [
-                [0, "asc"]
-            ] // set first column as a default sort by asc
+            "order": [] // set first column as a default sort by asc
         });
 
         var tableWrapper = $("#tabla_oficinas_editable_wrapper");
@@ -383,8 +381,8 @@ var TableEditable = function () {
 
         function cancelEditRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 2, false);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnDraw();
         }
 
@@ -537,7 +535,7 @@ var TableEditable = function () {
         });
     }
 
-    //Tabla de gestion de departamentos
+    //Tabla de gestion de Sistemas contpaqi
     var handleTableSistemas = function () {
 
         function restoreRow(oTable, nRow) {
@@ -636,8 +634,8 @@ var TableEditable = function () {
 
         function cancelEditRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 2, false);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnDraw();
         }
 
@@ -790,7 +788,7 @@ var TableEditable = function () {
         });
     }
 
-       //Tabla de gestion de departamentos
+    //Tabla de gestion de sistemas operativos
     var handleTableSistemasOperativos = function () {
 
         function restoreRow(oTable, nRow) {
@@ -887,8 +885,8 @@ var TableEditable = function () {
 
         function cancelEditRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 2, false);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnDraw();
         }
 
@@ -1042,13 +1040,292 @@ var TableEditable = function () {
         });
     }
 
+    //Tabla de gestion de bancos
+    var handleTableBancos = function () {
+
+        function restoreRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                oTable.fnUpdate(aData[i], nRow, i, false);
+            }
+            oTable.fnDraw();
+        }
+        //funcion que abre los inputs para poder ser editados e imprime sus valores correspondientes
+        function editRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
+            jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
+            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
+            jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
+            jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
+            jqTds[5].innerHTML = '<a class="edit" href="">Guardar</a>';
+            jqTds[6].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+        }
+
+        //funcion para obtener los valores de los inputs y guardarlos en la bd
+        //ya sea creando nuevo o editando existente
+        function saveRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            var id_banco = $(nRow).attr('id');
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+            oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 5, false);
+            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 6, false);
+            oTable.fnDraw();
+
+            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
+            var banco='id_banco='+id_banco+'&'+
+                      'banco='+jqInputs[0].value+'&'+
+                      'sucursal='+jqInputs[1].value+'&'+
+                      'cta='+jqInputs[2].value+'&'+
+                      'titular='+jqInputs[3].value+'&'+
+                      'cib='+jqInputs[4].value;
+
+            console.log(banco);
+            //if para saber si se trata editar o nuevo
+            //si no tiene id es nuevo, si tiene un id existente es editar
+            if(id_banco!=undefined)
+            {
+                $.ajax({
+                    url: "/gestor/bancos/editar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: banco,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            bootbox.alert("<h4> Banco: "+data.banco+" actualizado con éxito </h4>", function () {
+                                parent.location.reload();
+                            });
+                        } else {
+                            bootbox.alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }else
+            {
+                $.ajax({
+                    url: "/gestor/bancos/nuevo",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: banco,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            bootbox.alert("<h3> Banco: "+data.banco+" añadido con éxito </h3>",function () {
+                                parent.location.reload();
+                            });
+                        } else {
+                            bootbox.alert('<h3>Error: </h3> \r\n'+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }
+        }
+
+        function cancelEditRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
+            oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 5, false);
+            oTable.fnDraw();
+        }
+
+        var table = $('#tabla_bancos_editable');
+
+        //mensajes y caracteristicas de la tabla
+        var oTable = table.dataTable({
+            "pageLength": 25,
+            searching: false,
+            "lengthChange": false,
+            "columns": [
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": true },
+                { "orderable": false },
+                { "orderable": false }
+            ],
+            "language": {
+                "emptyTable":     "No hay bancos registrados",
+                "info":           "Mostrando _START_ a _END_ de _TOTAL_ bancos",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 bancos",
+                "infoFiltered":   "(de un total de _MAX_ bancos registrados)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Show _MENU_ entries",
+                "loadingRecords": "Cargando...",
+                "processing":     "Procesando...",
+                "zeroRecords":    "No se encontraron coincidencias",
+                "lengthMenu": "_MENU_ registros"
+            },
+            "columnDefs": [
+                { // set default column settings
+                'orderable': true,
+                'targets': [0]
+                },
+                {
+                "searchable": true,
+                "targets": [0]
+                }
+            ],
+             "order": []
+        });
+
+        var tableWrapper = $("#tabla_bancos_editable_wrapper");
+
+        tableWrapper.find(".dataTables_length select").select2({
+            showSearchInput: false //hide search box with special css class
+        }); // initialize select2 dropdown
+
+        var nEditing = null;
+        var nNew = false;
+
+        //funcion para crear nuevo
+        $('#tabla_bancos_editable_new').click(function (e) {
+            e.preventDefault();
+            //verificacion de que no este editando una fila antes de crear otra
+            if (nNew || nEditing) {
+                alert("Aun no ternimas de editar!");
+            }else{
+                //valores por default en los inputs al crear nuevo
+                var aiNew = oTable.fnAddData(['','','','','','','']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
+            }
+        });
+
+        //funcion para eliminar
+        table.on('click', '.delete', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            //valores de la fila a eliminar guardados en aData ademas el id para guiarnos en la bd
+            var aData = oTable.fnGetData(nRow);
+            var id_banco = $(nRow).attr('id');
+
+            bootbox.confirm("<h4>¿Seguro que quieres borrar banco <b>"+aData[0]+"</b>?</h4>",function (result) {
+                if(result){
+                    //ajax para borrar
+                    $.ajax({
+                            url: "/gestor/bancos/eliminar",
+                            type: 'post',
+                            cache: false,
+                            dataType: 'json',
+                            data: "id_banco="+id_banco+"&banco="+aData[0],
+                            beforeSend: function () {
+                               //('body').modalmanager('loading');
+                            },
+                            error: function(jqXHR, status, error) {
+                                console.log("ERROR: "+error);
+                                alert('ERROR: revisa la consola del navegador para más detalles.');
+                                //$('body').modalmanager('removeLoading');
+                            },
+                            success: function(data) {
+                                if (data.exito) {
+                                    bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> eliminado con éxito</h4>");
+                                } else {
+                                    bootbox.alert('Error :'+data.msg);
+                                    //$('body').modalmanager('removeLoading');
+                                    //parent.location.reload();
+                                }
+                            }
+                        });
+                    oTable.fnDeleteRow(nRow);
+                }else{
+                    return;
+                }
+            });
+        });
+
+        //funcion cancelar
+        table.on('click', '.cancel', function (e) {
+            e.preventDefault();
+
+            if (nNew) {
+                oTable.fnDeleteRow(nEditing);
+                nEditing = null;
+                nNew = false;
+            } else {
+                restoreRow(oTable, nEditing);
+                nEditing = null;
+            }
+        });
+
+        //funcion para editar una oficina
+        table.on('click', '.edit', function (e) {
+            e.preventDefault();
+            if(nNew)
+            {
+                saveRow(oTable, nEditing);
+                nEditing = nRow;
+                nNew = true;
+            }else
+            {
+                /* Get the row as a parent of the link that was clicked on */
+                var nRow = $(this).parents('tr')[0];
+
+                if (nEditing !== null && nEditing != nRow) {
+                    /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                    restoreRow(oTable, nEditing);
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                } else if (nEditing == nRow && this.innerHTML == "Guardar") {
+                    /* Editing this row and want to save it */
+                    saveRow(oTable, nEditing);
+                    nEditing = null;
+                } else {
+                    /* No edit in progress - let's start one */
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
+            }
+        });
+    }
+
     return {
         //main function to initiate the module
         init: function () {
+            bootbox.setDefaults({locale: "es"});
             handleTableOficinas();
             handleTableDepartamentos();
             handleTableSistemas();
             handleTableSistemasOperativos();
+            handleTableBancos();
         }
     };
 
