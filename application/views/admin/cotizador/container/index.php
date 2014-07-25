@@ -284,6 +284,7 @@
 										<table class="table table-striped table-hover">
 											<thead>
 												<tr>
+													<th></th>
 													<th>Código</th>
 													<th>Nombre</th>
 													<th>Cantidad</th>
@@ -295,7 +296,10 @@
 											</thead>
 											<tbody id="lista">
 												<script id="fila" type="text/x-jquery-tmpl">
-													<tr>
+													<tr id="${codigo}">
+														<td>
+															<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>
+														</td>
 														<td>${codigo}</td>
 														<td>${nombre}</td>
 														<td>${cantidad}</td>

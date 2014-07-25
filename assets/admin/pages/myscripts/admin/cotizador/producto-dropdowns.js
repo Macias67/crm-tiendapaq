@@ -2,6 +2,7 @@ var ProductoDropdowns	= function() {
 
 	var jsonProducto = '';
 
+	// Gestiona la seccion del cliente y contacto
 	var handlerCliente = function() {
 		var select_razon_social	= $('#razon_social');
 		var select_contactos	= $('#contactos');
@@ -194,6 +195,8 @@ var ProductoDropdowns	= function() {
 			}
 		});
 
+		$('#cantidad').spinner();
+
 		// Si quito el producto
 		$('#producto').on('select2-removed', function() {
 			// Reseteo
@@ -209,11 +212,6 @@ var ProductoDropdowns	= function() {
 				jsonProducto = json;
 			});
 		});
-	}
-
-	// Spinner para la cantidad de productos
-	var handleSpinners = function () {
-		$('#cantidad').spinner();
 	}
 
 	var addRowTable = function() {
@@ -239,12 +237,33 @@ var ProductoDropdowns	= function() {
 		});
 	}
 
+	var removeRowTable = function() {
+		var button = $('#lista');
+		button.on('click', 'button',function() {
+			var id = $($(this).parents().get(1)).attr('id');
+			bootbox.confirm('<h3>¿Estas seguro de eliminar este producto de la lista?</h3>', function(result) {
+				if (result) {
+					$('#'+id).fadeOut('slow', function() {
+
+						var td = [];
+						$('#'+id+' td').each(function() {
+							td.push($(this).html());
+						});
+						console.log(td);
+
+						$(this).remove();
+					});
+				}
+			});
+		});
+	};
+
 	return {
 		init: function() {
 			handlerCliente();
 			handleSelect2Productos();
-			handleSpinners();
 			addRowTable();
+			removeRowTable();
 		}
 	}
 }();
