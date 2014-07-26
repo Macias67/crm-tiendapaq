@@ -292,13 +292,14 @@
 													<th>Neto</th>
 													<th>Desc.</th>
 													<th>Total</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody id="lista">
 												<script id="fila" type="text/x-jquery-tmpl">
-													<tr id="${codigo}">
+													<tr id="${codigo}" class="${posicion}">
 														<td>
-															<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>
+															<button type="button" class="btn btn-info btn-xs comments"><i class="fa fa-comments-o"></i></button>
 														</td>
 														<td>${codigo}</td>
 														<td>${nombre}</td>
@@ -307,6 +308,9 @@
 														<td>$ ${neto}</td>
 														<td>$ ${descuento}</td>
 														<td><b>$ ${total}</b></td>
+														<td>
+															<button type="button" class="btn btn-danger btn-xs delete"><i class="fa fa-times"></i></button>
+														</td>
 													</tr>
 												</script>
 											</tbody>
