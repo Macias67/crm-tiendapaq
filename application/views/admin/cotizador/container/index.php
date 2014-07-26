@@ -250,7 +250,6 @@
 											<div class="caption"><i class="fa fa-gift"></i> Total</div>
 										</div>
 										<div class="portlet-body">
-
 											<table class="table table-hover">
 												<thead>
 													<tr>
@@ -267,7 +266,9 @@
 													</tr>
 												</tbody>
 											</table>
-
+										</div>
+										<div class="col-md-12">
+											<button type="button" id="enviar" class="btn btn-block red">Enviar cotización</button>
 										</div>
 									</div>
 								</div>

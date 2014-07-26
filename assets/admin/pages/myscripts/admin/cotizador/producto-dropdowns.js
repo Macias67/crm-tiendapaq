@@ -4,6 +4,8 @@ var ProductoDropdowns	= function() {
 
 	var poscionProductos = 0;
 
+	var totalProductos = 0;
+
 	var observaciones = [];
 
 	// Gestiona la seccion del cliente y contacto
@@ -242,6 +244,7 @@ var ProductoDropdowns	= function() {
 					jsonProducto = '';
 					observaciones.push({codigo:codigo,observacion:''});
 					poscionProductos++;
+					totalProductos++;
 				}
 			} else {
 				bootbox.alert('Selecciona un producto.');
@@ -262,7 +265,7 @@ var ProductoDropdowns	= function() {
 				if (result) {
 					$('#'+id).fadeOut('slow', function() {
 						var td		= $('#'+id).children();
-						var precio	= $($(td[td.length - 1]).children()).html();
+						var precio	= $($(td[td.length - 2]).children()).html();
 						precio 		= parseFloat(precio.split(' ')[1]);
 						calculaTotal(-precio);
 						$(this).remove();
@@ -272,12 +275,14 @@ var ProductoDropdowns	= function() {
 						if (index > -1) {
 							observaciones.splice(index, 1);
 						}
+						totalProductos--;
 					});
 				}
 			});
 		});
 	}
 
+	// Maneja las observaciones de cada producto
 	var handleObervaciones = function() {
 		var button = $('#lista');
 		button.on('click', '.comments', function() {
@@ -296,6 +301,13 @@ var ProductoDropdowns	= function() {
 		});
 	}
 
+	var enviarDatos = function() {
+		var enviar = $('#enviar');
+		enviar.on('click', function() {
+			bootbox.alert('<h3>Hola</h3>');
+		});
+	}
+
 	return {
 		init: function() {
 			handlerCliente();
@@ -303,6 +315,7 @@ var ProductoDropdowns	= function() {
 			addRowTable();
 			handleObervaciones();
 			removeRowTable();
+			enviarDatos();
 		}
 	}
 }();
