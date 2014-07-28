@@ -1317,6 +1317,258 @@ var TableEditable = function () {
         });
     }
 
+    //Tabla de gestion de sistemas operativos
+    var handleTableObservaciones = function () {
+
+        function restoreRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+
+            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                oTable.fnUpdate(aData[i], nRow, i, false);
+            }
+            oTable.fnDraw();
+        }
+        //funcion que abre los inputs para poder ser editados e imprime sus valores correspondientes
+        function editRow(oTable, nRow) {
+            var aData = oTable.fnGetData(nRow);
+            var jqTds = $('>td', nRow);
+            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
+            jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
+            jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+        }
+
+        //funcion para obtener los valores de los inputs y guardarlos en la bd
+        //ya sea creando nuevo o editando existente
+        function saveRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            var id_observacion = $(nRow).attr('id');
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
+            oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
+            oTable.fnDraw();
+
+            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
+            var observacion='id_observacion='+id_observacion+'&'+
+                            'descripcion='+jqInputs[0].value;
+            //if para saber si se trata editar o nuevo
+            //si no tiene id es nuevo, si tiene un id existente es editar
+            if(id_observacion!=undefined)
+            {
+                $.ajax({
+                    url: "/gestor/observaciones/editar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: observacion,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Observación: "+data.observacion+" actualizada con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }else
+            {
+                $.ajax({
+                    url: "/gestor/observaciones/nuevo",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: observacion,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Observación: "+data.observacion+" añadida con éxito");
+                            parent.location.reload();
+                        } else {
+                            alert('Error: '+data.msg);
+                            editRow(oTable, nRow);
+                            nEditing = nRow;
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }
+        }
+
+        function cancelEditRow(oTable, nRow) {
+            var jqInputs = $('input', nRow);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
+            oTable.fnDraw();
+        }
+
+        var table = $('#tabla_observaciones_editable');
+
+        //mensajes y caracteristicas de la tabla
+        var oTable = table.dataTable({
+            "pageLength": 30,
+            searching: false,
+            "lengthChange": false,
+            "columns": [
+                { "orderable": true },
+                { "orderable": false },
+                { "orderable": false }
+            ],
+            "language": {
+                "emptyTable":     "No hay sistemas observaciones registradas",
+                "info":           "Mostrando _START_ a _END_ de _TOTAL_ observaciones",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 observaciones",
+                "infoFiltered":   "(de un total de _MAX_ observaciones registradas)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Show _MENU_ entries",
+                "loadingRecords": "Cargando...",
+                "processing":     "Procesando...",
+                "zeroRecords":    "No se encontraron coincidencias",
+                "lengthMenu": "_MENU_ registros"
+            },
+            "columnDefs": [
+                { // set default column settings
+                'orderable': true,
+                'targets': [0]
+                },
+                {
+                "searchable": true,
+                "targets": [0]
+                }
+            ],
+             "order": []
+        });
+
+        var tableWrapper = $("#tabla_observaciones_editable_wrapper");
+
+        tableWrapper.find(".dataTables_length select").select2({
+            showSearchInput: false //hide search box with special css class
+        }); // initialize select2 dropdown
+
+        var nEditing = null;
+        var nNew = false;
+
+        //funcion para crear nuevo
+        $('#tabla_observaciones_editable_new').click(function (e) {
+            e.preventDefault();
+            //verificacion de que no este editando una fila antes de crear otra
+            if (nNew || nEditing) {
+                alert("Aun no ternimas de editar!");
+            }else{
+                //valores por default en los inputs al crear nuevo
+                var aiNew = oTable.fnAddData(['','','']);
+                var nRow = oTable.fnGetNodes(aiNew[0]);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+                nNew = true;
+            }
+        });
+
+        //funcion para eliminar
+        table.on('click', '.delete', function (e) {
+            e.preventDefault();
+
+            var nRow = $(this).parents('tr')[0];
+            //valores de la fila a eliminar guardados en aData ademas el id para guiarnos en la bd
+            var aData = oTable.fnGetData(nRow);
+            var id_observacion = $(nRow).attr('id');
+
+            if (confirm("¿Seguro que quieres borrar la observación "+aData[0]+"?") == false) {
+                return;
+            }
+
+            //ajax para borrar
+            $.ajax({
+                    url: "/gestor/observaciones/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id_observacion="+id_observacion+"&descripcion="+aData[0],
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Observación:'"+data.observacion+"' eliminada con éxito");
+                            //parent.location.reload();
+                        } else {
+                            alert('Error :'+data.msg);
+                            //$('body').modalmanager('removeLoading');
+                            parent.location.reload();
+                        }
+                    }
+                });
+            oTable.fnDeleteRow(nRow);
+        });
+
+        //funcion cancelar
+        table.on('click', '.cancel', function (e) {
+            e.preventDefault();
+
+            if (nNew) {
+                oTable.fnDeleteRow(nEditing);
+                nEditing = null;
+                nNew = false;
+            } else {
+                restoreRow(oTable, nEditing);
+                nEditing = null;
+            }
+        });
+
+        //funcion para editar una oficina
+        table.on('click', '.edit', function (e) {
+            e.preventDefault();
+            if(nNew)
+            {
+                saveRow(oTable, nEditing);
+                nEditing = nRow;
+                nNew = true;
+            }else
+            {
+                /* Get the row as a parent of the link that was clicked on */
+                var nRow = $(this).parents('tr')[0];
+
+                if (nEditing !== null && nEditing != nRow) {
+                    /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                    restoreRow(oTable, nEditing);
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                } else if (nEditing == nRow && this.innerHTML == "Guardar") {
+                    /* Editing this row and want to save it */
+                    saveRow(oTable, nEditing);
+                    nEditing = null;
+                } else {
+                    /* No edit in progress - let's start one */
+                    editRow(oTable, nRow);
+                    nEditing = nRow;
+                }
+            }
+        });
+    }
+
     return {
         //main function to initiate the module
         init: function () {
@@ -1326,6 +1578,7 @@ var TableEditable = function () {
             handleTableSistemas();
             handleTableSistemasOperativos();
             handleTableBancos();
+            handleTableObservaciones();
         }
     };
 

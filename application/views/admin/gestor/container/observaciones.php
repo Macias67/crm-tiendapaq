@@ -135,7 +135,7 @@
 									</div>
 								</div>
 								<div class="portlet-body">
-									<table class="table table-striped table-hover table-bordered" id="tabla_operativos_editable">
+									<table class="table table-striped table-hover table-bordered" id="tabla_observaciones_editable">
 										<thead>
 											<tr>
 												<th>Descripcion</th>
@@ -144,31 +144,18 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="1">
-												<td>PRECIOS MAS IVA SUJETOS A CAMBIOS SIN PREVIO AVISO</td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
-											</tr>
-											<tr id="2">
-												<td>FORMA DE PAGO POR ANTICIPADO</td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
-											</tr>
-											<tr id="3">
-												<td>TIEMPO DE ENTREGA DE 8 A 5 DIAS HABILES</td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
-											</tr>
-											<tr id="4">
-												<td>EL PRECIO NO INCLUYE SERVICIOS DE IMPLEMENTACION, CAPACITACION O ASESORIA ADICIONAL A LA EXPRESANTE SEÑALADA EN ESTA COTIZACION</td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
-											</tr>
+											<?php foreach ($observaciones as $observacion): ?>
+												<tr id="<?php echo $observacion->id_observacion?>">
+													<td><?php echo $observacion->descripcion ?></td>
+													<td><a class="edit" href="javascript:;">Editar </a></td>
+													<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												</tr>
+											<?php endforeach ?>
 										</tbody>
 									</table>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
-											<button id="tabla_operativos_editable_new" class="btn green btn-xs">
+											<button id="tabla_observaciones_editable_new" class="btn green btn-xs">
 												<i class="fa fa-plus"></i> Nuevo observacion
 											</button>
 										</div>

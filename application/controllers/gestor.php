@@ -418,7 +418,7 @@ class Gestor extends AbstractAccess {
 					$sistema_operativo = $this->input->post('sistema_operativo');
 
 					if(!$this->sistemasOperativosModel->insert(array('sistema_operativo' => $sistema_operativo))){
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se agredo, revisa la consola o la base de datos');
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos');
 					}else{
 						$respuesta = array('exito' => TRUE, 'so' => $sistema_operativo );
 					}
@@ -471,6 +471,10 @@ class Gestor extends AbstractAccess {
 		}
 	}
 
+/**
+ * funcion para gestionar los bancos
+ * @author Diego Rodriguez
+ **/
 	public function bancos($accion=null)
 	{
 		//carga de los modelos a usar en el controlador
@@ -558,18 +562,72 @@ class Gestor extends AbstractAccess {
 		}
 	}
 
+ /**
+ * funcion para gestionar las observaciones
+ * @author Diego Rodriguez
+ **/
 	public function observaciones($accion=null)
 	{
+		$this->load->model('observacionCotizacionModel');
+		$this->data['observaciones']=$this->observacionCotizacionModel->get(array('*'));
+
 		switch ($accion) {
 			case 'nuevo':
-				# code...
+				$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required|max_length[200]|strtoupper|xss_clean');
+
+				if (!$this->form_validation->run()) {
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else{
+					$observacion = $this->input->post('descripcion');
+
+					if(!$this->observacionCotizacionModel->insert(array('descripcion' => $observacion))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos');
+					}else{
+						$respuesta = array('exito' => TRUE, 'observacion' => $observacion );
+					}
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
+
 			case 'editar':
-				# code...
+				$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required|max_length[200]|strtoupper|xss_clean');
+
+				if (!$this->form_validation->run()) {
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else{
+					$id_observacion = $this->input->post('id_observacion');
+					$observacion = $this->input->post('descripcion');
+
+					if(!$this->observacionCotizacionModel->update(array('descripcion' => $observacion), array('id_observacion' => $id_observacion))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos');
+					}else{
+						$respuesta = array('exito' => TRUE, 'observacion' => $observacion );
+					}
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
+
 			case 'eliminar':
-				# code...
+			 	$id_observacion = $this->input->post('id_observacion');
+			 	$observacion = $this->input->post('descripcion');
+
+			 	if(!$this->observacionCotizacionModel->delete(array('id_observacion' => $id_observacion))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+			 	}else{
+						$respuesta = array('exito' => TRUE, 'observacion' => $observacion );
+			 	}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
+
 			default:
 				$this->_vista('observaciones');
 			break;
