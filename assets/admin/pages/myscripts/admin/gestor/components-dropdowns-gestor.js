@@ -32,7 +32,7 @@ var ComponentsDropdowns = function () {
                                 tags: data.versiones.split(', ')
                             });
                         } else {
-                            alert('Error :');
+                            bootbox.alert('<h4><p>Error :</p><p>Esto no debería estar pasando, contacta a soporte técnico</p></h4>');
                             //$('body').modalmanager('removeLoading');
                         }
                     }
@@ -67,9 +67,9 @@ var ComponentsDropdowns = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                             alert('Versiones actualizadas con exito');
+                            bootbox.alert('<h4>Versiones actualizadas con éxito<h4>');
                         } else {
-                            alert('Error : '+data.msg);
+                            bootbox.alert('<h4><p>Error : </p>'+data.msg+'</h4>');
                             //$('body').modalmanager('removeLoading');
                         }
                     }

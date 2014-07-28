@@ -31,8 +31,6 @@ var TableEditable = function () {
         //ya sea creando nueva oficina o editando una existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            //extraemos el id del tr para saber que objeto manipulamos
-            var id_oficina = $(nRow).attr('id');
 
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
@@ -45,6 +43,8 @@ var TableEditable = function () {
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 8, false);
             oTable.fnDraw();
 
+            //extraemos el id del tr para saber que objeto manipulamos
+            var id_oficina = $(nRow).attr('id');
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor/oficinas
             var oficina='id_oficina='+id_oficina+'&'+
                         'ciudad='+jqInputs[0].value+'&'+
@@ -75,10 +75,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina+", actualizada con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, actualizada con éxito</h4>",function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error :'+data.msg);
+                            bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -103,10 +104,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Oficina de : "+data.oficina+", añadida con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, añadida con éxito</h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error :'+data.msg);
+                            bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -118,6 +120,7 @@ var TableEditable = function () {
 
         function cancelEditRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
+
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
@@ -186,7 +189,7 @@ var TableEditable = function () {
             //si hay una nueva en edicion o esta editando otra no podemos crear otra nueva
             if (nNew || nEditing)
             {
-                alert("Aun no ternimas de editar!");
+                bootbox.alert("<h4>Aun no terminass de editar!</h4>");
             } else
             {
                 //valores por default en ls inputs al crear nueva oficina
@@ -207,37 +210,40 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id_oficina = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar la oficina de "+aData[0]+", "+aData[1]+"?") == false) {
-                return;
-            }
-
-            //ajax para borrar la oficina
-            $.ajax({
-                    url: "/gestor/oficinas/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id_oficina="+id_oficina+"&ciudad="+aData[0]+"&estado="+aData[1],
-                    beforeSend: function () {
-                       //('body').modalmanager('loading');
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
-                    },
-                    success: function(data) {
-                        if (data.exito) {
-                            alert("Oficina de : "+data.oficina+", eliminada con éxito");
-                            //parent.location.reload();
-                            oTable.fnDeleteRow(nRow);
-                        } else {
-                            alert('Error :'+data.msg);
+            bootbox.confirm("<h4>¿Seguro que quieres eliminar la oficina de <b>"+aData[0]+", "+aData[1]+"</b>?</h4>", function (result){
+                //result guarda el booleano respondido en el comfirm
+                if(result){
+                    //ajax para borrar la oficina
+                    $.ajax({
+                        url: "/gestor/oficinas/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id_oficina="+id_oficina+"&ciudad="+aData[0]+"&estado="+aData[1],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
                             //$('body').modalmanager('removeLoading');
-                            //parent.location.reload();
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, eliminada con éxito<h4>");
+                                //parent.location.reload();
+                                oTable.fnDeleteRow(nRow);
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
+                                //$('body').modalmanager('removeLoading');
+                                //parent.location.reload();
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    return;
+                }
+            });
         });
 
         table.on('click', '.cancel', function (e) {
@@ -309,12 +315,13 @@ var TableEditable = function () {
         //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            var id_departamento = $(nRow).attr('id');
+
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
             oTable.fnDraw();
 
+            var id_departamento = $(nRow).attr('id');
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
             var departamento='id_departamento='+id_departamento+'&'+
                               'area='+jqInputs[0].value;
@@ -338,10 +345,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Departamento: "+data.departamento+" actualizado con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Departamento: <b>"+data.departamento+"</b> actualizado con éxito</h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -366,10 +374,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Departamento: "+data.departamento+" añadido con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Departamento: <b>"+data.departamento+"</b> añadido con éxito<h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -437,7 +446,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                alert("Aun no ternimas de editar!");
+                bootbox.alert("Aun no ternimas de editar!");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['','','']);
@@ -457,37 +466,39 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id_departamento = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar el departamento "+aData[0]+"?") == false) {
-                return;
-            }
-
-            //ajax para borrar
-            $.ajax({
-                    url: "/gestor/departamentos/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id_departamento="+id_departamento+"&area="+aData[0],
-                    beforeSend: function () {
-                       //('body').modalmanager('loading');
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
-                    },
-                    success: function(data) {
-                        if (data.exito) {
-                            alert("Departamento: '"+data.departamento+"' eliminado con éxito");
-                            //parent.location.reload();
-                        } else {
-                            alert('Error :'+data.msg);
+            bootbox.confirm("<h4>¿Seguro que quieres borrar el departamento <b>"+aData[0]+"</b>?</h4>",function (result) {
+                if(result){
+                    //ajax para borrar
+                    $.ajax({
+                        url: "/gestor/departamentos/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id_departamento="+id_departamento+"&area="+aData[0],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
                             //$('body').modalmanager('removeLoading');
-                            parent.location.reload();
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4>Departamento: <b>"+data.departamento+"</b> eliminado con éxito</h4>");
+                                //parent.location.reload();
+                                oTable.fnDeleteRow(nRow);
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
+                                //$('body').modalmanager('removeLoading');
+                                //parent.location.reload();
+                            }
                         }
-                    }
-                });
-            oTable.fnDeleteRow(nRow);
+                    });
+                }else{
+                    return;
+                }
+            });
         });
 
         //funcion cancelar
@@ -560,14 +571,14 @@ var TableEditable = function () {
         //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            //id del tr pasa saber que linea estamos usando
-            var id_sistema = $(nRow).attr('id');
 
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
             oTable.fnDraw();
 
+            //id del tr pasa saber que linea estamos usando
+            var id_sistema = $(nRow).attr('id');
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
             var sistema='id_sistema='+id_sistema+'&'+
                         'sistema='+jqInputs[0].value;
@@ -575,6 +586,7 @@ var TableEditable = function () {
             //si no tiene id es nuevo, si tiene un id existente es editar
             if(id_sistema!=undefined)
             {
+                id_sistema="undefined";
                 $.ajax({
                     url: "/gestor/sistemas/editar",
                     type: 'post',
@@ -591,10 +603,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Sistema: "+data.sistema+" actualizado con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> actualizado con éxito</h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -619,10 +632,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Sistema: "+data.sistema+" añadido con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> añadido con éxito<h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -690,10 +704,10 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                alert("Aun no ternimas de editar!");
+                bootbox.alert("Aun no ternimas de editar!");
             }else{
                 //valores por default en los inputs al crear nuevo
-                var aiNew = oTable.fnAddData(['CONTPAQi® ','','']);
+                var aiNew = oTable.fnAddData(['CONTPAQI®','','']);
                 var nRow = oTable.fnGetNodes(aiNew[0]);
                 editRow(oTable, nRow);
                 nEditing = nRow;
@@ -710,37 +724,37 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id_sistema = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar el sistema "+aData[0]+"?") == false) {
-                return;
-            }
-
-            //ajax para borrar
-            $.ajax({
-                    url: "/gestor/sistemas/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id_sistema="+id_sistema+"&sistema="+aData[0],
-                    beforeSend: function () {
-                       //('body').modalmanager('loading');
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
-                    },
-                    success: function(data) {
-                        if (data.exito) {
-                            alert("Sistema: '"+data.sistema+"' eliminado con éxito");
-                            parent.location.reload();
-                        } else {
-                            alert('Error :'+data.msg);
+            bootbox.confirm("<h4>¿Seguro que quieres borrar el sistema <b>"+aData[0]+"</b>?<h4>",function (result) {
+                if(result){
+                    //ajax para borrar
+                    $.ajax({
+                        url: "/gestor/sistemas/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id_sistema="+id_sistema+"&sistema="+aData[0],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
                             //$('body').modalmanager('removeLoading');
-                            parent.location.reload();
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> eliminado con éxito</h4>");
+                                oTable.fnDeleteRow(nRow);
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
+                                //$('body').modalmanager('removeLoading');
+                            }
                         }
-                    }
-                });
-            oTable.fnDeleteRow(nRow);
+                    });
+                }else{
+                    return;
+                }
+            });
         });
 
         //funcion cancelar
@@ -813,12 +827,12 @@ var TableEditable = function () {
         //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            var id_so = $(nRow).attr('id');
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
             oTable.fnDraw();
 
+            var id_so = $(nRow).attr('id');
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
             var so='id_so='+id_so+'&'+
                     'sistema_operativo='+jqInputs[0].value;
@@ -826,6 +840,7 @@ var TableEditable = function () {
             //si no tiene id es nuevo, si tiene un id existente es editar
             if(id_so!=undefined)
             {
+                id_so="undefined";
                 $.ajax({
                     url: "/gestor/operativos/editar",
                     type: 'post',
@@ -842,10 +857,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Sistema operativo: "+data.so+" actualizado con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Sistema operativo: <b>"+data.so+"</b> actualizado con éxito</h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -870,10 +886,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Sistema operativo: "+data.so+" añadido con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Sistema operativo: <b>"+data.so+"</b> añadido con éxito</h4>",function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -942,7 +959,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                alert("Aun no ternimas de editar!");
+                bootbox.alert("Aun no ternimas de editar!");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['','','']);
@@ -962,37 +979,39 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id_so = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar el Sistema Operativo "+aData[0]+"?") == false) {
-                return;
-            }
-
-            //ajax para borrar
-            $.ajax({
-                    url: "/gestor/operativos/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id_so="+id_so+"&sistema_operativo="+aData[0],
-                    beforeSend: function () {
-                       //('body').modalmanager('loading');
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
-                    },
-                    success: function(data) {
-                        if (data.exito) {
-                            alert("Sistema operativo:'"+data.so+"' eliminado con éxito");
-                            //parent.location.reload();
-                        } else {
-                            alert('Error :'+data.msg);
+            bootbox.confirm("<h4>¿Seguro que quieres borrar el sistema operativo <b>"+aData[0]+"</b>?</h4>",function (result) {
+                if(result){
+                    //ajax para borrar
+                    $.ajax({
+                        url: "/gestor/operativos/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id_so="+id_so+"&sistema_operativo="+aData[0],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
                             //$('body').modalmanager('removeLoading');
-                            parent.location.reload();
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4>Sistema operativo: <b>"+data.so+"</b> eliminado con éxito<h4>");
+                                //parent.location.reload();
+                                oTable.fnDeleteRow(nRow);
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
+                                //$('body').modalmanager('removeLoading');
+                                //parent.location.reload();
+                            }
                         }
-                    }
-                });
-            oTable.fnDeleteRow(nRow);
+                    });
+                }else{
+                    return;
+                }
+            });
         });
 
         //funcion cancelar

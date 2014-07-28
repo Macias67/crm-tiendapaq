@@ -16,6 +16,8 @@ class Gestor extends AbstractAccess {
 		//carga de los modelos a usar en el controlador
 		$this->load->model('ejecutivoModel');
 		$this->load->model('sistemasClienteModel');
+		$this->load->model('sistemasContpaqiModel');
+		$this->load->model('sistemasOperativosModel');
 	}
 
 	public function index()
@@ -254,8 +256,6 @@ class Gestor extends AbstractAccess {
  	 **/
  	public function sistemas($accion=null)
  	{
- 		//carga de los modelos y datos a usar
-		$this->load->model('sistemasContpaqiModel');
  		$this->data['sistemascontpaqi'] = $this->sistemasContpaqiModel->get(array('*'));
 
  		switch ($accion) {
@@ -309,22 +309,16 @@ class Gestor extends AbstractAccess {
  			case 'eliminar':
  				//se eliminara con el id
 	 			$id_sistema = $this->input->post('id_sistema');
+
 	 			$sistema = $this->input->post('sistema');
 
-	 			$cont=count($this->sistemasClienteModel->get_where(array('sistema' => $sistema)));
-	 			if($cont!=0)
-	 			{
-	 				$respuesta=array('exito' => FALSE, 'msg' => 'No se puede eliminar, hay clientes que tienen este sistema!');
-	 			}else
-	 			{
-	 				if (!$this->sistemasContpaqiModel->delete(array('id_sistema' => $id_sistema)))
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
-					}else
-					{
-						$respuesta = array('exito' => TRUE, 'sistema' => $sistema);
-					}
-	 			}
+ 				if (!$this->sistemasContpaqiModel->delete(array('id_sistema' => $id_sistema)))
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+				}else
+				{
+					$respuesta = array('exito' => TRUE, 'sistema' => $sistema);
+				}
 	      //mando la repuesta
 				$this->output
 					 ->set_content_type('application/json')
@@ -343,9 +337,6 @@ class Gestor extends AbstractAccess {
  	 **/
  	public function versiones($accion=null)
  	{
- 		//carga de los modelos y datos a usar
-		$this->load->model('sistemasContpaqiModel');
-
  		switch ($accion) {
  			case 'mostrar':
  				//se obtiene el id del sistema para saber de que sistema se editaran las versiones
@@ -403,14 +394,11 @@ class Gestor extends AbstractAccess {
  **/
 	public function operativos($accion=null)
 	{
-		//carga de los modelos y datos a usar
-		$this->load->model('sistemasClienteModel');
-		$this->load->model('sistemasOperativosModel');
 		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
 
 		switch ($accion) {
 			case 'nuevo':
-				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|max_length[30]|strtolower|ucwords|xss_clean');
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|max_length[30]|strtolower|ucwords|callback_so_nombre_check|xss_clean');
 
 				if (!$this->form_validation->run()) {
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
@@ -430,7 +418,7 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'editar':
-				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|max_length[30]|strtolower|ucwords|xss_clean');
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|max_length[30]|strtolower|ucwords|callback_so_nombre_check|xss_clean');
 
 				if (!$this->form_validation->run()) {
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
@@ -640,15 +628,34 @@ class Gestor extends AbstractAccess {
 	|--------------------------------------------------------------------------
 	*/
 	/**
-	 * Callback para revisar el sistema este correctamente añadido
+	 * Callback para revisar el sistema no sea repetido y tenga nombre valido
 	 * @param  string $nombre Nombre a revisar
 	 * @return boolean
 	 * @author Diego Rodriguez | Luis Macias
 	 */
 	public function sistema_check($sistema)
 	{
-		if ($sistema==='CONTPAQi® ' || $sistema==='CONTPAQI® ') {
-			$this->form_validation->set_message('sistema_check', 'Sistema sin nombre!');
+		$id_sistema=$this->input->post('id_sistema');
+
+		if ($sistema==='CONTPAQI®' || ($this->sistemasContpaqiModel->exist(array('sistema' => $sistema)) && $id_sistema=="undefined")) {
+			$this->form_validation->set_message('sistema_check', 'Sistema sin nombre o nombre repetido!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+
+	/**
+	 * Callback para revisar el sistema operativo no se repita
+	 * @param  string $nombre Nombre a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez | Luis Macias
+	 */
+	public function so_nombre_check($so)
+	{
+		$id_so=$this->input->post('id_so');
+		if (($id_so=="undefined" && $this->sistemasOperativosModel->exist(array('sistema_operativo' => $so)))) {
+			$this->form_validation->set_message('so_nombre_check', 'Sistema repetido!');
 			return FALSE;
 		} else {
 			return TRUE;
