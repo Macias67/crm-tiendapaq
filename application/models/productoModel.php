@@ -113,6 +113,27 @@ class ProductoModel extends TxtManager {
 		}
 		return $producto;
 	}
+
+	/**
+	 * Metodo para seleccionar un producto
+	 * en la parte de la cotizacion segun
+	 * el nombre o codigo del producto.
+	 *
+	 * @param array $campos los campos que se necesitan
+	 * @param string $like la query a buscar
+	 * @param string $limit el limite a extraer
+	 * @return array object
+	 **/
+	public function get_select_query($campos = array('*'), $like, $limit)
+	{
+		$this->db->select($campos);
+		$this->db->like('codigo', $like);
+		$this->db->or_like('nombre', $like);
+		$this->db->order_by('codigo', 'ASC');
+		$this->db->limit($limit);
+		$this->query = $this->db->get($this->table);
+		return $this->query->result();
+	}
 }
 
 /* End of file productoModel.php */

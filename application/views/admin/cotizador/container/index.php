@@ -196,44 +196,85 @@
 						<hr>
 
 						<div class="row">
-							<div class="col-md-5">
-								<div class="portlet gren">
-									<div class="portlet-title">
-										<div class="caption"><i class="fa fa-gift"></i> Producto</div>
-									</div>
-									<div class="portlet-body">
+							<div class="col-md-4">
+								<div class="col-md-12">
+									<div class="portlet gren">
+										<div class="portlet-title">
+											<div class="caption"><i class="fa fa-gift"></i> Producto</div>
+										</div>
+										<div class="portlet-body">
 											<!-- Empresa -->
-											<div class="col-md-8">
+											<div class="form-group">
 												<input type="hidden" class="form-control input-inline select2" id="producto" name="producto" style="width: 100%">
 											</div>
 
-											<div class="col-md-4">
-												<div id="cantidad">
-													<div class="input-group input-small">
-														<input type="text" class="spinner-input form-control" maxlength="3">
-														<div class="spinner-buttons input-group-btn btn-group-vertical">
-															<button type="button" class="btn spinner-up btn-xs gray">
-																<i class="fa fa-angle-up"></i>
-															</button>
-															<button type="button" class="btn spinner-down btn-xs gray">
-																<i class="fa fa-angle-down"></i>
-															</button>
+											<div class="form-group">
+												<div class="col-md-6">
+													<label>Cantidad</label>
+													<div id="cantidad">
+														<div class="input-group input-small">
+															<input type="text" class="spinner-input form-control" maxlength="3">
+															<div class="spinner-buttons input-group-btn btn-group-vertical">
+																<button type="button" class="btn spinner-up btn-xs gray">
+																	<i class="fa fa-angle-up"></i>
+																</button>
+																<button type="button" class="btn spinner-down btn-xs gray">
+																	<i class="fa fa-angle-down"></i>
+																</button>
+															</div>
 														</div>
 													</div>
+													<br>
 												</div>
-												<br>
+
+												<div class="col-md-6">
+													<label for="descuento" id="label-desc">Descuento</label>
+													<input type="text" class="form-control" placeholder="99.99% ó $99.99" id="descuento">
+												</div>
 											</div>
 
-											<div class="col-md-12">
-												<button type="button" id="add" class="btn green-meadow"> Añadir a lista</button>
+											<div class="form-group">
+												<div class="col-md-12">
+													<button type="button" id="add" class="btn btn-block green-meadow"> Añadir a lista</button>
+												</div>
 											</div>
 											<!-- FIN Empresa -->
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<br>
+									<div class="portlet gren">
+										<div class="portlet-title">
+											<div class="caption"><i class="fa fa-gift"></i> Total</div>
+										</div>
+										<div class="portlet-body">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>Subtotal</th>
+														<th>I.V.A.</th>
+														<th>TOTAL</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td id="subtotal">$ 0</td>
+														<td id="iva">$ 0</td>
+														<td id="total"><b style="color: red">$ 0</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="col-md-12">
+											<button type="button" id="enviar" class="btn btn-block red">Enviar cotización</button>
+										</div>
 									</div>
 								</div>
 							</div>
 
-
-							<div class="col-md-7">
+							<div class="col-md-8">
 								<div class="portlet gren">
 
 									<div class="portlet-title">
@@ -244,23 +285,33 @@
 										<table class="table table-striped table-hover">
 											<thead>
 												<tr>
+													<th></th>
 													<th>Código</th>
 													<th>Nombre</th>
-													<th class="hidden-480">Unidad</th>
-													<th class="hidden-480">Precio</th>
-													<th class="hidden-480">Cantidad</th>
+													<th>Cantidad</th>
+													<th>Precio Unitario</th>
+													<th>Neto</th>
+													<th>Desc.</th>
 													<th>Total</th>
+													<th></th>
 												</tr>
 											</thead>
 											<tbody id="lista">
 												<script id="fila" type="text/x-jquery-tmpl">
-													<tr>
+													<tr id="${codigo}" class="${posicion}">
+														<td>
+															<button type="button" class="btn btn-info btn-xs comments"><i class="fa fa-comments-o"></i></button>
+														</td>
 														<td>${codigo}</td>
 														<td>${nombre}</td>
-														<td class="hidden-480">${unidad}</td>
-														<td class="hidden-480">$ ${precio}</td>
-														<td class="hidden-480">${cantidad}</td>
-														<td class="hidden-480">$ ${importe}</td>
+														<td>${cantidad}</td>
+														<td>$ ${precio}</td>
+														<td>$ ${neto}</td>
+														<td>$ ${descuento}</td>
+														<td><b>$ ${total}</b></td>
+														<td>
+															<button type="button" class="btn btn-danger btn-xs delete"><i class="fa fa-times"></i></button>
+														</td>
 													</tr>
 												</script>
 											</tbody>
