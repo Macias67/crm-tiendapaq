@@ -284,10 +284,8 @@ var ProductoDropdowns	= function() {
 						precio 		= parseFloat(precio.split(' ')[1]);
 						calculaTotal(-precio);
 						$(this).remove();
-						// Quito del array observaciones
-						if (posicion > -1) {
-							observaciones.splice(posicion, 1);
-						}
+						// Vacio la posicion de la observacion
+						observaciones[posicion].observacion = '';
 						totalProductos--;
 					});
 				}
@@ -304,13 +302,16 @@ var ProductoDropdowns	= function() {
 			var posicion	= $($(this).parents().get(1)).attr('class');
 
 			var html = '<h3>Observaciones: </h3>';
-			html += '<textarea class="form-control" id="observacion" rows="3" style="resize:none;">'+observaciones[posicion].observacion+'</textarea>';
+			html += '<textarea class="form-control" id="observacion" rows="3" style="resize:none; height: 200px">'+observaciones[posicion].observacion+'</textarea>';
 
 			bootbox.alert(html, function() {
 				// Extraigo valor de la modal
 				var observacion = $('#observacion').val();
 				// Asigno nuevo valor al array observaciones
 				observaciones[posicion].observacion = observacion;
+				if (observacion.length > 140) {
+					observacion = observacion.substring(0, 140)+'...';
+				}
 				// Cambio atributo del comentario para plugin popovers
 				$('tr#'+codigo+' td button.comments').attr('data-content', observacion);
 			});
@@ -318,9 +319,36 @@ var ProductoDropdowns	= function() {
 	}
 
 	var enviarDatos = function() {
-		var enviar = $('#enviar');
+		var enviar = $('.cotizacion');
+
 		enviar.on('click', function() {
-			bootbox.alert('<h3>Hola</h3>');
+			if (totalProductos > 0) {
+				var columnas = $('#lista > tr');
+
+				var productos = [];
+				columnas.each(function(index, element) {
+					var tr = $(element).children();
+					var producto = {
+						posicion : 		parseInt($(element).attr('class')),
+						codigo : 		$(tr[1]).html(),
+						descripcion : 	$(tr[2]).html(),
+						cantidad : 		parseFloat($(tr[3]).html()),
+						precio : 		parseFloat($(tr[4]).html().split(' ')[1]),
+						neto : 			parseFloat($(tr[5]).html().split(' ')[1]),
+						descuento : 	parseFloat($(tr[6]).html().split(' ')[1]),
+						total : 			parseFloat($(tr[7]).html().split(' ')[1]),
+						observacion : 	observaciones[parseInt($(element).attr('class'))].observacion
+					}
+					productos.push(producto);
+				});
+				console.log(productos);
+
+				$.post('/cotizador/pdf', {productos:productos}, function(data, textStatus, xhr) {
+					// window.open('http://www.w3schools.com','','height=800,width=800');
+				});
+			} else {
+				bootbox.alert('<h3>No hay ningun producto en la lista.</h3>');
+			}
 		});
 	}
 

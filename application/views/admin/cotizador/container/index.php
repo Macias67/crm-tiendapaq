@@ -267,8 +267,11 @@
 												</tbody>
 											</table>
 										</div>
-										<div class="col-md-12">
-											<button type="button" id="enviar" class="btn btn-block red">Enviar cotización</button>
+										<div class="col-md-6">
+											<button id="previa" class="btn btn-block red cotizacion">Previa cotización</button>
+										</div>
+										<div class="col-md-6">
+											<button type="button" id="enviar" class="btn btn-block red cotizacion">Enviar cotización</button>
 										</div>
 									</div>
 								</div>
@@ -289,7 +292,7 @@
 													<th>Código</th>
 													<th>Nombre</th>
 													<th>Cantidad</th>
-													<th>Precio Unitario</th>
+													<th>P. Unitario</th>
 													<th>Neto</th>
 													<th>Desc.</th>
 													<th>Total</th>
