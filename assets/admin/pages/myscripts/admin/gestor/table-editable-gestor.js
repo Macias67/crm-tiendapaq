@@ -135,6 +135,7 @@ var TableEditable = function () {
         var table = $('#tabla_oficinas_editable');
 
         var oTable = table.dataTable({
+            "pageLength": 25,
             searching: false,
             "lengthChange": false,
             "columns": [
@@ -399,6 +400,7 @@ var TableEditable = function () {
 
         //mensajes y caracteristicas de la tabla
         var oTable = table.dataTable({
+            "pageLength": 25,
             searching: false,
             "lengthChange": false,
             "columns": [
@@ -446,7 +448,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                bootbox.alert("Aun no ternimas de editar!");
+                bootbox.alert("<h4>Aun no ternimas de editar!</h4>");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['','','']);
@@ -657,6 +659,7 @@ var TableEditable = function () {
 
         //mensajes y caracteristicas de la tabla
         var oTable = table.dataTable({
+            "pageLength": 20,
             searching: false,
             "lengthChange": false,
             "columns": [
@@ -704,7 +707,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                bootbox.alert("Aun no ternimas de editar!");
+                bootbox.alert("<h4>Aun no ternimas de editar!</h4>");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['CONTPAQI®','','']);
@@ -959,7 +962,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                bootbox.alert("Aun no ternimas de editar!");
+                bootbox.alert("<h4>Aun no ternimas de editar!</h4>");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['','','']);
@@ -1088,7 +1091,7 @@ var TableEditable = function () {
         //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            var id_banco = $(nRow).attr('id');
+
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
@@ -1098,6 +1101,7 @@ var TableEditable = function () {
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 6, false);
             oTable.fnDraw();
 
+            var id_banco = $(nRow).attr('id');
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
             var banco='id_banco='+id_banco+'&'+
                       'banco='+jqInputs[0].value+'&'+
@@ -1105,8 +1109,6 @@ var TableEditable = function () {
                       'cta='+jqInputs[2].value+'&'+
                       'titular='+jqInputs[3].value+'&'+
                       'cib='+jqInputs[4].value;
-
-            console.log(banco);
             //if para saber si se trata editar o nuevo
             //si no tiene id es nuevo, si tiene un id existente es editar
             if(id_banco!=undefined)
@@ -1127,11 +1129,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4> Banco: "+data.banco+" actualizado con éxito </h4>", function () {
+                            bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> actualizado con éxito </h4>", function () {
                                 parent.location.reload();
                             });
                         } else {
-                            bootbox.alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -1156,11 +1158,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h3> Banco: "+data.banco+" añadido con éxito </h3>",function () {
+                            bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> añadido con éxito </h4>",function () {
                                 parent.location.reload();
                             });
                         } else {
-                            bootbox.alert('<h3>Error: </h3> \r\n'+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -1237,7 +1239,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                alert("Aun no ternimas de editar!");
+                bootbox.alert("<h4>Aun no ternimas de editar!</h4>");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['','','','','','','']);
@@ -1261,29 +1263,29 @@ var TableEditable = function () {
                 if(result){
                     //ajax para borrar
                     $.ajax({
-                            url: "/gestor/bancos/eliminar",
-                            type: 'post',
-                            cache: false,
-                            dataType: 'json',
-                            data: "id_banco="+id_banco+"&banco="+aData[0],
-                            beforeSend: function () {
-                               //('body').modalmanager('loading');
-                            },
-                            error: function(jqXHR, status, error) {
-                                console.log("ERROR: "+error);
-                                alert('ERROR: revisa la consola del navegador para más detalles.');
+                        url: "/gestor/bancos/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id_banco="+id_banco+"&banco="+aData[0],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
+                            //$('body').modalmanager('removeLoading');
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> eliminado con éxito</h4>");
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
                                 //$('body').modalmanager('removeLoading');
-                            },
-                            success: function(data) {
-                                if (data.exito) {
-                                    bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> eliminado con éxito</h4>");
-                                } else {
-                                    bootbox.alert('Error :'+data.msg);
-                                    //$('body').modalmanager('removeLoading');
-                                    //parent.location.reload();
-                                }
+                                //parent.location.reload();
                             }
-                        });
+                        }
+                    });
                     oTable.fnDeleteRow(nRow);
                 }else{
                     return;
@@ -1361,12 +1363,12 @@ var TableEditable = function () {
         //ya sea creando nuevo o editando existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
-            var id_observacion = $(nRow).attr('id');
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 1, false);
             oTable.fnUpdate('<a class="delete" href="">Eliminar</a>', nRow, 2, false);
             oTable.fnDraw();
 
+            var id_observacion = $(nRow).attr('id');
             //variable creada a manera de sintaxis post para mandar los valores al controlador gestor
             var observacion='id_observacion='+id_observacion+'&'+
                             'descripcion='+jqInputs[0].value;
@@ -1390,10 +1392,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Observación: "+data.observacion+" actualizada con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Observación: <b>"+data.observacion+"</b> actualizada con éxito</h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -1418,10 +1421,11 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            alert("Observación: "+data.observacion+" añadida con éxito");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Observación: <b>"+data.observacion+"</b> añadida con éxito</h4>",function () {
+                                parent.location.reload();
+                            });
                         } else {
-                            alert('Error: '+data.msg);
+                            bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
                             //$('body').modalmanager('removeLoading');
@@ -1490,7 +1494,7 @@ var TableEditable = function () {
             e.preventDefault();
             //verificacion de que no este editando una fila antes de crear otra
             if (nNew || nEditing) {
-                alert("Aun no ternimas de editar!");
+                bootbox.alert("<h4>Aun no ternimas de editar!</h4>");
             }else{
                 //valores por default en los inputs al crear nuevo
                 var aiNew = oTable.fnAddData(['','','']);
@@ -1510,37 +1514,38 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id_observacion = $(nRow).attr('id');
 
-            if (confirm("¿Seguro que quieres borrar la observación "+aData[0]+"?") == false) {
-                return;
-            }
-
-            //ajax para borrar
-            $.ajax({
-                    url: "/gestor/observaciones/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id_observacion="+id_observacion+"&descripcion="+aData[0],
-                    beforeSend: function () {
-                       //('body').modalmanager('loading');
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
-                    },
-                    success: function(data) {
-                        if (data.exito) {
-                            alert("Observación:'"+data.observacion+"' eliminada con éxito");
-                            //parent.location.reload();
-                        } else {
-                            alert('Error :'+data.msg);
+            bootbox.confirm("<h4>¿Seguro que quieres borrar la observación <b>"+aData[0]+"</b>?</h4>", function (result) {
+                if(result){
+                    //ajax para borrar
+                    $.ajax({
+                        url: "/gestor/observaciones/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id_observacion="+id_observacion+"&descripcion="+aData[0],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
                             //$('body').modalmanager('removeLoading');
-                            parent.location.reload();
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4>Observación: <b>"+data.observacion+"</b> eliminada con éxito</h4>");
+                                //parent.location.reload();
+                                oTable.fnDeleteRow(nRow);
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
+                                //$('body').modalmanager('removeLoading');/
+                            }
                         }
-                    }
-                });
-            oTable.fnDeleteRow(nRow);
+                    });
+                }else{
+                    return;
+                }
+            });
         });
 
         //funcion cancelar
