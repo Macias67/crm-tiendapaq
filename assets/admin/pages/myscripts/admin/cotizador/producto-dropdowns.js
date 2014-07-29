@@ -2,7 +2,7 @@ var ProductoDropdowns	= function() {
 
 	var jsonProducto = '';
 
-	var poscionProductos = 0;
+	var posicionProductos = 0;
 
 	var totalProductos = 0;
 
@@ -194,7 +194,7 @@ var ProductoDropdowns	= function() {
 		calculaTotal(total);
 
 		var info = {
-			'posicion' : 		poscionProductos,
+			'posicion' : 		posicionProductos,
 			'codigo' : 		data.codigo,
 			'impuesto1' : 	data.impuesto1,
 			'impuesto2' : 	data.impuesto2,
@@ -235,16 +235,31 @@ var ProductoDropdowns	= function() {
 			if (codigo != "") {
 				var producto = validaProducto(jsonProducto);
 				if (producto) {
-					// Agruego fila
-					$('#fila').tmpl(producto).appendTo('#lista');
 					// Reseteo
 					$('#producto').select2('data', null);
 					$('#cantidad').spinner('value', 1);
 					$('#descuento').val('');
 					jsonProducto = '';
+					// Agrego al array observaciones
 					observaciones.push({codigo:codigo,observacion:''});
-					poscionProductos++;
+					// Creo objeto a enviar a plantilla
+					var data = {
+						observacion : {
+							titulo : producto.codigo,
+							contenido: observaciones[posicionProductos].observacion
+						},
+						producto : producto
+					}
+					// Agruego fila
+					$('#fila').tmpl(data).appendTo('#lista');
+					//Incremento posicion y total productos
+					posicionProductos++;
 					totalProductos++;
+					// Inicio plugin popover de observacion
+					$('.popovers').popover('destroy').popover({
+						placement: 'top',
+						trigger: 'hover'
+					});
 				}
 			} else {
 				bootbox.alert('Selecciona un producto.');
@@ -259,7 +274,7 @@ var ProductoDropdowns	= function() {
 		button.on('click', '.delete',function() {
 
 			var id			= $($(this).parents().get(1)).attr('id');
-			var posicion	= $($(this).parents().get(1)).attr('class');
+			var posicion	= parseInt($($(this).parents().get(1)).attr('class'));
 
 			bootbox.confirm('<h3>¿Estas seguro de eliminar este producto de la lista?</h3>', function(result) {
 				if (result) {
@@ -269,12 +284,8 @@ var ProductoDropdowns	= function() {
 						precio 		= parseFloat(precio.split(' ')[1]);
 						calculaTotal(-precio);
 						$(this).remove();
-
-						// Quito del array observaciones
-						var index = observaciones.indexOf(posicion);
-						if (index > -1) {
-							observaciones.splice(index, 1);
-						}
+						// Vacio la posicion de la observacion
+						observaciones[posicion].observacion = '';
 						totalProductos--;
 					});
 				}
@@ -291,20 +302,53 @@ var ProductoDropdowns	= function() {
 			var posicion	= $($(this).parents().get(1)).attr('class');
 
 			var html = '<h3>Observaciones: </h3>';
-			html += '<textarea class="form-control" id="observacion" rows="3" style="resize:none;">'+observaciones[posicion].observacion+'</textarea>';
+			html += '<textarea class="form-control" id="observacion" rows="3" style="resize:none; height: 200px">'+observaciones[posicion].observacion+'</textarea>';
 
 			bootbox.alert(html, function() {
+				// Extraigo valor de la modal
 				var observacion = $('#observacion').val();
+				// Asigno nuevo valor al array observaciones
 				observaciones[posicion].observacion = observacion;
-				console.log(observaciones);
+				if (observacion.length > 140) {
+					observacion = observacion.substring(0, 140)+'...';
+				}
+				// Cambio atributo del comentario para plugin popovers
+				$('tr#'+codigo+' td button.comments').attr('data-content', observacion);
 			});
 		});
 	}
 
 	var enviarDatos = function() {
-		var enviar = $('#enviar');
+		var enviar = $('.cotizacion');
+
 		enviar.on('click', function() {
-			bootbox.alert('<h3>Hola</h3>');
+			if (totalProductos > 0) {
+				var columnas = $('#lista > tr');
+
+				var productos = [];
+				columnas.each(function(index, element) {
+					var tr = $(element).children();
+					var producto = {
+						posicion : 		parseInt($(element).attr('class')),
+						codigo : 		$(tr[1]).html(),
+						descripcion : 	$(tr[2]).html(),
+						cantidad : 		parseFloat($(tr[3]).html()),
+						precio : 		parseFloat($(tr[4]).html().split(' ')[1]),
+						neto : 			parseFloat($(tr[5]).html().split(' ')[1]),
+						descuento : 	parseFloat($(tr[6]).html().split(' ')[1]),
+						total : 			parseFloat($(tr[7]).html().split(' ')[1]),
+						observacion : 	observaciones[parseInt($(element).attr('class'))].observacion
+					}
+					productos.push(producto);
+				});
+				console.log(productos);
+
+				$.post('/cotizador/pdf', {productos:productos}, function(data, textStatus, xhr) {
+					// window.open('http://www.w3schools.com','','height=800,width=800');
+				});
+			} else {
+				bootbox.alert('<h3>No hay ningun producto en la lista.</h3>');
+			}
 		});
 	}
 

@@ -63,6 +63,12 @@ class Cotizador extends AbstractAccess {
 				->set_content_type('application/json')
 				->set_output(json_encode($res));
 	}
+
+	public function pdf()
+	{
+		$productos = $this->input->post('productos');
+		var_dump($productos);
+	}
 }
 
 /* End of file cotizador.php */

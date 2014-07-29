@@ -267,8 +267,11 @@
 												</tbody>
 											</table>
 										</div>
-										<div class="col-md-12">
-											<button type="button" id="enviar" class="btn btn-block red">Enviar cotización</button>
+										<div class="col-md-6">
+											<button id="previa" class="btn btn-block red cotizacion">Previa cotización</button>
+										</div>
+										<div class="col-md-6">
+											<button type="button" id="enviar" class="btn btn-block red cotizacion">Enviar cotización</button>
 										</div>
 									</div>
 								</div>
@@ -289,7 +292,7 @@
 													<th>Código</th>
 													<th>Nombre</th>
 													<th>Cantidad</th>
-													<th>Precio Unitario</th>
+													<th>P. Unitario</th>
 													<th>Neto</th>
 													<th>Desc.</th>
 													<th>Total</th>
@@ -298,17 +301,17 @@
 											</thead>
 											<tbody id="lista">
 												<script id="fila" type="text/x-jquery-tmpl">
-													<tr id="${codigo}" class="${posicion}">
+													<tr id="${producto.codigo}" class="${producto.posicion}">
 														<td>
-															<button type="button" class="btn btn-info btn-xs comments"><i class="fa fa-comments-o"></i></button>
+															<button type="button" class="btn popovers btn-info btn-xs comments" data-content="${observacion.contenido}" data-original-title="${observacion.titulo}"><i class="fa fa-comments-o"></i></button>
 														</td>
-														<td>${codigo}</td>
-														<td>${nombre}</td>
-														<td>${cantidad}</td>
-														<td>$ ${precio}</td>
-														<td>$ ${neto}</td>
-														<td>$ ${descuento}</td>
-														<td><b>$ ${total}</b></td>
+														<td>${producto.codigo}</td>
+														<td>${producto.nombre}</td>
+														<td>${producto.cantidad}</td>
+														<td>$ ${producto.precio}</td>
+														<td>$ ${producto.neto}</td>
+														<td>$ ${producto.descuento}</td>
+														<td><b>$ ${producto.total}</b></td>
 														<td>
 															<button type="button" class="btn btn-danger btn-xs delete"><i class="fa fa-times"></i></button>
 														</td>
