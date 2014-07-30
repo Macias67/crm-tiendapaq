@@ -153,8 +153,8 @@ var ProductoDropdowns	= function() {
 		var total = neto;
 
 		// Expresiones regulares
-		var porcentaje =/^(?:\d*\.)?\d+%$/;
-		var pesos =/^\$(?:\d*\.)?\d+$/;
+		var porcentaje	=/^(?:\d*\.)?\d+%$/;
+		var pesos		=/^\$(?:\d*\.)?\d+$/;
 
 		// Válidamos los descuentos
 		if (descuento.match(pesos)) {
