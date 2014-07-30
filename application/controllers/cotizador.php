@@ -66,8 +66,11 @@ class Cotizador extends AbstractAccess {
 
 	public function pdf()
 	{
-		$productos = $this->input->post('productos');
-		var_dump($productos);
+		$this->load->library('pdf');
+		$this->pdf = new PDF();
+		$this->pdf->AddPage();
+		$this->pdf->AliasNbPages();
+		$this->pdf->Output('prueba', 'I');
 	}
 }
 
