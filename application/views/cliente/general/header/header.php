@@ -382,9 +382,9 @@
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown dropdown-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
+						<img alt="" class="img-circle" src="<?php echo $usuario_activo['ruta_imagenes'].'mini.jpg' ?>"/>
 						<span class="username">
-						TiendaPaq </span>
+						<?php echo $usuario_activo['razon_social'] ?> </span>
 						<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
