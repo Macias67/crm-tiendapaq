@@ -9,28 +9,34 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
-		// Cargo modelos
-		$this->load->model('ejecutivoModel');
-		$this->load->model('actividadPendienteModel');
-		$this->load->model('pendienteModel');
+		if($this->usuario_activo['privilegios']=="cliente"){
+			var_dump($this->data);
 
-		//Helper
-		$this->load->helper('formatofechas');
+			$this->_vista('principal');
+		}else{
+			// Cargo modelos
+			$this->load->model('ejecutivoModel');
+			$this->load->model('actividadPendienteModel');
+			$this->load->model('pendienteModel');
 
-		// Nombre de ejecutivos
-		$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-			array('id','primer_nombre', 'apellido_paterno'),
-			'privilegios',
-			array('soporte', 'admin'),
-			'primer_nombre');
-		// Listado de actividades para levantar un pendiente
-		$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
-		// Listado de pendientes DEL USUARIO ACTIVO
-		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes($this->usuario_activo['id']);
-		// Titulo header
-		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-		// Muestro Vista
-		$this->_vista('principal');
+			//Helper
+			$this->load->helper('formatofechas');
+
+			// Nombre de ejecutivos
+			$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
+				array('id','primer_nombre', 'apellido_paterno'),
+				'privilegios',
+				array('soporte', 'admin'),
+				'primer_nombre');
+			// Listado de actividades para levantar un pendiente
+			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
+			// Listado de pendientes DEL USUARIO ACTIVO
+			$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes($this->usuario_activo['id']);
+			// Titulo header
+			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+			// Muestro Vista
+			$this->_vista('principal');
+		}
 	}
 
 	public function add(){}

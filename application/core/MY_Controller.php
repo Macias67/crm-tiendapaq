@@ -211,40 +211,78 @@ abstract class AbstractAccess extends AbstractController {
 		// Si usuario y password no vienen nulas
 		if (isset($usuario) && isset($password)) {
 			$this->load->model('ejecutivoModel');
+			$this->load->model('clienteModel');
+
 			$ejecutivo = $this->ejecutivoModel->get_where(array('usuario' => $usuario));
-			// Si ejectivo existe
-			if ($ejecutivo) {
-				// Valido que los datos sean correcto
-				if ($ejecutivo->usuario == $usuario && $ejecutivo->password == $password) {
-					// Si selecciona recordar, agrego cookie para recordar el usuario
-					if ($remember == 'true') {
-						/*
-						* APRUEBA PARA LA COOKIE DE RECUERDAME
-						 */
-						// $tiempo	= time()+60*60*24*30*6; // 6 Meses de duracion de la cookie
-						// $this->session->sess_expiration = $tiempo;
-						// $this->session->sess_expire_on_close = FALSE;
-						// $time 		= 60*60*24*30*6;
-						// $domain 	= substr($this->input->server('SERVER_NAME'), 4);
-						// $this->input->set_cookie('remember', 'true', $time, $domain, '/');
+			$cliente = $this->clienteModel->get_where(array('usuario' => $usuario));
+			if($ejecutivo || $cliente){
+				// Validamos primero si ejectivo existe
+				if ($ejecutivo) {
+					// Valido que los datos sean correcto
+					if ($ejecutivo->usuario == $usuario && $ejecutivo->password == $password) {
+						// Si selecciona recordar, agrego cookie para recordar el usuario
+						if ($remember == 'true') {
+							/*
+							* APRUEBA PARA LA COOKIE DE RECUERDAME
+							 */
+							// $tiempo	= time()+60*60*24*30*6; // 6 Meses de duracion de la cookie
+							// $this->session->sess_expiration = $tiempo;
+							// $this->session->sess_expire_on_close = FALSE;
+							// $time 		= 60*60*24*30*6;
+							// $domain 	= substr($this->input->server('SERVER_NAME'), 4);
+							// $this->input->set_cookie('remember', 'true', $time, $domain, '/');
+						}
+						// Parseo objeto a array
+						$dataUser = (array) $ejecutivo;
+						//le añado la ruta de las imagenes a usuario activo
+						$dataUser['ruta_imagenes'] = self::RUTA_AVATAR.$dataUser['id'].'/';
+						// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
+						$this->session->set_userdata('usuario_activo', $dataUser);
+						$respuesta	= TRUE;
+						$mensaje	= 'Bienvenido, espera unos segundos...';
+					} else {
+						$respuesta	= FALSE;
+						$mensaje	= 'El usuario o contraseña son incorrectos';
 					}
-					// Parseo objeto a array
-					$dataUser = (array) $ejecutivo;
-					//le añado la ruta de las imagenes a usuario activo
-					$dataUser['ruta_imagenes'] = self::RUTA_AVATAR.$dataUser['id'].'/';
-					// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
-					$this->session->set_userdata('usuario_activo', $dataUser);
-					$respuesta	= TRUE;
-					$mensaje	= 'Bienvenido, espera unos segundos...';
 				} else {
-					$respuesta	= FALSE;
-					$mensaje	= 'El usuario o contraseña son incorrectos';
+					//si no existe ejecutivo validamos si existe cliente
+					if($cliente){
+						// Valido que los datos sean correcto
+						if ($cliente->usuario == $usuario && $cliente->password == $password) {
+							// Si selecciona recordar, agrego cookie para recordar el usuario
+							if ($remember == 'true') {
+								/*
+								* APRUEBA PARA LA COOKIE DE RECUERDAME
+								 */
+								// $tiempo	= time()+60*60*24*30*6; // 6 Meses de duracion de la cookie
+								// $this->session->sess_expiration = $tiempo;
+								// $this->session->sess_expire_on_close = FALSE;
+								// $time 		= 60*60*24*30*6;
+								// $domain 	= substr($this->input->server('SERVER_NAME'), 4);
+								// $this->input->set_cookie('remember', 'true', $time, $domain, '/');
+							}
+							// Parseo objeto a array
+							$dataUser = (array) $cliente;
+							//le añadimos el privilegio
+							$dataUser['privilegios']="cliente";
+							//le añado la ruta de las imagenes a usuario activo
+							$dataUser['ruta_imagenes'] = self::RUTA_AVATAR.'cliente'.'/';
+							// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
+							$this->session->set_userdata('usuario_activo', $dataUser);
+							$respuesta	= TRUE;
+							$mensaje	= 'Bienvenido, espera unos segundos...';
+						}
+					}else{
+						$respuesta	= FALSE;
+						$mensaje	= 'El usuario o contraseña son incorrectos';
+					}
 				}
-			} else {
+			}else{
 				$respuesta	= FALSE;
 				$mensaje	= 'El usuario no existe';
 			}
 		}
+
 		// Imprimo la respuesta
 		echo json_encode(array('respuesta' => $respuesta, 'mensaje' => $mensaje));
 	}
