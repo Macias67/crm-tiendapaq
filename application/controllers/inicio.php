@@ -10,9 +10,8 @@ class Inicio extends AbstractAccess {
 	public function index()
 	{
 		if($this->usuario_activo['privilegios']=="cliente"){
-			var_dump($this->data);
-
 			$this->_vista('principal');
+			var_dump($this->data);
 		}else{
 			// Cargo modelos
 			$this->load->model('ejecutivoModel');
