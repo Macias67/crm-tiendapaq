@@ -50,7 +50,7 @@ class ClienteModel extends TxtManager {
 		$this->basica_cliente->calle			= $data['calle'];
 		$this->basica_cliente->ciudad			= $data['ciudad'];
 		$this->basica_cliente->estado			= $data['estado'];
-		$this->basica_cliente->telefono_1		= $data['telefono1'];
+		$this->basica_cliente->telefono1		= $data['telefono1'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos
 		if ($tipo != 'prospecto') {
@@ -62,7 +62,7 @@ class ClienteModel extends TxtManager {
 			$this->basica_cliente->codigo_postal	= $data['codigo_postal'];
 			$this->basica_cliente->municipio		= $data['municipio'];
 			$this->basica_cliente->pais			= $data['pais'];
-			$this->basica_cliente->telefono_2		= $data['telefono2'];
+			$this->basica_cliente->telefono2		= $data['telefono2'];
 		}
 
 		return $this->basica_cliente;
@@ -114,8 +114,8 @@ class ClienteModel extends TxtManager {
 	 *  10 => string municipio
 	 *  11 => string estado
 	 *  12 => string pais
-	 *  13 => string telefono_1
-	 *  14 => string telefono_2
+	 *  13 => string telefono1
+	 *  14 => string telefono2
 	 *
 	 * @author Diego Rodriguez | Luis Macias
 	 * @param array $data_cliente Array con la info del cliente
@@ -141,8 +141,8 @@ class ClienteModel extends TxtManager {
 			$cliente->municipio		= $data_cliente[10];
 			$cliente->estado			= $data_cliente[11];
 			$cliente->pais				= $data_cliente[12];
-			$cliente->telefono_1		= $data_cliente[13];
-			$cliente->telefono_2		= $data_cliente[14];
+			$cliente->telefono1		= $data_cliente[13];
+			$cliente->telefono2		= $data_cliente[14];
 			$cliente->usuario			= $data_cliente[0];
 			$cliente->password		= $this->password();
 		} else {
@@ -195,8 +195,8 @@ class ClienteModel extends TxtManager {
 			$cliente['municipio']		= $data_cliente[10];
 			$cliente['estado']			= $data_cliente[11];
 			$cliente['pais']				= $data_cliente[12];
-			$cliente['telefono_1']		= $data_cliente[13];
-			$cliente['telefono_2']		= $data_cliente[14];
+			$cliente['telefono1']		= $data_cliente[13];
+			$cliente['telefono2']		= $data_cliente[14];
 			$cliente['usuario']			= $data_cliente[0];
 			$cliente['password']		= $this->password();
 		} else {

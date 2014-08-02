@@ -53,7 +53,7 @@ var FormValidationClienteRapido = function () {
                     required: true
                 },
                 email_contacto: {
-                    maxlength: 30,
+                    maxlength: 50,
                     email: true
                 },
                 telefono_contacto: {
@@ -66,7 +66,7 @@ var FormValidationClienteRapido = function () {
                     required: "Escribe la razón social"
                 },
                 email: {
-                    maxlength: "El email debe tener menos de 30 caracteres",
+                    maxlength: "El email debe tener menos de 50 caracteres",
                     email: "Escribe un email valido",
                     required: "Escribe el email"
                 },
@@ -94,7 +94,7 @@ var FormValidationClienteRapido = function () {
                     required: "Escribe el apellido materno del contacto"
                 },
                 email_contacto: {
-                    maxlength: "El email del contacto debe tener menos de 30 caracteres",
+                    maxlength: "El email del contacto debe tener menos de 50 caracteres",
                     email: "Escribe un email valido"
                 },
                 telefono_contacto: {
