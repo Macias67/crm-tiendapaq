@@ -215,13 +215,17 @@ abstract class AbstractAccess extends AbstractController {
 
 			$ejecutivo = $this->ejecutivoModel->get_where(array('usuario' => $usuario));
 			$cliente = $this->clienteModel->get_where(array('usuario' => $usuario));
-			if($ejecutivo || $cliente){
+			if($ejecutivo || $cliente)
+			{
 				// Validamos primero si ejectivo existe
-				if ($ejecutivo) {
+				if ($ejecutivo)
+				{
 					// Valido que los datos sean correcto
-					if ($ejecutivo->usuario == $usuario && $ejecutivo->password == $password) {
+					if ($ejecutivo->usuario == $usuario && $ejecutivo->password == $password)
+					{
 						// Si selecciona recordar, agrego cookie para recordar el usuario
-						if ($remember == 'true') {
+						if ($remember == 'true')
+						{
 							/*
 							* APRUEBA PARA LA COOKIE DE RECUERDAME
 							 */
@@ -240,17 +244,22 @@ abstract class AbstractAccess extends AbstractController {
 						$this->session->set_userdata('usuario_activo', $dataUser);
 						$respuesta	= TRUE;
 						$mensaje	= 'Bienvenido, espera unos segundos...';
-					} else {
+					} else
+					{
 						$respuesta	= FALSE;
-						$mensaje	= 'El usuario o contraseña son incorrectos';
+						$mensaje	= 'La contraseña es incorrecta';
 					}
-				} else {
+				} else
+				{
 					//si no existe ejecutivo validamos si existe cliente
-					if($cliente){
+					if($cliente)
+					{
 						// Valido que los datos sean correcto
-						if ($cliente->usuario == $usuario && $cliente->password == $password) {
+						if ($cliente->usuario == $usuario && $cliente->password == $password)
+						{
 							// Si selecciona recordar, agrego cookie para recordar el usuario
-							if ($remember == 'true') {
+							if ($remember == 'true')
+							{
 								/*
 								* APRUEBA PARA LA COOKIE DE RECUERDAME
 								 */
@@ -271,10 +280,11 @@ abstract class AbstractAccess extends AbstractController {
 							$this->session->set_userdata('usuario_activo', $dataUser);
 							$respuesta	= TRUE;
 							$mensaje	= 'Bienvenido, espera unos segundos...';
+						}else
+						{
+							$respuesta	= FALSE;
+							$mensaje	= 'La contraseña es incorrecta';
 						}
-					}else{
-						$respuesta	= FALSE;
-						$mensaje	= 'El usuario o contraseña son incorrectos';
 					}
 				}
 			}else{
