@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 02-08-2014 a las 18:06:08
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Servidor: localhost
+-- Tiempo de generación: 04-08-2014 a las 08:05:14
+-- Versión del servidor: 5.6.12-log
+-- Versión de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
+CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mozcom_tienda-paq`;
 
 -- --------------------------------------------------------
 
@@ -101,6 +103,31 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   `puesto_contacto` varchar(20) NOT NULL,
   KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cotizacion`
+--
+
+CREATE TABLE IF NOT EXISTS `cotizacion` (
+  `folio` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `agente` int(11) NOT NULL,
+  `cliente` int(11) NOT NULL,
+  `oficina` int(11) NOT NULL,
+  `listado` mediumtext NOT NULL,
+  `observaciones` int(11) NOT NULL,
+  `banco` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  PRIMARY KEY (`folio`),
+  KEY `agente` (`agente`,`cliente`,`oficina`,`observaciones`,`banco`,`estatus`),
+  KEY `cliente` (`cliente`),
+  KEY `oficina` (`oficina`),
+  KEY `observaciones` (`observaciones`),
+  KEY `banco` (`banco`),
+  KEY `estatus` (`estatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -216,6 +243,27 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 (5, 'proceso'),
 (6, 'suspendida'),
 (7, 'sustituida');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus_cotizacion`
+--
+
+CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Los tipos de estados que puede tener una cotizacion' AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `estatus_cotizacion`
+--
+
+INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
+(1, 'enviada'),
+(2, 'revisión'),
+(3, 'pagada');
 
 -- --------------------------------------------------------
 
@@ -392,6 +440,17 @@ INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
 --
 ALTER TABLE `contactos`
   ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `cotizacion`
+--
+ALTER TABLE `cotizacion`
+  ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`agente`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`observaciones`) REFERENCES `observaciones` (`id_observacion`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`banco`) REFERENCES `bancos` (`id_banco`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `crea_pendiente`
