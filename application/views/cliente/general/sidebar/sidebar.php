@@ -45,13 +45,29 @@
 					</li>
 					<li>
 						<a href="javascript:;">
-							<i class="icon-folder"></i><span class="title"> Mis Casos</span>
+							<i class="fa fa-folder-open-o"></i><span class="title"> Mis Casos</span>
 						</a>
 					</li>
+					<!-- Actualizar Informacion -->
 					<li>
-						<a href="#editar-info" data-toggle="modal">
-							<i class="icon-user"></i><span class="title"> Actualizar Información</span>
+						<a href="#">
+							<i class="fa fa-bars"></i><span class="title"> Actualizar Información</span>
+							<span class="arrow "></span>
 						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('cliente/nuevo'); ?>"><i class="fa fa-user"></i> Información básica</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-users"></i> Contactos</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-desktop"></i> Equipos de cómputo</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 				<!-- END SIDEBAR MENU -->
