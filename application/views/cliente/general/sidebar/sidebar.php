@@ -56,16 +56,16 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('cliente/nuevo'); ?>"><i class="fa fa-user"></i> Información básica</a>
+								<a href="#"><i class="fa fa-user"></i> Información básica</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-users"></i> Contactos</a>
+								<a href="#"><i class="fa fa-users"></i> Contactos</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
+								<a href="#"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-desktop"></i> Equipos de cómputo</a>
+								<a href="#"><i class="fa fa-desktop"></i> Equipos de cómputo</a>
 							</li>
 						</ul>
 					</li>
