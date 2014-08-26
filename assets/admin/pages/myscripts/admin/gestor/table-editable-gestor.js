@@ -690,7 +690,7 @@ var TableEditable = function () {
                 "targets": [0]
                 }
             ],
-             "order": []
+             "order": [ 0, 'asc' ]
         });
 
         var tableWrapper = $("#tabla_sistemas_editable_wrapper");

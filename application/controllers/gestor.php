@@ -256,7 +256,7 @@ class Gestor extends AbstractAccess {
  	 **/
  	public function sistemas($accion=null)
  	{
- 		$this->data['sistemascontpaqi'] = $this->sistemasContpaqiModel->get(array('*'));
+ 		$this->data['sistemascontpaqi'] = $this->sistemasContpaqiModel->get(array('*'),null,'sistema');
 
  		switch ($accion) {
  			case 'nuevo':

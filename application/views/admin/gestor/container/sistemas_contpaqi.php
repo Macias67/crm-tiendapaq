@@ -213,7 +213,7 @@
 										<br>
 										<div class="btn-group pull-right">
 											<button id="guardar_versiones" class="btn green btn-xs">
-												<i class="fa fa-plus"></i> Guardar Versiones
+												<i class="fa fa-save"></i>  Guardar Versiones
 											</button>
 										</div>
 									</div>
