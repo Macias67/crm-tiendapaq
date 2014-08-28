@@ -6,7 +6,7 @@
  * @package default
  * @author Diego
  **/
-class GestorCliente extends AbstractAccess {
+class Gestor extends AbstractAccess {
 
 	public function index()
 	{
@@ -61,5 +61,5 @@ class GestorCliente extends AbstractAccess {
 
 }
 
-/* End of file gestor-Cliente.php */
-/* Location: ./application/controllers/gestor-Cliente.php */
+/* End of file gestor.php */
+/* Location: ./application/controllers/gestor.php */

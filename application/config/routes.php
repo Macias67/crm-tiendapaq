@@ -38,38 +38,42 @@
 |
 */
 
-$route['default_controller'] = "inicio";
+$DIR_EJECUTIVO = "ejecutivo/";
+
+$DIR_CLIENTE = "cliente/";
+
+$route['default_controller'] = $DIR_EJECUTIVO."inicio";
 $route['404_override'] = '';
 
 // Funciones generales
-$route['login']			= "inicio/login";
-$route['cookiescreen']	= "inicio/cookiescreen";
-$route['validation']		= "inicio/validation";
-$route['logout']		= "inicio/logout";
+$route['login']			= $DIR_EJECUTIVO."inicio/login";
+$route['cookiescreen']	= $DIR_EJECUTIVO."inicio/cookiescreen";
+$route['validation']		= $DIR_EJECUTIVO."inicio/validation";
+$route['logout']		= $DIR_EJECUTIVO."inicio/logout";
 
 // Funciones cliente
-$route['cliente/(:any)']	= "cliente/$1";
+$route['cliente/(:any)']	= $DIR_EJECUTIVO."cliente/$1";
 
 // Funciones calendario
-$route['calendario']		= "calendario";
-$route['calendario/(:any)']	= "calendario/$1";
+$route['calendario']		= $DIR_EJECUTIVO."calendario";
+$route['calendario/(:any)']	= $DIR_EJECUTIVO."calendario/$1";
 
 // Funciones pendiente
-$route['pendiente']		= "pendiente";
-$route['pendiente/(:any)']	= "pendiente/$1";
+$route['pendiente']		= $DIR_EJECUTIVO."pendiente";
+$route['pendiente/(:any)']	= $DIR_EJECUTIVO."pendiente/$1";
 
 // Funciones ejecutivo
-$route['perfil']				= "ejecutivo";
-$route['ejecutivo/(:any)']	= "ejecutivo/$1";
+$route['perfil']				= $DIR_EJECUTIVO."ejecutivo";
+$route['ejecutivo/(:any)']	= $DIR_EJECUTIVO."ejecutivo/$1";
 
 // Funciones catalogo
-$route['catalogo/clientes']		= "catalogo";
-$route['catalogo/productos']	= "catalogo";
-$route['catalogo/(:any)']		= "catalogo/$1";
+$route['catalogo/clientes']		= $DIR_EJECUTIVO."catalogo";
+$route['catalogo/productos']	= $DIR_EJECUTIVO."catalogo";
+$route['catalogo/(:any)']		= $DIR_EJECUTIVO."catalogo/$1";
 
 // Funciones cotizador
-$route['cotizador']			= "cotizador";
-$route['cotizador/(:any)']	= "cotizador/$1";
+$route['cotizador']			= $DIR_EJECUTIVO."cotizador";
+$route['cotizador/(:any)']	= $DIR_EJECUTIVO."cotizador/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
