@@ -8,13 +8,9 @@
  **/
 class Gestor extends AbstractAccess {
 
-	public function index()
-	{
-		echo "Hola kokin";
-	}
+	public function index(){}
 
-	public function add()
-	{}
+	public function add(){}
 
 	/**
 	 * Funcion para gestionar la informacion basica de los clientes
@@ -25,6 +21,7 @@ class Gestor extends AbstractAccess {
 	public function basica()
 	{
 		$this->_vista("informacion_basica");
+		var_dump($this->data);
 	}
 
 	/**
@@ -35,6 +32,7 @@ class Gestor extends AbstractAccess {
 	public function contactos()
 	{
 		$this->_vista("contactos");
+		var_dump($this->data);
 	}
 
 	/**
@@ -46,6 +44,7 @@ class Gestor extends AbstractAccess {
 	public function sistemas()
 	{
 		$this->_vista("sistemas_contpaqi");
+		var_dump($this->data);
 	}
 
 	/**
@@ -57,6 +56,7 @@ class Gestor extends AbstractAccess {
 	public function equipos()
 	{
 		$this->_vista("equipos_computo");
+		var_dump($this->data);
 	}
 
 }

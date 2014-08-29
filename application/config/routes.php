@@ -75,5 +75,11 @@ $route['catalogo/(:any)']		= $DIR_EJECUTIVO."catalogo/$1";
 $route['cotizador']			= $DIR_EJECUTIVO."cotizador";
 $route['cotizador/(:any)']	= $DIR_EJECUTIVO."cotizador/$1";
 
+// // Funciones del Gestor
+$route['gestor']			= $DIR_EJECUTIVO."gestor";
+$route['gestor/(:any)']	= $DIR_EJECUTIVO."gestor/$1";
+$route['actualizar']			= $DIR_CLIENTE."gestor";
+$route['actualizar/(:any)']	= $DIR_CLIENTE."gestor/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -239,7 +239,7 @@ abstract class AbstractAccess extends AbstractController {
 						// Parseo objeto a array
 						$dataUser = (array) $ejecutivo;
 						//le añado la ruta de las imagenes a usuario activo
-						$dataUser['ruta_imagenes'] = self::RUTA_AVATAR.$dataUser['id'].'/';
+						$dataUser['ruta_imagenes'] = site_url(self::RUTA_AVATAR.$dataUser['id']).'/';
 						// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
 						$this->session->set_userdata('usuario_activo', $dataUser);
 						$respuesta	= TRUE;
@@ -272,10 +272,10 @@ abstract class AbstractAccess extends AbstractController {
 							}
 							// Parseo objeto a array
 							$dataUser = (array) $cliente;
-							//le añadimos el privilegio
+							// le añadimos el privilegio
 							$dataUser['privilegios']="cliente";
-							//le añado la ruta de las imagenes a usuario activo
-							$dataUser['ruta_imagenes'] = self::RUTA_AVATAR.'cliente'.'/';
+							// le añado la ruta de las imagenes a usuario activo
+							$dataUser['ruta_imagenes'] = site_url(self::RUTA_AVATAR.'cliente').'/';
 							// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
 							$this->session->set_userdata('usuario_activo', $dataUser);
 							$respuesta	= TRUE;
