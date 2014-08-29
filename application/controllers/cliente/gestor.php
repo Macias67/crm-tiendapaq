@@ -105,7 +105,7 @@ class Gestor extends AbstractAccess {
 
 			default:
 				$this->_vista("sistemas_contpaqi");
-				var_dump($this->data);
+				//var_dump($this->data);
 			break;
 		}
 	}
