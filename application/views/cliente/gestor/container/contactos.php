@@ -136,7 +136,9 @@
 								<table class="table table-striped table-hover table-bordered" id="tabla_contactos_cliente">
 									<thead>
 										<tr>
-											<th>Nombre</th>
+											<th>Nombre(s)</th>
+											<th>Apellido Paterno</th>
+											<th>Apellido Materno</th>
 											<th>Email</th>
 											<th>Teléfono</th>
 											<th>Puesto</th>
@@ -147,7 +149,9 @@
 									<tbody>
 										<?php foreach ($contactos_cliente as $contacto) : ?>
 											<tr id="<?php echo $contacto->id_cliente ?>">
-												<td><?php echo $contacto->nombre_contacto.' '.$contacto->apellido_paterno.' '.$contacto->apellido_materno ?></td>
+												<td><?php echo $contacto->nombre_contacto ?></td>
+												<td><?php echo $contacto->apellido_paterno ?></td>
+												<td><?php echo $contacto->apellido_materno ?></td>
 												<td><?php echo $contacto->email_contacto ?></td>
 												<td><?php echo $contacto->telefono_contacto ?></td>
 												<td><?php echo $contacto->puesto_contacto ?></td>

@@ -44,7 +44,7 @@ class Gestor extends AbstractAccess {
 
 			default:
 				$this->_vista("informacion_basica");
-				var_dump($this->data);
+				//var_dump($this->data);
 			break;
 		}
 	}
@@ -74,7 +74,7 @@ class Gestor extends AbstractAccess {
 
 			default:
 				$this->_vista("contactos");
-				var_dump($this->data);
+				//var_dump($this->data);
 			break;
 		}
 	}
@@ -87,6 +87,9 @@ class Gestor extends AbstractAccess {
 	 **/
 	public function sistemas($accion=null)
 	{
+		//se cargan los sistemas contpaqui del cliente y se manda a llamar la vista
+		$this->data['sistemas_contpaqi']=$this->sistemasClienteModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+
 		switch ($accion) {
 			case 'nuevo':
 				# code...
@@ -115,6 +118,9 @@ class Gestor extends AbstractAccess {
 	 **/
 	public function equipos($accion=null)
 	{
+		//se cargan los equipos de computo del cliente y se manda a llamar la vista
+		$this->data['equipo_computo']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+
 		switch ($accion) {
 			case 'nuevo':
 				# code...
