@@ -8,6 +8,15 @@
  **/
 class Gestor extends AbstractAccess {
 
+	public function __construct()
+	{
+		parent::__construct();
+		//modelos a utilizar
+		$this->load->model('contactosModel');
+		$this->load->model('sistemasClienteModel');
+		$this->load->model('equiposComputoModel');
+	}
+
 	public function index(){}
 
 	public function add(){}
@@ -18,10 +27,26 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function basica()
+	public function basica($accion=null)
 	{
-		$this->_vista("informacion_basica");
-		var_dump($this->data);
+		switch ($accion) {
+			case 'nuevo':
+				# code...
+			break;
+
+			case 'editar':
+				# code...
+			break;
+
+			case 'eliminar':
+				# code...
+			break;
+
+			default:
+				$this->_vista("informacion_basica");
+				var_dump($this->data);
+			break;
+		}
 	}
 
 	/**
@@ -29,10 +54,29 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function contactos()
+	public function contactos($accion=null)
 	{
-		$this->_vista("contactos");
-		var_dump($this->data);
+		//se cargan los contactos del cliente y se manda a llamar la vista
+		$this->data['contactos_cliente']=$this->contactosModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+
+		switch ($accion) {
+			case 'nuevo':
+				# code...
+			break;
+
+			case 'editar':
+				# code...
+			break;
+
+			case 'eliminar':
+				# code...
+			break;
+
+			default:
+				$this->_vista("contactos");
+				var_dump($this->data);
+			break;
+		}
 	}
 
 	/**
@@ -41,10 +85,26 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function sistemas()
+	public function sistemas($accion=null)
 	{
-		$this->_vista("sistemas_contpaqi");
-		var_dump($this->data);
+		switch ($accion) {
+			case 'nuevo':
+				# code...
+			break;
+
+			case 'editar':
+				# code...
+			break;
+
+			case 'eliminar':
+				# code...
+			break;
+
+			default:
+				$this->_vista("sistemas_contpaqi");
+				var_dump($this->data);
+			break;
+		}
 	}
 
 	/**
@@ -53,10 +113,26 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function equipos()
+	public function equipos($accion=null)
 	{
-		$this->_vista("equipos_computo");
-		var_dump($this->data);
+		switch ($accion) {
+			case 'nuevo':
+				# code...
+			break;
+
+			case 'editar':
+				# code...
+			break;
+
+			case 'eliminar':
+				# code...
+			break;
+
+			default:
+				$this->_vista("equipos_computo");
+				var_dump($this->data);
+			break;
+		}
 	}
 
 }
