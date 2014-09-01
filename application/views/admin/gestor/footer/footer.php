@@ -51,7 +51,7 @@
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
 			TableEditable.init(); // funciones para las tablas editables
-			ComponentsDropdowns.init(); //funciones del select y de los tags de versiones
+			ComponentsDropdowns.init(); //funciones del select y de los tags de versiones de los sistemas contpaqi
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

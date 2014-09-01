@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 04-08-2014 a las 08:05:14
--- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.12
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 01-09-2014 a las 22:34:04
+-- Versión del servidor: 5.6.17
+-- Versión de PHP: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mozcom_tienda-paq`
 --
-CREATE DATABASE IF NOT EXISTS `mozcom_tienda-paq` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `mozcom_tienda-paq`;
 
 -- --------------------------------------------------------
 
@@ -85,7 +83,16 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `password` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `codigo`, `razon_social`, `rfc`, `email`, `tipo`, `calle`, `no_exterior`, `no_interior`, `colonia`, `codigo_postal`, `ciudad`, `municipio`, `estado`, `pais`, `telefono1`, `telefono2`, `usuario`, `password`) VALUES
+(1, 'C0003', 'ACEROS Y MATERIALES DIAZ SA DE CV', 'AMD860416AZ6', 'anarg1@hotmail.com', 'normal', 'AV FRANCISCO ZARCO', '755', '', 'PRIMAVERA', '47829', 'OCOTLAN', 'OCOTLAN', 'JALISCO', 'MEXICO', '92 2 01 77', '92 2 47 40 FAX', 'C0003', 'WGIYaqh35'),
+(2, 'C0005', 'ABEL GUZMAN BARRAGAN', 'GUBA560705133', 'josecamarena01@hotmail.com', 'normal', 'MIGUEL MARTINEZ', '555', '', 'CENTRO', '45900', 'CHAPALA', 'CHAPALA', 'JALISCO', 'MEXICO', '9251949', '', 'C0005', 'jZk9WR4s'),
+(3, 'C0009', 'ALMACENES JUPESA SA DE CV', 'AJU900521CZ0', 'jupesa78.5@hotmail.com', 'normal', 'KM 78.5 CARR GUADALAJARA OCOTLAN', '423', 'A', 'LOS KOKINES', '45965', 'PONCITLAN', 'PONCITLAN', 'JALISCO', 'MEXICO', '92 25822', '92 23633', '12345', '12345');
 
 -- --------------------------------------------------------
 
@@ -94,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 CREATE TABLE IF NOT EXISTS `contactos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `nombre_contacto` varchar(30) NOT NULL,
   `apellido_paterno` varchar(20) NOT NULL,
@@ -101,33 +109,17 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   `email_contacto` varchar(50) NOT NULL,
   `telefono_contacto` varchar(14) NOT NULL,
   `puesto_contacto` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente';
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente' AUTO_INCREMENT=3 ;
 
 --
--- Estructura de tabla para la tabla `cotizacion`
+-- Volcado de datos para la tabla `contactos`
 --
 
-CREATE TABLE IF NOT EXISTS `cotizacion` (
-  `folio` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `agente` int(11) NOT NULL,
-  `cliente` int(11) NOT NULL,
-  `oficina` int(11) NOT NULL,
-  `listado` mediumtext NOT NULL,
-  `observaciones` int(11) NOT NULL,
-  `banco` int(11) NOT NULL,
-  `estatus` int(11) NOT NULL,
-  PRIMARY KEY (`folio`),
-  KEY `agente` (`agente`,`cliente`,`oficina`,`observaciones`,`banco`,`estatus`),
-  KEY `cliente` (`cliente`),
-  KEY `oficina` (`oficina`),
-  KEY `observaciones` (`observaciones`),
-  KEY `banco` (`banco`),
-  KEY `estatus` (`estatus`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `contactos` (`id`, `id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
+(1, 3, 'diego', 'rodriguez', 'cuevas', 'diego.rodeiguez@tiendapaq.com.mx', '3310657421', 'programador'),
+(2, 3, 'Luis Alberto', 'Macias', 'Angulo', 'kokin@gamail.com', '1231231235', 'Contador');
 
 -- --------------------------------------------------------
 
@@ -206,6 +198,7 @@ INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_pat
 --
 
 CREATE TABLE IF NOT EXISTS `equipos_computo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `nombre_equipo` varchar(20) CHARACTER SET latin1 NOT NULL,
   `sistema_operativo` varchar(25) CHARACTER SET latin1 NOT NULL,
@@ -216,8 +209,16 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `sql_management` varchar(50) CHARACTER SET latin1 NOT NULL,
   `instancia_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
   `password_sql` varchar(50) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='tabla con informacion de los equipos de computo del cliente';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='tabla con informacion de los equipos de computo del cliente' AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `equipos_computo`
+--
+
+INSERT INTO `equipos_computo` (`id`, `id_cliente`, `nombre_equipo`, `sistema_operativo`, `arquitectura`, `maquina_virtual`, `memoria_ram`, `sql_server`, `sql_management`, `instancia_sql`, `password_sql`) VALUES
+(1, 3, 'KOKIN-PC', 'Windows 95', 'x16', 'Si', '16M', 'sql kokin', 'management kokin', 'instancia kokin', 'password kokin');
 
 -- --------------------------------------------------------
 
@@ -243,27 +244,6 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 (5, 'proceso'),
 (6, 'suspendida'),
 (7, 'sustituida');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `estatus_cotizacion`
---
-
-CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
-  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-  `estatus` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_estatus`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Los tipos de estados que puede tener una cotizacion' AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `estatus_cotizacion`
---
-
-INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
-(1, 'enviada'),
-(2, 'revisión'),
-(3, 'pagada');
 
 -- --------------------------------------------------------
 
@@ -379,12 +359,21 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `sistema` varchar(50) CHARACTER SET latin1 NOT NULL,
   `version` varchar(10) CHARACTER SET latin1 NOT NULL,
   `no_serie` varchar(30) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla con informacion de los sistemas de contpaq del cliente';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Tabla con informacion de los sistemas de contpaq del cliente' AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `sistemas_clientes`
+--
+
+INSERT INTO `sistemas_clientes` (`id`, `id_cliente`, `sistema`, `version`, `no_serie`) VALUES
+(1, 3, 'Contpaqi Nominas', '7.3.0', '123123123');
 
 -- --------------------------------------------------------
 
@@ -440,17 +429,6 @@ INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
 --
 ALTER TABLE `contactos`
   ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `cotizacion`
---
-ALTER TABLE `cotizacion`
-  ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`agente`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`observaciones`) REFERENCES `observaciones` (`id_observacion`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`banco`) REFERENCES `bancos` (`id_banco`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `crea_pendiente`
