@@ -104,11 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
+								<a href="#">Actualizar Información</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Seccion</a>
+								<a href="#">Contactos</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -148,7 +148,7 @@
 									</thead>
 									<tbody>
 										<?php foreach ($contactos_cliente as $contacto) : ?>
-											<tr id="<?php echo $contacto->id_cliente ?>">
+											<tr id="<?php echo $contacto->id ?>">
 												<td><?php echo $contacto->nombre_contacto ?></td>
 												<td><?php echo $contacto->apellido_paterno ?></td>
 												<td><?php echo $contacto->apellido_materno ?></td>
@@ -161,6 +161,7 @@
 										<?php endforeach ?>
 									</tbody>
 								</table>
+								<br>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
 										<button id="tabla_contactos_cliente_new" class="btn green btn-xs">

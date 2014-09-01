@@ -26,8 +26,9 @@ var TableEditable = function () {
             jqTds[6].innerHTML = '<a class="edit" href="">Guardar</a>';
             jqTds[7].innerHTML = '<a class="cancel" href="">Cancelar</a>';
         }
+
         //funcion para obtener los valores de los inputs y guardarlos en la bd
-        //ya sea creando nueva oficina o editando una existente
+        //ya sea creando un nuevo contacto o editando uno existente
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
 
@@ -42,27 +43,26 @@ var TableEditable = function () {
             oTable.fnDraw();
 
             //extraemos el id del tr para saber que objeto manipulamos
-            var id_oficina = $(nRow).attr('id');
-            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor/oficinas
-            var oficina='id_oficina='+id_oficina+'&'+
-                        'ciudad='+jqInputs[0].value+'&'+
-                        'estado='+jqInputs[1].value+'&'+
-                        'colonia='+jqInputs[2].value+'&'+
-                        'calle='+jqInputs[3].value+'&'+
-                        'numero='+jqInputs[4].value+'&'+
-                        'email='+jqInputs[5].value+'&'+
-                        'telefono='+jqInputs[6].value;
+            var id = $(nRow).attr('id');
+            //variable creada a manera de sintaxis post para mandar los valores al controlador gestor/clientes en modo cliente
+            var contacto='id='+id+'&'+
+                        'nombre_contacto='+jqInputs[0].value+'&'+
+                        'apellido_paterno='+jqInputs[1].value+'&'+
+                        'apellido_materno='+jqInputs[2].value+'&'+
+                        'email_contacto='+jqInputs[3].value+'&'+
+                        'telefono_contacto='+jqInputs[4].value+'&'+
+                        'puesto_contacto='+jqInputs[5].value;
 
-            //if para saber si se trata de una oficina editada o de una nueva
-            //si no tiene id es nueva, si tiene un id existente es editada
-            if(id_oficina!=undefined)
+            //if para saber si se trata de una una edicion o un insercion
+            //si no tiene id es insercion, si tiene un id existente es edicion
+            if(id!=undefined)
             {
                 $.ajax({
-                    url: "/gestor/oficinas/editar",
+                    url: "/actualizar/contactos/editar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: oficina,
+                    data: contacto,
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -73,7 +73,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, actualizada con éxito</h4>",function () {
+                            bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, actualizado con éxito</h4>",function () {
                                 parent.location.reload();
                             });
                         } else {
@@ -87,11 +87,11 @@ var TableEditable = function () {
             }else
             {
                 $.ajax({
-                    url: "/gestor/oficinas/nuevo",
+                    url: "/actualizar/contactos/nuevo",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: oficina,
+                    data: contacto,
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -102,7 +102,7 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, añadida con éxito</h4>", function () {
+                            bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, añadido con éxito</h4>", function () {
                                 parent.location.reload();
                             });
                         } else {
@@ -125,16 +125,14 @@ var TableEditable = function () {
             oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
             oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
             oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
-            oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 7, false);
+            oTable.fnUpdate('<a class="edit" href="">Editar</a>', nRow, 6, false);
             oTable.fnDraw();
         }
 
-        var table = $('#tabla_oficinas_editable');
+        var table = $('#tabla_contactos_cliente');
 
         var oTable = table.dataTable({
             "pageLength": 25,
-            searching: false,
             "lengthChange": false,
             "columns": [
                 { "orderable": true },
@@ -144,19 +142,19 @@ var TableEditable = function () {
                 { "orderable": true },
                 { "orderable": true },
                 { "orderable": false },
-                { "orderable": false },
                 { "orderable": false }
             ],
             "language": {
-                "emptyTable":     "No hay oficinas registradas",
-                "info":           "Mostrando _START_ a _END_ de _TOTAL_ oficinas",
-                "infoEmpty":      "Mostrando 0 a 0 de 0 oficinas",
-                "infoFiltered":   "(de un total de _MAX_ oficinas registradas)",
+                "emptyTable":     "No hay contactos registrados",
+                "info":           "Mostrando _START_ a _END_ de _TOTAL_ contactos",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 contactos",
+                "infoFiltered":   "(de un total de _MAX_ contactos registrados)",
                 "infoPostFix":    "",
                 "thousands":      ",",
                 "lengthMenu":     "Show _MENU_ entries",
                 "loadingRecords": "Cargando...",
                 "processing":     "Procesando...",
+                "search":         "Buscar: ",
                 "zeroRecords":    "No se encontraron coincidencias",
                 "lengthMenu": "_MENU_ registros"
             },
@@ -170,7 +168,7 @@ var TableEditable = function () {
                 "targets": [0]
                 }
             ],
-            "order": [] // set first column as a default sort by asc
+            "order": [ 0, 'asc' ] // set first column as a default sort by asc
         });
 
         var tableWrapper = $("#tabla_contactos_cliente_wrapper");
@@ -192,7 +190,7 @@ var TableEditable = function () {
             } else
             {
                 //valores por default en ls inputs al crear nueva oficina
-                var aiNew = oTable.fnAddData(['', '', '', '', '#', '','(999) 999-9999','','']);
+                var aiNew = oTable.fnAddData(['', '', '', '', '(999) 999-9999','','','']);
                 var nRow = oTable.fnGetNodes(aiNew[0]);
                 editRow(oTable, nRow);
                 nEditing = nRow;
@@ -207,18 +205,18 @@ var TableEditable = function () {
             //valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
             var nRow = $(this).parents('tr')[0];
             var aData = oTable.fnGetData(nRow);
-            var id_oficina = $(nRow).attr('id');
+            var id = $(nRow).attr('id');
 
-            bootbox.confirm("<h4>¿Seguro que quieres eliminar la oficina de <b>"+aData[0]+", "+aData[1]+"</b>?</h4>", function (result){
+            bootbox.confirm("<h4>¿Seguro que quieres eliminar el contacto <b>"+aData[0]+" "+aData[1]+" "+aData[2]+"</b>?</h4>", function (result){
                 //result guarda el booleano respondido en el comfirm
                 if(result){
                     //ajax para borrar la oficina
                     $.ajax({
-                        url: "/gestor/oficinas/eliminar",
+                        url: "/actualizar/contactos/eliminar",
                         type: 'post',
                         cache: false,
                         dataType: 'json',
-                        data: "id_oficina="+id_oficina+"&ciudad="+aData[0]+"&estado="+aData[1],
+                        data: "id="+id+"&nombre_contacto="+aData[0]+"&apellido_paterno="+aData[1]+"&apellido_materno="+aData[2],
                         beforeSend: function () {
                            //('body').modalmanager('loading');
                         },
@@ -229,7 +227,7 @@ var TableEditable = function () {
                         },
                         success: function(data) {
                             if (data.exito) {
-                                bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, eliminada con éxito<h4>");
+                                bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, eliminado con éxito<h4>");
                                 //parent.location.reload();
                                 oTable.fnDeleteRow(nRow);
                             } else {
