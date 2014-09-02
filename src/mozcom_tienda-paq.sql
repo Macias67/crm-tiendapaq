@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-09-2014 a las 22:34:04
+-- Tiempo de generación: 03-09-2014 a las 00:04:29
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -111,15 +111,15 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   `puesto_contacto` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='tabla donde se guarda la información del contacto del cliente' AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `contactos`
 --
 
 INSERT INTO `contactos` (`id`, `id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
-(1, 3, 'diego', 'rodriguez', 'cuevas', 'diego.rodeiguez@tiendapaq.com.mx', '3310657421', 'programador'),
-(2, 3, 'Luis Alberto', 'Macias', 'Angulo', 'kokin@gamail.com', '1231231235', 'Contador');
+(2, 3, 'Luis Alberto', 'Macias', 'Angulo', 'macias@gmail.com', '1231231235', 'Soporte'),
+(5, 3, 'Diego Iván', 'Rodriguez', 'Cuevas', 'diego@gmail.com', '(331) 065-7421', 'Programador');
 
 -- --------------------------------------------------------
 
@@ -393,13 +393,13 @@ CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
 --
 
 INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
-(1, 'CONTPAQi® CONTABILIDAD', ''),
-(2, 'CONTPAQi® NÓMINAS', ''),
-(3, 'CONTPAQI® BANCOS', ''),
-(4, 'CONTPAQI® ADMINPAQ®', ''),
-(5, 'CONTPAQI® COMERCIAL', ''),
-(6, 'CONTPAQI® FACTURA ELECTRÓNICA', ''),
-(7, 'CONTPAQI® PUNTO DE VENTA', '');
+(1, 'CONTPAQi® CONTABILIDAD', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.1, 7.1.0, 7.1.1, 7.2.0'),
+(2, 'CONTPAQi® NÓMINAS', '4.0.0, 4.0.1, 4.0.2, 4.0.3, 4.0.4, 4.0.5, 4.0.6, 5.0.0, 5.0.1, 5.1.0, 5.1.2, 5.1.3, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 6.2.0, 6.2.1, 6.2.2, 6.3.0'),
+(3, 'CONTPAQI® BANCOS', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 7.1.0, 7.1.1, 7.2.0'),
+(4, 'CONTPAQI® ADMINPAQ®', '7.0.0, 7.1.1, 7.1.2, 7.2.0, 7.2.1, 7.3.0, 7.3.1, 7.3.2, 7.3.3'),
+(5, 'CONTPAQI® COMERCIAL', '1.0.1'),
+(6, 'CONTPAQI® FACTURA ELECTRÓNICA', '2.1.0, 2.2.0, 2.2.1, 2.3.0, 2.3.1, 2.3.2, 2.5.0, 2.5.1, 2.5.2'),
+(7, 'CONTPAQI® PUNTO DE VENTA', '3.0.0, 3.1.1, 3.2.0, 3.2.2');
 
 -- --------------------------------------------------------
 

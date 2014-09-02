@@ -15,6 +15,7 @@ class Gestor extends AbstractAccess {
 		$this->load->library('form_validation');
 		//modelos a utilizar
 		$this->load->model('contactosModel');
+		$this->load->model('sistemasContpaqiModel');
 		$this->load->model('sistemasClienteModel');
 		$this->load->model('equiposComputoModel');
 	}
@@ -184,7 +185,8 @@ class Gestor extends AbstractAccess {
 	public function sistemas($accion=null)
 	{
 		//se cargan los sistemas contpaqui del cliente y se manda a llamar la vista
-		$this->data['sistemas_contpaqi']=$this->sistemasClienteModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+		$this->data['sistemas_contpaqi']=$this->sistemasContpaqiModel->get(array('*'));
+		$this->data['sistemas_contpaqi_cliente']=$this->sistemasClienteModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
 
 		switch ($accion) {
 			case 'nuevo':
@@ -192,7 +194,7 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'editar':
-				# code...
+				# code.
 			break;
 
 			case 'eliminar':
