@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-09-2014 a las 00:04:29
+-- Tiempo de generación: 03-09-2014 a las 01:04:41
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -118,8 +118,7 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 --
 
 INSERT INTO `contactos` (`id`, `id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
-(2, 3, 'Luis Alberto', 'Macias', 'Angulo', 'macias@gmail.com', '1231231235', 'Soporte'),
-(5, 3, 'Diego Iván', 'Rodriguez', 'Cuevas', 'diego@gmail.com', '(331) 065-7421', 'Programador');
+(2, 3, 'Luis Alberto', 'Macias', 'Angulo', 'macias@gmail.com', '1231231235', 'Soporte');
 
 -- --------------------------------------------------------
 
@@ -342,7 +341,7 @@ INSERT INTO `privilegios` (`privilegios`) VALUES
 
 CREATE TABLE IF NOT EXISTS `productos` (
   `codigo` varchar(20) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
   `unidad` varchar(30) NOT NULL DEFAULT 'Pieza',
   `precio` float NOT NULL,
   `impuesto1` float NOT NULL,
