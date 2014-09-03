@@ -189,6 +189,20 @@ class Gestor extends AbstractAccess {
 		$this->data['sistemas_contpaqi_cliente']=$this->sistemasClienteModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
 
 		switch ($accion) {
+			//Caso para actualizar las versiones en el select dependiendo el sistemas seleccionado en la ventana modal para añadir un nuevo sistema
+			case 'versiones':
+				$id_sistema=$this->input->post('id_sistema');
+				$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('id_sistema' => $id_sistema));
+
+				$versiones_array=explode(',',$versiones[0]->versiones);
+				$num_versiones=count($versiones_array);
+
+				$respuesta = array('exito' => TRUE, 'versiones' => $versiones_array, 'num_versiones' => $num_versiones);
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
+			break;
 			case 'nuevo':
 				# code...
 			break;

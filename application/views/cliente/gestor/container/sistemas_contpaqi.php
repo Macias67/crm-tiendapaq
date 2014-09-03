@@ -118,7 +118,9 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-2">
+					</div>
+					<div class="col-md-8">
 						<!-- BEGIN TABLA SIATEMAS CONTPAQI -->
 						<div class="portlet box grey">
 							<div class="portlet-title">
@@ -140,7 +142,6 @@
 											<th>Versión</th>
 											<th>Número de Serie</th>
 											<th></th>
-											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -149,7 +150,6 @@
 												<td><?php echo $sistema->sistema ?></td>
 												<td><?php echo $sistema->version ?></td>
 												<td><?php echo $sistema->no_serie ?></td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
 												<td><a class="delete" href="javascript:;">Eliminar </a></td>
 											</tr>
 										<?php endforeach ?>
@@ -163,6 +163,8 @@
 							</div>
 						</div>
 						<!-- END TABLA SIATEMAS CONTPAQI -->
+					</div>
+					<div class="col-md-2">
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
@@ -179,7 +181,7 @@
 				</h3>
 				<small> <?php echo $usuario_activo['razon_social'] ?></small>
 			</div>
-			<form action="<?php echo site_url('cliente/add') ?>" id ="form-nuevo-sistema" method="post" accept-charset="utf-8">
+			<form action="<?php echo site_url('/actualizar/sistemas/nuevo') ?>" id ="form-nuevo-sistema" method="post" accept-charset="utf-8">
 				<div class="modal-body form-horizontal">
 					<div>
 						<!-- DIV ERROR -->

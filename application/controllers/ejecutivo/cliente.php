@@ -234,7 +234,6 @@ class Cliente extends AbstractAccess {
 		$versiones_array=explode(',',$versiones[0]->versiones);
 		$num_versiones=count($versiones_array);
 
-		//var_dump($versiones_array);
 		$respuesta = array('exito' => TRUE, 'versiones' => $versiones_array, 'num_versiones' => $num_versiones);
 
 		$this->output
