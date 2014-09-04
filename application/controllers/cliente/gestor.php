@@ -204,7 +204,8 @@ class Gestor extends AbstractAccess {
 				->set_output(json_encode($respuesta));
 			break;
 			case 'nuevo':
-				# code...
+				$sistema;
+				$version;
 			break;
 
 			case 'editar':
@@ -212,7 +213,20 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				# code...
+				$id = $this->input->post('id');
+				$sistema = $this->input->post('sistema');
+				$version = $this->input->post('version');
+
+				if(!$this->sistemasClienteModel->delete(array('id' => $id))){
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+				}else
+				{
+					$respuesta = array('exito' => TRUE, 'sistema' => $sistema.' versión '.$version);
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
 
 			default:

@@ -347,11 +347,6 @@ var TableEditable = function () {
         var nEditing = null;
         var nNew = false;
 
-        $(document).on("show.bs.modal", ".modal", function() {
-            //alert("kokin");
-            $(document.body).removeClass('modal-scrollable');
-        });
-
         //funcion para eliminar
         table.on('click', '.delete', function (e) {
             e.preventDefault();
@@ -365,32 +360,32 @@ var TableEditable = function () {
                 //result guarda el booleano respondido en el comfirm
                 if(result){
                     //ajax para borrar
-                    // $.ajax({
-                    //     url: "/actualizar/contactos/eliminar",
-                    //     type: 'post',
-                    //     cache: false,
-                    //     dataType: 'json',
-                    //     data: "id="+id+"&nombre_contacto="+aData[0]+"&apellido_paterno="+aData[1]+"&apellido_materno="+aData[2],
-                    //     beforeSend: function () {
-                    //        //('body').modalmanager('loading');
-                    //     },
-                    //     error: function(jqXHR, status, error) {
-                    //         console.log("ERROR: "+error);
-                    //         alert('ERROR: revisa la consola del navegador para más detalles.');
-                    //         //$('body').modalmanager('removeLoading');
-                    //     },
-                    //     success: function(data) {
-                    //         if (data.exito) {
-                    //             bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, eliminado con éxito<h4>");
-                    //             //parent.location.reload();
-                    //             oTable.fnDeleteRow(nRow);
-                    //         } else {
-                    //             bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                    //             //$('body').modalmanager('removeLoading');
-                    //             //parent.location.reload();
-                    //         }
-                    //     }
-                    // });
+                    $.ajax({
+                        url: "/actualizar/sistemas/eliminar",
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
+                        beforeSend: function () {
+                           //('body').modalmanager('loading');
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log("ERROR: "+error);
+                            alert('ERROR: revisa la consola del navegador para más detalles.');
+                            //$('body').modalmanager('removeLoading');
+                        },
+                        success: function(data) {
+                            if (data.exito) {
+                                bootbox.alert("<h4>Sistema : <b>"+data.sistema+"</b>, eliminado con éxito<h4>");
+                                //parent.location.reload();
+                                oTable.fnDeleteRow(nRow);
+                            } else {
+                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
+                                //$('body').modalmanager('removeLoading');
+                                //parent.location.reload();
+                            }
+                        }
+                    });
                 }else{
                     return;
                 }
