@@ -10,17 +10,8 @@ class Inicio extends AbstractAccess {
 	public function index()
 	{
 		if($this->usuario_activo['privilegios']=="cliente"){
-			//modelos de los cuales se extraeran datos
-			$this->load->model('contactosModel');
-			$this->load->model('sistemasClienteModel');
-			$this->load->model('equiposComputoModel');
-			//adjuntar datos para mostrar en la vista
-			$this->data['contactos_cliente']=$this->contactosModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
-			$this->data['sistemas_contpaqi']=$this->sistemasClienteModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
-			$this->data['equipo_computo']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
-			//viiista principal
 			$this->_vista('principal');
-			var_dump($this->data);
+			//var_dump($this->data);
 		}else{
 			// Cargo modelos
 			$this->load->model('ejecutivoModel');

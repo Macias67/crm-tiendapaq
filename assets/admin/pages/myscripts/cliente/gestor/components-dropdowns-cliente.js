@@ -44,10 +44,51 @@ var ComponentsDropdowns = function () {
         });
     }
 
+    //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
+     var handleGuardarSistema = function () {
+
+        var sistema = $("#select_sistemas").val();
+        var version = $("#select_versiones").val();
+        var no_serie = $("#no_serie").val();
+
+        $("#btn_guardar_sistema").click(function () {
+
+            if(sistema!="" && version!="" && no_serie!="")
+            {
+                $.ajax({
+                    url: "/actualizar/sistemas/nuevo",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            
+                        } else {
+                            bootbox.alert('<h4><b>Error :</b>'+data.msg+'</h4>');
+                            //$('body').modalmanager('removeLoading');
+                        }
+                    }
+                });
+            }else{
+                bootbox.alert("Debes completar el formulario");
+            }
+        });
+    }
+
     return {
         //main function to initiate the module
         init: function () {
             handleVersionesSistema();
+            handleGuardarSistema();
         }
     };
 

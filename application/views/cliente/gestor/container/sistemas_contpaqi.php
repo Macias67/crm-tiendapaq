@@ -181,7 +181,7 @@
 				</h3>
 				<small> <?php echo $usuario_activo['razon_social'] ?></small>
 			</div>
-			<form action="<?php echo site_url('/actualizar/sistemas/nuevo') ?>" id ="form-nuevo-sistema" method="post" accept-charset="utf-8">
+			<form id ="form-nuevo-sistema" method="post" accept-charset="utf-8">
 				<div class="modal-body form-horizontal">
 					<div>
 						<!-- DIV ERROR -->
@@ -239,7 +239,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-					<button type="submit" class="btn green">Guardar</button>
+					<button type="button" id="btn_guardar_sistema" class="btn green">Guardar</button>
 				</div>
 			</form>
 		</div>
