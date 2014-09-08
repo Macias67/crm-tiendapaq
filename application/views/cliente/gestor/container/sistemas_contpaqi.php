@@ -125,7 +125,7 @@
 						<div class="portlet box grey">
 							<div class="portlet-title">
 								<div class="caption" style="color: black">
-									<i class="fa fa-users"></i> Sistemas <strong>CONTPAQi®</strong>
+									<i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong>
 								</div>
 								<div class="tools" style="color: black">
 									<a href="javascript:;" class="collapse">

@@ -287,7 +287,7 @@ var TableEditable = function () {
         });
     }
 
-        //Tabla de gestion sistemas contpaqi del cliente
+    //Tabla de gestion sistemas contpaqi del cliente
     var handleTableSistemas= function () {
 
         function restoreRow(oTable, nRow) {

@@ -260,7 +260,7 @@ class Gestor extends AbstractAccess {
 	public function equipos($accion=null)
 	{
 		//se cargan los equipos de computo del cliente y se manda a llamar la vista
-		$this->data['equipo_computo']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+		$this->data['equipos_computo']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
 
 		switch ($accion) {
 			case 'nuevo':
@@ -277,7 +277,7 @@ class Gestor extends AbstractAccess {
 
 			default:
 				$this->_vista("equipos_computo");
-				var_dump($this->data);
+				//var_dump($this->data);
 			break;
 		}
 	}

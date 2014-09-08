@@ -104,11 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
+								<a href="#">Actualizar Información</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Seccion</a>
+								<a href="#">Información Básica</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->

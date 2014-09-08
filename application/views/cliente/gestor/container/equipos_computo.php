@@ -104,11 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
+								<a href="#">Actualizar Información</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Seccion</a>
+								<a href="#">Equipos de Computo</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -119,10 +119,102 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<!-- BEGIN TABLA EQUIPOS -->
+						<div class="portlet box grey">
+							<div class="portlet-title">
+								<div class="caption" style="color: black">
+									<i class="fa fa-desktop"></i> Equipos registrados
+								</div>
+								<div class="tools" style="color: black">
+									<a href="javascript:;" class="collapse">
+									</a>
+									<a href="javascript:;" class="reload">
+									</a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<table class="table table-striped table-hover table-bordered" id="tabla_equipos_cliente">
+									<thead>
+										<tr>
+											<th>Nombre</th>
+											<th>Sistema O.</th>
+											<th>Bits</th>
+											<th>M. Virtual</th>
+											<th>RAM</th>
+											<th>SQL Server</th>
+											<th>SQL Management</th>
+											<th>Instancia SQL</th>
+											<th>Contaseña SQL</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($equipos_computo as $equipo) : ?>
+											<tr id="<?php echo $equipo->id ?>">
+												<td><?php echo $equipo->nombre_equipo ?></td>
+												<td><?php echo $equipo->sistema_operativo ?></td>
+												<td><?php echo $equipo->arquitectura ?></td>
+												<td><?php echo $equipo->maquina_virtual ?></td>
+												<td><?php echo $equipo->memoria_ram ?></td>
+												<td><?php echo $equipo->sql_server ?></td>
+												<td><?php echo $equipo->sql_management ?></td>
+												<td><?php echo $equipo->instancia_sql ?></td>
+												<td><?php echo $equipo->password_sql ?></td>
+												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+											</tr>
+										<?php endforeach ?>
+									</tbody>
+								</table>
+								<br>
+								<div class="table-toolbar">
+									<div class="btn-group pull-right">
+										<a href="#" class="btn green btn-xs" data-target="#nuevo-equipo" data-toggle="modal"><i class="fa fa-plus"></i> Nueva Equipo </a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END TABLA EQUIPOS -->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
 			</div>
 		</div>
 		<!-- END CONTENT -->
+
+<!-- BEGIN VENTANAS MODALES -->
+	<!-- BEGIN NUEVO SISTEMA -->
+		<div id="nuevo-equipo" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+			<div class="modal-header">
+				<h3 class="modal-title">
+					<b>Registrar Equipo de cómputo</b>
+				</h3>
+				<small> <?php echo $usuario_activo['razon_social'] ?></small>
+			</div>
+			<form id ="form-nuevo-equipo" method="post" accept-charset="utf-8">
+				<div class="modal-body form-horizontal">
+					<div>
+						<!-- DIV ERROR -->
+						<div class="alert alert-danger display-hide">
+							<button class="close" data-close="alert"></button>
+							Tienes Errores en tu formulario
+						</div>
+						<!-- DIV SUCCESS -->
+						<div class="alert alert-success display-hide">
+							<button class="close" data-close="alert"></button>
+							Exito en el formulario
+						</div>
+						<!-- BEGIN FORM BODY -->
+						<div class="form-body">
+							Cuerpo del formulario
+						</div>
+						<!-- END FORM BODY -->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+					<button type="button" id="btn_guardar_equipo" class="btn green">Guardar</button>
+				</div>
+			</form>
+		</div>
+	<!-- END NUEVO SISTEMA -->
+<!-- END VENTANAS MODALES -->
