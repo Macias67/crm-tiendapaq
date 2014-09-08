@@ -2,21 +2,21 @@ var ComponentsDropdowns = function () {
 
     var handleVersionesSistema = function () {
 
-        var id_sistema;
+        var sistema;
 
         //funcion change detecta cambios en el objeto
         //seleccionado es este caso un select
         $("#select_sistemas").change(function(){
-            id_sistema = $('#select_sistemas').val();
+            sistema = $('#select_sistemas').val();
             //filtro para verificar que hay un sistema seleccionado
-            if(id_sistema!=undefined && id_sistema!="")
+            if(sistema!="")
             {
                 $.ajax({
                     url: "/actualizar/sistemas/versiones",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: "id_sistema="+id_sistema,
+                    data: "sistema="+sistema,
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -39,19 +39,17 @@ var ComponentsDropdowns = function () {
                     }
                 });
             }else{
-                 $('#select_versiones').html("");
+                 $('#select_versiones').html("<option value=''></option>");
             }
         });
     }
 
     //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
      var handleGuardarSistema = function () {
-
-        var sistema = $("#select_sistemas").val();
-        var version = $("#select_versiones").val();
-        var no_serie = $("#no_serie").val();
-
         $("#btn_guardar_sistema").click(function () {
+            var sistema = $("#select_sistemas").val();
+            var version = $("#select_versiones").val();
+            var no_serie = $("#no_serie").val();
 
             if(sistema!="" && version!="" && no_serie!="")
             {
@@ -71,7 +69,9 @@ var ComponentsDropdowns = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            
+                            bootbox.alert("<h4>Sistema : <b>"+data.sistema+"</b>, agregado con éxito<h4>",function () {
+                                parent.location.reload();
+                            });
                         } else {
                             bootbox.alert('<h4><b>Error :</b>'+data.msg+'</h4>');
                             //$('body').modalmanager('removeLoading');

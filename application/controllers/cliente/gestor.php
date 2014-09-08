@@ -191,8 +191,8 @@ class Gestor extends AbstractAccess {
 		switch ($accion) {
 			//Caso para actualizar las versiones en el select dependiendo el sistemas seleccionado en la ventana modal para añadir un nuevo sistema
 			case 'versiones':
-				$id_sistema=$this->input->post('id_sistema');
-				$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('id_sistema' => $id_sistema));
+				$sistema=$this->input->post('sistema');
+				$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('sistema' => $sistema));
 
 				$versiones_array=explode(',',$versiones[0]->versiones);
 				$num_versiones=count($versiones_array);
@@ -204,8 +204,23 @@ class Gestor extends AbstractAccess {
 				->set_output(json_encode($respuesta));
 			break;
 			case 'nuevo':
-				$sistema;
-				$version;
+			//datos a insertar obtenidos del formulario
+			$sistema_cliente = array(
+				'id_cliente'	=> $this->data['usuario_activo']['id'],
+				'sistema'     => $this->input->post('sistema'),
+				'version'     => $this->input->post('version'),
+				'no_serie'    => $this->input->post('no_serie')
+			 );
+
+				if(!$this->sistemasClienteModel->insert($sistema_cliente)){
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+				}else{
+					$respuesta = array('exito' => TRUE, 'sistema' => $sistema_cliente['sistema'].' versión '.$sistema_cliente['version']);
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
 
 			case 'editar':

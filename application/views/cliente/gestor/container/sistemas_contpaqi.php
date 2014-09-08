@@ -206,7 +206,7 @@
 										<select class="form-control" name="sistema" id="select_sistemas">
 											<option value=""></option>
 											<?php foreach ($sistemas_contpaqi as $sistema): ?>
-											<option value="<?php echo $sistema->id_sistema?>"><?php echo $sistema->sistema ?></option>
+											<option value="<?php echo $sistema->sistema?>"><?php echo $sistema->sistema ?></option>
 											<?php endforeach ?>
 										</select>
 									</div>
@@ -229,7 +229,7 @@
 								<div class="col-md-8">
 									<div class="input-icon">
 										<i class="fa fa-barcode"></i>
-										<input type="text" class="form-control" placeholder="No. de Serie" name="no_serie">
+										<input type="text" class="form-control" placeholder="No. de Serie" name="no_serie" id="no_serie">
 									</div>
 								</div>
 							</div>
