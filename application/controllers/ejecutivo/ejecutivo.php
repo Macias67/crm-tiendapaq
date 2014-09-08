@@ -378,7 +378,7 @@ class Ejecutivo extends AbstractAccess {
 		//cargo la libreria
 		$this->load->library('image_lib');
 		//obtengo la ruta donde se encuentra la imagen base para crear las demas
-		$src = $this->usuario_activo['ruta_imagenes'].'perfil.jpg';
+		$src = 'assets/admin/pages/media/profile/'.$this->usuario_activo['id'].'/perfil.jpg';
 
 		//obtengo los puntos claves del recorte
 		$pos_x	= $this->input->post('x');

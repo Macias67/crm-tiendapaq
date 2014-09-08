@@ -120,7 +120,7 @@
 					<div class="col-md-12">
 						<div class="col-md-8 responsive-1024">
 							<!-- This is the image we're attaching Jcrop to -->
-							<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" id="imagen_ejecutivo" alt="Jcrop Example"/>
+							<img src="<?php echo $usuario_activo['ruta_imagenes'].'perfil.jpg' ?>" id="imagen_ejecutivo" alt="Jcrop Example"/>
 						</div>
 						<div class="col-md-4 responsive-1024">
 							<h3>Recorta tu imagen.</h3>

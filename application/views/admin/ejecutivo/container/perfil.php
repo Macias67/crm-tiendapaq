@@ -144,7 +144,7 @@
 										<div class="col-md-3">
 											<ul class="list-unstyled profile-nav">
 												<li>
-													<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'perfil.jpg') ?>" class="img-responsive" alt=""/>
+													<img src="<?php echo $usuario_activo['ruta_imagenes'].'perfil.jpg' ?>" class="img-responsive" alt=""/>
 												</li>
 											</ul>
 											<div class="row">
@@ -900,7 +900,7 @@
 														<div class="form-group">
 															<div class="fileinput fileinput-new" data-provides="fileinput">
 																<div class="fileinput-new thumbnail" style="width: 300px; height: 300px;">
-																	<img src="<?php echo site_url($usuario_activo['ruta_imagenes'].'block.jpg') ?>" alt=""/>
+																	<img src="<?php echo $usuario_activo['ruta_imagenes'].'block.jpg' ?>" alt=""/>
 																</div>
 																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 300px;">
 																</div>
