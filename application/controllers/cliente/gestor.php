@@ -18,6 +18,7 @@ class Gestor extends AbstractAccess {
 		$this->load->model('sistemasContpaqiModel');
 		$this->load->model('sistemasClienteModel');
 		$this->load->model('equiposComputoModel');
+		$this->load->model('sistemasOperativosModel');
 	}
 
 	public function index(){}
@@ -261,6 +262,7 @@ class Gestor extends AbstractAccess {
 	{
 		//se cargan los equipos de computo del cliente y se manda a llamar la vista
 		$this->data['equipos_computo']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+		$this->data['sistemas_operativos']=$this->sistemasOperativosModel->get(array('*'));
 
 		switch ($accion) {
 			case 'nuevo':
