@@ -266,7 +266,50 @@ class Gestor extends AbstractAccess {
 
 		switch ($accion) {
 			case 'nuevo':
-				# code...
+				//reglas de contactos
+				$this->form_validation->set_rules('nombre_equipo', 'Nombre del Equipo', 'trim|required|strtoupper|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('arquitectura', 'Arquitectura', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('maquina_virtual', 'Maquina Virtual', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('memoria_ram', 'Memoria RAM', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('sql_server', 'SQL Server', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('sql_management', 'SQL Management', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('instancia_sql', 'Instancia SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[50]|xss_clean');
+
+				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else
+				{
+					//si las reglas son correctas preparo los datos para insertar
+					$equipo = array(
+						'id_cliente'				=> $this->data['usuario_activo']['id'],
+						'nombre_equipo' 	  => $this->input->post('nombre_equipo'),
+						'sistema_operativo' => $this->input->post('sistema_operativo'),
+						'arquitectura' 	    => $this->input->post('arquitectura'),
+						'maquina_virtual' 	=> $this->input->post('maquina_virtual'),
+						'memoria_ram'       => $this->input->post('memoria_ram'),
+						'sql_server' 	      => $this->input->post('sql_server'),
+						'sql_management' 	  => $this->input->post('sql_management'),
+						'instancia_sql' 	  => $this->input->post('instancia_sql'),
+						'password_sql' 	    => $this->input->post('password_sql')
+					);
+					//inserto en la bd
+					if(!$this->equiposComputoModel->insert($equipo))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'equipo' => $equipo['nombre_equipo']);
+					}
+				}
+				//mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+
+
 			break;
 
 			case 'editar':
@@ -274,7 +317,19 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				# code...
+				$id = $this->input->post('id');
+				$nombre_equipo = $this->input->post('nombre_equipo');
+
+				if(!$this->equiposComputoModel->delete(array('id' => $id))){
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+				}else
+				{
+					$respuesta = array('exito' => TRUE, 'equipo' => $nombre_equipo);
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 			break;
 
 			default:
