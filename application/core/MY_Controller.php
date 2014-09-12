@@ -15,6 +15,48 @@ abstract class AbstractController extends CI_Controller {
 	public $data = array();
 
 	/**
+	 * Variable con los nombre de los estados
+	 * de México
+	 *
+	 * @var array
+	 **/
+
+	public $estados = array(
+			"Aguascalientes",
+			"Baja California",
+			"Baja California Sur",
+			"Campeche",
+			"Chiapas",
+			"Chihuahua",
+			"Coahuila",
+			"Colima",
+			"Distrito Federal",
+			"Durango",
+			"Estado de México",
+			"Guanajuato",
+			"Guerrero",
+			"Hidalgo",
+			"Jalisco",
+			"Michoacán",
+			"Morelos",
+			"Nayarit",
+			"Nuevo León",
+			"Oaxaca",
+			"Puebla",
+			"Querétaro",
+			"Quintana Roo",
+			"San Luis Potosí",
+			"Sinaloa",
+			"Sonora",
+			"Tabasco",
+			"Tamaulipas",
+			"Tlaxcala",
+			"Veracruz",
+			"Yucatán",
+			"Zacatecas"
+		);
+
+	/**
 	 * Patron para el titulo en las vistas
 	 *
 	 * @var string

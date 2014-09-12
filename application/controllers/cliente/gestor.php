@@ -39,7 +39,12 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'editar':
-				# code...
+				$respuesta = array('exito' => TRUE, 'razon_social' => "KOKIN");
+
+				//mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
 			break;
 
 			case 'eliminar':

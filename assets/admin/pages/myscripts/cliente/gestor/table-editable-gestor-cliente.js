@@ -431,6 +431,8 @@ var TableEditable = function () {
     //Tabla de gestion de Equipos de computo en modo cliente
     var handleTableEquipos= function () {
 
+        $('#memoria-ram').spinner();
+
         function restoreRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
