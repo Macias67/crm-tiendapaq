@@ -1,5 +1,24 @@
 var FormValidationCliente = function () {
 
+    //Funcion para que si es estados unidos no se pinten los estados
+    var handPais = function() {
+        var pais;
+
+    	$("#pais").change(function(){
+        pais = $('#pais').val();
+
+        if(pais=="Estados Unidos"){
+        	$("#estado").hide('slow/400/fast', function() {
+        		
+        	});
+        }else{
+        		$("#estado").show('slow/400/fast', function() {
+        			
+        		});
+        }
+      });
+    }
+
 	// Validacion para formulario de cliente nuevo completo en la vista del sidebar
 	var handBasicaCliente = function() {
 		// for more info visit the official plugin documentation:
@@ -35,9 +54,11 @@ var FormValidationCliente = function () {
 					required: true
 				},
 				no_exterior: {
+					maxlength: 5,
 					required: true
 				},
 				no_interior: {
+					maxlength: 5
 				},
 				colonia: {
 					maxlength: 20
@@ -84,9 +105,11 @@ var FormValidationCliente = function () {
 					maxlength: "La calle debe tener menos de 50 caracteres"
 				},
 				no_exterior: {
+					maxlength: "Menos de 5 digitos",
 					required: "Escribe el No. exterior"
 				},
 				no_interior: {
+					maxlength: "Menos de 5 digitos",
 				},
 				colonia: {
 					maxlength: "La colonia debe tener menos de 20 caracteres"
@@ -177,6 +200,7 @@ var FormValidationCliente = function () {
 		//main function to initiate the module
 		init: function () {
 			handBasicaCliente();
+			handPais();
 		}
 	};
 }();

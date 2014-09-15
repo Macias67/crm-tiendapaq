@@ -303,7 +303,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
-														<select class="form-control" name="estado">
+														<select class="form-control" name="estado" id="estado">
 															<option value="<?php echo $usuario_activo['estado'] ?>"><?php echo $usuario_activo['estado'] ?></option>
 															<?php foreach ($this->estados as $estado): ?>
 																<?php if ($usuario_activo['estado']!=$estado): ?>
@@ -320,9 +320,9 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
-														<select class="form-control" name="pais">
-															<option value="Estados Unidos">Estados Unidos</option>
-															<option value="México" selected>México</option>
+														<select class="form-control" name="pais" id="pais">
+															<option value="Estados Unidos" <?php  echo ($usuario_activo['pais']=="México")? "selected":"" ?>>Estados Unidos</option>
+															<option value="México" <?php echo ($usuario_activo['pais']=="México")? "selected":"" ?>>México</option>
 														</select>
 													</div>
 												</div>
