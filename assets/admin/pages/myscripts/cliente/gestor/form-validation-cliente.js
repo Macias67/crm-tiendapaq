@@ -2,18 +2,20 @@ var FormValidationCliente = function () {
 
     //Funcion para que si es estados unidos no se pinten los estados
     var handPais = function() {
-        var pais;
+      var pais;
+      if($('#pais').val()=="Estados Unidos"){
+      	$("#estado").hide('slow/400/fast', function() {
+        	});
+      }
 
     	$("#pais").change(function(){
         pais = $('#pais').val();
 
         if(pais=="Estados Unidos"){
         	$("#estado").hide('slow/400/fast', function() {
-        		
         	});
         }else{
         		$("#estado").show('slow/400/fast', function() {
-        			
         		});
         }
       });
@@ -44,10 +46,8 @@ var FormValidationCliente = function () {
 				},
 				email: {
 					maxlength: 50,
+					required: true,
 					email: true
-				},
-				tipo: {
-					required: true
 				},
 				calle: {
 					maxlength: 50,
@@ -74,10 +74,8 @@ var FormValidationCliente = function () {
 					maxlength: 50
 				},
 				estado: {
-					required: true
 				},
 				pais: {
-					required: true
 				},
 				telefono_1: {
 					required: true
@@ -96,9 +94,8 @@ var FormValidationCliente = function () {
 				},
 				email: {
 					maxlength: "El email debe tener menos de 30 caracteres",
+					required: "El Email es obligatorio",
 					email: "Escribe un email valido"
-				},
-				tipo: {
 				},
 				calle: {
 					required: "Escribe la calle",
@@ -182,8 +179,9 @@ var FormValidationCliente = function () {
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
-							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
-							parent.location.reload();
+							bootbox.alert("<h4>Informacion de <b>"+data.razon_social+"</b> actualizada con éxito. </h4>", function () {
+								parent.location.reload();
+							});
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);

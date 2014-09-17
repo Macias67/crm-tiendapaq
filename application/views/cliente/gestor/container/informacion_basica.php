@@ -170,22 +170,14 @@
 											</div>
 											<!-- Email -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Email</label>
+												<label class="col-md-4 control-label">
+													Email<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa  fa-envelope"></i>
 														<input type="text" class="form-control" placeholder="Email" name="email" value="<?php echo $usuario_activo['email'] ?>">
 													</div>
-												</div>
-											</div>
-											<!-- Tipo -->
-											<div class="form-group">
-												<label class="control-label col-md-4">Tipo : </label>
-												<div class="col-md-8">
-													<select class="form-control" name="tipo">
-														<option value="normal" selected>Normal</option>
-														<option value="distribuidor">Distribuidor</option>
-													</select>
 												</div>
 											</div>
 

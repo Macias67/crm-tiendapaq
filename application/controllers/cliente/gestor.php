@@ -44,7 +44,6 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
 				$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
-				$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
 				$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 				$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 				$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -54,7 +53,7 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
 				$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('municipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
-				$this->form_validation->set_rules('estado', 'Estado', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('estado', 'Estado', 'trim|xss_clean');
 				$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
 
 				if($this->form_validation->run() === FALSE)
@@ -68,7 +67,6 @@ class Gestor extends AbstractAccess {
 						'razon_social'	=> $this->input->post('razon_social'),
 						'rfc'						=> $this->input->post('rfc'),
 						'email'					=> $this->input->post('email'),
-						'tipo'					=> $this->input->post('tipo'),
 						'telefono1'			=> $this->input->post('telefono1'),
 						'telefono2'			=> $this->input->post('telefono2'),
 						'calle'					=> $this->input->post('calle'),
@@ -92,8 +90,15 @@ class Gestor extends AbstractAccess {
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 					}else
-					{
-						$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
+						{ //actualizo la variable usuario_activo con los nuevos datos
+							$cliente_actualizado = $this->clienteModel->get_where(array('id' => $id));
+							$cliente_actualizado = (array)$cliente_actualizado;
+							//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+							$cliente_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/cliente').'/';
+							$cliente_actualizado['privilegios'] = 'cliente';
+							$this->session->set_userdata('usuario_activo', $cliente_actualizado);
+
+							$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
 					}
 				}
 

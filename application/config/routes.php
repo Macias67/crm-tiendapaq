@@ -81,5 +81,8 @@ $route['gestor/(:any)']	= $DIR_EJECUTIVO."gestor/$1";
 $route['actualizar']			= $DIR_CLIENTE."gestor";
 $route['actualizar/(:any)']	= $DIR_CLIENTE."gestor/$1";
 
+// Funciones de Productos
+$route['producto']			= $DIR_EJECUTIVO."producto";
+$route['producto/(:any)']	= $DIR_EJECUTIVO."producto/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

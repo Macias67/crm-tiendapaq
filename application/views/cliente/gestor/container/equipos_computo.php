@@ -269,13 +269,10 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="col-md-6">
 								<!-- Memoria RAM -->
 								<div class="form-group">
 									<label class="col-md-4 control-label">
-										Memoria RAM
+										Memoria RAM (GB)
 									</label>
 									<div class="col-md-8">
 										<div id="memoria-ram">
@@ -291,9 +288,11 @@
 												</div>
 											</div>
 										</div>
-										<span class="help-block">GB</span>
 									</div>
 								</div>
+							</div>
+
+							<div class="col-md-6">
 								<!-- SQL Server -->
 								<div class="form-group">
 									<label class="col-md-4 control-label">
