@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js"></script>
 	<script src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -49,6 +50,7 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-editable-gestor-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-dropdowns-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-cliente') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -58,6 +60,7 @@
 			TableEditable.init(); //Tablas editables del gestor en modo cliente
 			ComponentsDropdowns.init(); //Para que al cambiar el select del sistema contpaqi, actualize las versiones
 			FormValidationCliente.init(); //validaciones para el formulario de informacion basica del cliente
+			ComponentsFormToolsCliente.init(); //mascaras para telefonos y codigo postal del formulario de informacion basica
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

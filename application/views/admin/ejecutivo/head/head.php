@@ -26,8 +26,6 @@
 	<!-- BEGIN PAGE LEVEL STYLES -->
 	<link href="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_admin_pages ?>css/profile.css" rel="stylesheet" type="text/css"/>
-	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
-	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_plugins ?>jcrop/css/jquery.Jcrop.min.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_admin_pages ?>css/image-crop.css" rel="stylesheet"/>
 	<!-- END PAGE LEVEL STYLES -->

@@ -109,14 +109,14 @@ var FormValidationEjecutivo = function () {
             },
             submitHandler: function (form) {
                 // general settings
-                $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                    '<div class="progress progress-striped active">' +
-                        '<div class="progress-bar" style="width: 100%;"></div>' +
-                    '</div>' +
-                '</div>';
+                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+                //     '<div class="progress progress-striped active">' +
+                //         '<div class="progress-bar" style="width: 100%;"></div>' +
+                //     '</div>' +
+                // '</div>';
 
-                $.fn.modalmanager.defaults.resize = true;
+                // $.fn.modalmanager.defaults.resize = true;
 
                 $.ajax({
                     url: $('#form-ejecutivo').attr('action'),
@@ -125,23 +125,24 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo').serialize(),
                     beforeSend: function () {
-                        $('body').modalmanager('loading');
+                        //$('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        //$('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         console.log(data);
                         if (data.exito) {
-                            alert(""+data.ejecutivo.primer_nombre+" "+data.ejecutivo.apellido_paterno+" con usuario "+data.ejecutivo.usuario+" añadido con éxito.");
-                            parent.location.reload();
+                            bootbox.alert("<h4><b>"+data.ejecutivo.primer_nombre+" "+data.ejecutivo.apellido_paterno+"</b> con usuario <b>"+data.ejecutivo.usuario+"</b> añadido con éxito.</h4>", function () {
+                                parent.location.reload();
+                            });
                         } else {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            $('body').modalmanager('removeLoading');
+                            //$('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -248,14 +249,14 @@ var FormValidationEjecutivo = function () {
             },
             submitHandler: function (form) {
                 // general settings
-                $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                    '<div class="progress progress-striped active">' +
-                        '<div class="progress-bar" style="width: 100%;"></div>' +
-                    '</div>' +
-                '</div>';
+                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+                //     '<div class="progress progress-striped active">' +
+                //         '<div class="progress-bar" style="width: 100%;"></div>' +
+                //     '</div>' +
+                // '</div>';
 
-                $.fn.modalmanager.defaults.resize = true;
+                // $.fn.modalmanager.defaults.resize = true;
 
                 $.ajax({
                     url: $('#form-ejecutivo-info').attr('action'),
@@ -264,23 +265,24 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo-info').serialize(),
                     beforeSend: function () {
-                        $('body').modalmanager('loading');
+                        //$('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        //$('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         console.log(data);
                         if (data.exito) {
-                            alert("Guardado con éxito.");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Actualizado con éxito.</h4>",function () {
+                                parent.location.reload();
+                            });
                         } else {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            $('body').modalmanager('removeLoading');
+                            //$('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -354,14 +356,14 @@ var FormValidationEjecutivo = function () {
             },
             submitHandler: function (form) {
                 // general settings
-                $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                    '<div class="progress progress-striped active">' +
-                        '<div class="progress-bar" style="width: 100%;"></div>' +
-                    '</div>' +
-                '</div>';
+                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+                //     '<div class="progress progress-striped active">' +
+                //         '<div class="progress-bar" style="width: 100%;"></div>' +
+                //     '</div>' +
+                // '</div>';
 
-                $.fn.modalmanager.defaults.resize = true;
+                // $.fn.modalmanager.defaults.resize = true;
 
                 $.ajax({
                     url: $('#form-ejecutivo-password').attr('action'),
@@ -370,23 +372,24 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo-password').serialize(),
                     beforeSend: function () {
-                        $('body').modalmanager('loading');
+                        //$('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        //$('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         console.log(data);
                         if (data.exito) {
-                            alert("Actualizado con éxito.");
-                            parent.location.reload();
+                            bootbox.alert("<h4>Actualizado con éxito.</h4>",function () {
+                                parent.location.reload();
+                            });
                         } else {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            $('body').modalmanager('removeLoading');
+                            //$('body').modalmanager('removeLoading');
                         }
                     }
                 });

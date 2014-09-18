@@ -32,13 +32,12 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
-	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js" type="text/javascript" ></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.js"></script>
 	<script src="<?php echo $assets_global_plugins ?>jcrop/js/jquery.color.js"></script>
 	<script src="<?php echo $assets_global_plugins ?>jcrop/js/jquery.Jcrop.min.js"></script>
+	<script src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js" type="text/javascript" ></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

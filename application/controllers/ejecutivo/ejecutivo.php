@@ -226,7 +226,7 @@ class Ejecutivo extends AbstractAccess {
 					$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
 					$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
 					//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
-					$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$id.'/';
+					$ejecutivo_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/'.$id).'/';
 					$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
 					//armo la respuesta
 					$respuesta = array(
