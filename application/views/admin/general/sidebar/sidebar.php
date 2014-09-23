@@ -52,10 +52,10 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('cliente/nuevo'); ?>"><i class="fa fa-plus"></i> Añadir</a>
+								<a href="<?php echo site_url('cliente/gestionar/nuevo'); ?>"><i class="fa fa-plus"></i> Añadir</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('cliente'); ?>"><i class="fa fa-cogs"></i> Gestionar</a>
+								<a href="<?php echo site_url('cliente/gestionar'); ?>"><i class="fa fa-cogs"></i> Gestionar</a>
 							</li>
 						</ul>
 					</li>

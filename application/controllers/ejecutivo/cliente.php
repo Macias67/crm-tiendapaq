@@ -27,15 +27,36 @@ class Cliente extends AbstractAccess {
 		$this->_vista('index');
 	}
 
-	public function nuevo()
+	/**
+	 * Funcion para la gestion de clientes desde modo administrador
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function gestionar($accion=null, $cliente=null)
 	{
-		// Titulo header
-		$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-		//datos a usar en el formulario de nuevo cliente
-		$this->data['sistemascontpaqi']=$this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
-		$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
-		//Vista de formulario a mostrar
-		$this->_vista('form-nuevo-cliente');
+		switch ($accion) {
+			case 'nuevo':
+				// Titulo header
+				$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+				//datos a usar en el formulario de nuevo cliente
+				$this->data['sistemascontpaqi']=$this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
+				$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+				//Vista de formulario a mostrar
+				$this->_vista('form-nuevo-cliente');
+			break;
+
+			case 'editar':
+
+			break;
+
+			case 'eliminar':
+
+			break;
+
+			default:
+				$this->_vista('gestionar');
+			break;
+		}
 	}
 
 
