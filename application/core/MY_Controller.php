@@ -255,7 +255,17 @@ abstract class AbstractAccess extends AbstractController {
 			$this->load->model('ejecutivoModel');
 			$this->load->model('clienteModel');
 
-			$ejecutivo = $this->ejecutivoModel->get_where(array('usuario' => $usuario));
+			$ejecutivo = $this->ejecutivoModel->get(array(
+				'id',
+				'primer_nombre',
+				'segundo_nombre',
+				'apellido_paterno',
+				'apellido_materno',
+				'usuario','password',
+				'privilegios'),
+				array('usuario' => $usuario));
+			$ejecutivo = $ejecutivo[0];
+
 			$cliente = $this->clienteModel->get_where(array('usuario' => $usuario));
 			if($ejecutivo || $cliente)
 			{

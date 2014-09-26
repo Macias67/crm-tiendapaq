@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Controlador para la seccion
  * de clientes y sus funciones
@@ -21,11 +21,8 @@ class Cliente extends AbstractAccess {
 		$this->load->model('sistemasOperativosModel');
 	}
 
-	public function index()
-	{
-		$clientes = $this->clienteModel->get(array('id','codigo','razon_social','rfc','tipo'));
-		$this->_vista('index');
-	}
+	public function index($vista=null){}
+	public function add(){}
 
 	/**
 	 * Funcion para la gestion de clientes desde modo administrador
@@ -34,10 +31,9 @@ class Cliente extends AbstractAccess {
 	 **/
 	public function gestionar($accion=null, $cliente=null)
 	{
+		$this->data['clientes']=$this->clienteModel->get(array('*'));
 		switch ($accion) {
 			case 'nuevo':
-				// Titulo header
-				$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 				//datos a usar en el formulario de nuevo cliente
 				$this->data['sistemascontpaqi']=$this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
 				$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
@@ -54,6 +50,7 @@ class Cliente extends AbstractAccess {
 			break;
 
 			default:
+			  //var_dump($this->data);
 				$this->_vista('gestionar');
 			break;
 		}
@@ -67,7 +64,7 @@ class Cliente extends AbstractAccess {
 	 *
 	 * @author Diego Rodriguez | Luis Macias
 	 **/
-	public function add($tipo = null)
+	public function nuevo($tipo = null)
 	{
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
@@ -239,7 +236,7 @@ class Cliente extends AbstractAccess {
 		$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($respuesta));
-	}//del metodo add
+	}
 
 	/**
 	 * funcion para mostrar las versiones de los sistemas contpaqi

@@ -19,6 +19,9 @@ class Ejecutivo extends AbstractAccess {
 		$this->load->model('departamentoModel');
 		$this->load->model('oficinasModel');
 		//variables que contienen ls valores de la bd para mostrarlo en los select en caso de editar
+		$usuario_temp = (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
+		$usuario_temp['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/'.$this->usuario_activo['id']).'/';
+		$this->data['usuario_activo']=$usuario_temp;
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		$this->data['tablaoficinas']      = $this->oficinasModel->get(array('ciudad_estado'));
 		// Variable vacia para mostrar errores de subida
@@ -354,7 +357,7 @@ class Ejecutivo extends AbstractAccess {
 					$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
 					$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
 					//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
-					$ejecutivo_actualizado['ruta_imagenes'] = 'assets/admin/pages/media/profile/'.$id.'/';
+					$ejecutivo_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/'.$id).'/';
 					$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
 				}
 

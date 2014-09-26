@@ -301,7 +301,7 @@
 						</h3>
 						<small>Registro de un cliente en TiendaPAQ</small>
 					</div>
-					<form action="<?php echo site_url('cliente/add') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
+					<form action="<?php echo site_url('cliente/nuevo') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div class="scroller" style="height: 300px">
 								<!-- DIV ERROR -->

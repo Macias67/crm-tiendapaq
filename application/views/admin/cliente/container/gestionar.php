@@ -119,7 +119,58 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<!-- BEGIN TABLA CLIENTES -->
+						<div class="portlet box grey">
+							<div class="portlet-title">
+								<div class="caption" style="color: black">
+									<i class="fa fa-building"></i> Clientes
+								</div>
+								<div class="tools" style="color: black">
+									<a href="javascript:;" class="collapse">
+									</a>
+									<a href="javascript:;" class="reload">
+									</a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<table class="table table-striped table-hover table-bordered" id="tabla_oficinas_editable">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Código</th>
+											<th>Razón Social</th>
+											<th>R.F.C.</th>
+											<th>Email</th>
+											<th>Tipo</th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($clientes as $cliente) : ?>
+											<tr id="<?php echo $cliente->id ?>">
+												<td><?php echo $cliente->id ?></td>
+												<td><?php echo $cliente->codigo ?></td>
+												<td><?php echo $cliente->razon_social ?></td>
+												<td><?php echo $cliente->rfc ?></td>
+												<td><?php echo $cliente->email ?></td>
+												<td><?php echo $cliente->tipo ?></td>
+												<td><a class="edit" href="javascript:;">Ver/Editar </a></td>
+												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+											</tr>
+										<?php endforeach ?>
+									</tbody>
+								</table>
+								<div class="table-toolbar">
+									<div class="btn-group pull-right">
+										<button id="tabla_oficinas_editable_new" class="btn green btn-xs">
+											<i class="fa fa-plus"></i> Nuevo cliente
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END TABLA CLIENTES -->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->

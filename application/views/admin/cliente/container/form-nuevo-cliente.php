@@ -74,7 +74,7 @@
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title">
-						Bienvenido - <small>blank page</small>
+						Cliente Nuevo - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small>
 						</h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
@@ -104,7 +104,7 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="<?php echo site_url('admin/add') ?>">Nuevo Cliente</a>
+								<a href="<?php echo site_url('admin/add') ?>">Cliente Nuevo</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -122,7 +122,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('cliente/add/normal') ?>" id="form-cliente-completo" accept-charset="utf-8">
+								<form action="<?php echo site_url('cliente/nuevo/normal') ?>" id="form-cliente-completo" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- DIV ERROR -->
 										<div class="alert alert-danger display-hide">
