@@ -263,8 +263,7 @@ abstract class AbstractAccess extends AbstractController {
 				'apellido_materno',
 				'usuario','password',
 				'privilegios'),
-				array('usuario' => $usuario));
-			$ejecutivo = $ejecutivo[0];
+				array('usuario' => $usuario),null,'ASC',1);
 
 			$cliente = $this->clienteModel->get_where(array('usuario' => $usuario));
 			if($ejecutivo || $cliente)
