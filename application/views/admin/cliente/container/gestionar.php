@@ -155,7 +155,7 @@
 												<td><?php echo $cliente->rfc ?></td>
 												<td><?php echo $cliente->email ?></td>
 												<td><?php echo $cliente->tipo ?></td>
-												<td><a class="edit" href="javascript:;">Ver/Editar </a></td>
+												<td><a class="edit" href="<?php echo site_url('cliente/gestionar/editar').'/'.$cliente->id?>">Ver/Editar </a></td>
 												<td><a class="delete" href="javascript:;">Eliminar </a></td>
 											</tr>
 										<?php endforeach ?>

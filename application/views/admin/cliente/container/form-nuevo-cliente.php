@@ -139,8 +139,7 @@
 											<!-- Razon Social -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Razón Social
-													<span class="required" aria-required="true">*</span>
+													Razón Social<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -152,8 +151,7 @@
 											<!-- Rfc -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													R.F.C.
-													<span class="required" aria-required="true">*</span>
+													R.F.C.<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -164,7 +162,9 @@
 											</div>
 											<!-- Email -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Email</label>
+												<label class="col-md-4 control-label">
+													Email<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa  fa-envelope"></i>
@@ -334,7 +334,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
-														<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono1">
+														<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1">
 													</div>
 												</div>
 											</div>
@@ -344,7 +344,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
-														<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono2">
+														<input type="text" class="form-control" id="telefono2" placeholder="(999) 999-9999" name="telefono2">
 													</div>
 												</div>
 											</div>

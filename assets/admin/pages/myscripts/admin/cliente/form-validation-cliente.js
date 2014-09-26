@@ -30,6 +30,7 @@ var FormValidationCliente = function () {
 				},
 				email: {
 					maxlength: 50,
+					required: true,
 					email: true
 				},
 				tipo: {
@@ -63,10 +64,10 @@ var FormValidationCliente = function () {
 				pais: {
 					required: true
 				},
-				telefono_1: {
+				telefono1: {
 					required: true
 				},
-				telefono_2: {
+				telefono2: {
 				},
 				nombre_contacto: {
 					maxlength: 30,
@@ -129,6 +130,7 @@ var FormValidationCliente = function () {
 				},
 				email: {
 					maxlength: "El email debe tener menos de 30 caracteres",
+					required:  "Escribe el Email",
 					email: "Escribe un email valido"
 				},
 				tipo: {
@@ -160,10 +162,10 @@ var FormValidationCliente = function () {
 				},
 				pais: {
 				},
-				telefono_1: {
-					required: "Escribe el telefono"
+				telefono1: {
+					required: "Escribe el Teléfono"
 				},
-				telefono_2: {
+				telefono2: {
 				},
 				nombre_contacto: {
 					maxlength: "El nombre del contacto debe tener menos de 30 caracteres",

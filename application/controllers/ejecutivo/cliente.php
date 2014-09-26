@@ -21,7 +21,7 @@ class Cliente extends AbstractAccess {
 		$this->load->model('sistemasOperativosModel');
 	}
 
-	public function index($vista=null){}
+	public function index(){}
 	public function add(){}
 
 	/**
@@ -29,9 +29,9 @@ class Cliente extends AbstractAccess {
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-	public function gestionar($accion=null, $cliente=null)
+	public function gestionar($accion=null, $id_cliente=null)
 	{
-		$this->data['clientes']=$this->clienteModel->get(array('*'));
+		
 		switch ($accion) {
 			case 'nuevo':
 				//datos a usar en el formulario de nuevo cliente
@@ -42,7 +42,11 @@ class Cliente extends AbstractAccess {
 			break;
 
 			case 'editar':
-
+				$this->data['cliente'] = $this->clienteModel->get_where(array('id' => $id_cliente));
+				$this->data['contactos'] = $this->contactosModel->get_where(array('id_cliente' => $id_cliente));
+				$this->data['sistemas'] = $this->sistemasClienteModel->get_where(array('id_cliente' => $id_cliente));
+				$this->data['equipos'] = $this->equiposComputoModel->get_where(array('id_cliente' => $id_cliente));
+				$this->_vista('editar-cliente');
 			break;
 
 			case 'eliminar':
@@ -50,6 +54,7 @@ class Cliente extends AbstractAccess {
 			break;
 
 			default:
+				$this->data['clientes'] = $this->clienteModel->get(array('*'));
 			  //var_dump($this->data);
 				$this->_vista('gestionar');
 			break;
@@ -68,7 +73,7 @@ class Cliente extends AbstractAccess {
 	{
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|xss_clean');
 		//Datos del domicilio
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
