@@ -165,7 +165,7 @@
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
 										<button id="tabla_contactos_cliente_new" class="btn green btn-xs">
-											<i class="fa fa-plus"></i> Nueva Contacto
+											<i class="fa fa-plus"></i> Nuevo Contacto
 										</button>
 									</div>
 								</div>

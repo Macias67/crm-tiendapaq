@@ -43,10 +43,11 @@ class Cliente extends AbstractAccess {
 
 			case 'editar':
 				$this->data['cliente'] = $this->clienteModel->get_where(array('id' => $id_cliente));
-				$this->data['contactos'] = $this->contactosModel->get_where(array('id_cliente' => $id_cliente));
-				$this->data['sistemas'] = $this->sistemasClienteModel->get_where(array('id_cliente' => $id_cliente));
-				$this->data['equipos'] = $this->equiposComputoModel->get_where(array('id_cliente' => $id_cliente));
+				$this->data['contactos'] = $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['sistemas_contpaqi'] = $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['equipos'] = $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
 				$this->_vista('editar-cliente');
+				//var_dump($this->data);
 			break;
 
 			case 'eliminar':

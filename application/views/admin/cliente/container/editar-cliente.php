@@ -133,15 +133,15 @@
 								</li>
 								<li>
 									<a href="#sistemas" data-toggle="tab">
-									Sistemas </a>
+									Sistemas <strong>CONTPAQi®</strong> </a>
 								</li>
 								<li>
 									<a href="#equipos" data-toggle="tab">
-									Equipos </a>
+									Equipos de Computo</a>
 								</li>
 							</ul>
 							<div class="tab-content">
-								
+
 								<!-- Información Básica -->
 								<div class="tab-pane active" id="basica">
 									<!-- BEGIN INFORMACION BASICA -->
@@ -364,20 +364,164 @@
 
 								<!-- Contactos -->
 								<div class="tab-pane" id="contactos">
-									<div class="row">
+									<!-- BEGIN TABLA CONTACTOS -->
+									<div class="portlet box grey">
+										<div class="portlet-title">
+											<div class="caption" style="color: black">
+												<i class="fa fa-users"></i> Contactos
+											</div>
+											<div class="tools" style="color: black">
+												<a href="javascript:;" class="collapse">
+												</a>
+												<a href="javascript:;" class="reload">
+												</a>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<table class="table table-striped table-hover table-bordered" id="tabla_contactos_cliente">
+												<thead>
+													<tr>
+														<th>Nombre(s)</th>
+														<th>Apellido Paterno</th>
+														<th>Apellido Materno</th>
+														<th>Email</th>
+														<th>Teléfono</th>
+														<th>Puesto</th>
+														<th></th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach ($contactos as $contacto) : ?>
+														<tr id="<?php echo $contacto->id ?>">
+															<td><?php echo $contacto->nombre_contacto ?></td>
+															<td><?php echo $contacto->apellido_paterno ?></td>
+															<td><?php echo $contacto->apellido_materno ?></td>
+															<td><?php echo $contacto->email_contacto ?></td>
+															<td><?php echo $contacto->telefono_contacto ?></td>
+															<td><?php echo $contacto->puesto_contacto ?></td>
+															<td><a class="edit" href="javascript:;">Editar </a></td>
+															<td><a class="delete" href="javascript:;">Eliminar </a></td>
+														</tr>
+													<?php endforeach ?>
+												</tbody>
+											</table>
+											<br>
+											<div class="table-toolbar">
+												<div class="btn-group pull-right">
+													<button id="tabla_contactos_cliente_new" class="btn green btn-xs">
+														<i class="fa fa-plus"></i> Nuevo Contacto
+													</button>
+												</div>
+											</div>
+										</div>
 									</div>
+									<!-- END TABLA CONTACTOS -->
 								</div>
 
 								<!--Sistemas-->
 								<div class="tab-pane" id="sistemas">
-									<div class="row">
+									<!-- BEGIN TABLA SIATEMAS CONTPAQI -->
+									<div class="portlet box grey">
+										<div class="portlet-title">
+											<div class="caption" style="color: black">
+												<i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong>
+											</div>
+											<div class="tools" style="color: black">
+												<a href="javascript:;" class="collapse">
+												</a>
+												<a href="javascript:;" class="reload">
+												</a>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<table class="table table-striped table-hover table-bordered" id="tabla_sistemas_cliente">
+												<thead>
+													<tr>
+														<th>Sistema</th>
+														<th>Versión</th>
+														<th>Número de Serie</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach ($sistemas_contpaqi as $sistema) : ?>
+														<tr id="<?php echo $sistema->id ?>">
+															<td><?php echo $sistema->sistema ?></td>
+															<td><?php echo $sistema->version ?></td>
+															<td><?php echo $sistema->no_serie ?></td>
+															<td><a class="delete" href="javascript:;">Eliminar </a></td>
+														</tr>
+													<?php endforeach ?>
+												</tbody>
+											</table>
+											<div class="table-toolbar">
+												<div class="btn-group pull-right">
+													<a href="#" class="btn green btn-xs" data-target="#nuevo-sistema" data-toggle="modal"><i class="fa fa-plus"></i> Nueva Sistema </a>
+												</div>
+											</div>
+										</div>
 									</div>
+									<!-- END TABLA SIATEMAS CONTPAQI -->
 								</div>
 
 								<!--Equipos-->
 								<div class="tab-pane" id="equipos">
-									<div class="row">
+									<!-- BEGIN TABLA EQUIPOS -->
+									<div class="portlet box grey">
+										<div class="portlet-title">
+											<div class="caption" style="color: black">
+												<i class="fa fa-desktop"></i> Equipos registrados
+											</div>
+											<div class="tools" style="color: black">
+												<a href="javascript:;" class="collapse">
+												</a>
+												<a href="javascript:;" class="reload">
+												</a>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<table class="table table-striped table-hover table-bordered" id="tabla_equipos_cliente">
+												<thead>
+													<tr>
+														<th>Nombre</th>
+														<th>Sistema O.</th>
+														<th>Bits</th>
+														<th>M. Virtual</th>
+														<th>RAM</th>
+														<th>SQL Server</th>
+														<th>SQL Management</th>
+														<th>Instancia SQL</th>
+														<th>Contaseña SQL</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach ($equipos as $equipo) : ?>
+														<tr id="<?php echo $equipo->id ?>">
+															<td><?php echo $equipo->nombre_equipo ?></td>
+															<td><?php echo $equipo->sistema_operativo ?></td>
+															<td><?php echo $equipo->arquitectura ?></td>
+															<td><?php echo $equipo->maquina_virtual ?></td>
+															<td><?php echo $equipo->memoria_ram ?></td>
+															<td><?php echo $equipo->sql_server ?></td>
+															<td><?php echo $equipo->sql_management ?></td>
+															<td><?php echo $equipo->instancia_sql ?></td>
+															<td><?php echo $equipo->password_sql ?></td>
+															<td><a class="delete" href="javascript:;">Eliminar </a></td>
+														</tr>
+													<?php endforeach ?>
+												</tbody>
+											</table>
+											<br>
+											<div class="table-toolbar">
+												<div class="btn-group pull-right">
+													<a href="#" class="btn green btn-xs" data-target="#nuevo-equipo" data-toggle="modal"><i class="fa fa-plus"></i> Nueva Equipo </a>
+												</div>
+											</div>
+										</div>
 									</div>
+									<!-- END TABLA EQUIPOS -->
 								</div>
 
 							</div>
