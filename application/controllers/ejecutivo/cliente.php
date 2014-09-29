@@ -311,7 +311,7 @@ class Cliente extends AbstractAccess {
 			}
 		} else
 		{
-			$cliente		= $this->clienteModel->get_like(array('telefono_1'), 'id', $id_cliente);
+			$cliente		= $this->clienteModel->get_like(array('telefono1'), 'id', $id_cliente);
 			$contactos	= $this->contactosModel->get_like(array('*'),'id_cliente', $id_cliente);
 
 			$total_contactos = count($contactos);

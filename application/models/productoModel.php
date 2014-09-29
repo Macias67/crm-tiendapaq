@@ -128,7 +128,7 @@ class ProductoModel extends TxtManager {
 	{
 		$this->db->select($campos);
 		$this->db->like('codigo', $like);
-		$this->db->or_like('nombre', $like);
+		$this->db->or_like('descripcion', $like);
 		$this->db->order_by('codigo', 'ASC');
 		$this->db->limit($limit);
 		$this->query = $this->db->get($this->table);
