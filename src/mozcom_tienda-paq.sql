@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-09-2014 a las 01:04:41
+-- Tiempo de generación: 29-09-2014 a las 20:43:16
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -119,6 +119,29 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 
 INSERT INTO `contactos` (`id`, `id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
 (2, 3, 'Luis Alberto', 'Macias', 'Angulo', 'macias@gmail.com', '1231231235', 'Soporte');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cotizacion`
+--
+
+CREATE TABLE IF NOT EXISTS `cotizacion` (
+  `folio` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `agente` int(11) NOT NULL,
+  `cliente` int(11) NOT NULL,
+  `oficina` int(11) NOT NULL,
+  `cotizacion` text NOT NULL,
+  `observaciones` int(11) NOT NULL,
+  `banco` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  PRIMARY KEY (`folio`),
+  KEY `agente` (`agente`,`cliente`,`oficina`,`observaciones`,`banco`,`estatus`),
+  KEY `agente_2` (`agente`),
+  KEY `cliente` (`cliente`),
+  KEY `oficina` (`oficina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -243,6 +266,28 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 (5, 'proceso'),
 (6, 'suspendida'),
 (7, 'sustituida');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus_cotizacion`
+--
+
+CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `estatus_cotizacion`
+--
+
+INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
+(1, 'enviado'),
+(2, 'revisión'),
+(3, 'correcta'),
+(4, 'irregular');
 
 -- --------------------------------------------------------
 
@@ -428,6 +473,14 @@ INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
 --
 ALTER TABLE `contactos`
   ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `cotizacion`
+--
+ALTER TABLE `cotizacion`
+  ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`agente`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `crea_pendiente`

@@ -62,7 +62,8 @@ var ProductoDropdowns	= function() {
 						for (var i = 0; i < data.total_contactos; i++)
 						{
 							var nombre = data.contactos[i].nombre_contacto+' '+data.contactos[i].apellido_paterno+' '+data.contactos[i].apellido_materno;
-							option += '<option value="'+i+'">'+nombre+'</option>';
+							var id 		= data.contactos[i].id;
+							option += '<option value="'+id+'" index="'+i+'">'+nombre+'</option>';
 						}
 						select_contactos.html(option);
 					} else
@@ -89,7 +90,8 @@ var ProductoDropdowns	= function() {
 		});
 
 		select_contactos.on('change', function() {
-			var index = $(this).val();
+			//var index = $(this)[0].selectedIndex;
+			var index = $('option:selected', this).attr('index');
 			if (index != '') {
 				input_telefono.val(contactos[index].telefono_contacto);
 				input_email.val(contactos[index].email_contacto);
@@ -198,7 +200,7 @@ var ProductoDropdowns	= function() {
 			'codigo' : 		data.codigo,
 			'impuesto1' : 	data.impuesto1,
 			'impuesto2' : 	data.impuesto2,
-			'nombre' : 		data.nombre,
+			'descripcion' : 	data.descripcion,
 			'precio' : 		data.precio,
 			'retencion1' : 	data.retencion1,
 			'retencion2' : 	data.retencion2,
@@ -318,18 +320,32 @@ var ProductoDropdowns	= function() {
 		});
 	}
 
-	var enviarDatos = function() {
-		var enviar = $('.cotizacion');
+	// Envia datos para mostar un pdf de prueba
+	var previaPDF = function() {
+		var enviar = $('#previa');
 
 		enviar.on('click', function() {
 			if (totalProductos > 0) {
 				var columnas = $('#lista > tr');
 
+				// Datos cotizacion
+				var cotizacion = {
+					folio: $('#folio').html(),
+					ejecutivo: $('.ejecutivo').attr('id')
+				}
+
+				// Datos del cliente
+				var cliente = {
+					id: 				$('#razon_social').val(),
+					contacto: 		$('#contactos option:selected').val(),
+					email: 			$('#email').val()
+				}
+
+				// Info de producto de la cotizacion
 				var productos = [];
 				columnas.each(function(index, element) {
 					var tr = $(element).children();
 					var producto = {
-						posicion : 		parseInt($(element).attr('class')),
 						codigo : 		$(tr[1]).html(),
 						descripcion : 	$(tr[2]).html(),
 						cantidad : 		parseFloat($(tr[3]).html()),
@@ -341,13 +357,62 @@ var ProductoDropdowns	= function() {
 					}
 					productos.push(producto);
 				});
-				console.log(productos);
 
-				$.post('/cotizador/pdf', {productos:productos}, function(data, textStatus, xhr) {
-					// window.open('http://www.w3schools.com','','height=800,width=800');
+				$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function(data) {
+					window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800,width=800');
 				});
 			} else {
-				bootbox.alert('<h3>No hay ningun producto en la lista.</h3>');
+				bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
+			}
+		});
+	}
+
+	// Envia datos para mostar un pdf de prueba
+	var enviaPDFCliente = function() {
+		var enviar = $('#enviar');
+
+		enviar.on('click', function() {
+			if (totalProductos > 0) {
+				var columnas = $('#lista > tr');
+
+				// Datos cotizacion
+				var cotizacion = {
+					folio: $('#folio').html(),
+					ejecutivo: $('.ejecutivo').attr('id')
+				}
+
+				// Datos del cliente
+				var cliente = {
+					id: 				$('#razon_social').val(),
+					contacto: 		$('#contactos option:selected').val(),
+					email: 			$('#email').val()
+				}
+
+				// Info de producto de la cotizacion
+				var productos = [];
+				columnas.each(function(index, element) {
+					var tr = $(element).children();
+					var producto = {
+						codigo : 		$(tr[1]).html(),
+						descripcion : 	$(tr[2]).html(),
+						cantidad : 		parseFloat($(tr[3]).html()),
+						precio : 		parseFloat($(tr[4]).html().split(' ')[1]),
+						neto : 			parseFloat($(tr[5]).html().split(' ')[1]),
+						descuento : 	parseFloat($(tr[6]).html().split(' ')[1]),
+						total : 			parseFloat($(tr[7]).html().split(' ')[1]),
+						observacion : 	observaciones[parseInt($(element).attr('class'))].observacion
+					}
+					productos.push(producto);
+				});
+
+				$.post('/cotizador/enviapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function(data) {
+					console.log(data);
+					bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
+						location.reload();
+					});
+				});
+			} else {
+				bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
 			}
 		});
 	}
@@ -359,7 +424,8 @@ var ProductoDropdowns	= function() {
 			addRowTable();
 			handleObervaciones();
 			removeRowTable();
-			enviarDatos();
+			previaPDF();
+			enviaPDFCliente();
 		}
 	}
 }();
