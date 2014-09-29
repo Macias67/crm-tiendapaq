@@ -13,11 +13,6 @@ class Inicio extends AbstractAccess {
 			$this->_vista('principal');
 			//var_dump($this->data);
 		}else{
-			// Cargo modelos
-			$this->load->model('ejecutivoModel');
-			$this->load->model('actividadPendienteModel');
-			$this->load->model('pendienteModel');
-
 			//Helper
 			$this->load->helper('formatofechas');
 
