@@ -128,19 +128,18 @@
 									<div class="portlet-title">
 										<div class="caption"><i class="fa fa-gift"></i> Cotización</div>
 									</div>
-
 									<div class="portlet-body">
 										<div class="col-md-6">
 											<h5>Folio: </h5>
-											<b>1290</b>
+											<b id="folio"><?php echo $sig_folio ?></b>
 										</div>
 										<div class="col-md-6">
 											<h5>Fecha: </h5>
-											<b>02/06/2013</b>
+											<b id="fecha"><?php echo date('d/m/Y') ?></b>
 										</div>
 										<div class="col-md-12">
 											<h5>Ejecutivo: </h5>
-											<b>Luis Alberto Macias Angulo</b>
+											<b id="<?php echo $id_ejecutivo ?>" class="ejecutivo"><?php echo $nombre_completo ?></b>
 										</div>
 									</div>
 								</div>
@@ -268,7 +267,7 @@
 											</table>
 										</div>
 										<div class="col-md-6">
-											<button id="previa" class="btn btn-block red cotizacion">Previa cotización</button>
+											<button type="button" id="previa" class="btn btn-block red cotizacion">Previa cotización</button>
 										</div>
 										<div class="col-md-6">
 											<button type="button" id="enviar" class="btn btn-block red cotizacion">Enviar cotización</button>
@@ -290,7 +289,7 @@
 												<tr>
 													<th></th>
 													<th>Código</th>
-													<th>Nombre</th>
+													<th>Descripción</th>
 													<th>Cantidad</th>
 													<th>P. Unitario</th>
 													<th>Neto</th>
@@ -306,7 +305,7 @@
 															<button type="button" class="btn popovers btn-info btn-xs comments" data-content="${observacion.contenido}" data-original-title="${observacion.titulo}"><i class="fa fa-comments-o"></i></button>
 														</td>
 														<td>${producto.codigo}</td>
-														<td>${producto.nombre}</td>
+														<td>${producto.descripcion}</td>
 														<td>${producto.cantidad}</td>
 														<td>$ ${producto.precio}</td>
 														<td>$ ${producto.neto}</td>
