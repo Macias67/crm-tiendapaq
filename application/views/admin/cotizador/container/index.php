@@ -196,6 +196,47 @@
 
 						<div class="row">
 							<div class="col-md-4">
+								<?php if (isset($pendiente)): ?>
+									<div class="col-md-12" id="pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>">
+										<div class="portlet gren">
+											<div class="portlet-title">
+												<div class="caption"><i class="fa fa-gift"></i> Pendiente a cotizar</div>
+												<div class="tools">
+													<a href="javascript:;" class="expand"></a>
+												</div>
+											</div>
+											<div class="portlet-body display-hide">
+												<div class="col-md-12">
+													<div class="col-md-12">
+														<div class="col-md-4 text-right"><b>Razón Social: </b></div>
+														<div class="col-md-8"><p><?php echo $pendiente->razon_social ?></p></div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-4 text-right"><b>Actividad: </b></div>
+														<div class="col-md-8"><p><?php echo $pendiente->actividad ?></p></div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-4 text-right"><b>Descripción: </b></div>
+														<div class="col-md-8"><p><?php echo $pendiente->descripcion ?></p></div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-4 text-right"><b>Fecha asignada: </b></div>
+														<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_origen) ?></p></div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-4 text-right"><b>Asignado por: </b></div>
+														<div class="col-md-8"><p><?php echo $pendiente->creador ?></p></div>
+													</div>
+													<div class="col-md-12">
+														<div class="col-md-4 text-right"><b>Oficina origen: </b></div>
+														<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								<?php endif ?>
+
 								<div class="col-md-12">
 									<div class="portlet gren">
 										<div class="portlet-title">

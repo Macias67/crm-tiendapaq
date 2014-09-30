@@ -73,6 +73,7 @@ $route['catalogo/(:any)']		= $DIR_EJECUTIVO."catalogo/$1";
 
 // Funciones cotizador
 $route['cotizador']			= $DIR_EJECUTIVO."cotizador";
+$route['cotizador/(:num)']	= $DIR_EJECUTIVO."cotizador/pendiente/$1";
 $route['cotizador/(:any)']	= $DIR_EJECUTIVO."cotizador/$1";
 
 // // Funciones del Gestor

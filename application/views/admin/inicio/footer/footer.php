@@ -51,6 +51,7 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente-rapido') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-pendiente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-cliente-rapido') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'ajax-modals') ?>" type="text/javascript"></script>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -62,6 +63,7 @@
 			FormValidationClienteRapido.init(); // form-validation-cliente
 			FormValidationPendiente.init(); // form-validation-pendiente
 			ComponentsFormToolsClienteRapido.init(); //form-components-tools-cliente-rapido de agregar clientes
+			UIExtendedModals.init(); // ajax-modals para modales tipo ajax de los pendientes
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

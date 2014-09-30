@@ -132,81 +132,12 @@
 								<!-- Cotizador -->
 								<a href="<?php echo site_url('cotizador') ?>" class="icon-btn">
 									<i class="fa fa-file-o"></i>
-									<div>
-										Cotizador
-									</div>
+									<div>Cotizador</div>
 								</a>
 								<!-- Calendario -->
 								<a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>
 									<div>Calendario</div>
-									<span class="badge badge-success">4 </span>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-envelope"></i>
-								<div>
-								Inbox
-								</div>
-								<span class="badge badge-info">
-								12 </span>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-bullhorn"></i>
-								<div>
-								Notification
-								</div>
-								<span class="badge badge-danger">
-								3 </span>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-map-marker"></i>
-								<div>
-								Locations
-								</div>
-								</a>
-								<a href="#" class="icon-btn">
-									<i class="fa fa-money"></i>
-									<div>
-										Finance
-									</div>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-plane"></i>
-								<div>
-								Projects
-								</div>
-								<span class="badge badge-info">
-								21 </span>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-thumbs-up"></i>
-								<div>
-								Feedback
-								</div>
-								<span class="badge badge-info">
-								2 </span>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-cloud"></i>
-								<div>
-								Servers
-								</div>
-								<span class="badge badge-danger">
-								2 </span>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-globe"></i>
-								<div>
-								Regions
-								</div>
-								</a>
-								<a href="#" class="icon-btn">
-								<i class="fa fa-heart-o"></i>
-								<div>
-								Popularity
-								</div>
-								<span class="badge badge-info">
-								221 </span>
 								</a>
 							</div>
 						</div>
@@ -229,6 +160,7 @@
 												<th>Actvidad</th>
 												<th>Empresa</th>
 												<th>Apertura</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -238,6 +170,7 @@
 												<td><?php echo $pendiente->actividad ?></td>
 												<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
 												<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
+												<td><a class="btn default" id="ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
 											</tr>
 										<?php endforeach ?>
 										</tbody>
@@ -293,6 +226,7 @@
 				<!-- END PAGE CONTENT-->
 
 				<!-- BEGIN VENTANAS MODALES -->
+
 				<!-- BEGIN FORM NUEVO CLIENTE -->
 				<div id="nuevo-cliente" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
@@ -498,7 +432,7 @@
 				</div>
 				<!-- END FORM NUEVO CLIENTE -->
 
-				<!-- Nuevo Pendiente -->
+				<!-- BEGIN NUEVO PENDIENTE -->
 				<div id="nuevo-pendiente" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
@@ -569,7 +503,11 @@
 						</div>
 					</form>
 				</div>
-				<!-- END VENTANAS MODALES -->
+				<!-- END NUEVO PENDIENTE -->
+
+				<!-- BEGIN AJAX DETALLE PENDIENTE -->
+				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
+				<!-- END AJAX DETALLE PENDIENTE -->
 			</div>
 		</div>
 		<!-- END CONTENT -->

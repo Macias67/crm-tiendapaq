@@ -19,9 +19,7 @@ class Pendiente extends AbstractAccess {
 	}
 
 	public function index()
-	{
-		
-	}
+	{}
 
 	/**
 	 * Método para agregar un pendiente a la BD
@@ -43,13 +41,14 @@ class Pendiente extends AbstractAccess {
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 		} else
 		{
+			$razon_social = $this->input->post('razon_social');
 			// Captruo los datos en un array
 			$data = array(
-				'id_ejecutivo' => $this->input->post('ejecutivo'),
-				'id_empresa'	 => (empty($this->input->post('razon_social'))) ? NULL : $this->input->post('razon_social'),
-				'actividad'		 => $this->input->post('actividad'),
-				'estatus'			 => $this->estatusModel->PENDIENTE,
-				'descripcion'	 => $this->input->post('descripcion')
+				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
+				'id_empresa'	=> (empty($razon_social)) ? NULL : $razon_social,
+				'actividad'		=> $this->input->post('actividad'),
+				'estatus'		=> $this->estatusModel->PENDIENTE,
+				'descripcion'	=> $this->input->post('descripcion')
 			);
 			// Transfomo arreglo a objeto
 			$objeto_pendiente = $this->pendienteModel->arrayToObject($data);
@@ -62,7 +61,9 @@ class Pendiente extends AbstractAccess {
 
 				$id_pendiente_nuevo = $this->pendienteModel->getUltimoPendiente();
 
-				$this->creaPendienteModel->insert(array('id_creador'	=> $this->usuario_activo['id'], 'id_pendiente'	=> $id_pendiente_nuevo->id_pendiente));
+				$this->creaPendienteModel->insert(array(
+										'id_creador'	=> $this->usuario_activo['id'],
+										'id_pendiente'	=> $id_pendiente_nuevo->id_pendiente));
 
 				$ejecutivo_asignado = $this->ejecutivoModel->get(
 					array('primer_nombre', 'apellido_paterno', 'email'),
@@ -70,6 +71,7 @@ class Pendiente extends AbstractAccess {
 					null,
 					'ASC',
 					1);
+
 				/*
 				* BLOQUE PARA LA PROGRAMACION DE ENVIO DE CORREO
 				* ELECTRONICO QUE NOTIFICA AL EJECUTIVO DE NUEVO
@@ -93,6 +95,26 @@ class Pendiente extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
+	}
+
+	public function detalles($id_pendiente)
+	{
+		// Cargo modelos
+		$this->load->model('creaPendienteModel');
+		//Helper
+		$this->load->helper('formatofechas');
+
+		$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
+		$pendiente					= $this->pendienteModel->getPendiente($id_pendiente);
+		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
+		$this->data['pendiente']	= $pendiente;
+
+		// SI la actividad es COTIZAR
+		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
+			$this->data['url_cotiza']	= anchor('cotizador/'.$pendiente->id_pendiente, 'Cotizar', 'class="btn red"');
+		}
+
+		$this->_vista_completa('detalle-pendiente');
 	}
 }
 

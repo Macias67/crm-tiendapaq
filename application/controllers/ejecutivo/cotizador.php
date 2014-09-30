@@ -29,6 +29,30 @@ class Cotizador extends AbstractAccess {
 		$this->_vista('index');
 	}
 
+	public function pendiente($id_pendiente)
+	{
+		// Cargo modelos
+		$this->load->model('pendienteModel');
+		if ($pendiente = $this->pendienteModel->getPendiente($id_pendiente)) {
+			// Cargo modelos
+			$this->load->model('creaPendienteModel');
+			//Helper
+			$this->load->helper('formatofechas');
+
+			$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
+			$pendiente					= $this->pendienteModel->getPendiente($id_pendiente);
+			$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
+
+			$this->data['pendiente']			= $pendiente;
+			$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
+			$this->data['nombre_completo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'];
+			$this->data['id_ejecutivo']			= $this->usuario_activo['id'];
+			$this->_vista('index');
+		} else {
+			show_404();
+		}
+	}
+
 	public function add()
 	{}
 
@@ -162,6 +186,7 @@ class Cotizador extends AbstractAccess {
 		$cotizacion	= $this->input->post('cotizacion');
 		$cliente		= $this->input->post('cliente');
 		$productos 	= $this->input->post('productos');
+		$pendiente 	= $this->input->post('pendiente');
 
 		// Info del cliente
 		$data_cliente = $this->clienteModel->get(
@@ -236,6 +261,14 @@ class Cotizador extends AbstractAccess {
 			'ASC',
 			1
 		);
+
+		// Quito pendiente si es que es pendiente
+		if (!empty($pendiente)) {
+			// Cargo modelos
+			$this->load->model('pendienteModel');
+			$this->load->model('estatusModel');
+			$this->pendienteModel->update(array('estatus' => $this->estatusModel->CERRADA), array('id_pendiente' => $pendiente));
+		}
 
 		$cotizacion = array(
 			'fecha'			=> date('Y-m-d'),
