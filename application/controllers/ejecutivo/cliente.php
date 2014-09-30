@@ -42,10 +42,12 @@ class Cliente extends AbstractAccess {
 			break;
 
 			case 'editar':
-				$this->data['cliente'] = $this->clienteModel->get_where(array('id' => $id_cliente));
-				$this->data['contactos'] = $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
-				$this->data['sistemas_contpaqi'] = $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
-				$this->data['equipos'] = $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['cliente'] 					 		= $this->clienteModel->get_where(array('id' => $id_cliente));
+				$this->data['contactos'] 				 		= $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['sistemas_contpaqi'] 		= $this->sistemasContpaqiModel->get(array('*'));
+				$this->data['sistemas_contpaqi_cliente'] = $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['equipos'] 					 		= $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['sistemas_operativos']	=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
 				$this->_vista('editar-cliente');
 				//var_dump($this->data);
 			break;
@@ -242,6 +244,69 @@ class Cliente extends AbstractAccess {
 		$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($respuesta));
+	}
+
+	public function editado()
+	{
+		//Datos basicos
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
+		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
+		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
+		$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
+		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('municipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('estado', 'Estado', 'trim|xss_clean');
+		$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
+
+		if($this->form_validation->run() === FALSE)
+		{
+			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+		}else
+		{
+			//si las reglas son correctas preparo los datos para insertar
+			$cliente = array(
+				//Datos basicos
+				'razon_social'	=> $this->input->post('razon_social'),
+				'rfc'						=> $this->input->post('rfc'),
+				'email'					=> $this->input->post('email'),
+				'telefono1'			=> $this->input->post('telefono1'),
+				'telefono2'			=> $this->input->post('telefono2'),
+				'calle'					=> $this->input->post('calle'),
+				'no_exterior'		=> $this->input->post('no_exterior'),
+				'no_interior'		=> $this->input->post('no_interior'),
+				'colonia'				=> $this->input->post('colonia'),
+				'codigo_postal'	=> $this->input->post('codigo_postal'),
+				'ciudad'				=> $this->input->post('ciudad'),
+				'municipio'			=> $this->input->post('municipio'),
+				'estado'				=> $this->input->post('estado'),
+				'pais'					=> $this->input->post('pais')
+			);
+
+			if($cliente['pais']=="Estados Unidos"){
+					$cliente['estado']="";
+			}
+			$id = $this->clienteModel->get(array('id'),array('razon_social' => $cliente['razon_social'], 'rfc' => $cliente['rfc']));
+			
+			//inserto en la bd
+			if(!$this->clienteModel->update($cliente, array('id' => $id[0]->id)))
+			{
+				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+			}else
+			{
+					$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
+			}
+		}
+
+		//mando la repuesta
+		$this->output
+			 ->set_content_type('application/json')
+			 ->set_output(json_encode($respuesta));
 	}
 
 	/**

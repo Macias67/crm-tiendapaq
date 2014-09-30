@@ -75,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title"><?php echo $cliente->razon_social ?> - <small>Gestionar Clientes</small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -104,11 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
+								<a href="<?php echo site_url('cliente/gestionar') ?>">Gestionar Clientes</a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Seccion</a>
+								<a href="#"><?php echo $cliente->razon_social ?></a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -153,7 +153,7 @@
 										</div>
 										<div class="portlet-body form-horizontal">
 											<!-- BEGIN FORM-->
-											<form  action="<?php echo site_url('') ?>" id="form-basica-cliente" accept-charset="utf-8">
+											<form  action="<?php echo site_url('cliente/editado') ?>" id="form-basica-cliente" accept-charset="utf-8">
 												<div class="form-body">
 													<!-- DIV ERROR -->
 													<div class="alert alert-danger display-hide">
@@ -445,7 +445,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<?php foreach ($sistemas_contpaqi as $sistema) : ?>
+													<?php foreach ($sistemas_contpaqi_cliente as $sistema) : ?>
 														<tr id="<?php echo $sistema->id ?>">
 															<td><?php echo $sistema->sistema ?></td>
 															<td><?php echo $sistema->version ?></td>
@@ -533,3 +533,258 @@
 			</div>
 		</div>
 		<!-- END CONTENT -->
+
+<!-- BEGIN VENTANAS MODALES -->
+	<!-- BEGIN NUEVO SISTEMA -->
+		<div id="nuevo-equipo" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+			<div class="modal-header">
+				<h3 class="modal-title">
+					<b>Registrar un equipo de cómputo</b>
+				</h3>
+				<small> <?php echo $cliente->razon_social ?></small>
+			</div>
+				<div class="modal-body container">
+					<form id ="form-nuevo-equipo" class="form-horizontal" method="post" accept-charset="utf-8">
+						<!-- DIV ERROR -->
+						<div class="alert alert-danger display-hide">
+							<button class="close" data-close="alert"></button>
+							Tienes Errores en tu formulario
+						</div>
+						<!-- DIV SUCCESS -->
+						<div class="alert alert-success display-hide">
+							<button class="close" data-close="alert"></button>
+							Exito en el formulario
+						</div>
+						<!-- BEGIN FORM BODY -->
+						<div class="form-body">
+
+							<div class="col-md-6">
+								<!-- Nombre del equipo -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Nombre del Equipo</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa fa-desktop"></i>
+											<input type="text" class="form-control" placeholder="Nombre del Equipo" name="nombre_equipo">
+										</div>
+									</div>
+								</div>
+								<!-- Sistema Operativo -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">
+										Sistema Operativo
+									</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa fa-windows"></i>
+											<select class="form-control" name="sistema_operativo">
+												<option value=""></option>
+												<?php foreach ($sistemas_operativos as $operativo): ?>
+													<option value="Windows XP"><?php echo $operativo->sistema_operativo ?></option>
+												<?php endforeach ?>
+											</select>
+										</div>
+									</div>
+								</div>
+								<!-- Arquitectura -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">
+										Arquitectura
+									</label>
+									<div class="col-md-8">
+										<div class="radio-list">
+											<label class="radio-inline">
+												<input type="radio" name="arquitectura" id="arquitectura1" value="x64">
+												x64 (64 bits)
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="arquitectura" id="arquitectura2" value="x86">
+												x86 (32 bits)
+											</label>
+										</div>
+									</div>
+								</div>
+								<!-- Maquina Virtual -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">
+										Máquina Virtual
+									</label>
+									<div class="col-md-8">
+										<div class="radio-list">
+											<label class="radio-inline">
+												<input type="radio" name="maquina_virtual" id="maquina_virtual1" value="Si">
+												Sí
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="maquina_virtual" id="maquina_virtual2" value="No">
+												No
+											</label>
+										</div>
+									</div>
+								</div>
+								<!-- Memoria RAM -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">
+										Memoria RAM (GB)
+									</label>
+									<div class="col-md-8">
+										<div id="memoria-ram">
+											<div class="input-group input-small">
+												<input type="text" class="spinner-input form-control" maxlength="2" name="memoria_ram">
+												<div class="spinner-buttons input-group-btn btn-group-vertical">
+													<button type="button" class="btn spinner-up btn-xs">
+														<i class="fa fa-angle-up"></i>
+													</button>
+													<button type="button" class="btn spinner-down btn-xs">
+														<i class="fa fa-angle-down"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<!-- SQL Server -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">
+										SQL Server
+									</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa fa-database"></i>
+											<select class="form-control" name="sql_server">
+												<option value=""></option>
+												<option value="SQL Server 2005">SQL Server 2005</option>
+												<option value="SQL Server 2008">SQL Server 2008</option>
+												<option value="SQL Server 2008 R2">SQL Server 2008 R2</option>
+												<option value="SQL Server 2012">SQL Server 2012</option>
+												<option value="SQL Server 2014">SQL Server 2014</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<!-- SQL server management -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">
+										SQL Server Management
+									</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa fa-database"></i>
+											<select class="form-control" name="sql_management">
+												<option value=""></option>
+												<option value="2005">2005</option>
+												<option value="2008">2008</option>
+												<option value="2008 R2">2008 R2</option>
+												<option value="2012">2012</option>
+												<option value="2014">2014</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<!-- Instalcia SQL -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Instancia SQL</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa  fa-database"></i>
+											<input type="text" class="form-control" placeholder="Instancia SQL" name="instancia_sql">
+										</div>
+									</div>
+								</div>
+								<!-- Contraseña SQL -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Contraseña SQL</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa  fa-database"></i>
+											<input type="text" class="form-control" placeholder="Contraseña SQL" name="password_sql">
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- END FORM BODY -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+					<button type="button" id="btn_guardar_equipo" class="btn green">Guardar</button>
+				</div>
+		</div>
+	<!-- END NUEVO SISTEMA -->
+	<!-- BEGIN NUEVO SISTEMA -->
+		<div id="nuevo-sistema" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+			<div class="modal-header">
+				<h3 class="modal-title">
+					<b>Registrar sistema <strong>CONTPAQi®</strong></b>
+				</h3>
+				<small> <?php echo $cliente->razon_social ?></small>
+			</div>
+			<form id ="form-nuevo-sistema" method="post" accept-charset="utf-8">
+				<div class="modal-body form-horizontal">
+					<div>
+						<!-- DIV ERROR -->
+						<div class="alert alert-danger display-hide">
+							<button class="close" data-close="alert"></button>
+							Tienes Errores en tu formulario
+						</div>
+						<!-- DIV SUCCESS -->
+						<div class="alert alert-success display-hide">
+							<button class="close" data-close="alert"></button>
+							Exito en el formulario
+						</div>
+						<!-- BEGIN FORM BODY -->
+						<div class="form-body">
+							<div class="form-group">
+								<label class="col-md-3 control-label">
+									Sistema
+								</label>
+								<div class="col-md-8">
+									<div class="input-icon">
+										<i class="fa fa-info"></i>
+										<select class="form-control" name="sistema" id="select_sistemas">
+											<option value=""></option>
+											<?php foreach ($sistemas_contpaqi as $sistema): ?>
+											<option value="<?php echo $sistema->sistema?>"><?php echo $sistema->sistema ?></option>
+											<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+							</div>
+							<!-- Version -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">Versión</label>
+								<div class="col-md-8">
+									<div class="input-icon">
+										<i class="fa fa-history"></i>
+										<select class="form-control" name="version" id="select_versiones">
+										</select>
+									</div>
+								</div>
+							</div>
+							<!-- No de serie -->
+							<div class="form-group">
+								<label class="col-md-3 control-label">No. de Serie</label>
+								<div class="col-md-8">
+									<div class="input-icon">
+										<i class="fa fa-barcode"></i>
+										<input type="text" class="form-control" placeholder="No. de Serie" name="no_serie" id="no_serie">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END FORM BODY -->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+					<button type="button" id="btn_guardar_sistema" class="btn green">Guardar</button>
+				</div>
+			</form>
+		</div>
+	<!-- END NUEVO SISTEMA -->
+<!-- END VENTANAS MODALES -->

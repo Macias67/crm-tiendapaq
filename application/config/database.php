@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$local = FALSE;
+$local = TRUE;
 
 if ($local) {
 	$db['default']['hostname']	= 'localhost';
@@ -57,7 +57,7 @@ if ($local) {
 	$db['default']['database']	= 'mozcom_tienda-paq';
 } else {
 	$db['default']['hostname']	= '7moz.com';
-	$db['default']['username']	='mozcom_macias';
+	$db['default']['username']	= 'mozcom_macias';
 	$db['default']['password']	= '761992LMacias';
 	$db['default']['database']	= 'mozcom_tienda-paq';
 }

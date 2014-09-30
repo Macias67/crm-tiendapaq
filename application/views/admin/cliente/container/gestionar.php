@@ -75,7 +75,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title">Gestionar Clientes - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
 						<ul class="page-breadcrumb breadcrumb">
 							<li class="btn-group">
 								<button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -104,11 +104,7 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Pagina</a>
-								<i class="fa fa-angle-right"></i>
-							</li>
-							<li>
-								<a href="#">Seccion</a>
+								<a href="#">Gestionar Clientes</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -133,7 +129,7 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<table class="table table-striped table-hover table-bordered" id="tabla_oficinas_editable">
+								<table class="table table-striped table-hover table-bordered" id="tabla_gestionar_cliente">
 									<thead>
 										<tr>
 											<th>ID</th>
@@ -163,9 +159,7 @@
 								</table>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
-										<button id="tabla_oficinas_editable_new" class="btn green btn-xs">
-											<i class="fa fa-plus"></i> Nuevo cliente
-										</button>
+										<a href="<?php echo site_url('cliente/gestionar/nuevo') ?>" class="btn green btn-xs" ><i class="fa fa-plus"></i> Nueva Cliente </a>
 									</div>
 								</div>
 							</div>
