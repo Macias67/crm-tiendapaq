@@ -350,8 +350,8 @@
 											</div>
 										</div>
 
-										<!-- INFORMACION DE CONTACTO -->
 										<div class="col-md-6">
+											<!-- INFORMACION DE CONTACTO -->
 											<h4>Contácto <small>- Puedes añadir más contactos en la seccion de gestión</small></h4>
 											<!-- Nombre del contacto -->
 											<div class="form-group">
@@ -434,7 +434,7 @@
 														<select class="form-control" name="sistema" id="select_sistemas">
 															<option value=""></option>
 															<?php foreach ($sistemascontpaqi as $sistema): ?>
-															<option value="<?php echo $sistema->id_sistema?>"><?php echo $sistema->sistema ?></option>
+															<option value="<?php echo $sistema->sistema?>"><?php echo $sistema->sistema ?></option>
 															<?php endforeach ?>
 														</select>
 													</div>

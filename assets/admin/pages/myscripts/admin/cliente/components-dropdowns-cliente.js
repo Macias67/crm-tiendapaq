@@ -2,21 +2,22 @@ var ComponentsDropdowns = function () {
 
     var handleVersionesCliente = function () {
 
-        var id_sistema;
+        var sistema;
 
         //funcion change detecta cambios en el objeto
         //seleccionado es este caso un select
         $("#select_sistemas").change(function(){
-            id_sistema = $('#select_sistemas').val();
+            sistema = $('#select_sistemas').val();
+            console.log(sistema);
             //filtro para verificar que hay un sistema seleccionado
-            if(id_sistema!=undefined && id_sistema!="")
+            if(sistema!=undefined && sistema!="")
             {
                 $.ajax({
                     url: "/cliente/versiones",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: "id_sistema="+id_sistema,
+                    data: "sistema="+sistema,
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },

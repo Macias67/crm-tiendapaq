@@ -430,57 +430,17 @@ var TableEditable = function () {
             var nRow = $(this).parents('tr')[0];
             var aData = oTable.fnGetData(nRow);
             var id = $(nRow).attr('id');
+            var id_cliente = $('#tabla_contactos_cliente').attr('idcliente');
 
-            bootbox.confirm("<h4>¿Seguro que quieres eliminar el sistema <b>"+aData[0]+"</b> Versión <b>"+aData[1]+"</b>?</h4>", function (result){
-                //result guarda el booleano respondido en el comfirm
-                if(result){
-                    //ajax para borrar
-                    $.ajax({
-                        url: "/actualizar/sistemas/eliminar",
-                        type: 'post',
-                        cache: false,
-                        dataType: 'json',
-                        data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
-                        beforeSend: function () {
-                           //('body').modalmanager('loading');
-                        },
-                        error: function(jqXHR, status, error) {
-                            console.log("ERROR: "+error);
-                            alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
-                        },
-                        success: function(data) {
-                            if (data.exito) {
-                                bootbox.alert("<h4>Sistema : <b>"+data.sistema+"</b>, eliminado con éxito<h4>");
-                                //parent.location.reload();
-                                oTable.fnDeleteRow(nRow);
-                            } else {
-                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                                //$('body').modalmanager('removeLoading');
-                                //parent.location.reload();
-                            }
-                        }
-                    });
-                }else{
-                    return;
-                }
-            });
-        });
-
-        //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
-        $("#btn_guardar_sistema").click(function () {
-            var sistema = $("#select_sistemas").val();
-            var version = $("#select_versiones").val();
-            var no_serie = $("#no_serie").val();
-
-            if(sistema!="" && version!="" && no_serie!="")
-            {
+            if(confirm("¿Seguro que quieres eliminar el sistema "+aData[0]+" Versión "+aData[1]+"?") == false){
+                return;
+            }else{
                 $.ajax({
-                    url: "/actualizar/sistemas/nuevo",
+                    url: "/cliente/sistemas/eliminar",
                     type: 'post',
                     cache: false,
                     dataType: 'json',
-                    data: "sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
+                    data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
                     beforeSend: function () {
                        //('body').modalmanager('loading');
                     },
@@ -491,17 +451,54 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4>Sistema : <b>"+data.sistema+"</b>, agregado con éxito<h4>",function () {
-                                parent.location.reload();
-                            });
+                            alert("Sistema : "+data.sistema+", eliminado con éxito.");
+                            //parent.location.reload();
+                            oTable.fnDeleteRow(nRow);
                         } else {
-                            bootbox.alert('<h4><b>Error :</b>'+data.msg+'</h4>');
+                            alert('Error : '+data.msg);
+                            //$('body').modalmanager('removeLoading');
+                            //parent.location.reload();
+                        }
+                    }
+                });
+            }
+        });
+
+        //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
+        $("#btn_guardar_sistema").click(function () {
+            var sistema = $("#select_sistemas").val();
+            var version = $("#select_versiones").val();
+            var no_serie = $("#no_serie").val();
+            var id_cliente = $('#tabla_contactos_cliente').attr('idcliente');
+
+            if(sistema!="" && version!="" && no_serie!="")
+            {
+                $.ajax({
+                    url: "/cliente/sistemas/nuevo",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id_cliente="+id_cliente+"&sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema : "+data.sistema+", agregado con éxito.");
+                            parent.location.reload();
+                        } else {
+                            bootbox.alert('Error : '+data.msg);
                             //$('body').modalmanager('removeLoading');
                         }
                     }
                 });
             }else{
-                bootbox.alert("Debes completar el formulario");
+                alert("Debes completar el formulario");
             }
         });
     }
@@ -651,6 +648,8 @@ var TableEditable = function () {
         init: function () {
             handleTableClientes();
             handleTableContactos();
+            handleTableSistemas();
+            handleTableEquipos();
         }
     };
 

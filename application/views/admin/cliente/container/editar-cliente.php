@@ -471,7 +471,7 @@
 											</div>
 										</div>
 										<div class="portlet-body">
-											<table class="table table-striped table-hover table-bordered" id="tabla_sistemas_cliente">
+											<table class="table table-striped table-hover table-bordered" id="tabla_sistemas_cliente" idcliente="<?php echo $cliente->id ?>">
 												<thead>
 													<tr>
 														<th>Sistema</th>

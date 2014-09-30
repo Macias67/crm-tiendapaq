@@ -52,10 +52,6 @@ class Cliente extends AbstractAccess {
 				//var_dump($this->data);
 			break;
 
-			case 'eliminar':
-
-			break;
-
 			default:
 				$this->data['clientes'] = $this->clienteModel->get(array('*'));
 			  //var_dump($this->data);
@@ -250,7 +246,6 @@ class Cliente extends AbstractAccess {
 	 * funcion para guardar la informacion editada de un cliente
 	 * desde el gestor de clientes en modo admin
 	 *
-	 * @return void
 	 * @author Diego Rodriguez
 	 **/
 	public function editado()
@@ -329,8 +324,8 @@ class Cliente extends AbstractAccess {
 	 **/
 	public function versiones()
 	{
-		$id_sistema=$this->input->post('id_sistema');
-		$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('id_sistema' => $id_sistema));
+		$sistema=$this->input->post('sistema');
+		$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('sistema' => $sistema));
 
 		$versiones_array=explode(',',$versiones[0]->versiones);
 		$num_versiones=count($versiones_array);
@@ -460,6 +455,88 @@ class Cliente extends AbstractAccess {
 			break;
 
 			default:
+			break;
+		}
+	}
+
+	/**
+	 * Funcion para gestionar los sistemas CONTPAQI de los clientes desde modo administrador
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function sistemas($accion = null)
+	{
+		switch ($accion) {
+			case 'nuevo':
+			//datos a insertar obtenidos del formulario
+			$sistema_cliente = array(
+				'id_cliente'	=> $this->input->post('id_cliente'),
+				'sistema'     => $this->input->post('sistema'),
+				'version'     => $this->input->post('version'),
+				'no_serie'    => $this->input->post('no_serie')
+			 );
+
+				if(!$this->sistemasClienteModel->insert($sistema_cliente)){
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+				}else{
+					$respuesta = array('exito' => TRUE, 'sistema' => $sistema_cliente['sistema'].' versión '.$sistema_cliente['version']);
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
+			break;
+
+			case 'editar':
+				# code.
+			break;
+
+			case 'eliminar':
+				$id = $this->input->post('id');
+				$sistema = $this->input->post('sistema');
+				$version = $this->input->post('version');
+
+				if(!$this->sistemasClienteModel->delete(array('id' => $id))){
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+				}else
+				{
+					$respuesta = array('exito' => TRUE, 'sistema' => $sistema.' versión '.$version);
+				}
+
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
+			break;
+
+			default:
+			break;
+		}
+	}
+
+	/**
+	 * Funcion para gestionar los sistemas equipos de computo de los clientes desde modo administrador
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function equipos($accion = null)
+	{
+		switch ($accion) {
+			case 'nuevo':
+				# code...
+			break;
+
+			case 'editar':
+				# code...
+			break;
+
+			case 'eliminar':
+				# code...
+			break;
+			
+			default:
+				# code...
 			break;
 		}
 	}
