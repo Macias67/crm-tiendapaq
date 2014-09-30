@@ -176,6 +176,7 @@
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-asterisk"></i>
+																	<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $cliente->id ?>">
 																	<input type="text" class="form-control" placeholder="Razón Social" name="razon_social" value="<?php echo $cliente->razon_social ?>">
 																</div>
 															</div>

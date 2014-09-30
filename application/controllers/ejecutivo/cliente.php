@@ -304,9 +304,9 @@ class Cliente extends AbstractAccess {
 			if($cliente['pais']=="Estados Unidos"){
 					$cliente['estado']="";
 			}
-			$id = $this->clienteModel->get(array('id'), array('razon_social' => $cliente['razon_social'] ,'email' => $cliente['email']));
+			$id = $this->input->post('id_cliente');
 			//inserto en la bd
-			if(!$this->clienteModel->update($cliente, array('id' => $id[0]->id)))
+			if(!$this->clienteModel->update($cliente, array('id' => $id)))
 			{
 				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 			}else
@@ -566,11 +566,10 @@ class Cliente extends AbstractAccess {
 	 */
 	public function usuario_check($usuario)
 	{
-		// SI el frc y la razon social se repiten
-		$razon_social=$this->input->post('razon_social');
-		$rfc=$this->input->post('rfc');
-		$usuario_actual=$this->clienteModel->get(array('usuario'), array('razon_social' => $razon_social, 'rfc' => $rfc));
-		//echo $usuario_actual;
+		//optenemos el di del cliente desde el input hidden
+		$id = $this->input->post('id_cliente');
+		$usuario_actual=$this->clienteModel->get(array('usuario'), array('id' => $id));
+		//si no hay usuario actual es porque el cliente es prospecto nuevo
 		if($usuario_actual!=null){
 			$usuario_actual=$usuario_actual[0]->usuario;
 		}
