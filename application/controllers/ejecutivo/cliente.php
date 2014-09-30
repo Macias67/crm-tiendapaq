@@ -25,13 +25,13 @@ class Cliente extends AbstractAccess {
 	public function add(){}
 
 	/**
-	 * Funcion para la gestion de clientes desde modo administrador
+	 * Funcion mostrar las vistas de gestion de clientes
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
+
 	public function gestionar($accion=null, $id_cliente=null)
 	{
-		
 		switch ($accion) {
 			case 'nuevo':
 				//datos a usar en el formulario de nuevo cliente
@@ -246,14 +246,24 @@ class Cliente extends AbstractAccess {
 				->set_output(json_encode($respuesta));
 	}
 
+	/**
+	 * funcion para guardar la informacion editada de un cliente
+	 * desde el gestor de clientes en modo admin
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
 	public function editado()
 	{
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|xss_clean');
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
+		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|max_length[10]|callback_usuario_check');
+		$this->form_validation->set_rules('password', 'contraseña', 'trim|max_length[10]');
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
 		$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
@@ -275,8 +285,11 @@ class Cliente extends AbstractAccess {
 				'razon_social'	=> $this->input->post('razon_social'),
 				'rfc'						=> $this->input->post('rfc'),
 				'email'					=> $this->input->post('email'),
+				'tipo'		      => $this->input->post('tipo'),
 				'telefono1'			=> $this->input->post('telefono1'),
 				'telefono2'			=> $this->input->post('telefono2'),
+				'usuario'	      => $this->input->post('usuario'),
+				'password'      => $this->input->post('password'),
 				'calle'					=> $this->input->post('calle'),
 				'no_exterior'		=> $this->input->post('no_exterior'),
 				'no_interior'		=> $this->input->post('no_interior'),
@@ -291,10 +304,9 @@ class Cliente extends AbstractAccess {
 			if($cliente['pais']=="Estados Unidos"){
 					$cliente['estado']="";
 			}
-			$id = $this->clienteModel->get(array('id'),array('razon_social' => $cliente['razon_social'], 'rfc' => $cliente['rfc']));
-			
+			$id = $this->input->post('id_cliente');
 			//inserto en la bd
-			if(!$this->clienteModel->update($cliente, array('id' => $id[0]->id)))
+			if(!$this->clienteModel->update($cliente, array('id' => $id)))
 			{
 				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 			}else
@@ -310,7 +322,7 @@ class Cliente extends AbstractAccess {
 	}
 
 	/**
-	 * funcion para mostrar las versiones de los sistemas contpaqi
+	 * Funcion para mostrar las versiones de los sistemas contpaqi
 	 * dependiendo la opcion del select
 	 *
 	 * @author Diego Rodriguez
@@ -328,6 +340,128 @@ class Cliente extends AbstractAccess {
 		$this->output
 		->set_content_type('application/json')
 		->set_output(json_encode($respuesta));
+	}
+
+	/**
+	 * Funcion para gestionar los contactos de los clientes desde modo administrador
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function contactos($accion = null)
+	{
+		switch ($accion) {
+			case 'nuevo':
+				//reglas de contactos
+				$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+				$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('email_contacto', 'Email', 'trim|required|strtolower|valid_email|max_length[30]|xss_clean');
+				$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
+				$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+
+				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else
+				{
+					//si las reglas son correctas preparo los datos para insertar
+					$contacto = array(
+						'id_cliente'				 => $this->input->post('id_cliente'),
+						'nombre_contacto' 	 => $this->input->post('nombre_contacto'),
+						'apellido_paterno' 	 => $this->input->post('apellido_paterno'),
+						'apellido_materno' 	 => $this->input->post('apellido_materno'),
+						'email_contacto' 	 	 => $this->input->post('email_contacto'),
+						'telefono_contacto'  => $this->input->post('telefono_contacto'),
+						'puesto_contacto' 	 => $this->input->post('puesto_contacto')
+					);
+					//inserto en la bd
+					if(!$this->contactosModel->insert($contacto))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+					}
+				}
+				//mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+			break;
+
+			case 'editar':
+				//reglas de contactos
+				$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
+				$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('email_comtacto', 'Email', 'trim|strtolower|valid_email|max_length[30]|xss_clean');
+				$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|max_length[14]|xss_clean');
+				$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+
+				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				}else
+				{
+					//si las reglas son correctas preparo los datos para insertar
+					$contacto = array(
+						'nombre_contacto' 	 => $this->input->post('nombre_contacto'),
+						'apellido_paterno' 	 => $this->input->post('apellido_paterno'),
+						'apellido_materno' 	 => $this->input->post('apellido_materno'),
+						'email_contacto' 	 	 => $this->input->post('email_contacto'),
+						'telefono_contacto'  => $this->input->post('telefono_contacto'),
+						'puesto_contacto' 	 => $this->input->post('puesto_contacto')
+					);
+
+					//obtenemos el id para saber donde actualizar
+					$id = $this->input->post('id');
+					//actualizo en la bd
+					if(!$this->contactosModel->update($contacto, array('id' => $id)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+					}
+				}
+				//mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+			break;
+
+			case 'eliminar':
+	 		  //se eliminara con el id, la ciudad y estado es colo para mostrar que oficina se borro mas esteticamente
+	 			$id = $this->input->post('id');
+	 			$nombre_contacto = $this->input->post('nombre_contacto');
+	 			$apellido_paterno = $this->input->post('apellido_paterno');
+	 			$apellido_materno = $this->input->post('apellido_materno');
+
+	 			$id_cliente = $this->input->post('id_cliente');
+	 			$cont=count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
+
+	 			if($cont==1){
+	 				$respuesta = array('exito' => FALSE, 'msg' => 'No se puede eliminar, necesitas almenos un contacto');
+	 			}else{
+	 				if (!$this->contactosModel->delete(array('id' => $id)))
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+					}else
+					{
+						$respuesta = array('exito' => TRUE, 'contacto' => $nombre_contacto.' '.$apellido_paterno.' '.$apellido_materno);
+					}
+	 			}
+
+	      //mando la repuesta
+				$this->output
+					 ->set_content_type('application/json')
+					 ->set_output(json_encode($respuesta));
+			break;
+
+			default:
+			break;
+		}
 	}
 
 	/**
@@ -423,6 +557,32 @@ class Cliente extends AbstractAccess {
 			return TRUE;
 		}
 	}
+
+	/**
+	 * Callback para revisar que no se repita el usuario
+	 * @param  string $usuario Usuario a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez 
+	 */
+	public function usuario_check($usuario)
+	{
+		//optenemos el di del cliente desde el input hidden
+		$id = $this->input->post('id_cliente');
+		$usuario_actual=$this->clienteModel->get(array('usuario'), array('id' => $id));
+		//si no hay usuario actual es porque el cliente es prospecto nuevo
+		if($usuario_actual!=null){
+			$usuario_actual=$usuario_actual[0]->usuario;
+		}
+		
+
+		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario!=$usuario_actual) {
+			$this->form_validation->set_message('usuario_check', 'El usuario de ya está registrado.');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+
 }
 
 /* End of file cliente.php */

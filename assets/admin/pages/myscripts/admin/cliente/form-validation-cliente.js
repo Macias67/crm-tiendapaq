@@ -5,7 +5,7 @@ var FormValidationCliente = function () {
 		$('#memoria-ram').spinner();
 	}
 
-   //Funcion para que si es estados unidos no se pinten los estados
+  //Funcion para que si es estados unidos no se pinten los estados
   var handPais = function() {
     var pais;
     if($('#pais').val()=="Estados Unidos"){
@@ -350,10 +350,18 @@ var FormValidationCliente = function () {
 				},
 				pais: {
 				},
-				telefono_1: {
+				telefono1: {
 					required: true
 				},
-				telefono_2: {
+				telefono2: {
+				},
+				usuario: {
+					required: true,
+					maxlength: 10
+				},
+				password: {
+					required: true,
+					maxlength: 10
 				}
 			},
 			messages: {
@@ -399,10 +407,18 @@ var FormValidationCliente = function () {
 				},
 				pais: {
 				},
-				telefono_1: {
+				telefono1: {
 					required: "Escribe el telefono"
 				},
-				telefono_2: {
+				telefono2: {
+				},
+				usuario: {
+					required: "Escribe el usuario",
+					maxlength: "El usuario debe tener menos de 10 caracteres"
+				},
+				password: {
+					required: "Escribe la contraseña",
+					maxlength: "La contraseña debe tener menos de 10 caracteres"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
