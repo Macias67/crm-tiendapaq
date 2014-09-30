@@ -63,7 +63,7 @@ class Pendiente extends AbstractAccess {
 
 				$this->creaPendienteModel->insert(array(
 										'id_creador'	=> $this->usuario_activo['id'],
-										'id_pendiente'	=> $id_pendiente_nuevo->id_pendiente));
+										'id_pendiente'	=> $id_pendiente_nuevo));
 
 				$ejecutivo_asignado = $this->ejecutivoModel->get(
 					array('primer_nombre', 'apellido_paterno', 'email'),

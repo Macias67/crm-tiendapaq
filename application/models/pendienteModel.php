@@ -95,7 +95,6 @@ class PendienteModel extends MY_Model {
 			$id_pendiente = 1;
 		} else {
 			$id_pendiente = (int)$pendiente->id_pendiente;
-			$id_pendiente++;
 		}
 		return $id_pendiente;
 	}
