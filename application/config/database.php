@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$local = TRUE;
+$local = FALSE;
 
 if ($local) {
 	$db['default']['hostname']	= 'localhost';
@@ -56,10 +56,10 @@ if ($local) {
 	$db['default']['password']	= '';
 	$db['default']['database']	= 'mozcom_tienda-paq';
 } else {
-	$db['default']['hostname']	= 'somoscucienega.com';
-	$db['default']['username']	='somoscuc_root';
-	$db['default']['password']	= '.1bOL1.$t&y?';
-	$db['default']['database']	= 'somoscuc_tienda-paq';
+	$db['default']['hostname']	= '7moz.com';
+	$db['default']['username']	='mozcom_macias';
+	$db['default']['password']	= '761992LMacias';
+	$db['default']['database']	= 'mozcom_tienda-paq';
 }
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';

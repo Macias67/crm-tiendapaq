@@ -57,7 +57,7 @@ var TableEditable = function () {
 
             //if para saber si se trata de una oficina editada o de una nueva
             //si no tiene id es nueva, si tiene un id existente es editada
-            if(id_oficina!=undefined)
+            if(id_oficina != undefined)
             {
                 $.ajax({
                     url: "/gestor/oficinas/editar",
