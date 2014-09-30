@@ -421,7 +421,6 @@ var TableEditable = function () {
         tableWrapper.find(".dataTables_length select").select2({
             showSearchInput: false //hide search box with special css class
         }); // initialize select2 dropdown
-        
         //funcion para eliminar
         table.on('click', '.delete', function (e) {
             e.preventDefault();
@@ -430,7 +429,6 @@ var TableEditable = function () {
             var nRow = $(this).parents('tr')[0];
             var aData = oTable.fnGetData(nRow);
             var id = $(nRow).attr('id');
-            var id_cliente = $('#tabla_contactos_cliente').attr('idcliente');
 
             if(confirm("¿Seguro que quieres eliminar el sistema "+aData[0]+" Versión "+aData[1]+"?") == false){
                 return;
@@ -577,46 +575,42 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id = $(nRow).attr('id');
 
-            bootbox.confirm("<h4>¿Seguro que quieres eliminar el equipo <b>"+aData[0]+" con "+aData[1]+"</b>?</h4>", function (result){
-                //result guarda el booleano respondido en el comfirm
-                if(result){
-                    //ajax para borrar la oficina
-                    $.ajax({
-                        url: "/actualizar/equipos/eliminar",
-                        type: 'post',
-                        cache: false,
-                        dataType: 'json',
-                        data: "id="+id+"&nombre_equipo="+aData[0],
-                        beforeSend: function () {
-                           //('body').modalmanager('loading');
-                        },
-                        error: function(jqXHR, status, error) {
-                            console.log("ERROR: "+error);
-                            alert('ERROR: revisa la consola del navegador para más detalles.');
+            if(confirm("¿Seguro que quieres eliminar el equipo: "+aData[0]) == false){
+                return;
+            }else{
+                $.ajax({
+                    url: "/cliente/equipos/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id="+id+"&nombre_equipo="+aData[0],
+                    beforeSend: function () {
+                       //('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        //$('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Equipo : "+data.equipo+", eliminado con éxito.");
+                            //parent.location.reload();
+                            oTable.fnDeleteRow(nRow);
+                        } else {
+                            alert('Error : '+data.msg);
                             //$('body').modalmanager('removeLoading');
-                        },
-                        success: function(data) {
-                            if (data.exito) {
-                                bootbox.alert("<h4>Equipo : <b>"+data.equipo+"</b>, eliminado con éxito<h4>");
-                                //parent.location.reload();
-                                oTable.fnDeleteRow(nRow);
-                            } else {
-                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                                //$('body').modalmanager('removeLoading');
-                                //parent.location.reload();
-                            }
+                            //parent.location.reload();
                         }
-                    });
-                }else{
-                    return;
-                }
-            });
+                    }
+                });
+            }
         });
 
         //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
         $("#btn_guardar_equipo").click(function () {
             $.ajax({
-                url: "/actualizar/equipos/nuevo",
+                url: "/cliente/equipos/nuevo",
                 type: 'post',
                 cache: false,
                 dataType: 'json',
@@ -631,11 +625,10 @@ var TableEditable = function () {
                 },
                 success: function(data) {
                     if (data.exito) {
-                        bootbox.alert("<h4>Equipo : <b>"+data.equipo+"</b>, agregado con éxito<h4>",function () {
-                            parent.location.reload();
-                        });
+                        alert("Equipo : "+data.equipo+", agregado con éxito.");
+                        parent.location.reload();
                     } else {
-                        bootbox.alert('<h4><b>Error :</b>'+data.msg+'</h4>');
+                        alert('Error : '+data.msg);
                         //$('body').modalmanager('removeLoading');
                     }
                 }

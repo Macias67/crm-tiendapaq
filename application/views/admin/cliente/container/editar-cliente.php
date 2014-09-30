@@ -571,7 +571,7 @@
 		<!-- END CONTENT -->
 
 <!-- BEGIN VENTANAS MODALES -->
-	<!-- BEGIN NUEVO SISTEMA -->
+	<!-- BEGIN NUEVO EQUIPO -->
 		<div id="nuevo-equipo" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 			<div class="modal-header">
 				<h3 class="modal-title">
@@ -601,6 +601,7 @@
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-desktop"></i>
+											<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $cliente->id ?>">
 											<input type="text" class="form-control" placeholder="Nombre del Equipo" name="nombre_equipo">
 										</div>
 									</div>
@@ -751,7 +752,7 @@
 					<button type="button" id="btn_guardar_equipo" class="btn green">Guardar</button>
 				</div>
 		</div>
-	<!-- END NUEVO SISTEMA -->
+	<!-- END NUEVO EQUIPO -->
 	<!-- BEGIN NUEVO SISTEMA -->
 		<div id="nuevo-sistema" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 			<div class="modal-header">
