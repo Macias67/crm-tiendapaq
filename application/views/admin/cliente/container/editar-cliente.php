@@ -205,6 +205,19 @@
 																</div>
 															</div>
 														</div>
+														<!-- Tipo -->
+														<div class="form-group">
+															<label class="control-label col-md-4">Tipo : </label>
+															<div class="col-md-8">
+																<select class="form-control" name="tipo">
+																	<?php if($cliente->tipo=="prospecto"): ?>
+																		<option value="prospecto" selected>Prospecto</option>
+																	<?php endif ?>
+																	<option value="normal" <?php echo ($cliente->tipo=="normal")? 'selected':'' ?>>Normal</option>
+																	<option value="distribuidor" <?php echo ($cliente->tipo=="distribuidor")? 'selected':'' ?>>Distribuidor</option>
+																</select>
+															</div>
+														</div>
 
 														<hr>
 
@@ -232,7 +245,29 @@
 																</div>
 															</div>
 														</div>
+														<hr>
+														<!-- Usuario -->
+														<div class="form-group">
+															<label class="col-md-4 control-label">Usuario </label>
+															<div class="col-md-8">
+																<div class="input-icon">
+																	<i class="fa fa-phone"></i>
+																	<input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario" name="usuario" value="<?php echo $cliente->usuario ?>">
+																</div>
+															</div>
+														</div>
+														<!-- Contraseña -->
+														<div class="form-group">
+															<label class="col-md-4 control-label">Contraseña </label>
+															<div class="col-md-8">
+																<div class="input-icon">
+																	<i class="fa fa-phone"></i>
+																	<input type="text" class="form-control" id="password" placeholder="Contraseña" name="password" value="<?php echo $cliente->password ?>">
+																</div>
+															</div>
+														</div>
 													</div>
+
 													<div class="col-md-6">
 														<!-- INFORMACION DEL DOMICILIO -->
 														<h4>Domicilio</h4>
@@ -378,7 +413,7 @@
 											</div>
 										</div>
 										<div class="portlet-body">
-											<table class="table table-striped table-hover table-bordered" id="tabla_contactos_cliente">
+											<table class="table table-striped table-hover table-bordered" id="tabla_contactos_cliente" idcliente="<?php echo $cliente->id ?>">
 												<thead>
 													<tr>
 														<th>Nombre(s)</th>
