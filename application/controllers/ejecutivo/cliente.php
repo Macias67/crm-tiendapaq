@@ -304,7 +304,7 @@ class Cliente extends AbstractAccess {
 			if($cliente['pais']=="Estados Unidos"){
 					$cliente['estado']="";
 			}
-			$id = $this->clienteModel->get(array('id'), array('razon_social' => $cliente['razon_social'] ,'rfc' => $cliente['rfc']));
+			$id = $this->clienteModel->get(array('id'), array('razon_social' => $cliente['razon_social'] ,'email' => $cliente['email']));
 			//inserto en la bd
 			if(!$this->clienteModel->update($cliente, array('id' => $id[0]->id)))
 			{
@@ -570,7 +570,11 @@ class Cliente extends AbstractAccess {
 		$razon_social=$this->input->post('razon_social');
 		$rfc=$this->input->post('rfc');
 		$usuario_actual=$this->clienteModel->get(array('usuario'), array('razon_social' => $razon_social, 'rfc' => $rfc));
-		$usuario_actual=$usuario_actual[0]->usuario;
+		//echo $usuario_actual;
+		if($usuario_actual!=null){
+			$usuario_actual=$usuario_actual[0]->usuario;
+		}
+		
 
 		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario!=$usuario_actual) {
 			$this->form_validation->set_message('usuario_check', 'El usuario de ya está registrado.');

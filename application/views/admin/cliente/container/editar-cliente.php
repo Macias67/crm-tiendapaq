@@ -373,8 +373,8 @@
 																<div class="input-icon">
 																	<i class="fa fa-map-marker"></i>
 																	<select class="form-control" name="pais" id="pais">
-																		<option value="Estados Unidos" <?php  echo ($cliente->pais=="México")? "selected":"" ?>>Estados Unidos</option>
 																		<option value="México" <?php echo ($cliente->pais=="México")? "selected":"" ?>>México</option>
+																		<option value="Estados Unidos" <?php  echo ($cliente->pais=="Estados Unidos")? "selected":"" ?>>Estados Unidos</option>
 																	</select>
 																</div>
 															</div>
