@@ -90,7 +90,14 @@ class PendienteModel extends MY_Model {
 
 	public function getUltimoPendiente()
 	{
-		return $this->get('id_pendiente', null, 'id_pendiente', 'ASC', 1);
+		$pendiente = $this->get('id_pendiente', null, 'id_pendiente', 'DESC', 1);
+		if (empty($pendiente)) {
+			$id_pendiente = 1;
+		} else {
+			$id_pendiente = (int)$pendiente->id_pendiente;
+			$id_pendiente++;
+		}
+		return $id_pendiente;
 	}
 
 }
