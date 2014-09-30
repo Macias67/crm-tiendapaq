@@ -38,7 +38,6 @@ class Gestor extends AbstractAccess {
 			case 'nuevo':
 				# code...
 			break;
-
 			case 'editar':
 				//Datos basicos
 				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
@@ -59,59 +58,56 @@ class Gestor extends AbstractAccess {
 				if($this->form_validation->run() === FALSE)
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-				}else
+				} else
 				{
 					//si las reglas son correctas preparo los datos para insertar
 					$cliente = array(
 						//Datos basicos
 						'razon_social'	=> $this->input->post('razon_social'),
-						'rfc'						=> $this->input->post('rfc'),
-						'email'					=> $this->input->post('email'),
-						'telefono1'			=> $this->input->post('telefono1'),
-						'telefono2'			=> $this->input->post('telefono2'),
-						'calle'					=> $this->input->post('calle'),
-						'no_exterior'		=> $this->input->post('no_exterior'),
-						'no_interior'		=> $this->input->post('no_interior'),
-						'colonia'				=> $this->input->post('colonia'),
+						'rfc'			=> $this->input->post('rfc'),
+						'email'			=> $this->input->post('email'),
+						'telefono1'		=> $this->input->post('telefono1'),
+						'telefono2'		=> $this->input->post('telefono2'),
+						'calle'			=> $this->input->post('calle'),
+						'no_exterior'	=> $this->input->post('no_exterior'),
+						'no_interior'	=> $this->input->post('no_interior'),
+						'colonia'		=> $this->input->post('colonia'),
 						'codigo_postal'	=> $this->input->post('codigo_postal'),
-						'ciudad'				=> $this->input->post('ciudad'),
-						'municipio'			=> $this->input->post('municipio'),
-						'estado'				=> $this->input->post('estado'),
-						'pais'					=> $this->input->post('pais')
+						'ciudad'			=> $this->input->post('ciudad'),
+						'municipio'		=> $this->input->post('municipio'),
+						'estado'		=> $this->input->post('estado'),
+						'pais'			=> $this->input->post('pais')
 					);
 
-					if($cliente['pais']=="Estados Unidos"){
-							$cliente['estado']="";
+					if($cliente['pais'] == "Estados Unidos") {
+						$cliente['estado'] = "";
 					}
 
 					$id = $this->data['usuario_activo']['id'];
 					//inserto en la bd
-					if(!$this->clienteModel->update($cliente, array('id' => $id)))
-					{
+					if(!$this->clienteModel->update($cliente, array('id' => $id))) {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
-					}else
-						{ //actualizo la variable usuario_activo con los nuevos datos
-							$cliente_actualizado = $this->clienteModel->get_where(array('id' => $id));
-							$cliente_actualizado = (array)$cliente_actualizado;
-							//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
-							$cliente_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/cliente').'/';
-							$cliente_actualizado['privilegios'] = 'cliente';
-							$this->session->set_userdata('usuario_activo', $cliente_actualizado);
+					} else {
+						//actualizo la variable usuario_activo con los nuevos datos
+						$cliente_actualizado = $this->clienteModel->get_where(array('id' => $id));
+						$cliente_actualizado = (array)$cliente_actualizado;
+						//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+						$cliente_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/cliente').'/';
+						$cliente_actualizado['privilegios'] = 'cliente';
+						$this->session->set_userdata('usuario_activo', $cliente_actualizado);
 
-							$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
+						$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
 					}
 				}
 
 				//mando la repuesta
 				$this->output
-					 ->set_content_type('application/json')
-					 ->set_output(json_encode($respuesta));
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
-
 			case 'eliminar':
 				# code...
 			break;
-
 			default:
 				$this->_vista("informacion_basica");
 				//var_dump($this->data);
@@ -146,13 +142,13 @@ class Gestor extends AbstractAccess {
 				{
 					//si las reglas son correctas preparo los datos para insertar
 					$contacto = array(
-						'id_cliente'				 => $this->data['usuario_activo']['id'],
-						'nombre_contacto' 	 => $this->input->post('nombre_contacto'),
-						'apellido_paterno' 	 => $this->input->post('apellido_paterno'),
-						'apellido_materno' 	 => $this->input->post('apellido_materno'),
-						'email_contacto' 	 	 => $this->input->post('email_contacto'),
-						'telefono_contacto'  => $this->input->post('telefono_contacto'),
-						'puesto_contacto' 	 => $this->input->post('puesto_contacto')
+						'id_cliente'				=> $this->data['usuario_activo']['id'],
+						'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+						'apellido_paterno'		=> $this->input->post('apellido_paterno'),
+						'apellido_materno'		=> $this->input->post('apellido_materno'),
+						'email_contacto'		=> $this->input->post('email_contacto'),
+						'telefono_contacto'	=> $this->input->post('telefono_contacto'),
+						'puesto_contacto'		=> $this->input->post('puesto_contacto')
 					);
 					//inserto en la bd
 					if(!$this->contactosModel->insert($contacto))
@@ -230,7 +226,7 @@ class Gestor extends AbstractAccess {
 					}
 	 			}
 
-	      //mando la repuesta
+	      			//mando la repuesta
 				$this->output
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));

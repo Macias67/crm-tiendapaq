@@ -1,5 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Controlador de la vista principal
+ * de la aplicacion
+ */
 class Inicio extends AbstractAccess {
 
 	public function __construct()
@@ -9,7 +12,7 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
-		if($this->usuario_activo['privilegios']=="cliente"){
+		if($this->usuario_activo['privilegios'] == "cliente"){
 			$this->_vista('principal');
 			//var_dump($this->data);
 		}else{
@@ -17,7 +20,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('ejecutivoModel');
 			$this->load->model('actividadPendienteModel');
 			$this->load->model('pendienteModel');
-			
+
 			//Helper
 			$this->load->helper('formatofechas');
 
@@ -27,6 +30,7 @@ class Inicio extends AbstractAccess {
 				'privilegios',
 				array('soporte', 'admin'),
 				'primer_nombre');
+
 			// Listado de actividades para levantar un pendiente
 			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 			// Listado de pendientes DEL USUARIO ACTIVO
@@ -35,12 +39,10 @@ class Inicio extends AbstractAccess {
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 			// Muestro Vista
 			$this->_vista('principal');
-			//var_dump($this->data);
 		}
 	}
 
 	public function add(){}
-
 }
 
 /* End of file inicio.php */

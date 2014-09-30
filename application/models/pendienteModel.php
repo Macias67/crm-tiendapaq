@@ -67,6 +67,27 @@ class PendienteModel extends MY_Model {
 		return $query->result();
 	}
 
+	/**
+	 * Retorna el pendiente que hay
+	 * regisrado en la tabla de la base de datos
+	 *
+	 * @return array
+	 * @author Luis Macias
+	 **/
+	public function getPendiente($id_pendiente)
+	{
+		$this->load->model('estatusModel');
+
+		$this->db->select('*');
+		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
+		$this->db->join('actividad_pendiente', $this->table.'.actividad = actividad_pendiente.id_actividad', 'inner');
+		$this->db->where(array('id_pendiente' => $id_pendiente, 'estatus' => $this->estatusModel->PENDIENTE));
+		$query = $this->db->get($this->table);
+
+		return $query->row();
+	}
+
 	public function getUltimoPendiente()
 	{
 		return $this->get('id_pendiente', null, 'id_pendiente', 'ASC', 1);

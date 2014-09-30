@@ -375,6 +375,9 @@ var ProductoDropdowns	= function() {
 			if (totalProductos > 0) {
 				var columnas = $('#lista > tr');
 
+				var pendiente = $('#pendiente').attr('id-pendiente');
+				alert(pendiente);
+
 				// Datos cotizacion
 				var cotizacion = {
 					folio: $('#folio').html(),
@@ -405,10 +408,18 @@ var ProductoDropdowns	= function() {
 					productos.push(producto);
 				});
 
-				$.post('/cotizador/enviapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function(data) {
+				var info;
+				// Si es pendiente
+				if (pendiente != undefined) {
+					info = {cotizacion:cotizacion, cliente:cliente, productos:productos, pendiente: pendiente}
+				} else {
+					info = {cotizacion:cotizacion, cliente:cliente, productos:productos}
+				}
+
+				$.post('/cotizador/enviapdf', info, function(data) {
 					console.log(data);
 					bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
-						location.reload();
+						window.location = '/';
 					});
 				});
 			} else {

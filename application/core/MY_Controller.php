@@ -213,13 +213,13 @@ abstract class AbstractAccess extends AbstractController {
 	 * @param  string $vista Nombre de la vista
 	 * @param  string $html Si  retorna el html stng
 	 */
-	protected function _vista_completa($privilegios, $controlador, $vista, $html = FALSE)
+	protected function _vista_completa($vista, $html = FALSE)
 	{
 		if ($html) {
-			$vista = $this->load->view($privilegios.'/general/full-pages/'.$vista, $this->data, TRUE);
+			$vista = $this->load->view($this->privilegios.'/general/full-pages/'.$vista, $this->data, TRUE);
 			return $vista;
 		} else {
-			$this->load->view($privilegios.'/general/full-pages/'.$vista, $this->data);
+			$this->load->view($this->privilegios.'/general/full-pages/'.$vista, $this->data);
 		}
 	}
 
