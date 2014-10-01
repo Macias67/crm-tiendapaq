@@ -22,12 +22,14 @@ class Catalogo extends AbstractAccess {
 
 	public function index()
 	{
+		// Recibo que tipo de formulario sera
 		$tipo = $this->uri->segment(2);
 		if ($tipo === 'clientes' || $tipo === 'productos')
 		{
 			$this->data['tipo'] = $tipo;
 			$this->_vista('principal');
-		} else {
+		} else
+		{
 			show_404();
 		}
 	}
@@ -42,7 +44,8 @@ class Catalogo extends AbstractAccess {
 	 **/
 	public function importar($tipo)
 	{
-		if ($tipo === 'clientes' || $tipo === 'productos') {
+		if ($tipo === 'clientes' || $tipo === 'productos')
+		{
 			// Reglas de validacion
 			$this->form_validation->set_rules('userfile',"El archivo", "file_required|file_min_size[5KB]|file_allowed_type[txt]|callback_pattern_check_".$tipo);
 			// Valido
@@ -117,7 +120,7 @@ class Catalogo extends AbstractAccess {
 				}
 			}
 		} else {
-			# code...
+			show_error('Tipo de dato incorrecto', 404);
 		}
 	}
 
@@ -137,7 +140,8 @@ class Catalogo extends AbstractAccess {
 	public function pattern_check_clientes($file)
 	{
 		$this->load->model('clienteModel');
-		if ($this->clienteModel->pattern_check($file)) {
+		if ($this->clienteModel->pattern_check($file))
+		{
 			return TRUE;
 		} else {
 			$this->form_validation->set_message('pattern_check_clientes', 'El archivo no tiene el patrón requerido.');
@@ -154,7 +158,8 @@ class Catalogo extends AbstractAccess {
 	 */
 	public function pattern_check_productos($file)
 	{
-		if ($this->productoModel->pattern_check($file)) {
+		if ($this->productoModel->pattern_check($file))
+		{
 			return TRUE;
 		} else {
 			$this->form_validation->set_message('pattern_check_productos', 'El archivo no tiene el patrón requerido.');

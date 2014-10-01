@@ -38,12 +38,11 @@
 |
 */
 
-$DIR_EJECUTIVO = "ejecutivo/";
+$DIR_EJECUTIVO	= "ejecutivo/";
+$DIR_CLIENTE		= "cliente/";
 
-$DIR_CLIENTE = "cliente/";
-
-$route['default_controller'] = $DIR_EJECUTIVO."inicio";
-$route['404_override'] = '';
+$route['default_controller']	= $DIR_EJECUTIVO."inicio";
+$route['404_override']			= '';
 
 // Funciones generales
 $route['login']			= $DIR_EJECUTIVO."inicio/login";
@@ -78,7 +77,7 @@ $route['cotizador/(:any)']	= $DIR_EJECUTIVO."cotizador/$1";
 
 // // Funciones del Gestor
 $route['gestor']			= $DIR_EJECUTIVO."gestor";
-$route['gestor/(:any)']	= $DIR_EJECUTIVO."gestor/$1";
+$route['gestor/(:any)']		= $DIR_EJECUTIVO."gestor/$1";
 $route['actualizar']			= $DIR_CLIENTE."gestor";
 $route['actualizar/(:any)']	= $DIR_CLIENTE."gestor/$1";
 

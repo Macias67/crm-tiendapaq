@@ -29,32 +29,32 @@ class Cliente extends AbstractAccess {
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-
 	public function gestionar($accion=null, $id_cliente=null)
 	{
-		switch ($accion) {
+		switch ($accion)
+		{
 			case 'nuevo':
 				//datos a usar en el formulario de nuevo cliente
-				$this->data['sistemascontpaqi']=$this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
-				$this->data['sistemasoperativos']=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+				$this->data['sistemascontpaqi']	= $this->sistemasContpaqiModel->get(array('id_sistema','sistema'));
+				$this->data['sistemasoperativos']	= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
 				//Vista de formulario a mostrar
 				$this->_vista('form-nuevo-cliente');
 			break;
 
 			case 'editar':
-				$this->data['cliente'] 					 		= $this->clienteModel->get_where(array('id' => $id_cliente));
-				$this->data['contactos'] 				 		= $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
-				$this->data['sistemas_contpaqi'] 		= $this->sistemasContpaqiModel->get(array('*'));
-				$this->data['sistemas_contpaqi_cliente'] = $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
-				$this->data['equipos'] 					 		= $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
-				$this->data['sistemas_operativos']	=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+				// Datos a enviar a la vista
+				$this->data['cliente']						= $this->clienteModel->get_where(array('id' => $id_cliente));
+				$this->data['contactos']					= $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['sistemas_contpaqi']			= $this->sistemasContpaqiModel->get(array('*'));
+				$this->data['sistemas_contpaqi_cliente']	= $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['equipos']						= $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
+				$this->data['sistemas_operativos']			=$this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+				//Vista de formulario a mostrar
 				$this->_vista('editar-cliente');
-				//var_dump($this->data);
 			break;
 
 			default:
 				$this->data['clientes'] = $this->clienteModel->get(array('*'));
-			  //var_dump($this->data);
 				$this->_vista('gestionar');
 			break;
 		}
@@ -684,7 +684,7 @@ class Cliente extends AbstractAccess {
 		// SI el frc y la razon social se repiten
 		$rfc = $this->input->post('rfc');
 		if ($this->clienteModel->exist(array('razon_social' => $razon_social, 'rfc' => $rfc))) {
-			$this->form_validation->set_message('razon_frc_check', 'El cliente de ya está registrado.');
+			$this->form_validation->set_message('razon_rfc_check', 'El cliente de ya está registrado.');
 			return FALSE;
 		} else {
 			return TRUE;
@@ -695,7 +695,7 @@ class Cliente extends AbstractAccess {
 	 * Callback para revisar que no se repita el usuario
 	 * @param  string $usuario Usuario a revisar
 	 * @return boolean
-	 * @author Diego Rodriguez 
+	 * @author Diego Rodriguez
 	 */
 	public function usuario_check($usuario)
 	{
@@ -706,7 +706,6 @@ class Cliente extends AbstractAccess {
 		if($usuario_actual!=null){
 			$usuario_actual=$usuario_actual[0]->usuario;
 		}
-		
 
 		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario!=$usuario_actual) {
 			$this->form_validation->set_message('usuario_check', 'El usuario de ya está registrado.');

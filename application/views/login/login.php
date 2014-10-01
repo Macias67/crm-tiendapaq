@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- BEGIN LOGO -->
 	<div class="logo" style="margin-top: 20px">
 		<a href="<?php echo site_url() ?>">
-			<img src="<?php echo $assets_admin_layout ?>img/logo-big.gif" alt=""/>
+			<img src="<?php echo $assets_admin_layout ?>img/logo-big.png" alt=""/>
 		</a>
 	</div>
 	<!-- END LOGO -->
