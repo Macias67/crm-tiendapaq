@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-09-2014 a las 20:43:16
+-- Tiempo de generación: 02-10-2014 a las 14:54:42
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -16,11 +16,21 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+--
+-- Base de datos: `mozcom_tienda-paq`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `actividades_pendiente`
+--
+
 CREATE TABLE IF NOT EXISTS `actividades_pendiente` (
-    `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
-    `actividad` varchar(40) NOT NULL,
-    PRIMARY KEY (`id_actividad`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Los tipos de pendientes que puede haber en el sisitema' AUTO_INCREMENT=6;
+  `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
+  `actividad` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_actividad`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Los tipos de pendientes que puede haber en el sisitema' AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `actividades_pendiente`
@@ -35,15 +45,19 @@ INSERT INTO `actividades_pendiente` (`id_actividad`, `actividad`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `bancos`
+--
+
 CREATE TABLE IF NOT EXISTS `bancos` (
-    `id_banco` int(3) NOT NULL AUTO_INCREMENT,
-    `banco` varchar(30) NOT NULL,
-    `sucursal` int(8) NOT NULL,
-    `cta` int(8) NOT NULL,
-    `titular` varchar(50) NOT NULL,
-    `cib` varchar(18) NOT NULL,
-    PRIMARY KEY (`id_banco`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de las cuentas de banco de la empresa' AUTO_INCREMENT=2;
+  `id_banco` int(3) NOT NULL AUTO_INCREMENT,
+  `banco` varchar(30) NOT NULL,
+  `sucursal` int(8) NOT NULL,
+  `cta` int(8) NOT NULL,
+  `titular` varchar(50) NOT NULL,
+  `cib` varchar(18) NOT NULL,
+  PRIMARY KEY (`id_banco`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Datos de las cuentas de banco de la empresa' AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `bancos`
@@ -54,81 +68,102 @@ INSERT INTO `bancos` (`id_banco`, `banco`, `sucursal`, `cta`, `titular`, `cib`) 
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `clientes`
+--
+
 CREATE TABLE IF NOT EXISTS `clientes` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `codigo` varchar(10) NOT NULL,
-    `razon_social` varchar(80) NOT NULL,
-    `rfc` varchar(13) NOT NULL,
-    `email` varchar(50) NOT NULL,
-    `tipo` varchar(15) NOT NULL,
-    `calle` varchar(50) NOT NULL,
-    `no_exterior` varchar(5) NOT NULL,
-    `no_interior` varchar(5) NOT NULL,
-    `colonia` varchar(20) NOT NULL,
-    `codigo_postal` varchar(6) NOT NULL,
-    `ciudad` varchar(50) NOT NULL,
-    `municipio` varchar(50) NOT NULL,
-    `estado` varchar(30) NOT NULL,
-    `pais` varchar(30) NOT NULL,
-    `telefono1` varchar(14) NOT NULL,
-    `telefono2` varchar(14) NOT NULL,
-    `usuario` varchar(10) NOT NULL,
-    `password` varchar(10) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `codigo` (`codigo`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(10) NOT NULL,
+  `razon_social` varchar(80) NOT NULL,
+  `rfc` varchar(13) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `tipo` varchar(15) NOT NULL,
+  `calle` varchar(50) NOT NULL,
+  `no_exterior` varchar(5) NOT NULL,
+  `no_interior` varchar(5) NOT NULL,
+  `colonia` varchar(20) NOT NULL,
+  `codigo_postal` varchar(6) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `municipio` varchar(50) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `pais` varchar(30) NOT NULL,
+  `telefono1` varchar(14) NOT NULL,
+  `telefono2` varchar(14) NOT NULL,
+  `usuario` varchar(10) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contactos`
+--
 
 CREATE TABLE IF NOT EXISTS `contactos` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `id_cliente` int(11) NOT NULL,
-    `nombre_contacto` varchar(30) NOT NULL,
-    `apellido_paterno` varchar(20) NOT NULL,
-    `apellido_materno` varchar(20) NOT NULL,
-    `email_contacto` varchar(50) NOT NULL,
-    `telefono_contacto` varchar(14) NOT NULL,
-    `puesto_contacto` varchar(20) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `id_cliente` (`id_cliente`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente' AUTO_INCREMENT=1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `nombre_contacto` varchar(30) NOT NULL,
+  `apellido_paterno` varchar(20) NOT NULL,
+  `apellido_materno` varchar(20) NOT NULL,
+  `email_contacto` varchar(50) NOT NULL,
+  `telefono_contacto` varchar(14) NOT NULL,
+  `puesto_contacto` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cotizacion`
+--
 
 CREATE TABLE IF NOT EXISTS `cotizacion` (
-    `folio` int(11) NOT NULL AUTO_INCREMENT,
-    `fecha` date NOT NULL,
-    `agente` int(11) NOT NULL,
-    `cliente` int(11) NOT NULL,
-    `oficina` int(11) NOT NULL,
-    `cotizacion` text NOT NULL,
-    `observaciones` int(11) NOT NULL,
-    `banco` int(11) NOT NULL,
-    `estatus` int(11) NOT NULL,
-    PRIMARY KEY (`folio`),
-    KEY `agente` (`agente` , `cliente` , `oficina` , `observaciones` , `banco` , `estatus`),
-    KEY `agente_2` (`agente`),
-    KEY `cliente` (`cliente`),
-    KEY `oficina` (`oficina`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones' AUTO_INCREMENT=1;
+  `folio` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `agente` int(11) NOT NULL,
+  `cliente` int(11) NOT NULL,
+  `oficina` int(11) NOT NULL,
+  `cotizacion` text NOT NULL,
+  `observaciones` int(11) NOT NULL,
+  `banco` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  PRIMARY KEY (`folio`),
+  KEY `agente` (`agente`,`cliente`,`oficina`,`observaciones`,`banco`,`estatus`),
+  KEY `agente_2` (`agente`),
+  KEY `cliente` (`cliente`),
+  KEY `oficina` (`oficina`),
+  KEY `cotizacion_ibfk_4` (`estatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `crea_pendiente`
+--
 
 CREATE TABLE IF NOT EXISTS `crea_pendiente` (
-    `id_creador` int(11) NOT NULL,
-    `id_pendiente` int(11) NOT NULL,
-    KEY `id_creador` (`id_creador` , `id_pendiente`),
-    KEY `id_pendiente` (`id_pendiente`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'Ejecutivo que hizo el pendiente';
+  `id_creador` int(11) NOT NULL,
+  `id_pendiente` int(11) NOT NULL,
+  KEY `id_creador` (`id_creador`,`id_pendiente`),
+  KEY `id_pendiente` (`id_pendiente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Ejecutivo que hizo el pendiente';
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `departamento`
+--
+
 CREATE TABLE IF NOT EXISTS `departamento` (
-    `id_departamento` int(3) NOT NULL AUTO_INCREMENT,
-    `area` varchar(50) NOT NULL,
-    PRIMARY KEY (`id_departamento`),
-    UNIQUE KEY `area` (`area`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina' AUTO_INCREMENT=4;
+  `id_departamento` int(3) NOT NULL AUTO_INCREMENT,
+  `area` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_departamento`),
+  UNIQUE KEY `area` (`area`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina' AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -141,26 +176,30 @@ INSERT INTO `departamento` (`id_departamento`, `area`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `ejecutivos`
+--
+
 CREATE TABLE IF NOT EXISTS `ejecutivos` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `primer_nombre` varchar(20) NOT NULL,
-    `segundo_nombre` varchar(20) NOT NULL,
-    `apellido_paterno` varchar(20) NOT NULL,
-    `apellido_materno` varchar(20) NOT NULL,
-    `oficina` varchar(80) NOT NULL,
-    `usuario` varchar(20) NOT NULL,
-    `password` varchar(20) NOT NULL,
-    `email` varchar(60) NOT NULL,
-    `telefono` varchar(14) NOT NULL,
-    `departamento` varchar(30) NOT NULL,
-    `privilegios` varchar(30) NOT NULL,
-    `mensaje_personal` text NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `usuario` (`usuario`),
-    KEY `oficina` (`oficina` , `departamento` , `privilegios`),
-    KEY `departamento` (`departamento`),
-    KEY `privilegios` (`privilegios`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'Registro de ejecutivos en la empresa' AUTO_INCREMENT=3;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `primer_nombre` varchar(20) NOT NULL,
+  `segundo_nombre` varchar(20) NOT NULL,
+  `apellido_paterno` varchar(20) NOT NULL,
+  `apellido_materno` varchar(20) NOT NULL,
+  `oficina` varchar(80) NOT NULL,
+  `usuario` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `telefono` varchar(14) NOT NULL,
+  `departamento` varchar(30) NOT NULL,
+  `privilegios` varchar(30) NOT NULL,
+  `mensaje_personal` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuario` (`usuario`),
+  KEY `oficina` (`oficina`,`departamento`,`privilegios`),
+  KEY `departamento` (`departamento`),
+  KEY `privilegios` (`privilegios`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa' AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `ejecutivos`
@@ -172,28 +211,37 @@ INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_pat
 
 -- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `equipos_computo` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `id_cliente` int(11) NOT NULL,
-    `nombre_equipo` varchar(20) NOT NULL,
-    `sistema_operativo` varchar(25) NOT NULL,
-    `arquitectura` varchar(10) NOT NULL,
-    `maquina_virtual` varchar(2) NOT NULL,
-    `memoria_ram` varchar(3) NOT NULL,
-    `sql_server` varchar(50) NOT NULL,
-    `sql_management` varchar(50) NOT NULL,
-    `instancia_sql` varchar(50) NOT NULL,
-    `password_sql` varchar(50) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `id_cliente` (`id_cliente`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente' AUTO_INCREMENT=1;
+--
+-- Estructura de tabla para la tabla `equipos_computo`
+--
 
+CREATE TABLE IF NOT EXISTS `equipos_computo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `nombre_equipo` varchar(20) NOT NULL,
+  `sistema_operativo` varchar(25) NOT NULL,
+  `arquitectura` varchar(10) NOT NULL,
+  `maquina_virtual` varchar(2) NOT NULL,
+  `memoria_ram` varchar(3) NOT NULL,
+  `sql_server` varchar(50) NOT NULL,
+  `sql_management` varchar(50) NOT NULL,
+  `instancia_sql` varchar(50) NOT NULL,
+  `password_sql` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus`
+--
 
 CREATE TABLE IF NOT EXISTS `estatus` (
-    `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-    `estatus` varchar(40) NOT NULL,
-    PRIMARY KEY (`id_estatus`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'Estatus para los pendientes y casos' AUTO_INCREMENT=8;
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para los pendientes y casos' AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `estatus`
@@ -210,11 +258,15 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `estatus_cotizacion`
+--
+
 CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
-    `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-    `estatus` varchar(30) NOT NULL,
-    PRIMARY KEY (`id_estatus`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'Estatus para las cotizaciones' AUTO_INCREMENT=5;
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `estatus` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `estatus_cotizacion`
@@ -228,11 +280,15 @@ INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `observaciones`
+--
+
 CREATE TABLE IF NOT EXISTS `observaciones` (
-    `id_observacion` int(3) NOT NULL AUTO_INCREMENT,
-    `descripcion` text NOT NULL,
-    PRIMARY KEY (`id_observacion`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Observaciones generales para la cotización' AUTO_INCREMENT=2;
+  `id_observacion` int(3) NOT NULL AUTO_INCREMENT,
+  `descripcion` text NOT NULL,
+  PRIMARY KEY (`id_observacion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Observaciones generales para la cotización' AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `observaciones`
@@ -243,52 +299,64 @@ INSERT INTO `observaciones` (`id_observacion`, `descripcion`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `oficinas`
+--
+
 CREATE TABLE IF NOT EXISTS `oficinas` (
-    `id_oficina` int(3) NOT NULL AUTO_INCREMENT,
-    `ciudad_estado` varchar(70) NOT NULL,
-    `ciudad` varchar(40) NOT NULL,
-    `estado` varchar(30) NOT NULL,
-    `colonia` varchar(30) NOT NULL,
-    `calle` varchar(50) NOT NULL,
-    `numero` varchar(5) NOT NULL,
-    `email` varchar(50) NOT NULL,
-    `telefono` varchar(14) NOT NULL,
-    PRIMARY KEY (`ciudad_estado`),
-    UNIQUE KEY `id_oficina` (`id_oficina`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Oficinas registradas en la empresa' AUTO_INCREMENT=3;
+  `id_oficina` int(3) NOT NULL AUTO_INCREMENT,
+  `ciudad_estado` varchar(70) NOT NULL,
+  `ciudad` varchar(40) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `colonia` varchar(30) NOT NULL,
+  `calle` varchar(50) NOT NULL,
+  `numero` varchar(5) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telefono` varchar(14) NOT NULL,
+  PRIMARY KEY (`ciudad_estado`),
+  UNIQUE KEY `id_oficina` (`id_oficina`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Oficinas registradas en la empresa' AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `oficinas`
 --
 
 INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
-(1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808'),
-(2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934');
+(2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
+(1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pendientes`
+--
 
 CREATE TABLE IF NOT EXISTS `pendientes` (
-    `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
-    `id_ejecutivo` int(11) NOT NULL,
-    `id_empresa` int(11) DEFAULT NULL,
-    `actividad` int(11) NOT NULL,
-    `estatus` int(11) NOT NULL,
-    `descripcion` text NOT NULL,
-    `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id_pendiente`),
-    KEY `id_ejecutivo` (`id_ejecutivo` , `id_empresa` , `actividad` , `estatus`),
-    KEY `id_empresa` (`id_empresa`),
-    KEY `actividad` (`actividad`),
-    KEY `estatus` (`estatus`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1;
+  `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ejecutivo` int(11) NOT NULL,
+  `id_empresa` int(11) DEFAULT NULL,
+  `actividad` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id_pendiente`),
+  KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`estatus`),
+  KEY `id_empresa` (`id_empresa`),
+  KEY `actividad` (`actividad`),
+  KEY `estatus` (`estatus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `privilegios`
+--
+
 CREATE TABLE IF NOT EXISTS `privilegios` (
-    `privilegios` varchar(30) NOT NULL,
-    UNIQUE KEY `privilegios` (`privilegios`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Privilegios en el sistema';
+  `privilegios` varchar(30) NOT NULL,
+  UNIQUE KEY `privilegios` (`privilegios`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Privilegios en el sistema';
 
 --
 -- Volcado de datos para la tabla `privilegios`
@@ -299,38 +367,50 @@ INSERT INTO `privilegios` (`privilegios`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
 CREATE TABLE IF NOT EXISTS `productos` (
-    `codigo` varchar(20) NOT NULL,
-    `descripcion` varchar(100) NOT NULL,
-    `unidad` varchar(30) NOT NULL DEFAULT 'Pieza',
-    `precio` float NOT NULL,
-    `impuesto1` float NOT NULL,
-    `impuesto2` float NOT NULL,
-    `retencion1` float NOT NULL,
-    `retencion2` float NOT NULL,
-    PRIMARY KEY (`codigo`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de productos';
+  `codigo` varchar(20) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `unidad` varchar(30) NOT NULL DEFAULT 'Pieza',
+  `precio` float NOT NULL,
+  `impuesto1` float NOT NULL,
+  `impuesto2` float NOT NULL,
+  `retencion1` float NOT NULL,
+  `retencion2` float NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de productos';
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistemas_clientes`
+--
 
 CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `id_cliente` int(11) NOT NULL,
-    `sistema` varchar(50) NOT NULL,
-    `version` varchar(10) NOT NULL,
-    `no_serie` varchar(30) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `id_cliente` (`id_cliente`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Informacion de los sistemas de contpaq del cliente' AUTO_INCREMENT=1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `sistema` varchar(50) NOT NULL,
+  `version` varchar(10) NOT NULL,
+  `no_serie` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Informacion de los sistemas de contpaq del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `sistemas_contpaqi`
+--
+
 CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
-    `id_sistema` int(11) NOT NULL AUTO_INCREMENT,
-    `sistema` varchar(30) NOT NULL,
-    `versiones` text NOT NULL,
-    PRIMARY KEY (`id_sistema`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi' AUTO_INCREMENT=8;
+  `id_sistema` int(11) NOT NULL AUTO_INCREMENT,
+  `sistema` varchar(30) NOT NULL,
+  `versiones` text NOT NULL,
+  PRIMARY KEY (`id_sistema`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi' AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `sistemas_contpaqi`
@@ -347,11 +427,15 @@ INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `sistemas_operativos`
+--
+
 CREATE TABLE IF NOT EXISTS `sistemas_operativos` (
-    `id_so` int(2) NOT NULL AUTO_INCREMENT,
-    `sistema_operativo` varchar(30) NOT NULL,
-    PRIMARY KEY (`id_so`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Resgistro de los sistemas operativos' AUTO_INCREMENT=5;
+  `id_so` int(2) NOT NULL AUTO_INCREMENT,
+  `sistema_operativo` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_so`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Resgistro de los sistemas operativos' AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `sistemas_operativos`
@@ -380,7 +464,7 @@ ALTER TABLE `cotizacion`
   ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`agente`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `crea_pendiente`
