@@ -60,7 +60,7 @@ class PendienteModel extends MY_Model {
 		$this->db->select('*');
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
-		$this->db->join('actividad_pendiente', $this->table.'.actividad = actividad_pendiente.id_actividad', 'inner');
+		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
 		$this->db->where(array('id_ejecutivo' => $id_ejecutivo, 'estatus' => $this->estatusModel->PENDIENTE));
 		$query = $this->db->get($this->table);
 
@@ -81,7 +81,7 @@ class PendienteModel extends MY_Model {
 		$this->db->select('*');
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
-		$this->db->join('actividad_pendiente', $this->table.'.actividad = actividad_pendiente.id_actividad', 'inner');
+		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
 		$this->db->where(array('id_pendiente' => $id_pendiente, 'estatus' => $this->estatusModel->PENDIENTE));
 		$query = $this->db->get($this->table);
 

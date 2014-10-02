@@ -29,14 +29,6 @@ var FormValidationClienteRapido = function () {
                     email: true,
                     required: true
                 },
-                calle: {
-                    maxlength: 50
-                },
-                ciudad: {
-                    maxlength: 50
-                },
-                estado: {
-                },
                 telefono1: {
                     required: true
                 },
@@ -54,10 +46,11 @@ var FormValidationClienteRapido = function () {
                 },
                 email_contacto: {
                     maxlength: 50,
-                    email: true
+                    email: true,
+                    required: true
                 },
                 telefono_contacto: {
-                    maxlength: 14
+                    required: true
                 }
             },
             messages: {
@@ -69,14 +62,6 @@ var FormValidationClienteRapido = function () {
                     maxlength: "El email debe tener menos de 50 caracteres",
                     email: "Escribe un email valido",
                     required: "Escribe el email"
-                },
-                calle: {
-                    maxlength: "La calle debe tener menos de 50 caracteres"
-                },
-                ciudad: {
-                    maxlength: "La ciudad debe tener menos de 50 caracteres"
-                },
-                estado: {
                 },
                 telefono1: {
                     required: "Escribe el teléfono"
@@ -94,11 +79,12 @@ var FormValidationClienteRapido = function () {
                     required: "Escribe el apellido materno del contacto"
                 },
                 email_contacto: {
-                    maxlength: "El email del contacto debe tener menos de 50 caracteres",
-                    email: "Escribe un email valido"
+                    maxlength: "El email debe tener menos de 50 caracteres",
+                    email: "Escribe un email valido",
+                    required: "Escribe el email"
                 },
                 telefono_contacto: {
-                    maxlength:  "El telefono del contacto debe tener menos de 14 digitos"
+                    required: "Escribe el teléfono"
                 }
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
