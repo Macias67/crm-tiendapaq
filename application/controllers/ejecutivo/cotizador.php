@@ -53,9 +53,6 @@ class Cotizador extends AbstractAccess {
 		}
 	}
 
-	public function add()
-	{}
-
 	/**
 	 * Metodo para mostrar las empresas
 	 * de menera de JSON

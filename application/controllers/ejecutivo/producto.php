@@ -22,10 +22,6 @@ class Producto extends AbstractAccess {
 		$this->_vista('productos');
 	}
 
-	public function add()
-	{
-	}
-
 	/**
  	 * funciona para gestionar los productos y servicios
  	 * @author Diego Rodriguez

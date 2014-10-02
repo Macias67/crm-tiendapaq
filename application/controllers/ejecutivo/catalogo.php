@@ -34,9 +34,6 @@ class Catalogo extends AbstractAccess {
 		}
 	}
 
-	public function add()
-	{}
-
 	 /**
 	 * Funcion que insertara los clientes a la bd de CRM tiendapaq
 	 * basandose en un txt cargado por el ejecutivo

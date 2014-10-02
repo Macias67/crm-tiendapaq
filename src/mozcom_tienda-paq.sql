@@ -16,11 +16,22 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-CREATE TABLE IF NOT EXISTS `actividad_pendiente` (
+CREATE TABLE IF NOT EXISTS `actividades_pendiente` (
     `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
     `actividad` varchar(40) NOT NULL,
     PRIMARY KEY (`id_actividad`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla para guardar el registro de pendientes' AUTO_INCREMENT=1;
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Los tipos de pendientes que puede haber en el sisitema' AUTO_INCREMENT=6;
+
+--
+-- Volcado de datos para la tabla `actividades_pendiente`
+--
+
+INSERT INTO `actividades_pendiente` (`id_actividad`, `actividad`) VALUES
+(1, 'Asesoría a diagnosticar'),
+(2, 'Asesoría específica'),
+(3, 'Solicitud de cotización'),
+(4, 'Soporte Técnico'),
+(5, 'Recado');
 
 -- --------------------------------------------------------
 
@@ -368,7 +379,8 @@ ALTER TABLE `contactos`
 ALTER TABLE `cotizacion`
   ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`agente`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `crea_pendiente`
@@ -397,7 +409,7 @@ ALTER TABLE `equipos_computo`
 ALTER TABLE `pendientes`
   ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividad_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --

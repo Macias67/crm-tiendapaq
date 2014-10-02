@@ -440,7 +440,7 @@
 						</h3>
 						<small>Nuevo pendiente por atender</small>
 					</div>
-					<form action="<?php echo site_url('pendiente/add') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
+					<form action="<?php echo site_url('pendiente/nuevo') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div class="scroller" style="height: 300px">
 								<!-- DIV ERROR -->

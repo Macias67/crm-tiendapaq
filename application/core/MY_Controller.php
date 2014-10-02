@@ -390,11 +390,6 @@ abstract class AbstractAccess extends AbstractController {
 		$this->_no_cache();
 		$this->_isLogin();
 	}
-
-	/*
-	* FUNCIONES ABSTRACTAS
-	 */
-	abstract function add();
 }
 
 /* End of file MY_Controller.php */

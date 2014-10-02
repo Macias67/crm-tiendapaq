@@ -41,8 +41,6 @@ class Inicio extends AbstractAccess {
 			$this->_vista('principal');
 		}
 	}
-
-	public function add(){}
 }
 
 /* End of file inicio.php */

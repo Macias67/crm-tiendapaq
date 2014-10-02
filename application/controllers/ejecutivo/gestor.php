@@ -22,9 +22,6 @@ class Gestor extends AbstractAccess {
 	public function index()
 	{}
 
-	public function add()
-	{}
-
 	/**
 	* Funcion para la gestion de las oficinas
 	* @author Diego Rodriguez

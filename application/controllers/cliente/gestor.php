@@ -24,8 +24,6 @@ class Gestor extends AbstractAccess {
 
 	public function index(){}
 
-	public function add(){}
-
 	/**
 	 * Funcion para gestionar la informacion basica de los clientes
 	 *

@@ -18,11 +18,6 @@ class Calendario extends AbstractAccess {
 		$this->_vista('index');
 	}
 
-	/*
-	* Metodo implementado desde MY_Controller
-	 */
-	public function add(){}
-
 }
 
 /* End of file calendario.php */

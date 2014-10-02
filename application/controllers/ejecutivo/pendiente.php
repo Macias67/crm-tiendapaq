@@ -26,7 +26,7 @@ class Pendiente extends AbstractAccess {
 	 *
 	 * @author Luis Macias
 	 **/
-	public function add()
+	public function nuevo()
 	{
 		// Reglas de validacion
 		$this->form_validation->set_rules('ejecutivo', 'Ejecutivo', 'trim|required|xss_clean');

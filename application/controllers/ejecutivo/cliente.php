@@ -22,7 +22,6 @@ class Cliente extends AbstractAccess {
 	}
 
 	public function index(){}
-	public function add(){}
 
 	/**
 	 * Funcion mostrar las vistas de gestion de clientes
@@ -60,7 +59,6 @@ class Cliente extends AbstractAccess {
 		}
 	}
 
-
 	/**
 	 * Funcion para añadir un nuevo
 	 * cliente a la BD que inserta en varias tablas diferentes
@@ -87,7 +85,8 @@ class Cliente extends AbstractAccess {
 		$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|max_length[14]|xss_clean');
 
 		// SI ES CLIENTE NORMAL AGREGO MAS REGLAS DE VALIDACION
-		if ($tipo == 'normal') {
+		if ($tipo == 'normal')
+		{
 			//Datos basicos
 			$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 			$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
@@ -118,10 +117,12 @@ class Cliente extends AbstractAccess {
 			$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[10]|xss_clean');
 		}
 		// Validamos formulario
-		if ($this->form_validation->run() === FALSE) {
+		if ($this->form_validation->run() === FALSE)
+		{
 			// SI es FALSO, vuelvo a mostrar vista
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-		} else {
+		} else
+		{
 			// SI ES CLIENTE NORMAL TRABAJO TODOS LOS DATOS
 			if ($tipo == 'normal')
 			{
@@ -129,37 +130,37 @@ class Cliente extends AbstractAccess {
 				$data = array(
 					//Datos basicos
 					'razon_social'	=> $this->input->post('razon_social'),
-					'rfc'						=> $this->input->post('rfc'),
-					'email'					=> $this->input->post('email'),
-					'tipo'					=> $this->input->post('tipo'),
-					'calle'					=> $this->input->post('calle'),
-					'no_exterior'		=> $this->input->post('no_exterior'),
-					'no_interior'		=> $this->input->post('no_interior'),
-					'colonia'				=> $this->input->post('colonia'),
+					'rfc'			=> $this->input->post('rfc'),
+					'email'			=> $this->input->post('email'),
+					'tipo'			=> $this->input->post('tipo'),
+					'calle'			=> $this->input->post('calle'),
+					'no_exterior'	=> $this->input->post('no_exterior'),
+					'no_interior'	=> $this->input->post('no_interior'),
+					'colonia'		=> $this->input->post('colonia'),
 					'codigo_postal'	=> $this->input->post('codigo_postal'),
-					'ciudad'				=> $this->input->post('ciudad'),
-					'municipio'			=> $this->input->post('municipio'),
-					'estado'				=> $this->input->post('estado'),
-					'pais'					=> $this->input->post('pais'),
-					'telefono1'			=> $this->input->post('telefono1'),
-					'telefono2'			=> $this->input->post('telefono2'),
+					'ciudad'			=> $this->input->post('ciudad'),
+					'municipio'		=> $this->input->post('municipio'),
+					'estado'		=> $this->input->post('estado'),
+					'pais'			=> $this->input->post('pais'),
+					'telefono1'		=> $this->input->post('telefono1'),
+					'telefono2'		=> $this->input->post('telefono2'),
 					//Contacto
 					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-					'apellido_paterno'	=> $this->input->post('apellido_paterno'),
-					'apellido_materno'	=> $this->input->post('apellido_materno'),
+					'apellido_paterno'		=> $this->input->post('apellido_paterno'),
+					'apellido_materno'		=> $this->input->post('apellido_materno'),
 					'email_contacto'		=> $this->input->post('email_contacto'),
 					'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 					'puesto_contacto'		=> $this->input->post('puesto_contacto'),
 					//Sistema
 					'sistema'		=> $this->input->post('sistema'),
 					'version'		=> $this->input->post('version'),
-					'no_serie'	=> $this->input->post('no_serie'),
+					'no_serie'		=> $this->input->post('no_serie'),
 					//Info del equipo
-					'nombre_equipo'		  => $this->input->post('nombre_equipo'),
+					'nombre_equipo'		=> $this->input->post('nombre_equipo'),
 					'sistema_operativo'	=> $this->input->post('sistema_operativo'),
 					'arquitectura'			=> $this->input->post('arquitectura'),
 					'maquina_virtual'		=> $this->input->post('maquina_virtual'),
-					'memoria_ram'			  => $this->input->post('memoria_ram'),
+					'memoria_ram'			=> $this->input->post('memoria_ram'),
 					'sql_server'				=> $this->input->post('sql_server'),
 					'sql_management'		=> $this->input->post('sql_management'),
 					'instancia_sql'			=> $this->input->post('instancia_sql'),
@@ -197,41 +198,41 @@ class Cliente extends AbstractAccess {
 				// Array con la informacion
 				$data = array(
 					//Datos basicos
-					'razon_social'	=> $this->input->post('razon_social'),
+					'razon_social'			=> $this->input->post('razon_social'),
 					'email'					=> $this->input->post('email'),
 					'tipo'					=> 'prospecto',
 					'calle'					=> $this->input->post('calle'),
-					'ciudad'				=> $this->input->post('ciudad'),
+					'ciudad'					=> $this->input->post('ciudad'),
 					'estado'				=> $this->input->post('estado'),
-					'telefono1'			=> $this->input->post('telefono1'),
+					'telefono1'				=> $this->input->post('telefono1'),
 					//Contacto
 					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-					'apellido_paterno'	=> $this->input->post('apellido_paterno'),
-					'apellido_materno'	=> $this->input->post('apellido_materno'),
+					'apellido_paterno'		=> $this->input->post('apellido_paterno'),
+					'apellido_materno'		=> $this->input->post('apellido_materno'),
 					'email_contacto'		=> $this->input->post('email_contacto'),
-					'telefono_contacto'	=> $this->input->post('telefono_contacto'),
+					'telefono_contacto'	=> $this->input->post('telefono_contacto')
 				);
 				// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
 				$basica_cliente = $this->clienteModel->arrayToObject($data, $data['tipo']);
-				//se inserta el objeto en la bd para generar el id y poder usarlo como llave foranea
+				//se inserta el objeto cliente en la bd para generar el id y poder usarlo como llave foranea
 				if($this->clienteModel->insert($basica_cliente))
 				{
 					//se extrae el id
 					$id_cliente = $this->clienteModel->get(array('id'), array('razon_social' => $basica_cliente->razon_social, 'email' => $basica_cliente->email));
-					//se crean los demas objetos con su respectiva informacion, se le añade la llave foranea y se insertan en sus tablas
+					//se crean el objeto contacto con su respectiva informacion, se le añade la llave foranea y se insertan en sus tablas
 					$contactos_cliente = $this->contactosModel->arrayToObject($id_cliente[0]->id, $data, $data['tipo']);
-
+					// Inserto en la base de datos el contacto del cliente
 					$bol_contactos=$this->contactosModel->insert($contactos_cliente);
 					// Armo la respuesta para el JSON
 					$respuesta = array(
-						'exito' => $bol_contactos,
-						'razon_social' => $basica_cliente->razon_social);
+						'exito'			=> $bol_contactos,
+						'razon_social'	=> $basica_cliente->razon_social);
 				} else
 				{
 					// Armo la respuesta para el JSON
 					$respuesta = array(
-						'exito' => FALSE,
-						'msg' => 'No se inserto cliente en la BD');
+						'exito'	=> FALSE,
+						'msg'	=> 'No se inserto cliente en la BD');
 				}
 			}
 		}
@@ -243,7 +244,7 @@ class Cliente extends AbstractAccess {
 	}
 
 	/**
-	 * funcion para guardar la informacion editada de un cliente
+	 * Funcion para guardar la informacion editada de un cliente
 	 * desde el gestor de clientes en modo admin
 	 *
 	 * @author Diego Rodriguez
@@ -251,7 +252,7 @@ class Cliente extends AbstractAccess {
 	public function editado()
 	{
 		//Datos basicos
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_rfc_check|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|xss_clean');
@@ -278,38 +279,40 @@ class Cliente extends AbstractAccess {
 			$cliente = array(
 				//Datos basicos
 				'razon_social'	=> $this->input->post('razon_social'),
-				'rfc'						=> $this->input->post('rfc'),
-				'email'					=> $this->input->post('email'),
-				'tipo'		      => $this->input->post('tipo'),
-				'telefono1'			=> $this->input->post('telefono1'),
-				'telefono2'			=> $this->input->post('telefono2'),
-				'usuario'	      => $this->input->post('usuario'),
-				'password'      => $this->input->post('password'),
-				'calle'					=> $this->input->post('calle'),
-				'no_exterior'		=> $this->input->post('no_exterior'),
-				'no_interior'		=> $this->input->post('no_interior'),
-				'colonia'				=> $this->input->post('colonia'),
+				'rfc'			=> $this->input->post('rfc'),
+				'email'			=> $this->input->post('email'),
+				'tipo'			=> $this->input->post('tipo'),
+				'telefono1'		=> $this->input->post('telefono1'),
+				'telefono2'		=> $this->input->post('telefono2'),
+				'usuario'		=> $this->input->post('usuario'),
+				'password'		=> $this->input->post('password'),
+				'calle'			=> $this->input->post('calle'),
+				'no_exterior'	=> $this->input->post('no_exterior'),
+				'no_interior'	=> $this->input->post('no_interior'),
+				'colonia'		=> $this->input->post('colonia'),
 				'codigo_postal'	=> $this->input->post('codigo_postal'),
-				'ciudad'				=> $this->input->post('ciudad'),
-				'municipio'			=> $this->input->post('municipio'),
-				'estado'				=> $this->input->post('estado'),
-				'pais'					=> $this->input->post('pais')
+				'ciudad'			=> $this->input->post('ciudad'),
+				'municipio'		=> $this->input->post('municipio'),
+				'estado'		=> $this->input->post('estado'),
+				'pais'			=> $this->input->post('pais')
 			);
 
-			if($cliente['pais']=="Estados Unidos"){
-					$cliente['estado']="";
-			}
-			$id = $this->input->post('id_cliente');
-			//inserto en la bd
-			if(!$this->clienteModel->update($cliente, array('id' => $id)))
+			// SI el pais es estados unidos el estado será vacio
+			if($cliente['pais'] == "Estados Unidos")
 			{
-				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+				$cliente['estado']="";
+			}
+			// Obtengo el id para tener la refencia al where
+			$id = $this->input->post('id_cliente');
+			//Actulizo en la bd
+			if($this->clienteModel->update($cliente, array('id' => $id)))
+			{
+				$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
 			}else
 			{
-					$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
+				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 			}
 		}
-
 		//mando la repuesta
 		$this->output
 			 ->set_content_type('application/json')
@@ -324,17 +327,19 @@ class Cliente extends AbstractAccess {
 	 **/
 	public function versiones()
 	{
-		$sistema=$this->input->post('sistema');
-		$versiones=$this->sistemasContpaqiModel->get(array('versiones'),array('sistema' => $sistema));
+		$sistema	= $this->input->post('sistema');
+		$versiones	= $this->sistemasContpaqiModel->get(array('versiones'),array('sistema' => $sistema));
 
-		$versiones_array=explode(',',$versiones[0]->versiones);
-		$num_versiones=count($versiones_array);
-
+		// El string que traje de la bd lo convierto a array
+		$versiones_array	= explode(',',$versiones[0]->versiones);
+		// Cuento total de versiones
+		$num_versiones	= count($versiones_array);
+		// Armo la respuesta para json
 		$respuesta = array('exito' => TRUE, 'versiones' => $versiones_array, 'num_versiones' => $num_versiones);
-
+		// Muestro JSON
 		$this->output
-		->set_content_type('application/json')
-		->set_output(json_encode($respuesta));
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
 	}
 
 	/**
@@ -343,9 +348,10 @@ class Cliente extends AbstractAccess {
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-	public function contactos($accion = null)
+	public function contactos($accion)
 	{
-		switch ($accion) {
+		switch ($accion)
+		{
 			case 'nuevo':
 				//reglas de contactos
 				$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
@@ -358,31 +364,31 @@ class Cliente extends AbstractAccess {
 				if($this->form_validation->run() === FALSE)
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-				}else
+				} else
 				{
 					//si las reglas son correctas preparo los datos para insertar
 					$contacto = array(
-						'id_cliente'				 => $this->input->post('id_cliente'),
-						'nombre_contacto' 	 => $this->input->post('nombre_contacto'),
-						'apellido_paterno' 	 => $this->input->post('apellido_paterno'),
-						'apellido_materno' 	 => $this->input->post('apellido_materno'),
-						'email_contacto' 	 	 => $this->input->post('email_contacto'),
-						'telefono_contacto'  => $this->input->post('telefono_contacto'),
-						'puesto_contacto' 	 => $this->input->post('puesto_contacto')
+						'id_cliente'				=> $this->input->post('id_cliente'),
+						'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+						'apellido_paterno'		=> $this->input->post('apellido_paterno'),
+						'apellido_materno'		=> $this->input->post('apellido_materno'),
+						'email_contacto'		=> $this->input->post('email_contacto'),
+						'telefono_contacto'	=> $this->input->post('telefono_contacto'),
+						'puesto_contacto'		=> $this->input->post('puesto_contacto')
 					);
-					//inserto en la bd
-					if(!$this->contactosModel->insert($contacto))
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
-					}else
+					// Inserto en la BD
+					if($this->contactosModel->insert($contacto))
 					{
 						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+					} else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 					}
 				}
 				//mando la repuesta
 				$this->output
-					 ->set_content_type('application/json')
-					 ->set_output(json_encode($respuesta));
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 
 			case 'editar':
@@ -397,119 +403,118 @@ class Cliente extends AbstractAccess {
 				if($this->form_validation->run() === FALSE)
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-				}else
+				} else
 				{
 					//si las reglas son correctas preparo los datos para insertar
 					$contacto = array(
-						'nombre_contacto' 	 => $this->input->post('nombre_contacto'),
-						'apellido_paterno' 	 => $this->input->post('apellido_paterno'),
-						'apellido_materno' 	 => $this->input->post('apellido_materno'),
-						'email_contacto' 	 	 => $this->input->post('email_contacto'),
-						'telefono_contacto'  => $this->input->post('telefono_contacto'),
-						'puesto_contacto' 	 => $this->input->post('puesto_contacto')
+						'nombre_contacto'		=> $this->input->post('nombre_contacto'),
+						'apellido_paterno'		=> $this->input->post('apellido_paterno'),
+						'apellido_materno'		=> $this->input->post('apellido_materno'),
+						'email_contacto'		=> $this->input->post('email_contacto'),
+						'telefono_contacto'	=> $this->input->post('telefono_contacto'),
+						'puesto_contacto'		=> $this->input->post('puesto_contacto')
 					);
 
 					//obtenemos el id para saber donde actualizar
 					$id = $this->input->post('id');
-					//actualizo en la bd
-					if(!$this->contactosModel->update($contacto, array('id' => $id)))
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
-					}else
+					//Actulizo en la BD
+					if($this->contactosModel->update($contacto, array('id' => $id)))
 					{
 						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+					}else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
 					}
 				}
 				//mando la repuesta
 				$this->output
-					 ->set_content_type('application/json')
-					 ->set_output(json_encode($respuesta));
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 
 			case 'eliminar':
-	 		  //se eliminara con el id, la ciudad y estado es colo para mostrar que oficina se borro mas esteticamente
-	 			$id = $this->input->post('id');
-	 			$nombre_contacto = $this->input->post('nombre_contacto');
-	 			$apellido_paterno = $this->input->post('apellido_paterno');
-	 			$apellido_materno = $this->input->post('apellido_materno');
+				$id					= $this->input->post('id'); // ID de la empresa
+				$nombre_contacto= $this->input->post('nombre_contacto');
+				$apellido_paterno	= $this->input->post('apellido_paterno');
+				$apellido_materno	= $this->input->post('apellido_materno');
 
-	 			$id_cliente = $this->input->post('id_cliente');
-	 			$cont=count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
+				$id_cliente			= $this->input->post('id_cliente'); // ID del cliente
+				$total_contactos	= count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
 
-	 			if($cont==1){
+				// Tambien verificar que no este contemplado en una cotizacion si no NO podra eliminarse
+
+	 			if($total_contactos == 1)
+	 			{
 	 				$respuesta = array('exito' => FALSE, 'msg' => 'No se puede eliminar, necesitas almenos un contacto');
-	 			}else{
-	 				if (!$this->contactosModel->delete(array('id' => $id)))
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
-					}else
+	 			} else
+	 			{
+	 				if ($this->contactosModel->delete(array('id' => $id)))
 					{
 						$respuesta = array('exito' => TRUE, 'contacto' => $nombre_contacto.' '.$apellido_paterno.' '.$apellido_materno);
+					} else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 					}
 	 			}
 
-	      //mando la repuesta
+	      			//mando la repuesta
 				$this->output
-					 ->set_content_type('application/json')
-					 ->set_output(json_encode($respuesta));
-			break;
-
-			default:
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 		}
 	}
 
 	/**
-	 * Funcion para gestionar los sistemas CONTPAQI de los clientes desde modo administrador
+	 * Funcion para gestionar los sistemas CONTPAQi
+	 * de los clientes desde modo administrador
 	 *
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-	public function sistemas($accion = null)
+	public function sistemas($accion)
 	{
-		switch ($accion) {
+		switch ($accion)
+		{
 			case 'nuevo':
-			//datos a insertar obtenidos del formulario
-			$sistema_cliente = array(
-				'id_cliente'	=> $this->input->post('id_cliente'),
-				'sistema'     => $this->input->post('sistema'),
-				'version'     => $this->input->post('version'),
-				'no_serie'    => $this->input->post('no_serie')
-			 );
+				//datos a insertar obtenidos del formulario
+				$sistema_cliente = array(
+					'id_cliente'	=> $this->input->post('id_cliente'),
+					'sistema'	=> $this->input->post('sistema'),
+					'version'	=> $this->input->post('version'),
+					'no_serie'	=> $this->input->post('no_serie')
+				 );
 
-				if(!$this->sistemasClienteModel->insert($sistema_cliente)){
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
-				}else{
+				// Inserto a la BD
+				if($this->sistemasClienteModel->insert($sistema_cliente))
+				{
 					$respuesta = array('exito' => TRUE, 'sistema' => $sistema_cliente['sistema'].' versión '.$sistema_cliente['version']);
+				} else
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 				}
 
 				$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($respuesta));
-			break;
-
-			case 'editar':
-				# code.
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 
 			case 'eliminar':
-				$id = $this->input->post('id');
-				$sistema = $this->input->post('sistema');
-				$version = $this->input->post('version');
+				$id			= $this->input->post('id');
+				$sistema	= $this->input->post('sistema');
+				$version	= $this->input->post('version');
 
-				if(!$this->sistemasClienteModel->delete(array('id' => $id))){
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
-				}else
+				if($this->sistemasClienteModel->delete(array('id' => $id)))
 				{
 					$respuesta = array('exito' => TRUE, 'sistema' => $sistema.' versión '.$version);
+				}else
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 				}
 
 				$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($respuesta));
-			break;
-
-			default:
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 		}
 	}
@@ -520,9 +525,10 @@ class Cliente extends AbstractAccess {
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-	public function equipos($accion = null)
+	public function equipos($accion)
 	{
-		switch ($accion) {
+		switch ($accion)
+		{
 			case 'nuevo':
 				//reglas de contactos
 				$this->form_validation->set_rules('nombre_equipo', 'Nombre del Equipo', 'trim|required|strtoupper|max_length[20]|xss_clean');
@@ -538,61 +544,51 @@ class Cliente extends AbstractAccess {
 				if($this->form_validation->run() === FALSE)
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-				}else
+				} else
 				{
 					//si las reglas son correctas preparo los datos para insertar
 					$equipo = array(
 						'id_cliente'				=> $this->input->post('id_cliente'),
-						'nombre_equipo' 	  => $this->input->post('nombre_equipo'),
-						'sistema_operativo' => $this->input->post('sistema_operativo'),
-						'arquitectura' 	    => $this->input->post('arquitectura'),
-						'maquina_virtual' 	=> $this->input->post('maquina_virtual'),
-						'memoria_ram'       => $this->input->post('memoria_ram'),
-						'sql_server' 	      => $this->input->post('sql_server'),
-						'sql_management' 	  => $this->input->post('sql_management'),
-						'instancia_sql' 	  => $this->input->post('instancia_sql'),
-						'password_sql' 	    => $this->input->post('password_sql')
+						'nombre_equipo'		=> $this->input->post('nombre_equipo'),
+						'sistema_operativo'	=> $this->input->post('sistema_operativo'),
+						'arquitectura'			=> $this->input->post('arquitectura'),
+						'maquina_virtual'		=> $this->input->post('maquina_virtual'),
+						'memoria_ram'			=> $this->input->post('memoria_ram'),
+						'sql_server'				=> $this->input->post('sql_server'),
+						'sql_management'		=> $this->input->post('sql_management'),
+						'instancia_sql'			=> $this->input->post('instancia_sql'),
+						'password_sql'			=> $this->input->post('password_sql')
 					);
-					//inserto en la bd
-					if(!$this->equiposComputoModel->insert($equipo))
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
-					}else
+					//Inserto en la BD el nuevo equipo
+					if($this->equiposComputoModel->insert($equipo))
 					{
 						$respuesta = array('exito' => TRUE, 'equipo' => $equipo['nombre_equipo']);
+					} else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 					}
 				}
 				//mando la repuesta
 				$this->output
-					 ->set_content_type('application/json')
-					 ->set_output(json_encode($respuesta));
-
-
-			break;
-
-			case 'editar':
-				# code...
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 
 			case 'eliminar':
-				$id = $this->input->post('id');
-				$nombre_equipo = $this->input->post('nombre_equipo');
+				$id					= $this->input->post('id');
+				$nombre_equipo	= $this->input->post('nombre_equipo');
 
-				if(!$this->equiposComputoModel->delete(array('id' => $id))){
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
-				}else
+				if($this->equiposComputoModel->delete(array('id' => $id)))
 				{
 					$respuesta = array('exito' => TRUE, 'equipo' => $nombre_equipo);
+				} else
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 				}
 
 				$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($respuesta));
-			break;
-
-			default:
-				$this->_vista("equipos_computo");
-				//var_dump($this->data);
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 		}
 	}
@@ -608,6 +604,11 @@ class Cliente extends AbstractAccess {
 	{
 		$id_cliente = $this->input->post('id_cliente');
 
+		/**
+		 * Si el $id_cliente es vacio, entonces es porque
+		 * sera utilizado en el select de busqueda de clientes
+		 * que esta en el cotizador
+		 */
 		if (empty($id_cliente))
 		{
 			$query	= $this->input->post('q');
@@ -638,12 +639,19 @@ class Cliente extends AbstractAccess {
 
 				// Muestro la salida
 				$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode($res));
+					->set_content_type('application/json')
+					->set_output(json_encode($res));
 			}
 		} else
 		{
+			/**
+			 * Si no sera para obtener la info de un
+			 * cliente en especifico y sus contactos
+			 */
+
+			//Obtengo cliente
 			$cliente		= $this->clienteModel->get_like(array('telefono1'), 'id', $id_cliente);
+			//Obtengo contactos
 			$contactos	= $this->contactosModel->get_like(array('*'),'id_cliente', $id_cliente);
 
 			$total_contactos = count($contactos);
@@ -681,9 +689,9 @@ class Cliente extends AbstractAccess {
 	 */
 	public function razon_rfc_check($razon_social)
 	{
-		// SI el frc y la razon social se repiten
+		// SI el rfc se repiten
 		$rfc = $this->input->post('rfc');
-		if ($this->clienteModel->exist(array('razon_social' => $razon_social, 'rfc' => $rfc))) {
+		if ($this->clienteModel->exist(array('rfc' => $rfc))) {
 			$this->form_validation->set_message('razon_rfc_check', 'El cliente de ya está registrado.');
 			return FALSE;
 		} else {
@@ -692,7 +700,8 @@ class Cliente extends AbstractAccess {
 	}
 
 	/**
-	 * Callback para revisar que no se repita el usuario
+	 * Callback para revisar que no se repita el usuario de un prospecto
+	 * a un cliente normal
 	 * @param  string $usuario Usuario a revisar
 	 * @return boolean
 	 * @author Diego Rodriguez
@@ -701,16 +710,19 @@ class Cliente extends AbstractAccess {
 	{
 		//optenemos el di del cliente desde el input hidden
 		$id = $this->input->post('id_cliente');
-		$usuario_actual=$this->clienteModel->get(array('usuario'), array('id' => $id));
-		//si no hay usuario actual es porque el cliente es prospecto nuevo
-		if($usuario_actual!=null){
-			$usuario_actual=$usuario_actual[0]->usuario;
+		$usuario_actual = $this->clienteModel->get(array('usuario'), array('id' => $id));
+		//si no hay usuario actual es porque el cliente es prospecto o aun no tiene usuario
+		if($usuario_actual != null)
+		{
+			$usuario_actual = $usuario_actual[0]->usuario;
 		}
 
-		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario!=$usuario_actual) {
+		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario != $usuario_actual)
+		{
 			$this->form_validation->set_message('usuario_check', 'El usuario de ya está registrado.');
 			return FALSE;
-		} else {
+		} else
+		{
 			return TRUE;
 		}
 	}
