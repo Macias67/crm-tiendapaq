@@ -231,9 +231,8 @@
 				<div id="nuevo-cliente" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
-							<b>Registrar prospecto</b>
+							<b>Registrar prospecto - </b> <small>Registro de un cliente prospecto en TiendaPAQ</small>
 						</h3>
-						<small>Registro de un cliente en TiendaPAQ</small>
 					</div>
 					<form action="<?php echo site_url('cliente/nuevo') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
@@ -277,73 +276,6 @@
 												</div>
 											</div>
 										</div>
-										<!-- Calle -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">
-												Calle<span class="required" aria-required="true">*</span>
-											</label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Calle" name="calle">
-												</div>
-											</div>
-										</div>
-										<!-- Ciudad -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">
-												Ciudad<span class="required" aria-required="true">*</span>
-											</label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-map-marker"></i>
-													<input type="text" class="form-control" placeholder="Ciudad" name="ciudad">
-												</div>
-											</div>
-										</div>
-										<!-- Estado -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">Estado</label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-map-marker"></i>
-													<select class="form-control" name="estado">
-														<option value="Aguascalientes">Aguascalientes</option>
-														<option value="Baja California">Baja California</option>
-														<option value="Baja California Sur">Baja California Sur</option>
-														<option value="Campeche">Campeche</option>
-														<option value="Chiapas">Chiapas</option>
-														<option value="Chihuahua">Chihuahua</option>
-														<option value="Coahuila">Coahuila</option>
-														<option value="Colima">Colima</option>
-														<option value="Distrito Federal">Distrito Federal</option>
-														<option value="Durango">Durango</option>
-														<option value="Estado de México">Estado de México</option>
-														<option value="Guanajuato">Guanajuato</option>
-														<option value="Guerrero">Guerrero</option>
-														<option value="Hidalgo">Hidalgo</option>
-														<option value="Jalisco" selected>Jalisco</option>
-														<option value="Michoacán">Michoacán</option>
-														<option value="Morelos">Morelos</option>
-														<option value="Nayarit">Nayarit</option>
-														<option value="Nuevo León">Nuevo León</option>
-														<option value="Oaxaca">Oaxaca</option>
-														<option value="Puebla">Puebla</option>
-														<option value="Querétaro">Querétaro</option>
-														<option value="Quintana Roo">Quintana Roo</option>
-														<option value="San Luis Potosí">San Luis Potosí</option>
-														<option value="Sinaloa">Sinaloa</option>
-														<option value="Sonora">Sonora</option>
-														<option value="Tabasco">Tabasco</option>
-														<option value="Tamaulipas">Tamaulipas</option>
-														<option value="Tlaxcala">Tlaxcala</option>
-														<option value="Veracruz">Veracruz</option>
-														<option value="Yucatán">Yucatán</option>
-														<option value="Zacatecas">Zacatecas</option>
-													</select>
-												</div>
-											</div>
-										</div>
 										<hr>
 										<!-- TELEFONOS -->
 										<h4>Teléfonos</h4>
@@ -355,7 +287,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono1">
+													<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1">
 												</div>
 											</div>
 										</div>
@@ -399,23 +331,25 @@
 										</div>
 										<!-- Email del contacto -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Email</label>
+											<label class="col-md-4 control-label">
+												Email <span class="required" aria-required="true">*</span>
+											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa  fa-envelope"></i>
 													<input type="text" class="form-control" placeholder="Email" name="email_contacto">
-													<span class="help-block">Email personal de la empresa</span>
 												</div>
 											</div>
 										</div>
 										<!-- Telefono del contacto -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Teléfono</label>
+											<label class="col-md-4 control-label">
+												Teléfono <span class="required" aria-required="true">*</span>
+											</label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" placeholder="Teléfono" name="telefono_contacto">
-													<span class="help-block">En la empresa (extensión o departamento)</span>
+													<input type="text" class="form-control" id="telefono_contacto" placeholder="Teléfono" name="telefono_contacto">
 												</div>
 											</div>
 										</div>
