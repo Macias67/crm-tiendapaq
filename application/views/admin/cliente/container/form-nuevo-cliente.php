@@ -174,7 +174,9 @@
 											</div>
 											<!-- Tipo -->
 											<div class="form-group">
-												<label class="control-label col-md-4">Tipo : </label>
+												<label class="control-label col-md-4">
+													Tipo<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<select class="form-control" name="tipo">
 														<option value="normal" selected>Normal</option>
@@ -190,8 +192,7 @@
 											<!-- Calle -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Calle
-													<span class="required" aria-required="true">*</span>
+													Calle<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -203,8 +204,7 @@
 											<!-- No Exterior -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													No. Exterior
-													<span class="required" aria-required="true">*</span>
+													No. Exterior<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -225,7 +225,9 @@
 											</div>
 											<!-- Colonia -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Colonia</label>
+												<label class="col-md-4 control-label">
+													Colonia<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
@@ -235,7 +237,9 @@
 											</div>
 											<!-- Codigo Postal -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Código Postal</label>
+												<label class="col-md-4 control-label">
+													Código Postal<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
@@ -267,54 +271,29 @@
 											</div>
 											<!-- Estado -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Estado</label>
+												<label class="col-md-4 control-label">
+													Estado<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
-														<select class="form-control" name="estado">
-															<option value="Aguascalientes">Aguascalientes</option>
-															<option value="Baja California">Baja California</option>
-															<option value="Baja California Sur">Baja California Sur</option>
-															<option value="Campeche">Campeche</option>
-															<option value="Chiapas">Chiapas</option>
-															<option value="Chihuahua">Chihuahua</option>
-															<option value="Coahuila">Coahuila</option>
-															<option value="Colima">Colima</option>
-															<option value="Distrito Federal">Distrito Federal</option>
-															<option value="Durango">Durango</option>
-															<option value="Estado de México">Estado de México</option>
-															<option value="Guanajuato">Guanajuato</option>
-															<option value="Guerrero">Guerrero</option>
-															<option value="Hidalgo">Hidalgo</option>
-															<option value="Jalisco" selected>Jalisco</option>
-															<option value="Michoacán">Michoacán</option>
-															<option value="Morelos">Morelos</option>
-															<option value="Nayarit">Nayarit</option>
-															<option value="Nuevo León">Nuevo León</option>
-															<option value="Oaxaca">Oaxaca</option>
-															<option value="Puebla">Puebla</option>
-															<option value="Querétaro">Querétaro</option>
-															<option value="Quintana Roo">Quintana Roo</option>
-															<option value="San Luis Potosí">San Luis Potosí</option>
-															<option value="Sinaloa">Sinaloa</option>
-															<option value="Sonora">Sonora</option>
-															<option value="Tabasco">Tabasco</option>
-															<option value="Tamaulipas">Tamaulipas</option>
-															<option value="Tlaxcala">Tlaxcala</option>
-															<option value="Veracruz">Veracruz</option>
-															<option value="Yucatán">Yucatán</option>
-															<option value="Zacatecas">Zacatecas</option>
+														<select class="form-control" name="estado" id="estado">
+															<?php foreach ($this->estados as $estado): ?>
+																<option value="<?php echo $estado ?>" <?php echo ($estado=='Jalisco')? 'selected':'' ?>><?php echo $estado ?></option>
+															<?php endforeach ?>
 														</select>
 													</div>
 												</div>
 											</div>
 											<!-- Pais -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">País</label>
+												<label class="col-md-4 control-label">
+													País<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-map-marker"></i>
-														<select class="form-control" name="pais">
+														<select class="form-control" name="pais" id="pais">
 															<option value="Estados Unidos">Estados Unidos</option>
 															<option value="México" selected>México</option>
 														</select>
@@ -367,7 +346,7 @@
 											</div>
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Apellido Paterno <span class="required" aria-required="true">*</span>
+													Apellido Paterno<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -378,7 +357,7 @@
 											</div>
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Apellido Materno <span class="required" aria-required="true">*</span>
+													Apellido Materno<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -389,23 +368,25 @@
 											</div>
 											<!-- Email del contacto -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Email</label>
+												<label class="col-md-4 control-label">
+													Email<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa  fa-envelope"></i>
 														<input type="text" class="form-control" placeholder="Email" name="email_contacto">
-														<span class="help-block">Email personal de la empresa</span>
 													</div>
 												</div>
 											</div>
 											<!-- Telefono del contacto -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Teléfono</label>
+												<label class="col-md-4 control-label">
+													Teléfono<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
-														<input type="text" class="form-control" placeholder="Teléfono" name="telefono_contacto">
-														<span class="help-block">En la empresa (extensión o departamento)</span>
+														<input type="text" class="form-control" id="telefono_contacto" placeholder="Teléfono" name="telefono_contacto">
 													</div>
 												</div>
 											</div>

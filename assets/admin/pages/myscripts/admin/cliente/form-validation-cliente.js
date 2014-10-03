@@ -5,7 +5,8 @@ var FormValidationCliente = function () {
 		$('#memoria-ram').spinner();
 	}
 
-  //Funcion para que si es estados unidos no se pinten los estados
+  //Funcion para que si es estados unidos no se pinten los estados 
+  //en el select del formulario de agregar o editar clientes
   var handPais = function() {
     var pais;
     if($('#pais').val()=="Estados Unidos"){
@@ -67,10 +68,11 @@ var FormValidationCliente = function () {
 				no_interior: {
 				},
 				colonia: {
-					maxlength: 20
+					maxlength: 20,
+					required: true
 				},
 				codigo_postal: {
-					// mascara
+					required: true
 				},
 				ciudad: {
 					required: true,
@@ -104,9 +106,11 @@ var FormValidationCliente = function () {
 				},
 				email_contacto: {
 					maxlength: 30,
+					required: true,
 					email: true
 				},
 				telefono_contacto: {
+					required: true,
 					maxlength: 14
 				},
 				puesto_contacto: {
@@ -128,16 +132,17 @@ var FormValidationCliente = function () {
 				maquina_virtual: {
 				},
 				memoria_ram: {
-					maxlength: 2
+					maxlength: 3
 				},
 				sql_server: {
 				},
 				sql_management: {
 				},
 				instancia_sql: {
+					maxlength: 20
 				},
 				password_sql: {
-					maxlength: 10
+					maxlength: 20
 				}
 			},
 			messages: {
@@ -166,10 +171,12 @@ var FormValidationCliente = function () {
 				no_interior: {
 				},
 				colonia: {
-					maxlength: "La colonia debe tener menos de 20 caracteres"
+					maxlength: "La colonia debe tener menos de 20 caracteres",
+					required: "Escribe la colonia"
 				},
 				codigo_postal: {
 					maxlength: "El código postal debe tener menos de 7 digitos",
+					required: "Escribe el código postal",
 					digits: "El código postal debe contener solo digitos"
 				},
 				ciudad: {
@@ -194,18 +201,20 @@ var FormValidationCliente = function () {
 				},
 				apellido_paterno: {
 					maxlength: "El apellido paterno del contacto debe tener menos de 20 caracteres",
-					required: "Escribe apellido_paterno del contacto"
+					required: "Escribe apellido paterno"
 				},
 				apellido_materno: {
 					maxlength: "El apellido materno del contacto debe tener menos de 20 caracteres",
-					required: "Escribe apellido_materno del contacto"
+					required: "Escribe apellido materno"
 				},
 				email_contacto: {
 					maxlength: "El email del contacto debe tener menos de 30 caracteres",
+					required: "Escribe el email",
 					email: "Escribe un email valido"
 				},
 				telefono_contacto: {
-					maxlength:  "El telefono del contacto debe tener menos de 14 digitos"
+					maxlength:  "El telefono del contacto debe tener menos de 14 digitos",
+					required: "Escribe el teléfono"
 				},
 				puesto_contacto: {
 					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
@@ -226,16 +235,17 @@ var FormValidationCliente = function () {
 				maquina_virtual: {
 				},
 				memoria_ram: {
-					maxlength:  "La memoria RAM debe tener menos de 2 digitos"
+					maxlength:  "La memoria RAM debe tener menos de 3 digitos"
 				},
 				sql_server: {
 				},
 				sql_management: {
 				},
 				instancia_sql: {
+					maxlength:  "La instancia SQL debe tener menos de 20 caracteres"
 				},
 				password_sql: {
-					maxlength:  "La contraseña debe tener menos de 10 caracteres"
+					maxlength:  "La contraseña debe tener menos de 20 caracteres"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit

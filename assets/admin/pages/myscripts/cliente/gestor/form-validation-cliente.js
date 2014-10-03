@@ -1,25 +1,26 @@
 var FormValidationCliente = function () {
 
-    //Funcion para que si es estados unidos no se pinten los estados
-    var handPais = function() {
-      var pais;
-      if($('#pais').val()=="Estados Unidos"){
-      	$("#estado").hide('slow/400/fast', function() {
-        	});
-      }
-
-    	$("#pais").change(function(){
-        pais = $('#pais').val();
-
-        if(pais=="Estados Unidos"){
-        	$("#estado").hide('slow/400/fast', function() {
-        	});
-        }else{
-        		$("#estado").show('slow/400/fast', function() {
-        		});
-        }
-      });
+  //Funcion para que si es estados unidos no se pinten los estados 
+	//en el select del formulario de agregar o editar clientes
+  var handPais = function() {
+    var pais;
+    if($('#pais').val()=="Estados Unidos"){
+    	$("#estado").hide('slow/400/fast', function() {
+      	});
     }
+
+  	$("#pais").change(function(){
+      pais = $('#pais').val();
+
+      if(pais=="Estados Unidos"){
+      	$("#estado").hide('slow/400/fast', function() {
+      	});
+      }else{
+      		$("#estado").show('slow/400/fast', function() {
+      		});
+      }
+    });
+  }
 
 	// Validacion para formulario de cliente nuevo completo en la vista del sidebar
 	var handBasicaCliente = function() {
