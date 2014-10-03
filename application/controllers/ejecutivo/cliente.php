@@ -69,12 +69,8 @@ class Cliente extends AbstractAccess {
 	public function nuevo($tipo = null)
 	{
 		//Datos basicos
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_rfc_check|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|xss_clean');
-		//Datos del domicilio
-		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-		$this->form_validation->set_rules('estado', 'Estado', 'trim|required|xss_clean');
 		// Telefonos
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		//Contacto
@@ -91,11 +87,14 @@ class Cliente extends AbstractAccess {
 			$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 			$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
 			//Datos del domicilio
+			$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 			$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
 			$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
 			$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
 			$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
+			$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 			$this->form_validation->set_rules('municipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
+			$this->form_validation->set_rules('estado', 'Estado', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
 			//Telefonos
 			$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
@@ -130,37 +129,37 @@ class Cliente extends AbstractAccess {
 				$data = array(
 					//Datos basicos
 					'razon_social'	=> $this->input->post('razon_social'),
-					'rfc'			=> $this->input->post('rfc'),
-					'email'			=> $this->input->post('email'),
-					'tipo'			=> $this->input->post('tipo'),
-					'calle'			=> $this->input->post('calle'),
-					'no_exterior'	=> $this->input->post('no_exterior'),
-					'no_interior'	=> $this->input->post('no_interior'),
-					'colonia'		=> $this->input->post('colonia'),
+					'rfc'						=> $this->input->post('rfc'),
+					'email'					=> $this->input->post('email'),
+					'tipo'					=> $this->input->post('tipo'),
+					'calle'					=> $this->input->post('calle'),
+					'no_exterior'		=> $this->input->post('no_exterior'),
+					'no_interior'		=> $this->input->post('no_interior'),
+					'colonia'				=> $this->input->post('colonia'),
 					'codigo_postal'	=> $this->input->post('codigo_postal'),
-					'ciudad'			=> $this->input->post('ciudad'),
-					'municipio'		=> $this->input->post('municipio'),
-					'estado'		=> $this->input->post('estado'),
-					'pais'			=> $this->input->post('pais'),
-					'telefono1'		=> $this->input->post('telefono1'),
-					'telefono2'		=> $this->input->post('telefono2'),
+					'ciudad'				=> $this->input->post('ciudad'),
+					'municipio'			=> $this->input->post('municipio'),
+					'estado'				=> $this->input->post('estado'),
+					'pais'					=> $this->input->post('pais'),
+					'telefono1'			=> $this->input->post('telefono1'),
+					'telefono2'			=> $this->input->post('telefono2'),
 					//Contacto
 					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-					'apellido_paterno'		=> $this->input->post('apellido_paterno'),
-					'apellido_materno'		=> $this->input->post('apellido_materno'),
+					'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+					'apellido_materno'	=> $this->input->post('apellido_materno'),
 					'email_contacto'		=> $this->input->post('email_contacto'),
 					'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 					'puesto_contacto'		=> $this->input->post('puesto_contacto'),
 					//Sistema
 					'sistema'		=> $this->input->post('sistema'),
 					'version'		=> $this->input->post('version'),
-					'no_serie'		=> $this->input->post('no_serie'),
+					'no_serie'	=> $this->input->post('no_serie'),
 					//Info del equipo
-					'nombre_equipo'		=> $this->input->post('nombre_equipo'),
+					'nombre_equipo'			=> $this->input->post('nombre_equipo'),
 					'sistema_operativo'	=> $this->input->post('sistema_operativo'),
 					'arquitectura'			=> $this->input->post('arquitectura'),
 					'maquina_virtual'		=> $this->input->post('maquina_virtual'),
-					'memoria_ram'			=> $this->input->post('memoria_ram'),
+					'memoria_ram'				=> $this->input->post('memoria_ram'),
 					'sql_server'				=> $this->input->post('sql_server'),
 					'sql_management'		=> $this->input->post('sql_management'),
 					'instancia_sql'			=> $this->input->post('instancia_sql'),
@@ -184,7 +183,7 @@ class Cliente extends AbstractAccess {
 					$exito_equipos		= $this->equiposComputoModel->insert($equipos);
 					// Armo la respuesta para el JSON
 					$respuesta = array(
-						'exito'			=> ($exito_contactos and $exito_sistemas and $exito_equipos),
+						'exito'					=> ($exito_contactos and $exito_sistemas and $exito_equipos),
 						'razon_social'	=> $basica_cliente->razon_social);
 				} else
 				{
@@ -198,17 +197,14 @@ class Cliente extends AbstractAccess {
 				// Array con la informacion
 				$data = array(
 					//Datos basicos
-					'razon_social'			=> $this->input->post('razon_social'),
+					'razon_social'	=> $this->input->post('razon_social'),
 					'email'					=> $this->input->post('email'),
 					'tipo'					=> 'prospecto',
-					'calle'					=> $this->input->post('calle'),
-					'ciudad'					=> $this->input->post('ciudad'),
-					'estado'				=> $this->input->post('estado'),
-					'telefono1'				=> $this->input->post('telefono1'),
+					'telefono1'			=> $this->input->post('telefono1'),
 					//Contacto
 					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-					'apellido_paterno'		=> $this->input->post('apellido_paterno'),
-					'apellido_materno'		=> $this->input->post('apellido_materno'),
+					'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+					'apellido_materno'	=> $this->input->post('apellido_materno'),
 					'email_contacto'		=> $this->input->post('email_contacto'),
 					'telefono_contacto'	=> $this->input->post('telefono_contacto')
 				);
@@ -252,7 +248,7 @@ class Cliente extends AbstractAccess {
 	public function editado()
 	{
 		//Datos basicos
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_rfc_check|xss_clean');
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_rfc_check|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|xss_clean');
@@ -279,22 +275,22 @@ class Cliente extends AbstractAccess {
 			$cliente = array(
 				//Datos basicos
 				'razon_social'	=> $this->input->post('razon_social'),
-				'rfc'			=> $this->input->post('rfc'),
-				'email'			=> $this->input->post('email'),
-				'tipo'			=> $this->input->post('tipo'),
-				'telefono1'		=> $this->input->post('telefono1'),
-				'telefono2'		=> $this->input->post('telefono2'),
-				'usuario'		=> $this->input->post('usuario'),
-				'password'		=> $this->input->post('password'),
-				'calle'			=> $this->input->post('calle'),
-				'no_exterior'	=> $this->input->post('no_exterior'),
-				'no_interior'	=> $this->input->post('no_interior'),
-				'colonia'		=> $this->input->post('colonia'),
+				'rfc'						=> $this->input->post('rfc'),
+				'email'					=> $this->input->post('email'),
+				'tipo'					=> $this->input->post('tipo'),
+				'telefono1'			=> $this->input->post('telefono1'),
+				'telefono2'			=> $this->input->post('telefono2'),
+				'usuario'				=> $this->input->post('usuario'),
+				'password'			=> $this->input->post('password'),
+				'calle'					=> $this->input->post('calle'),
+				'no_exterior'		=> $this->input->post('no_exterior'),
+				'no_interior'		=> $this->input->post('no_interior'),
+				'colonia'				=> $this->input->post('colonia'),
 				'codigo_postal'	=> $this->input->post('codigo_postal'),
-				'ciudad'			=> $this->input->post('ciudad'),
-				'municipio'		=> $this->input->post('municipio'),
-				'estado'		=> $this->input->post('estado'),
-				'pais'			=> $this->input->post('pais')
+				'ciudad'				=> $this->input->post('ciudad'),
+				'municipio'			=> $this->input->post('municipio'),
+				'estado'				=> $this->input->post('estado'),
+				'pais'					=> $this->input->post('pais')
 			);
 
 			// SI el pais es estados unidos el estado será vacio
@@ -370,8 +366,8 @@ class Cliente extends AbstractAccess {
 					$contacto = array(
 						'id_cliente'				=> $this->input->post('id_cliente'),
 						'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-						'apellido_paterno'		=> $this->input->post('apellido_paterno'),
-						'apellido_materno'		=> $this->input->post('apellido_materno'),
+						'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+						'apellido_materno'	=> $this->input->post('apellido_materno'),
 						'email_contacto'		=> $this->input->post('email_contacto'),
 						'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 						'puesto_contacto'		=> $this->input->post('puesto_contacto')
@@ -408,8 +404,8 @@ class Cliente extends AbstractAccess {
 					//si las reglas son correctas preparo los datos para insertar
 					$contacto = array(
 						'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-						'apellido_paterno'		=> $this->input->post('apellido_paterno'),
-						'apellido_materno'		=> $this->input->post('apellido_materno'),
+						'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+						'apellido_materno'	=> $this->input->post('apellido_materno'),
 						'email_contacto'		=> $this->input->post('email_contacto'),
 						'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 						'puesto_contacto'		=> $this->input->post('puesto_contacto')
@@ -433,8 +429,8 @@ class Cliente extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				$id					= $this->input->post('id'); // ID de la empresa
-				$nombre_contacto= $this->input->post('nombre_contacto');
+				$id								= $this->input->post('id'); // ID de la empresa
+				$nombre_contacto	= $this->input->post('nombre_contacto');
 				$apellido_paterno	= $this->input->post('apellido_paterno');
 				$apellido_materno	= $this->input->post('apellido_materno');
 
@@ -479,9 +475,9 @@ class Cliente extends AbstractAccess {
 			case 'nuevo':
 				//datos a insertar obtenidos del formulario
 				$sistema_cliente = array(
-					'id_cliente'	=> $this->input->post('id_cliente'),
-					'sistema'	=> $this->input->post('sistema'),
-					'version'	=> $this->input->post('version'),
+					'id_cliente'=> $this->input->post('id_cliente'),
+					'sistema'		=> $this->input->post('sistema'),
+					'version'		=> $this->input->post('version'),
 					'no_serie'	=> $this->input->post('no_serie')
 				 );
 
@@ -549,11 +545,11 @@ class Cliente extends AbstractAccess {
 					//si las reglas son correctas preparo los datos para insertar
 					$equipo = array(
 						'id_cliente'				=> $this->input->post('id_cliente'),
-						'nombre_equipo'		=> $this->input->post('nombre_equipo'),
+						'nombre_equipo'			=> $this->input->post('nombre_equipo'),
 						'sistema_operativo'	=> $this->input->post('sistema_operativo'),
 						'arquitectura'			=> $this->input->post('arquitectura'),
 						'maquina_virtual'		=> $this->input->post('maquina_virtual'),
-						'memoria_ram'			=> $this->input->post('memoria_ram'),
+						'memoria_ram'				=> $this->input->post('memoria_ram'),
 						'sql_server'				=> $this->input->post('sql_server'),
 						'sql_management'		=> $this->input->post('sql_management'),
 						'instancia_sql'			=> $this->input->post('instancia_sql'),
@@ -687,12 +683,10 @@ class Cliente extends AbstractAccess {
 	 * @return boolean
 	 * @author Diego Rodriguez | Luis Macias
 	 */
-	public function razon_rfc_check($razon_social)
+	public function rfc_check($rfc)
 	{
-		// SI el rfc se repiten
-		$rfc = $this->input->post('rfc');
 		if ($this->clienteModel->exist(array('rfc' => $rfc))) {
-			$this->form_validation->set_message('razon_rfc_check', 'El cliente de ya está registrado.');
+			$this->form_validation->set_message('rfc_check', 'El RFC de ya está registrado.');
 			return FALSE;
 		} else {
 			return TRUE;
