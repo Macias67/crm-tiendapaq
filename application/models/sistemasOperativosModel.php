@@ -1,5 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para gestionar los sistemas operativos
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class SistemasOperativosModel extends MY_Model {
 
 	/**

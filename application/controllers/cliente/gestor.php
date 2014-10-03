@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 /**
  * Clase para la gestion de la informacion relacionada con el cliente
  *

@@ -1,5 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para gestionar la tabla de los
+ * sistemas del cliente
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class SistemasClienteModel extends MY_Model {
 
 	/**
@@ -23,13 +29,13 @@ class SistemasClienteModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
-/**
- * funcion para convertir un arreglo asociativo a un objeto
- * con sus metodos
- *
- * @return $basica clientes
- * @author Diego Rodriguez
- **/
+	/**
+	 * funcion para convertir un arreglo asociativo a un objeto
+	 * con sus metodos
+	 *
+	 * @return $basica clientes
+	 * @author Diego Rodriguez
+	 **/
 	public function arrayToObject($id_cliente, $data)
 	{
 		$this->sistemas_cliente = new stdClass();

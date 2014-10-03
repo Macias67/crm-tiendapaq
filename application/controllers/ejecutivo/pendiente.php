@@ -59,7 +59,7 @@ class Pendiente extends AbstractAccess {
 				$this->load->model('ejecutivoModel');
 				$this->load->model('creaPendienteModel');
 
-				$id_pendiente_nuevo = $this->pendienteModel->getUltimoPendiente();
+				$id_pendiente_nuevo = $this->pendienteModel->getIDUltimoPendiente();
 
 				$this->creaPendienteModel->insert(array(
 										'id_creador'	=> $this->usuario_activo['id'],

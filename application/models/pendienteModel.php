@@ -1,5 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para la tabla de pendientes
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class PendienteModel extends MY_Model {
 
 	/**
@@ -50,7 +55,7 @@ class PendienteModel extends MY_Model {
 	 * Retorna los pendientes que hay
 	 * regisrados en la tabla de la base de datos
 	 *
-	 * @return array
+	 * @return array object
 	 * @author Luis Macias
 	 **/
 	public function getPendientes($id_ejecutivo)
@@ -71,7 +76,7 @@ class PendienteModel extends MY_Model {
 	 * Retorna el pendiente que hay
 	 * regisrado en la tabla de la base de datos
 	 *
-	 * @return array
+	 * @return object
 	 * @author Luis Macias
 	 **/
 	public function getPendiente($id_pendiente)
@@ -88,12 +93,20 @@ class PendienteModel extends MY_Model {
 		return $query->row();
 	}
 
-	public function getUltimoPendiente()
+	/**
+	 * Retorna el folio del ultimo pendiente
+	 *
+	 * @return int
+	 * @author Luis Macias
+	 **/
+	public function getIDUltimoPendiente()
 	{
 		$pendiente = $this->get('id_pendiente', null, 'id_pendiente', 'DESC', 1);
-		if (empty($pendiente)) {
+		if (empty($pendiente))
+		{
 			$id_pendiente = 1;
-		} else {
+		} else
+		{
 			$id_pendiente = (int)$pendiente->id_pendiente;
 		}
 		return $id_pendiente;
