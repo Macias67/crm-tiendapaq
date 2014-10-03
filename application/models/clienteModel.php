@@ -208,10 +208,9 @@ class ClienteModel extends TxtManager {
 	/**
 	 * Funciones para generar usuarios y contraseñas
 	 *
-	 * @return $usuario, $password
+	 * @return $usuario
 	 * @author Luis Macias
 	 **/
-
 	public function usuario($nombre)
 	{
 		$nombre_array	= explode(" ", strtolower($nombre));
@@ -220,13 +219,21 @@ class ClienteModel extends TxtManager {
 		return $usuario;
 	}
 
+	/**
+	 * Funciones para generar  contraseñas
+	 *
+	 * @return $password
+	 * @author Luis Macias
+	 **/
 	public function password()
 	{
 		$cadena="[^A-Z0-9]";
-		return substr(eregi_replace($cadena, "", md5(rand())) .
-			eregi_replace($cadena, "", md5(rand())) .
-			eregi_replace($cadena, "", md5(rand())),
-			0, rand(8, 10));
+		return substr(
+				preg_replace($cadena, "", md5(rand())) .
+				preg_replace($cadena, "", md5(rand())) .
+				preg_replace($cadena, "", md5(rand())),
+				0, rand(8, 10)
+			);
 	}
 
 	/**

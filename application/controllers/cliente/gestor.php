@@ -37,8 +37,8 @@ class Gestor extends AbstractAccess {
 			break;
 			case 'editar':
 				//Datos basicos
-				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_frc_check|xss_clean');
-				$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
+				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
+				$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
 				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 				$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 				$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
@@ -395,6 +395,38 @@ class Gestor extends AbstractAccess {
 				$this->_vista("equipos_computo");
 				//var_dump($this->data);
 			break;
+		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| CALLBACKS
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Callback para revisar que no se repitan registros
+	 * @param  string $nombre Nombre a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez | Luis Macias
+	 */
+	public function rfc_check($rfc)
+	{
+		//optenemos el di del cliente desde el input hidden
+		$id = $this->input->post('id_cliente');
+		$rfc_actual = $this->clienteModel->get(array('rfc'), array('id' => $id));
+		//si no hay rfc actual es porque el cliente es prospecto o aun no tiene rfc
+		if($rfc_actual != null)
+		{
+			$rfc_actual = $rfc_actual[0]->rfc;
+		}
+
+		if ($this->clienteModel->exist(array('rfc' => $rfc)) && $rfc != $rfc_actual)
+		{
+			$this->form_validation->set_message('rfc_check', 'El RFC de ya está registrado.');
+			return FALSE;
+		} else {
+			return TRUE;
 		}
 	}
 

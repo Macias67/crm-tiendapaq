@@ -69,7 +69,7 @@ class Cliente extends AbstractAccess {
 	public function nuevo($tipo = null)
 	{
 		//Datos basicos
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_rfc_check|xss_clean');
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|xss_clean');
 		// Telefonos
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
@@ -84,7 +84,7 @@ class Cliente extends AbstractAccess {
 		if ($tipo == 'normal')
 		{
 			//Datos basicos
-			$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
+			$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
 			$this->form_validation->set_rules('tipo', 'Tipo', 'required|strtolower');
 			//Datos del domicilio
 			$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -248,8 +248,8 @@ class Cliente extends AbstractAccess {
 	public function editado()
 	{
 		//Datos basicos
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_rfc_check|xss_clean');
-		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
+		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|xss_clean');
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
@@ -685,7 +685,17 @@ class Cliente extends AbstractAccess {
 	 */
 	public function rfc_check($rfc)
 	{
-		if ($this->clienteModel->exist(array('rfc' => $rfc))) {
+		//optenemos el di del cliente desde el input hidden
+		$id = $this->input->post('id_cliente');
+		$rfc_actual = $this->clienteModel->get(array('rfc'), array('id' => $id));
+		//si no hay rfc actual es porque el cliente es prospecto o aun no tiene rfc
+		if($rfc_actual != null)
+		{
+			$rfc_actual = $rfc_actual[0]->rfc;
+		}
+
+		if ($this->clienteModel->exist(array('rfc' => $rfc)) && $rfc != $rfc_actual)
+		{
 			$this->form_validation->set_message('rfc_check', 'El RFC de ya está registrado.');
 			return FALSE;
 		} else {
