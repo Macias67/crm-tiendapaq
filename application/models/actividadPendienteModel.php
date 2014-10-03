@@ -1,5 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo con informacion con los
+ * tipos de actividades que se pueden hacer
+ * generando un pendiente.
+ *
+ * @author Luis Macias
+ */
 class ActividadPendienteModel extends MY_Model {
 
 	/**

@@ -1,5 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para la tabla de observaciones
+ * de una cotizacion
+ *
+ * @package default
+ * @author Luis Macas
+ **/
 class observacionCotizacionModel extends MY_Model {
 
 	/**

@@ -1,5 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ *Modelo para estatus de los casos
+ * y pendientes.
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class estatusModel extends MY_Model {
 
 	var $CANCELADA	= 1;

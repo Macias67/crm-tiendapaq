@@ -1,5 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para gestionar equipos de computo
+ *
+ * @package default
+ * @author Diego Rodriguez
+ **/
 class EquiposComputoModel extends MY_Model {
 
 	/**
@@ -27,7 +32,7 @@ class EquiposComputoModel extends MY_Model {
  * funcion para convertir un arreglo asociativo a un objeto
  * con sus metodos
  *
- * @return $basica clientes
+ * @return object $basica clientes
  * @author Diego Rodriguez
  **/
 	public function arrayToObject($id_cliente, $data)
