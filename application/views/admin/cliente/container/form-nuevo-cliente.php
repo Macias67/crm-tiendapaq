@@ -327,6 +327,35 @@
 													</div>
 												</div>
 											</div>
+
+											<hr>
+
+											<!-- ACCESO AL SISTEMA -->
+											<h4>Acceso al sistema</h4>
+											<!-- Usuario -->
+											<div class="form-group">
+												<label class="col-md-4 control-label">
+													Usuario<span class="required" aria-required="true">*</span>
+												</label>
+												<div class="col-md-8">
+													<div class="input-icon">
+														<i class="fa fa-user"></i>
+														<input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario" name="usuario">
+													</div>
+												</div>
+											</div>
+											<!-- Contraseña -->
+											<div class="form-group">
+												<label class="col-md-4 control-label">
+													Contraseña<span class="required" aria-required="true">*</span>
+												</label>
+												<div class="col-md-8">
+													<div class="input-icon">
+														<i class="fa fa-lock"></i>
+														<input type="text" class="form-control" id="password" placeholder="Contraseña" name="password">
+													</div>
+												</div>
+											</div>
 										</div>
 
 										<div class="col-md-6">

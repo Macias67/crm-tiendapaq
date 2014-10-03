@@ -252,7 +252,7 @@
 															<label class="col-md-4 control-label">Usuario </label>
 															<div class="col-md-8">
 																<div class="input-icon">
-																	<i class="fa fa-phone"></i>
+																	<i class="fa fa-user"></i>
 																	<input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario" name="usuario" value="<?php echo $cliente->usuario ?>">
 																</div>
 															</div>
@@ -262,7 +262,7 @@
 															<label class="col-md-4 control-label">Contraseña </label>
 															<div class="col-md-8">
 																<div class="input-icon">
-																	<i class="fa fa-phone"></i>
+																	<i class="fa fa-lock"></i>
 																	<input type="text" class="form-control" id="password" placeholder="Contraseña" name="password" value="<?php echo $cliente->password ?>">
 																</div>
 															</div>

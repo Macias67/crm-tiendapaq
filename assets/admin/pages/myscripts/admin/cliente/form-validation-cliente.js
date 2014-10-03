@@ -92,6 +92,14 @@ var FormValidationCliente = function () {
 				},
 				telefono2: {
 				},
+				usuario: {
+					maxlength: 10,
+					required: true
+				},
+				password: {
+					maxlength: 10,
+					required: true
+				},
 				nombre_contacto: {
 					maxlength: 30,
 					required: true
@@ -194,6 +202,14 @@ var FormValidationCliente = function () {
 					required: "Escribe el Teléfono"
 				},
 				telefono2: {
+				},
+				usuario: {
+					maxlength: "El nombre de usuario debe tener menos de 10 caracteres",
+					required: "Escribe el usuario"
+				},
+				password: {
+					maxlength: "La contraseña debe tener menos de 10 caracteres",
+					required: "Escribe la contraseña"
 				},
 				nombre_contacto: {
 					maxlength: "El nombre del contacto debe tener menos de 30 caracteres",
