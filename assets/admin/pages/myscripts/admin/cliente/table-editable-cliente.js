@@ -1,5 +1,15 @@
 var TableEditable = function () {
 
+    // PROGRESS BAR PARA CUANDO MANDO UN AJAX
+    $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+    '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+        '<div class="progress progress-striped active">' +
+            '<div class="progress-bar" style="width: 100%;"></div>' +
+        '</div>' +
+    '</div>';
+
+    $.fn.modalmanager.defaults.resize = true;
+
     //Tabla de gestion sistemas contpaqi del cliente
     var handleTableClientes= function () {
 
@@ -146,12 +156,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: contacto,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -161,7 +171,7 @@ var TableEditable = function () {
                             alert('Error : '+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -174,12 +184,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: contacto,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -189,7 +199,7 @@ var TableEditable = function () {
                             alert('Error : '+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -299,21 +309,21 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id_cliente="+id_cliente+"&id="+id+"&nombre_contacto="+aData[0]+"&apellido_paterno="+aData[1]+"&apellido_materno="+aData[2],
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
                             alert("Contacto : "+data.contacto+", eliminado con éxito.");
-                            //parent.location.reload();
+                            parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
                             alert('Error : '+data.msg+'');
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                             //parent.location.reload();
                         }
                     }
@@ -440,21 +450,21 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
                             alert("Sistema : "+data.sistema+", eliminado con éxito.");
-                            //parent.location.reload();
+                            parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
                             alert('Error : '+data.msg);
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                             //parent.location.reload();
                         }
                     }
@@ -469,7 +479,7 @@ var TableEditable = function () {
             var no_serie = $("#no_serie").val();
             var id_cliente = $('#tabla_contactos_cliente').attr('idcliente');
 
-            if(sistema!="" && version!="" && no_serie!="")
+            if(sistema!="" && version!="")
             {
                 $.ajax({
                     url: "/cliente/sistemas/nuevo",
@@ -478,12 +488,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id_cliente="+id_cliente+"&sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -491,12 +501,12 @@ var TableEditable = function () {
                             parent.location.reload();
                         } else {
                             bootbox.alert('Error : '+data.msg);
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                         }
                     }
                 });
             }else{
-                alert("Debes completar el formulario");
+                alert("Selecciona el sistema y la versión!");
             }
         });
     }
@@ -585,21 +595,21 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id="+id+"&nombre_equipo="+aData[0],
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
                             alert("Equipo : "+data.equipo+", eliminado con éxito.");
-                            //parent.location.reload();
+                            parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
                             alert('Error : '+data.msg);
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                             //parent.location.reload();
                         }
                     }
@@ -616,12 +626,12 @@ var TableEditable = function () {
                 dataType: 'json',
                 data: $("#form-nuevo-equipo").serialize(),
                 beforeSend: function () {
-                   //('body').modalmanager('loading');
+                   $('body').modalmanager('loading');
                 },
                 error: function(jqXHR, status, error) {
                     console.log("ERROR: "+error);
                     alert('ERROR: revisa la consola del navegador para más detalles.');
-                    //$('body').modalmanager('removeLoading');
+                    $('body').modalmanager('removeLoading');
                 },
                 success: function(data) {
                     if (data.exito) {
@@ -629,7 +639,7 @@ var TableEditable = function () {
                         parent.location.reload();
                     } else {
                         alert('Error : '+data.msg);
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     }
                 }
             });

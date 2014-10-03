@@ -297,7 +297,7 @@ var FormValidationCliente = function () {
 							alert("Cliente "+data.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						} else {
-							console.log("ERROR: "+data.msg);
+							alert("Error : "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('body').modalmanager('removeLoading');
@@ -468,12 +468,12 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-basica-cliente').serialize(),
 					beforeSend: function () {
-						//$('body').modalmanager('loading');
+						$('body').modalmanager('loading');
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						//$('body').modalmanager('removeLoading');
+						$('body').modalmanager('removeLoading');
 					},
 					success: function(data) {
 						console.log(data);
@@ -484,7 +484,7 @@ var FormValidationCliente = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							//$('body').modalmanager('removeLoading');
+							$('body').modalmanager('removeLoading');
 						}
 					}
 				});
