@@ -43,26 +43,26 @@ class ClienteModel extends TxtManager {
 	{
 		$this->basica_cliente = new stdClass();
 
-		$this->basica_cliente->codigo				= date('dmHis');
+		$this->basica_cliente->codigo			= date('dmHis');
 		$this->basica_cliente->razon_social	= $data['razon_social'];
-		$this->basica_cliente->email				= $data['email'];
-		$this->basica_cliente->tipo					= "prospecto";
+		$this->basica_cliente->email			= $data['email'];
+		$this->basica_cliente->tipo			= 'prospecto';
 		$this->basica_cliente->telefono1		= $data['telefono1'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos
 		if ($tipo != 'prospecto') {
-			$this->basica_cliente->rfc						= $data['rfc'];
-			$this->basica_cliente->tipo						= $data['tipo'];
-			$this->basica_cliente->calle					= $data['calle'];
-			$this->basica_cliente->no_exterior		= $data['no_exterior'];
+			$this->basica_cliente->rfc				= $data['rfc'];
+			$this->basica_cliente->tipo			= $data['tipo'];
+			$this->basica_cliente->calle			= $data['calle'];
+			$this->basica_cliente->no_exterior	= $data['no_exterior'];
 			$this->basica_cliente->no_interior		= $data['no_interior'];
-			$this->basica_cliente->colonia				= $data['colonia'];
+			$this->basica_cliente->colonia			= $data['colonia'];
 			$this->basica_cliente->codigo_postal	= $data['codigo_postal'];
-			$this->basica_cliente->ciudad					= $data['ciudad'];
-			$this->basica_cliente->municipio			= $data['municipio'];
-			$this->basica_cliente->estado					= $data['estado'];
-			$this->basica_cliente->pais						= $data['pais'];
-			$this->basica_cliente->telefono2			= $data['telefono2'];
+			$this->basica_cliente->ciudad			= $data['ciudad'];
+			$this->basica_cliente->municipio		= $data['municipio'];
+			$this->basica_cliente->estado			= $data['estado'];
+			$this->basica_cliente->pais			= $data['pais'];
+			$this->basica_cliente->telefono2		= $data['telefono2'];
 		}
 
 		return $this->basica_cliente;
@@ -128,15 +128,15 @@ class ClienteModel extends TxtManager {
 			$cliente = new stdClass();
 			// Atributos
 			$cliente->codigo				= $data_cliente[0];
-			$cliente->razon_social	= $data_cliente[1];
-			$cliente->rfc						= $data_cliente[2];
-			$cliente->email					= $this->uniqueEmail($data_cliente[3]);
-			$cliente->tipo					= "normal";
+			$cliente->razon_social			= $data_cliente[1];
+			$cliente->rfc					= $data_cliente[2];
+			$cliente->email				= $this->uniqueEmail($data_cliente[3]);
+			$cliente->tipo					= 'normal';
 			$cliente->calle					= $data_cliente[4];
-			$cliente->no_exterior		= $data_cliente[5];
-			$cliente->no_interior		= $data_cliente[6];
+			$cliente->no_exterior			= $data_cliente[5];
+			$cliente->no_interior			= $data_cliente[6];
 			$cliente->colonia				= $data_cliente[7];
-			$cliente->codigo_postal	= $data_cliente[8];
+			$cliente->codigo_postal		= $data_cliente[8];
 			$cliente->ciudad				= $data_cliente[9];
 			$cliente->municipio			= $data_cliente[10];
 			$cliente->estado				= $data_cliente[11];
@@ -182,15 +182,15 @@ class ClienteModel extends TxtManager {
 			$cliente = array();
 			// Atributos
 			$cliente['codigo']				= $data_cliente[0];
-			$cliente['razon_social']	= $data_cliente[1];
-			$cliente['rfc']						= $data_cliente[2];
-			$cliente['email']					= $this->uniqueEmail($data_cliente[3]);
-			$cliente['tipo']					= "normal";
+			$cliente['razon_social']			= $data_cliente[1];
+			$cliente['rfc']					= $data_cliente[2];
+			$cliente['email']				= $this->uniqueEmail($data_cliente[3]);
+			$cliente['tipo']					= 'normal';
 			$cliente['calle']					= $data_cliente[4];
-			$cliente['no_exterior']		= $data_cliente[5];
-			$cliente['no_interior']		= $data_cliente[6];
+			$cliente['no_exterior']			= $data_cliente[5];
+			$cliente['no_interior']			= $data_cliente[6];
 			$cliente['colonia']				= $data_cliente[7];
-			$cliente['codigo_postal']	= $data_cliente[8];
+			$cliente['codigo_postal']		= $data_cliente[8];
 			$cliente['ciudad']				= $data_cliente[9];
 			$cliente['municipio']			= $data_cliente[10];
 			$cliente['estado']				= $data_cliente[11];
@@ -208,10 +208,9 @@ class ClienteModel extends TxtManager {
 	/**
 	 * Funciones para generar usuarios y contraseñas
 	 *
-	 * @return $usuario, $password
+	 * @return $usuario
 	 * @author Luis Macias
 	 **/
-
 	public function usuario($nombre)
 	{
 		$nombre_array	= explode(" ", strtolower($nombre));
@@ -220,14 +219,21 @@ class ClienteModel extends TxtManager {
 		return $usuario;
 	}
 
+	/**
+	 * Funciones para generar  contraseñas
+	 *
+	 * @return $password
+	 * @author Luis Macias
+	 **/
 	public function password()
 	{
-		$this->load->library('encrypt');
-		$encrypt_string	= $this->encrypt->encode(date('d/m/Y H:i:s'));
-		$encrypt_string	= sha1(substr($encrypt_string, 0,32));
-		$var_final			= $this->encrypt->encode($encrypt_string);
-		$password				= substr($var_final, 0, rand(8,10));
-		return $password;
+		$cadena="[^A-Z0-9]";
+		return substr(
+				preg_replace($cadena, "", md5(rand())) .
+				preg_replace($cadena, "", md5(rand())) .
+				preg_replace($cadena, "", md5(rand())),
+				0, rand(8, 10)
+			);
 	}
 
 	/**
@@ -238,15 +244,16 @@ class ClienteModel extends TxtManager {
 	 */
 	private function uniqueEmail($dataEmail)
 	{
-		if (!empty($dataEmail)) {
-			$email	= explode(" ", $dataEmail);
+		if (!empty($dataEmail))
+		{
+			$email  = explode(" ", $dataEmail);
 			$email	= $email[0];
 			return $email;
 		} else {
 			return $dataEmail;
 		}
 	}
-}//Class End
+}
 
 /* End of file clienteModel.php */
 /* Location: ./application/models/clienteModel.php */

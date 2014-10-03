@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para la tabla de cotizacion
+ */
 class CotizacionModel extends MY_Model {
 
 	/**
@@ -15,6 +17,14 @@ class CotizacionModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
+	/**
+	 * Funcion para obtener el folio
+	 * siguiente apartir del último
+	 * folio de la base de datos
+	 *
+	 * @return int $folio
+	 * @author Luis Macias
+	 **/
 	public function getSiguienteFolio()
 	{
 		$folio = $this->cotizacionModel->get('folio', null, 'folio', 'DESC', 1);

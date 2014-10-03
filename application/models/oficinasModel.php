@@ -1,11 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 /**
  * Modelo para trabajar con la tabla oficinas de la bd
  *
  * @author Diego Rodriguez
  **/
-
 class OficinasModel extends MY_Model {
 
 	/**
@@ -23,7 +21,6 @@ class OficinasModel extends MY_Model {
 		parent::__construct();
 		$this->table = self::TABLE;
 	}
-
 }
 
 /* End of file oficinaModel.php */

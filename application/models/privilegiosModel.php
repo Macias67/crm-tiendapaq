@@ -1,5 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para gestionar la tabla de los privilegios
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class PrivilegiosModel extends MY_Model {
 
 	/**

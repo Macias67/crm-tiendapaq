@@ -1,5 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para la tabla bancos
+ *
+ * @author Luis Macias
+ */
 class BancoModel extends MY_Model {
 
 	/**

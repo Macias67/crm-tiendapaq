@@ -1,5 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para gestionar los sistemas contpaqi
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class SistemasContpaqiModel extends MY_Model {
 
 	/**
@@ -8,14 +13,6 @@ class SistemasContpaqiModel extends MY_Model {
 	 * @var string
 	 **/
 	const TABLE = 'sistemas_contpaqi';
-
-	/**
-	 * variable que sera convertida a sdtClass
-	 * y retornada como objeto
-	 *
-	 * @var $sistemas_clientes
-	 **/
-	private $sistema_contpaqi;
 
 	public function __construct()
 	{

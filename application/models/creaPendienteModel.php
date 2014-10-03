@@ -1,5 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
+ * Modelo para la tabla que guarda el registro
+ * de quien creo un pendiente
+ *
+ * @package default
+ * @author Luis Macias
+ **/
 class creaPendienteModel extends MY_Model {
 
 	/**
@@ -22,7 +28,7 @@ class creaPendienteModel extends MY_Model {
 	 * Retorna el nombre del creador
 	 * del pendiente
 	 *
-	 * @return array
+	 * @return object
 	 * @author Luis Macias
 	 **/
 	public function getCreadorPendiente($id_pendiente)
@@ -34,7 +40,6 @@ class creaPendienteModel extends MY_Model {
 
 		return $query->row();
 	}
-
 }
 
 /* End of file creaPendienteModel.php */
