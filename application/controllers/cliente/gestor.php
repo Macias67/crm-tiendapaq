@@ -81,6 +81,8 @@ class Gestor extends AbstractAccess {
 					}
 
 					$id = $this->data['usuario_activo']['id'];
+					// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
+					$basica_cliente = $this->clienteModel->arrayToObject($data);
 					//inserto en la bd
 					if(!$this->clienteModel->update($cliente, array('id' => $id))) {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');

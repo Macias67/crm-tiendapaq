@@ -33,20 +33,25 @@ class ClienteModel extends TxtManager {
 	}
 
 	/**
-	* funcion para convertir un arreglo asociativo a un objeto
-	* con sus atributos
+	* Funcion para crear un objeto cliente a partir
+	* de un arreglo formador por valores de un formulario
 	*
 	* @return $basica clientes
 	* @author Diego Rodriguez | Luis Macias
 	**/
-	public function arrayToObject($data, $tipo = null)
+	public function array_to_object($data, $tipo = null, $nuevo = FALSE)
 	{
 		$this->basica_cliente = new stdClass();
 
-		$this->basica_cliente->codigo			= date('dmHis');
+		// Si el cliente es NUEVO
+		if ($nuevo)
+		{
+			$this->basica_cliente->codigo			= date('dmy-His'); // Definir patron
+			$this->basica_cliente->tipo			= 'prospecto';
+		}
+
 		$this->basica_cliente->razon_social	= $data['razon_social'];
 		$this->basica_cliente->email			= $data['email'];
-		$this->basica_cliente->tipo			= 'prospecto';
 		$this->basica_cliente->telefono1		= $data['telefono1'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos

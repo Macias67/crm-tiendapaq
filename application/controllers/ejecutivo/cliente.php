@@ -129,7 +129,7 @@ class Cliente extends AbstractAccess {
 				$data = array(
 					//Datos basicos
 					'razon_social'	=> $this->input->post('razon_social'),
-					'rfc'						=> $this->input->post('rfc'),
+					'rfc'			=> $this->input->post('rfc'),
 					'email'					=> $this->input->post('email'),
 					'tipo'					=> $this->input->post('tipo'),
 					'calle'					=> $this->input->post('calle'),
@@ -153,20 +153,20 @@ class Cliente extends AbstractAccess {
 					//Sistema
 					'sistema'		=> $this->input->post('sistema'),
 					'version'		=> $this->input->post('version'),
-					'no_serie'	=> $this->input->post('no_serie'),
+					'no_serie'		=> $this->input->post('no_serie'),
 					//Info del equipo
-					'nombre_equipo'			=> $this->input->post('nombre_equipo'),
+					'nombre_equipo'		=> $this->input->post('nombre_equipo'),
 					'sistema_operativo'	=> $this->input->post('sistema_operativo'),
 					'arquitectura'			=> $this->input->post('arquitectura'),
 					'maquina_virtual'		=> $this->input->post('maquina_virtual'),
-					'memoria_ram'				=> $this->input->post('memoria_ram'),
+					'memoria_ram'			=> $this->input->post('memoria_ram'),
 					'sql_server'				=> $this->input->post('sql_server'),
 					'sql_management'		=> $this->input->post('sql_management'),
 					'instancia_sql'			=> $this->input->post('instancia_sql'),
 					'password_sql'			=> $this->input->post('password_sql')
 				);
 				// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
-				$basica_cliente = $this->clienteModel->arrayToObject($data);
+				$basica_cliente = $this->clienteModel->array_to_object($data, null, TRUE);
 				//se inserta el objeto en la bd para generar el id y poder usarlo como llave foranea
 				if($this->clienteModel->insert($basica_cliente))
 				{
@@ -183,7 +183,7 @@ class Cliente extends AbstractAccess {
 					$exito_equipos		= $this->equiposComputoModel->insert($equipos);
 					// Armo la respuesta para el JSON
 					$respuesta = array(
-						'exito'					=> ($exito_contactos and $exito_sistemas and $exito_equipos),
+						'exito'			=> ($exito_contactos and $exito_sistemas and $exito_equipos),
 						'razon_social'	=> $basica_cliente->razon_social);
 				} else
 				{
@@ -209,7 +209,7 @@ class Cliente extends AbstractAccess {
 					'telefono_contacto'	=> $this->input->post('telefono_contacto')
 				);
 				// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
-				$basica_cliente = $this->clienteModel->arrayToObject($data, $data['tipo']);
+				$basica_cliente = $this->clienteModel->array_to_object($data, $data['tipo'], TRUE);
 				//se inserta el objeto cliente en la bd para generar el id y poder usarlo como llave foranea
 				if($this->clienteModel->insert($basica_cliente))
 				{
@@ -275,22 +275,22 @@ class Cliente extends AbstractAccess {
 			$cliente = array(
 				//Datos basicos
 				'razon_social'	=> $this->input->post('razon_social'),
-				'rfc'						=> $this->input->post('rfc'),
-				'email'					=> $this->input->post('email'),
-				'tipo'					=> $this->input->post('tipo'),
-				'telefono1'			=> $this->input->post('telefono1'),
-				'telefono2'			=> $this->input->post('telefono2'),
-				'usuario'				=> $this->input->post('usuario'),
-				'password'			=> $this->input->post('password'),
-				'calle'					=> $this->input->post('calle'),
-				'no_exterior'		=> $this->input->post('no_exterior'),
-				'no_interior'		=> $this->input->post('no_interior'),
-				'colonia'				=> $this->input->post('colonia'),
+				'rfc'			=> $this->input->post('rfc'),
+				'email'			=> $this->input->post('email'),
+				'tipo'			=> $this->input->post('tipo'),
+				'telefono1'		=> $this->input->post('telefono1'),
+				'telefono2'		=> $this->input->post('telefono2'),
+				'usuario'		=> $this->input->post('usuario'),
+				'password'		=> $this->input->post('password'),
+				'calle'			=> $this->input->post('calle'),
+				'no_exterior'	=> $this->input->post('no_exterior'),
+				'no_interior'	=> $this->input->post('no_interior'),
+				'colonia'		=> $this->input->post('colonia'),
 				'codigo_postal'	=> $this->input->post('codigo_postal'),
-				'ciudad'				=> $this->input->post('ciudad'),
-				'municipio'			=> $this->input->post('municipio'),
-				'estado'				=> $this->input->post('estado'),
-				'pais'					=> $this->input->post('pais')
+				'ciudad'			=> $this->input->post('ciudad'),
+				'municipio'		=> $this->input->post('municipio'),
+				'estado'		=> $this->input->post('estado'),
+				'pais'			=> $this->input->post('pais')
 			);
 
 			// SI el pais es estados unidos el estado será vacio

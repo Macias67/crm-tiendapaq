@@ -12,10 +12,12 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
-		if($this->usuario_activo['privilegios'] == "cliente"){
+		if($this->usuario_activo['privilegios'] == "cliente")
+		{
 			$this->_vista('principal');
 			//var_dump($this->data);
-		} else {
+		} else
+		{
 			// Cargo modelos
 			$this->load->model('ejecutivoModel');
 			$this->load->model('actividadPendienteModel');
