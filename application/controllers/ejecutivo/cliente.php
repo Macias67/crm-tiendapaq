@@ -121,6 +121,7 @@ class Cliente extends AbstractAccess {
 		// Validamos formulario
 		if ($this->form_validation->run() === FALSE)
 		{
+			$this->form_validation->set_error_delimiters('','');
 			// SI es FALSO, vuelvo a mostrar vista
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 		} else
@@ -274,6 +275,7 @@ class Cliente extends AbstractAccess {
 
 		if($this->form_validation->run() === FALSE)
 		{
+			$this->form_validation->set_error_delimiters('','');
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 		}else
 		{
@@ -304,10 +306,12 @@ class Cliente extends AbstractAccess {
 			{
 				$cliente['estado']="";
 			}
+			// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
+			$obj_cliente = $this->clienteModel->array_to_object($cliente, null, FALSE);
 			// Obtengo el id para tener la refencia al where
 			$id = $this->input->post('id_cliente');
 			//Actulizo en la bd
-			if($this->clienteModel->update($cliente, array('id' => $id)))
+			if($this->clienteModel->update($obj_cliente, array('id' => $id)))
 			{
 				$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
 			}else
@@ -702,7 +706,7 @@ class Cliente extends AbstractAccess {
 
 		if ($this->clienteModel->exist(array('rfc' => $rfc)) && $rfc != $rfc_actual)
 		{
-			$this->form_validation->set_message('rfc_check', 'El RFC de ya está registrado.');
+			$this->form_validation->set_message('rfc_check', 'El RFC ya está registrado.');
 			return FALSE;
 		} else {
 			return TRUE;

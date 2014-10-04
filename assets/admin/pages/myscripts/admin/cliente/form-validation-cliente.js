@@ -313,7 +313,7 @@ var FormValidationCliente = function () {
 							alert("Cliente "+data.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						} else {
-							alert("Error : "+data.msg);
+							bootbox.alert("Error : "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('body').modalmanager('removeLoading');
@@ -497,7 +497,7 @@ var FormValidationCliente = function () {
 							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
 							parent.location.reload();
 						} else {
-							console.log("ERROR: "+data.msg);
+							alert("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('body').modalmanager('removeLoading');

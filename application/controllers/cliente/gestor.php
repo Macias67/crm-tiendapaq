@@ -43,6 +43,8 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 				$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 				$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('usuario', 'Usuario', 'trim|max_length[10]|callback_usuario_check');
+				$this->form_validation->set_rules('password', 'contraseña', 'trim|max_length[10]');
 				$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
 				$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
 				$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
@@ -51,6 +53,8 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('municipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('estado', 'Estado', 'trim|xss_clean');
 				$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
+
+				$this->form_validation->set_error_delimiters('','');
 
 				if($this->form_validation->run() === FALSE)
 				{
@@ -61,10 +65,13 @@ class Gestor extends AbstractAccess {
 					$cliente = array(
 						//Datos basicos
 						'razon_social'	=> $this->input->post('razon_social'),
+						'tipo'			=> $this->input->post('tipo'),
 						'rfc'			=> $this->input->post('rfc'),
 						'email'			=> $this->input->post('email'),
 						'telefono1'		=> $this->input->post('telefono1'),
 						'telefono2'		=> $this->input->post('telefono2'),
+						'usuario'		=> $this->input->post('usuario'),
+						'password'		=> $this->input->post('password'),
 						'calle'			=> $this->input->post('calle'),
 						'no_exterior'	=> $this->input->post('no_exterior'),
 						'no_interior'	=> $this->input->post('no_interior'),
@@ -82,7 +89,7 @@ class Gestor extends AbstractAccess {
 
 					$id = $this->data['usuario_activo']['id'];
 					// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
-					$basica_cliente = $this->clienteModel->arrayToObject($data);
+					$obj_cliente = $this->clienteModel->array_to_object($cliente, null, FALSE);
 					//inserto en la bd
 					if(!$this->clienteModel->update($cliente, array('id' => $id))) {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -266,13 +273,13 @@ class Gestor extends AbstractAccess {
 				->set_output(json_encode($respuesta));
 			break;
 			case 'nuevo':
-			//datos a insertar obtenidos del formulario
-			$sistema_cliente = array(
-				'id_cliente'	=> $this->data['usuario_activo']['id'],
-				'sistema'     => $this->input->post('sistema'),
-				'version'     => $this->input->post('version'),
-				'no_serie'    => $this->input->post('no_serie')
-			 );
+				//datos a insertar obtenidos del formulario
+				$sistema_cliente = array(
+					'id_cliente'	=> $this->data['usuario_activo']['id'],
+					'sistema'	=> $this->input->post('sistema'),
+					'version'	=> $this->input->post('version'),
+					'no_serie'	=> $this->input->post('no_serie')
+				 );
 
 				if(!$this->sistemasClienteModel->insert($sistema_cliente)){
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -425,7 +432,7 @@ class Gestor extends AbstractAccess {
 
 		if ($this->clienteModel->exist(array('rfc' => $rfc)) && $rfc != $rfc_actual)
 		{
-			$this->form_validation->set_message('rfc_check', 'El RFC de ya está registrado.');
+			$this->form_validation->set_message('rfc_check', 'El RFC ya está registrado.');
 			return FALSE;
 		} else {
 			return TRUE;

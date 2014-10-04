@@ -150,6 +150,8 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-asterisk"></i>
+														<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $usuario_activo['id'] ?>">
+														<input type="hidden" class="form-control" name="tipo" value="<?php echo $usuario_activo['tipo'] ?>">
 														<input type="text" class="form-control" placeholder="Razón Social" name="razon_social" value="<?php echo $usuario_activo['razon_social'] ?>">
 													</div>
 												</div>
@@ -203,6 +205,35 @@
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
 														<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono2" value="<?php echo $usuario_activo['telefono2'] ?>">
+													</div>
+												</div>
+											</div>
+
+											<hr>
+
+											<!-- ACCESO AL SISTEMA -->
+											<h4>Acceso al sistema</h4>
+											<!-- Usuario -->
+											<div class="form-group">
+												<label class="col-md-4 control-label">
+													Usuario<span class="required" aria-required="true">*</span>
+												</label>
+												<div class="col-md-8">
+													<div class="input-icon">
+														<i class="fa fa-user"></i>
+														<input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario" name="usuario" value="<?php echo $usuario_activo['usuario'] ?>">
+													</div>
+												</div>
+											</div>
+											<!-- Contraseña -->
+											<div class="form-group">
+												<label class="col-md-4 control-label">
+													Contraseña<span class="required" aria-required="true">*</span>
+												</label>
+												<div class="col-md-8">
+													<div class="input-icon">
+														<i class="fa fa-lock"></i>
+														<input type="text" class="form-control" id="password" placeholder="Contraseña" name="password" value="<?php echo $usuario_activo['password'] ?>">
 													</div>
 												</div>
 											</div>

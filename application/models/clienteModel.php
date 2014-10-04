@@ -68,6 +68,8 @@ class ClienteModel extends TxtManager {
 			$this->basica_cliente->estado			= $data['estado'];
 			$this->basica_cliente->pais			= $data['pais'];
 			$this->basica_cliente->telefono2		= $data['telefono2'];
+			$this->basica_cliente->usuario			= $data['usuario'];
+			$this->basica_cliente->password		= $data['password'];
 		}
 
 		return $this->basica_cliente;

@@ -68,6 +68,9 @@ var ProductoDropdowns	= function() {
 						select_contactos.html(option);
 					} else
 					{
+						select_contactos.html('<option value=""></option>');
+						input_telefono.val('');
+						input_email.val('');
 						bootbox.dialog({
 							message: data.msg,
 							title: 'No hay contactos registrados',
@@ -76,14 +79,11 @@ var ProductoDropdowns	= function() {
 									label: 'Registrar',
 									className: 'red',
 									callback: function() {
-										window.location = '/cliente/nuevo';
+										window.location = '/cliente/gestionar/editar/'+id_cliente+'#contactos';
 									}
 								}
 							}
 						});
-						select_contactos.html('<option value=""></option>');
-						input_telefono.val('');
-						input_email.val('');
 					}
 				}, 'json');
 			}

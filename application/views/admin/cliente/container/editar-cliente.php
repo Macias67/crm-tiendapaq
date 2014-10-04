@@ -247,6 +247,8 @@
 															</div>
 														</div>
 														<hr>
+														<!-- Acceso al sistema -->
+														<h4>Acceso al sistema</h4>
 														<!-- Usuario -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">Usuario </label>
