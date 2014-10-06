@@ -137,14 +137,15 @@
 									<thead>
 										<tr>
 											<th>Nombre</th>
-											<th>Sistema O.</th>
+											<th>S. O.</th>
 											<th>Bits</th>
 											<th>M. Virtual</th>
 											<th>RAM</th>
-											<th>SQL Server</th>
-											<th>SQL Management</th>
-											<th>Instancia SQL</th>
-											<th>Contaseña SQL</th>
+											<th>Server</th>
+											<th>Management</th>
+											<th>Instancia</th>
+											<th>Contaseña</th>
+											<th>Obs.</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -160,6 +161,7 @@
 												<td><?php echo $equipo->sql_management ?></td>
 												<td><?php echo $equipo->instancia_sql ?></td>
 												<td><?php echo $equipo->password_sql ?></td>
+												<td><?php echo $equipo->observaciones ?></td>
 												<td><a class="delete" href="javascript:;">Eliminar </a></td>
 											</tr>
 										<?php endforeach ?>
@@ -351,8 +353,17 @@
 										</div>
 									</div>
 								</div>
+								<!-- Observaciones Generales -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Observaciones</label>
+									<div class="col-md-8">
+										<div class="input-icon">
+											<i class="fa fa-eye"></i>
+											<textarea name="observaciones" class="form-control" placeholder="Observaciones del equipo" class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
 							</div>
-
 						</div>
 						<!-- END FORM BODY -->
 					</form>

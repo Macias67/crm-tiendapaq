@@ -541,6 +541,7 @@ var TableEditable = function () {
                 { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
+                { "orderable": false },
                 { "orderable": false }
             ],
             "language": {

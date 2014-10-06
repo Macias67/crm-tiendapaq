@@ -344,6 +344,7 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('sql_management', 'SQL Management', 'trim|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('instancia_sql', 'Instancia SQL', 'trim|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('observaciones', 'Observaciones', 'trim|max_length[200]|xss_clean');
 
 				if($this->form_validation->run() === FALSE)
 				{
@@ -361,7 +362,8 @@ class Gestor extends AbstractAccess {
 						'sql_server' 	      => $this->input->post('sql_server'),
 						'sql_management' 	  => $this->input->post('sql_management'),
 						'instancia_sql' 	  => $this->input->post('instancia_sql'),
-						'password_sql' 	    => $this->input->post('password_sql')
+						'password_sql' 	    => $this->input->post('password_sql'),
+						'observaciones' 	    => $this->input->post('observaciones')
 					);
 					//inserto en la bd
 					if(!$this->equiposComputoModel->insert($equipo))
