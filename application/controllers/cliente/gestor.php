@@ -363,7 +363,7 @@ class Gestor extends AbstractAccess {
 						'sql_management' 	  => $this->input->post('sql_management'),
 						'instancia_sql' 	  => $this->input->post('instancia_sql'),
 						'password_sql' 	    => $this->input->post('password_sql'),
-						'observaciones' 	    => $this->input->post('observaciones')
+						'observaciones' 	  => $this->input->post('observaciones')
 					);
 					//inserto en la bd
 					if(!$this->equiposComputoModel->insert($equipo))
