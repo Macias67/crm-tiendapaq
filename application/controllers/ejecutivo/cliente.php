@@ -733,7 +733,7 @@ class Cliente extends AbstractAccess {
 
 		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario != $usuario_actual)
 		{
-			$this->form_validation->set_message('usuario_check', 'El usuario de ya está registrado.');
+			$this->form_validation->set_message('usuario_check', 'El usuario ya está registrado.');
 			return FALSE;
 		} else
 		{

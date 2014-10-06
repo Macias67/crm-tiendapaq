@@ -439,6 +439,34 @@ class Gestor extends AbstractAccess {
 		}
 	}
 
+		/**
+	 * Callback para revisar que no se repita el usuario de un prospecto
+	 * a un cliente normal
+	 * @param  string $usuario Usuario a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez
+	 */
+	public function usuario_check($usuario)
+	{
+		//optenemos el di del cliente desde el input hidden
+		$id = $this->input->post('id_cliente');
+		$usuario_actual = $this->clienteModel->get(array('usuario'), array('id' => $id));
+		//si no hay usuario actual es porque el cliente es prospecto o aun no tiene usuario
+		if($usuario_actual != null)
+		{
+			$usuario_actual = $usuario_actual[0]->usuario;
+		}
+
+		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario != $usuario_actual)
+		{
+			$this->form_validation->set_message('usuario_check', 'El usuario ya está registrado.');
+			return FALSE;
+		} else
+		{
+			return TRUE;
+		}
+	}
+
 }
 
 /* End of file gestor.php */
