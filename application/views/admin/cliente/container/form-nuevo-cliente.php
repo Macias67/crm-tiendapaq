@@ -618,6 +618,16 @@
 													</div>
 												</div>
 											</div>
+											<!-- Observaciones Generales -->
+											<div class="form-group">
+												<label class="col-md-4 control-label">Observaciones</label>
+												<div class="col-md-8">
+													<div class="input-icon">
+														<i class="fa fa-eye"></i>
+														<textarea name="observaciones" class="form-control" placeholder="Observaciones del equipo" class="form-control"></textarea>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<div class="form-actions fluid">

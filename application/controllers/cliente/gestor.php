@@ -344,6 +344,7 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('sql_management', 'SQL Management', 'trim|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('instancia_sql', 'Instancia SQL', 'trim|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('observaciones', 'Observaciones', 'trim|max_length[200]|xss_clean');
 
 				if($this->form_validation->run() === FALSE)
 				{
@@ -361,7 +362,8 @@ class Gestor extends AbstractAccess {
 						'sql_server' 	      => $this->input->post('sql_server'),
 						'sql_management' 	  => $this->input->post('sql_management'),
 						'instancia_sql' 	  => $this->input->post('instancia_sql'),
-						'password_sql' 	    => $this->input->post('password_sql')
+						'password_sql' 	    => $this->input->post('password_sql'),
+						'observaciones' 	  => $this->input->post('observaciones')
 					);
 					//inserto en la bd
 					if(!$this->equiposComputoModel->insert($equipo))
@@ -435,6 +437,34 @@ class Gestor extends AbstractAccess {
 			$this->form_validation->set_message('rfc_check', 'El RFC ya está registrado.');
 			return FALSE;
 		} else {
+			return TRUE;
+		}
+	}
+
+		/**
+	 * Callback para revisar que no se repita el usuario de un prospecto
+	 * a un cliente normal
+	 * @param  string $usuario Usuario a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez
+	 */
+	public function usuario_check($usuario)
+	{
+		//optenemos el di del cliente desde el input hidden
+		$id = $this->input->post('id_cliente');
+		$usuario_actual = $this->clienteModel->get(array('usuario'), array('id' => $id));
+		//si no hay usuario actual es porque el cliente es prospecto o aun no tiene usuario
+		if($usuario_actual != null)
+		{
+			$usuario_actual = $usuario_actual[0]->usuario;
+		}
+
+		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario != $usuario_actual)
+		{
+			$this->form_validation->set_message('usuario_check', 'El usuario ya está registrado.');
+			return FALSE;
+		} else
+		{
 			return TRUE;
 		}
 	}

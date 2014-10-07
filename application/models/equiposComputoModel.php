@@ -49,7 +49,8 @@ class EquiposComputoModel extends MY_Model {
 		$this->equipos_cliente->sql_management		= $data['sql_management'];
 		$this->equipos_cliente->instancia_sql			= $data['instancia_sql'];
 		$this->equipos_cliente->password_sql			= $data['password_sql'];
-
+		$this->equipos_cliente->observaciones			= $data['observaciones'];
+		
 		return $this->equipos_cliente;
 	}
 

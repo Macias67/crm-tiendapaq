@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2014 a las 14:54:42
+-- Tiempo de generación: 06-10-2014 a las 22:40:00
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -227,6 +227,7 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `sql_management` varchar(50) NOT NULL,
   `instancia_sql` varchar(50) NOT NULL,
   `password_sql` varchar(50) NOT NULL,
+  `observaciones` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente' AUTO_INCREMENT=1 ;

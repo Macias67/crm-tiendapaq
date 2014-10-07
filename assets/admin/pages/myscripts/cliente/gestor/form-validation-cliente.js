@@ -62,10 +62,11 @@ var FormValidationCliente = function () {
 					maxlength: 5
 				},
 				colonia: {
-					maxlength: 20
+					maxlength: 20,
+					required: true
 				},
 				codigo_postal: {
-					// mascara
+					required: true
 				},
 				ciudad: {
 					required: true,
@@ -77,11 +78,20 @@ var FormValidationCliente = function () {
 				estado: {
 				},
 				pais: {
-				},
-				telefono_1: {
 					required: true
 				},
-				telefono_2: {
+				telefono1: {
+					required: true
+				},
+				telefono2: {
+				},
+				usuario: {
+					required: true,
+					maxlength: 10
+				},
+				password: {
+					required: true,
+					maxlength: 10
 				}
 			},
 			messages: {
@@ -110,11 +120,11 @@ var FormValidationCliente = function () {
 					maxlength: "Menos de 5 digitos",
 				},
 				colonia: {
+					required: "Escribe la colonia",
 					maxlength: "La colonia debe tener menos de 20 caracteres"
 				},
 				codigo_postal: {
-					maxlength: "El código postal debe tener menos de 7 digitos",
-					digits: "El código postal debe contener solo digitos"
+					required: "Escribe el código postal"
 				},
 				ciudad: {
 					required: "Escribe la ciudad",
@@ -127,10 +137,18 @@ var FormValidationCliente = function () {
 				},
 				pais: {
 				},
-				telefono_1: {
+				telefono1: {
 					required: "Escribe el telefono"
 				},
-				telefono_2: {
+				telefono2: {
+				},
+				usuario: {
+					required: "Escribe el usuario",
+					maxlength: "El usuario debe tener menos de 10 caracteres"
+				},
+				password: {
+					required: "Escribe la contraseña",
+					maxlength: "La contraseña debe tener menos de 10 caracteres"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit

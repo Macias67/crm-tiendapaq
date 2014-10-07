@@ -395,7 +395,7 @@ var TableEditable = function () {
             var version = $("#select_versiones").val();
             var no_serie = $("#no_serie").val();
 
-            if(sistema!="" && version!="" && no_serie!="")
+            if(sistema!="" && version!="")
             {
                 $.ajax({
                     url: "/actualizar/sistemas/nuevo",
@@ -458,6 +458,7 @@ var TableEditable = function () {
                 { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
+                { "orderable": false },
                 { "orderable": false }
             ],
             "language": {
