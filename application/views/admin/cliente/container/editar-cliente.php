@@ -170,8 +170,7 @@
 														<!-- Razon Social -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
-																Razón Social
-																<span class="required" aria-required="true">*</span>
+																Razón Social<span class="required" aria-required="true">*</span>
 															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
@@ -184,8 +183,7 @@
 														<!-- Rfc -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
-																R.F.C.
-																<span class="required" aria-required="true">*</span>
+																R.F.C.<span class="required" aria-required="true">*</span>
 															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
@@ -251,7 +249,9 @@
 														<h4>Acceso al sistema</h4>
 														<!-- Usuario -->
 														<div class="form-group">
-															<label class="col-md-4 control-label">Usuario </label>
+															<label class="col-md-4 control-label">
+																Usuario<span class="required" aria-required="true">*</span>
+															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-user"></i>
@@ -261,7 +261,9 @@
 														</div>
 														<!-- Contraseña -->
 														<div class="form-group">
-															<label class="col-md-4 control-label">Contraseña </label>
+															<label class="col-md-4 control-label">
+																Contraseña<span class="required" aria-required="true">*</span>
+															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-lock"></i>
@@ -277,8 +279,7 @@
 														<!-- Calle -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
-																Calle
-																<span class="required" aria-required="true">*</span>
+																Calle<span class="required" aria-required="true">*</span>
 															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
@@ -312,7 +313,9 @@
 														</div>
 														<!-- Colonia -->
 														<div class="form-group">
-															<label class="col-md-4 control-label">Colonia</label>
+															<label class="col-md-4 control-label">
+																Colonia<span class="required" aria-required="true">*</span>
+															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-map-marker"></i>
@@ -322,7 +325,9 @@
 														</div>
 														<!-- Codigo Postal -->
 														<div class="form-group">
-															<label class="col-md-4 control-label">Código Postal</label>
+															<label class="col-md-4 control-label">
+																Código Postal<span class="required" aria-required="true">*</span>
+															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-map-marker"></i>
@@ -371,7 +376,9 @@
 														</div>
 														<!-- Pais -->
 														<div class="form-group">
-															<label class="col-md-4 control-label">País</label>
+															<label class="col-md-4 control-label">
+																País<span class="required" aria-required="true">*</span>
+															</label>
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-map-marker"></i>

@@ -360,10 +360,11 @@ var FormValidationCliente = function () {
 					maxlength: 5
 				},
 				colonia: {
-					maxlength: 20
+					maxlength: 20,
+					required: true
 				},
 				codigo_postal: {
-					// mascara
+					required: true
 				},
 				ciudad: {
 					required: true,
@@ -375,6 +376,7 @@ var FormValidationCliente = function () {
 				estado: {
 				},
 				pais: {
+					required: true
 				},
 				telefono1: {
 					required: true
@@ -416,9 +418,11 @@ var FormValidationCliente = function () {
 					maxlength: "Menos de 5 digitos",
 				},
 				colonia: {
+					required: "Escribe la colonia",
 					maxlength: "La colonia debe tener menos de 20 caracteres"
 				},
 				codigo_postal: {
+					required: "Escribe el código postal",
 					maxlength: "El código postal debe tener menos de 7 digitos",
 					digits: "El código postal debe contener solo digitos"
 				},
