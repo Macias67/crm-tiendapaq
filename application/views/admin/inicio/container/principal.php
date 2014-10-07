@@ -125,7 +125,7 @@
 									<div>Prospecto</div>
 								</a>
 								<!-- Pendiente -->
-								<a href="#" class="icon-btn" data-target="#nuevo-pendiente" data-toggle="modal">
+								<a href="#" id="pendiente" class="icon-btn" data-target="#nuevo-pendiente" data-toggle="modal">
 									<i class="fa fa-check-square-o"></i>
 									<div>Pendiente</div>
 								</a>

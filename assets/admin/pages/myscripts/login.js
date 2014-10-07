@@ -1,8 +1,12 @@
+/**
+ * Script para loguarse en el sistemas y
+ * hacer las funciones el panel de logueo
+ */
 var Login = function () {
 
 	/*
-	* Esta funcion la agruego yo
-	* @autor Luis Macias
+	* Funcion para loguiarse al sistema
+	* mediante ajax
 	 */
 	function login() {
 		var username	= $('[name="username"]').val();
@@ -10,6 +14,7 @@ var Login = function () {
 		var remember	= $('[name="remember"]').is(':checked');
 		var notice		= $('#notice');
 		var message 	= notice.html();
+		// Hacemos la peticion ajax
 		$.ajax({
 			url: '/validation',
 			type: 'post',
@@ -40,6 +45,7 @@ var Login = function () {
 		});
 	}
 
+	// Valores requeridos para el logueo
 	var handleLogin = function() {
 		$('.login-form').validate({
 			errorElement: 'b', //default input error message container
@@ -92,6 +98,7 @@ var Login = function () {
 		});
 	}
 
+	// Validacion para cuando se olvida la contraseña
 	var handleForgetPassword = function () {
 
 		$('.forget-form').validate({
@@ -147,6 +154,7 @@ var Login = function () {
 		});
 	}
 
+	// Validaciones para el registro
 	var handleRegister = function () {
 
 		function format(state) {

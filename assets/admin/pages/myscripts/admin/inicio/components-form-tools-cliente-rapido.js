@@ -1,3 +1,6 @@
+/**
+ * Macaras para el formulario de cliente prospecto
+ */
 var ComponentsFormToolsClienteRapido = function () {
 
 	var handleInputMasks = function () {

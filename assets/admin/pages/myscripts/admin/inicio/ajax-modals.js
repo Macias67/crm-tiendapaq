@@ -1,3 +1,7 @@
+/**
+ * Ventanas modales para los pendientes
+ * de cada ejecutivo
+ */
 var UIExtendedModals = function () {
 
 	return {
