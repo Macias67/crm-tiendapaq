@@ -9,28 +9,30 @@ class Producto extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
-		//cargamos la libreria
-		$this->load->library('form_validation');
 		//cargamos modelos a usar
 		$this->load->model('productoModel');
-		$this->data['productos']=$this->productoModel->get(array('*'));
 	}
 
 	public function index()
 	{
-		//var_dump($this->data);
+		$this->data['productos'] = $this->productoModel->get(array('*'));
 		$this->_vista('productos');
+		//var_dump($this->data);
 	}
 
 	/**
  	 * funciona para gestionar los productos y servicios
+ 	 *
+ 	 * @return json
  	 * @author Diego Rodriguez
  	 **/
  	public function gestor($accion=null)
 	{
 		switch ($accion) {
 			case 'nuevo':
-			//reglas de validacion para el producto
+				//cargamos la libreria
+				$this->load->library('form_validation');
+				//reglas de validacion para el producto
 				$this->form_validation->set_rules('codigo_new','Código','trim|required|strtoupper|max_length[10]|callback_codigo_check|xss_clean');
 				$this->form_validation->set_rules('descripcion','Descripción','trim|required|strtoupper|max_length[100]|xss_clean');
 				$this->form_validation->set_rules('precio','Precio','trim|required|numeric|xss_clean');
@@ -44,14 +46,14 @@ class Producto extends AbstractAccess {
 					$respuesta = array('exito' => FALSE,'msg' => validation_errors());
 				}else{
 					$producto = array(
-						'codigo' 	    => $this->input->post('codigo_new'),
-						'descripcion' => $this->input->post('descripcion'),
-						'precio' 	    => $this->input->post('precio'),
-						'unidad' 	    => $this->input->post('unidad'),
-						'impuesto1' 	=> $this->input->post('impuesto1'),
-						'impuesto2' 	=> $this->input->post('impuesto2'),
-						'retencion1' 	=> $this->input->post('retencion1'),
-						'retencion2' 	=> $this->input->post('retencion2')
+						'codigo'		=> $this->input->post('codigo_new'),
+						'descripcion'	=> $this->input->post('descripcion'),
+						'precio'			=> $this->input->post('precio'),
+						'unidad'			=> $this->input->post('unidad'),
+						'impuesto1'	=> $this->input->post('impuesto1'),
+						'impuesto2'	=> $this->input->post('impuesto2'),
+						'retencion1'	=> $this->input->post('retencion1'),
+						'retencion2'	=> $this->input->post('retencion2')
 					 );
 
 					if(!$this->productoModel->insert($producto)){
@@ -70,8 +72,10 @@ class Producto extends AbstractAccess {
 			break;
 
 			case 'editar':
+				//cargamos la libreria
+				$this->load->library('form_validation');
 				//reglas de validacion para el producto
-				$this->form_validation->set_rules('codigo_new','Código','trim|required|strtoupper|max_length[10]|callback_codigo_check|xss_clean');
+				$this->form_validation->set_rules('codigo','Código','trim|required|strtoupper|max_length[10]|callback_codigo_check|xss_clean');
 				$this->form_validation->set_rules('descripcion','Descripción','trim|required|strtoupper|max_length[100]|xss_clean');
 				$this->form_validation->set_rules('precio','Precio','trim|numeric|xss_clean');
 				$this->form_validation->set_rules('unidad','Unidad','trim|xss_clean');
@@ -80,28 +84,32 @@ class Producto extends AbstractAccess {
 				$this->form_validation->set_rules('retencion_1','Retención 1','trim|numeric|xss_clean');
 				$this->form_validation->set_rules('retencion_2','Retención 2','trim|numeric|xss_clean');
 
-				if(!$this->form_validation->run()){
+				if(!$this->form_validation->run())
+				{
 					$respuesta = array('exito' => FALSE,'msg' => validation_errors());
-				}else{
+				} else
+				{
 					$codigo = $this->input->post('codigo_old');
 
 					$producto = array(
-						'codigo' 	    => $this->input->post('codigo_new'),
-						'descripcion' => $this->input->post('descripcion'),
-						'precio' 	    => $this->input->post('precio'),
-						'unidad' 	    => $this->input->post('unidad'),
-						'impuesto1' 	=> $this->input->post('impuesto1'),
-						'impuesto2' 	=> $this->input->post('impuesto2'),
-						'retencion1' => $this->input->post('retencion1'),
-						'retencion2' => $this->input->post('retencion2')
-						 );
+						'codigo'		=> $this->input->post('codigo'),
+						'descripcion'	=> $this->input->post('descripcion'),
+						'precio'			=> $this->input->post('precio'),
+						'unidad'			=> $this->input->post('unidad'),
+						'impuesto1'	=> $this->input->post('impuesto1'),
+						'impuesto2'	=> $this->input->post('impuesto2'),
+						'retencion1'	=> $this->input->post('retencion1'),
+						'retencion2'	=> $this->input->post('retencion2')
+						);
 
-					if(!$this->productoModel->update($producto,array('codigo' => $codigo))){
-						$respuesta = array('exito' => FALSE,'msg' => "No se agrego, revisa la consola o la base de datos");
-					}else{
-						$respuesta=array(
-		 					'exito' => TRUE,
-		 					'producto' => $producto['descripcion']);
+					if($this->productoModel->update($producto, array('codigo' => $codigo)))
+					{
+						$respuesta = array(
+							'exito'		=> TRUE,
+							'producto'	=> $producto['descripcion']);
+					} else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => "No se agrego, revisa la consola o la base de datos");
 					}
 				}
 
@@ -111,15 +119,19 @@ class Producto extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				$codigo=$this->input->post('codigo');
-				$producto=$this->input->post('producto');
+				$codigo	=$this->input->post('codigo');
+				$producto	=$this->input->post('producto');
 
-				if(!$this->productoModel->delete(array('codigo' => $codigo))){
-						$respuesta = array('exito' => FALSE,'msg' => "No se elimino, revisa la consola o la base de datos");
-				}else{
-				$respuesta=array(
- 					'exito' => TRUE,
- 					'producto' => $producto);
+				if(!$this->productoModel->delete(array('codigo' => $codigo)))
+				{
+					$respuesta = array(
+						'exito'	=> FALSE,
+						'msg'	=> "No se elimino, revisa la consola o la base de datos");
+				} else
+				{
+					$respuesta = array(
+						'exito'		=> TRUE,
+						'producto'	=> $producto);
 				}
 
 				$this->output
@@ -128,10 +140,32 @@ class Producto extends AbstractAccess {
 			break;
 
 			default:
-				$this->_vista('productos');
+				//$this->_vista('productos');
+				show_404();
 			break;
 		}
 	}
+
+	/**
+	 * Funcion que regresa un html
+	 * para mostrarlo en modal ajax de edicion de
+	 * los productos
+	 *
+	 * @return html
+	 * @author Luis Macias
+	 **/
+	public function detalles($codigo)
+	{
+		if($producto = $this->productoModel->get_where(array('codigo' => $codigo)))
+		{
+			$this->data['producto'] = $producto;
+			$this->_vista_completa('detalle-producto');
+		} else {
+			show_error('El código de producto no existe', 404);
+		}
+	}
+
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -148,7 +182,7 @@ class Producto extends AbstractAccess {
 	{
 		// SI el codigo ya existe y no es mismo que ya tenia
 		$codigo_old = $this->input->post('codigo_old');
-		if ($this->productoModel->exist(array('codigo' => $codigo)) && $codigo!=$codigo_old)
+		if ($this->productoModel->exist(array('codigo' => $codigo)) && $codigo != $codigo_old)
 		{
 			$this->form_validation->set_message('codigo_check', 'El código ya está registrado.');
 			return FALSE;
@@ -156,7 +190,6 @@ class Producto extends AbstractAccess {
 			return TRUE;
 		}
 	}
-
 }
 
 /* End of file productos.php */

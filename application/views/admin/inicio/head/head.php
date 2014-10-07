@@ -28,7 +28,6 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>gritter/css/jquery.gritter.css" />
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN THEME STYLES -->

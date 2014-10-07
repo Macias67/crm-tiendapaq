@@ -140,22 +140,23 @@
 											<th>Retencion 1</th>
 											<th>Retencion 2</th>
 											<th></th>
-											<th></th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php foreach ($productos as $producto): ?>
-											<tr id="<?php echo $producto->codigo ?>">
+											<tr>
 												<td><?php echo $producto->codigo ?></td>
 												<td><?php echo $producto->descripcion ?></td>
-												<td><?php echo $producto->precio ?></td>
+												<td>$ <?php echo $producto->precio ?></td>
 												<td><?php echo $producto->unidad ?></td>
-												<td><?php echo $producto->impuesto1 ?></td>
-												<td><?php echo $producto->impuesto2 ?></td>
-												<td><?php echo $producto->retencion1 ?></td>
-												<td><?php echo $producto->retencion2 ?></td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												<td>$ <?php echo $producto->impuesto1 ?></td>
+												<td>$ <?php echo $producto->impuesto2 ?></td>
+												<td>$ <?php echo $producto->retencion1 ?></td>
+												<td>$ <?php echo $producto->retencion2 ?></td>
+												<td>
+													<button type="button" class="btn green btn-xs ajax-editar" codigo="<?php echo $producto->codigo ?>" data-toggle="modal">Detalles</button>
+													<button type="button" class="btn red btn-xs eliminar" codigo="<?php echo $producto->codigo ?>">Eliminar</button>
+												</td>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
@@ -172,6 +173,14 @@
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
+
+				<!-- BEGIN VENTANAS MODALES -->
+
+				<!-- BEGIN AJAX DETALLE PENDIENTE -->
+				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
+				<!-- END AJAX DETALLE PENDIENTE -->
+
+				<!-- END VENTANAS MODALES -->
 			</div>
 		</div>
 		<!-- END CONTENT -->

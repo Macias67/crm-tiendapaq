@@ -97,6 +97,14 @@ class Pendiente extends AbstractAccess {
 			->set_output(json_encode($respuesta));
 	}
 
+	/**
+	 * Funcion para mandar llamar una
+	 * vista completa para mostra en
+	 * las ventanas modales de ajax en pendientes
+	 * de inicio
+	 *
+	 * @author Luis Macias
+	 **/
 	public function detalles($id_pendiente)
 	{
 		// Cargo modelos

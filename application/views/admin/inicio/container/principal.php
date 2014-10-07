@@ -442,6 +442,8 @@
 				<!-- BEGIN AJAX DETALLE PENDIENTE -->
 				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
 				<!-- END AJAX DETALLE PENDIENTE -->
+
+				<!-- END VENTANAS MODALES -->
 			</div>
 		</div>
 		<!-- END CONTENT -->
