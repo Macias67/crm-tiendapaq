@@ -430,7 +430,7 @@ var FormValidationCliente = function () {
 				},
 				email: {
 					maxlength: "El email debe tener menos de 30 caracteres",
-					required: "El Email es obligatorio",
+					required: "El email es obligatorio",
 					email: "Escribe un email valido"
 				},
 				calle: {

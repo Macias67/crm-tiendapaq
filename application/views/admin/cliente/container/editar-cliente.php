@@ -209,9 +209,6 @@
 															<label class="control-label col-md-4">Tipo : </label>
 															<div class="col-md-8">
 																<select class="form-control" name="tipo">
-																	<?php if($cliente->tipo=="prospecto"): ?>
-																		<option value="prospecto" selected>Prospecto</option>
-																	<?php endif ?>
 																	<option value="normal" <?php echo ($cliente->tipo=="normal")? 'selected':'' ?>>Normal</option>
 																	<option value="distribuidor" <?php echo ($cliente->tipo=="distribuidor")? 'selected':'' ?>>Distribuidor</option>
 																</select>

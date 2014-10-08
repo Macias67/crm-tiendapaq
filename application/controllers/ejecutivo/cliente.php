@@ -181,7 +181,7 @@ class Cliente extends AbstractAccess {
 					'observaciones'			=> $this->input->post('observaciones')
 				);
 				// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
-				$basica_cliente = $this->clienteModel->array_to_object($data);
+				$basica_cliente = $this->clienteModel->array_to_object($data, $data['tipo'], TRUE);
 				//se inserta el objeto en la bd para generar el id y poder usarlo como llave foranea
 				if($this->clienteModel->insert($basica_cliente))
 				{
@@ -224,7 +224,7 @@ class Cliente extends AbstractAccess {
 					'telefono_contacto'	=> $this->input->post('telefono_contacto')
 				);
 				// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
-				$basica_cliente = $this->clienteModel->array_to_object($data, $data['tipo']);
+				$basica_cliente = $this->clienteModel->array_to_object($data, $data['tipo'], TRUE);
 				//se inserta el objeto cliente en la bd para generar el id y poder usarlo como llave foranea
 				if($this->clienteModel->insert($basica_cliente))
 				{
@@ -263,8 +263,8 @@ class Cliente extends AbstractAccess {
 	public function editado()
 	{
 		//Datos basicos
-		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|callback_razon_rfc_check|xss_clean');
-		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|xss_clean');
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
+		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|xss_clean');
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
@@ -315,8 +315,10 @@ class Cliente extends AbstractAccess {
 			}
 			// Obtengo el id para tener la refencia al where
 			$id = $this->input->post('id_cliente');
+			// se crea un objeto con la informacion basica para insertarlo en la tabla clientes
+			$basica_cliente = $this->clienteModel->array_to_object($cliente, $cliente['tipo']);
 			//Actulizo en la bd
-			if($this->clienteModel->update($cliente, array('id' => $id)))
+			if($this->clienteModel->update($basica_cliente, array('id' => $id)))
 			{
 				$respuesta = array('exito' => TRUE, 'razon_social' => $cliente['razon_social']);
 			}else
