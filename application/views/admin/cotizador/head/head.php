@@ -25,6 +25,7 @@
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datepicker/css/datepicker3.css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->

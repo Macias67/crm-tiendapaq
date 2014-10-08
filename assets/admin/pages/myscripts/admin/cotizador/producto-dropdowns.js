@@ -8,6 +8,18 @@ var ProductoDropdowns	= function() {
 
 	var observaciones = [];
 
+	var fechaVigencia = function() {
+		if (jQuery().datepicker) {
+			$('.date-picker').datepicker({
+				todayHighlight: true,
+				language: "es",
+				rtl: Metronic.isRTL(),
+				autoclose: true
+			});
+			//$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+		}
+	}
+
 	// Gestiona la seccion del cliente y contacto
 	var handlerCliente = function() {
 		var select_razon_social	= $('#razon_social');
@@ -430,6 +442,7 @@ var ProductoDropdowns	= function() {
 
 	return {
 		init: function() {
+			fechaVigencia();
 			handlerCliente();
 			handleSelect2Productos();
 			addRowTable();

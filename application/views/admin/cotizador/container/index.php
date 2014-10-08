@@ -129,17 +129,26 @@
 										<div class="caption"><i class="fa fa-gift"></i> Cotización</div>
 									</div>
 									<div class="portlet-body">
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<h5>Folio: </h5>
 											<b id="folio"><?php echo $sig_folio ?></b>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
+											<h5>Ejecutivo: </h5>
+											<b id="<?php echo $id_ejecutivo ?>" class="ejecutivo"><?php echo $nombre_completo ?></b>
+										</div>
+										<div class="col-md-4">
 											<h5>Fecha: </h5>
 											<b id="fecha"><?php echo date('d/m/Y') ?></b>
 										</div>
 										<div class="col-md-12">
-											<h5>Ejecutivo: </h5>
-											<b id="<?php echo $id_ejecutivo ?>" class="ejecutivo"><?php echo $nombre_completo ?></b>
+											<h5>Vigencia: </h5>
+											<div class="input-group date date-picker" data-date-format="dd/mm/yyyy" data-date-start-date="+0d">
+												<input type="text" class="form-control" value="<?php echo $fecha_vigencia ?>">
+												<span class="input-group-btn">
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+											</div>
 										</div>
 									</div>
 								</div>
