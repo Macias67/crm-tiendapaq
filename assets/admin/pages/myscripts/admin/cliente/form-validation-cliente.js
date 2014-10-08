@@ -5,7 +5,7 @@ var FormValidationCliente = function () {
 		$('#memoria-ram').spinner();
 	}
 
-  //Funcion para que si es estados unidos no se pinten los estados 
+  //Funcion para que si el pais es estados unidos no se pinten los estados
   //en el select del formulario de agregar o editar clientes
   var handPais = function() {
     var pais;
@@ -56,22 +56,25 @@ var FormValidationCliente = function () {
 					email: true
 				},
 				tipo: {
-					required: true
+					//select
 				},
 				calle: {
 					maxlength: 50,
 					required: true
 				},
 				no_exterior: {
+					maxlength: 5,
 					required: true
 				},
 				no_interior: {
+					maxlength: 5,
 				},
 				colonia: {
 					maxlength: 20,
 					required: true
 				},
 				codigo_postal: {
+					//mascara
 					required: true
 				},
 				ciudad: {
@@ -82,15 +85,17 @@ var FormValidationCliente = function () {
 					maxlength: 50
 				},
 				estado: {
-					required: true
+					//select
 				},
 				pais: {
-					required: true
+					//select
 				},
 				telefono1: {
+					//mascara
 					required: true
 				},
 				telefono2: {
+					//mascara
 				},
 				usuario: {
 					maxlength: 10,
@@ -113,38 +118,46 @@ var FormValidationCliente = function () {
 					required: true
 				},
 				email_contacto: {
-					maxlength: 30,
+					maxlength: 50,
 					required: true,
 					email: true
 				},
 				telefono_contacto: {
-					required: true,
-					maxlength: 14
+					//mascara
+					required: true
 				},
 				puesto_contacto: {
 					maxlength: 20
 				},
 				sistema: {
+					//select
 				},
 				version: {
+					//select
 				},
 				no_serie: {
+					maxlength: 30
 				},
 				nombre_equipo: {
 					maxlength: 20
 				},
 				sistema_operativo: {
+					//select
 				},
 				arquitectura: {
+					//radio
 				},
 				maquina_virtual: {
+					//radio
 				},
 				memoria_ram: {
 					maxlength: 3
 				},
 				sql_server: {
+					//select
 				},
 				sql_management: {
+					//select
 				},
 				instancia_sql: {
 					maxlength: 20
@@ -163,29 +176,31 @@ var FormValidationCliente = function () {
 					required: "Escribe el RFC"
 				},
 				email: {
-					maxlength: "El email debe tener menos de 30 caracteres",
-					required:  "Escribe el Email",
+					maxlength: "El email debe tener menos de 50 caracteres",
+					required:  "Escribe el email",
 					email: "Escribe un email valido"
 				},
 				tipo: {
+					//select
 				},
 				calle: {
 					required: "Escribe la calle",
 					maxlength: "La calle debe tener menos de 50 caracteres"
 				},
 				no_exterior: {
-					required: "Escribe el No. exterior"
+					maxlength: "Debe tener menos de 5 caracteres",
+					required: "Escribe el no. exterior"
 				},
 				no_interior: {
+					maxlength: "Debe tener menos de 5 caracteres",
 				},
 				colonia: {
 					maxlength: "La colonia debe tener menos de 20 caracteres",
 					required: "Escribe la colonia"
 				},
 				codigo_postal: {
-					maxlength: "El código postal debe tener menos de 7 digitos",
-					required: "Escribe el código postal",
-					digits: "El código postal debe contener solo digitos"
+					//mascara
+					required: "Escribe el código postal"
 				},
 				ciudad: {
 					required: "Escribe la ciudad",
@@ -195,16 +210,20 @@ var FormValidationCliente = function () {
 					maxlength: "El municipio debe tener menos de 50 caracteres"
 				},
 				estado: {
+					//select
 				},
 				pais: {
+					//select
 				},
 				telefono1: {
+					//mascara
 					required: "Escribe el Teléfono"
 				},
 				telefono2: {
+					//mascara
 				},
 				usuario: {
-					maxlength: "El nombre de usuario debe tener menos de 10 caracteres",
+					maxlength: "El usuario debe tener menos de 10 caracteres",
 					required: "Escribe el usuario"
 				},
 				password: {
@@ -224,38 +243,46 @@ var FormValidationCliente = function () {
 					required: "Escribe apellido materno"
 				},
 				email_contacto: {
-					maxlength: "El email del contacto debe tener menos de 30 caracteres",
+					maxlength: "El email del contacto debe tener menos de 50 caracteres",
 					required: "Escribe el email",
 					email: "Escribe un email valido"
 				},
 				telefono_contacto: {
-					maxlength:  "El telefono del contacto debe tener menos de 14 digitos",
+					//mascara
 					required: "Escribe el teléfono"
 				},
 				puesto_contacto: {
 					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
 				},
 				sistema: {
+					//select
 				},
 				version: {
+					//select
 				},
 				no_serie: {
+					maxlength: "El no. de serie debe tener menos de 30 caracteres"
 				},
 				nombre_equipo: {
 					maxlength:  "El nombre del equipo debe tener menos de 20 caracteres"
 				},
 				sistema_operativo: {
+					//select
 				},
 				arquitectura: {
+					//radio
 				},
 				maquina_virtual: {
+					//radio
 				},
 				memoria_ram: {
 					maxlength:  "La memoria RAM debe tener menos de 3 digitos"
 				},
 				sql_server: {
+					//select
 				},
 				sql_management: {
+					//select
 				},
 				instancia_sql: {
 					maxlength:  "La instancia SQL debe tener menos de 20 caracteres"
@@ -313,7 +340,7 @@ var FormValidationCliente = function () {
 							alert("Cliente "+data.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						} else {
-							bootbox.alert("Error : "+data.msg);
+							alert("Error : "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('body').modalmanager('removeLoading');
@@ -412,7 +439,7 @@ var FormValidationCliente = function () {
 				},
 				no_exterior: {
 					maxlength: "Menos de 5 digitos",
-					required: "Escribe el No. exterior"
+					required: "Escribe el no. exterior"
 				},
 				no_interior: {
 					maxlength: "Menos de 5 digitos",
