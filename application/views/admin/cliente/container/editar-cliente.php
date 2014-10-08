@@ -230,7 +230,7 @@
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-phone"></i>
-																	<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1" value="<?php echo $cliente->telefono1 ?>">
+																	<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono1" value="<?php echo $cliente->telefono1 ?>">
 																</div>
 															</div>
 														</div>
@@ -240,7 +240,7 @@
 															<div class="col-md-8">
 																<div class="input-icon">
 																	<i class="fa fa-phone"></i>
-																	<input type="text" class="form-control" id="telefono2" placeholder="(999) 999-9999" name="telefono2" value="<?php echo $cliente->telefono2 ?>">
+																	<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono2" value="<?php echo $cliente->telefono2 ?>">
 																</div>
 															</div>
 														</div>
