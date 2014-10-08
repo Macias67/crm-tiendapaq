@@ -128,7 +128,7 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<table class="table table-striped table-hover table-bordered" id="tabla_productos_editable">
+								<table class="table table-striped table-hover table-bordered" id="tabla_productos">
 									<thead>
 										<tr>
 											<th>Código</th>
@@ -142,7 +142,7 @@
 											<th></th>
 										</tr>
 									</thead>
-									<tbody>
+									<!-- <tbody>
 										<?php foreach ($productos as $producto): ?>
 											<tr>
 												<td><?php echo $producto->codigo ?></td>
@@ -159,7 +159,7 @@
 												</td>
 											</tr>
 										<?php endforeach ?>
-									</tbody>
+									</tbody> -->
 								</table>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">

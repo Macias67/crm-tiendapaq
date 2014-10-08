@@ -165,7 +165,56 @@ class Producto extends AbstractAccess {
 		}
 	}
 
+	public function table()
+	{
+		$draw			= $this->input->post('draw');
+		$start			= $this->input->post('start');
+		$length		= $this->input->post('length');
+		$order			= $this->input->post('order');
+		$columns		= $this->input->post('columns');
+		$search		= $this->input->post('search');
+		$total			=  $this->productoModel->count();
+		$productos	= $this->productoModel->get_or_like(
+							array('*'),
+							array(
+								'codigo' 		=> $search['value'],
+								'descripcion'	=> $search['value'],
+								'precio'			=> $search['value'],
+								'unidad'			=> $search['value'],
+								'impuesto1'	=> $search['value'],
+								'impuesto2'	=> $search['value'],
+								'retencion1'	=> $search['value'],
+								'retencion2'	=> $search['value']
+							      ),
+							$columns[$order[0]['column']]['data'],
+							$order[0]['dir'],
+							$length,
+							$start
+		                                     );
+		$proceso		= array();
 
+		foreach ($productos as $producto) {
+			$p = array(
+				'codigo'		=> $producto->codigo,
+				'descripcion'	=> $producto->descripcion,
+				'precio'			=> '$ '.$producto->precio,
+				'unidad'			=> $producto->unidad,
+				'impuesto1'	=> '$ '.$producto->impuesto1,
+				'impuesto2'	=> '$ '.$producto->impuesto2,
+				'retencion1'	=> '$ '.$producto->retencion1,
+				'retencion2'	=> '$ '.$producto->retencion2
+			       );
+			array_push($proceso, $p);
+		}
+		$data = array(
+			'draw'				=> $draw,
+			'recordsTotal'		=> count($productos),
+			'recordsFiltered'	=> $total,
+			'data'				=> $proceso);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+	}
 
 	/*
 	|--------------------------------------------------------------------------
