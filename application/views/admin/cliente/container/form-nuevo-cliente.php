@@ -272,7 +272,7 @@
 											<!-- Estado -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Estado<span class="required" aria-required="true">*</span>
+													Estado
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
