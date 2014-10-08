@@ -26,6 +26,8 @@ class Cotizador extends AbstractAccess {
 		$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
 		$this->data['nombre_completo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'];
 		$this->data['id_ejecutivo']			= $this->usuario_activo['id'];
+		$fecha = strtotime(date("m/d/Y"))+(60*60*24*60);
+		$this->data['fecha_vigencia']		= date("d/m/Y", $fecha);
 		$this->_vista('index');
 	}
 

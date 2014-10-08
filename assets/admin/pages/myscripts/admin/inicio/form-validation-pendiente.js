@@ -1,3 +1,6 @@
+/**
+ * Validacion para formulario del pendiente
+ */
 var FormValidationPendiente = function () {
 
 	// Select para escoger la razón social
@@ -53,6 +56,7 @@ var FormValidationPendiente = function () {
 					required: true
 				},
 				razon_social: {
+					required: true
 				},
 				actividad: {
 					required: true
@@ -67,6 +71,9 @@ var FormValidationPendiente = function () {
 				ejecutivo: {
 					required: "Se necesita seleccionar a un ejecutivo."
 				},
+				ejecutivo: {
+					required: "Seleccione un cliente."
+				},
 				actividad: {
 					required: "Selecciona una actividad."
 				},
@@ -79,7 +86,7 @@ var FormValidationPendiente = function () {
 			invalidHandler: function (event, validator) { //display error alert on form submit
 				success1.hide();
 				error1.show();
-				//Metronic.scrollTo(error1, -200);
+				Metronic.scrollTo(error1, -200);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -111,14 +118,12 @@ var FormValidationPendiente = function () {
 					},
 					success: function(data) {
 						if (data.exito) {
-							// alert("Se le ha notificado a "+data.nombre+" de nuevo pendiente asignado.");
-							// parent.location.reload();
 							$('#nuevo-pendiente').modal('hide');
 							//when hidden
 							$('#nuevo-pendiente').on('hidden.bs.modal', function(e) {
 								$("#razon_social").select2("val", "");
 
-								$(this).find('form').each (function(){
+								$(this).find('form').each(function(){
 									this.reset();
 								});
 

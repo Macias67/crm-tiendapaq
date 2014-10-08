@@ -18,10 +18,11 @@ class ActividadPendienteModel extends MY_Model {
 	/*
 	* Actividades disponibles
 	 */
-	var $SOLICITA_COTIZACION		= '1';
+	var $ASESORIA_DIAGNOSTICO	= '1';
 	var $ASESORIA_ESPECIFICA		= '2';
-	var $ASESORIA_DIAGNOSTICO	= '3';
-	var $SOLICITA_INFO				= '4';
+	var $SOLICITA_COTIZACION		= '3';
+	var $SOPORTE_TECNICO		= '4';
+	var $RECADO					= '5';
 
 	/**
 	 * Constructor

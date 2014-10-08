@@ -1,3 +1,6 @@
+/**
+ * Manejo de tablas de pendientes individuales y generales
+ */
 var TableManaged = function () {
 
 	var misPendientes = function () {
