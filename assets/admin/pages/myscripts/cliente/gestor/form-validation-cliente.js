@@ -22,6 +22,15 @@ var FormValidationCliente = function () {
     });
   }
 
+  // PROGRESS BAR PARA CUANDO MANDO UN AJAX
+  $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+  '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+      '<div class="progress progress-striped active">' +
+          '<div class="progress-bar" style="width: 100%;"></div>' +
+      '</div>' +
+  '</div>';
+
+
 	// Validacion para formulario de cliente nuevo completo en la vista del sidebar
 	var handBasicaCliente = function() {
 		// for more info visit the official plugin documentation:
@@ -76,14 +85,16 @@ var FormValidationCliente = function () {
 					maxlength: 50
 				},
 				estado: {
+					//select
 				},
 				pais: {
-					required: true
+					//select
 				},
 				telefono1: {
 					required: true
 				},
 				telefono2: {
+					//mascara
 				},
 				usuario: {
 					required: true,
@@ -170,13 +181,6 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				// general settings
-				$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-					'<div class="progress progress-striped active">' +
-						'<div class="progress-bar" style="width: 100%;"></div>' +
-					'</div>' +
-				'</div>';
 
 				$.fn.modalmanager.defaults.resize = true;
 
@@ -188,24 +192,23 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-basica-cliente').serialize(),
 					beforeSend: function () {
-						//$('body').modalmanager('loading');
+						$('body').modalmanager('loading');
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						//$('body').modalmanager('removeLoading');
+						$('body').modalmanager('removeLoading');
 					},
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
-							bootbox.alert("<h4>Informacion de <b>"+data.razon_social+"</b> actualizada con éxito. </h4>", function () {
-								parent.location.reload();
-							});
+							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
+							parent.location.reload();
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							//$('body').modalmanager('removeLoading');
+							$('body').modalmanager('removeLoading');
 						}
 					}
 				});

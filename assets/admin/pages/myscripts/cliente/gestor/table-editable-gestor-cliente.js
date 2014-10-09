@@ -1,5 +1,13 @@
 var TableEditable = function () {
 
+    // PROGRESS BAR PARA CUANDO MANDO UN AJAX
+    $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
+    '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
+        '<div class="progress progress-striped active">' +
+            '<div class="progress-bar" style="width: 100%;"></div>' +
+        '</div>' +
+    '</div>';
+
     //Tabla de gestion de contactos en modo cliente
     var handleTableContactos= function () {
 
@@ -64,23 +72,22 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: contacto,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, actualizado con éxito</h4>",function () {
-                                parent.location.reload();
-                            });
+                            alert("Contacto : "+data.contacto+" actualizado con éxito.");
+                            parent.location.reload();
                         } else {
-                            bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
+                            alert('Error :'+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -93,23 +100,22 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: contacto,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, añadido con éxito</h4>", function () {
-                                parent.location.reload();
-                            });
+                            alert("Contacto : "+data.contacto+" añadido con éxito.");
+                            parent.location.reload();
                         } else {
-                            bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
+                            alert('Error :</p>'+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            $('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -186,7 +192,7 @@ var TableEditable = function () {
             //si hay una nueva en edicion o esta editando otra no podemos crear otra nueva
             if (nNew || nEditing)
             {
-                bootbox.alert("<h4>Aun no terminass de editar!</h4>");
+                alert("Aun no terminass de editar!");
             } else
             {
                 //valores por default en ls inputs al crear nueva oficina
@@ -207,40 +213,37 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id = $(nRow).attr('id');
 
-            bootbox.confirm("<h4>¿Seguro que quieres eliminar el contacto <b>"+aData[0]+" "+aData[1]+" "+aData[2]+"</b>?</h4>", function (result){
-                //result guarda el booleano respondido en el comfirm
-                if(result){
-                    //ajax para borrar la oficina
-                    $.ajax({
-                        url: "/actualizar/contactos/eliminar",
-                        type: 'post',
-                        cache: false,
-                        dataType: 'json',
-                        data: "id="+id+"&nombre_contacto="+aData[0]+"&apellido_paterno="+aData[1]+"&apellido_materno="+aData[2],
-                        beforeSend: function () {
-                           //('body').modalmanager('loading');
-                        },
-                        error: function(jqXHR, status, error) {
-                            console.log("ERROR: "+error);
-                            alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
-                        },
-                        success: function(data) {
-                            if (data.exito) {
-                                bootbox.alert("<h4>Contacto : <b>"+data.contacto+"</b>, eliminado con éxito<h4>");
-                                //parent.location.reload();
-                                oTable.fnDeleteRow(nRow);
-                            } else {
-                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                                //$('body').modalmanager('removeLoading');
-                                //parent.location.reload();
-                            }
+            if(confirm("¿Seguro que quieres eliminar el contacto "+aData[0]+" "+aData[1]+" "+aData[2]+" ?") == false){
+                return;
+            }else{
+                //ajax para borrar la oficina
+                $.ajax({
+                    url: "/actualizar/contactos/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id="+id+"&nombre_contacto="+aData[0]+"&apellido_paterno="+aData[1]+"&apellido_materno="+aData[2],
+                    beforeSend: function () {
+                       $('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        $('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Contacto : "+data.contacto+" eliminado con éxito.");
+                            parent.location.reload();
+                            oTable.fnDeleteRow(nRow);
+                        } else {
+                            alert('Error : '+data.msg);
+                            $('body').modalmanager('removeLoading');
+                            //parent.location.reload();
                         }
-                    });
-                }else{
-                    return;
-                }
-            });
+                    }
+                });
+            }
         });
 
         table.on('click', '.cancel', function (e) {
@@ -343,7 +346,7 @@ var TableEditable = function () {
         tableWrapper.find(".dataTables_length select").select2({
             showSearchInput: false //hide search box with special css class
         }); // initialize select2 dropdown
-        
+
         //funcion para eliminar
         table.on('click', '.delete', function (e) {
             e.preventDefault();
@@ -353,40 +356,37 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id = $(nRow).attr('id');
 
-            bootbox.confirm("<h4>¿Seguro que quieres eliminar el sistema <b>"+aData[0]+"</b> Versión <b>"+aData[1]+"</b>?</h4>", function (result){
-                //result guarda el booleano respondido en el comfirm
-                if(result){
-                    //ajax para borrar
-                    $.ajax({
-                        url: "/actualizar/sistemas/eliminar",
-                        type: 'post',
-                        cache: false,
-                        dataType: 'json',
-                        data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
-                        beforeSend: function () {
-                           //('body').modalmanager('loading');
-                        },
-                        error: function(jqXHR, status, error) {
-                            console.log("ERROR: "+error);
-                            alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
-                        },
-                        success: function(data) {
-                            if (data.exito) {
-                                bootbox.alert("<h4>Sistema : <b>"+data.sistema+"</b>, eliminado con éxito<h4>");
-                                //parent.location.reload();
-                                oTable.fnDeleteRow(nRow);
-                            } else {
-                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                                //$('body').modalmanager('removeLoading');
-                                //parent.location.reload();
-                            }
+            if(confirm("¿Seguro que quieres eliminar el sistema "+aData[0]+" Versión "+aData[1]+" ?") == false){
+                return;
+            }else{
+                //ajax para borrar
+                $.ajax({
+                    url: "/actualizar/sistemas/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
+                    beforeSend: function () {
+                       $('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        $('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Sistema : "+data.sistema+" eliminado con éxito.");
+                            parent.location.reload();
+                            oTable.fnDeleteRow(nRow);
+                        } else {
+                            alert('Error : '+data.msg);
+                            $('body').modalmanager('removeLoading');
+                            //parent.location.reload();
                         }
-                    });
-                }else{
-                    return;
-                }
-            });
+                    }
+                });
+            }
         });
 
         //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
@@ -404,26 +404,25 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       $('body').modalmanager('loading');
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        $('body').modalmanager('removeLoading');
                     },
                     success: function(data) {
                         if (data.exito) {
-                            bootbox.alert("<h4>Sistema : <b>"+data.sistema+"</b>, agregado con éxito<h4>",function () {
-                                parent.location.reload();
-                            });
+                            alert("Sistema : "+data.sistema+" agregado con éxito.");
+                            parent.location.reload();
                         } else {
-                            bootbox.alert('<h4><b>Error :</b>'+data.msg+'</h4>');
-                            //$('body').modalmanager('removeLoading');
+                            alert('Error : '+data.msg);
+                            $('body').modalmanager('removeLoading');
                         }
                     }
                 });
             }else{
-                bootbox.alert("Debes completar el formulario");
+                alert("Debes completar el formulario");
             }
         });
     }
@@ -503,40 +502,37 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var id = $(nRow).attr('id');
 
-            bootbox.confirm("<h4>¿Seguro que quieres eliminar el equipo <b>"+aData[0]+" con "+aData[1]+"</b>?</h4>", function (result){
-                //result guarda el booleano respondido en el comfirm
-                if(result){
-                    //ajax para borrar la oficina
-                    $.ajax({
-                        url: "/actualizar/equipos/eliminar",
-                        type: 'post',
-                        cache: false,
-                        dataType: 'json',
-                        data: "id="+id+"&nombre_equipo="+aData[0],
-                        beforeSend: function () {
-                           //('body').modalmanager('loading');
-                        },
-                        error: function(jqXHR, status, error) {
-                            console.log("ERROR: "+error);
-                            alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
-                        },
-                        success: function(data) {
-                            if (data.exito) {
-                                bootbox.alert("<h4>Equipo : <b>"+data.equipo+"</b>, eliminado con éxito<h4>");
-                                //parent.location.reload();
-                                oTable.fnDeleteRow(nRow);
-                            } else {
-                                bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                                //$('body').modalmanager('removeLoading');
-                                //parent.location.reload();
-                            }
+            if(confirm("¿Seguro que quieres eliminar el equipo "+aData[0]+" ?") == false){
+                return;
+            }else{
+                //ajax para borrar la oficina
+                $.ajax({
+                    url: "/actualizar/equipos/eliminar",
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "id="+id+"&nombre_equipo="+aData[0],
+                    beforeSend: function () {
+                       $('body').modalmanager('loading');
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        $('body').modalmanager('removeLoading');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            alert("Equipo : "+data.equipo+" eliminado con éxito.");
+                            parent.location.reload();
+                            oTable.fnDeleteRow(nRow);
+                        } else {
+                            bootbox.alert('Error : '+data.msg);
+                            $('body').modalmanager('removeLoading');
+                            //parent.location.reload();
                         }
-                    });
-                }else{
-                    return;
-                }
-            });
+                    }
+                });
+            }
         });
 
         //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
@@ -548,21 +544,20 @@ var TableEditable = function () {
                 dataType: 'json',
                 data: $("#form-nuevo-equipo").serialize(),
                 beforeSend: function () {
-                   //('body').modalmanager('loading');
+                   $('body').modalmanager('loading');
                 },
                 error: function(jqXHR, status, error) {
                     console.log("ERROR: "+error);
                     alert('ERROR: revisa la consola del navegador para más detalles.');
-                    //$('body').modalmanager('removeLoading');
+                    $('body').modalmanager('removeLoading');
                 },
                 success: function(data) {
                     if (data.exito) {
-                        bootbox.alert("<h4>Equipo : <b>"+data.equipo+"</b>, agregado con éxito<h4>",function () {
-                            parent.location.reload();
-                        });
+                        alert("Equipo : "+data.equipo+" agregado con éxito.");
+                         parent.location.reload();
                     } else {
-                        bootbox.alert('<h4><b>Error :</b>'+data.msg+'</h4>');
-                        //$('body').modalmanager('removeLoading');
+                        alert('Error : '+data.msg);
+                        $('body').modalmanager('removeLoading');
                     }
                 }
             });

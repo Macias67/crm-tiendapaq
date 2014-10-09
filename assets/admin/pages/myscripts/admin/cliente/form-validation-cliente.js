@@ -217,7 +217,7 @@ var FormValidationCliente = function () {
 				},
 				telefono1: {
 					//mascara
-					required: "Escribe el Teléfono"
+					required: "Escribe el teléfono"
 				},
 				telefono2: {
 					//mascara
@@ -391,6 +391,7 @@ var FormValidationCliente = function () {
 					required: true
 				},
 				codigo_postal: {
+					//mascara
 					required: true
 				},
 				ciudad: {
@@ -401,14 +402,18 @@ var FormValidationCliente = function () {
 					maxlength: 50
 				},
 				estado: {
+					//select
 				},
 				pais: {
+					//select
 					required: true
 				},
 				telefono1: {
+					//mascara
 					required: true
 				},
 				telefono2: {
+					//mascara
 				},
 				usuario: {
 					required: true,
@@ -461,11 +466,13 @@ var FormValidationCliente = function () {
 					maxlength: "El municipio debe tener menos de 50 caracteres"
 				},
 				estado: {
+					//select
 				},
 				pais: {
+					//select
 				},
 				telefono1: {
-					required: "Escribe el telefono"
+					required: "Escribe el teléfono"
 				},
 				telefono2: {
 				},
