@@ -24,7 +24,7 @@ class Producto extends AbstractAccess {
  	 * funciona para gestionar los productos y servicios
  	 *
  	 * @return json
- 	 * @author Diego Rodriguez
+ 	 * @author Diego Rodriguez | Luis Macias
  	 **/
  	public function gestor($accion=null)
 	{
@@ -41,6 +41,8 @@ class Producto extends AbstractAccess {
 				$this->form_validation->set_rules('impuesto_2','Impuesto 2','trim|numeric|xss_clean');
 				$this->form_validation->set_rules('retencion_1','Retención 1','trim|numeric|xss_clean');
 				$this->form_validation->set_rules('retencion_2','Retención 2','trim|numeric|xss_clean');
+
+				$this->form_validation->set_error_delimiters('','');
 
 				if(!$this->form_validation->run()){
 					$respuesta = array('exito' => FALSE,'msg' => validation_errors());
@@ -84,6 +86,8 @@ class Producto extends AbstractAccess {
 				$this->form_validation->set_rules('retencion_1','Retención 1','trim|numeric|xss_clean');
 				$this->form_validation->set_rules('retencion_2','Retención 2','trim|numeric|xss_clean');
 
+				$this->form_validation->set_error_delimiters('','');
+
 				if(!$this->form_validation->run())
 				{
 					$respuesta = array('exito' => FALSE,'msg' => validation_errors());
@@ -119,19 +123,16 @@ class Producto extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				$codigo	=$this->input->post('codigo');
-				$producto	=$this->input->post('producto');
+				$codigo = $this->input->post('codigo');
 
-				if(!$this->productoModel->delete(array('codigo' => $codigo)))
+				if($this->productoModel->delete(array('codigo' => $codigo)))
+				{
+					$respuesta = array('exito' => TRUE);
+				} else
 				{
 					$respuesta = array(
 						'exito'	=> FALSE,
 						'msg'	=> "No se elimino, revisa la consola o la base de datos");
-				} else
-				{
-					$respuesta = array(
-						'exito'		=> TRUE,
-						'producto'	=> $producto);
 				}
 
 				$this->output
@@ -174,6 +175,13 @@ class Producto extends AbstractAccess {
 		$columns		= $this->input->post('columns');
 		$search		= $this->input->post('search');
 		$total			=  $this->productoModel->count();
+
+		if($length == -1)
+		{
+			$length	= null;
+			$start		= null;
+		}
+
 		$productos	= $this->productoModel->get_or_like(
 							array('*'),
 							array(

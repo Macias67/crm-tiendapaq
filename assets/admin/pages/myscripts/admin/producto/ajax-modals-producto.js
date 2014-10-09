@@ -5,7 +5,6 @@
 var UIExtendedModals = function () {
 
 	var tablaClientes = function () {
-
 		var table = $('#tabla_productos');
 
 		table.dataTable({
@@ -30,7 +29,7 @@ var UIExtendedModals = function () {
 				{ "data": "retencion2" },
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn green btn-xs ajax-editar" codigo="" data-toggle="modal">Detalles</button><button type="button" class="btn red btn-xs eliminar" codigo="">Eliminar</button>'
+					"defaultContent": '<button type="button" class="btn green btn-xs ajax-editar" data-toggle="modal">Detalles</button><button type="button" class="btn red btn-xs eliminar" codigo="P001">Eliminar</button>'
 				}
 			],
 			// set the initial value
@@ -76,8 +75,9 @@ var UIExtendedModals = function () {
 		//Ventana modal:
 		var $modal = $('#ajax-modal');
 
-		$('.ajax-editar').on('click', function() {
-			var codigo = $(this).attr('codigo');
+		$('#tabla_productos tbody').on('click', '.ajax-editar', function() {
+			var data = $('#tabla_productos').dataTable().api().row($(this).parents('tr')).data();
+			var codigo = data.codigo;
 			// create the backdrop and wait for next modal to be triggered
 			$('body').modalmanager('loading');
 
@@ -149,10 +149,38 @@ var UIExtendedModals = function () {
 		});
 
 		// Eliminar
-		$('.eliminar').on('click', function() {
-			var codigo = $(this).attr('codigo');
-
-			bootbox.alert('<h3>'+codigo+'</h3>');
+		$('#tabla_productos tbody').on('click', '.eliminar',function() {
+			var data = $('#tabla_productos').dataTable().api().row($(this).parents('tr')).data();
+			var codigo = data.codigo;
+			bootbox.confirm('<h3>¿Deseas eleminar este producto de la lista?</h3>', function(result) {
+				if (result) {
+					$.ajax({
+						url: './producto/gestor/eliminar',
+						type: 'post',
+						cache: false,
+						dataType: 'json',
+						data: {codigo: codigo},
+						beforeSend: function () {
+							$('body').modalmanager('loading');
+						},
+						error: function(jqXHR, status, error) {
+							console.log("ERROR: "+jqXHR);
+							$('body').modalmanager('removeLoading');
+							alert('ERROR: revisa la consola del navegador para más detalles.');
+						},
+						success: function(data) {
+							if (data.exito) {
+								alert("Se ha borrado el producto de la lista.");
+								location.reload();
+							} else {
+								alert(data.msg);
+								$('body').modalmanager('removeLoading');
+								//$modal.modal('hide');
+							}
+						}
+					});
+				}
+			});
 		});
 	}
 
