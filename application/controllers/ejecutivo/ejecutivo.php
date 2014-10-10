@@ -25,17 +25,71 @@ class Ejecutivo extends AbstractAccess {
 		//cargo los modelos a usar
 		$this->load->model('departamentoModel');
 		$this->load->model('oficinasModel');
-		//variables que contienen ls valores de la bd para mostrarlo en los select en caso de editar
-		$usuario_temp						= (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
+		//cargamos los datos completos del usuario para mostrarlos en el perfil
+		$usuario_temp	= (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
 		$usuario_temp['ruta_imagenes']	= site_url('assets/admin/pages/media/profile/'.$this->usuario_activo['id']).'/';
 		$this->data['usuario_activo']		=$usuario_temp;
 		// Variable vacia para mostrar errores de subida
 		$this->data['upload_error']			= '';
+		//variables precargadas para mostrar datos el los selects del formulario de edicion
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		$this->data['tablaoficinas']			= $this->oficinasModel->get(array('ciudad_estado'));
+		//mandamos la vista principal
 		$this->_vista('perfil');
 		//var_dump($this->data);
 	}
+
+	/**
+	 * Funcion mostrar las vistas de gestion de ejecutivos
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function gestionar($accion=null, $id_ejecutivo=null)
+	{
+			//cargo los modelos a usar
+			$this->load->model('privilegiosModel');
+			$this->load->model('departamentoModel');
+			$this->load->model('oficinasModel');
+
+			switch ($accion)
+			{
+				case 'nuevo':
+					// Titulo header
+					$this->data['titulo']				= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+					//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
+					$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
+					$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
+					$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
+					//se muestra el formulario
+					$this->_vista('form-nuevo-ejecutivo');
+				break;
+
+				case 'editar':
+					$ejecutivo = $this->ejecutivoModel->get_where(array('id' => $id_ejecutivo));
+					 if (!empty($ejecutivo))
+					 {
+					 	// Datos a enviar a la vista
+					 	$this->data['ejecutivo']						= $ejecutivo;
+						$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
+						$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
+						$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
+					 	//Vista de formulario a mostrar
+					// 	$this->_vista('editar-cliente');
+					 } else
+					 {
+					 	show_error('No existe este cliente.', 404);
+					 }
+					var_dump($this->data);
+				break;
+
+				default:
+					$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('*'));
+					$this->_vista('gestionar');
+					//var_dump($this->data);
+				break;
+			}
+	}
+
 
 	/**
 	 * Funcion para mostrar el formulario para crear
@@ -44,140 +98,120 @@ class Ejecutivo extends AbstractAccess {
 	 *
 	 * @author Diego Rodriguez
 	 **/
-	public function nuevo($accion = null)
+	public function nuevo()
 	{
-		switch ($accion)
+		//cargo la libreria de las validaciones
+		$this->load->library('form_validation');
+		$this->load->library('image_lib');
+		//Se establecen las reglas de validacion
+		//Datos Personales
+		$this->form_validation->set_rules('primer_nombre', 'Primer Nombre', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('segundo_nombre', 'Segundo Nombre', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|max_length[50]|xss_clean|callback_email_check');
+		$this->form_validation->set_rules('telefono', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
+		//Datos del Sistema
+		$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('privilegios', 'Privilegios', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[20]|xss_clean|callback_usuario_check');
+		$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[20]|xss_clean');
+		//se ejecutan las reglas para ver si se cumplen
+		if ($this->form_validation->run() === FALSE)
 		{
-			case 'procesa':
-				//cargo la libreria de las validaciones
-				$this->load->library('form_validation');
-				$this->load->library('image_lib');
-				//Se establecen las reglas de validacion
+			// SI es FALSO, guardo la respuesta y el error para mostrarlo
+			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+		} else
+		{
+			// Array con la informacion
+			$data = array(
 				//Datos Personales
-				$this->form_validation->set_rules('primer_nombre', 'Primer Nombre', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('segundo_nombre', 'Segundo Nombre', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|max_length[50]|xss_clean|callback_email_check');
-				$this->form_validation->set_rules('telefono', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
+				'primer_nombre'	=> $this->input->post('primer_nombre'),
+				'segundo_nombre'	=> $this->input->post('segundo_nombre'),
+				'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+				'apellido_materno'	=> $this->input->post('apellido_materno'),
+				'email'				=> $this->input->post('email'),
+				'telefono'			=> $this->input->post('telefono'),
 				//Datos del Sistema
-				$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
-				$this->form_validation->set_rules('privilegios', 'Privilegios', 'trim|required|xss_clean');
-				$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
-				$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[20]|xss_clean|callback_usuario_check');
-				$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[20]|xss_clean');
-				//se ejecutan las reglas para ver si se cumplen
-				if ($this->form_validation->run() === FALSE)
-				{
-					// SI es FALSO, guardo la respuesta y el error para mostrarlo
-					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-				} else
-				{
-					// Array con la informacion
-					$data = array(
-						//Datos Personales
-						'primer_nombre'	=> $this->input->post('primer_nombre'),
-						'segundo_nombre'	=> $this->input->post('segundo_nombre'),
-						'apellido_paterno'	=> $this->input->post('apellido_paterno'),
-						'apellido_materno'	=> $this->input->post('apellido_materno'),
-						'email'				=> $this->input->post('email'),
-						'telefono'			=> $this->input->post('telefono'),
-						//Datos del Sistema
-						'oficina'			=> $this->input->post('oficina'),
-						'privilegios'			=> $this->input->post('privilegios'),
-						'departamento'	=> $this->input->post('departamento'),
-						'usuario'			=> $this->input->post('usuario'),
-						'password'			=> $this->input->post('password')
-					);
-					//convierto array a objeto e inserto en la bd
-					$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data, FALSE);
-					$exito_ejecutivo	= $this->ejecutivoModel->insert($ejecutivo_nuevo);
-					//armo la respuesta
-					$respuesta = array(
-						'exito'		=> $exito_ejecutivo,
-						'ejecutivo'	=> $ejecutivo_nuevo
-					);
-				}
-
-				//si la insercion fue correcta creamos una imagen por defecto para el nuevo usuario
-				if($respuesta['exito'])
-				{
-					//armo la ruta completa donde se guardaran las imagenes y creo el directorio
-					$id_nuevo			= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
-					$ruta				= 'assets/admin/pages/media/profile/';
-					$ruta_completa	= $ruta.$id_nuevo->id.'/';
-					mkdir($ruta_completa, 0777, TRUE);
-
-					//reglas para crear la imagen de bloqueo de perfil
-					$config_perfil['image_library']	= 'gd2';
-					$config_perfil['source_image']	= $ruta.'default.jpg';
-					$config_perfil['x_axis']			= 0;
-					$config_perfil['y_axis']			= 0;
-					$config_perfil['new_image']	= $ruta_completa.'perfil.jpg';
-
-					//reglas para crear la imagen de bloqueo de sesion
-					$config_block['image_library']	= 'gd2';
-					$config_block['source_image']	= $ruta_completa.'perfil.jpg';
-					$config_block['maintain_ratio']	= FALSE;
-					$config_block['width']			= 366;
-					$config_block['height']			= 281;
-					$config_block['x_axis']			= 0;
-					$config_block['y_axis']			= 0;
-					$config_block['maintain_ratio']	= FALSE;
-					$config_block['new_image']	= $ruta_completa.'block.jpg';
-
-					//reglas para la creacion de la imagen miniatura
-					$config_miniatura['image_library']	= 'gd2';
-					$config_miniatura['source_image']	= $ruta_completa.'block.jpg';
-					$config_miniatura['width']			= 29;
-					$config_miniatura['height']		= 29;
-					$config_miniatura['new_image']	= $ruta_completa.'mini.jpg';
-
-					//reglas para la creacion de la imagen de chat
-					$config_chat['image_library']	= 'gd2';
-					$config_chat['source_image']	= $ruta_completa.'block.jpg';
-					$config_chat['width']			= 45;
-					$config_chat['height']			= 45;
-					$config_chat['new_image']		= $ruta_completa.'chat.jpg';
-
-					//inicio las reglas de imagen de perfil
-					$this->image_lib->initialize($config_perfil);
-					//corto la imagen de perfil y creo las demas
-					$this->image_lib->crop();
-					//limpio las reglas para leer nuevas
-					$this->image_lib->clear();
-					//creo las demas imagenes banado en las reglas definidas arriba
-					$this->image_lib->initialize($config_block);
-					$this->image_lib->crop();
-					$this->image_lib->clear();
-					$this->image_lib->initialize($config_miniatura);
-					$this->image_lib->resize();
-					$this->image_lib->clear();
-					$this->image_lib->initialize($config_chat);
-					$this->image_lib->resize();
-					$this->image_lib->clear();
-				}
-				// Muestro la salida
-				$this->output
-						 ->set_content_type('application/json')
-						 ->set_output(json_encode($respuesta));
-			break;
-
-			default:
-				//cargo los modelos a usar
-				$this->load->model('privilegiosModel');
-				$this->load->model('departamentoModel');
-				$this->load->model('oficinasModel');
-				// Titulo header
-				$this->data['titulo']				= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-				//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
-				$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
-				$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
-				$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
-				//se muestra el formulario
-				$this->_vista('form-nuevo-ejecutivo');
-			break;
+				'oficina'			=> $this->input->post('oficina'),
+				'privilegios'			=> $this->input->post('privilegios'),
+				'departamento'	=> $this->input->post('departamento'),
+				'usuario'			=> $this->input->post('usuario'),
+				'password'			=> $this->input->post('password')
+			);
+			//convierto array a objeto e inserto en la bd
+			$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data, FALSE);
+			$exito_ejecutivo	= $this->ejecutivoModel->insert($ejecutivo_nuevo);
+			//armo la respuesta
+			$respuesta = array(
+				'exito'		=> $exito_ejecutivo,
+				'ejecutivo'	=> $ejecutivo_nuevo
+			);
 		}
+
+		//si la insercion fue correcta creamos una imagen por defecto para el nuevo usuario
+		if($respuesta['exito'])
+		{
+			//armo la ruta completa donde se guardaran las imagenes y creo el directorio
+			$id_nuevo			= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
+			$ruta				= 'assets/admin/pages/media/profile/';
+			$ruta_completa	= $ruta.$id_nuevo->id.'/';
+			mkdir($ruta_completa, 0777, TRUE);
+
+			//reglas para crear la imagen de bloqueo de perfil
+			$config_perfil['image_library']	= 'gd2';
+			$config_perfil['source_image']	= $ruta.'default.jpg';
+			$config_perfil['x_axis']			= 0;
+			$config_perfil['y_axis']			= 0;
+			$config_perfil['new_image']	= $ruta_completa.'perfil.jpg';
+
+			//reglas para crear la imagen de bloqueo de sesion
+			$config_block['image_library']	= 'gd2';
+			$config_block['source_image']	= $ruta_completa.'perfil.jpg';
+			$config_block['maintain_ratio']	= FALSE;
+			$config_block['width']			= 366;
+			$config_block['height']			= 281;
+			$config_block['x_axis']			= 0;
+			$config_block['y_axis']			= 0;
+			$config_block['maintain_ratio']	= FALSE;
+			$config_block['new_image']	= $ruta_completa.'block.jpg';
+
+			//reglas para la creacion de la imagen miniatura
+			$config_miniatura['image_library']	= 'gd2';
+			$config_miniatura['source_image']	= $ruta_completa.'block.jpg';
+			$config_miniatura['width']			= 29;
+			$config_miniatura['height']		= 29;
+			$config_miniatura['new_image']	= $ruta_completa.'mini.jpg';
+
+			//reglas para la creacion de la imagen de chat
+			$config_chat['image_library']	= 'gd2';
+			$config_chat['source_image']	= $ruta_completa.'block.jpg';
+			$config_chat['width']			= 45;
+			$config_chat['height']			= 45;
+			$config_chat['new_image']		= $ruta_completa.'chat.jpg';
+
+			//inicio las reglas de imagen de perfil
+			$this->image_lib->initialize($config_perfil);
+			//corto la imagen de perfil y creo las demas
+			$this->image_lib->crop();
+			//limpio las reglas para leer nuevas
+			$this->image_lib->clear();
+			//creo las demas imagenes banado en las reglas definidas arriba
+			$this->image_lib->initialize($config_block);
+			$this->image_lib->crop();
+			$this->image_lib->clear();
+			$this->image_lib->initialize($config_miniatura);
+			$this->image_lib->resize();
+			$this->image_lib->clear();
+			$this->image_lib->initialize($config_chat);
+			$this->image_lib->resize();
+			$this->image_lib->clear();
+		}
+		// Muestro la salida
+		$this->output
+				 ->set_content_type('application/json')
+				 ->set_output(json_encode($respuesta));
 	}
 
 	/**

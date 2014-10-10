@@ -75,11 +75,11 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('ejecutivo/nuevo') ?>">
+								<a href="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>">
 								<i class="fa fa-plus"></i> Añadir</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="<?php echo site_url('ejecutivo/gestionar') ?>">
 								<i class="fa fa-cogs"></i> Gestionar</a>
 							<li>
 						</ul>

@@ -122,7 +122,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('ejecutivo/nuevo/procesa') ?>" id="form-ejecutivo" accept-charset="utf-8">
+								<form action="<?php echo site_url('ejecutivo/nuevo') ?>" id="form-ejecutivo" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- DIV ERROR -->
 										<div class="alert alert-danger display-hide">
@@ -139,7 +139,7 @@
 											<!-- Primer nombre -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Primer Nombre <span class="required" aria-required="true">*</span>
+													Primer Nombre<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<input type="text" class="form-control" placeholder="Primer Nombre" name="primer_nombre">
@@ -148,7 +148,7 @@
 											<!-- Segundo nombre -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Segundo Nombre 
+													Segundo Nombre
 												</label>
 												<div class="col-md-8">
 													<input type="text" class="form-control" placeholder="Segundo Nombre" name="segundo_nombre">
@@ -157,7 +157,7 @@
 											<!-- Apellido paterno -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Apellido Paterno <span class="required" aria-required="true">*</span>
+													Apellido Paterno<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno">
@@ -166,7 +166,7 @@
 											<!-- Apellido materno -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Apellido Materno <span class="required" aria-required="true">*</span>
+													Apellido Materno<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno">
@@ -174,7 +174,9 @@
 											</div>
 											<!-- Email -->
 											<div class="form-group">
-												<label class="col-md-4 control-label">Email </label>
+												<label class="col-md-4 control-label">
+													Email<span class="required" aria-required="true">*</span>
+												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa  fa-envelope"></i>
@@ -185,7 +187,7 @@
 											<!-- Telefono -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Teléfono <span class="required" aria-required="true">*</span>
+													Teléfono<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -234,7 +236,7 @@
 											<!-- Usuario -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Usuario <span class="required" aria-required="true">*</span>
+													Usuario<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">
@@ -246,7 +248,7 @@
 											<!-- Contraseña -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													Contraseña <span class="required" aria-required="true">*</span>
+													Contraseña<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
 													<div class="input-icon">

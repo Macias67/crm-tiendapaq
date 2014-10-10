@@ -32,10 +32,12 @@ var FormValidationEjecutivo = function () {
                 },
                 email: {
                     email: true,
+                    required: true,
                     maxlength: 50
                 },
                 telefono: {
-                    maxlength: 14
+                    //mascara
+                    required: true
                 },
                 oficina: {
                 },
@@ -70,9 +72,11 @@ var FormValidationEjecutivo = function () {
                 },
                 email: {
                     maxlength: "El email debe tener menos de 50 caracteres",
+                    required: "Escribe el email",
                     email: "Escribe un email valido"
                 },
                 telefono: {
+                    required: "Escribe el teléfono"
                 },
                 oficina: {
                 },
