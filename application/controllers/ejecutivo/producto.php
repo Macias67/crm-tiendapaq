@@ -141,7 +141,6 @@ class Producto extends AbstractAccess {
 			break;
 
 			default:
-				//$this->_vista('productos');
 				show_404();
 			break;
 		}

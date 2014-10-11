@@ -37,11 +37,15 @@ var UIExtendedModals = function () {
 			"language": {
 				"lengthMenu": "_MENU_ registros",
 				"search": "Buscar:",
+				"loadingRecords": "Cargando...",
+				"processing" : "Procesando...",
 				"paginate": {
 					"previous": "Prev",
 					"next": "Sig"
 				},
 				"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+				"infoEmpty": "No se ha registrado ningún producto",
+				"emptyTable": "No hay informacion disponible",
 				"zeroRecords": "No se encontró ningún resultado",
 				"infoFiltered": "(filtrado de  un total de _MAX_  entradas)",
 			},

@@ -115,16 +115,16 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="portlet box grey">
+						<!-- BEGIN Portlet PORTLET-->
+						<div class="portlet light">
 							<div class="portlet-title">
-								<div class="caption" style="color: black">
-									<i class="fa fa-shopping-cart"></i> Productos
+								<div class="caption">
+									<i class="icon-speech"></i>
+									<span class="caption-subject bold uppercase"> Portlet</span>
+									<span class="caption-helper">weekly stats...</span>
 								</div>
-								<div class="tools" style="color: black">
-									<a href="javascript:;" class="collapse">
-									</a>
-									<a href="javascript:;" class="reload">
-									</a>
+								<div class="actions">
+									<a class="btn btn-circle btn-default" data-toggle="modal"  data-target="#static"><i class="fa fa-plus"></i> Nuevo Producto </a>
 								</div>
 							</div>
 							<div class="portlet-body">
@@ -143,24 +143,33 @@
 										</tr>
 									</thead>
 								</table>
-								<div class="table-toolbar">
-									<div class="btn-group pull-right">
-										<button id="tabla_productos_editable_new" class="btn green btn-xs">
-											<i class="fa fa-plus"></i> Nuevo producto
-										</button>
-									</div>
-								</div>
 							</div>
 						</div>
+						<!-- END Portlet PORTLET-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
 
 				<!-- BEGIN VENTANAS MODALES -->
 
-				<!-- BEGIN AJAX DETALLE PENDIENTE -->
+				<!-- BEGIN AJAX DETALLE PRODUCTO -->
 				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
-				<!-- END AJAX DETALLE PENDIENTE -->
+				<!-- END AJAX DETALLE PRODUCTO -->
+
+				<!-- BEGIN FORMULARIO PRODUCTO -->
+				<div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+					<div class="modal-body">
+						<p>
+							 Would you like to continue with some arbitrary task?
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" data-dismiss="modal" class="btn blue">Continue Task</button>
+					</div>
+				</div>
+				<!-- END FORMULARIO PRODUCTO -->
+
 
 				<!-- END VENTANAS MODALES -->
 			</div>
