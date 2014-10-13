@@ -260,7 +260,7 @@ class Cliente extends AbstractAccess {
 	 *
 	 * @author Diego Rodriguez
 	 **/
-	public function editado()
+	public function editar()
 	{
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');

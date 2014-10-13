@@ -790,7 +790,7 @@
 											<div class="tab-content">
 												<!-- Informacion General -->
 												<div id="informacion_general" class="tab-pane active">
-													<form action="<?php echo site_url('ejecutivo/edit/info') ?>" id="form-ejecutivo-info">
+													<form action="<?php echo site_url('ejecutivo/editar/info-personal') ?>" id="form-ejecutivo-info">
 														<!-- DIV ERROR -->
 														<div class="alert alert-danger display-hide">
 															<button class="close" data-close="alert"></button>

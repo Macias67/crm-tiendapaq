@@ -55,31 +55,32 @@ class Ejecutivo extends AbstractAccess {
 			{
 				case 'nuevo':
 					// Titulo header
-					$this->data['titulo']				= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+					$this->data['titulo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 					//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
 					$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
 					$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
-					$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
+					$this->data['tablaoficinas'] 			= $this->oficinasModel->get(array('ciudad_estado'));
 					//se muestra el formulario
 					$this->_vista('form-nuevo-ejecutivo');
 				break;
 
 				case 'editar':
+				  //obtenemos los datos del ejecutivo a ejecutar
 					$ejecutivo = $this->ejecutivoModel->get_where(array('id' => $id_ejecutivo));
 					 if (!empty($ejecutivo))
 					 {
 					 	// Datos a enviar a la vista
-					 	$this->data['ejecutivo']						= $ejecutivo;
+					 	$this->data['ejecutivo']					= $ejecutivo;
 						$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
 						$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
-						$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
+						$this->data['tablaoficinas']      = $this->oficinasModel->get(array('ciudad_estado'));
 					 	//Vista de formulario a mostrar
-					// 	$this->_vista('editar-cliente');
+					 	$this->_vista('editar-ejecutivo');
 					 } else
 					 {
-					 	show_error('No existe este cliente.', 404);
+					 	show_error('No existe este ejecutivo.', 404);
 					 }
-					var_dump($this->data);
+					//var_dump($this->data);
 				break;
 
 				default:
@@ -221,19 +222,19 @@ class Ejecutivo extends AbstractAccess {
 	 *
 	 * @author Diego Rodriguez | Luis Macias
 	 **/
-	public function edit($accion=null)
+	public function editar($accion=null)
 	{
 		//cargo la libreria de las validaciones
 		$this->load->library('form_validation');
 		//variables que contienen ls valores de la bd para mostrarlo en los select en caso de editar
-		$usuario_temp						= (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
+		$usuario_temp	= (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
 		$usuario_temp['ruta_imagenes']	= site_url('assets/admin/pages/media/profile/'.$this->usuario_activo['id']).'/';
-		$this->data['usuario_activo']		=$usuario_temp;
+		$this->data['usuario_activo']	=$usuario_temp;
 		// Variable vacia para mostrar errores de subida
 		$this->data['upload_error'] = '';
 		switch ($accion)
 		{
-			case 'info': //en caso de que editen la informacion basica
+			case 'info-personal': //en caso de que editen la informacion basica propia
 				//Datos Personales
 				$this->form_validation->set_rules('primer_nombre', 'Primer Nombre', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
 				$this->form_validation->set_rules('segundo_nombre', 'Segundo Nombre', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
@@ -269,26 +270,90 @@ class Ejecutivo extends AbstractAccess {
 					$ejecutivo_editado = $this->ejecutivoModel->arrayToObject($data, TRUE);
 					//Extraigo el id para saber donde actualizar los datos en la bd
 					$id = $this->data['usuario_activo']['id'];
-					//actualizo en la bd y guardo la respuesta
-					$exito_editado = $this->ejecutivoModel->update($ejecutivo_editado,array('id' => $id));
-					//actualizo la variable usuario_activo con los nuevos datos
-					$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
-					$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
-					//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
-					$ejecutivo_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/'.$id).'/';
-					$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
-					//armo la respuesta
-					$respuesta = array(
-						'exito'		=> $exito_editado,
-						'ejecutivo'	=> $ejecutivo_editado,
-						'id'			=> $id
-					);
+
+					if(!$this->ejecutivoModel->update($ejecutivo_editado,array('id' => $id))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisala consola o la base de datos.');
+					}else{
+						//actualizo la variable usuario_activo con los nuevos datos
+						$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
+						$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
+						//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+						$ejecutivo_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/'.$id).'/';
+						$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
+						//armo la respuesta
+						$respuesta = array(
+							'exito'		=> TRUE,
+							'ejecutivo'	=> $ejecutivo_editado,
+							'id'			=> $id
+						);
+					}
 				}
 				// Muestro la salida
 				$this->output
 						 ->set_content_type('application/json')
 						 ->set_output(json_encode($respuesta));
 			break;
+
+			case 'info-ejecutivo': //en caso de que editen la informacion de un ejecutivo (solo modo admin)
+				//Datos Personales
+				$this->form_validation->set_rules('primer_nombre', 'Primer Nombre', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('segundo_nombre', 'Segundo Nombre', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('telefono', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
+				//Datos del Sistema
+				$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
+
+				if ($this->form_validation->run() === FALSE)
+				{
+					// SI es FALSO, guardo la respuesta
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				} else
+				{
+					// Array con la informacion
+					$data = array(
+						//Datos Personales
+						'primer_nombre'	=> $this->input->post('primer_nombre'),
+						'segundo_nombre'	=> $this->input->post('segundo_nombre'),
+						'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+						'apellido_materno'	=> $this->input->post('apellido_materno'),
+						'email'				=> $this->input->post('email'),
+						'telefono'			=> $this->input->post('telefono'),
+						//Datos del Sistema
+						'oficina'			=> $this->input->post('oficina'),
+						'departamento'	=> $this->input->post('departamento'),
+						'mensaje_personal'	=> $this->input->post('mensaje_personal')
+					);
+					//el parametro TRUE indica al metodo del modelo ejecutivoModel que se trata de una actualizacion no de un nuevo registro para crear el objeto
+					$ejecutivo_editado = $this->ejecutivoModel->arrayToObject($data, TRUE);
+					//Extraigo el id para saber donde actualizar los datos en la bd
+					$id = $this->input->post('id');
+
+					if(!$this->ejecutivoModel->update($ejecutivo_editado,array('id' => $id))){
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisala consola o la base de datos.');
+					}else{
+						//actualizo la variable usuario_activo con los nuevos datos
+						$ejecutivo_actualizado = $this->ejecutivoModel->get_where(array('id' => $id));
+						$ejecutivo_actualizado = (array)$ejecutivo_actualizado;
+						//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+						$ejecutivo_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/'.$id).'/';
+						$this->session->set_userdata('usuario_activo', $ejecutivo_actualizado);
+						//armo la respuesta
+						$respuesta = array(
+							'exito'		=> TRUE,
+							'ejecutivo'	=> $ejecutivo_editado,
+							'id'			=> $id
+						);
+					}
+				}
+				// Muestro la salida
+				$this->output
+						 ->set_content_type('application/json')
+						 ->set_output(json_encode($respuesta));
+			break;
+
 			case 'img':
 				// Cargo libreria manejo de imagen
 				$this->load->library('image_lib');
@@ -356,6 +421,7 @@ class Ejecutivo extends AbstractAccess {
 					}
 				}
 			break;
+
 			case 'password':
 				//reglas para cambiar usuario y password
 				$this->form_validation->set_rules('usuario_actual', 'Usuario Actual','trim|max_length[20]|xss_clean');
@@ -411,6 +477,7 @@ class Ejecutivo extends AbstractAccess {
 				 ->set_content_type('application/json')
 				 ->set_output(json_encode($respuesta));
 			break;
+
 			default:
 			break;
 		}
@@ -502,7 +569,6 @@ class Ejecutivo extends AbstractAccess {
 	 */
 	public function usuario_check($usuario)
 	{
-		// SI el frc y la razon social se repiten
 		if ($this->ejecutivoModel->exist(array('usuario' => $usuario))) 
 		{
 			$this->form_validation->set_message('usuario_check', 'El nombre de usuario ya está registrado.');
@@ -520,7 +586,6 @@ class Ejecutivo extends AbstractAccess {
 	 */
 	public function email_check($email)
 	{
-		// SI el frc y la razon social se repiten
 		if ($this->ejecutivoModel->exist(array('email' => $email))) 
 		{
 			$this->form_validation->set_message('email_check', 'El email ya está registrado.');
