@@ -104,7 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="<?php echo site_url('admin/add') ?>">Cliente Nuevo</a>
+								<a href="<?php echo site_url("/cliente/gestionar") ?>">Gestionar Clientes</a>
+								<i class="fa fa-angle-right"></i>
+							</li>
+							<li>
+								<a href="<?php echo site_url('/cliente/gestionar/nuevo') ?>">Cliente Nuevo</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->

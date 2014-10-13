@@ -856,7 +856,7 @@
 																<label class="control-label">Telefono</label>
 																<div class="input-icon">
 																	<i class="fa fa-phone"></i>
-																	<input type="text" name="telefono" value="<?php echo $usuario_activo['telefono'] ?>" id="telefono_1" class="form-control"/>
+																	<input type="text" name="telefono" value="<?php echo $usuario_activo['telefono'] ?>" id="telefono" class="form-control"/>
 																</div>
 															</div>
 															<div class="form-group">

@@ -104,7 +104,11 @@
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="<?php echo site_url('ejecutivo/nuevo') ?>">Nuevo Ejecutivo</a>
+								<a href="<?php echo site_url("/ejecutivo/gestionar") ?>">Gestionar Ejecutivos</a>
+								<i class="fa fa-angle-right"></i>
+							</li>
+							<li>
+								<a href="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>">Nuevo Ejecutivo</a>
 							</li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -122,7 +126,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('ejecutivo/nuevo') ?>" id="form-ejecutivo" accept-charset="utf-8">
+								<form action="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>" id="form-ejecutivo-nuevo" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- DIV ERROR -->
 										<div class="alert alert-danger display-hide">
@@ -192,7 +196,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
-														<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono">
+														<input type="text" class="form-control" id="telefono" placeholder="(999) 999-9999" name="telefono">
 													</div>
 												</div>
 											</div>
