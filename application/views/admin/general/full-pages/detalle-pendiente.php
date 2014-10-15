@@ -29,10 +29,22 @@
 				<div class="col-md-4 text-right"><b>Oficina origen: </b></div>
 				<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 			</div>
+			<hr>
+			<div class="col-md-12">
+				<div class="col-md-4 text-right"><b>Estatus: </b></div>
+				<div class="col-md-8">
+					<select>
+						<option>Pendiente</option>
+						<option>Cerrar</option>
+						<option>Cancelar</option>
+					</select>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 <div class="modal-footer">
+	<button type="button" class="btn green update">Aceptar</button>
 	<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
 	<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
 </div>

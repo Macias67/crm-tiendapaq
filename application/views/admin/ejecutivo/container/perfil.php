@@ -224,21 +224,24 @@
 														<div class="portlet-body">
 															<table class="table table-striped table-bordered table-advance table-hover">
 															<thead>
-															<tr>
-																<th>
-																	<i class="fa fa-briefcase"></i> Cliente
-																</th>
-																<th class="hidden-xs">
-																	<i class="fa fa-question"></i> Descripcion
-																</th>
-																<th>
-																	<i class="fa fa-bookmark"></i> Deposito
-																</th>
-																<th>
-																</th>
-															</tr>
+																<tr>
+																	<th>No.</th>
+																	<th>Actvidad</th>
+																	<th>Empresa</th>
+																	<th>Apertura</th>
+																	<th></th>
+																</tr>
 															</thead>
 															<tbody>
+																<?php foreach ($pendientes_usuario as $pendiente) : ?>
+																	<tr class="odd gradeX">
+																		<td><?php echo $pendiente->id_pendiente ?></td>
+																		<td><?php echo $pendiente->actividad ?></td>
+																		<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+																		<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
+																		<td><a class="btn default" id="ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+																	</tr>
+																<?php endforeach ?>
 															<tr>
 																<td>
 																	<a href="#">

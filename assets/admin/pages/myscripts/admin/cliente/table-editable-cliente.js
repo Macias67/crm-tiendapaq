@@ -62,7 +62,7 @@ var TableEditable = function () {
                 "targets": [0]
                 }
             ],
-            "order": [ 0, 'asc' ] // set first column as a default sort by asc
+            "order": [ 5, 'desc' ] // set first column as a default sort by asc
         });
 
         var tableWrapper = $("#tabla_gestionar_cliente_wrapper");

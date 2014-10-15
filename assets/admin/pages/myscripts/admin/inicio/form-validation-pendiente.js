@@ -71,7 +71,7 @@ var FormValidationPendiente = function () {
 				ejecutivo: {
 					required: "Se necesita seleccionar a un ejecutivo."
 				},
-				ejecutivo: {
+				razon_social: {
 					required: "Seleccione un cliente."
 				},
 				actividad: {
