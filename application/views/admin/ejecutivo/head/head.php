@@ -28,6 +28,7 @@
 	<link href="<?php echo $assets_admin_pages ?>css/profile.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_plugins ?>jcrop/css/jquery.Jcrop.min.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_admin_pages ?>css/image-crop.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->

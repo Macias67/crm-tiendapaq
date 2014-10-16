@@ -22,6 +22,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('ejecutivoModel');
 			$this->load->model('actividadPendienteModel');
 			$this->load->model('pendienteModel');
+			$this->load->model('estatusModel');
 
 			//Helper
 			$this->load->helper('formatofechas');
@@ -36,7 +37,7 @@ class Inicio extends AbstractAccess {
 			// Listado de actividades para levantar un pendiente
 			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 			// Listado de pendientes DEL USUARIO ACTIVO
-			$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes($this->usuario_activo['id']);
+			$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes('*',$this->usuario_activo['id'], $this->estatusModel->PENDIENTE);
 			// Titulo header
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 			// Muestro Vista

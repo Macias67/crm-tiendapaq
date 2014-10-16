@@ -156,7 +156,7 @@ var TableEditable = function () {
                 "infoFiltered":   "(de un total de _MAX_ oficinas registradas)",
                 "infoPostFix":    "",
                 "thousands":      ",",
-                "lengthMenu":     "Show _MENU_ entries",
+                "lengthMenu":     "Show _MENU_ registros",
                 "loadingRecords": "Cargando...",
                 "processing":     "Procesando...",
                 "zeroRecords":    "No se encontraron coincidencias",

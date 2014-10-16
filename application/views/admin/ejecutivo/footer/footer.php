@@ -38,6 +38,8 @@
 	<script src="<?php echo $assets_global_plugins ?>jcrop/js/jquery.color.js"></script>
 	<script src="<?php echo $assets_global_plugins ?>jcrop/js/jquery.Jcrop.min.js"></script>
 	<script src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js" type="text/javascript" ></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -47,6 +49,7 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-ejecutivo') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-ejecutivo') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-image-crop-ejecutivo') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-ejecutivo') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -56,6 +59,7 @@
 			ComponentsFormToolsEjecutivo.init();//init de las mascaras de ejecutivo
 			FormValidationEjecutivo.init(); //validacion para editar imagen en perfil
 			FormImageCropEjecutivo.init();//para recortar imagenes
+			TableManaged.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
