@@ -42,7 +42,7 @@ class Ejecutivo extends AbstractAccess {
 																					$this->usuario_activo['id']);
 		//mandamos la vista principal
 		$this->_vista('perfil');
-		var_dump($this->data);
+		//var_dump($this->data);
 	}
 
 	/**

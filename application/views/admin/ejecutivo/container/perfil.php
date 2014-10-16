@@ -794,7 +794,7 @@
 												<!-- Cambiar Imagen -->
 												<div id="cambiar_imagen" class="tab-pane">
 													<div class="col-md-4">
-														<form action="<?php echo site_url('ejecutivo/edit/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+														<form action="<?php echo site_url('ejecutivo/editar/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 														<div class="form-group">
 															<div class="fileinput fileinput-new" data-provides="fileinput">
 																<div class="fileinput-new thumbnail" style="width: 300px; height: 300px;">
@@ -834,7 +834,7 @@
 												</div>
 												<!-- Usuario y contraseña -->
 												<div id="usuario_password" class="tab-pane">
-													<form action="<?php echo site_url('ejecutivo/edit/password') ?>" id="form-ejecutivo-password">
+													<form action="<?php echo site_url('ejecutivo/editar/password') ?>" id="form-ejecutivo-password">
 														<!-- DIV ERROR -->
 														<div class="alert alert-danger display-hide">
 															<button class="close" data-close="alert"></button>
