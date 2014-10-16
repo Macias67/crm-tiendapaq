@@ -29,6 +29,10 @@
 	<link href="<?php echo $assets_global_plugins ?>jcrop/css/jquery.Jcrop.min.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_admin_pages ?>css/image-crop.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>gritter/css/jquery.gritter.css" />
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
