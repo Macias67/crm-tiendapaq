@@ -110,8 +110,53 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-12">
-						El contenido va aquí
+					<div class="col-md-6 col-sm-12">
+						<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
+						<div class="portlet box yellow">
+							<div class="portlet-title">
+								<div class="caption"><i class="fa fa-user"></i> Table</div>
+							</div>
+							<div class="portlet-body">
+								<table class="table table-striped table-bordered table-hover" id="sample_2">
+									<thead>
+										<tr>
+											<th>Username</th>
+											<th>Email</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="odd gradeX">
+											<td>
+												 shuxer
+											</td>
+											<td>
+												<a href="mailto:shuxer@gmail.com">
+												shuxer@gmail.com </a>
+											</td>
+											<td>
+												<span class="label label-sm label-success">
+												Approved </span>
+											</td>
+										</tr>
+										<tr class="odd gradeX">
+											<td>
+												 looper
+											</td>
+											<td>
+												<a href="mailto:looper90@gmail.com">
+												looper90@gmail.com </a>
+											</td>
+											<td>
+												<span class="label label-sm label-warning">
+												Suspended </span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
