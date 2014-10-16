@@ -101,6 +101,7 @@ class Pendiente extends AbstractAccess {
 	{
 		// Cargo modelos
 		$this->load->model('creaPendienteModel');
+		$this->load->model('estatusModel');
 		//Helper
 		$this->load->helper('formatofechas');
 
@@ -108,6 +109,7 @@ class Pendiente extends AbstractAccess {
 		$pendiente					= $this->pendienteModel->getPendiente($id_pendiente);
 		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
 		$this->data['pendiente']	= $pendiente;
+		$this->data['estatus']	= $this->estatusModel->get('*');;
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
@@ -115,6 +117,27 @@ class Pendiente extends AbstractAccess {
 		}
 
 		$this->_vista_completa('detalle-pendiente');
+	}
+
+	/**
+	 * Funcion para cambiar el estado de los pendientes
+	 * @author Diego Rodriguez
+	 **/
+	public function estatus()
+	{
+		$id_pendiente = $this->input->post('id_pendiente');
+		$estatus = $this->input->post('estatus');
+		$estatus_text = $this->input->post('estatus_text');
+
+		if($this->pendienteModel->update(array('estatus' => $estatus), array('id_pendiente' => $id_pendiente))){
+			$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
+		}else{
+			$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
+		}
+
+		$this->output
+				 ->set_content_type('application/json')
+				 ->set_output(json_encode($respuesta));
 	}
 }
 

@@ -6,6 +6,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="col-md-12">
+				<input type="hidden" id="id_pendiente" value="<?php echo $pendiente->id_pendiente ?>">
 				<div class="col-md-4 text-right"><b>Razón Social: </b></div>
 				<div class="col-md-8"><p><?php echo $pendiente->razon_social ?></p></div>
 			</div>
@@ -33,10 +34,10 @@
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
-					<select>
-						<option>Pendiente</option>
-						<option>Cerrar</option>
-						<option>Cancelar</option>
+					<select id="estatus_pendiente">
+						<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->estatus ?></option>
+						<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->estatus ?></option>
+						<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->estatus ?></option>
 					</select>
 				</div>
 			</div>

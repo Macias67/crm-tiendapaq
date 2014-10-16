@@ -4,9 +4,25 @@
  * y pendientes.
  *
  * @package default
- * @author Luis Macias
+ * @author Luis Macias | Diego Rodriguez
  **/
 class estatusModel extends MY_Model {
+
+	/**
+	 * Nombre de la tabla a conectarse
+	 *
+	 * @var string
+	 **/
+	const TABLE = 'estatus';
+
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->table	= self::TABLE;
+	}
 
 	var $CANCELADA	= 1;
 	var $CERRADA		= 2;

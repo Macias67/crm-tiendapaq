@@ -11,6 +11,12 @@ class Ejecutivo extends AbstractAccess {
 	{
 		parent::__construct();
 		$this->load->model('ejecutivoModel');
+		$this->load->model('pendienteModel');
+		//Helper
+		$this->load->helper('formatofechas');
+		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(
+																					array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','estatus'),
+																					$this->usuario_activo['id']);
 	}
 
 	/**
@@ -25,9 +31,6 @@ class Ejecutivo extends AbstractAccess {
 		//cargo los modelos a usar
 		$this->load->model('departamentoModel');
 		$this->load->model('oficinasModel');
-		$this->load->model('pendienteModel');
-		//Helper
-		$this->load->helper('formatofechas');
 		//cargamos los datos completos del usuario para mostrarlos en el perfil
 		$usuario_temp	= (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
 		$usuario_temp['ruta_imagenes']	= site_url('assets/admin/pages/media/profile/'.$this->usuario_activo['id']).'/';
@@ -37,9 +40,6 @@ class Ejecutivo extends AbstractAccess {
 		//variables precargadas para mostrar datos el los selects del formulario de edicion
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		$this->data['tablaoficinas']			= $this->oficinasModel->get(array('ciudad_estado'));
-		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(
-																					array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','estatus'),
-																					$this->usuario_activo['id']);
 		//mandamos la vista principal
 		$this->_vista('perfil');
 		//var_dump($this->data);
@@ -374,7 +374,7 @@ class Ejecutivo extends AbstractAccess {
 				$this->load->library('image_lib');
 				// Reglas de validacion
 				$this->form_validation->set_rules('userfile', 'El archivo',
-					'file_required|file_min_size[10KB]|file_max_size[2MB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1601,1601]');
+					'file_required|file_size_min[10KB]|file_size_max[2MB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1601,1601]');
 				// Validacion
 				if ($this->form_validation->run() === FALSE)
 				{

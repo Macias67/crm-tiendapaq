@@ -42,6 +42,7 @@ class Inicio extends AbstractAccess {
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 			// Muestro Vista
 			$this->_vista('principal');
+			//var_dump($this->data);
 		}
 	}
 }

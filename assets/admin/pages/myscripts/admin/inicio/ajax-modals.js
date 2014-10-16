@@ -34,15 +34,50 @@ var UIExtendedModals = function () {
 			});
 
 			$modal.on('click', '.update', function(){
-				$modal.modal('loading');
-				setTimeout(function(){
-					$modal
-					.modal('loading')
-					.find('.modal-body')
-					.prepend('<div class="alert alert-info fade in">' +
-						'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-					'</div>');
-				}, 1000);
+				var estatus = $('#estatus_pendiente').val();
+				var estatus_text = $('#estatus_pendiente').find('option:selected').text();
+				var id_pendiente = $('#id_pendiente').val();
+				//$modal.modal('loading');
+
+				//console.log('opcion : '+estatus+" id "+id_pendiente+" texto "+estatus_text);
+				// Envio de datos por AJAX
+				$.ajax({
+					url: '/pendiente/estatus',
+					type: 'post',
+					cache: false,
+					dataType: 'json',
+					data: 'id_pendiente='+id_pendiente+"&estatus="+estatus+"&estatus_text="+estatus_text,
+					beforeSend: function () {
+						$('#ajax-modal').fadeTo('slow', 0.1);
+						$('body').modalmanager('loading');
+					},
+					error: function(jqXHR, status, error) {
+						$('#ajax-modal').fadeTo('slow', 1);
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+					},
+					success: function(data) {
+						if (data.exito) {
+							alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+							parent.location.reload();
+						} else {
+							console.log("ERROR: "+data.msg);
+							error1.html(data.msg);
+							error1.show();
+							$('#ajax-modal').fadeTo(100, 1, function(){
+								$('body').modalmanager('removeLoading');
+							});
+						}
+					}
+				});
+				// setTimeout(function(){
+				// 	$modal
+				// 	.modal('loading')
+				// 	.find('.modal-body')
+				// 	.prepend('<div class="alert alert-info fade in">' +
+				// 		'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+				// 	'</div>');
+				// }, 1000);
 			});
 		}
 
