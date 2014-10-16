@@ -222,146 +222,41 @@
 												<div class="tab-content">
 													<div class="tab-pane active" id="tab_1_11">
 														<div class="portlet-body">
-															<table class="table table-striped table-bordered table-advance table-hover">
-															<thead>
-																<tr>
-																	<th>No.</th>
-																	<th>Actvidad</th>
-																	<th>Empresa</th>
-																	<th>Apertura</th>
-																	<th></th>
-																</tr>
-															</thead>
-															<tbody>
-																<?php foreach ($pendientes_usuario as $pendiente) : ?>
-																	<tr class="odd gradeX">
-																		<td><?php echo $pendiente->id_pendiente ?></td>
-																		<td><?php echo $pendiente->actividad ?></td>
-																		<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
-																		<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
-																		<td><a class="btn default" id="ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+															<table class="table table-striped table-bordered table-advance table-hover" id="pendientes-ejecutivo">
+																<thead>
+																	<tr>
+																		<th>No.</th>
+																		<th>Actvidad</th>
+																		<th>Empresa</th>
+																		<th>Apertura</th>
+																		<th>Estatus</th>
+																		<th></th>
 																	</tr>
-																<?php endforeach ?>
-															<tr>
-																<td>
-																	<a href="#">
-																	Pixel Ltd </a>
-																</td>
-																<td class="hidden-xs">
-																	 Server hardware purchase
-																</td>
-																<td>
-																	 52560.10$ <span class="label label-success label-sm">
-																	Paid </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs green-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="#">
-																	Smart House </a>
-																</td>
-																<td class="hidden-xs">
-																	 Office furniture purchase
-																</td>
-																<td>
-																	 5760.00$ <span class="label label-warning label-sm">
-																	Pending </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs blue-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="#">
-																	FoodMaster Ltd </a>
-																</td>
-																<td class="hidden-xs">
-																	 Company Anual Dinner Catering
-																</td>
-																<td>
-																	 12400.00$ <span class="label label-success label-sm">
-																	Paid </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs blue-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="#">
-																	WaterPure Ltd </a>
-																</td>
-																<td class="hidden-xs">
-																	 Payment for Jan 2013
-																</td>
-																<td>
-																	 610.50$ <span class="label label-danger label-sm">
-																	Overdue </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs red-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="#">
-																	Pixel Ltd </a>
-																</td>
-																<td class="hidden-xs">
-																	 Server hardware purchase
-																</td>
-																<td>
-																	 52560.10$ <span class="label label-success label-sm">
-																	Paid </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs green-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="#">
-																	Smart House </a>
-																</td>
-																<td class="hidden-xs">
-																	 Office furniture purchase
-																</td>
-																<td>
-																	 5760.00$ <span class="label label-warning label-sm">
-																	Pending </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs blue-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="#">
-																	FoodMaster Ltd </a>
-																</td>
-																<td class="hidden-xs">
-																	 Company Anual Dinner Catering
-																</td>
-																<td>
-																	 12400.00$ <span class="label label-success label-sm">
-																	Paid </span>
-																</td>
-																<td>
-																	<a class="btn default btn-xs blue-stripe" href="#">
-																	Ver detalles </a>
-																</td>
-															</tr>
-															</tbody>
+																</thead>
+																<tbody>
+																	<?php foreach ($pendientes_usuario as $pendiente) : ?>
+																		<tr class="odd gradeX">
+																			<td><?php echo $pendiente->id_pendiente ?></td>
+																			<td><?php echo $pendiente->actividad ?></td>
+																			<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+																			<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
+																			<td>
+																				<?php switch ($pendiente->estatus) {
+																					case 1:
+																						echo '<p class="btn btn-xs red"> Cancelado </p>';
+																					break;
+																					case 2:
+																						echo '<p class="btn btn-xs default"> Cerrado </p>';
+																					break;
+																					case 3:
+																						echo '<p class="btn btn-xs green"> Pendiente </p>';
+																					break;
+																				} ?>
+																			</td>
+																			<td><a class="btn default" id="ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+																		</tr>
+																	<?php endforeach ?>
+																</tbody>
 															</table>
 														</div>
 													</div>

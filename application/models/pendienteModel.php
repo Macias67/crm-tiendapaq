@@ -56,17 +56,19 @@ class PendienteModel extends MY_Model {
 	 * regisrados en la tabla de la base de datos
 	 *
 	 * @return array object
-	 * @author Luis Macias
+	 * @author Luis Macias | Diego Rodriguez
 	 **/
-	public function getPendientes($id_ejecutivo)
+	public function getPendientes($campos, $id_ejecutivo, $estatus = '')
 	{
 		$this->load->model('estatusModel');
 
-		$this->db->select('*');
+		$this->db->select($campos);
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
 		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
-		$this->db->where(array('id_ejecutivo' => $id_ejecutivo, 'estatus' => $this->estatusModel->PENDIENTE));
+		if(!empty($estatus) && is_numeric($estatus)){
+			$this->db->where(array('id_ejecutivo' => $id_ejecutivo, 'estatus' => $estatus));
+		}
 		$query = $this->db->get($this->table);
 
 		return $query->result();

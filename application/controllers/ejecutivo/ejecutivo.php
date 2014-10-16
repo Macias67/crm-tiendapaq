@@ -37,7 +37,9 @@ class Ejecutivo extends AbstractAccess {
 		//variables precargadas para mostrar datos el los selects del formulario de edicion
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		$this->data['tablaoficinas']			= $this->oficinasModel->get(array('ciudad_estado'));
-		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes($this->usuario_activo['id']);
+		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(
+																					array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','estatus'),
+																					$this->usuario_activo['id']);
 		//mandamos la vista principal
 		$this->_vista('perfil');
 		var_dump($this->data);
