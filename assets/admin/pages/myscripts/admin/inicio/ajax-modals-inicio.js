@@ -21,7 +21,7 @@ var UIExtendedModals = function () {
 			//ajax demo:
 			var $modal = $('#ajax-modal');
 
-			$('#ajax-pendiente').on('click', function(){
+			$('.ajax-pendiente').on('click', function(){
 				var id_pendiente = $(this).attr('id-pendiente');
 				// create the backdrop and wait for next modal to be triggered
 				$('body').modalmanager('loading');
@@ -80,7 +80,6 @@ var UIExtendedModals = function () {
 				// }, 1000);
 			});
 		}
-
 	};
 
 }();

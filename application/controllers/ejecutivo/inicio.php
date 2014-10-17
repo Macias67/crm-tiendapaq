@@ -14,8 +14,9 @@ class Inicio extends AbstractAccess {
 	{
 		if($this->usuario_activo['privilegios'] == "cliente")
 		{
+			// Cargo modelos
+			$this->load->model('cotizacionModel');
 			$this->_vista('principal');
-			//var_dump($this->data);
 		} else
 		{
 			// Cargo modelos

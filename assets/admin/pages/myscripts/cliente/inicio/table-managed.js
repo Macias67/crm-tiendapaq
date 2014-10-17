@@ -16,11 +16,19 @@ var TableManaged = function() {
 			// set the initial value
 			"pageLength": 5,
 			"language": {
-				"lengthMenu": "_MENU_ records",
+				"lengthMenu": "_MENU_ registros",
+				"search": "Buscar:",
 				"paging": {
-				"previous": "Prev",
-				"next": "Next"
-				}
+					"previous": "Prev",
+					"next": "Sig"
+				},
+				"paginate": {
+					"previous": "Prev",
+					"next": "Sig"
+				},
+				"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+				"zeroRecords": "No se encontró ningún resultado",
+				"infoFiltered": "(filtrado de  un total de _MAX_  entradas)"
 			},
 			"columnDefs": [{  // set default column settings
 				'orderable': false,
@@ -33,22 +41,6 @@ var TableManaged = function() {
 				[1, "asc"]
 			] // set first column as a default sort by asc
 		});
-
-		var tableWrapper = jQuery('#sample_2_wrapper');
-
-		table.find('.group-checkable').change(function () {
-			var set			= jQuery(this).attr("data-set");
-			var checked	= jQuery(this).is(":checked");
-			jQuery(set).each(function () {
-				if (checked) {
-					$(this).attr("checked", true);
-				} else {
-					$(this).attr("checked", false);
-				}
-			});
-			jQuery.uniform.update(set);
-		});
-		tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
 	}
 
 	return {

@@ -112,9 +112,19 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-12">
 						<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
-						<div class="portlet box yellow">
+						<div class="portlet gren">
 							<div class="portlet-title">
-								<div class="caption"><i class="fa fa-user"></i> Table</div>
+								<div class="caption"><i class="fa fa-user"></i> Cotizaciones Pendientes</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse">
+									</a>
+									<a href="#portlet-config" data-toggle="modal" class="config">
+									</a>
+									<a href="javascript:;" class="reload">
+									</a>
+									<a href="javascript:;" class="remove">
+									</a>
+								</div>
 							</div>
 							<div class="portlet-body">
 								<table class="table table-striped table-bordered table-hover" id="sample_2">
