@@ -89,7 +89,7 @@ class PendienteModel extends MY_Model {
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
 		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
-		$this->db->where(array('id_pendiente' => $id_pendiente, 'estatus' => $this->estatusModel->PENDIENTE));
+		$this->db->where(array('id_pendiente' => $id_pendiente));
 		$query = $this->db->get($this->table);
 
 		return $query->row();

@@ -249,13 +249,13 @@ CREATE TABLE IF NOT EXISTS `estatus` (
 --
 
 INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
-(1, 'cancelada'),
-(2, 'cerrada'),
+(1, 'cancelado'),
+(2, 'cerrado'),
 (3, 'pendiente'),
 (4, 'precierre'),
 (5, 'proceso'),
-(6, 'suspendida'),
-(7, 'sustituida');
+(6, 'suspendido'),
+(7, 'sustituido');
 
 -- --------------------------------------------------------
 
