@@ -21,9 +21,10 @@ var UIExtendedModals = function () {
 			//ajax demo:
 			var $modal = $('#ajax-modal');
 
-			$('#ajax-pendiente').on('click', function(){
-				console.log("click");
+			$('.ajax-pendiente').on('click', function(){
+				console.log("click ");
 				var id_pendiente = $(this).attr('id-pendiente');
+				console.log(id_pendiente);
 				// create the backdrop and wait for next modal to be triggered
 				$('body').modalmanager('loading');
 

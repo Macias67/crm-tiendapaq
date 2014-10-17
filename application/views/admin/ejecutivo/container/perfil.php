@@ -222,7 +222,7 @@
 												<div class="tab-content">
 													<div class="tab-pane active" id="tab_1_11">
 														<div class="portlet-body">
-															<table class="table table-striped table-bordered table-advance table-hover" id="pendientes-ejecutivo">
+															<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
 																<thead>
 																	<tr>
 																		<th>No.</th>
@@ -234,7 +234,7 @@
 																	</tr>
 																</thead>
 																<tbody>
-																	<?php foreach ($pendientes_usuario as $pendiente) : ?>
+																	<?php foreach ($pendientes_usuario as $pendiente): ?>
 																		<tr class="odd gradeX">
 																			<td><?php echo $pendiente->id_pendiente ?></td>
 																			<td><?php echo $pendiente->actividad ?></td>
@@ -253,7 +253,7 @@
 																					break;
 																				} ?>
 																			</td>
-																			<td><a class="btn default" id="ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+																			<td><a class="btn default ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
 																		</tr>
 																	<?php endforeach ?>
 																</tbody>

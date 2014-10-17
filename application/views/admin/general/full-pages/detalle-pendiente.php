@@ -34,11 +34,15 @@
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
-					<select id="estatus_pendiente">
-						<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->estatus ?></option>
-						<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->estatus ?></option>
-						<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->estatus ?></option>
-					</select>
+					<?php if($pendiente->estatus == 3): ?>
+						<select id="estatus_pendiente">
+							<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->estatus ?></option>
+							<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->estatus ?></option>
+							<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->estatus ?></option>
+						</select>
+					<?php else: ?>
+						<b><?php echo strtoupper($estatus[($pendiente->estatus)-1]->estatus) ?></b>
+				<?php endif ?>
 				</div>
 			</div>
 		</div>
