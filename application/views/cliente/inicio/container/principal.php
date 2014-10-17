@@ -139,19 +139,6 @@
 												Approved </span>
 											</td>
 										</tr>
-										<tr class="odd gradeX">
-											<td>
-												 looper
-											</td>
-											<td>
-												<a href="mailto:looper90@gmail.com">
-												looper90@gmail.com </a>
-											</td>
-											<td>
-												<span class="label label-sm label-warning">
-												Suspended </span>
-											</td>
-										</tr>
 									</tbody>
 								</table>
 							</div>

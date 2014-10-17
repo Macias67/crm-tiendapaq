@@ -26,6 +26,7 @@
 	<!-- BEGIN PAGE LEVEL STYLES -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
