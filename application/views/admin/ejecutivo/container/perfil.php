@@ -251,6 +251,9 @@
 																					case 3:
 																						echo '<p class="btn btn-xs green"> Pendiente </p>';
 																					break;
+																					case 5:
+																						echo '<p class="btn btn-xs yellow"> En Proceso</p>';
+																					break;
 																					case 7:
 																						echo '<p class="btn btn-xs green"> Reasignado </p>';
 																					break;
