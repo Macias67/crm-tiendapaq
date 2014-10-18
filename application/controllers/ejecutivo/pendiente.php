@@ -102,6 +102,7 @@ class Pendiente extends AbstractAccess {
 		// Cargo modelos
 		$this->load->model('creaPendienteModel');
 		$this->load->model('estatusModel');
+		$this->load->model('ejecutivoModel');
 		//Helper
 		$this->load->helper('formatofechas');
 
@@ -109,7 +110,8 @@ class Pendiente extends AbstractAccess {
 		$pendiente					= $this->pendienteModel->getPendiente($id_pendiente);
 		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
 		$this->data['pendiente']	= $pendiente;
-		$this->data['estatus']	= $this->estatusModel->get('*');;
+		$this->data['estatus']	= $this->estatusModel->get('*');
+		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
@@ -123,16 +125,39 @@ class Pendiente extends AbstractAccess {
 	 * Funcion para cambiar el estado de los pendientes
 	 * @author Diego Rodriguez
 	 **/
-	public function estatus()
+	public function actualizar()
 	{
-		$id_pendiente = $this->input->post('id_pendiente');
-		$estatus = $this->input->post('estatus');
-		$estatus_text = $this->input->post('estatus_text');
+		$id_pendiente 						= $this->input->post('id_pendiente');
+		$estatus 									= $this->input->post('estatus');
+		$estatus_text						  = $this->input->post('estatus_text');
+		$id_ejecutivo_destino   	= $this->input->post('id_ejecutivo_destino');
+		$ejecutivo_destino_text 	= $this->input->post('ejecutivo_destino_text');
+		$id_ejecutivo_actual 			= $this->usuario_activo['id'];
 
-		if($this->pendienteModel->update(array('estatus' => $estatus), array('id_pendiente' => $id_pendiente))){
-			$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
+		if (empty($id_ejecutivo_destino)) {
+				if($this->pendienteModel->update(array('estatus' => $estatus), array('id_pendiente' => $id_pendiente))){
+					$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
+				}else{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
+			}
 		}else{
-			$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
+			$this->load->model('reasignarPendienteModel');
+			$this->load->helper('formatofechas');
+
+			$reasignacion = array(
+				'id_pendiente' => $id_pendiente,
+				'id_ejecutivo_origen' => $id_ejecutivo_actual,
+				'id_ejecutivo_destino' => $id_ejecutivo_destino,
+				'fecha' => fecha_completa(date('Y-m-d H:i:s'))
+				);
+
+			if($this->reasignarPendienteModel->insert($reasignacion) && 
+				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'estatus' => 7), array('id_pendiente' => $id_pendiente)))
+			{
+				$respuesta = array('exito' => TRUE, 'id_ejecutivo_destino' => $ejecutivo_destino_text);
+			}else{
+				$respuesta = array('exito' => TRUE, 'msj' => 'No se reasigno, revisa la consola o la base de datos.');
+			}
 		}
 
 		$this->output

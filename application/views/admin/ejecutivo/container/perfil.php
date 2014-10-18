@@ -251,6 +251,9 @@
 																					case 3:
 																						echo '<p class="btn btn-xs green"> Pendiente </p>';
 																					break;
+																					case 7:
+																						echo '<p class="btn btn-xs green"> Reasignado </p>';
+																					break;
 																				} ?>
 																			</td>
 																			<td><a class="btn default ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>

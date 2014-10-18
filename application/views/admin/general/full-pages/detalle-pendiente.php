@@ -30,7 +30,6 @@
 				<div class="col-md-4 text-right"><b>Oficina origen: </b></div>
 				<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 			</div>
-			<hr>
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
@@ -42,9 +41,24 @@
 						</select>
 					<?php else: ?>
 						<b><?php echo strtoupper($estatus[($pendiente->estatus)-1]->estatus) ?></b>
-				<?php endif ?>
+					<?php endif ?>
 				</div>
 			</div>
+			<?php if($pendiente->estatus == 3 || $pendiente->estatus == 7): ?>
+				<div class="col-md-12">
+					<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
+					<div class="col-md-8">
+						<select id="ejecutivo_destino">
+							<option value=""></option>
+							<?php foreach ($ejecutivos as $ejecutivo): ?>
+								<?php if($ejecutivo->id!=$usuario_activo['id']): ?>
+									<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+								<?php endif ?>
+							<?php endforeach ?>
+						</select>
+					</div>
+				</div>
+			<?php endif ?>
 		</div>
 	</div>
 </div>

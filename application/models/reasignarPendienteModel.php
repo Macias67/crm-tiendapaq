@@ -1,19 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- *Modelo para estatus de los casos
- * y pendientes.
+ *Modelo para la reasignacion de pendientes guarde un historial
  *
  * @package default
- * @author Luis Macias | Diego Rodriguez
+ * @author  Diego Rodriguez
  **/
-class estatusModel extends MY_Model {
+class reasignarPendienteModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse
 	 *
 	 * @var string
 	 **/
-	const TABLE = 'estatus';
+	const TABLE = 'reasignacion_pendiente';
 
 	/**
 	 * Constructor
@@ -24,13 +23,6 @@ class estatusModel extends MY_Model {
 		$this->table	= self::TABLE;
 	}
 
-	var $CANCELADO	= 1;
-	var $CERRADO		= 2;
-	var $PENDIENTE	= 3;
-	var $PRECIERRE	= 4;
-	var $PROCESO		= 5;
-	var $SUSPENDIDO	= 6;
-	var $REASIGNADO	= 7;
 }
 
 /* End of file estatusModel.php */
