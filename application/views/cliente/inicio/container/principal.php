@@ -110,7 +110,7 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-6 col-sm-12">
+					<div class="col-md-7 col-sm-12">
 						<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
 						<div class="portlet gren">
 							<div class="portlet-title">
@@ -130,23 +130,22 @@
 								<table class="table table-striped table-bordered table-hover" id="sample_2">
 									<thead>
 										<tr>
-											<th>Username</th>
-											<th>Email</th>
-											<th>Status</th>
+											<th>Folio</th>
+											<th>Fecha de emisión</th>
+											<th>Oficina</th>
+											<th>Estatus</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr class="odd gradeX">
+											<td>345</td>
+											<td>Martes, 14 de Octubre a las 2014</td>
+											<td>Ocotlán, Jalisco</td>
+											<td><span class="label label-sm label-success">Pendiente</span></td>
 											<td>
-												 shuxer
-											</td>
-											<td>
-												<a href="mailto:shuxer@gmail.com">
-												shuxer@gmail.com </a>
-											</td>
-											<td>
-												<span class="label label-sm label-success">
-												Approved </span>
+												<button type="button" class="btn green btn-xs"><i class="fa fa-file-o"></i> Detalles</button>
+												<button type="button" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobar Pago</button>
 											</td>
 										</tr>
 									</tbody>

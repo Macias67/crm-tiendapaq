@@ -37,6 +37,17 @@ class CotizacionModel extends MY_Model {
 		return $folio;
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return Array Object
+	 * @author Luis Macias
+	 **/
+	public function get_cotizaciones_cliente($id_cliente)
+	{
+		
+	}
+
 }
 
 /* End of file cotizacionModel.php */
