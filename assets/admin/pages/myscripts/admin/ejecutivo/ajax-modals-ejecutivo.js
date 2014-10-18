@@ -36,19 +36,27 @@ var UIExtendedModals = function () {
 			});
 
 			$modal.on('click', '.update', function(){
+				var id_pendiente = $('#id_pendiente').val();
 				var estatus = $('#estatus_pendiente').val();
 				var estatus_text = $('#estatus_pendiente').find('option:selected').text();
-				var id_pendiente = $('#id_pendiente').val();
+				var id_ejecutivo_destino = $('#ejecutivo_destino').val();
+				var ejecutivo_destino_text = $('#ejecutivo_destino').find('option:selected').text();
 				//$modal.modal('loading');
-
+				var data = {
+					id_pendiente:id_pendiente,
+					estatus:estatus,
+					estatus_text:estatus_text,
+					id_ejecutivo_destino:id_ejecutivo_destino,
+					ejecutivo_destino_text:ejecutivo_destino_text
+				}
 				//console.log('opcion : '+estatus+" id "+id_pendiente+" texto "+estatus_text);
 				// Envio de datos por AJAX
 				$.ajax({
-					url: '/pendiente/estatus',
+					url: '/pendiente/actualizar',
 					type: 'post',
 					cache: false,
 					dataType: 'json',
-					data: 'id_pendiente='+id_pendiente+"&estatus="+estatus+"&estatus_text="+estatus_text,
+					data: data,
 					beforeSend: function () {
 						$('#ajax-modal').fadeTo('slow', 0.1);
 						$('body').modalmanager('loading');
