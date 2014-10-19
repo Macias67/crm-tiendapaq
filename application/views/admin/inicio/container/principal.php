@@ -170,7 +170,7 @@
 												<td><?php echo $pendiente->actividad ?></td>
 												<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
 												<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
-												<td><a class="btn default ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+												<td><a class="btn blue btn-xs ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
 											</tr>
 										<?php endforeach ?>
 										</tbody>

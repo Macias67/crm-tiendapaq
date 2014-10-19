@@ -40,7 +40,7 @@
 							<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->estatus ?></option>
 						</select>
 					<?php else: ?>
-						<b><?php echo strtoupper($estatus[($pendiente->estatus)-1]->estatus) ?></b>
+						<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->estatus)-1]->estatus) ?></b></span>
 					<?php endif ?>
 				</div>
 			</div>
