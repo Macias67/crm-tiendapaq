@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2014 a las 22:40:00
+-- Tiempo de generación: 18-10-2014 a las 07:29:34
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -227,7 +227,6 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `sql_management` varchar(50) NOT NULL,
   `instancia_sql` varchar(50) NOT NULL,
   `password_sql` varchar(50) NOT NULL,
-  `observaciones` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente' AUTO_INCREMENT=1 ;
@@ -255,7 +254,7 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 (4, 'precierre'),
 (5, 'proceso'),
 (6, 'suspendido'),
-(7, 'sustituido');
+(7, 'reasignado');
 
 -- --------------------------------------------------------
 
@@ -387,6 +386,22 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `reasignacion_pendiente`
+--
+
+CREATE TABLE IF NOT EXISTS `reasignacion_pendiente` (
+  `id_pendiente` int(11) NOT NULL,
+  `id_ejecutivo_origen` int(11) NOT NULL,
+  `id_ejecutivo_destino` int(11) NOT NULL,
+  `fecha` varchar(50) NOT NULL,
+  KEY `id_pendiente` (`id_pendiente`,`id_ejecutivo_origen`,`id_ejecutivo_destino`),
+  KEY `id_ejecutivo_origen` (`id_ejecutivo_origen`),
+  KEY `id_ejecutivo_destino` (`id_ejecutivo_destino`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `sistemas_clientes`
 --
 
@@ -496,6 +511,14 @@ ALTER TABLE `pendientes`
   ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`id_estatus`);
+
+--
+-- Filtros para la tabla `reasignacion_pendiente`
+--
+ALTER TABLE `reasignacion_pendiente`
+  ADD CONSTRAINT `reasignacion_pendiente_ibfk_3` FOREIGN KEY (`id_ejecutivo_destino`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `reasignacion_pendiente_ibfk_1` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
+  ADD CONSTRAINT `reasignacion_pendiente_ibfk_2` FOREIGN KEY (`id_ejecutivo_origen`) REFERENCES `ejecutivos` (`id`);
 
 --
 -- Filtros para la tabla `sistemas_clientes`

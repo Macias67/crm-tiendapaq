@@ -7,7 +7,6 @@ var UIExtendedModals = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
-
 			// general settings
 			$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
 				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
@@ -22,9 +21,7 @@ var UIExtendedModals = function () {
 			var $modal = $('#ajax-modal');
 
 			$('.ajax-pendiente').on('click', function(){
-				console.log("click ");
 				var id_pendiente = $(this).attr('id-pendiente');
-				console.log(id_pendiente);
 				// create the backdrop and wait for next modal to be triggered
 				$('body').modalmanager('loading');
 

@@ -433,7 +433,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-							<button type="submit" class="btn green">Abrir</button>
+							<button type="submit" class="btn green">Crear</button>
 						</div>
 					</form>
 				</div>
