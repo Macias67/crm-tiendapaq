@@ -4,9 +4,7 @@
 </div>
 <div class="modal-body">
 	<div class="row">
-		<?php var_dump($reasignaciones) ?>
 		<div class="col-md-12">
-		<div class="scroller" style="height: 300px">
 			<div class="col-md-12">
 				<input type="hidden" id="id_pendiente" value="<?php echo $pendiente->id_pendiente ?>">
 				<div class="col-md-4 text-right"><b>Razón Social: </b></div>
@@ -62,7 +60,6 @@
 					</div>
 				</div>
 			<?php endif ?>
-		</div>
 		</div>
 	</div>
 </div>

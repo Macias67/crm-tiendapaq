@@ -23,6 +23,22 @@ class reasignarPendienteModel extends MY_Model {
 		$this->table	= self::TABLE;
 	}
 
+	/**
+	 * Funcion para obtener el historial de reasignaciones de un pendiente
+	 * @author Diego Rodriguez
+	 **/
+	public function getReasignaciones($id_pendiente, $campos)
+	{
+		$this->db->select($campos);
+		$this->db->join('pendientes', $this->table.'.id_pendiente = pendientes.id_pendiente', 'inner');
+		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo_origen = ejecutivos.id', 'inner');
+		//$this->db->join('ejecutivos', $this->table.'.id_ejecutivo_destino = ejecutivos.id', 'inner');
+		$this->db->where(array('reasignacion_pendiente.id_pendiente' => $id_pendiente));
+		$query = $this->db->get($this->table);
+
+		return $query->result();
+	}
+
 }
 
 /* End of file estatusModel.php */

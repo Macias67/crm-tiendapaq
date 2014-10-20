@@ -103,6 +103,7 @@ class Pendiente extends AbstractAccess {
 		$this->load->model('creaPendienteModel');
 		$this->load->model('estatusModel');
 		$this->load->model('ejecutivoModel');
+		$this->load->model('reasignarPendienteModel');
 		//Helper
 		$this->load->helper('formatofechas');
 
@@ -112,6 +113,7 @@ class Pendiente extends AbstractAccess {
 		$this->data['pendiente']	= $pendiente;
 		$this->data['estatus']	= $this->estatusModel->get('*');
 		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
+		$this->data['reasignaciones'] = $this->reasignarPendienteModel->getReasignaciones($id_pendiente, array('ejecutivos.primer_nombre','ejecutivos.apellido_paterno','reasignacion_pendiente.fecha'));
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
