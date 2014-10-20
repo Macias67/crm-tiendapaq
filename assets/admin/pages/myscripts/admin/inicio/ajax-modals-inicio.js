@@ -7,7 +7,6 @@ var UIExtendedModals = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
-
 			// general settings
 			$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
 				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
@@ -22,9 +21,7 @@ var UIExtendedModals = function () {
 			var $modal = $('#ajax-modal');
 
 			$('.ajax-pendiente').on('click', function(){
-				console.log("click ");
 				var id_pendiente = $(this).attr('id-pendiente');
-				console.log(id_pendiente);
 				// create the backdrop and wait for next modal to be triggered
 				$('body').modalmanager('loading');
 
@@ -39,16 +36,17 @@ var UIExtendedModals = function () {
 				var id_pendiente = $('#id_pendiente').val();
 				var estatus = $('#estatus_pendiente').val();
 				var estatus_text = $('#estatus_pendiente').find('option:selected').text();
-				var id_ejecutivo_reasignado = $('#ejecutivo_reasignado').val();
-				var text_ejecutivo_reasignado = $('#ejecutivo_reasignado').find('option:selected').text();
+				var id_ejecutivo_destino = $('#ejecutivo_destino').val();
+				var ejecutivo_destino_text = $('#ejecutivo_destino').find('option:selected').text();
 				//$modal.modal('loading');
 				var data = {
 					id_pendiente:id_pendiente,
 					estatus:estatus,
 					estatus_text:estatus_text,
-					id_ejecutivo_reasignado:id_ejecutivo_reasignado,
-					text_ejecutivo_reasignado:text_ejecutivo_reasignado
+					id_ejecutivo_destino:id_ejecutivo_destino,
+					ejecutivo_destino_text:ejecutivo_destino_text
 				}
+
 				//console.log('opcion : '+estatus+" id "+id_pendiente+" texto "+estatus_text);
 				// Envio de datos por AJAX
 				$.ajax({
@@ -90,6 +88,7 @@ var UIExtendedModals = function () {
 				// }, 1000);
 			});
 		}
+
 	};
 
 }();

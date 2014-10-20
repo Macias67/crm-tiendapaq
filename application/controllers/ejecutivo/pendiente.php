@@ -132,7 +132,7 @@ class Pendiente extends AbstractAccess {
 		$estatus_text						  = $this->input->post('estatus_text');
 		$id_ejecutivo_destino   	= $this->input->post('id_ejecutivo_destino');
 		$ejecutivo_destino_text 	= $this->input->post('ejecutivo_destino_text');
-		$id_ejecutivo_actual 			= $this->usuario_activo['id'];
+		$id_ejecutivo_origen 			= $this->usuario_activo['id'];
 
 		if (empty($id_ejecutivo_destino)) {
 				if($this->pendienteModel->update(array('estatus' => $estatus), array('id_pendiente' => $id_pendiente))){
@@ -143,10 +143,11 @@ class Pendiente extends AbstractAccess {
 		}else{
 			$this->load->model('reasignarPendienteModel');
 			$this->load->helper('formatofechas');
+			date_default_timezone_set('America/Mexico_City');
 
 			$reasignacion = array(
 				'id_pendiente' => $id_pendiente,
-				'id_ejecutivo_origen' => $id_ejecutivo_actual,
+				'id_ejecutivo_origen' => $id_ejecutivo_origen,
 				'id_ejecutivo_destino' => $id_ejecutivo_destino,
 				'fecha' => fecha_completa(date('Y-m-d H:i:s'))
 				);

@@ -46,6 +46,7 @@ var UIExtendedModals = function () {
 					id_ejecutivo_destino:id_ejecutivo_destino,
 					ejecutivo_destino_text:ejecutivo_destino_text
 				}
+
 				//console.log('opcion : '+estatus+" id "+id_pendiente+" texto "+estatus_text);
 				// Envio de datos por AJAX
 				$.ajax({

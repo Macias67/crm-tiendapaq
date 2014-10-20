@@ -259,7 +259,7 @@
 																					break;
 																				} ?>
 																			</td>
-																			<td><a class="btn default ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+																			<td><a class="btn blue btn-xs ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
 																		</tr>
 																	<?php endforeach ?>
 																</tbody>

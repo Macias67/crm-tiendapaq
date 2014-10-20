@@ -67,7 +67,7 @@ class PendienteModel extends MY_Model {
 		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
 		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
 		if(!empty($controlador)){
-			$where = "id_ejecutivo =".$id_ejecutivo." AND estatus=".$this->estatusModel->PENDIENTE." OR estatus=".$this->estatusModel->REASIGNADO."";
+			$where = "id_ejecutivo =".$id_ejecutivo." AND estatus=".$this->estatusModel->PENDIENTE." OR id_ejecutivo =".$id_ejecutivo." AND estatus=".$this->estatusModel->REASIGNADO;
 			$this->db->where($where);
 			// $this->db->where(array('id_ejecutivo' => $id_ejecutivo, 'estatus' => $this->estatusModel->PENDIENTE));
 			// $this->db->where(array('estatus' => $this->estatusModel->REASIGNADO));
