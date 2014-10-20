@@ -4,5 +4,5 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
-*/tmp/*
-*./clientes/*
+tmp/*
+clientes/*

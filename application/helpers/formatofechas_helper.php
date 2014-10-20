@@ -20,6 +20,20 @@ function fecha_completa($timestamp)
 	return $fecha;
 }
 
+function fecha_formato($date)
+{
+	$fecha 			= date('d/n/Y', strtotime($date));
+	$array_fecha	= explode('/', $fecha);
+	$dia			= $array_fecha[0];
+	$mes			= $array_fecha[1];
+	$ano			= $array_fecha[2];
+	$fecha_php	= $mes.'/'.$dia.'/'.$ano;
+	$unix			= strtotime($fecha_php);
+	$dia_numero	= date('w', $unix);
+	$fecha			= numero_a_dia($dia_numero).', '.$dia.' de '.numero_a_mes($mes).' del '.$ano;
+	return $fecha;
+}
+
 function numero_a_mes($numero)
 {
 	switch ($numero)

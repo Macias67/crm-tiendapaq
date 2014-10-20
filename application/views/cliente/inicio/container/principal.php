@@ -132,22 +132,26 @@
 										<tr>
 											<th>Folio</th>
 											<th>Fecha de emisión</th>
+											<th>Vigencia hasta</th>
 											<th>Oficina</th>
 											<th>Estatus</th>
 											<th></th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="odd gradeX">
-											<td>345</td>
-											<td>Martes, 14 de Octubre a las 2014</td>
-											<td>Ocotlán, Jalisco</td>
-											<td><span class="label label-sm label-success">Pendiente</span></td>
+									<?php foreach ($cotizaciones as $cotizacion): ?>
+										<tr>
+											<td><?php echo $cotizacion->folio ?></td>
+											<td><?php echo fecha_formato($cotizacion->fecha) ?></td>
+											<td><?php echo fecha_formato($cotizacion->vigencia) ?></td>
+											<td><?php echo $cotizacion->ciudad_estado ?></td>
+											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->estatus) ?></span></td>
 											<td>
 												<button type="button" class="btn green btn-xs"><i class="fa fa-file-o"></i> Detalles</button>
 												<button type="button" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobar Pago</button>
 											</td>
 										</tr>
+									<?php endforeach ?>
 									</tbody>
 								</table>
 							</div>

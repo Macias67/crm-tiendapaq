@@ -14,11 +14,19 @@ class Inicio extends AbstractAccess {
 	{
 		if($this->usuario_activo['privilegios'] == "cliente")
 		{
+			// SECCION PARA CLIENTES
+
 			// Cargo modelos
 			$this->load->model('cotizacionModel');
+			// Cargo helper
+			$this->load->helper('formatofechas');
+
+			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id']);
 			$this->_vista('principal');
 		} else
 		{
+			// SECCION PARA GENTE DE TIENDAPAQ
+
 			// Cargo modelos
 			$this->load->model('ejecutivoModel');
 			$this->load->model('actividadPendienteModel');

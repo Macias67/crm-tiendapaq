@@ -15,8 +15,8 @@ class Ejecutivo extends AbstractAccess {
 		//Helper
 		$this->load->helper('formatofechas');
 		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(
-																					array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','estatus'),
-																					$this->usuario_activo['id']);
+		                                                                         array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','estatus'),
+		                                                                         $this->usuario_activo['id']);
 	}
 
 	/**
@@ -381,7 +381,7 @@ class Ejecutivo extends AbstractAccess {
 					// La forma de mostrar los errores
 					$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error: </strong>
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
-						' <b><a href="'.site_url('ejecutivo#cambiar_imagen').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+						' <b><a href="'.site_url('ejecutivo/editar/img#cambiar_imagen').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 					// Muestro vista con errores
 					$this->_vista('perfil');
 				}
@@ -411,7 +411,7 @@ class Ejecutivo extends AbstractAccess {
 						// Envio a la variable los errores de subida
 						$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error: </strong>
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
-							' <b><a href="'.site_url('ejecutivo#cambiar_imagen').'" style="color:red">(Intentar de nuevo)</a></b></div>');
+							' <b><a href="'.site_url('ejecutivo/editar/img#cambiar_imagen').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 						// Muestro vista con errores de subida
 						$this->_vista('perfil');
 					} else

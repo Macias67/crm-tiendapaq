@@ -45,7 +45,14 @@ class CotizacionModel extends MY_Model {
 	 **/
 	public function get_cotizaciones_cliente($id_cliente)
 	{
-		
+		$this->db->select('*');
+		$this->db->join('oficinas', $this->table.'.oficina = oficinas.id_oficina', 'inner');
+		$this->db->join('observaciones', $this->table.'.observaciones = observaciones.id_observacion', 'inner');
+		$this->db->join('bancos', $this->table.'.banco = bancos.id_banco', 'inner');
+		$this->db->join('estatus_cotizacion', $this->table.'.estatus = estatus_cotizacion.id_estatus', 'inner');
+		$this->db->where(array('cliente' => $id_cliente));
+		$query = $this->db->get($this->table);
+		return $query->result();
 	}
 
 }

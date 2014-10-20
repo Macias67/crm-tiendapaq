@@ -34,7 +34,7 @@
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
 					<?php if($pendiente->estatus == 3 || $pendiente->estatus == 7): ?>
-						<select id="estatus_pendiente">
+						<select id="estatus_pendiente" class="form-control">
 							<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->estatus ?></option>
 							<option value="<?php echo $estatus[4]->id_estatus ?>"><?php echo $estatus[4]->estatus ?></option>
 							<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->estatus ?></option>
@@ -46,10 +46,10 @@
 				</div>
 			</div>
 			<?php if($pendiente->estatus == 3 || $pendiente->estatus == 7): ?>
-				<div class="col-md-12">
+				<div class="col-md-12" style="margin-top: 1em;">
 					<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
 					<div class="col-md-8">
-						<select id="ejecutivo_destino">
+						<select id="ejecutivo_destino" class="form-control">
 							<option value=""></option>
 							<?php foreach ($ejecutivos as $ejecutivo): ?>
 								<?php if($ejecutivo->id!=$usuario_activo['id']): ?>

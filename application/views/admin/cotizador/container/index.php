@@ -122,7 +122,7 @@
 
 						<div class="row">
 							<!-- Cotización -->
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div class="portlet gren">
 
 									<div class="portlet-title">
@@ -139,12 +139,12 @@
 										</div>
 										<div class="col-md-4">
 											<h5>Fecha: </h5>
-											<b id="fecha"><?php echo date('d/m/Y') ?></b>
+											<b id="fecha"><?php echo fecha_formato(date('d-m-Y')) ?></b>
 										</div>
 										<div class="col-md-12">
-											<h5>Vigencia: </h5>
+											<h5>Vigencia: <b id="dias"><?php echo $vigencia ?></b></h5>
 											<div class="input-group date date-picker" data-date-format="dd/mm/yyyy" data-date-start-date="+0d">
-												<input type="text" class="form-control" value="<?php echo $fecha_vigencia ?>">
+												<input type="text" id="vigencia" class="form-control" value="<?php echo $fecha_vigencia ?>">
 												<span class="input-group-btn">
 												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
@@ -154,7 +154,7 @@
 								</div>
 							</div>
 							<!-- Cliente -->
-							<div class="col-md-9">
+							<div class="col-md-8">
 								<div class="portlet gren">
 
 									<div class="portlet-title">

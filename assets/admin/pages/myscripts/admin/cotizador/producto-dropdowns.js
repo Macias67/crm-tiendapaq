@@ -10,11 +10,26 @@ var ProductoDropdowns	= function() {
 
 	var fechaVigencia = function() {
 		if (jQuery().datepicker) {
+
+			$.fn.datepicker.dates['es'] = {
+				days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+				daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+				daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+				months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+				monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+				today: "Hoy"
+			};
+
 			$('.date-picker').datepicker({
 				todayHighlight: true,
 				language: "es",
 				rtl: Metronic.isRTL(),
 				autoclose: true
+			}).on('changeDate', function(data) {
+				var fecha = $('#vigencia').val();
+				$.post('./cotizador/vigencia/', {fecha:fecha}, function(data) {
+					$('#dias').html(data.dias);
+				}, 'json');
 			});
 			//$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
 		}
@@ -388,12 +403,12 @@ var ProductoDropdowns	= function() {
 				var columnas = $('#lista > tr');
 
 				var pendiente = $('#pendiente').attr('id-pendiente');
-				alert(pendiente);
 
 				// Datos cotizacion
 				var cotizacion = {
-					folio: $('#folio').html(),
-					ejecutivo: $('.ejecutivo').attr('id')
+					folio: 		$('#folio').html(),
+					ejecutivo: 	$('.ejecutivo').attr('id'),
+					vigencia: 	$('#vigencia').val()
 				}
 
 				// Datos del cliente

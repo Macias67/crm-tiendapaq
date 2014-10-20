@@ -7,6 +7,8 @@
  **/
 class Cotizador extends AbstractAccess {
 
+	private $DIAS_VIGENCIA = 60;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,11 +25,13 @@ class Cotizador extends AbstractAccess {
 	 **/
 	public function index()
 	{
+		// Formato fechas
+		$this->load->helper('formatofechas');
 		$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
 		$this->data['nombre_completo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'];
 		$this->data['id_ejecutivo']			= $this->usuario_activo['id'];
-		$fecha = strtotime(date("m/d/Y"))+(60*60*24*60);
-		$this->data['fecha_vigencia']		= date("d/m/Y", $fecha);
+		$this->data['vigencia']				= $this->DIAS_VIGENCIA.' días de vigencia.';
+		$this->data['fecha_vigencia']		= date('d/m/Y', strtotime('+'.$this->DIAS_VIGENCIA.' day'));
 		$this->_vista('index');
 	}
 
@@ -49,12 +53,24 @@ class Cotizador extends AbstractAccess {
 			$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
 			$this->data['nombre_completo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'];
 			$this->data['id_ejecutivo']			= $this->usuario_activo['id'];
-			$fecha = strtotime(date("m/d/Y"))+(60*60*24*60);
-			$this->data['fecha_vigencia']		= date("d/m/Y", $fecha);
+			$this->data['vigencia']				= $this->DIAS_VIGENCIA.' días de vigencia.';
+			$this->data['fecha_vigencia']		= date('d/m/Y', strtotime('+'.$this->DIAS_VIGENCIA.' day'));
 			$this->_vista('index');
 		} else {
 			show_404();
 		}
+	}
+
+	public function vigencia()
+	{
+		$vigencia	= $this->input->post('fecha');
+		$vigencia	= explode('/', $vigencia);
+		$diferecnia	= strtotime($vigencia[2].'/'.$vigencia[1].'/'.$vigencia[0]) - time();
+		$dias		= floor($diferecnia/(60*60*24));
+		$dias 		= ($dias == 1) ? $dias.' día de vigencia.' : $dias.' días de vigencia.';
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode(array('dias' => $dias)));
 	}
 
 	/**
@@ -249,7 +265,11 @@ class Cotizador extends AbstractAccess {
 		// Borro PDF temporal
 		$dir_tmp		= $this->input->server('DOCUMENT_ROOT').'/tmp/cotizacion/';
 		$name_tmp	= 'tmp'.$cotizacion['ejecutivo'].$data_cliente[0]->id.'-'.$folio.'.pdf';
-		unlink($dir_tmp.$name_tmp);
+		$file = $dir_tmp.$name_tmp;
+		// Si existe temporal lo borro
+		if (is_file($file)) {
+			unlink($file);
+		}
 		// Guardo PDF finals
 		$html2pdf->Output($path, 'F');
 
@@ -268,11 +288,15 @@ class Cotizador extends AbstractAccess {
 			// Cargo modelos
 			$this->load->model('pendienteModel');
 			$this->load->model('estatusModel');
-			$this->pendienteModel->update(array('estatus' => $this->estatusModel->CERRADA), array('id_pendiente' => $pendiente));
+			$this->pendienteModel->update(array('estatus' => $this->estatusModel->CERRADO), array('id_pendiente' => $pendiente));
 		}
+
+		$array_fecha	= explode('/', $cotizacion['vigencia']);
+		$vigencia		= $array_fecha[2].'-'.$array_fecha[1].'-'.$array_fecha[0];
 
 		$cotizacion = array(
 			'fecha'			=> date('Y-m-d'),
+			'vigencia'		=> $vigencia,
 			'agente'		=> $cotizacion['ejecutivo'],
 			'cliente'		=> $cliente['id'],
 			'oficina'		=> $oficina->id_oficina,

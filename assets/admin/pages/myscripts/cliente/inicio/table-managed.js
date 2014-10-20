@@ -32,13 +32,13 @@ var TableManaged = function() {
 			},
 			"columnDefs": [{  // set default column settings
 				'orderable': false,
-				'targets': [0]
+				'targets': [5]
 			}, {
 				"searchable": false,
-				"targets": [0]
+				"targets": [5]
 			}],
 			"order": [
-				[1, "asc"]
+				[0, "asc"]
 			] // set first column as a default sort by asc
 		});
 	}
