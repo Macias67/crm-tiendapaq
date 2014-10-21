@@ -31,8 +31,8 @@ class reasignarPendienteModel extends MY_Model {
 	{
 		$this->db->select($campos);
 		$this->db->join('pendientes', $this->table.'.id_pendiente = pendientes.id_pendiente', 'inner');
-		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo_origen = ejecutivos.id', 'inner');
-		//$this->db->join('ejecutivos', $this->table.'.id_ejecutivo_destino = ejecutivos.id', 'inner');
+		$this->db->join('ejecutivos as origen', $this->table.'.id_ejecutivo_origen = origen.id', 'inner');
+		$this->db->join('ejecutivos as destino', $this->table.'.id_ejecutivo_destino = destino.id', 'inner');
 		$this->db->where(array('reasignacion_pendiente.id_pendiente' => $id_pendiente));
 		$query = $this->db->get($this->table);
 
