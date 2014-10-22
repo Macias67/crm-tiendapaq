@@ -4,7 +4,8 @@
 </div>
 <div class="modal-body">
 	<div class="row">
-		<?php var_dump($this->data) ?>
+		<!-- <?php var_dump($this->data) ?> -->
+		
 		<div class="col-md-12">
 		<div class="scroller" style="height: 300px">
 			<div class="col-md-12">
