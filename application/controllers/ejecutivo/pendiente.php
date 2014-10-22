@@ -146,7 +146,8 @@ class Pendiente extends AbstractAccess {
 	 **/
 		public function reasignaciones()
 	{
-		$this->_vista_completa('reasignaciones-pendiente');
+		echo "entre";
+		//$this->_vista_completa('reasignaciones-pendiente');
 	}
 
 	/**

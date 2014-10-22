@@ -33,17 +33,17 @@ var UIExtendedModals = function () {
 			});
 
 			//ajax ventana modal de reasignaciones
-			var $modal2 = $('#ajax-reasignacion-pendiente');
+			//var $modal2 = $('#ajax-reasignacion-pendiente');
 
 			$('.ajax-reasignacion').on('click', function(){
 				//$('body').modalmanager('loading');
 				console.log('entre');
 				alert('hiciste click');
-				setTimeout(function(){
-					$modal2.load('/pendiente/reasignaciones', '', function(){
-						$modal2.modal();
-					});
-				}, 1000);
+				// setTimeout(function(){
+				// 	$modal2.load('/pendiente/reasignaciones', '', function(){
+				// 		$modal2.modal();
+				// 	});
+				// }, 1000);
 			});
 
 			$modal.on('click', '.update', function(){
