@@ -440,8 +440,12 @@
 				<!-- END NUEVO PENDIENTE -->
 
 				<!-- BEGIN AJAX DETALLE PENDIENTE -->
-				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
+				<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1"></div>
 				<!-- END AJAX DETALLE PENDIENTE -->
+
+				<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
+				<div id="ajax-reasignacion-pendiente" class="modal fade" tabindex="-1" data-focus-on="input:first"></div>
+				<!-- END AJAX REASIGNACIONES PENDIENTE -->
 			</div>
 		</div>
 		<!-- END CONTENT -->

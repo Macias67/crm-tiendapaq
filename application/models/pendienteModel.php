@@ -42,10 +42,10 @@ class PendienteModel extends MY_Model {
 	{
 		$this->pendiente = new stdClass();
 
-		$this->pendiente->id_ejecutivo		= $data['id_ejecutivo'];
+		$this->pendiente->id_ejecutivo	= $data['id_ejecutivo'];
 		$this->pendiente->id_empresa		= $data['id_empresa'];
 		$this->pendiente->actividad			= $data['actividad'];
-		$this->pendiente->estatus			= $data['estatus'];
+		$this->pendiente->id_estatus		= $data['id_estatus'];
 		$this->pendiente->descripcion		= $data['descripcion'];
 
 		return $this->pendiente;

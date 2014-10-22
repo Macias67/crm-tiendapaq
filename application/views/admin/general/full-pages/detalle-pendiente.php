@@ -32,7 +32,7 @@
 			<?php if(!empty($reasignaciones)): ?>
 				<div class="col-md-12" style="margin-bottom: 1em;">
 					<div class="col-md-4 text-right"><b>Reasignaciones: </b></div>
-					<div class="col-md-8"><a href="#">Ver historial de asignaciones</a></div>
+					<div class="col-md-8"><a class="btn blue btn-xs ajax-reasignacion" data-toggle="modal">Ver historial de asignaciones</a></div>
 				</div>
 			<?php endif ?>
 			<div class="col-md-12">

@@ -47,7 +47,7 @@ class Pendiente extends AbstractAccess {
 				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
 				'id_empresa'	=> (empty($razon_social)) ? NULL : $razon_social,
 				'actividad'		=> $this->input->post('actividad'),
-				'estatus'		=> $this->estatusModel->PENDIENTE,
+				'id_estatus'		=> $this->estatusModel->PENDIENTE,
 				'descripcion'	=> $this->input->post('descripcion')
 			);
 			// Transfomo arreglo a objeto
@@ -97,6 +97,10 @@ class Pendiente extends AbstractAccess {
 			->set_output(json_encode($respuesta));
 	}
 
+	/**
+	 * Funcion para mostrar ventana modal con informacion detallada de un pendiente
+	 * @author  Luis Macias | Diego Rodriguez
+	 **/
 	public function detalles($id_pendiente)
 	{
 		// Cargo modelos
@@ -108,17 +112,17 @@ class Pendiente extends AbstractAccess {
 		$this->load->helper('formatofechas');
 
 		$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
-		$pendiente					= $this->pendienteModel->getPendiente($id_pendiente,
-																															array( 'pendientes.id_pendiente',
-																																	   'clientes.razon_social',
-																																	   'actividades_pendiente.id_actividad',
-																																	   'actividades_pendiente.actividad',
-																																	   'pendientes.descripcion',
-																																	   'pendientes.fecha_origen',
-																																	   'ejecutivos.primer_nombre',
-																																	   'ejecutivos.apellido_paterno',
-																																	   'ejecutivos.oficina',
-																																	   'pendientes.id_estatus'));
+		$pendiente	= $this->pendienteModel->getPendiente($id_pendiente,
+																											array('pendientes.id_pendiente',
+																														'clientes.razon_social',
+																														'actividades_pendiente.id_actividad',
+																														'actividades_pendiente.actividad',
+																														'pendientes.descripcion',
+																														'pendientes.fecha_origen',
+																														'ejecutivos.primer_nombre',
+																														'ejecutivos.apellido_paterno',
+																														'ejecutivos.oficina',
+																														'pendientes.id_estatus'));
 
 		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
 		$this->data['pendiente']	= $pendiente;
@@ -137,20 +141,29 @@ class Pendiente extends AbstractAccess {
 	}
 
 	/**
+	 * Funcion para mostrar ventana modal con informacion detallada de un pendientes
+	 * @author  Diego Rodriguez
+	 **/
+		public function reasignaciones()
+	{
+		$this->_vista_completa('reasignaciones-pendiente');
+	}
+
+	/**
 	 * Funcion para cambiar el estado de los pendientes
 	 * @author Diego Rodriguez
 	 **/
 	public function actualizar()
 	{
 		$id_pendiente 						= $this->input->post('id_pendiente');
-		$estatus 									= $this->input->post('estatus');
+		$id_estatus 							= $this->input->post('id_estatus');
 		$estatus_text						  = $this->input->post('estatus_text');
 		$id_ejecutivo_destino   	= $this->input->post('id_ejecutivo_destino');
 		$ejecutivo_destino_text 	= $this->input->post('ejecutivo_destino_text');
 		$id_ejecutivo_origen 			= $this->usuario_activo['id'];
 
 		if (empty($id_ejecutivo_destino)) {
-				if($this->pendienteModel->update(array('estatus' => $estatus), array('id_pendiente' => $id_pendiente))){
+				if($this->pendienteModel->update(array('id_estatus' => $id_estatus), array('id_pendiente' => $id_pendiente))){
 					$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
 				}else{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
@@ -168,9 +181,9 @@ class Pendiente extends AbstractAccess {
 				);
 
 			if($this->reasignarPendienteModel->insert($reasignacion) && 
-				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'estatus' => 7), array('id_pendiente' => $id_pendiente)))
+				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus' => 7), array('id_pendiente' => $id_pendiente)))
 			{
-				$respuesta = array('exito' => TRUE, 'id_ejecutivo_destino' => $ejecutivo_destino_text);
+				$respuesta = array('exito' => TRUE, 'ejecutivo_destino_text' => $ejecutivo_destino_text);
 			}else{
 				$respuesta = array('exito' => TRUE, 'msj' => 'No se reasigno, revisa la consola o la base de datos.');
 			}

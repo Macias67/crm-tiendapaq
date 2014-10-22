@@ -17,8 +17,8 @@ var UIExtendedModals = function () {
 
 			$.fn.modalmanager.defaults.resize = true;
 
-			//ajax demo:
-			var $modal = $('#ajax-modal');
+			//ajax ventana modal detalles del pendiente
+			var $modal = $('#ajax-detalles-pendiente');
 
 			$('.ajax-pendiente').on('click', function(){
 				var id_pendiente = $(this).attr('id-pendiente');
@@ -32,16 +32,30 @@ var UIExtendedModals = function () {
 				}, 1000);
 			});
 
+			//ajax ventana modal de reasignaciones
+			var $modal2 = $('#ajax-reasignacion-pendiente');
+
+			$('.ajax-reasignacion').on('click', function(){
+				//$('body').modalmanager('loading');
+				console.log('entre');
+				alert('hiciste click');
+				setTimeout(function(){
+					$modal2.load('/pendiente/reasignaciones', '', function(){
+						$modal2.modal();
+					});
+				}, 1000);
+			});
+
 			$modal.on('click', '.update', function(){
 				var id_pendiente = $('#id_pendiente').val();
-				var estatus = $('#estatus_pendiente').val();
+				var id_estatus = $('#estatus_pendiente').val();
 				var estatus_text = $('#estatus_pendiente').find('option:selected').text();
 				var id_ejecutivo_destino = $('#ejecutivo_destino').val();
 				var ejecutivo_destino_text = $('#ejecutivo_destino').find('option:selected').text();
 				//$modal.modal('loading');
 				var data = {
 					id_pendiente:id_pendiente,
-					estatus:estatus,
+					id_estatus:id_estatus,
 					estatus_text:estatus_text,
 					id_ejecutivo_destino:id_ejecutivo_destino,
 					ejecutivo_destino_text:ejecutivo_destino_text
@@ -56,23 +70,27 @@ var UIExtendedModals = function () {
 					dataType: 'json',
 					data: data,
 					beforeSend: function () {
-						$('#ajax-modal').fadeTo('slow', 0.1);
+						$('#ajax-detalles-pendiente').fadeTo('slow', 0.1);
 						$('body').modalmanager('loading');
 					},
 					error: function(jqXHR, status, error) {
-						$('#ajax-modal').fadeTo('slow', 1);
+						$('#ajax-detalles-pendiente').fadeTo('slow', 1);
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
 					},
 					success: function(data) {
 						if (data.exito) {
-							alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+							if(ejecutivo_destino_text!=""){
+								alert("Pendiente reasignado a : "+data.ejecutivo_destino_text+" con éxito.");
+							}else{
+								alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+							}
 							parent.location.reload();
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							$('#ajax-modal').fadeTo(100, 1, function(){
+							$('#ajax-detalles-pendiente').fadeTo(100, 1, function(){
 								$('body').modalmanager('removeLoading');
 							});
 						}

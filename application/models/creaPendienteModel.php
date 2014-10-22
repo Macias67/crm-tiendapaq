@@ -33,7 +33,7 @@ class creaPendienteModel extends MY_Model {
 	 **/
 	public function getCreadorPendiente($id_pendiente)
 	{
-		$this->db->select('*');
+		$this->db->select(array('ejecutivos.id','ejecutivos.primer_nombre','ejecutivos.apellido_paterno'));
 		$this->db->join('ejecutivos', $this->table.'.id_creador = ejecutivos.id', 'inner');
 		$this->db->where(array('id_pendiente' => $id_pendiente));
 		$query = $this->db->get($this->table);
