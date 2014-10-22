@@ -128,9 +128,7 @@ class Pendiente extends AbstractAccess {
 		$this->data['pendiente']	= $pendiente;
 		$this->data['estatus']	= $this->estatusModel->get('*');
 		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
-		$this->data['reasignaciones'] = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
-			array('origen.primer_nombre as nombre_origen','origen.apellido_paterno as apellido_origen',
-				'destino.primer_nombre as nombre_destino','destino.apellido_paterno as apellido_destino','reasignacion_pendiente.fecha'));
+		$this->data['reasignaciones'] = count($this->reasignarPendienteModel->getReasignaciones($id_pendiente,'*'));
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
@@ -144,10 +142,15 @@ class Pendiente extends AbstractAccess {
 	 * Funcion para mostrar ventana modal con informacion detallada de un pendientes
 	 * @author  Diego Rodriguez
 	 **/
-		public function reasignaciones()
+		public function reasignaciones($id_pendiente)
 	{
-		echo "entre";
-		//$this->_vista_completa('reasignaciones-pendiente');
+		$this->load->model('reasignarPendienteModel');
+
+		$this->data['reasignaciones'] = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
+																	array('origen.primer_nombre as nombre_origen','origen.apellido_paterno as apellido_origen',
+																		     'destino.primer_nombre as nombre_destino','destino.apellido_paterno as apellido_destino','reasignacion_pendiente.fecha'));
+
+		$this->_vista_completa('reasignaciones-pendiente');
 	}
 
 	/**

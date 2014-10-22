@@ -5,7 +5,6 @@
 <div class="modal-body">
 	<div class="scroller">
 	<div class="row">
-		<!-- <?php var_dump($this->data) ?> -->
 		<div class="col-md-12">
 			<div class="col-md-12">
 				<input type="hidden" id="id_pendiente" value="<?php echo $pendiente->id_pendiente ?>">
@@ -32,10 +31,7 @@
 				<div class="col-md-12" style="margin-bottom: 1em;">
 					<div class="col-md-4 text-right"><b>Reasignaciones: </b></div>
 					<div class="col-md-8">
-						<!-- <a class="btn blue btn-xs ajax-reasignacion" data-toggle="modal" href="<?php site_url('/pendiente/reasignaciones') ?>">Ver historial de asignaciones</a> -->
-						<?php foreach ($reasignaciones as $reasignacion): ?>
-							<p>De <?php echo $reasignacion->nombre_origen.' '.$reasignacion->apellido_origen ?> a <?php echo $reasignacion->nombre_destino.' '.$reasignacion->apellido_destino ?> el <?php echo $reasignacion->fecha ?></p>
-						<?php endforeach ?>
+						 <button class="btn blue btn-xs" id="ajax-reasignacion" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal">Ver historial de reasignaciones</button>
 					</div>
 				</div>
 			<?php endif ?>

@@ -17,7 +17,7 @@ var UIExtendedModals = function () {
 
 			$.fn.modalmanager.defaults.resize = true;
 
-			//ajax demo:
+			//ajax ventana modal detalles del pendiente
 			var $modal = $('#ajax-detalles-pendiente');
 
 			$('.ajax-pendiente').on('click', function(){
@@ -28,6 +28,20 @@ var UIExtendedModals = function () {
 				setTimeout(function(){
 					$modal.load('/pendiente/detalles/'+id_pendiente, '', function(){
 						$modal.modal();
+					});
+				}, 1000);
+			});
+
+			//ajax ventana modal de reasignaciones
+			var $modal2 = $('#ajax-reasignacion-pendiente');
+
+			$modal.on('click', '#ajax-reasignacion', function(){
+					var id_pendiente = $(this).attr('id-pendiente');
+					$('body').modalmanager('loading');
+
+								setTimeout(function(){
+					$modal2.load('/pendiente/reasignaciones/'+id_pendiente, '', function(){
+						$modal2.modal();
 					});
 				}, 1000);
 			});
