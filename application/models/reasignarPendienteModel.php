@@ -34,6 +34,7 @@ class reasignarPendienteModel extends MY_Model {
 		$this->db->join('ejecutivos as origen', $this->table.'.id_ejecutivo_origen = origen.id', 'inner');
 		$this->db->join('ejecutivos as destino', $this->table.'.id_ejecutivo_destino = destino.id', 'inner');
 		$this->db->where(array('reasignacion_pendiente.id_pendiente' => $id_pendiente));
+		$this->db->order_by('reasignacion_pendiente.id', 'ASC');
 		$query = $this->db->get($this->table);
 
 		return $query->result();

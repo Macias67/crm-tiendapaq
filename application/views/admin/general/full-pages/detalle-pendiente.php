@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
 	<div class="row">
-		<?php var_dump($reasignaciones) ?>
+		<?php var_dump($this->data) ?>
 		<div class="col-md-12">
 		<div class="scroller" style="height: 300px">
 			<div class="col-md-12">
@@ -25,9 +25,15 @@
 				<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_origen) ?></p></div>
 			</div>
 			<div class="col-md-12">
-				<div class="col-md-4 text-right"><b>Asignado por: </b></div>
+				<div class="col-md-4 text-right"><b>Creado por: </b></div>
 				<div class="col-md-8"><p><?php echo $pendiente->creador ?></p></div>
 			</div>
+			<?php if(!empty($reasignaciones)): ?>
+				<div class="col-md-12" style="margin-bottom: 1em;">
+					<div class="col-md-4 text-right"><b>Reasignaciones: </b></div>
+					<div class="col-md-8"><a href="#">Ver historial de asignaciones</a></div>
+				</div>
+			<?php endif ?>
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Oficina origen: </b></div>
 				<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
@@ -35,7 +41,7 @@
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
-					<?php if($pendiente->estatus == 3 || $pendiente->estatus == 7): ?>
+					<?php if($pendiente->id_estatus == 3 || $pendiente->id_estatus == 7): ?>
 						<select id="estatus_pendiente" class="form-control">
 							<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->estatus ?></option>
 							<option value="<?php echo $estatus[4]->id_estatus ?>"><?php echo $estatus[4]->estatus ?></option>
@@ -43,11 +49,11 @@
 							<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->estatus ?></option>
 						</select>
 					<?php else: ?>
-						<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->estatus)-1]->estatus) ?></b></span>
+						<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->id_estatus)-1]->estatus) ?></b></span>
 					<?php endif ?>
 				</div>
 			</div>
-			<?php if($pendiente->estatus == 3 || $pendiente->estatus == 7): ?>
+			<?php if($pendiente->id_estatus == 3 || $pendiente->id_estatus == 7): ?>
 				<div class="col-md-12" style="margin-top: 1em;">
 					<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
 					<div class="col-md-8">

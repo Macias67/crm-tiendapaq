@@ -241,7 +241,7 @@
 																			<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
 																			<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
 																			<td>
-																				<?php switch ($pendiente->estatus) {
+																				<?php switch ($pendiente->id_estatus) {
 																					case 1:
 																						echo '<p class="btn btn-xs red"> Cancelado </p>';
 																					break;

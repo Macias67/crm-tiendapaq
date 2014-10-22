@@ -108,13 +108,25 @@ class Pendiente extends AbstractAccess {
 		$this->load->helper('formatofechas');
 
 		$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
-		$pendiente					= $this->pendienteModel->getPendiente($id_pendiente);
+		$pendiente					= $this->pendienteModel->getPendiente($id_pendiente,
+																															array( 'pendientes.id_pendiente',
+																																	   'clientes.razon_social',
+																																	   'actividades_pendiente.id_actividad',
+																																	   'actividades_pendiente.actividad',
+																																	   'pendientes.descripcion',
+																																	   'pendientes.fecha_origen',
+																																	   'ejecutivos.primer_nombre',
+																																	   'ejecutivos.apellido_paterno',
+																																	   'ejecutivos.oficina',
+																																	   'pendientes.id_estatus'));
+
 		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
 		$this->data['pendiente']	= $pendiente;
 		$this->data['estatus']	= $this->estatusModel->get('*');
 		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
 		$this->data['reasignaciones'] = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
-			array('origen.primer_nombre as n_org','origen.apellido_paterno as a_org','destino.primer_nombre','destino.apellido_paterno','reasignacion_pendiente.fecha'));
+			array('origen.primer_nombre as nombre_origen','origen.apellido_paterno as apellido_origen',
+				'destino.primer_nombre as nombre_destino','destino.apellido_paterno as apellido_destino','reasignacion_pendiente.fecha'));
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
