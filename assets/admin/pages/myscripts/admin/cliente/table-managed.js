@@ -35,6 +35,21 @@ var TableManaged = function () {
 		});
 	}
 
+	var ajaxModal = function() {
+		//ajax demo:
+		var $modal = $('#ajax-modal');
+		$('.ajax-detalles').on('click', function(){
+			var folio = $(this).attr('id');
+			// create the backdrop and wait for next modal to be triggered
+			$('body').modalmanager('loading');
+			setTimeout(function(){
+				$modal.load('./cotizacion/detalles/'+folio, '', function(){
+					$modal.modal();
+				});
+			}, 1000);
+		});
+	}
+
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -42,6 +57,7 @@ var TableManaged = function () {
 				return;
 			}
 			tablaClientes();
+			ajaxModal();
 		}
 	};
 }();

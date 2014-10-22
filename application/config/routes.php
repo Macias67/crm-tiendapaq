@@ -75,14 +75,19 @@ $route['cotizador']			= $DIR_EJECUTIVO."cotizador";
 $route['cotizador/(:num)']	= $DIR_EJECUTIVO."cotizador/pendiente/$1";
 $route['cotizador/(:any)']	= $DIR_EJECUTIVO."cotizador/$1";
 
+// Funciones de Productos
+$route['producto']			= $DIR_EJECUTIVO."producto";
+$route['producto/(:any)']	= $DIR_EJECUTIVO."producto/$1";
+
 // // Funciones del Gestor
 $route['gestor']			= $DIR_EJECUTIVO."gestor";
 $route['gestor/(:any)']		= $DIR_EJECUTIVO."gestor/$1";
 $route['actualizar']			= $DIR_CLIENTE."gestor";
 $route['actualizar/(:any)']	= $DIR_CLIENTE."gestor/$1";
 
-// Funciones de Productos
-$route['producto']			= $DIR_EJECUTIVO."producto";
-$route['producto/(:any)']	= $DIR_EJECUTIVO."producto/$1";
+// Funciones para el manejor de cotiazacion del cliente
+$route['cotizacion']		= $DIR_CLIENTE."cotizacion";
+$route['cotizacion/(:any)']	= $DIR_CLIENTE."cotizacion/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -110,7 +110,7 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-7 col-sm-12">
+					<div class="col-md-9 col-sm-12">
 						<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
 						<div class="portlet gren">
 							<div class="portlet-title">
@@ -147,7 +147,7 @@
 											<td><?php echo $cotizacion->ciudad_estado ?></td>
 											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->estatus) ?></span></td>
 											<td>
-												<button type="button" class="btn green btn-xs"><i class="fa fa-file-o"></i> Detalles</button>
+												<a class="btn green default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>" data-toggle="modal"><i class="fa fa-file-o"></i> Detalles</a>
 												<button type="button" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobar Pago</button>
 											</td>
 										</tr>
@@ -160,6 +160,9 @@
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
+
+				<!-- ajax -->
+				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
 			</div>
 		</div>
 		<!-- END CONTENT -->
