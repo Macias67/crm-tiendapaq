@@ -444,7 +444,7 @@
 				<!-- END AJAX DETALLE PENDIENTE -->
 
 				<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
-				<div id="ajax-reasignacion-pendiente" class="modal container fade" tabindex="-1" data-focus-on="input:first"></div>
+				<div id="ajax-reasignacion-pendiente" class="modal fade" data-width="650" tabindex="-1" data-focus-on="input:first"></div>
 				<!-- END AJAX REASIGNACIONES PENDIENTE -->
 			</div>
 		</div>
