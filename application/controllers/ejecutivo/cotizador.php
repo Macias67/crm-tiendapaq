@@ -39,14 +39,23 @@ class Cotizador extends AbstractAccess {
 	{
 		// Cargo modelos
 		$this->load->model('pendienteModel');
-		if ($pendiente = $this->pendienteModel->getPendiente($id_pendiente)) {
+		if ($pendiente = $this->pendienteModel->getPendiente($id_pendiente, 'pendientes.id_pendiente')) {
 			// Cargo modelos
 			$this->load->model('creaPendienteModel');
 			//Helper
 			$this->load->helper('formatofechas');
 
 			$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
-			$pendiente					= $this->pendienteModel->getPendiente($id_pendiente);
+			$pendiente					= $this->pendienteModel->getPendiente($id_pendiente, 
+																																	array('pendientes.id_pendiente',
+																																	'clientes.razon_social',
+																																	'actividades_pendiente.id_actividad',
+																																	'actividades_pendiente.actividad',
+																																	'pendientes.descripcion',
+																																	'pendientes.fecha_origen',
+																																	'ejecutivos.primer_nombre',
+																																	'ejecutivos.apellido_paterno',
+																																	'ejecutivos.oficina'));
 			$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
 
 			$this->data['pendiente']			= $pendiente;
