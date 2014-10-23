@@ -27,7 +27,7 @@ var ProductoDropdowns	= function() {
 				autoclose: true
 			}).on('changeDate', function(data) {
 				var fecha = $('#vigencia').val();
-				$.post('./cotizador/vigencia/', {fecha:fecha}, function(data) {
+				$.post('/cotizador/vigencia/', {fecha:fecha}, function(data) {
 					$('#dias').html(data.dias);
 				}, 'json');
 			});
