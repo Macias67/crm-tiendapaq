@@ -39,14 +39,14 @@ class Cotizador extends AbstractAccess {
 	{
 		// Cargo modelos
 		$this->load->model('pendienteModel');
-		if ($pendiente = $this->pendienteModel->getPendiente($id_pendiente, 'pendientes.id_pendiente')) {
+		if ($this->pendienteModel->exist(array('id_pendiente' => $id_pendiente))) {
 			// Cargo modelos
 			$this->load->model('creaPendienteModel');
 			//Helper
 			$this->load->helper('formatofechas');
 
 			$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
-			$pendiente					= $this->pendienteModel->getPendiente($id_pendiente, 
+			$pendiente					= $this->pendienteModel->getPendiente($id_pendiente,
 																																	array('pendientes.id_pendiente',
 																																	'clientes.razon_social',
 																																	'actividades_pendiente.id_actividad',
@@ -297,7 +297,7 @@ class Cotizador extends AbstractAccess {
 			// Cargo modelos
 			$this->load->model('pendienteModel');
 			$this->load->model('estatusModel');
-			$this->pendienteModel->update(array('estatus' => $this->estatusModel->CERRADO), array('id_pendiente' => $pendiente));
+			$this->pendienteModel->update(array('id_estatus' => $this->estatusModel->CERRADO), array('id_pendiente' => $pendiente));
 		}
 
 		$array_fecha	= explode('/', $cotizacion['vigencia']);

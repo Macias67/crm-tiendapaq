@@ -723,24 +723,29 @@ class Cliente extends AbstractAccess {
  	}
 
 	/**
-	 * Callback para revisar que no se repita el usuario de un prospecto
-	 * a un cliente normal
+	 * Callback para revisar que no se repita el usuario para acceder al sistema
+	 * revisando en la tabla clente sy ejecutivos
 	 * @param  string $usuario Usuario a revisar
 	 * @return boolean
 	 * @author Diego Rodriguez
 	 */
-	public function usuario_check($usuario)
-	{
+	public function usuario_check($usuario_nuevo)
+	{ //leemos el modelo para comparar con usuarios te tabla ejecutivos
+		$this->load->model('ejecutivoModel');
+
 		//obtenemos el di del cliente desde el input hidden
 		$id = $this->input->post('id_cliente');
+		//obtenemos el nombre de usuario que tiene registrado ede cliente
 		$usuario_actual = $this->clienteModel->get(array('usuario'), array('id' => $id));
 		//si no hay usuario actual es porque el cliente es prospecto o aun no tiene usuario
 		if($usuario_actual != null)
 		{
 			$usuario_actual = $usuario_actual[0]->usuario;
 		}
-
-		if ($this->clienteModel->exist(array('usuario' => $usuario))  && $usuario != $usuario_actual)
+		//verificamos que el nuevo nombre de usuatio no este repetido
+		if (($this->clienteModel->exist(array('usuario' => $usuario_nuevo))
+			   && $usuario_nuevo != $usuario_actual)
+			   || $this->ejecutivoModel->exist(array('usuario' => $usuario_nuevo)))
 		{
 			$this->form_validation->set_message('usuario_check', 'El usuario ya está registrado.');
 			return FALSE;

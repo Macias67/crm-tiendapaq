@@ -295,7 +295,7 @@ var FormValidationCliente = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-			//Metronic.scrollTo(error1, -200);
+				Metronic.scrollTo(error1, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -340,10 +340,11 @@ var FormValidationCliente = function () {
 							alert("Cliente "+data.razon_social+" añadido con éxito.");
 							parent.location.reload();
 						} else {
-							alert("Error : "+data.msg);
+							//alert("Error : "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('body').modalmanager('removeLoading');
+							Metronic.scrollTo(error1, -600);
 						}
 					}
 				});
@@ -535,10 +536,11 @@ var FormValidationCliente = function () {
 							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
 							parent.location.reload();
 						} else {
-							alert("ERROR: "+data.msg);
+							//alert("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('body').modalmanager('removeLoading');
+							Metronic.scrollTo(error1, -600);
 						}
 					}
 				});
