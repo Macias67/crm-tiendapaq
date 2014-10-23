@@ -139,6 +139,16 @@
 									<i class="fa fa-calendar"></i>
 									<div>Calendario</div>
 								</a>
+								<!-- Catálogo de Clientes -->
+								<a href="<?php echo site_url('cliente/gestionar') ?>" class="icon-btn">
+									<i class="fa fa-search"></i>
+									<div>Catálogo de Clientes</div>
+								</a>
+								<!-- Todos Mis Pendientes -->
+								<a href="<?php echo site_url('perfil') ?>" class="icon-btn">
+									<i class="fa fa-list"></i>
+									<div>Todos Mis Pendientes</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -149,7 +159,7 @@
 						<!-- BEGIN TABLA MIS PENDIENTES-->
 						<div class="portlet gren">
 							<div class="portlet-title">
-								<div class="caption"><i class="fa fa-user"></i>Mis Pendientes</div>
+								<div class="caption"><i class="fa fa-user"></i>Mis Nuevos Pendientes</div>
 							</div>
 							<div class="portlet-body">
 								<div class="scroller" style="height:400px">
@@ -440,8 +450,12 @@
 				<!-- END NUEVO PENDIENTE -->
 
 				<!-- BEGIN AJAX DETALLE PENDIENTE -->
-				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
+				<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1"></div>
 				<!-- END AJAX DETALLE PENDIENTE -->
+
+				<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
+				<div id="ajax-reasignacion-pendiente" class="modal fade" data-width="650" tabindex="-1" data-focus-on="input:first"></div>
+				<!-- END AJAX REASIGNACIONES PENDIENTE -->
 			</div>
 		</div>
 		<!-- END CONTENT -->

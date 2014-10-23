@@ -39,10 +39,10 @@ var TableEditable = function () {
                 { "orderable": false }
             ],
             "language": {
-                "emptyTable":     "No hay sistemas registrados",
-                "info":           "Mostrando _START_ a _END_ de _TOTAL_ sistemas",
-                "infoEmpty":      "Mostrando 0 a 0 de 0 sistemas",
-                "infoFiltered":   "(de un total de _MAX_ sistemas registrados)",
+                "emptyTable":     "No hay clientes registrados",
+                "info":           "Mostrando _START_ a _END_ de _TOTAL_ clientes",
+                "infoEmpty":      "Mostrando 0 a 0 de 0 clientes",
+                "infoFiltered":   "(de un total de _MAX_ clientes registrados)",
                 "infoPostFix":    "",
                 "thousands":      ",",
                 "lengthMenu":     "Show _MENU_ entries",

@@ -3,11 +3,9 @@
 	<h4 class="modal-title"><b>Detalles del pendiente: </b></h4>
 </div>
 <div class="modal-body">
+	<div class="scroller">
 	<div class="row">
-		<!-- <?php var_dump($this->data) ?> -->
-		
 		<div class="col-md-12">
-		<div class="scroller" style="height: 300px">
 			<div class="col-md-12">
 				<input type="hidden" id="id_pendiente" value="<?php echo $pendiente->id_pendiente ?>">
 				<div class="col-md-4 text-right"><b>Razón Social: </b></div>
@@ -32,7 +30,9 @@
 			<?php if(!empty($reasignaciones)): ?>
 				<div class="col-md-12" style="margin-bottom: 1em;">
 					<div class="col-md-4 text-right"><b>Reasignaciones: </b></div>
-					<div class="col-md-8"><a href="#">Ver historial de asignaciones</a></div>
+					<div class="col-md-8">
+						 <button class="btn blue btn-xs" id="ajax-reasignacion" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal">Ver historial de reasignaciones</button>
+					</div>
 				</div>
 			<?php endif ?>
 			<div class="col-md-12">
@@ -70,7 +70,7 @@
 				</div>
 			<?php endif ?>
 		</div>
-		</div>
+	</div>
 	</div>
 </div>
 <div class="modal-footer">
