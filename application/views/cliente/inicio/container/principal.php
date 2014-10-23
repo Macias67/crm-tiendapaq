@@ -147,7 +147,7 @@
 											<td><?php echo $cotizacion->ciudad_estado ?></td>
 											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->estatus) ?></span></td>
 											<td>
-												<a class="btn green default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>" data-toggle="modal"><i class="fa fa-file-o"></i> Detalles</a>
+												<button type="button" class="btn green default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
 												<button type="button" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobar Pago</button>
 											</td>
 										</tr>

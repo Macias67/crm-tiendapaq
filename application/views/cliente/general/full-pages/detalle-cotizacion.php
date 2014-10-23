@@ -4,9 +4,12 @@
 </div>
 <div class="modal-body">
 	<div class="row">
-	<?php echo $folio ?>
+		<div class="col-md-12">
+			<?php echo $folio ?>
+		</div>
 	</div>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn green update">Aceptar</button>
+	<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
 </div>

@@ -16,8 +16,10 @@ class Cotizacion extends AbstractAccess {
 
 	public function detalles($folio)
 	{
+		$this->load->model('cotizacionModel');
+		
 		$this->data['folio'] = $folio;
-		$this->_vista_completa('detalle-cotizacion')
+		$this->_vista_completa('detalle-cotizacion');
 	}
 
 }
