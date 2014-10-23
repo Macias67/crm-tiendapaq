@@ -5,7 +5,7 @@
 <div class="modal-body">
 	<div class="row">
 		<div class="col-md-12">
-			<?php echo $folio ?>
+			<?php var_dump($cotizacion) ?>
 		</div>
 	</div>
 </div>

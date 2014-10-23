@@ -13,13 +13,15 @@ class Cotizacion extends AbstractAccess {
 		
 	}
 
-
 	public function detalles($folio)
 	{
 		$this->load->model('cotizacionModel');
-		
-		$this->data['folio'] = $folio;
-		$this->_vista_completa('detalle-cotizacion');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
+			$this->data['cotizacion'] = $cotizacion;
+			$this->_vista_completa('detalle-cotizacion');
+		} else {
+			show_404();
+		}
 	}
 
 }

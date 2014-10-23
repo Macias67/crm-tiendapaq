@@ -162,7 +162,7 @@
 				<!-- END PAGE CONTENT-->
 
 				<!-- ajax -->
-				<div id="ajax-modal" class="modal fade" tabindex="-1"></div>
+				<div id="ajax-modal" class="modal container fade" tabindex="-1"></div>
 			</div>
 		</div>
 		<!-- END CONTENT -->
