@@ -69,6 +69,37 @@ var TableManaged = function() {
 		});
 	}
 
+		// Envia datos para mostar un pdf de prueba
+	var previaPDF = function() {
+		var enviar = $('#previa');
+
+		enviar.on('click', function() {
+			if (totalProductos > 0) {
+				var columnas = $('#lista > tr');
+
+				// Datos cotizacion
+				var cotizacion = {
+					folio: $('#folio').html(),
+					ejecutivo: $('.ejecutivo').attr('id')
+				}
+
+				// Datos del cliente
+				var cliente = {
+					id: 				$('#razon_social').val(),
+					contacto: 	$('#contactos option:selected').val(),
+					email: 			$('#email').val()
+				}
+
+				$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function() {
+					window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800,width=800');
+				}, 'json');
+			} else {
+				bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
+			}
+		});
+	}
+
+
 
 	return {
 		//main function to initiate the module
