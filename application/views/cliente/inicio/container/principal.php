@@ -147,8 +147,8 @@
 											<td><?php echo $cotizacion->ciudad_estado ?></td>
 											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->estatus) ?></span></td>
 											<td>
-												<button type="button" class="btn green default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
-												<button type="button" class="btn red default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Descargar</button>
+												<button type="button" class="btn green default cotizacion-previa btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
+												<button type="button" class="btn red default cotizacion-descarga btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Descargar</button>
 												<button type="button" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobante de Pago</button>
 											</td>
 										</tr>

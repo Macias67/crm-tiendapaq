@@ -69,36 +69,30 @@ var TableManaged = function() {
 		});
 	}
 
-		// Envia datos para mostar un pdf de prueba
+	// Muestra visualizacvion previa del pdf de la
+	// cotizacion al cliente
 	var previaPDF = function() {
-		var enviar = $('#previa');
+		$('.cotizacion-previa').on('click', function() {
+			// Datos cotizacion
+			var folio = $(this).attr('id');
 
-		enviar.on('click', function() {
-			if (totalProductos > 0) {
-				var columnas = $('#lista > tr');
-
-				// Datos cotizacion
-				var cotizacion = {
-					folio: $('#folio').html(),
-					ejecutivo: $('.ejecutivo').attr('id')
-				}
-
-				// Datos del cliente
-				var cliente = {
-					id: 				$('#razon_social').val(),
-					contacto: 	$('#contactos option:selected').val(),
-					email: 			$('#email').val()
-				}
-
-				$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function() {
-					window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800,width=800');
-				}, 'json');
-			} else {
-				bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
-			}
+			$.post('/cotizacion/previapdf', {folio:folio}, function(data) {
+				window.open(data.ruta,'','height=800,width=800');
+			}, 'json');
 		});
 	}
 
+	// Descarga el pdf de la cotizacion al cliente
+	var descargaPDF = function() {
+		$('.cotizacion-descarga').on('click', function(data) {
+			// Datos cotizacion
+			var folio = $(this).attr('id');
+
+			$.post('/cotizacion/descargarpdf', {folio:folio}, function() {
+				alert('descargar');
+			});
+		});
+	}
 
 
 	return {
@@ -109,6 +103,8 @@ var TableManaged = function() {
 			}
 			tablaCotizacion();
 			ajaxModal();
+			previaPDF();
+			descargaPDF();
 		}
 	};
 }();
