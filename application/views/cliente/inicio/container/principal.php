@@ -149,7 +149,7 @@
 											<td>
 												<button type="button" class="btn green default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
 												<button type="button" class="btn red default ajax-detalles btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Descargar</button>
-												<button type="button" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobante de Pago</button>
+												<a href="<?php echo site_url('cotizacion/comprobante/'.$cotizacion->folio) ?>" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobante de Pago</a>
 											</td>
 										</tr>
 									<?php endforeach ?>

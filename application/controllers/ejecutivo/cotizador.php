@@ -264,12 +264,19 @@ class Cotizador extends AbstractAccess {
 		$html2pdf = new HTML2PDF('P','LETTER','es');
 		$html2pdf->WriteHTML($content);
 
+		// Si no existe la carpeta cotizacion del cliente la creo
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$data_cliente[0]->id.'/cotizacion/';
 		if (!is_dir($dir_root)) {
 			mkdir($dir_root, DIR_WRITE_MODE, TRUE);
 		}
 		$name		= 'cotizacion-'.$folio.'.pdf';
 		$path 		= $dir_root.$name;
+
+		// Si no existe la carpeta comprobantes del cliente la creo
+		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$data_cliente[0]->id.'/comprobantes/'.$folio.'/';
+		if (!is_dir($dir_root)) {
+			mkdir($dir_root, DIR_WRITE_MODE, TRUE);
+		}
 
 		// Borro PDF temporal
 		$dir_tmp		= $this->input->server('DOCUMENT_ROOT').'/tmp/cotizacion/';

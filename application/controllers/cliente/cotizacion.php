@@ -47,6 +47,48 @@ class Cotizacion extends AbstractAccess {
 		$path 		= $dir_root.$name;
 
 	}
+
+	public function comprobante($folio)
+	{
+		$this->load->model('cotizacionModel');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
+			$this->data['cotizacion'] = $cotizacion;
+			$this->_vista('formulario');
+		} else {
+			show_404();
+		}
+	}
+
+	public function ajax($cliente, $folio)
+	{
+		error_reporting(E_ALL | E_STRICT);
+		$params = array(
+			'script_url' 			=> site_url('cotizacion/ajax/'.$cliente.'/'.$folio),
+			'upload_dir' 		=> dirname($this->input->server('SCRIPT_FILENAME')).'/clientes/'.$cliente.'/comprobantes/'.$folio.'/',
+			'upload_url' 		=> site_url('clientes/'.$cliente.'/comprobantes/'.$folio).'/',
+			'max_number_of_files' 	=> 3,
+			'accept_file_types'		=> '/\.(gif|jpe?g|png|pdf)$/i',
+			'image_file_types'		=> '/\.(gif|jpe?g|png)$/i',
+			// 'min_width'			=> 1024,
+			// 'min_height'		=> 768,
+			// 'image_versions'	=> array(
+			// 	'' => array(
+			// 		'auto_orient' => true
+			// 	),
+			// 	'medium' => array(
+			// 		'crop' 			=> true,
+			// 		'max_width'	=> 1024,
+			// 		'max_height'	=> 768
+			// 	),
+			// 	'thumbnail' => array(
+			// 		'crop' 			=> true,
+			// 		'max_width'	=> 270,
+			// 		'max_height'	=> 180
+			// 	)
+			// )
+		);
+		$this->load->library("UploadHandler", $params);
+	}
 }
 
 /* End of file cotizacion.php */
