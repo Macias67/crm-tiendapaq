@@ -32,20 +32,16 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function previapdf()
 	{
-		$this->load->model('productoModel');
-		$this->load->model('cotizacionModel');
-		$this->load->model('ejecutivoModel');
-		$this->load->model('clienteModel');
+		$folio =$this->input->post('folio');
 
-		$folio = $this->cotizacionModel->getSiguienteFolio();
-
-		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$data_cliente[0]->id.'/cotizacion/';
-		if (!is_dir($dir_root)) {
-			mkdir($dir_root, DIR_WRITE_MODE, TRUE);
-		}
+		$dir_root	= site_url('/clientes/'.$this->usuario_activo['id'].'/cotizacion').'/';
 		$name		= 'cotizacion-'.$folio.'.pdf';
-		$path 		= $dir_root.$name;
+		$path 	= $dir_root.$name;
 
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode(array('ruta' => $path, 'id_cliente' => $this->usuario_activo['id'])));
 	}
 
 	public function comprobante($folio)
@@ -88,6 +84,32 @@ class Cotizacion extends AbstractAccess {
 			// )
 		);
 		$this->load->library("UploadHandler", $params);
+	}
+
+	/**
+	 * Funcion para previsualizar un pdf con una cotizacion
+	 * para los clientes
+	 *
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
+	public function descargarpdf()
+	{
+		$this->load->helper('download');
+
+		$folio =$this->input->post('folio');
+
+		$dir_root	= site_url('/clientes/'.$this->usuario_activo['id'].'/cotizacion').'/';
+		$name		= 'cotizacion-'.$folio.'.pdf';
+		$path 	= $dir_root.$name;
+
+		//force_download($name, file_get_contents($path));
+		require_once APPPATH.'third_party/html2pdf/html2pdf.class.php';
+		$html2pdf = new HTML2PDF('P','LETTER','es');
+		$html2pdf->Output($path, 'D');
+	// 	//mando la repuesta
+	// 	$this->output
+	// 		->set_content_type('application/json')
+	// 		->set_output(json_encode(array('ruta' => $path, 'folio' => $folio)));
 	}
 }
 
