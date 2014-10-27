@@ -77,7 +77,9 @@ var TableManaged = function() {
 			var folio = $(this).attr('id');
 
 			$.post('/cotizacion/previapdf', {folio:folio}, function(data) {
-				window.open(data.ruta,'','height=800,width=800');
+				if (data.existe) {
+					window.open(data.ruta,'','height=800,width=800');
+				}
 			}, 'json');
 		});
 	}

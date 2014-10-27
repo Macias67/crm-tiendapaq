@@ -119,6 +119,26 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-5">
+						<div class="portlet gren">
+							<div class="portlet-title">
+								<div class="caption"><i class="fa fa-gift"></i> Detalles de cotización</div>
+								<div class="tools">
+									<a href="javascript:;" class="expand"></a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<div class="col-md-4 text-right"><b>Razón Social: </b></div>
+										<div class="col-md-8"><p><?php echo $usuario_activo['razon_social'] ?></p></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-4 text-right"><b>Folio: </b></div>
+										<div class="col-md-8"><p><?php echo $cotizacion->folio ?></p></div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<?php echo var_dump($cotizacion) ?>
 					</div>
 					<div class="col-md-7">
@@ -138,23 +158,23 @@
 									<span class="btn green fileinput-button">
 										<i class="fa fa-plus"></i>
 										<span>
-										Add files... </span>
+										Añadir archivos... </span>
 										<input type="file" name="files[]" multiple="">
 									</span>
 									<button type="submit" class="btn blue start">
 										<i class="fa fa-upload"></i>
 										<span>
-										Start upload </span>
+										Iniciar subida </span>
 									</button>
 									<button type="reset" class="btn warning cancel">
 										<i class="fa fa-ban-circle"></i>
 										<span>
-										Cancel upload </span>
+										Cancelar subida </span>
 									</button>
 									<button type="button" class="btn red delete">
 										<i class="fa fa-trash"></i>
 										<span>
-										Delete </span>
+										Borrar </span>
 									</button>
 									<input type="checkbox" class="toggle">
 									<!-- The global file processing state -->
@@ -225,7 +245,7 @@
 						<strong class="error text-danger label label-danger"></strong>
 					</td>
 					<td>
-						<p class="size">Processing...</p>
+						<p class="size">Procesando...</p>
 						<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
 						<div class="progress-bar progress-bar-success" style="width:0%;"></div>
 						</div>
@@ -234,13 +254,13 @@
 						{% if (!i && !o.options.autoUpload) { %}
 							<button class="btn blue start" disabled>
 								<i class="fa fa-upload"></i>
-								<span>Start</span>
+								<span>Iniciar</span>
 							</button>
 						{% } %}
 						{% if (!i) { %}
 							<button class="btn red cancel">
 								<i class="fa fa-ban"></i>
-								<span>Cancel</span>
+								<span>Cancelar</span>
 							</button>
 						{% } %}
 					</td>
@@ -277,13 +297,13 @@
 					{% if (file.deleteUrl) { %}
 					<button class="btn red delete btn-sm" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
 						<i class="fa fa-trash-o"></i>
-						<span>Delete</span>
+						<span>Borrar</span>
 					</button>
 						<input type="checkbox" name="delete" value="1" class="toggle">
 					{% } else { %}
 					<button class="btn yellow cancel btn-sm">
 						<i class="fa fa-ban"></i>
-						<span>Cancel</span>
+						<span>Cancelar</span>
 					</button>
 					{% } %}
 				</td>
