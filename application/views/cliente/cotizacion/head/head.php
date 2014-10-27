@@ -24,6 +24,7 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link href="<?php echo $assets_admin_pages ?>css/invoice.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_plugins ?>jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_global_plugins ?>jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_global_plugins ?>jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>

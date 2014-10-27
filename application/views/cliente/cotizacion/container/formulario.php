@@ -118,7 +118,7 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption"><i class="fa fa-gift"></i> Detalles de cotización</div>
@@ -127,21 +127,116 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<div class="col-md-12">
-									<div class="col-md-12">
-										<div class="col-md-4 text-right"><b>Razón Social: </b></div>
-										<div class="col-md-8"><p><?php echo $usuario_activo['razon_social'] ?></p></div>
+								<!-- BEGIN PAGE CONTENT-->
+								<div class="invoice">
+									<div class="row invoice-logo">
+										<div class="col-xs-6 invoice-logo-space">
+											<img src="../../assets/admin/pages/media/invoice/walmart.png" class="img-responsive" alt=""/>
+										</div>
+										<div class="col-xs-6">
+											<p>
+												Folio: <?php echo $cotizacion->folio ?> / <?php echo $cotizacion->fecha ?>
+												<span class="muted"><strong>Vigencia: </strong><?php echo $cotizacion->vigencia ?></span>
+											</p>
+										</div>
 									</div>
-									<div class="col-md-12">
-										<div class="col-md-4 text-right"><b>Folio: </b></div>
-										<div class="col-md-8"><p><?php echo $cotizacion->folio ?></p></div>
+									<hr/>
+									<div class="row">
+										<div class="col-xs-5">
+											<h3>Cliente: </h3>
+											<ul class="list-unstyled">
+												<li><strong><?php echo $usuario_activo['razon_social'] ?></strong></li>
+												<li> Mr Nilson Otto</li>
+												<li>FoodMaster Ltd</li>
+												<li>Madrid</li>
+												<li> Spain</li>
+												<li>1982 OOP</li>
+											</ul>
+										</div>
+										<div class="col-xs-6 invoice-payment">
+											<h3>Detalles de pago:</h3>
+											<ul class="list-unstyled">
+												<li><strong><?php echo $cotizacion->banco ?></strong></li>
+												<li><?php echo $cotizacion->titular ?></li>
+												<li><?php echo $cotizacion->sucursal.'/'.$cotizacion->cta ?></li>
+												<li><?php echo $cotizacion->cib ?></li>
+											</ul>
+										</div>
+										<div class="col-xs-12">
+											<h3>Observaciones:</h3>
+											<ul class="list-unstyled">
+												<li><strong><?php echo $cotizacion->descripcion ?></strong></li>
+											</ul>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
+											<table class="table table-striped table-hover">
+												<thead>
+													<tr>
+														<th>Código</th>
+														<th>Descripcion</th>
+														<th class="hidden-480">Cantidad</th>
+														<th class="hidden-480">Precio</th>
+														<th class="hidden-480">Neto</th>
+														<th class="hidden-480">Descuento</th>
+														<th>Total</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach ($cotizacion->cotizacion as $producto): ?>
+													<tr>
+														<td><?php echo $producto->codigo ?></td>
+														<td><?php echo $producto->descripcion ?></td>
+														<td class="hidden-480"><?php echo $producto->cantidad ?></td>
+														<td class="hidden-480">$ <?php printf("%.2f", $producto->precio) ?></td>
+														<td class="hidden-480">$ <?php printf("%.2f", $producto->neto) ?></td>
+														<td class="hidden-480">$ <?php printf("%.2f", $producto->descuento) ?></td>
+														<td>$ <?php printf("%.2f", $producto->total) ?></td>
+													</tr>
+													<?php endforeach ?>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-4">
+											<div class="well">
+												<address>
+													<strong>TiendaPAQ</strong><br/>
+													<?php echo $cotizacion->calle.' '.$cotizacion->numero ?><br/>
+													<?php echo 'Col. '.$cotizacion->colonia ?><br/>
+													<?php echo $cotizacion->ciudad_estado ?><br/>
+													<abbr title="Teléfono"><?php echo $cotizacion->telefono ?></abbr>
+													<a href="mailto:<?php echo $cotizacion->email ?>"><?php echo $cotizacion->email ?></a>
+												</address>
+											</div>
+										</div>
+										<div class="col-xs-8 invoice-block">
+											<ul class="list-unstyled amounts">
+												<li>
+													<strong>NETO: </strong> $9265
+												</li>
+												<li>
+													<strong>Descueto: </strong> $9265
+												</li>
+												<li>
+													<strong>I.V.A: </strong> -----
+												</li>
+												<li>
+													<strong>Total: </strong> $12489
+												</li>
+											</ul>
+											<br/>
+											<a class="btn btn-lg blue hidden-print margin-bottom-5" onclick="javascript:window.print();">Imprimir PDF <i class="fa fa-print"></i></a>
+										</div>
 									</div>
 								</div>
+								<!-- END PAGE CONTENT-->
 							</div>
 						</div>
-						<?php echo var_dump($cotizacion) ?>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<blockquote>
 							<p style="font-size:16px">
 								File Upload widget with multiple file selection, drag&amp;drop support, progress bars and preview images for jQuery.<br>
