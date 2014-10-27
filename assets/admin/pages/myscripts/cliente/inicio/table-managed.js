@@ -84,18 +84,6 @@ var TableManaged = function() {
 		});
 	}
 
-	// Descarga el pdf de la cotizacion al cliente
-	var descargaPDF = function() {
-		$('.cotizacion-descarga').on('click', function(data) {
-			// Datos cotizacion
-			var folio = $(this).attr('id');
-
-			$.post('/cotizacion/descargarpdf', {folio:folio}, function() {
-				alert('descargar');
-			});
-		});
-	}
-
 
 	return {
 		//main function to initiate the module
@@ -106,7 +94,6 @@ var TableManaged = function() {
 			tablaCotizacion();
 			ajaxModal();
 			previaPDF();
-			descargaPDF();
 		}
 	};
 }();

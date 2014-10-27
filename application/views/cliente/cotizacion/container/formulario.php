@@ -131,7 +131,7 @@
 								<div class="invoice">
 									<div class="row invoice-logo">
 										<div class="col-xs-6 invoice-logo-space">
-											<img src="../../assets/admin/pages/media/invoice/walmart.png" class="img-responsive" alt=""/>
+											<img src="../../assets/admin/pages/media/invoice/tiendapaq.png" class="img-responsive" alt=""/>
 										</div>
 										<div class="col-xs-6">
 											<p>

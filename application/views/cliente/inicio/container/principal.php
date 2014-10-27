@@ -148,7 +148,7 @@
 											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->estatus) ?></span></td>
 											<td>
 												<button type="button" class="btn green default cotizacion-previa btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
-												<a class="btn red default cotizacion-descarga btn-xs" href="<?php echo site_url('cotizacion/descarga/'.$cotizacion->folio) ?>"><i class="fa fa-file-o"></i> Descargar</a>
+												<a class="btn red default btn-xs" href="<?php echo site_url('cotizacion/descarga/'.$cotizacion->folio) ?>"><i class="fa fa-file-o"></i> Descargar</a>
 												<a href="<?php echo site_url('cotizacion/comprobante/'.$cotizacion->folio) ?>" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobante de Pago</a>
 											</td>
 										</tr>
