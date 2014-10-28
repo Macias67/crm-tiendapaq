@@ -115,7 +115,7 @@
 					</div>
 				</div>
 				<!-- END PAGE HEADER-->
-
+				
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-6">
@@ -171,6 +171,7 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">
+											<h3>Productos:</h3>
 											<table class="table table-striped table-hover">
 												<thead>
 													<tr>
@@ -200,7 +201,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-xs-4">
+										<div class="col-xs-6">
 											<div class="well">
 												<address>
 													<strong>TiendaPAQ</strong><br/>
@@ -212,7 +213,7 @@
 												</address>
 											</div>
 										</div>
-										<div class="col-xs-8 invoice-block">
+										<div class="col-xs-6 invoice-block">
 											<ul class="list-unstyled amounts">
 												<li>
 													<strong>NETO: </strong> $9265
