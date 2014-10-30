@@ -118,7 +118,7 @@
 				
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-6">
+					<!-- <div class="col-md-6">
 						<div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption"><i class="fa fa-gift"></i> Detalles de cotización</div>
@@ -127,7 +127,6 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<!-- BEGIN PAGE CONTENT-->
 								<div class="invoice">
 									<div class="row invoice-logo">
 										<div class="col-xs-6 invoice-logo-space">
@@ -233,19 +232,10 @@
 										</div>
 									</div>
 								</div>
-								<!-- END PAGE CONTENT-->
 							</div>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<blockquote>
-							<p style="font-size:16px">
-								File Upload widget with multiple file selection, drag&amp;drop support, progress bars and preview images for jQuery.<br>
-								Supports cross-domain, chunked and resumable file uploads and client-side image resizing.<br>
-								Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.
-							</p>
-						</blockquote>
-						<br>
+					</div> -->
+					<div class="col-md-8">
 						<form id="fileupload" action="<?php echo site_url('cotizacion/ajax/'.$cotizacion->cliente.'/'.$cotizacion->folio) ?>" method="POST" enctype="multipart/form-data">
 							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 							<div class="row fileupload-buttonbar">
@@ -295,19 +285,12 @@
 						</form>
 						<div class="panel panel-success">
 							<div class="panel-heading">
-								<h3 class="panel-title">Demo Notes</h3>
+								<h3 class="panel-title">Especificaciones de archivos a subir</h3>
 							</div>
 							<div class="panel-body">
 								<ul>
-									<li>
-										The maximum file size for uploads in this demo is <strong>5 MB</strong> (default file size is unlimited).
-									</li>
-									<li>
-										Only image files (<strong>JPG, GIF, PNG</strong>) are allowed in this demo (by default there is no file type restriction).
-									</li>
-									<li>
-										Uploaded files will be deleted automatically after <strong>5 minutes</strong> (demo setting).
-									</li>
+									<li>El tamaño por archivo maximo es de <strong>2 MB</strong>. </li>
+									<li>Unicamente archivos  (<strong>JPG, PNG, PDF</strong>) son permitidos.</li>
 								</ul>
 							</div>
 						</div>
