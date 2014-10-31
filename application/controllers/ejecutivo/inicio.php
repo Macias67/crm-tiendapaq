@@ -12,6 +12,9 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
+		// Cargo modelos
+		$this->load->model('cotizacionModel');
+
 		if($this->usuario_activo['privilegios'] == "cliente")
 		{
 			// SECCION PARA CLIENTES
@@ -45,6 +48,8 @@ class Inicio extends AbstractAccess {
 				array('soporte', 'admin'),
 				'primer_nombre');
 
+			//cantidad de cotizaciones pagadas por revisar
+			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'),array('estatus' => 2)));
 			// Listado de actividades para levantar un pendiente
 			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 			// Listado de pendientes DEL USUARIO ACTIVO
