@@ -33,6 +33,7 @@
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script src="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.pack.js"></script>
+		<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN:File Upload Plugin JS files-->

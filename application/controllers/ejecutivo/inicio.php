@@ -18,10 +18,12 @@ class Inicio extends AbstractAccess {
 
 			// Cargo modelos
 			$this->load->model('cotizacionModel');
+			$this->load->model('estatusCotizacionModel');
 			// Cargo helper
 			$this->load->helper('formatofechas');
 
-			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id']);
+			$this->data['cotizaciones'] = $this->cotizacionModel
+				->get_cotizaciones_cliente($this->usuario_activo['id'], $this->estatusCotizacionModel->ENVIADO);
 			$this->_vista('principal');
 		} else
 		{

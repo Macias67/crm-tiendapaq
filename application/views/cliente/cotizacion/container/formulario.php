@@ -115,11 +115,74 @@
 					</div>
 				</div>
 				<!-- END PAGE HEADER-->
-				
+
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<!-- <div class="col-md-6">
-						<div class="portlet gren">
+					<div class="col-md-8">
+						<form id="fileupload" action="<?php echo site_url('cotizacion/ajax/'.$cotizacion->cliente.'/'.$cotizacion->folio) ?>" method="POST" enctype="multipart/form-data">
+							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+							<div class="row fileupload-buttonbar">
+								<div class="col-lg-8">
+									<div class="btn-group btn-group-xs btn-group-solid">
+										<!-- The fileinput-button span is used to style the file input field as button -->
+										<span class="btn green btn-xs fileinput-button">
+											<i class="fa fa-plus"></i>
+											<span>Añadir archivos... </span>
+											<input type="file" name="files[]" multiple="">
+										</span>
+										<button type="submit" class="btn blue btn-xs start">
+											<i class="fa fa-upload"></i>
+											<span>Subir archivos </span>
+										</button>
+										<button type="reset" class="btn warning btn-xs cancel">
+											<i class="fa fa-ban-circle"></i>
+											<span>
+											Cancelar subida </span>
+										</button>
+										<button type="button" class="btn red btn-xs delete">
+											<i class="fa fa-trash"></i>
+											<span>Borrar </span>
+										</button>
+									</div>
+										<br>
+									<span>
+										<input type="checkbox" class="toggle"> Seleccionar todos
+									</span>
+									<!-- The global file processing state -->
+									<span class="fileupload-process">
+									</span>
+								</div>
+								<!-- The global progress information -->
+								<div class="col-lg-4 fileupload-progress fade">
+									<!-- The global progress bar -->
+									<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+										<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+									</div>
+									<!-- The extended global progress information -->
+									<div class="progress-extended">&nbsp;</div>
+								</div>
+							</div>
+							<!-- The table listing the files available for upload/download -->
+							<table role="presentation" class="table table-striped clearfix">
+								<tbody class="files">
+								</tbody>
+							</table>
+						</form>
+						<button class="btn green btn-lg btn-block" id="confirmar" folio="<?php echo $cotizacion->folio ?>">Confirmar archivos</button>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h3 class="panel-title">Especificaciones de archivos a subir</h3>
+							</div>
+							<div class="panel-body">
+								<ul>
+									<li>El tamaño por archivo maximo es de <strong>2 MB</strong>. </li>
+									<li>Unicamente archivos  (<strong>JPG, PNG, PDF</strong>) son permitidos.</li>
+								</ul>
+							</div>
+						</div>
+						<!-- <div class="portlet gren">
 							<div class="portlet-title">
 								<div class="caption"><i class="fa fa-gift"></i> Detalles de cotización</div>
 								<div class="tools">
@@ -233,67 +296,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-					</div> -->
-					<div class="col-md-8">
-						<form id="fileupload" action="<?php echo site_url('cotizacion/ajax/'.$cotizacion->cliente.'/'.$cotizacion->folio) ?>" method="POST" enctype="multipart/form-data">
-							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-							<div class="row fileupload-buttonbar">
-								<div class="col-lg-8">
-									<!-- The fileinput-button span is used to style the file input field as button -->
-									<span class="btn green fileinput-button">
-										<i class="fa fa-plus"></i>
-										<span>
-										Añadir archivos... </span>
-										<input type="file" name="files[]" multiple="">
-									</span>
-									<button type="submit" class="btn blue start">
-										<i class="fa fa-upload"></i>
-										<span>
-										Iniciar subida </span>
-									</button>
-									<button type="reset" class="btn warning cancel">
-										<i class="fa fa-ban-circle"></i>
-										<span>
-										Cancelar subida </span>
-									</button>
-									<button type="button" class="btn red delete">
-										<i class="fa fa-trash"></i>
-										<span>
-										Borrar </span>
-									</button>
-									<input type="checkbox" class="toggle">
-									<!-- The global file processing state -->
-									<span class="fileupload-process">
-									</span>
-								</div>
-								<!-- The global progress information -->
-								<div class="col-lg-4 fileupload-progress fade">
-									<!-- The global progress bar -->
-									<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-										<div class="progress-bar progress-bar-success" style="width:0%;"></div>
-									</div>
-									<!-- The extended global progress information -->
-									<div class="progress-extended">&nbsp;</div>
-								</div>
-							</div>
-							<!-- The table listing the files available for upload/download -->
-							<table role="presentation" class="table table-striped clearfix">
-								<tbody class="files">
-								</tbody>
-							</table>
-						</form>
-						<div class="panel panel-success">
-							<div class="panel-heading">
-								<h3 class="panel-title">Especificaciones de archivos a subir</h3>
-							</div>
-							<div class="panel-body">
-								<ul>
-									<li>El tamaño por archivo maximo es de <strong>2 MB</strong>. </li>
-									<li>Unicamente archivos  (<strong>JPG, PNG, PDF</strong>) son permitidos.</li>
-								</ul>
-							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->

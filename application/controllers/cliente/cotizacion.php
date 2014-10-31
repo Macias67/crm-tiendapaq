@@ -96,6 +96,18 @@ class Cotizacion extends AbstractAccess {
 		$this->load->library("UploadHandler", $params);
 	}
 
+	public function estado()
+	{
+		$folio = $this->input->post('folio');
+		if ($this->cotizacionModel->exist(array('folio' => $folio, ''))) {
+			# code...
+		}
+		$response = array('folio' => $folio);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
 	 * para los clientes
