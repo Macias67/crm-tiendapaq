@@ -149,6 +149,16 @@
 									<i class="fa fa-list"></i>
 									<div>Todos Mis Pendientes</div>
 								</a>
+								<!-- Cotizaciones -->
+								<a href="#" class="icon-btn">
+									<i class="fa fa-dollar"></i>
+									<div>Cotizaciones para revision</div>
+									<?php if ($cotizaciones_revision!=0): ?>
+										<span class="badge badge-danger">
+											<?php echo $cotizaciones_revision ?>
+										</span>
+									<?php endif ?>
+								</a>
 							</div>
 						</div>
 					</div>
