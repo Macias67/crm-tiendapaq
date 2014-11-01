@@ -310,6 +310,8 @@ class Cotizador extends AbstractAccess {
 		$array_fecha	= explode('/', $cotizacion['vigencia']);
 		$vigencia		= $array_fecha[2].'-'.$array_fecha[1].'-'.$array_fecha[0];
 
+		$this->load->model('estatusCotizacionModel');
+
 		$cotizacion = array(
 			'fecha'			=> date('Y-m-d'),
 			'vigencia'		=> $vigencia,
@@ -317,9 +319,9 @@ class Cotizador extends AbstractAccess {
 			'cliente'		=> $cliente['id'],
 			'oficina'		=> $oficina->id_oficina,
 			'cotizacion'		=> json_encode($productos),
-			'observaciones'	=> 1,
-			'banco'			=> 1,
-			'estatus'		=> 1);
+			'id_observaciones'	=> 1,
+			'id_banco'			=> 1,
+			'id_estatus'		=> $this->estatusCotizacionModel->ENVIADO);
 
 		if($this->cotizacionModel->insert($cotizacion)) {
 			echo json_encode($cotizacion);

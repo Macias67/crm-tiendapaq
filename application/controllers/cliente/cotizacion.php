@@ -58,8 +58,24 @@ class Cotizacion extends AbstractAccess {
 	public function comprobante($folio)
 	{
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
+			$this->load->model('estatusCotizacionModel');
 			$this->data['cotizacion'] = $cotizacion;
-			$this->_vista('formulario');
+			if ($cotizacion->id_estatus == $this->estatusCotizacionModel->ENVIADO)
+			{
+				$this->_vista('formulario');
+			} else
+			{
+				$this->load->helper('directory');
+				$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/', 1);
+				// Descarto la carpeta de las thumnail
+				foreach ($archivos as $index => $archivo) {
+					if ($archivos[$index] == 'thumbnail') {
+						unset($archivos[$index]);
+					}
+				}
+				$this->data['archivos'] = $archivos;
+				$this->_vista('archivos');
+			}
 		} else {
 			show_404();
 		}
@@ -75,37 +91,58 @@ class Cotizacion extends AbstractAccess {
 			'max_number_of_files' 	=> 3,
 			'accept_file_types'		=> '/\.(gif|jpe?g|png|pdf)$/i',
 			'image_file_types'		=> '/\.(gif|jpe?g|png)$/i',
-			// 'min_width'			=> 1024,
-			// 'min_height'		=> 768,
-			// 'image_versions'	=> array(
-			// 	'' => array(
-			// 		'auto_orient' => true
-			// 	),
-			// 	'medium' => array(
-			// 		'crop' 			=> true,
-			// 		'max_width'	=> 1024,
-			// 		'max_height'	=> 768
-			// 	),
-			// 	'thumbnail' => array(
-			// 		'crop' 			=> true,
-			// 		'max_width'	=> 270,
-			// 		'max_height'	=> 180
-			// 	)
-			// )
+			'min_width'				=> 1024,
+			'min_height'			=> 768,
+			'image_versions'	=> array(
+				'' => array(
+					'auto_orient'	=> true,
+					'crop' 			=> false,
+					'max_width'	=> 1024,
+					'max_height'	=> 768
+				),
+				// 'medium' => array(
+				// 	'crop' 			=> true,
+				// 	'max_width'	=> 1024,
+				// 	'max_height'	=> 768
+				// ),
+				'thumbnail' => array(
+					'auto_orient'	=> true,
+					'crop' 			=> true,
+					'max_width'	=> 200,
+					'max_height'	=> 150
+				)
+			)
 		);
 		$this->load->library("UploadHandler", $params);
 	}
 
 	public function estado()
 	{
+		$this->load->model('estatusCotizacionModel');
+		$this->load->helper('directory');
+
 		$folio = $this->input->post('folio');
-		if ($this->cotizacionModel->exist(array('folio' => $folio, ''))) {
-			# code...
+
+		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/');
+
+		if (empty($archivos))
+		{
+			$response = array('exito' => FALSE, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
+		} else
+		{
+			if ($this->cotizacionModel->exist(
+				array('folio' => $folio, 'id_estatus' => $this->estatusCotizacionModel->ENVIADO)))
+			{
+				$exito = $this->cotizacionModel->update(
+					array('id_estatus' => $this->estatusCotizacionModel->REVISION),
+					array('folio' => $folio));
+				$response = array('exito' => $exito);
+			}
 		}
-		$response = array('folio' => $folio);
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
+
 	}
 
 	/**

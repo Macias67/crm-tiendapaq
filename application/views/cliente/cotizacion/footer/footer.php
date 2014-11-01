@@ -33,7 +33,8 @@
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script src="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.pack.js"></script>
-		<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-mixitup/jquery.mixitup.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN:File Upload Plugin JS files-->
@@ -75,6 +76,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-fileupload') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'portfolio') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -82,6 +84,7 @@
 			QuickSidebar.init() // init quick sidebar
 			// MyScript
 			FormFileUpload.init();
+			Portfolio.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

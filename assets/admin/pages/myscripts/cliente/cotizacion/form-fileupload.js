@@ -49,12 +49,18 @@ var FormFileUpload = function () {
 
 	var confirmarArchivos = function() {
 		$('#confirmar').on('click', function() {
-			var mensaje = "<h2>¿Seguro de enviar estos archivos a revision?</h2><br/><p>Una vez enviados los archivos ya no podrás cambiarlos.</p>";
+			var mensaje = "<h2>¿Seguro de enviar estos archivos a revisión?</h2><br/><p>Una vez enviados los archivos ya no podrás cambiarlos.</p>";
 			var folio = $(this).attr('folio');
 			bootbox.confirm(mensaje, function(response) {
 				if (response) {
 					$.post('/cotizacion/estado', {folio: folio}, function(data, textStatus, xhr) {
-						alert(data.folio);
+						if(data.exito)
+						{
+							location.reload();
+						} else
+						{
+							bootbox.alert('<h4><b>'+data.msj+'</b></h4>');
+						}
 					});
 				}
 			});

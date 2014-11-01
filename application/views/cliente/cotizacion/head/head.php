@@ -28,6 +28,8 @@
 	<link href="<?php echo $assets_global_plugins ?>jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_global_plugins ?>jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
 	<link href="<?php echo $assets_global_plugins ?>jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>
+	<link href="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_admin_pages ?>css/portfolio.css" rel="stylesheet" type="text/css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
