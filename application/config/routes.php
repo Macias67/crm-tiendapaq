@@ -89,5 +89,9 @@ $route['actualizar/(:any)']	= $DIR_CLIENTE."gestor/$1";
 $route['cotizacion']		= $DIR_CLIENTE."cotizacion";
 $route['cotizacion/(:any)']	= $DIR_CLIENTE."cotizacion/$1";
 
+// Funciones para el manejor de cotiazaciones
+$route['cotizaciones']		= $DIR_EJECUTIVO."cotizacion";
+$route['cotizaciones/(:any)']	= $DIR_EJECUTIVO."cotizacion/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

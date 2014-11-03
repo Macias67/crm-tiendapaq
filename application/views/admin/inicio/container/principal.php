@@ -150,7 +150,7 @@
 									<div>Todos Mis Pendientes</div>
 								</a>
 								<!-- Cotizaciones -->
-								<a href="#" class="icon-btn">
+								<a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
 									<i class="fa fa-dollar"></i>
 									<div>Cotizaciones para revision</div>
 									<?php if ($cotizaciones_revision!=0): ?>
