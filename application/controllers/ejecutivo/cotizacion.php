@@ -7,10 +7,10 @@
 class Cotizacion extends AbstractAccess {
 
 
-	// public function __construct()
-	// {
-	// 	parent::__construct();
-	// }
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	/**
 	 * Vista Principal
@@ -24,5 +24,5 @@ class Cotizacion extends AbstractAccess {
 
 }
 
-/* End of file cotizador.php */
-/* Location: ./application/controllers/cotizador.php */
+/* End of file cotizacion.php */
+/* Location: ./application/controllers/cotizacion.php */

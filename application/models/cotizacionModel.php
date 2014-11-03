@@ -70,6 +70,22 @@ class CotizacionModel extends MY_Model {
 		return $cotizacion;
 	}
 
+/**
+ * funcion que retorna los datos de las cotizaciones que estan en estatus de revision
+ *
+ * @author Diego Rodriguez
+ **/
+	public function get_cotizacion_revision()
+	{
+		$this->db->select(array());
+		$this->db->join('');
+		$this->db->where('');
+
+		$query = $this->db->get($this->table);
+
+		return $query->result();
+	}
+
 }
 
 /* End of file cotizacionModel.php */

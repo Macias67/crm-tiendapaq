@@ -119,7 +119,32 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						El contenido va aquí
+						<!-- BEGIN TABLA MIS PENDIENTES-->
+						<div class="portlet gren">
+							<div class="portlet-title">
+								<div class="caption"><i class="fa fa-user"></i>Cotizaciones en revisión</div>
+							</div>
+							<div class="portlet-body">
+								<div class="scroller" style="height:400px">
+									<table class="table table-striped table-bordered table-hover" id="tabla-cotizaciones">
+										<thead>
+											<tr>
+												<th>Folio</th>
+												<th>Cliente</th>
+												<th>Fecha</th>
+												<th>Vigencia</th>
+												<th>Estatus</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Contenido de la tabla -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- END TABLA MIS PENDIENTES-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
