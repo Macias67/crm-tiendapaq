@@ -131,6 +131,7 @@
 											<tr>
 												<th>Folio</th>
 												<th>Cliente</th>
+												<th>Ejecutivo</th>
 												<th>Fecha</th>
 												<th>Vigencia</th>
 												<th>Estatus</th>
@@ -138,7 +139,17 @@
 											</tr>
 										</thead>
 										<tbody>
-											<!-- Contenido de la tabla -->
+											<?php foreach ($cotizaciones_revision as $cotizacion): ?>
+												<tr>
+													<td><?php echo $cotizacion->folio ?></td>
+													<td><?php echo $cotizacion->razon_social ?></td>
+													<td><?php echo $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno ?></td>
+													<td><?php echo $cotizacion->fecha ?></td>
+													<td><?php echo $cotizacion->vigencia ?></td>
+													<td><?php echo $cotizacion->id_estatus ?></td>
+													<td><a class="btn blue btn-xs " > Detalles </a></td>
+												</tr>
+											<?php endforeach ?>
 										</tbody>
 									</table>
 								</div>

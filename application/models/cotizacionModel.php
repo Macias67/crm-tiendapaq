@@ -75,11 +75,13 @@ class CotizacionModel extends MY_Model {
  *
  * @author Diego Rodriguez
  **/
-	public function get_cotizacion_revision()
+	public function get_cotizacion_revision($campos)
 	{
-		$this->db->select(array());
-		$this->db->join('');
-		$this->db->where('');
+		$this->db->select($campos);
+		$this->db->join('clientes', $this->table.'.cliente = clientes.id', 'inner');
+		$this->db->join('ejecutivos', $this->table.'.agente = ejecutivos.id', 'inner');
+		//$this->db->join('estatus as estado', $this->table.'.id_estatus = estado.estatus', 'inner');
+		$this->db->where(array($this->table.'.id_estatus' => 2));
 
 		$query = $this->db->get($this->table);
 
