@@ -119,7 +119,7 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-8">
-						<form id="fileupload" action="<?php echo site_url('cotizacion/ajax/'.$cotizacion->cliente.'/'.$cotizacion->folio) ?>" method="POST" enctype="multipart/form-data">
+						<form id="fileupload" action="<?php echo site_url('cotizacion/ajax/'.$cotizacion->id_cliente.'/'.$cotizacion->folio) ?>" method="POST" enctype="multipart/form-data">
 							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 							<div class="row fileupload-buttonbar">
 								<div class="col-lg-8">

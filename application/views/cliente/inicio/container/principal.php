@@ -145,7 +145,7 @@
 											<td><?php echo fecha_formato($cotizacion->fecha) ?></td>
 											<td><?php echo fecha_formato($cotizacion->vigencia) ?></td>
 											<td><?php echo $cotizacion->ciudad_estado ?></td>
-											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->estatus) ?></span></td>
+											<td><span class="label label-sm label-success"><?php echo ucfirst($cotizacion->id_estatus_cotizacion) ?></span></td>
 											<td>
 												<button type="button" class="btn green default cotizacion-previa btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
 												<a class="btn red default btn-xs" href="<?php echo site_url('cotizacion/descarga/'.$cotizacion->folio) ?>"><i class="fa fa-file-o"></i> Descargar</a>

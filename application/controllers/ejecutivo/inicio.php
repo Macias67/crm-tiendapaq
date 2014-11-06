@@ -26,7 +26,7 @@ class Inicio extends AbstractAccess {
 			$this->load->helper('formatofechas');
 
 			$this->data['cotizaciones'] = $this->cotizacionModel
-				->get_cotizaciones_cliente($this->usuario_activo['id'], $this->estatusCotizacionModel->ENVIADO);
+				->get_cotizaciones_cliente($this->usuario_activo['id'], $this->estatusCotizacionModel->PORPAGAR);
 			$this->_vista('principal');
 		} else
 		{

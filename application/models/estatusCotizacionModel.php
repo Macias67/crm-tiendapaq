@@ -23,7 +23,7 @@ class estatusCotizacionModel extends CI_Model {
 		$this->table	= self::TABLE;
 	}
 
-	var $ENVIADO		= 1;
+	var $PORPAGAR		= 1;
 	var $REVISION		= 2;
 	var $PAGADO		= 3;
 	var $IRREGULAR	= 4;

@@ -125,11 +125,11 @@
 								<?php foreach ($archivos as $index => $archivo): ?>
 								<div class="col-md-4 col-sm-6 mix">
 									<div class="mix-inner">
-										<img class="img-responsive" src="<?php echo site_url('clientes/'.$cotizacion->cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" alt="">
+										<img class="img-responsive" src="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" alt="">
 										<div class="mix-details">
 											<h3><?php echo $archivo ?></h3>
 											<a class="mix-link"><i class="fa fa-link"></i></a>
-											<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Cotización #<?php echo $cotizacion->folio ?>" data-rel="fancybox-button">
+											<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Cotización #<?php echo $cotizacion->folio ?>" data-rel="fancybox-button">
 												<i class="fa fa-search"></i>
 											</a>
 										</div>

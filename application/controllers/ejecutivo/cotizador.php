@@ -313,15 +313,15 @@ class Cotizador extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 
 		$cotizacion = array(
-			'fecha'			=> date('Y-m-d'),
-			'vigencia'		=> $vigencia,
-			'agente'		=> $cotizacion['ejecutivo'],
-			'cliente'		=> $cliente['id'],
-			'oficina'		=> $oficina->id_oficina,
-			'cotizacion'		=> json_encode($productos),
-			'id_observaciones'	=> 1,
-			'id_banco'			=> 1,
-			'id_estatus'		=> $this->estatusCotizacionModel->ENVIADO);
+			'fecha'					=> date('Y-m-d'),
+			'vigencia'				=> $vigencia,
+			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
+			'id_cliente'				=> $cliente['id'],
+			'id_oficina'				=> $oficina->id_oficina,
+			'cotizacion'				=> json_encode($productos),
+			'id_observaciones'		=> 1,
+			'id_banco'				=> 1,
+			'id_estatus_cotizacion'	=> $this->estatusCotizacionModel->ENVIADO);
 
 		if($this->cotizacionModel->insert($cotizacion)) {
 			echo json_encode($cotizacion);
