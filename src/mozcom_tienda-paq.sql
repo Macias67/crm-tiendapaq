@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2014 a las 17:46:09
+-- Tiempo de generación: 06-11-2014 a las 15:22:02
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -123,37 +123,24 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 
 CREATE TABLE IF NOT EXISTS `cotizacion` (
   `folio` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `vigencia` varchar(10) NOT NULL,
-  `agente` int(11) NOT NULL,
-  `cliente` int(11) NOT NULL,
-  `oficina` int(11) NOT NULL,
+  `fecha` timestamp NOT NULL,
+  `vigencia` timestamp NOT NULL,
+  `id_ejecutivo` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_oficina` int(11) NOT NULL,
   `cotizacion` text NOT NULL,
-  `observaciones` int(11) NOT NULL,
-  `banco` int(11) NOT NULL,
-  `estatus` int(11) NOT NULL,
+  `id_observaciones` int(11) NOT NULL,
+  `id_banco` int(11) NOT NULL,
+  `id_estatus` int(11) NOT NULL,
   PRIMARY KEY (`folio`),
-  KEY `agente` (`agente`,`cliente`,`oficina`,`observaciones`,`banco`,`estatus`),
-  KEY `agente_2` (`agente`),
-  KEY `cliente` (`cliente`),
-  KEY `oficina` (`oficina`),
-  KEY `cotizacion_ibfk_4` (`estatus`),
-  KEY `observaciones` (`observaciones`),
-  KEY `banco` (`banco`)
+  KEY `agente` (`id_ejecutivo`,`id_cliente`,`id_oficina`,`id_observaciones`,`id_banco`,`id_estatus`),
+  KEY `agente_2` (`id_ejecutivo`),
+  KEY `cliente` (`id_cliente`),
+  KEY `oficina` (`id_oficina`),
+  KEY `cotizacion_ibfk_4` (`id_estatus`),
+  KEY `observaciones` (`id_observaciones`),
+  KEY `banco` (`id_banco`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `crea_pendiente`
---
-
-CREATE TABLE IF NOT EXISTS `crea_pendiente` (
-  `id_creador` int(11) NOT NULL,
-  `id_pendiente` int(11) NOT NULL,
-  KEY `id_creador` (`id_creador`,`id_pendiente`),
-  KEY `id_pendiente` (`id_pendiente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Ejecutivo que hizo el pendiente';
 
 -- --------------------------------------------------------
 
@@ -277,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
 --
 
 INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
-(1, 'enviado'),
+(1, 'por pagar'),
 (2, 'revisión'),
 (3, 'correcta'),
 (4, 'irregular');
@@ -337,6 +324,7 @@ INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colo
 
 CREATE TABLE IF NOT EXISTS `pendientes` (
   `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
+  `id_creador` int(11) NOT NULL,
   `id_ejecutivo` int(11) NOT NULL,
   `id_empresa` int(11) DEFAULT NULL,
   `actividad` int(11) NOT NULL,
@@ -348,7 +336,8 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`id_estatus`),
   KEY `id_empresa` (`id_empresa`),
   KEY `actividad` (`actividad`),
-  KEY `estatus` (`id_estatus`)
+  KEY `estatus` (`id_estatus`),
+  KEY `id_creador` (`id_creador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -398,12 +387,12 @@ CREATE TABLE IF NOT EXISTS `reasignacion_pendiente` (
   `id_pendiente` int(11) NOT NULL,
   `id_ejecutivo_origen` int(11) NOT NULL,
   `id_ejecutivo_destino` int(11) NOT NULL,
-  `fecha` varchar(50) NOT NULL,
+  `fecha` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pendiente` (`id_pendiente`,`id_ejecutivo_origen`,`id_ejecutivo_destino`),
   KEY `id_ejecutivo_origen` (`id_ejecutivo_origen`),
   KEY `id_ejecutivo_destino` (`id_ejecutivo_destino`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -483,19 +472,12 @@ ALTER TABLE `contactos`
 -- Filtros para la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
-  ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`agente`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`observaciones`) REFERENCES `observaciones` (`id_observacion`),
-  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`banco`) REFERENCES `bancos` (`id_banco`);
-
---
--- Filtros para la tabla `crea_pendiente`
---
-ALTER TABLE `crea_pendiente`
-  ADD CONSTRAINT `crea_pendiente_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
-  ADD CONSTRAINT `crea_pendiente_ibfk_2` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`);
+  ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`id_oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`id_estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`id_observaciones`) REFERENCES `observaciones` (`id_observacion`),
+  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id_banco`);
 
 --
 -- Filtros para la tabla `ejecutivos`
@@ -515,6 +497,7 @@ ALTER TABLE `equipos_computo`
 -- Filtros para la tabla `pendientes`
 --
 ALTER TABLE `pendientes`
+  ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
