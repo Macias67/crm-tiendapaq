@@ -7,8 +7,8 @@
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
 				<tr>
-					<th>Ejecutivo Origen</th>
-					<th>Ejecutivo Destino</th>
+					<th>Ejecutivo Anterior</th>
+					<th>Ejecutivo Actual</th>
 					<th>Fecha</th>
 				</tr>
 			</thead>
