@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2014 a las 15:22:02
+-- Tiempo de generación: 06-11-2014 a las 16:05:01
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `mozcom_tienda-paq`
+-- Base de datos: `mozcom_tiendapaq`
 --
 
 -- --------------------------------------------------------
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   `telefono_contacto` varchar(14) NOT NULL,
   `puesto_contacto` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_cliente` (`id_cliente`)
+  KEY `contactos_ibfk_1` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -131,15 +131,14 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `cotizacion` text NOT NULL,
   `id_observaciones` int(11) NOT NULL,
   `id_banco` int(11) NOT NULL,
-  `id_estatus` int(11) NOT NULL,
+  `id_estatus_cotizacion` int(11) NOT NULL,
   PRIMARY KEY (`folio`),
-  KEY `agente` (`id_ejecutivo`,`id_cliente`,`id_oficina`,`id_observaciones`,`id_banco`,`id_estatus`),
-  KEY `agente_2` (`id_ejecutivo`),
-  KEY `cliente` (`id_cliente`),
-  KEY `oficina` (`id_oficina`),
-  KEY `cotizacion_ibfk_4` (`id_estatus`),
-  KEY `observaciones` (`id_observaciones`),
-  KEY `banco` (`id_banco`)
+  KEY `cotizacion_ibfk_1` (`id_ejecutivo`),
+  KEY `cotizacion_ibfk_2` (`id_cliente`),
+  KEY `cotizacion_ibfk_3` (`id_oficina`),
+  KEY `cotizacion_ibfk_4` (`id_estatus_cotizacion`),
+  KEY `cotizacion_ibfk_5` (`id_observaciones`),
+  KEY `cotizacion_ibfk_6` (`id_banco`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -186,9 +185,9 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `mensaje_personal` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario` (`usuario`),
-  KEY `oficina` (`oficina`,`departamento`,`privilegios`),
-  KEY `departamento` (`departamento`),
-  KEY `privilegios` (`privilegios`)
+  KEY `ejecutivos_ibfk_1` (`oficina`),
+  KEY `ejecutivos_ibfk_2` (`departamento`),
+  KEY `ejecutivos_ibfk_3` (`privilegios`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa' AUTO_INCREMENT=3 ;
 
 --
@@ -219,33 +218,8 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `password_sql` varchar(50) NOT NULL,
   `observaciones` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_cliente` (`id_cliente`)
+  KEY `equipos_computo_ibfk_1` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `estatus`
---
-
-CREATE TABLE IF NOT EXISTS `estatus` (
-  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-  `estatus` varchar(40) NOT NULL,
-  PRIMARY KEY (`id_estatus`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para los pendientes y casos' AUTO_INCREMENT=8 ;
-
---
--- Volcado de datos para la tabla `estatus`
---
-
-INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
-(1, 'cancelado'),
-(2, 'cerrado'),
-(3, 'pendiente'),
-(4, 'precierre'),
-(5, 'proceso'),
-(6, 'suspendido'),
-(7, 'reasignado');
 
 -- --------------------------------------------------------
 
@@ -255,7 +229,7 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 
 CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
   `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-  `estatus` varchar(30) NOT NULL,
+  `descripcion` varchar(30) NOT NULL,
   PRIMARY KEY (`id_estatus`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=5 ;
 
@@ -263,11 +237,36 @@ CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
 -- Volcado de datos para la tabla `estatus_cotizacion`
 --
 
-INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
+INSERT INTO `estatus_cotizacion` (`id_estatus`, `descripcion`) VALUES
 (1, 'por pagar'),
 (2, 'revisión'),
 (3, 'correcta'),
 (4, 'irregular');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estatus_general`
+--
+
+CREATE TABLE IF NOT EXISTS `estatus_general` (
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para los pendientes, casos y tareas' AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `estatus_general`
+--
+
+INSERT INTO `estatus_general` (`id_estatus`, `descripcion`) VALUES
+(1, 'cancelado'),
+(2, 'cerrado'),
+(3, 'pendiente'),
+(4, 'precierre'),
+(5, 'proceso'),
+(6, 'suspendido'),
+(7, 'reasignado');
 
 -- --------------------------------------------------------
 
@@ -326,18 +325,18 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
   `id_creador` int(11) NOT NULL,
   `id_ejecutivo` int(11) NOT NULL,
-  `id_empresa` int(11) DEFAULT NULL,
-  `actividad` int(11) NOT NULL,
-  `id_estatus` int(11) NOT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `id_actividad` int(11) NOT NULL,
+  `id_estatus_pendiente` int(11) NOT NULL,
   `descripcion` text NOT NULL,
   `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_pendiente`),
-  KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`id_estatus`),
-  KEY `id_empresa` (`id_empresa`),
-  KEY `actividad` (`actividad`),
-  KEY `estatus` (`id_estatus`),
-  KEY `id_creador` (`id_creador`)
+  KEY `pendientes_ibfk_1` (`id_creador`),
+  KEY `pendientes_ibfk_2` (`id_ejecutivo`),
+  KEY `pendientes_ibfk_3` (`id_cliente`),
+  KEY `pendientes_ibfk_4` (`id_actividad`),
+  KEY `pendientes_ibfk_5` (`id_estatus_pendiente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -389,9 +388,9 @@ CREATE TABLE IF NOT EXISTS `reasignacion_pendiente` (
   `id_ejecutivo_destino` int(11) NOT NULL,
   `fecha` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_pendiente` (`id_pendiente`,`id_ejecutivo_origen`,`id_ejecutivo_destino`),
-  KEY `id_ejecutivo_origen` (`id_ejecutivo_origen`),
-  KEY `id_ejecutivo_destino` (`id_ejecutivo_destino`)
+  KEY `reasignacion_pendiente_ibfk_1` (`id_pendiente`),
+  KEY `reasignacion_pendiente_ibfk_2` (`id_ejecutivo_origen`),
+  KEY `reasignacion_pendiente_ibfk_3` (`id_ejecutivo_destino`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -407,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
   `version` varchar(10) NOT NULL,
   `no_serie` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_cliente` (`id_cliente`)
+  KEY `sistemas_clientes_ibfk_1` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Informacion de los sistemas de contpaq del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -475,7 +474,7 @@ ALTER TABLE `cotizacion`
   ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`id_oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`id_estatus`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`id_estatus_cotizacion`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`id_observaciones`) REFERENCES `observaciones` (`id_observacion`),
   ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id_banco`);
 
@@ -497,11 +496,11 @@ ALTER TABLE `equipos_computo`
 -- Filtros para la tabla `pendientes`
 --
 ALTER TABLE `pendientes`
-  ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
-  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_estatus`) REFERENCES `estatus` (`id_estatus`);
+  ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_estatus_pendiente`) REFERENCES `estatus_general` (`id_estatus`);
 
 --
 -- Filtros para la tabla `reasignacion_pendiente`
