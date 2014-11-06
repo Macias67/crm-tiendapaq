@@ -4,6 +4,8 @@
 </div>
 <div class="modal-body">
 	<div class="scroller">
+		<!-- <?php var_dump($this->data) ?> -->
+		
 	<div class="row">
 		<div class="col-md-12">
 			<div class="col-md-12">
@@ -25,7 +27,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Creado por: </b></div>
-				<div class="col-md-8"><p><?php echo $pendiente->creador ?></p></div>
+				<div class="col-md-8"><p><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></p></div>
 			</div>
 			<?php if(!empty($reasignaciones)): ?>
 				<div class="col-md-12" style="margin-bottom: 1em;">
@@ -42,19 +44,19 @@
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
-					<?php if($pendiente->id_estatus == 3 || $pendiente->id_estatus == 7): ?>
+					<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
 						<select id="estatus_pendiente" class="form-control">
-							<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->estatus ?></option>
-							<option value="<?php echo $estatus[4]->id_estatus ?>"><?php echo $estatus[4]->estatus ?></option>
-							<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->estatus ?></option>
-							<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->estatus ?></option>
+							<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->descripcion ?></option>
+							<option value="<?php echo $estatus[4]->id_estatus ?>"><?php echo $estatus[4]->descripcion ?></option>
+							<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->descripcion ?></option>
+							<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->descripcion ?></option>
 						</select>
 					<?php else: ?>
-						<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->id_estatus)-1]->estatus) ?></b></span>
+						<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span>
 					<?php endif ?>
 				</div>
 			</div>
-			<?php if($pendiente->id_estatus == 3 || $pendiente->id_estatus == 7): ?>
+			<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
 				<div class="col-md-12" style="margin-top: 1em;">
 					<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
 					<div class="col-md-8">
@@ -76,5 +78,7 @@
 <div class="modal-footer">
 	<button type="button" class="btn green update">Aceptar</button>
 	<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
-	<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
+	<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
+		<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
+	<?php endif ?>
 </div>

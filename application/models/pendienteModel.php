@@ -71,8 +71,6 @@ class PendienteModel extends MY_Model {
 		if(!empty($controlador)){
 			$where = "id_ejecutivo =".$id_ejecutivo." AND id_estatus_general=".$this->estatusGeneralModel->PENDIENTE." OR id_ejecutivo =".$id_ejecutivo." AND id_estatus_general=".$this->estatusGeneralModel->REASIGNADO;
 			$this->db->where($where);
-			// $this->db->where(array('id_ejecutivo' => $id_ejecutivo, 'estatus' => $this->estatusModel->PENDIENTE));
-			// $this->db->where(array('estatus' => $this->estatusModel->REASIGNADO));
 		} else {
 			$this->db->where(array('id_ejecutivo' => $id_ejecutivo));
 		}
@@ -90,10 +88,11 @@ class PendienteModel extends MY_Model {
 	 **/
 	public function getPendiente($id_pendiente,$campos)
 	{
-		$this->load->model('estatusModel');
+		$this->load->model('estatusGeneralModel');
 
 		$this->db->select($campos);
-		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+		$this->db->join('ejecutivos as creador', $this->table.'.id_creador = creador.id', 'inner');
+		$this->db->join('ejecutivos as ejecutivo', $this->table.'.id_ejecutivo = ejecutivo.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
 		$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
 		$this->db->where(array('id_pendiente' => $id_pendiente));

@@ -105,28 +105,27 @@ class Pendiente extends AbstractAccess {
 		//Helper
 		$this->load->helper('formatofechas');
 
-		$creador					= $this->creaPendienteModel->getCreadorPendiente($id_pendiente);
 		$pendiente	= $this->pendienteModel->getPendiente($id_pendiente,
 																											array('pendientes.id_pendiente',
 																														'clientes.razon_social',
-																														'actividades_pendiente.id_actividad',
+																														'actividades_pendiente.id_actividad as id_actividad_pendiente',
 																														'actividades_pendiente.actividad',
 																														'pendientes.descripcion',
 																														'pendientes.fecha_origen',
-																														'ejecutivos.primer_nombre',
-																														'ejecutivos.apellido_paterno',
-																														'ejecutivos.oficina',
-																														'pendientes.id_estatus'));
-
-		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
+																														'creador.primer_nombre as creador_nombre',
+																														'creador.apellido_paterno as creador_apellido',
+																														'ejecutivo.primer_nombre as ejecutivo_nombre',
+																														'ejecutivo.apellido_paterno as ejecutivo_apellido',
+																														'creador.oficina as oficina',
+																														'pendientes.id_estatus_general'));
 		$this->data['pendiente']	= $pendiente;
 		$this->data['estatus']	= $this->estatusGeneralModel->get('*');
 		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
 		$this->data['reasignaciones'] = count($this->reasignarPendienteModel->getReasignaciones($id_pendiente,'*'));
 
 		// SI la actividad es COTIZAR
-		if ($pendiente->id_actividad == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
-			$this->data['url_cotiza']= anchor('cotizador/'.$pendiente->id_pendiente, 'Cotizar', 'class="btn red"');
+		if ($pendiente->id_actividad_pendiente == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
+			$this->data['url_cotiza']= anchor('cotizador/'.$pendiente->id_actividad_pendiente, 'Cotizar', 'class="btn red"');
 		}
 
 		$this->_vista_completa('detalle-pendiente');
@@ -161,7 +160,7 @@ class Pendiente extends AbstractAccess {
 		$id_ejecutivo_origen 			= $this->usuario_activo['id'];
 
 		if (empty($id_ejecutivo_destino)) {
-				if($this->pendienteModel->update(array('id_estatus' => $id_estatus), array('id_pendiente' => $id_pendiente))){
+				if($this->pendienteModel->update(array('id_estatus_general' => $id_estatus), array('id_pendiente' => $id_pendiente))){
 					$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
 				}else{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
@@ -178,7 +177,7 @@ class Pendiente extends AbstractAccess {
 				);
 
 			if($this->reasignarPendienteModel->insert($reasignacion) && 
-				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus' => 7), array('id_pendiente' => $id_pendiente)))
+				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus_general' => 7), array('id_pendiente' => $id_pendiente)))
 			{
 				$respuesta = array('exito' => TRUE, 'ejecutivo_destino_text' => $ejecutivo_destino_text);
 			}else{

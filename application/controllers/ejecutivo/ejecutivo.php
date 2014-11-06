@@ -15,7 +15,7 @@ class Ejecutivo extends AbstractAccess {
 		//Helper
 		$this->load->helper('formatofechas');
 		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(
-		                                                                         array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','id_estatus'),
+		                                                                         array('id_pendiente','actividades_pendiente.actividad','clientes.razon_social','fecha_origen','id_estatus_general'),
 		                                                                         $this->usuario_activo['id']);
 	}
 
