@@ -6,14 +6,14 @@
  * @package default
  * @author Luis Macias | Diego Rodriguez
  **/
-class estatusModel extends MY_Model {
+class estatusGeneralModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse
 	 *
 	 * @var string
 	 **/
-	const TABLE = 'estatus';
+	const TABLE = 'estatus_general';
 
 	/**
 	 * Constructor

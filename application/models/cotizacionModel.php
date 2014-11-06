@@ -78,10 +78,10 @@ class CotizacionModel extends MY_Model {
 	public function get_cotizacion_revision($campos)
 	{
 		$this->db->select($campos);
-		$this->db->join('clientes', $this->table.'.cliente = clientes.id', 'inner');
-		$this->db->join('ejecutivos', $this->table.'.agente = ejecutivos.id', 'inner');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		//$this->db->join('estatus as estado', $this->table.'.id_estatus = estado.estatus', 'inner');
-		$this->db->where(array($this->table.'.id_estatus' => 2));
+		$this->db->where(array($this->table.'.id_estatus_cotizacion' => 2));
 
 		$query = $this->db->get($this->table);
 

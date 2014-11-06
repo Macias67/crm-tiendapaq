@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2014 a las 16:05:01
+-- Tiempo de generación: 06-11-2014 a las 23:37:14
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `mozcom_tiendapaq`
+-- Base de datos: `mozcom_tienda-paq`
 --
 
 -- --------------------------------------------------------
@@ -326,17 +326,17 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   `id_creador` int(11) NOT NULL,
   `id_ejecutivo` int(11) NOT NULL,
   `id_cliente` int(11) DEFAULT NULL,
-  `id_actividad` int(11) NOT NULL,
-  `id_estatus_pendiente` int(11) NOT NULL,
+  `id_actividad_pendiente` int(11) NOT NULL,
+  `id_estatus_general` int(11) NOT NULL,
   `descripcion` text NOT NULL,
-  `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_origen` timestamp NOT NULL,
   `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_pendiente`),
   KEY `pendientes_ibfk_1` (`id_creador`),
   KEY `pendientes_ibfk_2` (`id_ejecutivo`),
   KEY `pendientes_ibfk_3` (`id_cliente`),
-  KEY `pendientes_ibfk_4` (`id_actividad`),
-  KEY `pendientes_ibfk_5` (`id_estatus_pendiente`)
+  KEY `pendientes_ibfk_4` (`id_actividad_pendiente`),
+  KEY `pendientes_ibfk_5` (`id_estatus_general`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -499,8 +499,8 @@ ALTER TABLE `pendientes`
   ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
-  ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_estatus_pendiente`) REFERENCES `estatus_general` (`id_estatus`);
+  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_actividad_pendiente`) REFERENCES `actividades_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_estatus_general`) REFERENCES `estatus_general` (`id_estatus`);
 
 --
 -- Filtros para la tabla `reasignacion_pendiente`

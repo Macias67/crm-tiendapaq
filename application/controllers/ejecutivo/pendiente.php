@@ -14,7 +14,7 @@ class Pendiente extends AbstractAccess {
 		$this->load->library('form_validation');
 		// Cargo modelos
 		$this->load->model('pendienteModel');
-		$this->load->model('estatusModel');
+		$this->load->model('estatusGeneralModel');
 		$this->load->model('actividadPendienteModel');
 	}
 
@@ -48,8 +48,9 @@ class Pendiente extends AbstractAccess {
 				'id_ejecutivo'						=> $this->input->post('ejecutivo'),
 				'id_cliente'							=> (empty($razon_social)) ? NULL : $razon_social,
 				'id_actividad_pendiente'	=> $this->input->post('actividad'),
-				'id_estatus'							=> $this->estatusModel->PENDIENTE,
-				'descripcion'							=> $this->input->post('descripcion')
+				'id_estatus_general'			=> $this->estatusGeneralModel->PENDIENTE,
+				'descripcion'							=> $this->input->post('descripcion'),
+				'fecha_origen' 						=> date('Y-m-d H:i:s')
 			);
 			// Transfomo arreglo a objeto
 			$objeto_pendiente = $this->pendienteModel->arrayToObject($data);
@@ -98,7 +99,7 @@ class Pendiente extends AbstractAccess {
 	public function detalles($id_pendiente)
 	{
 		// Cargo modelos
-		$this->load->model('estatusModel');
+		$this->load->model('estatusGeneralModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('reasignarPendienteModel');
 		//Helper
@@ -119,7 +120,7 @@ class Pendiente extends AbstractAccess {
 
 		$pendiente->creador		= $creador->primer_nombre.' '.$creador->apellido_paterno;
 		$this->data['pendiente']	= $pendiente;
-		$this->data['estatus']	= $this->estatusModel->get('*');
+		$this->data['estatus']	= $this->estatusGeneralModel->get('*');
 		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
 		$this->data['reasignaciones'] = count($this->reasignarPendienteModel->getReasignaciones($id_pendiente,'*'));
 
@@ -168,7 +169,6 @@ class Pendiente extends AbstractAccess {
 		}else{
 			$this->load->model('reasignarPendienteModel');
 			$this->load->helper('formatofechas');
-			date_default_timezone_set('America/Mexico_City');
 
 			$reasignacion = array(
 				'id_pendiente' => $id_pendiente,

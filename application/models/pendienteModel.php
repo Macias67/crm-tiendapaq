@@ -42,12 +42,13 @@ class PendienteModel extends MY_Model {
 	{
 		$this->pendiente = new stdClass();
 
-		$this->pendiente->id_creador									= $data['id_creador'];
-		$this->pendiente->id_ejecutivo								= $data['id_ejecutivo'];
-		$this->pendiente->id_cliente									= $data['id_cliente'];
-		$this->pendiente->id_actividad_pendiente			= $data['id_actividad_pendiente'];
-		$this->pendiente->id_estatus									= $data['id_estatus'];
-		$this->pendiente->descripcion									= $data['descripcion'];
+		$this->pendiente->id_creador								= $data['id_creador'];
+		$this->pendiente->id_ejecutivo							= $data['id_ejecutivo'];
+		$this->pendiente->id_cliente								= $data['id_cliente'];
+		$this->pendiente->id_actividad_pendiente		= $data['id_actividad_pendiente'];
+		$this->pendiente->id_estatus_general				= $data['id_estatus_general'];
+		$this->pendiente->descripcion								= $data['descripcion'];
+		$this->pendiente->fecha_origen							= $data['fecha_origen'];
 
 		return $this->pendiente;
 	}
@@ -61,14 +62,14 @@ class PendienteModel extends MY_Model {
 	 **/
 	public function getPendientes($campos, $id_ejecutivo, $controlador = '')
 	{
-		$this->load->model('estatusModel');
+		$this->load->model('estatusGeneralModel');
 
 		$this->db->select($campos);
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
 		$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
 		if(!empty($controlador)){
-			$where = "id_ejecutivo =".$id_ejecutivo." AND id_estatus=".$this->estatusModel->PENDIENTE." OR id_ejecutivo =".$id_ejecutivo." AND id_estatus=".$this->estatusModel->REASIGNADO;
+			$where = "id_ejecutivo =".$id_ejecutivo." AND id_estatus_general=".$this->estatusGeneralModel->PENDIENTE." OR id_ejecutivo =".$id_ejecutivo." AND id_estatus_general=".$this->estatusGeneralModel->REASIGNADO;
 			$this->db->where($where);
 			// $this->db->where(array('id_ejecutivo' => $id_ejecutivo, 'estatus' => $this->estatusModel->PENDIENTE));
 			// $this->db->where(array('estatus' => $this->estatusModel->REASIGNADO));

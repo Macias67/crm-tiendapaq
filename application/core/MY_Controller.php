@@ -69,6 +69,8 @@ abstract class AbstractController extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		//Fijar zona horaria para el momento de obtener fechas y horas
+		date_default_timezone_set('America/Mexico_City');
 		// global
 		$this->data['assets_global_css']		= site_url('assets/global/css').'/';
 		$this->data['assets_global_img']		= site_url('assets/global/img').'/';
