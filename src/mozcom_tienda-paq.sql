@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2014 a las 15:22:02
+-- Tiempo de generación: 06-11-2014 a las 22:37:12
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
 
 CREATE TABLE IF NOT EXISTS `estatus` (
   `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-  `estatus` varchar(40) NOT NULL,
+  `descripcion` varchar(40) NOT NULL,
   PRIMARY KEY (`id_estatus`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para los pendientes y casos' AUTO_INCREMENT=8 ;
 
@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `estatus` (
 -- Volcado de datos para la tabla `estatus`
 --
 
-INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
+INSERT INTO `estatus` (`id_estatus`, `descripcion`) VALUES
 (1, 'cancelado'),
 (2, 'cerrado'),
 (3, 'pendiente'),
@@ -255,7 +255,7 @@ INSERT INTO `estatus` (`id_estatus`, `estatus`) VALUES
 
 CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
   `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
-  `estatus` varchar(30) NOT NULL,
+  `descripcion` varchar(30) NOT NULL,
   PRIMARY KEY (`id_estatus`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=5 ;
 
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
 -- Volcado de datos para la tabla `estatus_cotizacion`
 --
 
-INSERT INTO `estatus_cotizacion` (`id_estatus`, `estatus`) VALUES
+INSERT INTO `estatus_cotizacion` (`id_estatus`, `descripcion`) VALUES
 (1, 'por pagar'),
 (2, 'revisión'),
 (3, 'correcta'),
@@ -326,16 +326,16 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
   `id_creador` int(11) NOT NULL,
   `id_ejecutivo` int(11) NOT NULL,
-  `id_empresa` int(11) DEFAULT NULL,
-  `actividad` int(11) NOT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `id_actividad_pendiente` int(11) NOT NULL,
   `id_estatus` int(11) NOT NULL,
   `descripcion` text NOT NULL,
   `fecha_origen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_pendiente`),
-  KEY `id_ejecutivo` (`id_ejecutivo`,`id_empresa`,`actividad`,`id_estatus`),
-  KEY `id_empresa` (`id_empresa`),
-  KEY `actividad` (`actividad`),
+  KEY `id_ejecutivo` (`id_ejecutivo`,`id_cliente`,`id_actividad_pendiente`,`id_estatus`),
+  KEY `id_empresa` (`id_cliente`),
+  KEY `actividad` (`id_actividad_pendiente`),
   KEY `estatus` (`id_estatus`),
   KEY `id_creador` (`id_creador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1 ;
@@ -499,8 +499,8 @@ ALTER TABLE `equipos_computo`
 ALTER TABLE `pendientes`
   ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`actividad`) REFERENCES `actividades_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`id_actividad_pendiente`) REFERENCES `actividades_pendiente` (`id_actividad`),
   ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_estatus`) REFERENCES `estatus` (`id_estatus`);
 
 --
