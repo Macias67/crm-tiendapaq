@@ -42,11 +42,12 @@ class PendienteModel extends MY_Model {
 	{
 		$this->pendiente = new stdClass();
 
-		$this->pendiente->id_ejecutivo	= $data['id_ejecutivo'];
-		$this->pendiente->id_empresa		= $data['id_empresa'];
-		$this->pendiente->actividad			= $data['actividad'];
-		$this->pendiente->id_estatus		= $data['id_estatus'];
-		$this->pendiente->descripcion		= $data['descripcion'];
+		$this->pendiente->id_creador									= $data['id_creador'];
+		$this->pendiente->id_ejecutivo								= $data['id_ejecutivo'];
+		$this->pendiente->id_cliente									= $data['id_cliente'];
+		$this->pendiente->id_actividad_pendiente			= $data['id_actividad_pendiente'];
+		$this->pendiente->id_estatus									= $data['id_estatus'];
+		$this->pendiente->descripcion									= $data['descripcion'];
 
 		return $this->pendiente;
 	}
@@ -64,8 +65,8 @@ class PendienteModel extends MY_Model {
 
 		$this->db->select($campos);
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
-		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
-		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
+		$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
 		if(!empty($controlador)){
 			$where = "id_ejecutivo =".$id_ejecutivo." AND id_estatus=".$this->estatusModel->PENDIENTE." OR id_ejecutivo =".$id_ejecutivo." AND id_estatus=".$this->estatusModel->REASIGNADO;
 			$this->db->where($where);
@@ -92,8 +93,8 @@ class PendienteModel extends MY_Model {
 
 		$this->db->select($campos);
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
-		$this->db->join('clientes', $this->table.'.id_empresa = clientes.id', 'left');
-		$this->db->join('actividades_pendiente', $this->table.'.actividad = actividades_pendiente.id_actividad', 'inner');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
+		$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
 		$this->db->where(array('id_pendiente' => $id_pendiente));
 		$query = $this->db->get($this->table);
 

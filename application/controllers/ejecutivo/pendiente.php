@@ -44,11 +44,12 @@ class Pendiente extends AbstractAccess {
 			$razon_social = $this->input->post('razon_social');
 			// Captruo los datos en un array
 			$data = array(
-				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
-				'id_empresa'	=> (empty($razon_social)) ? NULL : $razon_social,
-				'actividad'		=> $this->input->post('actividad'),
-				'id_estatus'		=> $this->estatusModel->PENDIENTE,
-				'descripcion'	=> $this->input->post('descripcion')
+				'id_creador'	   	 		    => $this->usuario_activo['id'],
+				'id_ejecutivo'						=> $this->input->post('ejecutivo'),
+				'id_cliente'							=> (empty($razon_social)) ? NULL : $razon_social,
+				'id_actividad_pendiente'	=> $this->input->post('actividad'),
+				'id_estatus'							=> $this->estatusModel->PENDIENTE,
+				'descripcion'							=> $this->input->post('descripcion')
 			);
 			// Transfomo arreglo a objeto
 			$objeto_pendiente = $this->pendienteModel->arrayToObject($data);
@@ -57,13 +58,6 @@ class Pendiente extends AbstractAccess {
 
 				// Cargo modelo ejecutivos
 				$this->load->model('ejecutivoModel');
-				$this->load->model('creaPendienteModel');
-
-				$id_pendiente_nuevo = $this->pendienteModel->getIDUltimoPendiente();
-
-				$this->creaPendienteModel->insert(array(
-										'id_creador'	=> $this->usuario_activo['id'],
-										'id_pendiente'	=> $id_pendiente_nuevo));
 
 				$ejecutivo_asignado = $this->ejecutivoModel->get(
 					array('primer_nombre', 'apellido_paterno', 'email'),
@@ -104,7 +98,6 @@ class Pendiente extends AbstractAccess {
 	public function detalles($id_pendiente)
 	{
 		// Cargo modelos
-		$this->load->model('creaPendienteModel');
 		$this->load->model('estatusModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('reasignarPendienteModel');
