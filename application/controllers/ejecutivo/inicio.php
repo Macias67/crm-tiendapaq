@@ -37,6 +37,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('actividadPendienteModel');
 			$this->load->model('pendienteModel');
 			$this->load->model('estatusGeneralModel');
+			$this->load->model('casoModel');
 
 			//Helper
 			$this->load->helper('formatofechas');
@@ -50,6 +51,8 @@ class Inicio extends AbstractAccess {
 
 			//cantidad de cotizaciones pagadas por revisar
 			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
+			//cantidad de cotizaciones pagadas por revisar
+			$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 			// Listado de actividades para levantar un pendiente
 			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 			// Listado de pendientes DEL USUARIO ACTIVO
