@@ -138,6 +138,16 @@
 											</tr>
 										</thead>
 										<tbody>
+											<?php foreach ($casos_asignacion as $caso ): ?>
+												<tr>
+													<td><?php echo $caso->id ?></td>
+													<td><?php echo $caso->razon_social ?></td>
+													<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
+													<td><?php echo $caso->fecha ?></td>
+													<td><?php echo $caso->descripcion ?></td>
+													<td></td>
+												</tr>
+											<?php endforeach ?>
 										</tbody>
 									</table>
 								</div>
