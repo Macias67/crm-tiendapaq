@@ -22,6 +22,25 @@ class CasoModel extends MY_Model {
 		$this->table	= self::TABLE;
 	}
 
+	/**
+	 * funcion para obtener los casos que esten por asignar
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function get_casos_asignacion($campos='*')
+	{
+		$this->load->model('estatusGeneralModel');
+
+		$this->db->select($campos);
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
+		$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+		$where = array("caso.id_estatus_general" => $this->estatusGeneralModel->PORASIGNAR);
+		//$this->db->where(array('id_cliente' => $id_cliente, $this->table.'.id_estatus_cotizacion' => $id_estatus));
+		$this->db->where($where);
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
 
 }
 

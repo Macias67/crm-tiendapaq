@@ -93,5 +93,9 @@ $route['cotizacion/(:any)']	= $DIR_CLIENTE."cotizacion/$1";
 $route['cotizaciones']		= $DIR_EJECUTIVO."cotizacion";
 $route['cotizaciones/(:any)']	= $DIR_EJECUTIVO."cotizacion/$1";
 
+// Funciones para el manejor de casos
+$route['caso']		= $DIR_EJECUTIVO."caso";
+$route['caso/(:any)']	= $DIR_EJECUTIVO."caso/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
