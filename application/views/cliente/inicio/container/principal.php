@@ -164,6 +164,12 @@
 												<td>
 												</td>
 											<?php endif ?>
+											<?php if($cotizacion->id_estatus==4): ?>
+												<td><span class="btn btn-xs red"><?php echo ucfirst($cotizacion->descripcion) ?></span></td>
+												<td>
+													<a href="<?php echo site_url('cotizacion/comprobante/'.$cotizacion->folio) ?>" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Cambiar comprobante</a>
+												</td>
+											<?php endif ?>
 										</tr>
 									<?php endforeach ?>
 									</tbody>
