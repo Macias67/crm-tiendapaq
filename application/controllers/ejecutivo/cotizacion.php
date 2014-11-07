@@ -94,7 +94,7 @@ class Cotizacion extends AbstractAccess {
 					'observacion_pago' => $comentarios),
 				array('folio' => $folio)))
 			{
-				$response = TRUE;
+				$response = FALSE;
 			}
 		}
 

@@ -52,7 +52,7 @@ class CotizacionModel extends MY_Model {
 		$this->db->join('observaciones', $this->table.'.id_observaciones = observaciones.id_observacion', 'inner');
 		$this->db->join('bancos', $this->table.'.id_banco = bancos.id_banco', 'inner');
 		$this->db->join('estatus_cotizacion', $this->table.'.id_estatus_cotizacion = estatus_cotizacion.id_estatus', 'inner');
-		$where = "id_cliente =".$id_cliente." AND id_estatus_cotizacion=".$this->estatusCotizacionModel->PORPAGAR." OR id_cliente =".$id_cliente." AND id_estatus_cotizacion=".$this->estatusCotizacionModel->REVISION;
+		$where = "id_cliente =".$id_cliente;
 		//$this->db->where(array('id_cliente' => $id_cliente, $this->table.'.id_estatus_cotizacion' => $id_estatus));
 		$this->db->where($where);
 		$query = $this->db->get($this->table);

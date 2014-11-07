@@ -59,7 +59,8 @@ class Cotizacion extends AbstractAccess {
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
 			$this->load->model('estatusCotizacionModel');
 			$this->data['cotizacion'] = $cotizacion;
-			if ($cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PORPAGAR)
+			if ($cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PORPAGAR ||
+				$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->IRREGULAR)
 			{
 				$this->_vista('formulario');
 			} else
@@ -130,7 +131,8 @@ class Cotizacion extends AbstractAccess {
 		} else
 		{
 			if ($this->cotizacionModel->exist(
-				array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR)))
+				array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR,
+					'id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR)))
 			{
 				$exito = $this->cotizacionModel->update(
 					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),

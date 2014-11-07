@@ -2,11 +2,12 @@ var Portfolio = function () {
 
 	var validacion = function() {
 		$('#validar').on('click', function() {
-			var folio = $('form').attr('id-folio');
-			var valoracion = $('input[name="valoracion"]').val();
+			var folio = $('#folio').val();
+			var valoracion = $('input[name="valoracion"]:checked').val();
 			var comentarios = $('textarea#comentarios').val();
 
-			$.post('/cotizacion/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
+			$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
+				alert(data.exito);
 				if (data.exito) {
 					bootbox.alert('<h3>Cotización pagada, nuevo caso abierto en espera de asignación</h3>', function() {
 						window.location = '/caso';

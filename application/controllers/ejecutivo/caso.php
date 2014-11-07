@@ -9,8 +9,6 @@ class Caso extends AbstractAccess {
 		$campos = array('*');
 		$this->data['casos_asignacion'] = $this->casoModel->get_casos_asignacion($campos);
 		$this->_vista('caso');
-
-		var_dump($this->data);
 	}
 
 }

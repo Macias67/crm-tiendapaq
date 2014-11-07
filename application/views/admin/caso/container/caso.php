@@ -131,7 +131,6 @@
 											<tr>
 												<th>No. Caso</th>
 												<th>Cliente</th>
-												<th>Ejecutivo</th>
 												<th>Fecha</th>
 												<th>Estatus</th>
 												<th></th>
@@ -142,10 +141,9 @@
 												<tr>
 													<td><?php echo $caso->id ?></td>
 													<td><?php echo $caso->razon_social ?></td>
-													<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
-													<td><?php echo $caso->fecha ?></td>
+													<td><?php echo $caso->fecha_inicio ?></td>
 													<td><?php echo $caso->descripcion ?></td>
-													<td></td>
+													<td>Asignar Lider</td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>

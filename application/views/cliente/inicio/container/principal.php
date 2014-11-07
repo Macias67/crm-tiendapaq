@@ -159,6 +159,12 @@
 													<a href="<?php echo site_url('cotizacion/comprobante/'.$cotizacion->folio) ?>" class="btn blue btn-xs"> Ver de Pago</a>
 												</td>
 											<?php endif ?>
+											<?php if($cotizacion->id_estatus==3): ?>
+												<td><span class="btn btn-xs green"><?php echo ucfirst($cotizacion->descripcion) ?></span></td>
+												<td>
+													<a href="<?php echo site_url('cotizacion/comprobante/'.$cotizacion->folio) ?>" class="btn blue btn-xs"> Ver de Pago</a>
+												</td>
+											<?php endif ?>
 											<?php if($cotizacion->id_estatus==5): ?>
 												<td><span class="btn btn-xs red"><?php echo ucfirst($cotizacion->descripcion) ?></span></td>
 												<td>

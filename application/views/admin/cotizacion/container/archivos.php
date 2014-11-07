@@ -126,9 +126,10 @@
 								</div>
 							</div>
 							<div class="portlet-body form">
-								<form role="form" id-folio="<?php echo $cotizacion->folio ?>">
+								<form role="form">
 									<div class="form-body">
 										<div class="form-group">
+											<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
 											<label>Valoración: </label>
 											<div class="radio-list">
 												<label class="radio-inline">
