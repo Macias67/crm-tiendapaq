@@ -122,11 +122,11 @@
 						<!-- BEGIN TABLA CASOS-->
 						<div class="portlet gren">
 							<div class="portlet-title">
-								<div class="caption"><i class="fa fa-user"></i>Cotizaciones en revisión</div>
+								<div class="caption"><i class="fa fa-user"></i>Casos para asignar</div>
 							</div>
 							<div class="portlet-body">
 								<div class="scroller" style="height:400px">
-									<table class="table table-striped table-bordered table-hover" id="tabla-cotizaciones">
+									<table class="table table-striped table-bordered table-hover" id="tabla-cosos-asignar">
 										<thead>
 											<tr>
 												<th>No. Caso</th>
@@ -138,7 +138,6 @@
 											</tr>
 										</thead>
 										<tbody>
-											<!-- contenido -->
 										</tbody>
 									</table>
 								</div>
