@@ -163,9 +163,9 @@
 								<a href="<?php echo site_url('caso') ?>" class="icon-btn">
 									<i class="fa fa-folder-open"></i>
 									<div>Casos por Asignar</div>
-									<?php if ($cotizaciones_revision!=0): ?>
+									<?php if ($casos_asignar!=0): ?>
 										<span class="badge badge-danger">
-											<?php echo $cotizaciones_revision ?>
+											<?php echo $casos_asignar ?>
 										</span>
 									<?php endif ?>
 								</a>

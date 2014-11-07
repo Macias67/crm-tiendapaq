@@ -1,4 +1,3 @@
-
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
 			<div class="page-content">
@@ -118,44 +117,59 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN TABLA MIS PENDIENTES-->
+					<div class="col-md-4">
+						<!-- BEGIN Portlet FORMULARIO-->
 						<div class="portlet gren">
 							<div class="portlet-title">
-								<div class="caption"><i class="fa fa-user"></i>Cotizaciones en revisión</div>
-							</div>
-							<div class="portlet-body">
-								<div class="scroller" style="height:400px">
-									<table class="table table-striped table-bordered table-hover" id="tabla-cotizaciones">
-										<thead>
-											<tr>
-												<th>Folio</th>
-												<th>Cliente</th>
-												<th>Ejecutivo</th>
-												<th>Fecha</th>
-												<th>Vigencia</th>
-												<th>Estatus</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php foreach ($cotizaciones_revision as $cotizacion): ?>
-												<tr>
-													<td><?php echo $cotizacion->folio ?></td>
-													<td><?php echo $cotizacion->razon_social ?></td>
-													<td><?php echo $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno ?></td>
-													<td><?php echo $cotizacion->fecha ?></td>
-													<td><?php echo $cotizacion->vigencia ?></td>
-													<td><?php echo $cotizacion->id_estatus_cotizacion ?></td>
-													<td><a class="btn blue btn-xs" href="<?php echo site_url('cotizaciones/revision/'.$cotizacion->folio) ?>"> Detalles </a></td>
-												</tr>
-											<?php endforeach ?>
-										</tbody>
-									</table>
+								<div class="caption">
+									<i class="fa fa-gift"></i>Validación de documentos
 								</div>
 							</div>
+							<div class="portlet-body form">
+								<form role="form">
+									<div class="form-body">
+										<div class="form-group">
+											<label>Valoración: </label>
+											<div class="radio-list">
+												<label class="radio-inline">
+												<input type="radio" name="valoracion" id="valoracion1" value="aceptado"> Aceptado </label>
+												<label class="radio-inline">
+												<input type="radio" name="valoracion" id="valoracion2" value="irregular"> Irregular </label>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Comentarios: </label>
+											<textarea class="form-control" id="comentarios" rows="2"></textarea>
+											<br>
+											<button type="button" id="validar" class="btn red btn-block">VALIDAR</button>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
-						<!-- END TABLA MIS PENDIENTES-->
+						<!-- END Portlet FORMULARIO-->
+					</div>
+					<div class="col-md-8">
+						<!-- BEGIN FILTER -->
+						<div class="filter-v1 margin-top-10">
+							<div class="row mix-grid thumbnails">
+								<?php foreach ($archivos as $index => $archivo): ?>
+								<div class="col-md-4 col-sm-6 mix">
+									<div class="mix-inner">
+										<img class="img-responsive" src="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" alt="">
+										<div class="mix-details">
+											<h3><?php echo $archivo ?></h3>
+											<a class="mix-link"><i class="fa fa-link"></i></a>
+											<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Cotización #<?php echo $cotizacion->folio ?>" data-rel="fancybox-button">
+												<i class="fa fa-search"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+								<?php endforeach ?>
+							</div>
+						</div>
+						<!-- END FILTER -->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->

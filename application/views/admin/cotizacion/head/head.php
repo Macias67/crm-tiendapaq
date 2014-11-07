@@ -24,6 +24,8 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.css" type="text/css"/>
+	<link rel="stylesheet" href="<?php echo $assets_admin_pages ?>css/portfolio.css" type="text/css"/>
 	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
 	<!-- END PAGE LEVEL STYLES -->
 

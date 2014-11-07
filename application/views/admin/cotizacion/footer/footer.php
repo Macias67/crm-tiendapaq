@@ -34,6 +34,9 @@
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.pack.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-mixitup/jquery.mixitup.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -41,6 +44,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-cotizaciones') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'portfolio') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -48,6 +52,7 @@
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
 			TableManaged.init(); //tabla de cotizaciones
+			Portfolio.init(); // VIstas de imagenes de cotizacion
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

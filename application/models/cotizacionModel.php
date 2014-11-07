@@ -66,8 +66,13 @@ class CotizacionModel extends MY_Model {
 		$query = $this->db->get($this->table);
 		// Parseo el JSON
 		$cotizacion =  $query->row();
-		$cotizacion->cotizacion = json_decode($cotizacion->cotizacion);
-		return $cotizacion;
+
+		if ($cotizacion) {
+			$cotizacion->cotizacion = json_decode($cotizacion->cotizacion);
+			return $cotizacion;
+		} else {
+			return null;
+		}
 	}
 
 /**

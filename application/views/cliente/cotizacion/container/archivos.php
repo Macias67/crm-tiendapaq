@@ -118,7 +118,6 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-					<?php// echo var_dump($cotizacion) ?>
 						<!-- BEGIN FILTER -->
 						<div class="filter-v1 margin-top-10">
 							<div class="row mix-grid thumbnails">

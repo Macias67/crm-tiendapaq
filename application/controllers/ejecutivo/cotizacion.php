@@ -31,7 +31,30 @@ class Cotizacion extends AbstractAccess {
 				'cotizacion.id_estatus_cotizacion'
 			));
 		$this->_vista('cotizaciones');
-		//var_dump($this->data);
+	}
+
+	public function revision($folio)
+	{
+		$this->load->model('cotizacionModel');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
+			//var_dump($cotizacion);
+			$this->load->model('estatusCotizacionModel');
+			$this->load->helper('directory');
+			$archivos = directory_map('./clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/', 1);
+
+			// Descarto la carpeta de las thumnail
+			foreach ($archivos as $index => $archivo) {
+				if ($archivos[$index] == 'thumbnail') {
+					unset($archivos[$index]);
+				}
+			}
+
+			$this->data['cotizacion'] = $cotizacion;
+			$this->data['archivos'] = $archivos;
+			$this->_vista('archivos');
+		} else {
+			show_404();
+		}
 	}
 
 }
