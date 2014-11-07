@@ -25,8 +25,14 @@ class Inicio extends AbstractAccess {
 			// Cargo helper
 			$this->load->helper('formatofechas');
 
+			$campos = array('cotizacion.folio',
+			                'cotizacion.fecha',
+			                'cotizacion.vigencia',
+			                'oficinas.ciudad_estado',
+			                'estatus_cotizacion.descripcion');
+
 			$this->data['cotizaciones'] = $this->cotizacionModel
-				->get_cotizaciones_cliente($this->usuario_activo['id'], $this->estatusCotizacionModel->PORPAGAR);
+				->get_cotizaciones_cliente($this->usuario_activo['id'], $this->estatusCotizacionModel->PORPAGAR, $campos);
 			$this->_vista('principal');
 		} else
 		{
