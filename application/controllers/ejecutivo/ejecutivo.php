@@ -372,6 +372,12 @@ class Ejecutivo extends AbstractAccess {
 			case 'img':
 				// Cargo libreria manejo de imagen
 				$this->load->library('image_lib');
+				//cargo los modelos a usar
+				$this->load->model('departamentoModel');
+				$this->load->model('oficinasModel');
+				//variables precargadas para mostrar datos el los selects del formulario de edicion
+				$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
+				$this->data['tablaoficinas']			= $this->oficinasModel->get(array('ciudad_estado'));
 				// Reglas de validacion
 				$this->form_validation->set_rules('userfile', 'El archivo',
 					'file_required|file_size_min[10KB]|file_size_max[2MB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1601,1601]');
@@ -379,7 +385,7 @@ class Ejecutivo extends AbstractAccess {
 				if ($this->form_validation->run() === FALSE)
 				{
 					// La forma de mostrar los errores
-					$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error: </strong>
+					$this->form_validation->set_error_delimiters('<div class="alert alert-danger"><strong>Error de validación: </strong>
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
 						' <b><a href="'.site_url('ejecutivo/editar/img#cambiar_imagen').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 					// Muestro vista con errores
@@ -409,7 +415,7 @@ class Ejecutivo extends AbstractAccess {
 					if (!$this->upload->do_upload())
 					{
 						// Envio a la variable los errores de subida
-						$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error: </strong>
+						$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error de subida: </strong>
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>',
 							' <b><a href="'.site_url('ejecutivo/editar/img#cambiar_imagen').'" style="color:red">(Intentar de nuevo)</a></b></div>');
 						// Muestro vista con errores de subida

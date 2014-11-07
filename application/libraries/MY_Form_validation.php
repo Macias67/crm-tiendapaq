@@ -95,7 +95,7 @@ class MY_Form_validation extends CI_Form_validation {
 		case UPLOAD_ERR_PARTIAL:
 			return 'The uploaded file was only partially uploaded';
 		case UPLOAD_ERR_NO_FILE:
-			return 'No cambio el archivo';
+			return 'No subiste ningún archivo';
 		case UPLOAD_ERR_NO_TMP_DIR:
 			return 'Missing a temporary folder';
 		case UPLOAD_ERR_CANT_WRITE:
@@ -260,6 +260,7 @@ class MY_Form_validation extends CI_Form_validation {
 	*/
 	function file_required($file)
 	{
+		log_message('error', 'Archivo requerido');
 		if($file['size']===0) {
 			$this->set_message('file_required','Uploading a file for %s is required.');
 			return FALSE;
@@ -280,7 +281,7 @@ class MY_Form_validation extends CI_Form_validation {
 			$this->set_message('file_size_max',"%s es muy grande (MB). (max allowed is $max_size)");
 			return FALSE;
 		}
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -296,7 +297,7 @@ class MY_Form_validation extends CI_Form_validation {
 			$this->set_message('file_size_min',"%s es muy pequeño (KB). (Min allowed is $max_size)");
 			return FALSE;
 		}
-		return true;
+		return TRUE;
 	}
 
 	/**

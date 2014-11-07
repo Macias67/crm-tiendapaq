@@ -799,43 +799,42 @@
 												</div>
 												<!-- Cambiar Imagen -->
 												<div id="cambiar_imagen" class="tab-pane">
-													<div class="col-md-4">
-														<form action="<?php echo site_url('ejecutivo/editar/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-														<div class="form-group">
-															<div class="fileinput fileinput-new" data-provides="fileinput">
-																<div class="fileinput-new thumbnail" style="width: 300px; height: 300px;">
-																	<img src="<?php echo $usuario_activo['ruta_imagenes'].'block.jpg' ?>" alt=""/>
-																</div>
-																<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 300px;">
-																</div>
-																<div>
-																	<span class="btn default btn-file">
-																	<span class="fileinput-new">Buscar... </span>
-																	<span class="fileinput-exists">Cambiar </span>
-																	<input type="file" class="default" name="userfile">
-																	</span>
-																	<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Borrar </a>
+													<form action="<?php echo site_url('ejecutivo/editar/img') ?>" id="form-imagen-ejecutivo" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+														<div class="col-md-4">
+															<div class="form-group">
+																<div class="fileinput fileinput-new" data-provides="fileinput">
+																	<div class="fileinput-new thumbnail" style="width: 300px; height: 300px;">
+																		<img src="<?php echo $usuario_activo['ruta_imagenes'].'block.jpg' ?>" alt=""/>
+																	</div>
+																	<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 300px;"></div>
+																	<div>
+																		<span class="btn default btn-file">
+																			<span class="fileinput-new">Buscar... </span>
+																			<span class="fileinput-exists">Cambiar </span>
+																			<input type="file" class="default" name="userfile">
+																		</span>
+																		<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">Borrar </a>
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-													<div class="col-md-8">
-														<h3>Selecciona una foto de perfil</h3>
-														<br>
-														<ul>
-															<li> Resolución mínima 300 x 300 px.</li>
-															<li> Resolución máxima 1600 x 1600 px.</li>
-															<li> Tamaño mínimo a 10 KB </li>
-															<li> Tamaño máximo a 2 MB </li>
-															<li> Formato .jpg ó .png </li>
-														</ul>
-														<br>
-														<hr>
-														<div class="col-md-12">
-															<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
-															<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
+														<div class="col-md-8">
+															<h3>Selecciona una foto de perfil</h3>
+															<br>
+															<ul>
+																<li> Resolución mínima 300 x 300 px.</li>
+																<li> Resolución máxima 1600 x 1600 px.</li>
+																<li> Tamaño mínimo a 10 KB </li>
+																<li> Tamaño máximo a 2 MB </li>
+																<li> Formato .jpg ó .png </li>
+															</ul>
+															<br>
+															<hr>
+															<div class="col-md-12">
+																<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+																<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Cancelar</button>
+															</div>
 														</div>
-													</div>
 													</form>
 												</div>
 												<!-- Usuario y contraseña -->
