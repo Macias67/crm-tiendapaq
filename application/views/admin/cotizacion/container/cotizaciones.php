@@ -146,7 +146,7 @@
 													<td><?php echo $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno ?></td>
 													<td><?php echo $cotizacion->fecha ?></td>
 													<td><?php echo $cotizacion->vigencia ?></td>
-													<td><?php echo $cotizacion->id_estatus ?></td>
+													<td><?php echo $cotizacion->id_estatus_cotizacion ?></td>
 													<td><a class="btn blue btn-xs " > Detalles </a></td>
 												</tr>
 											<?php endforeach ?>

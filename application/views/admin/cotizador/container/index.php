@@ -233,8 +233,8 @@
 														<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_origen) ?></p></div>
 													</div>
 													<div class="col-md-12">
-														<div class="col-md-4 text-right"><b>Asignado por: </b></div>
-														<div class="col-md-8"><p><?php echo $pendiente->creador ?></p></div>
+														<div class="col-md-4 text-right"><b>Creado por: </b></div>
+														<div class="col-md-8"><p><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></p></div>
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-4 text-right"><b>Oficina origen: </b></div>

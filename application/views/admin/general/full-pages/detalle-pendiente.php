@@ -44,7 +44,7 @@
 			<div class="col-md-12">
 				<div class="col-md-4 text-right"><b>Estatus: </b></div>
 				<div class="col-md-8">
-					<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
+					<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7 || $pendiente->id_estatus_general == 5): ?>
 						<select id="estatus_pendiente" class="form-control">
 							<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->descripcion ?></option>
 							<option value="<?php echo $estatus[4]->id_estatus ?>"><?php echo $estatus[4]->descripcion ?></option>
