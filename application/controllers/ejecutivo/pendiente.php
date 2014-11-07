@@ -125,7 +125,7 @@ class Pendiente extends AbstractAccess {
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad_pendiente == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
-			$this->data['url_cotiza']= anchor('cotizador/'.$pendiente->id_actividad_pendiente, 'Cotizar', 'class="btn red"');
+			$this->data['url_cotiza']= anchor('cotizador/'.$pendiente->id_pendiente, 'Cotizar', 'class="btn red"');
 		}
 
 		$this->_vista_completa('detalle-pendiente');
