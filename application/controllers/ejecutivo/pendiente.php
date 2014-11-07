@@ -138,10 +138,15 @@ class Pendiente extends AbstractAccess {
 		public function reasignaciones($id_pendiente)
 	{
 		$this->load->model('reasignarPendienteModel');
+		$this->load->helper('formatofechas');
 
-		$this->data['reasignaciones'] = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
+		$reasignaciones = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
 																	array('origen.primer_nombre as nombre_origen','origen.apellido_paterno as apellido_origen',
 																		     'destino.primer_nombre as nombre_destino','destino.apellido_paterno as apellido_destino','reasignacion_pendiente.fecha'));
+		foreach ($reasignaciones as $index => $reasignacion) {
+			$reasignaciones[$index]->fecha = fecha_completa($reasignaciones[$index]->fecha);
+		}
+		$this->data['reasignaciones'] = $reasignaciones;
 
 		$this->_vista_completa('reasignaciones-pendiente');
 	}
@@ -167,13 +172,12 @@ class Pendiente extends AbstractAccess {
 			}
 		}else{
 			$this->load->model('reasignarPendienteModel');
-			$this->load->helper('formatofechas');
 
 			$reasignacion = array(
 				'id_pendiente' => $id_pendiente,
 				'id_ejecutivo_origen' => $id_ejecutivo_origen,
 				'id_ejecutivo_destino' => $id_ejecutivo_destino,
-				'fecha' => fecha_completa(date('Y-m-d H:i:s'))
+				'fecha' => date('Y-m-d H:i:s')
 				);
 
 			if($this->reasignarPendienteModel->insert($reasignacion) && 
