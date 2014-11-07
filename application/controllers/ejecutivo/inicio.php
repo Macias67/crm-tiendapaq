@@ -29,10 +29,11 @@ class Inicio extends AbstractAccess {
 			                'cotizacion.fecha',
 			                'cotizacion.vigencia',
 			                'oficinas.ciudad_estado',
+			                'estatus_cotizacion.id_estatus',
 			                'estatus_cotizacion.descripcion');
 
 			$this->data['cotizaciones'] = $this->cotizacionModel
-				->get_cotizaciones_cliente($this->usuario_activo['id'], $this->estatusCotizacionModel->PORPAGAR, $campos);
+				->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
 			$this->_vista('principal');
 		} else
 		{

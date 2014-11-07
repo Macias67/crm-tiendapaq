@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2014 a las 21:39:15
+-- Tiempo de generación: 07-11-2014 a las 22:38:36
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
   `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(30) NOT NULL,
   PRIMARY KEY (`id_estatus`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `estatus_cotizacion`
@@ -263,7 +263,8 @@ INSERT INTO `estatus_cotizacion` (`id_estatus`, `descripcion`) VALUES
 (1, 'por pagar'),
 (2, 'revisión'),
 (3, 'correcta'),
-(4, 'irregular');
+(4, 'irregular'),
+(5, 'vencida');
 
 -- --------------------------------------------------------
 
