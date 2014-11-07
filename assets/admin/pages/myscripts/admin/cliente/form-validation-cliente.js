@@ -490,7 +490,7 @@ var FormValidationCliente = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-			//Metronic.scrollTo(error1, -200);
+			  Metronic.scrollTo(error1, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
