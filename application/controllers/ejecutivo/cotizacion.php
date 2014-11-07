@@ -10,6 +10,7 @@ class Cotizacion extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('cotizacionModel');
 	}
 
 	/**
@@ -19,7 +20,6 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function index()
 	{
-		$this->load->model('cotizacionModel');
 		$this->data['cotizaciones_revision'] = $this->cotizacionModel->get_cotizacion_revision(
 			array(
 				'cotizacion.folio',
@@ -35,7 +35,6 @@ class Cotizacion extends AbstractAccess {
 
 	public function revision($folio)
 	{
-		$this->load->model('cotizacionModel');
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
 			//var_dump($cotizacion);
 			$this->load->model('estatusCotizacionModel');
@@ -55,6 +54,57 @@ class Cotizacion extends AbstractAccess {
 		} else {
 			show_404();
 		}
+	}
+
+	public function apertura()
+	{
+		$folio = $this->input->post('folio');
+		$valoracion = $this->input->post('valoracion');
+		$comentarios = $this->input->post('comentarios');
+
+		$this->load->model('estatusCotizacionModel');
+		$response = FALSE;
+
+		if ($valoracion == 'aceptado') {
+			$this->load->model('estatusGeneralModel');
+
+			// Cambie estatus de la cotizacion a PAGADO
+			if ($this->cotizacionModel->update(
+				array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO,
+					'observacion_pago' => $comentarios),
+				array('folio' => $folio)))
+			{
+				$this->load->model('casoModel');
+
+				$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
+
+				$caso = array(
+					'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
+					'id_cliente' => $cotizacion->id_cliente,
+					'folio_cotizacion' => $folio,
+					'fecha_inicio' => date('Y-m-d H:i:s'));
+				// Abro un nuevo CASO
+				if ($this->casoModel->insert($caso))
+				{
+					$response = TRUE;
+				}
+			}
+		} elseif ($valoracion == 'irregular') {
+			if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR,
+					'observacion_pago' => $comentarios),
+				array('folio' => $folio)))
+			{
+				$response = TRUE;
+			}
+		}
+
+		/**
+		 * BLOQUE DE ENVIIO DE CORREO
+		 */
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode(array('exito' => $response)));
 	}
 
 }

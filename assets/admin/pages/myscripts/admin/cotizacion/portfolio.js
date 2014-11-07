@@ -2,13 +2,21 @@ var Portfolio = function () {
 
 	var validacion = function() {
 		$('#validar').on('click', function() {
+			var folio = $('form').attr('id-folio');
 			var valoracion = $('input[name="valoracion"]').val();
 			var comentarios = $('textarea#comentarios').val();
-			bootbox.alert('<h3>'+valoracion+'</h3><br /><p>'+comentarios+'</p>');
 
-			$.post('/cotizacion/apertura', {valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
-				/*optional stuff to do after success */
-			});
+			$.post('/cotizacion/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
+				if (data.exito) {
+					bootbox.alert('<h3>Cotización pagada, nuevo caso abierto en espera de asignación</h3>', function() {
+						window.location = '/caso';
+					});
+				} else {
+					bootbox.alert('<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>', function() {
+						window.location = '/';
+					});
+				}
+			}, 'json');
 		});
 	};
 

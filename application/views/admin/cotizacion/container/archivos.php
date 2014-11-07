@@ -126,7 +126,7 @@
 								</div>
 							</div>
 							<div class="portlet-body form">
-								<form role="form">
+								<form role="form" id-folio="<?php echo $cotizacion->folio ?>">
 									<div class="form-body">
 										<div class="form-group">
 											<label>Valoración: </label>

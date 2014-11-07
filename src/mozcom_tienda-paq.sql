@@ -74,7 +74,7 @@ INSERT INTO `bancos` (`id_banco`, `banco`, `sucursal`, `cta`, `titular`, `cib`) 
 
 CREATE TABLE IF NOT EXISTS `caso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_lider` int(11) NOT NULL,
+  `id_lider` int(11) NULL,
   `id_estatus_general` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `folio_cotizacion` int(11) NOT NULL,
