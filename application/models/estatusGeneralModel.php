@@ -31,6 +31,7 @@ class estatusGeneralModel extends MY_Model {
 	var $PROCESO		= 5;
 	var $SUSPENDIDO	= 6;
 	var $REASIGNADO	= 7;
+	var $PORASIGNAR	= 8;
 }
 
 /* End of file estatusModel.php */
