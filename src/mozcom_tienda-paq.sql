@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.9
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 07-11-2014 a las 20:42:37
--- Versión del servidor: 5.5.40-cll
--- Versión de PHP: 5.4.23
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-11-2014 a las 21:39:15
+-- Versión del servidor: 5.6.17
+-- Versión de PHP: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,9 +27,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `actividades_pendiente` (
-`id_actividad` int(11) NOT NULL,
-  `actividad` varchar(40) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='Los tipos de pendientes que puede haber en el sisitema';
+  `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
+  `actividad` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_actividad`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Los tipos de pendientes que puede haber en el sisitema' AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `actividades_pendiente`
@@ -49,13 +50,14 @@ INSERT INTO `actividades_pendiente` (`id_actividad`, `actividad`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `bancos` (
-`id_banco` int(3) NOT NULL,
+  `id_banco` int(3) NOT NULL AUTO_INCREMENT,
   `banco` varchar(30) NOT NULL,
   `sucursal` int(8) NOT NULL,
   `cta` int(8) NOT NULL,
   `titular` varchar(50) NOT NULL,
-  `cib` varchar(18) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Datos de las cuentas de banco de la empresa';
+  `cib` varchar(18) NOT NULL,
+  PRIMARY KEY (`id_banco`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Datos de las cuentas de banco de la empresa' AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `bancos`
@@ -67,11 +69,32 @@ INSERT INTO `bancos` (`id_banco`, `banco`, `sucursal`, `cta`, `titular`, `cib`) 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `caso`
+--
+
+CREATE TABLE IF NOT EXISTS `caso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_lider` int(11) NOT NULL,
+  `id_estatus_general` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `folio_cotizacion` int(11) NOT NULL,
+  `fecha_inicio` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `fecha_final` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `id_lider` (`id_lider`,`id_estatus_general`,`id_cliente`,`folio_cotizacion`),
+  KEY `id_estatus_general` (`id_estatus_general`),
+  KEY `id_cliente` (`id_cliente`),
+  KEY `id_cotizacion` (`folio_cotizacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `clientes`
 --
 
 CREATE TABLE IF NOT EXISTS `clientes` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(10) NOT NULL,
   `razon_social` varchar(80) NOT NULL,
   `rfc` varchar(13) NOT NULL,
@@ -89,8 +112,10 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `telefono1` varchar(14) NOT NULL,
   `telefono2` varchar(14) NOT NULL,
   `usuario` varchar(10) NOT NULL,
-  `password` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes';
+  `password` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -99,15 +124,17 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 CREATE TABLE IF NOT EXISTS `contactos` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `nombre_contacto` varchar(30) NOT NULL,
   `apellido_paterno` varchar(20) NOT NULL,
   `apellido_materno` varchar(20) NOT NULL,
   `email_contacto` varchar(50) NOT NULL,
   `telefono_contacto` varchar(14) NOT NULL,
-  `puesto_contacto` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente';
+  `puesto_contacto` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contactos_ibfk_1` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -116,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 --
 
 CREATE TABLE IF NOT EXISTS `cotizacion` (
-`folio` int(11) NOT NULL,
+  `folio` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `vigencia` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `id_ejecutivo` int(11) NOT NULL,
@@ -125,8 +152,16 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `cotizacion` text NOT NULL,
   `id_observaciones` int(11) NOT NULL,
   `id_banco` int(11) NOT NULL,
-  `id_estatus_cotizacion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones';
+  `id_estatus_cotizacion` int(11) NOT NULL,
+  `observacion_pago` text NOT NULL,
+  PRIMARY KEY (`folio`),
+  KEY `cotizacion_ibfk_1` (`id_ejecutivo`),
+  KEY `cotizacion_ibfk_2` (`id_cliente`),
+  KEY `cotizacion_ibfk_3` (`id_oficina`),
+  KEY `cotizacion_ibfk_4` (`id_estatus_cotizacion`),
+  KEY `cotizacion_ibfk_5` (`id_observaciones`),
+  KEY `cotizacion_ibfk_6` (`id_banco`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -135,9 +170,11 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
 --
 
 CREATE TABLE IF NOT EXISTS `departamento` (
-`id_departamento` int(3) NOT NULL,
-  `area` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina';
+  `id_departamento` int(3) NOT NULL AUTO_INCREMENT,
+  `area` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_departamento`),
+  UNIQUE KEY `area` (`area`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Nombre de los departamentos dentro de la oficina' AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -155,7 +192,7 @@ INSERT INTO `departamento` (`id_departamento`, `area`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ejecutivos` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `primer_nombre` varchar(20) NOT NULL,
   `segundo_nombre` varchar(20) NOT NULL,
   `apellido_paterno` varchar(20) NOT NULL,
@@ -167,8 +204,13 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `telefono` varchar(14) NOT NULL,
   `departamento` varchar(30) NOT NULL,
   `privilegios` varchar(30) NOT NULL,
-  `mensaje_personal` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa';
+  `mensaje_personal` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuario` (`usuario`),
+  KEY `ejecutivos_ibfk_1` (`oficina`),
+  KEY `ejecutivos_ibfk_2` (`departamento`),
+  KEY `ejecutivos_ibfk_3` (`privilegios`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa' AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `ejecutivos`
@@ -185,7 +227,7 @@ INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_pat
 --
 
 CREATE TABLE IF NOT EXISTS `equipos_computo` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `nombre_equipo` varchar(20) NOT NULL,
   `sistema_operativo` varchar(25) NOT NULL,
@@ -196,8 +238,10 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
   `sql_management` varchar(50) NOT NULL,
   `instancia_sql` varchar(50) NOT NULL,
   `password_sql` varchar(50) NOT NULL,
-  `observaciones` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente';
+  `observaciones` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `equipos_computo_ibfk_1` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Iinformacion de los equipos de computo del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -206,9 +250,10 @@ CREATE TABLE IF NOT EXISTS `equipos_computo` (
 --
 
 CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
-`id_estatus` int(11) NOT NULL,
-  `descripcion` varchar(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones';
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `estatus_cotizacion`
@@ -227,9 +272,10 @@ INSERT INTO `estatus_cotizacion` (`id_estatus`, `descripcion`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `estatus_general` (
-`id_estatus` int(11) NOT NULL,
-  `descripcion` varchar(40) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Estatus para los pendientes, casos y tareas';
+  `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_estatus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para los pendientes, casos y tareas' AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `estatus_general`
@@ -242,7 +288,8 @@ INSERT INTO `estatus_general` (`id_estatus`, `descripcion`) VALUES
 (4, 'precierre'),
 (5, 'proceso'),
 (6, 'suspendido'),
-(7, 'reasignado');
+(7, 'reasignado'),
+(8, 'por asignar');
 
 -- --------------------------------------------------------
 
@@ -251,9 +298,10 @@ INSERT INTO `estatus_general` (`id_estatus`, `descripcion`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `observaciones` (
-`id_observacion` int(3) NOT NULL,
-  `descripcion` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Observaciones generales para la cotización';
+  `id_observacion` int(3) NOT NULL AUTO_INCREMENT,
+  `descripcion` text NOT NULL,
+  PRIMARY KEY (`id_observacion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Observaciones generales para la cotización' AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `observaciones`
@@ -269,7 +317,7 @@ INSERT INTO `observaciones` (`id_observacion`, `descripcion`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oficinas` (
-`id_oficina` int(3) NOT NULL,
+  `id_oficina` int(3) NOT NULL AUTO_INCREMENT,
   `ciudad_estado` varchar(70) NOT NULL,
   `ciudad` varchar(40) NOT NULL,
   `estado` varchar(30) NOT NULL,
@@ -277,8 +325,10 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
   `calle` varchar(50) NOT NULL,
   `numero` varchar(5) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `telefono` varchar(14) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Oficinas registradas en la empresa';
+  `telefono` varchar(14) NOT NULL,
+  PRIMARY KEY (`ciudad_estado`),
+  UNIQUE KEY `id_oficina` (`id_oficina`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Oficinas registradas en la empresa' AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `oficinas`
@@ -295,7 +345,7 @@ INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colo
 --
 
 CREATE TABLE IF NOT EXISTS `pendientes` (
-`id_pendiente` int(11) NOT NULL,
+  `id_pendiente` int(11) NOT NULL AUTO_INCREMENT,
   `id_creador` int(11) NOT NULL,
   `id_ejecutivo` int(11) NOT NULL,
   `id_cliente` int(11) DEFAULT NULL,
@@ -303,8 +353,14 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
   `id_estatus_general` int(11) NOT NULL,
   `descripcion` text NOT NULL,
   `fecha_origen` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa';
+  `fecha_finaliza` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id_pendiente`),
+  KEY `pendientes_ibfk_1` (`id_creador`),
+  KEY `pendientes_ibfk_2` (`id_ejecutivo`),
+  KEY `pendientes_ibfk_3` (`id_cliente`),
+  KEY `pendientes_ibfk_4` (`id_actividad_pendiente`),
+  KEY `pendientes_ibfk_5` (`id_estatus_general`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de pendientes generales en la empresa' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -313,7 +369,8 @@ CREATE TABLE IF NOT EXISTS `pendientes` (
 --
 
 CREATE TABLE IF NOT EXISTS `privilegios` (
-  `privilegios` varchar(30) NOT NULL
+  `privilegios` varchar(30) NOT NULL,
+  UNIQUE KEY `privilegios` (`privilegios`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Privilegios en el sistema';
 
 --
@@ -337,7 +394,8 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `impuesto1` float NOT NULL,
   `impuesto2` float NOT NULL,
   `retencion1` float NOT NULL,
-  `retencion2` float NOT NULL
+  `retencion2` float NOT NULL,
+  PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de productos';
 
 -- --------------------------------------------------------
@@ -347,13 +405,17 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 CREATE TABLE IF NOT EXISTS `reasignacion_pendiente` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pendiente` int(11) NOT NULL,
   `id_ejecutivo_origen` int(11) NOT NULL,
   `id_ejecutivo_destino` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `motivo` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Guarda historial de reasignaciones';
+  `motivo` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `reasignacion_pendiente_ibfk_1` (`id_pendiente`),
+  KEY `reasignacion_pendiente_ibfk_2` (`id_ejecutivo_origen`),
+  KEY `reasignacion_pendiente_ibfk_3` (`id_ejecutivo_destino`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Guarda historial de reasignaciones' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -362,12 +424,14 @@ CREATE TABLE IF NOT EXISTS `reasignacion_pendiente` (
 --
 
 CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `sistema` varchar(50) NOT NULL,
   `version` varchar(10) NOT NULL,
-  `no_serie` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Informacion de los sistemas de contpaq del cliente';
+  `no_serie` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sistemas_clientes_ibfk_1` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Informacion de los sistemas de contpaq del cliente' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -376,10 +440,11 @@ CREATE TABLE IF NOT EXISTS `sistemas_clientes` (
 --
 
 CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
-`id_sistema` int(11) NOT NULL,
+  `id_sistema` int(11) NOT NULL AUTO_INCREMENT,
   `sistema` varchar(30) NOT NULL,
-  `versiones` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi';
+  `versiones` text NOT NULL,
+  PRIMARY KEY (`id_sistema`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='registro de los sistemas de contpaqi' AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `sistemas_contpaqi`
@@ -401,9 +466,10 @@ INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sistemas_operativos` (
-`id_so` int(2) NOT NULL,
-  `sistema_operativo` varchar(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Resgistro de los sistemas operativos';
+  `id_so` int(2) NOT NULL AUTO_INCREMENT,
+  `sistema_operativo` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_so`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Resgistro de los sistemas operativos' AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `sistemas_operativos`
@@ -416,270 +482,72 @@ INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
 (4, 'Windows 8');
 
 --
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `actividades_pendiente`
---
-ALTER TABLE `actividades_pendiente`
- ADD PRIMARY KEY (`id_actividad`);
-
---
--- Indices de la tabla `bancos`
---
-ALTER TABLE `bancos`
- ADD PRIMARY KEY (`id_banco`);
-
---
--- Indices de la tabla `clientes`
---
-ALTER TABLE `clientes`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `codigo` (`codigo`);
-
---
--- Indices de la tabla `contactos`
---
-ALTER TABLE `contactos`
- ADD PRIMARY KEY (`id`), ADD KEY `contactos_ibfk_1` (`id_cliente`);
-
---
--- Indices de la tabla `cotizacion`
---
-ALTER TABLE `cotizacion`
- ADD PRIMARY KEY (`folio`), ADD KEY `cotizacion_ibfk_1` (`id_ejecutivo`), ADD KEY `cotizacion_ibfk_2` (`id_cliente`), ADD KEY `cotizacion_ibfk_3` (`id_oficina`), ADD KEY `cotizacion_ibfk_4` (`id_estatus_cotizacion`), ADD KEY `cotizacion_ibfk_5` (`id_observaciones`), ADD KEY `cotizacion_ibfk_6` (`id_banco`);
-
---
--- Indices de la tabla `departamento`
---
-ALTER TABLE `departamento`
- ADD PRIMARY KEY (`id_departamento`), ADD UNIQUE KEY `area` (`area`);
-
---
--- Indices de la tabla `ejecutivos`
---
-ALTER TABLE `ejecutivos`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `usuario` (`usuario`), ADD KEY `ejecutivos_ibfk_1` (`oficina`), ADD KEY `ejecutivos_ibfk_2` (`departamento`), ADD KEY `ejecutivos_ibfk_3` (`privilegios`);
-
---
--- Indices de la tabla `equipos_computo`
---
-ALTER TABLE `equipos_computo`
- ADD PRIMARY KEY (`id`), ADD KEY `equipos_computo_ibfk_1` (`id_cliente`);
-
---
--- Indices de la tabla `estatus_cotizacion`
---
-ALTER TABLE `estatus_cotizacion`
- ADD PRIMARY KEY (`id_estatus`);
-
---
--- Indices de la tabla `estatus_general`
---
-ALTER TABLE `estatus_general`
- ADD PRIMARY KEY (`id_estatus`);
-
---
--- Indices de la tabla `observaciones`
---
-ALTER TABLE `observaciones`
- ADD PRIMARY KEY (`id_observacion`);
-
---
--- Indices de la tabla `oficinas`
---
-ALTER TABLE `oficinas`
- ADD PRIMARY KEY (`ciudad_estado`), ADD UNIQUE KEY `id_oficina` (`id_oficina`);
-
---
--- Indices de la tabla `pendientes`
---
-ALTER TABLE `pendientes`
- ADD PRIMARY KEY (`id_pendiente`), ADD KEY `pendientes_ibfk_1` (`id_creador`), ADD KEY `pendientes_ibfk_2` (`id_ejecutivo`), ADD KEY `pendientes_ibfk_3` (`id_cliente`), ADD KEY `pendientes_ibfk_4` (`id_actividad_pendiente`), ADD KEY `pendientes_ibfk_5` (`id_estatus_general`);
-
---
--- Indices de la tabla `privilegios`
---
-ALTER TABLE `privilegios`
- ADD UNIQUE KEY `privilegios` (`privilegios`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
- ADD PRIMARY KEY (`codigo`);
-
---
--- Indices de la tabla `reasignacion_pendiente`
---
-ALTER TABLE `reasignacion_pendiente`
- ADD PRIMARY KEY (`id`), ADD KEY `reasignacion_pendiente_ibfk_1` (`id_pendiente`), ADD KEY `reasignacion_pendiente_ibfk_2` (`id_ejecutivo_origen`), ADD KEY `reasignacion_pendiente_ibfk_3` (`id_ejecutivo_destino`);
-
---
--- Indices de la tabla `sistemas_clientes`
---
-ALTER TABLE `sistemas_clientes`
- ADD PRIMARY KEY (`id`), ADD KEY `sistemas_clientes_ibfk_1` (`id_cliente`);
-
---
--- Indices de la tabla `sistemas_contpaqi`
---
-ALTER TABLE `sistemas_contpaqi`
- ADD PRIMARY KEY (`id_sistema`);
-
---
--- Indices de la tabla `sistemas_operativos`
---
-ALTER TABLE `sistemas_operativos`
- ADD PRIMARY KEY (`id_so`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `actividades_pendiente`
---
-ALTER TABLE `actividades_pendiente`
-MODIFY `id_actividad` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `bancos`
---
-ALTER TABLE `bancos`
-MODIFY `id_banco` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `contactos`
---
-ALTER TABLE `contactos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `cotizacion`
---
-ALTER TABLE `cotizacion`
-MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `departamento`
---
-ALTER TABLE `departamento`
-MODIFY `id_departamento` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT de la tabla `ejecutivos`
---
-ALTER TABLE `ejecutivos`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `equipos_computo`
---
-ALTER TABLE `equipos_computo`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `estatus_cotizacion`
---
-ALTER TABLE `estatus_cotizacion`
-MODIFY `id_estatus` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT de la tabla `estatus_general`
---
-ALTER TABLE `estatus_general`
-MODIFY `id_estatus` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT de la tabla `observaciones`
---
-ALTER TABLE `observaciones`
-MODIFY `id_observacion` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `oficinas`
---
-ALTER TABLE `oficinas`
-MODIFY `id_oficina` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `pendientes`
---
-ALTER TABLE `pendientes`
-MODIFY `id_pendiente` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `reasignacion_pendiente`
---
-ALTER TABLE `reasignacion_pendiente`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `sistemas_clientes`
---
-ALTER TABLE `sistemas_clientes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `sistemas_contpaqi`
---
-ALTER TABLE `sistemas_contpaqi`
-MODIFY `id_sistema` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT de la tabla `sistemas_operativos`
---
-ALTER TABLE `sistemas_operativos`
-MODIFY `id_so` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `caso`
+--
+ALTER TABLE `caso`
+  ADD CONSTRAINT `caso_ibfk_4` FOREIGN KEY (`folio_cotizacion`) REFERENCES `cotizacion` (`folio`),
+  ADD CONSTRAINT `caso_ibfk_1` FOREIGN KEY (`id_lider`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `caso_ibfk_2` FOREIGN KEY (`id_estatus_general`) REFERENCES `estatus_general` (`id_estatus`),
+  ADD CONSTRAINT `caso_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`);
 
 --
 -- Filtros para la tabla `contactos`
 --
 ALTER TABLE `contactos`
-ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `contactos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
-ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
-ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`id_oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`id_estatus_cotizacion`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
-ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`id_observaciones`) REFERENCES `observaciones` (`id_observacion`),
-ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id_banco`);
+  ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`id_oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`id_estatus_cotizacion`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`id_observaciones`) REFERENCES `observaciones` (`id_observacion`),
+  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id_banco`);
 
 --
 -- Filtros para la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`) ON UPDATE CASCADE,
-ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`) ON UPDATE CASCADE,
-ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `ejecutivos_ibfk_1` FOREIGN KEY (`oficina`) REFERENCES `oficinas` (`ciudad_estado`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecutivos_ibfk_2` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`area`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ejecutivos_ibfk_3` FOREIGN KEY (`privilegios`) REFERENCES `privilegios` (`privilegios`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equipos_computo`
 --
 ALTER TABLE `equipos_computo`
-ADD CONSTRAINT `equipos_computo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `equipos_computo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pendientes`
 --
 ALTER TABLE `pendientes`
-ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
-ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
-ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
-ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_actividad_pendiente`) REFERENCES `actividades_pendiente` (`id_actividad`),
-ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_estatus_general`) REFERENCES `estatus_general` (`id_estatus`);
+  ADD CONSTRAINT `pendientes_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_2` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pendientes_ibfk_4` FOREIGN KEY (`id_actividad_pendiente`) REFERENCES `actividades_pendiente` (`id_actividad`),
+  ADD CONSTRAINT `pendientes_ibfk_5` FOREIGN KEY (`id_estatus_general`) REFERENCES `estatus_general` (`id_estatus`);
 
 --
 -- Filtros para la tabla `reasignacion_pendiente`
 --
 ALTER TABLE `reasignacion_pendiente`
-ADD CONSTRAINT `reasignacion_pendiente_ibfk_1` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
-ADD CONSTRAINT `reasignacion_pendiente_ibfk_2` FOREIGN KEY (`id_ejecutivo_origen`) REFERENCES `ejecutivos` (`id`),
-ADD CONSTRAINT `reasignacion_pendiente_ibfk_3` FOREIGN KEY (`id_ejecutivo_destino`) REFERENCES `ejecutivos` (`id`);
+  ADD CONSTRAINT `reasignacion_pendiente_ibfk_1` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
+  ADD CONSTRAINT `reasignacion_pendiente_ibfk_2` FOREIGN KEY (`id_ejecutivo_origen`) REFERENCES `ejecutivos` (`id`),
+  ADD CONSTRAINT `reasignacion_pendiente_ibfk_3` FOREIGN KEY (`id_ejecutivo_destino`) REFERENCES `ejecutivos` (`id`);
 
 --
 -- Filtros para la tabla `sistemas_clientes`
 --
 ALTER TABLE `sistemas_clientes`
-ADD CONSTRAINT `sistemas_clientes_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `sistemas_clientes_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
