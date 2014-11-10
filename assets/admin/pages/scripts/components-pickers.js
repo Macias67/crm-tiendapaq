@@ -5,10 +5,13 @@ var ComponentsPickers = function () {
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
                 rtl: Metronic.isRTL(),
+                orientation: "left",
                 autoclose: true
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
+
+        /* Workaround to restrict daterange past date select: http://stackoverflow.com/questions/11933173/how-to-restrict-the-selectable-date-ranges-in-bootstrap-datepicker */
     }
 
     var handleTimePickers = function () {
@@ -55,7 +58,6 @@ var ComponentsPickers = function () {
                 maxDate: '12/31/2014',
             },
             function (start, end) {
-                console.log("Callback has been called!");
                 $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             }
         );        
@@ -110,7 +112,7 @@ var ComponentsPickers = function () {
                 format: 'MM/DD/YYYY',
                 separator: ' to ',
                 locale: {
-                    applyLabel: 'Metronicly',
+                    applyLabel: 'Apply',
                     fromLabel: 'From',
                     toLabel: 'To',
                     customRangeLabel: 'Custom Range',
@@ -120,7 +122,6 @@ var ComponentsPickers = function () {
                 }
             },
             function (start, end) {
-                console.log("Callback has been called!");
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             }
         );
@@ -129,6 +130,10 @@ var ComponentsPickers = function () {
     }
 
     var handleDatetimePicker = function () {
+
+        if (!jQuery().datetimepicker) {
+            return;
+        }
 
         $(".form_datetime").datetimepicker({
             autoclose: true,

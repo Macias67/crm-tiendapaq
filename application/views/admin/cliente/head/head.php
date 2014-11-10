@@ -24,8 +24,8 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
-	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
-	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+	<!-- <link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/> -->
+	<!-- <link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/> -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 	<!-- END PAGE LEVEL STYLES -->
@@ -34,7 +34,7 @@
 	<link href="<?php echo $assets_global_css ?>components.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_css ?>plugins.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_admin_layout ?>css/layout.css" rel="stylesheet" type="text/css"/>
-	<link id="style_color" href="<?php echo $assets_admin_layout ?>css/themes/default.css" rel="stylesheet" type="text/css"/>
+	<link href="<?php echo $assets_admin_layout ?>css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
 	<link href="<?php echo $assets_admin_layout ?>css/custom.css" rel="stylesheet" type="text/css"/>
 	<!-- END THEME STYLES -->
 

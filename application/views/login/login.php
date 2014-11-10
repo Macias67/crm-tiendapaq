@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<!--
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.1
-Version: 3.1
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <!--[if IE 8]> <html lang="es" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="es" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -105,7 +94,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</label>
 				<button type="submit"  id="login"  class="btn blue pull-right">Entrar <i class="m-icon-swapright m-icon-white"></i></button>
 			</div>
-			<div class="login-options">
+			<!-- <div class="login-options">
 				<h4>O entrar con</h4>
 				<ul class="social-icons">
 					<li>
@@ -121,21 +110,22 @@ License: You must have a valid license purchased only from themeforest(the above
 						<a class="linkedin" data-original-title="Linkedin" href="#"></a>
 					</li>
 				</ul>
-			</div>
+			</div> -->
+			<br>
 			<div class="forget-password"  style="margin-top: 0px">
 				<h4>¿Olvidaste la contraseña?</h4>
 				<p>No hay problema, haz cick <a href="javascript:;" id="forget-password">aquí </a>para recuperar tu contraseña.</p>
 			</div>
-			<div class="create-account">
+			<!-- <div class="create-account">
 				<p> No tienes una cuenta? <a href="javascript:;" id="register-btn">Crear una cuenta </a></p>
-			</div>
+			</div> -->
 		</form>
 		<!-- END LOGIN FORM -->
 
 		<!-- BEGIN FORGOT PASSWORD FORM -->
 		<form class="forget-form" action="index.html" method="post">
-			<h3>Forget Password ?</h3>
-			<p>Enter your e-mail address below to reset your password.</p>
+			<h3>¿Olvidaste la contraseña?</h3>
+			<p>Ingresa tu e-mail para restablecer tu contraseña.</p>
 			<div class="form-group">
 				<div class="input-icon">
 					<i class="fa fa-envelope"></i>
@@ -143,8 +133,8 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<div class="form-actions">
-				<button type="button" id="back-btn" class="btn"><i class="m-icon-swapleft"></i> Back </button>
-				<button type="submit" class="btn blue pull-right">Submit <i class="m-icon-swapright m-icon-white"></i></button>
+				<button type="button" id="back-btn" class="btn"><i class="m-icon-swapleft"></i> Regresar </button>
+				<button type="submit" class="btn blue pull-right">Enviar <i class="m-icon-swapright m-icon-white"></i></button>
 			</div>
 		</form>
 		<!-- END FORGOT PASSWORD FORM -->
@@ -466,7 +456,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- END LOGIN -->
 
 	<!-- BEGIN COPYRIGHT -->
-	<div class="copyright">2014 &copy; TiendaPAQ</div>
+	<div class="copyright"><?php echo date('Y') ?> &copy; TiendaPAQ</div>
 	<!-- END COPYRIGHT -->
 
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -477,8 +467,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<script src="<?php echo $assets_global_plugins ?>excanvas.min.js"></script>
 	<![endif]-->
 
-	<script src="<?php echo $assets_global_plugins ?>jquery-1.11.0.min.js" type="text/javascript"></script>
-	<script src="<?php echo $assets_global_plugins ?>jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery-migrate.min.js" type="text/javascript"></script>
 
 	<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 	<script src="<?php echo $assets_global_plugins ?>jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>

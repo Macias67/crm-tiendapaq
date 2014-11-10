@@ -147,6 +147,37 @@ class MY_Model extends CI_Model
 	}
 
 	/**
+	 * Funcion para obtener datos con un arreglo en la
+	 * seccion de like para buscar en todos los campos
+	 * @param  array  $campos    Array de los campos a buscar
+	 * @param  array  $like      Array con todos los vampos a hace like con or
+	 * @param  string $orderBy   Ordenar por
+	 * @param  string $orderForm Ordenar manera
+	 * @param  int $limit     Limite
+	 * @param  int $offset    Recorete
+	 * @return [Array Object]            [Retorna un arreglo de objetos]
+	 */
+	public function get_or_like($campos = array('*'), $like = array(), $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	{
+		$this->db->select($campos);
+		$this->db->or_like($like);
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit && !$offset)
+		{
+			$this->db->limit($limit);
+		}
+		elseif ($limit && $offset)
+		{
+			$this->db->limit($limit, $offset);
+		}
+		$this->query = $this->db->get($this->table);
+		return $this->query->result();
+	}
+
+	/**
 	 * Obtener datos segun parametros
 	 * @param  [array] $like [Array con los datos]
 	 * @return [object|array]        [Datos devueltos]

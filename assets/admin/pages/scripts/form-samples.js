@@ -1,4 +1,4 @@
-uvar FormSamples = function () {
+var FormSamples = function () {
 
 
     return {

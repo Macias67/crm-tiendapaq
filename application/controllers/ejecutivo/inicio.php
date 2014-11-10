@@ -31,9 +31,7 @@ class Inicio extends AbstractAccess {
 			                'oficinas.ciudad_estado',
 			                'estatus_cotizacion.id_estatus',
 			                'estatus_cotizacion.descripcion');
-
-			$this->data['cotizaciones'] = $this->cotizacionModel
-				->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
+			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
 			$this->_vista('principal');
 		} else
 		{
@@ -68,7 +66,6 @@ class Inicio extends AbstractAccess {
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 			// Muestro Vista
 			$this->_vista('principal');
-			//var_dump($this->data);
 		}
 	}
 }

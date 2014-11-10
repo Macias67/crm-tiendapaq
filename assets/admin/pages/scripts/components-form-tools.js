@@ -68,7 +68,7 @@ var ComponentsFormTools = function () {
         }  
         $('#typeahead_example_3').typeahead(null, {
           name: 'datypeahead_example_3',
-          displayKey: 'name',
+          displayKey: 'value',
           source: custom.ttAdapter(),
           hint: (Metronic.isRTL() ? false : true),
           templates: {
@@ -199,7 +199,7 @@ var ComponentsFormTools = function () {
         }
         $('#typeahead_example_modal_3').typeahead(null, {
           name: 'datypeahead_example_modal_3',
-          displayKey: 'name',
+          displayKey: 'value',
           hint: (Metronic.isRTL() ? false : true),
           source: custom.ttAdapter(),
           templates: {
