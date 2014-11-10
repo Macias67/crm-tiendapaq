@@ -26,11 +26,11 @@ var TableManagedCliente = function() {
 				{ "data": "tipo" },
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle green btn-xs ajax-editar"><i class="fa fa-search-plus"></i></button>'
+					"defaultContent": '<button type="button" class="btn btn-circle green btn-xs ajax-editar"><i class="fa fa-search-plus"> Ver/Editar</i></button>'
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle red btn-xs eliminar"><i class="fa fa-trash-o"></i></button>'
+					"defaultContent": '<button type="button" class="btn btn-circle red btn-xs eliminar"><i class="fa fa-trash-o"></i> Eliminar</button>'
 				}
 			],
 			"rowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
