@@ -25,8 +25,6 @@
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.css"/>
-	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
-	<link href="<?php echo $assets_global_plugins ?>bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
