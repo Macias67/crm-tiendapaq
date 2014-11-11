@@ -26,7 +26,7 @@ var TableManagedCliente = function() {
 				{ "data": "tipo" },
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle green btn-xs ajax-editar"><i class="fa fa-search-plus"> Ver/Editar</i></button>'
+					"defaultContent": '<button type="button" class="btn btn-circle green btn-xs editar"><i class="fa fa-search-plus"> Ver/Editar</i></button>'
 				},
 				{
 					"data": null,
@@ -76,7 +76,7 @@ var TableManagedCliente = function() {
 					"targets": [0]
 				}
 			],
-			"order": [3, 'asc' ] // Ordenados por Razón Social
+			"order": [5, 'desc' ] // Ordenados por Razón Social
 		});
 
 		// Checkbox de la tabla
@@ -136,6 +136,18 @@ var TableManagedCliente = function() {
 					});
 				};
 			});
+		});
+
+		//funcion para eeditar
+		table.on('click', '.editar', function (e) {
+			e.preventDefault();
+			//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
+			var nRow 	= $(this).parents('tr')[0];
+			var aData 	= oTable.fnGetData(nRow);
+			var id 		= $(nRow).attr('id');
+
+			window.location.href = "http://www.crm-tiendapaq.com/cliente/gestionar/editar/"+id;
+
 		});
 	}
 	return {

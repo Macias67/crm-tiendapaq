@@ -111,6 +111,9 @@ class Cliente extends AbstractAccess {
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|xss_clean');
+		//Acceso al sistema
+		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[10]|callback_usuario_check|xss_clean');
+		$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[10]|xss_clean');
 		// Telefonos
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		//Contacto
@@ -138,9 +141,6 @@ class Cliente extends AbstractAccess {
 			$this->form_validation->set_rules('pais', 'País', 'trim|required|xss_clean');
 			//Telefonos
 			$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
-			//Acceso al sistema
-			$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[10]|callback_usuario_check|xss_clean');
-			$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[10]|xss_clean');
 			//Contacto
 			$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
 			//Sistema Contpaq
@@ -248,6 +248,10 @@ class Cliente extends AbstractAccess {
 					'razon_social'	=> $this->input->post('razon_social'),
 					'email'					=> $this->input->post('email'),
 					'tipo'					=> 'prospecto',
+					//Acceso al sistema
+					'usuario'  => $this->input->post('usuario'),
+					'password' => $this->input->post('password'),
+					//telefono
 					'telefono1'			=> $this->input->post('telefono1'),
 					//Contacto
 					'nombre_contacto'		=> $this->input->post('nombre_contacto'),
