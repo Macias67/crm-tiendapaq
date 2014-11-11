@@ -5,43 +5,58 @@ var FormValidationCliente = function () {
 		$('#memoria-ram').spinner();
 	}
 
-  //Funcion para que si el pais es estados unidos no se pinten los estados
-  //en el select del formulario de agregar o editar clientes
-  var handPais = function() {
-    var pais;
-    if($('#pais').val()=="Estados Unidos"){
-    	$("#estado").hide('slow/400/fast', function() {
-      	});
-    }
+	var handleInputMasks = function () {
+		$.extend($.inputmask.defaults, {
+			'autounmask': true
+		});
+		$("#telefono1").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+		$("#telefono2").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+		$("#codigo_postal_mask").inputmask("mask", {
+			"mask": "99999"
+		});
+		$("#telefono_contacto").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+	}
 
-  	$("#pais").change(function(){
-      pais = $('#pais').val();
+	//Funcion para que si el pais es estados unidos no se pinten los estados
+	//en el select del formulario de agregar o editar clientes
+	var escondePais = function() {
+		var pais = $('#pais').val();
 
-      if(pais=="Estados Unidos"){
-      	$("#estado").hide('slow/400/fast', function() {
-      	});
-      }else{
-      		$("#estado").show('slow/400/fast', function() {
-      		});
-      }
-    });
-  }
+		if(pais =="Estados Unidos") {
+			$("#estado").hide('slow');
+		}
+
+		$("#pais").change(function() {
+			if(pais == "Estados Unidos") {
+				$("#estado").hide('slow');
+			} else {
+				$("#estado").show('slow');
+			}
+		});
+	}
 
 	// Validacion para formulario de cliente nuevo completo en la vista del sidebar
 	var formularioClienteCompleto = function() {
 		// for more info visit the official plugin documentation:
 		// http://docs.jquery.com/Plugins/Validation
 
-		var form1 = $('#form-cliente-completo');
-		var error1 = $('.alert-danger', form1);
-		var success1 = $('.alert-success', form1);
+		var form = $('#form-cliente-completo');
+		var error1 = $('.alert-danger', form);
+		var success1 = $('.alert-success', form);
 
-		form1.validate({
+		form.validate({
 			errorElement: 'span', //default input error message container
 			errorClass: 'help-block help-block-error', // default input error message class
 			focusInvalid: false, // do not focus the last invalid input
 			ignore: "",  // validate all fields including form hidden input
 			rules: {
+				// INFORMACION BASICA
 				razon_social: {
 					maxlength: 80,
 					required: true
@@ -58,6 +73,7 @@ var FormValidationCliente = function () {
 				tipo: {
 					//select
 				},
+				// DOMICILIO
 				calle: {
 					maxlength: 50,
 					required: true
@@ -90,6 +106,7 @@ var FormValidationCliente = function () {
 				pais: {
 					//select
 				},
+				// TELEFONOS
 				telefono1: {
 					//mascara
 					required: true
@@ -97,6 +114,7 @@ var FormValidationCliente = function () {
 				telefono2: {
 					//mascara
 				},
+				// ACCESO AL SISTEMA
 				usuario: {
 					maxlength: 10,
 					required: true
@@ -105,6 +123,7 @@ var FormValidationCliente = function () {
 					maxlength: 10,
 					required: true
 				},
+				// CONTACTO
 				nombre_contacto: {
 					maxlength: 30,
 					required: true
@@ -129,6 +148,7 @@ var FormValidationCliente = function () {
 				puesto_contacto: {
 					maxlength: 20
 				},
+				// SISTEMA CONTPAQI
 				sistema: {
 					//select
 				},
@@ -138,6 +158,7 @@ var FormValidationCliente = function () {
 				no_serie: {
 					maxlength: 30
 				},
+				// INFO DEL EQUIPO
 				nombre_equipo: {
 					maxlength: 20
 				},
@@ -490,7 +511,7 @@ var FormValidationCliente = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-			  Metronic.scrollTo(error1, -600);
+				Metronic.scrollTo(error1, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -553,8 +574,9 @@ var FormValidationCliente = function () {
 		//main function to initiate the module
 		init: function () {
 			handleSpinners();
+			handleInputMasks();
 			formularioClienteCompleto();
-			handPais();
+			escondePais();
 			formularioClienteEditado();
 		}
 	};

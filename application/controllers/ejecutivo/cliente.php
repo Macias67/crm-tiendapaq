@@ -26,7 +26,7 @@ class Cliente extends AbstractAccess {
 	/**
 	 * Funcion mostrar las vistas de gestion de clientes
 	 * @return void
-	 * @author Diego Rodriguez
+	 * @author Diego Rodriguez | Luis Macias
 	 **/
 	public function gestionar($accion=null, $id_cliente=null)
 	{
