@@ -32,11 +32,11 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<!-- <script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
+	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript" ></script>
 	<script src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js" type="text/javascript" ></script>
 	<script src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
-	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>-->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
@@ -47,11 +47,10 @@
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
-	<!-- <script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
-	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
+	<!--script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script-->
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-dropdowns-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-editable-cliente') ?>" type="text/javascript"></script>
-	-->
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-cliente') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
@@ -60,10 +59,10 @@
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
 			// ComponentsFormToolsCliente.init(); //form-components-tools de agregar clientes
-			// FormValidationCliente.init(); // form-validation-cliente
+			FormValidationCliente.init(); // validacion de formularios de clientes completos y editados
 			// TableManaged.init(); // table-managed
-			// ComponentsDropdowns.init(); //funciones del select
-			// TableEditable.init(); //tablas editables del gestor de clientes desde modo admin
+			ComponentsDropdowns.init(); //funciones del select de sistemas contpaqi
+			TableEditable.init(); // tablas para gestionar atributos de cliente desde modo admin
 			TableManagedCliente.init(); // Manejador de la tabla en la gestion de clientes
 		});
 	</script>
