@@ -391,7 +391,7 @@ class Cliente extends AbstractAccess {
 	/**
 	 * Funcion para gestionar los contactos de los clientes desde modo administrador
 	 *
-	 * @return void
+	 * @return json
 	 * @author Diego Rodriguez
 	 **/
 	public function contactos($accion)
@@ -480,10 +480,6 @@ class Cliente extends AbstractAccess {
 
 			case 'eliminar':
 				$id					= $this->input->post('id'); // ID de la empresa
-				$nombre_contacto= $this->input->post('nombre_contacto');
-				$apellido_paterno	= $this->input->post('apellido_paterno');
-				$apellido_materno	= $this->input->post('apellido_materno');
-
 				$id_cliente			= $this->input->post('id_cliente'); // ID del cliente
 				$total_contactos	= count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
 
@@ -496,7 +492,7 @@ class Cliente extends AbstractAccess {
 	 			{
 	 				if ($this->contactosModel->delete(array('id' => $id)))
 					{
-						$respuesta = array('exito' => TRUE, 'contacto' => $nombre_contacto.' '.$apellido_paterno.' '.$apellido_materno);
+						$respuesta = array('exito' => TRUE, 'msg' => 'Se eliminó el contacto con éxito.');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
@@ -508,6 +504,24 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
+		}
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function contacto($id)
+	{
+		if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
+		{
+			$this->data['contacto'] = $contacto;
+			$this->_vista_completa('modal-form-nuevo-cliente');
+		} else
+		{
+			show_error();
 		}
 	}
 

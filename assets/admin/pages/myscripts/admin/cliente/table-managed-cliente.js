@@ -1,3 +1,6 @@
+/**
+ * Script para la tabla de gestion de los clientes
+ */
 var TableManagedCliente = function() {
 
 	//Tabla de gestion sistemas contpaqi del cliente
@@ -26,7 +29,7 @@ var TableManagedCliente = function() {
 				{ "data": "tipo" },
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle green btn-xs ajax-editar"><i class="fa fa-search-plus"> Ver/Editar</i></button>'
+					"defaultContent": ''
 				},
 				{
 					"data": null,
@@ -48,6 +51,9 @@ var TableManagedCliente = function() {
 				} else if (aData.tipo == "Prospecto") {
 					$('td:eq(5)', nRow).html('<span class="badge badge-success badge-roundless"><b>'+aData.tipo+'</b></span>');
 				}
+				// Enlace a la edicion
+				var id  = $(nRow).attr('id');
+				$('td:eq(6)', nRow).html('<a type="button" href="/cliente/gestionar/editar/'+id+'" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i> Ver/Editar</a>');
 			},
 			"drawCallback": function(settings) {
 				Metronic.initUniform($('input[type="checkbox"]', table)); // reinitialize uniform checkboxes on each table reload
@@ -117,6 +123,16 @@ var TableManagedCliente = function() {
 					table.dataTable().api().ajax.reload();
 				}
 			});
+		});
+
+		//funcion para editar
+		table.on('click', '.editar', function (e) {
+			e.preventDefault();
+			//valores de la fila a editar guardados en aData y el id para saber cual objeto editar
+			var nRow 	= $(this).parents('tr')[0];
+			var aData 	= oTable.fnGetData(nRow);
+			var id 		= $(nRow).attr('id');
+			
 		});
 
 		//funcion para eliminar

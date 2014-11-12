@@ -17,7 +17,7 @@
 					<div class="col-md-12">
 						<!--?php var_dump($this->data) ?-->
 						<!--BEGIN TABS-->
-						<div class="tabbable tabbable-custom tabbable-full-width">
+						<div class="tabbable-line tabbable-full-width">
 							<ul class="nav nav-tabs">
 								<li class="active">
 									<a href="#basica" data-toggle="tab">
@@ -37,14 +37,16 @@
 								</li>
 							</ul>
 							<div class="tab-content">
-
 								<!-- Información Básica -->
 								<div class="tab-pane active" id="basica">
-									<!-- BEGIN INFORMACION BASICA -->
-									<div class="portlet gren">
+									<!-- BEGIN Portlet PORTLET-->
+									<div class="portlet light">
 										<div class="portlet-title">
 											<div class="caption">
-												<i class="fa fa-gift"></i>Información básica
+												<i class="icon-puzzle font-red-flamingo"></i>
+												<span class="caption-subject bold font-red-flamingo uppercase">
+												Información básica </span>
+												<span class="caption-helper">more samples...</span>
 											</div>
 										</div>
 										<div class="portlet-body form-horizontal">
@@ -62,7 +64,7 @@
 													</div>
 													<!-- INFORMACION BASICA -->
 													<div class="col-md-6">
-														<h4>Datos de la Empresa</h4>
+														<h4><strong>Datos de la Empresa</strong></h4>
 														<!-- Razon Social -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
@@ -114,7 +116,7 @@
 														<hr>
 
 														<!-- TELEFONOS -->
-														<h4>Teléfonos</h4>
+														<h4><strong>Teléfonos</strong></h4>
 														<!-- Telefono 1 -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
@@ -139,7 +141,7 @@
 														</div>
 														<hr>
 														<!-- Acceso al sistema -->
-														<h4>Acceso al sistema</h4>
+														<h4><strong>Acceso al sistema</strong></h4>
 														<!-- Usuario -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
@@ -168,7 +170,7 @@
 
 													<div class="col-md-6">
 														<!-- INFORMACION DEL DOMICILIO -->
-														<h4>Domicilio</h4>
+														<h4><strong>Domicilio</strong></h4>
 														<!-- Calle -->
 														<div class="form-group">
 															<label class="col-md-4 control-label">
@@ -287,8 +289,9 @@
 												<div class="form-actions fluid">
 													<div class="row">
 														<div class="col-md-12">
-															<div class="col-md-offset-5 col-md-10">
-																<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+															<hr>
+															<div class="col-md-offset-10 col-md-2">
+																<button type="submit" class="btn btn-circle btn-lg green"><i class="fa fa-save"></i> Guardar</button>
 															</div>
 														</div>
 													</div>
@@ -297,26 +300,28 @@
 											<!-- END FORM-->
 										</div>
 									</div>
-									<!-- END INFORMACION BASICA -->
+									<!-- END GRID PORTLET-->
 								</div>
 
 								<!-- Contactos -->
 								<div class="tab-pane" id="contactos">
 									<!-- BEGIN TABLA CONTACTOS -->
-									<div class="portlet box grey">
+									<div class="portlet light">
 										<div class="portlet-title">
-											<div class="caption" style="color: black">
-												<i class="fa fa-users"></i> Contactos
+											<div class="caption">
+												<i class="icon-puzzle font-red-flamingo"></i>
+												<span class="caption-subject bold font-red-flamingo uppercase">
+												Contáctos </span>
+												<span class="caption-helper">more samples...</span>
 											</div>
-											<div class="tools" style="color: black">
-												<a href="javascript:;" class="collapse">
-												</a>
-												<a href="javascript:;" class="reload">
-												</a>
+											<div class="actions">
+												<button class="btn btn-circle green" id="tabla_contactos_cliente_new">
+													<i class="fa fa-plus"></i> Agregar
+												</button>
 											</div>
 										</div>
 										<div class="portlet-body">
-											<table class="table table-striped table-hover table-bordered" id="tabla_contactos_cliente" idcliente="<?php echo $cliente->id ?>">
+											<table class="table table-striped table-hover table-bordered" id="tabla_contactos" id-cliente="<?php echo $cliente->id ?>">
 												<thead>
 													<tr>
 														<th>Nombre(s)</th>
@@ -331,45 +336,47 @@
 												</thead>
 												<tbody>
 													<?php foreach ($contactos as $contacto) : ?>
-														<tr id="<?php echo $contacto->id ?>">
+														<tr class="odd gradeX" id="<?php echo $contacto->id ?>">
 															<td><?php echo $contacto->nombre_contacto ?></td>
 															<td><?php echo $contacto->apellido_paterno ?></td>
 															<td><?php echo $contacto->apellido_materno ?></td>
 															<td><?php echo $contacto->email_contacto ?></td>
 															<td><?php echo $contacto->telefono_contacto ?></td>
 															<td><?php echo $contacto->puesto_contacto ?></td>
-															<td><a class="edit" href="javascript:;">Editar </a></td>
-															<td><a class="delete" href="javascript:;">Eliminar </a></td>
+															<td width="1%"><a href="<?php echo site_url('cliente/contacto/'.$contacto->id) ?>" data-target="#ajax_form_cliente" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i></button></td>
+															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar"><i class="fa fa-trash-o"></i></button></td>
 														</tr>
 													<?php endforeach ?>
 												</tbody>
 											</table>
-											<br>
-											<div class="table-toolbar">
-												<div class="btn-group pull-right">
-													<button id="tabla_contactos_cliente_new" class="btn green btn-xs">
-														<i class="fa fa-plus"></i> Nuevo Contacto
-													</button>
-												</div>
-											</div>
 										</div>
 									</div>
 									<!-- END TABLA CONTACTOS -->
 								</div>
 
+								<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+								<div class="modal fade" id="ajax_form_cliente" role="basic" aria-hidden="true">
+									<div class="page-loading page-loading-boxed">
+										<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+										<span>&nbsp;&nbsp;Loading... </span>
+									</div>
+									<div class="modal-dialog">
+										<div class="modal-content">
+										</div>
+									</div>
+								</div>
+								<!-- /.modal -->
+
 								<!--Sistemas-->
 								<div class="tab-pane" id="sistemas">
 									<!-- BEGIN TABLA SIATEMAS CONTPAQI -->
-									<div class="portlet box grey">
+									<div class="portlet light">
 										<div class="portlet-title">
-											<div class="caption" style="color: black">
-												<i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong>
-											</div>
-											<div class="tools" style="color: black">
-												<a href="javascript:;" class="collapse">
-												</a>
-												<a href="javascript:;" class="reload">
-												</a>
+											<div class="caption">
+												<i class="icon-puzzle font-red-flamingo"></i>
+												<span class="caption-subject bold font-red-flamingo uppercase">
+												Sistemas CONTPAQi® </span>
+												<span class="caption-helper">more samples...</span>
 											</div>
 										</div>
 										<div class="portlet-body">
@@ -406,16 +413,13 @@
 								<!--Equipos-->
 								<div class="tab-pane" id="equipos">
 									<!-- BEGIN TABLA EQUIPOS -->
-									<div class="portlet box grey">
+									<div class="portlet light">
 										<div class="portlet-title">
-											<div class="caption" style="color: black">
-												<i class="fa fa-desktop"></i> Equipos registrados
-											</div>
-											<div class="tools" style="color: black">
-												<a href="javascript:;" class="collapse">
-												</a>
-												<a href="javascript:;" class="reload">
-												</a>
+											<div class="caption">
+												<i class="icon-puzzle font-red-flamingo"></i>
+												<span class="caption-subject bold font-red-flamingo uppercase">
+												Equipos de computo </span>
+												<span class="caption-helper">more samples...</span>
 											</div>
 										</div>
 										<div class="portlet-body">
@@ -463,7 +467,6 @@
 									</div>
 									<!-- END TABLA EQUIPOS -->
 								</div>
-
 							</div>
 						</div>
 						<!--END TABS-->
@@ -474,8 +477,9 @@
 		</div>
 		<!-- END CONTENT -->
 
-<!-- BEGIN VENTANAS MODALES -->
-	<!-- BEGIN NUEVO EQUIPO -->
+		<!-- BEGIN VENTANAS MODALES -->
+
+		<!-- BEGIN NUEVO EQUIPO -->
 		<div id="nuevo-equipo" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 			<div class="modal-header">
 				<h3 class="modal-title">
@@ -665,8 +669,9 @@
 					<button type="button" id="btn_guardar_equipo" class="btn green">Guardar</button>
 				</div>
 		</div>
-	<!-- END NUEVO EQUIPO -->
-	<!-- BEGIN NUEVO SISTEMA -->
+		<!-- END NUEVO EQUIPO -->
+
+		<!-- BEGIN NUEVO SISTEMA -->
 		<div id="nuevo-sistema" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 			<div class="modal-header">
 				<h3 class="modal-title">
@@ -736,5 +741,5 @@
 				</div>
 			</form>
 		</div>
-	<!-- END NUEVO SISTEMA -->
-<!-- END VENTANAS MODALES -->
+		<!-- END NUEVO SISTEMA -->
+		<!-- END VENTANAS MODALES -->

@@ -1,3 +1,7 @@
+/**
+ * Validaciones y captura de datos del formulario
+ * de cientes nuevos y editados
+ */
 var FormValidationCliente = function () {
 
 	// Spinner para la memoria ram
@@ -5,6 +9,7 @@ var FormValidationCliente = function () {
 		$('#memoria-ram').spinner();
 	}
 
+	// Mascaras para los campos de telefono
 	var handleInputMasks = function () {
 		$.extend($.inputmask.defaults, {
 			'autounmask': true
@@ -33,7 +38,7 @@ var FormValidationCliente = function () {
 		}
 
 		$("#pais").change(function() {
-			if(pais == "Estados Unidos") {
+			if($('#pais').val() == "Estados Unidos") {
 				$("#estado").hide('slow');
 			} else {
 				$("#estado").show('slow');
@@ -41,14 +46,38 @@ var FormValidationCliente = function () {
 		});
 	}
 
-	// Validacion para formulario de cliente nuevo completo en la vista del sidebar
+	var handleVersionesCliente = function () {
+		var sistema;
+		//funcion change detecta cambios en el objeto
+		//seleccionado es este caso un select
+		$("#select_sistemas").on('change', function(){
+			sistema = $('#select_sistemas').val();
+			//filtro para verificar que hay un sistema seleccionado
+			if(sistema!=undefined && sistema!="")
+			{
+				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
+					if (data.exito) {
+						var opciones_select="<option value=''></option>";
+						for ( var i = 0; i < data.num_versiones; i++ ) {
+							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
+						}
+						$('#select_versiones').html(opciones_select);
+					}
+				}, 'json');
+			}else{
+				$('#select_versiones').html('');
+			}
+		});
+	}
+
+	// Validacion para formulario de cliente nuevo completo
 	var formularioClienteCompleto = function() {
 		// for more info visit the official plugin documentation:
 		// http://docs.jquery.com/Plugins/Validation
 
 		var form = $('#form-cliente-completo');
-		var error1 = $('.alert-danger', form);
-		var success1 = $('.alert-success', form);
+		var error = $('.alert-danger', form);
+		var success = $('.alert-success', form);
 
 		form.validate({
 			errorElement: 'span', //default input error message container
@@ -313,10 +342,10 @@ var FormValidationCliente = function () {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
-				success1.hide();
-				error1.html("Tienes Errores en tu formulario");
-				error1.show();
-				Metronic.scrollTo(error1, -600);
+				success.hide();
+				error.html("Tienes Errores en tu formulario");
+				error.show();
+				Metronic.scrollTo(error, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -331,16 +360,6 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				// general settings
-				$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-					'<div class="progress progress-striped active">' +
-						'<div class="progress-bar" style="width: 100%;"></div>' +
-					'</div>' +
-				'</div>';
-
-				$.fn.modalmanager.defaults.resize = true;
-
 				$.ajax({
 					url: $('#form-cliente-completo').attr('action'),
 					type: 'post',
@@ -348,24 +367,25 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-cliente-completo').serialize(),
 					beforeSend: function () {
-						$('body').modalmanager('loading');
+						Metronic.blockUI({
+							boxed: true
+						});
 					},
 					error: function(jqXHR, status, error) {
-						console.log("ERROR: "+error);
-						alert('ERROR: revisa la consola del navegador para más detalles.');
-						$('body').modalmanager('removeLoading');
+						bootbox,alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+							Metronic.unblockUI();
+						});
 					},
 					success: function(data) {
-						console.log(data);
 						if (data.exito) {
-							alert("Cliente "+data.razon_social+" añadido con éxito.");
-							parent.location.reload();
+							bootbox.alert("Cliente <b>"+data.razon_social+"</b> añadido con éxito.", function() {
+								location.reload();
+							});
 						} else {
-							//alert("Error : "+data.msg);
-							error1.html(data.msg);
-							error1.show();
-							$('body').modalmanager('removeLoading');
-							Metronic.scrollTo(error1, -600);
+							error.html(data.msg);
+							error.show();
+							Metronic.unblockUI();
+							Metronic.scrollTo(error, -600);
 						}
 					}
 				});
@@ -373,12 +393,13 @@ var FormValidationCliente = function () {
 		});
 	}
 
+	// Validacion para formulario de cliente editado
 	var formularioClienteEditado = function(){
-		var form1 = $('#form-basica-cliente');
-		var error1 = $('.alert-danger', form1);
-		var success1 = $('.alert-success', form1);
+		var form = $('#form-basica-cliente');
+		var error = $('.alert-danger', form);
+		var success = $('.alert-success', form);
 
-		form1.validate({
+		form.validate({
 			errorElement: 'span', //default input error message container
 			errorClass: 'help-block help-block-error', // default input error message class
 			focusInvalid: false, // do not focus the last invalid input
@@ -508,10 +529,10 @@ var FormValidationCliente = function () {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
-				success1.hide();
-				error1.html("Tienes Errores en tu formulario");
-				error1.show();
-				Metronic.scrollTo(error1, -600);
+				success.hide();
+				error.html("Tienes Errores en tu formulario");
+				error.show();
+				Metronic.scrollTo(error, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -526,16 +547,6 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				// general settings
-				$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-					'<div class="progress progress-striped active">' +
-						'<div class="progress-bar" style="width: 100%;"></div>' +
-					'</div>' +
-				'</div>';
-
-				$.fn.modalmanager.defaults.resize = true;
-
 				//ajax para gardar el formulario
 				$.ajax({
 					url: $('#form-basica-cliente').attr('action'),
@@ -544,24 +555,25 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-basica-cliente').serialize(),
 					beforeSend: function () {
-						$('body').modalmanager('loading');
+						Metronic.blockUI({
+							boxed: true
+						});
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						$('body').modalmanager('removeLoading');
+						Metronic.unblockUI();
 					},
 					success: function(data) {
-						console.log(data);
 						if (data.exito) {
-							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
-							parent.location.reload();
+							bootbox.alert("Cliente <b>"+data.razon_social+"</b> editado con éxito.", function() {
+								location.reload();
+							});
 						} else {
-							//alert("ERROR: "+data.msg);
-							error1.html(data.msg);
-							error1.show();
-							$('body').modalmanager('removeLoading');
-							Metronic.scrollTo(error1, -600);
+							error.html(data.msg);
+							error.show();
+							Metronic.unblockUI();
+							Metronic.scrollTo(error, -600);
 						}
 					}
 				});
@@ -569,14 +581,14 @@ var FormValidationCliente = function () {
 		});
 	}
 
-
 	return {
 		//main function to initiate the module
 		init: function () {
+			escondePais();
 			handleSpinners();
 			handleInputMasks();
+			handleVersionesCliente();
 			formularioClienteCompleto();
-			escondePais();
 			formularioClienteEditado();
 		}
 	};
