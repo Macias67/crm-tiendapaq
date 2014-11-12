@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `pais` varchar(30) NOT NULL,
   `telefono1` varchar(14) NOT NULL,
   `telefono2` varchar(14) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
   `usuario` varchar(10) NOT NULL,
   `password` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
