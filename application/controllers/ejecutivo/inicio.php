@@ -20,7 +20,6 @@ class Inicio extends AbstractAccess {
 			// SECCION PARA CLIENTES
 
 			// Cargo modelos
-			$this->load->model('cotizacionModel');
 			$this->load->model('estatusCotizacionModel');
 			// Cargo helper
 			$this->load->helper('formatofechas');
@@ -43,6 +42,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('pendienteModel');
 			$this->load->model('estatusGeneralModel');
 			$this->load->model('casoModel');
+			$this->load->model('clienteModel');
 
 			//Helper
 			$this->load->helper('formatofechas');
@@ -53,7 +53,8 @@ class Inicio extends AbstractAccess {
 				'privilegios',
 				array('soporte', 'admin'),
 				'primer_nombre');
-
+			//variables para registro de un cliente prospecto
+			$this->data['user_pass_prospecto'] =  $this->clienteModel->password();
 			//cantidad de cotizaciones pagadas por revisar
 			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
 			//cantidad de cotizaciones pagadas por revisar

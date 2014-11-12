@@ -58,9 +58,6 @@
 			Layout.init(); // init current layout
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
-			// ComponentsFormToolsCliente.init(); //form-components-tools de agregar clientes
-			// TableManaged.init(); // table-managed
-			// ComponentsDropdowns.init(); //funciones del select
 			InfoManagedCliente.init(); //tablas editables del gestor de clientes desde modo admin
 			FormValidationCliente.init(); // form-validation-cliente
 			TableManagedCliente.init(); // Manejador de la tabla en la gestion de clientes

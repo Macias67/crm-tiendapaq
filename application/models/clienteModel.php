@@ -46,13 +46,15 @@ class ClienteModel extends TxtManager {
 		// Si el cliente es NUEVO
 		if ($nuevo)
 		{
-			$this->basica_cliente->codigo			= date('dmy-His'); // Definir patron
+			$this->basica_cliente->codigo			= date('dm-His'); // Definir patron
 			$this->basica_cliente->tipo			= 'prospecto';
 		}
 
 		$this->basica_cliente->razon_social	= $data['razon_social'];
 		$this->basica_cliente->email			= $data['email'];
 		$this->basica_cliente->telefono1		= $data['telefono1'];
+		$this->basica_cliente->usuario			= $data['usuario'];
+		$this->basica_cliente->password		= $data['password'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos
 		if ($tipo != 'prospecto') {
@@ -68,8 +70,6 @@ class ClienteModel extends TxtManager {
 			$this->basica_cliente->estado			= $data['estado'];
 			$this->basica_cliente->pais			= $data['pais'];
 			$this->basica_cliente->telefono2		= $data['telefono2'];
-			$this->basica_cliente->usuario			= $data['usuario'];
-			$this->basica_cliente->password		= $data['password'];
 		}
 
 		return $this->basica_cliente;

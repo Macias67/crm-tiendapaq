@@ -161,7 +161,7 @@
 
 				<!-- BEGIN VENTANAS MODALES -->
 
-				<!-- BEGIN FORM NUEVO CLIENTE -->
+				<!-- BEGIN FORM NUEVO CLIENTE PROSPECTO-->
 				<div id="nuevo-cliente" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 					<div class="modal-header">
 						<h3 class="modal-title">
@@ -210,9 +210,7 @@
 												</div>
 											</div>
 										</div>
-										<hr>
 										<!-- TELEFONOS -->
-										<h4>Teléfonos</h4>
 										<!-- Telefono 1 -->
 										<div class="form-group">
 											<label class="col-md-4 control-label">
@@ -222,6 +220,31 @@
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
 													<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1">
+												</div>
+											</div>
+										</div>
+										<!-- ACCESO AL SISTEMA -->
+										<!-- Usuario -->
+										<div class="form-group">
+											<label class="col-md-4 control-label">
+												Usuario<span class="required" aria-required="true">*</span>
+											</label>
+											<div class="col-md-8">
+												<div class="input-icon">
+													<i class="fa fa-user"></i>
+													<input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario" name="usuario" value="<?php echo $user_pass_prospecto ?>">
+												</div>
+											</div>
+										</div>
+										<!-- Contraseña -->
+										<div class="form-group">
+											<label class="col-md-4 control-label">
+												Contraseña<span class="required" aria-required="true" >*</span>
+											</label>
+											<div class="col-md-8">
+												<div class="input-icon">
+													<i class="fa fa-lock"></i>
+													<input type="text" class="form-control" id="password" placeholder="Contraseña" name="password" value="<?php echo $user_pass_prospecto ?>">
 												</div>
 											</div>
 										</div>
@@ -298,7 +321,7 @@
 						</div>
 					</form>
 				</div>
-				<!-- END FORM NUEVO CLIENTE -->
+				<!-- END FORM NUEVO CLIENTE PROSPECTO-->
 
 				<!-- BEGIN NUEVO PENDIENTE -->
 				<div id="nuevo-pendiente" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

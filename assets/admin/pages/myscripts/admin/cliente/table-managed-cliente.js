@@ -82,7 +82,7 @@ var TableManagedCliente = function() {
 					"targets": [0]
 				}
 			],
-			"order": [3, 'asc' ] // Ordenados por Razón Social
+			"order": [5, 'desc' ] // Ordenados por Razón Social
 		});
 
 		// Checkbox de la tabla
@@ -123,16 +123,6 @@ var TableManagedCliente = function() {
 					table.dataTable().api().ajax.reload();
 				}
 			});
-		});
-
-		//funcion para editar
-		table.on('click', '.editar', function (e) {
-			e.preventDefault();
-			//valores de la fila a editar guardados en aData y el id para saber cual objeto editar
-			var nRow 	= $(this).parents('tr')[0];
-			var aData 	= oTable.fnGetData(nRow);
-			var id 		= $(nRow).attr('id');
-			
 		});
 
 		//funcion para eliminar
