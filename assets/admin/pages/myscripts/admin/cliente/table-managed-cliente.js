@@ -36,7 +36,7 @@ var TableManagedCliente = function() {
 					"defaultContent": '<button type="button" class="btn btn-circle red btn-xs eliminar"><i class="fa fa-trash-o"></i> Eliminar</button>'
 				}
 			],
-			"rowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				// Desactivado
 				if (!aData.activo) {
 					$(nRow).addClass('danger');

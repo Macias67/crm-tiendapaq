@@ -48,6 +48,10 @@ var InfoManagedCliente = function() {
 			"order": [0, 'asc' ] // set first column as a default sort by asc
 		});
 
+		$('#ajax_form_cliente').on('hidden.bs.modal', function (e) {
+			alert('hola');
+		});
+
 		//funcion para eliminar
 		$('.eliminar').on('click', function (e) {
 			//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar

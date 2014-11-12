@@ -354,19 +354,6 @@
 									<!-- END TABLA CONTACTOS -->
 								</div>
 
-								<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
-								<div class="modal fade" id="ajax_form_cliente" role="basic" aria-hidden="true">
-									<div class="page-loading page-loading-boxed">
-										<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
-										<span>&nbsp;&nbsp;Loading... </span>
-									</div>
-									<div class="modal-dialog">
-										<div class="modal-content">
-										</div>
-									</div>
-								</div>
-								<!-- /.modal -->
-
 								<!--Sistemas-->
 								<div class="tab-pane" id="sistemas">
 									<!-- BEGIN TABLA SIATEMAS CONTPAQI -->
@@ -478,6 +465,19 @@
 		<!-- END CONTENT -->
 
 		<!-- BEGIN VENTANAS MODALES -->
+
+		<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+		<div class="modal fade" id="ajax_form_cliente" role="basic" aria-hidden="true">
+			<div class="page-loading page-loading-boxed">
+				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+				<span>&nbsp;&nbsp;Loading... </span>
+			</div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- /.modal -->
 
 		<!-- BEGIN NUEVO EQUIPO -->
 		<div id="nuevo-equipo" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
