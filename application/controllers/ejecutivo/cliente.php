@@ -467,10 +467,12 @@ class Cliente extends AbstractAccess {
 
 					//obtenemos el id para saber donde actualizar
 					$id = $this->input->post('id');
+					$id_cliente = $this->input->post('id_cliente');
 					//Actulizo en la BD
 					if($this->contactosModel->update($contacto, array('id' => $id)))
 					{
-						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+						$id_cliente = $this->uri->segment(4);
+						$respuesta = array('exito' => TRUE, 'msg' => 'Contacto ha sido acualizado con exito.');
 					}else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');

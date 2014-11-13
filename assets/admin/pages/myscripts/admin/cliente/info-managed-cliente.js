@@ -5,6 +5,13 @@
  */
 var InfoManagedCliente = function() {
 
+	var maskTelefono = function() {
+		$("#telefono_contacto").inputmask("mask", {
+			'autounmask': true,
+			"mask": "(999) 999-9999"
+		});
+	};
+
 	var handleContactos = function() {
 		var table = $('#tabla_contactos');
 
@@ -47,16 +54,11 @@ var InfoManagedCliente = function() {
 			],
 			"order": [0, 'asc' ] // set first column as a default sort by asc
 		});
-		
+
 		var modal = $('#ajax_form_cliente');
 		modal.on('shown.bs.modal', function (e) {
-			$.extend($.inputmask.defaults, {
-				'autounmask': true
-			});
 
-			$("#telefono_contacto").inputmask("mask", {
-				"mask": "(999) 999-9999"
-			});
+			maskTelefono();
 
 			var form = $('#form-contacto');
 			var error = $('.alert-danger', form);
@@ -65,10 +67,9 @@ var InfoManagedCliente = function() {
 			form.validate({
 				errorElement: 'span', //default input error message container
 				errorClass: 'help-block help-block-error', // default input error message class
-				focusInvalid: false, // do not focus the last invalid input
+				focusInvalid: true, // do not focus the last invalid input
 				ignore: "",  // validate all fields including form hidden input
 				rules: {
-					// INFORMACION BASICA
 					nombre_contacto: {
 						maxlength: 30,
 						required: true
@@ -110,8 +111,8 @@ var InfoManagedCliente = function() {
 					},
 					email_contacto: {
 						maxlength: "El email debe tener menos de 50 caracteres",
-						required:  "Escribe el email",
-						email: "Escribe un email valido"
+						required:  "Escribe un email",
+						email: "Escribe un email válido"
 					},
 					telefono_contacto: {
 						maxlength: "El telefono debe tener menos de 50 caracteres",
@@ -123,9 +124,8 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					//success.hide();
-					bootbox.alert("Tienes Errores en tu formulario");
-					//error.show();
+					maskTelefono();
+					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
 					$(element)
@@ -147,25 +147,30 @@ var InfoManagedCliente = function() {
 						dataType: 'json',
 						data: $('#form-contacto').serialize(),
 						beforeSend: function () {
+							modal.modal('hide');
 							Metronic.blockUI({
 								boxed: true
 							});
 						},
 						error: function(jqXHR, status, error) {
-							bootbox,alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+							console.log(error);
+							modal.modal('hide');
+							bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
 								Metronic.unblockUI();
 							});
 						},
 						success: function(data) {
 							if (data.exito) {
-								bootbox.alert("Cliente <b>"+data.razon_social+"</b> añadido con éxito.", function() {
+								Metronic.unblockUI();
+								bootbox.alert(data.msg, function() {
 									location.reload();
 								});
 							} else {
-								error.html(data.msg);
-								error.show();
 								Metronic.unblockUI();
-								Metronic.scrollTo(error, -600);
+								bootbox.alert(data.msg, function() {
+									modal.modal('show');
+								});
+								//Metronic.scrollTo(error, -600);
 							}
 						}
 					});

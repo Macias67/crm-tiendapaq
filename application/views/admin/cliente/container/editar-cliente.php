@@ -467,10 +467,10 @@
 		<!-- BEGIN VENTANAS MODALES -->
 
 		<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
-		<div class="modal fade" id="ajax_form_cliente" role="basic" aria-hidden="true">
+		<div class="modal container fade" id="ajax_form_cliente" role="basic" aria-hidden="true">
 			<div class="page-loading page-loading-boxed">
 				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
-				<span>&nbsp;&nbsp;Loading... </span>
+				<span>Loading... </span>
 			</div>
 			<div class="modal-dialog">
 				<div class="modal-content">
