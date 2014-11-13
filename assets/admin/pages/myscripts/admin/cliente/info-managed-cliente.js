@@ -47,9 +47,131 @@ var InfoManagedCliente = function() {
 			],
 			"order": [0, 'asc' ] // set first column as a default sort by asc
 		});
+		
+		var modal = $('#ajax_form_cliente');
+		modal.on('shown.bs.modal', function (e) {
+			$.extend($.inputmask.defaults, {
+				'autounmask': true
+			});
 
-		$('#ajax_form_cliente').on('hidden.bs.modal', function (e) {
-			alert('hola');
+			$("#telefono_contacto").inputmask("mask", {
+				"mask": "(999) 999-9999"
+			});
+
+			var form = $('#form-contacto');
+			var error = $('.alert-danger', form);
+			var success = $('.alert-success', form);
+
+			form.validate({
+				errorElement: 'span', //default input error message container
+				errorClass: 'help-block help-block-error', // default input error message class
+				focusInvalid: false, // do not focus the last invalid input
+				ignore: "",  // validate all fields including form hidden input
+				rules: {
+					// INFORMACION BASICA
+					nombre_contacto: {
+						maxlength: 30,
+						required: true
+					},
+					apellido_paterno: {
+						maxlength: 20,
+						required: true,
+					},
+					apellido_materno: {
+						maxlength: 20,
+						required: true
+					},
+					email_contacto: {
+						maxlength: 50,
+						required: true,
+						email: true
+					},
+					telefono_contacto: {
+						maxlength: 14,
+						required: true
+					},
+					puesto_contacto: {
+						maxlength: 20,
+						required: true
+					}
+				},
+				messages: {
+					nombre_contacto: {
+						maxlength: "El nombre debe tener menos de 80 caracteres",
+						required: "Escribe un nombre"
+					},
+					apellido_paterno: {
+						maxlength: "El apellido debe tener menos de 13 caracteres",
+						required: "Escribe un apellido"
+					},
+					apellido_materno: {
+						maxlength: "El apellido debe tener menos de 13 caracteres",
+						required: "Escribe un apellido"
+					},
+					email_contacto: {
+						maxlength: "El email debe tener menos de 50 caracteres",
+						required:  "Escribe el email",
+						email: "Escribe un email valido"
+					},
+					telefono_contacto: {
+						maxlength: "El telefono debe tener menos de 50 caracteres",
+						required: "Escribe un telefono"
+					},
+					puesto_contacto: {
+						maxlength: "Escribe al menos un contacto",
+						required: "Escribe un puesto."
+					}
+				},
+				invalidHandler: function (event, validator) { //display error alert on form submit
+					//success.hide();
+					bootbox.alert("Tienes Errores en tu formulario");
+					//error.show();
+				},
+				highlight: function (element) { // hightlight error inputs
+					$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+				},
+				unhighlight: function (element) { // revert the change done by hightlight
+					$(element)
+					.closest('.form-group').removeClass('has-error'); // set error class to the control group
+				},
+				success: function (label) {
+					label
+					.closest('.form-group').removeClass('has-error'); // set success class to the control group
+				},
+				submitHandler: function (form) {
+					$.ajax({
+						url: $('#form-contacto').attr('action'),
+						type: 'post',
+						cache: false,
+						dataType: 'json',
+						data: $('#form-contacto').serialize(),
+						beforeSend: function () {
+							Metronic.blockUI({
+								boxed: true
+							});
+						},
+						error: function(jqXHR, status, error) {
+							bootbox,alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+								Metronic.unblockUI();
+							});
+						},
+						success: function(data) {
+							if (data.exito) {
+								bootbox.alert("Cliente <b>"+data.razon_social+"</b> añadido con éxito.", function() {
+									location.reload();
+								});
+							} else {
+								error.html(data.msg);
+								error.show();
+								Metronic.unblockUI();
+								Metronic.scrollTo(error, -600);
+							}
+						}
+					});
+				}
+			});
+
 		});
 
 		//funcion para eliminar

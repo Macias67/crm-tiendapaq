@@ -82,7 +82,7 @@ var TableManagedCliente = function() {
 					"targets": [0]
 				}
 			],
-			"order": [5, 'desc' ] // Ordenados por Razón Social
+			"order": [3, 'asc' ] // Ordenados por Razón Social
 		});
 
 		// Checkbox de la tabla
