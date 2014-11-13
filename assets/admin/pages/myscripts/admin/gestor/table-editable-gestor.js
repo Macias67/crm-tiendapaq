@@ -746,7 +746,9 @@ var TableEditable = function () {
                         },
                         success: function(data) {
                             if (data.exito) {
-                                bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> eliminado con éxito</h4>");
+                                bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> eliminado con éxito</h4>", function () {
+                                    parent.location.reload();
+                                });
                                 oTable.fnDeleteRow(nRow);
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
