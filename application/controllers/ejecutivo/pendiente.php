@@ -141,8 +141,12 @@ class Pendiente extends AbstractAccess {
 		$this->load->helper('formatofechas');
 
 		$reasignaciones = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
-																	array('origen.primer_nombre as nombre_origen','origen.apellido_paterno as apellido_origen',
-																		     'destino.primer_nombre as nombre_destino','destino.apellido_paterno as apellido_destino','reasignacion_pendiente.fecha'));
+																	array('origen.primer_nombre as nombre_origen',
+																		    'origen.apellido_paterno as apellido_origen',
+																		    'destino.primer_nombre as nombre_destino',
+																		    'destino.apellido_paterno as apellido_destino',
+																		    'reasignacion_pendiente.fecha',
+																		    'reasignacion_pendiente.motivo'));
 		foreach ($reasignaciones as $index => $reasignacion) {
 			$reasignaciones[$index]->fecha = fecha_completa($reasignaciones[$index]->fecha);
 		}
@@ -163,6 +167,7 @@ class Pendiente extends AbstractAccess {
 		$id_ejecutivo_destino   	= $this->input->post('id_ejecutivo_destino');
 		$ejecutivo_destino_text 	= $this->input->post('ejecutivo_destino_text');
 		$id_ejecutivo_origen 			= $this->usuario_activo['id'];
+		$motivo										= $this->input->post('motivo');
 
 		if (empty($id_ejecutivo_destino)) {
 				if($this->pendienteModel->update(array('id_estatus_general' => $id_estatus), array('id_pendiente' => $id_pendiente))){
@@ -177,7 +182,8 @@ class Pendiente extends AbstractAccess {
 				'id_pendiente' => $id_pendiente,
 				'id_ejecutivo_origen' => $id_ejecutivo_origen,
 				'id_ejecutivo_destino' => $id_ejecutivo_destino,
-				'fecha' => date('Y-m-d H:i:s')
+				'fecha' => date('Y-m-d H:i:s'),
+				'motivo' => $motivo
 				);
 
 			if($this->reasignarPendienteModel->insert($reasignacion) && 

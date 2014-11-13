@@ -397,11 +397,11 @@
 				<!-- END NUEVO PENDIENTE -->
 
 				<!-- BEGIN AJAX DETALLE PENDIENTE -->
-				<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1"></div>
+				<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1" data-width="600" ></div>
 				<!-- END AJAX DETALLE PENDIENTE -->
 
 				<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
-				<div id="ajax-reasignacion-pendiente" class="modal fade" data-width="650" tabindex="-1" data-focus-on="input:first"></div>
+				<div id="ajax-reasignacion-pendiente" class="modal fade" data-width="700" tabindex="-1" data-focus-on="input:first"></div>
 				<!-- END AJAX REASIGNACIONES PENDIENTE -->
 			</div>
 		</div>

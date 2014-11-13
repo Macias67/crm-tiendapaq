@@ -10,6 +10,7 @@
 					<th>Ejecutivo Anterior</th>
 					<th>Ejecutivo Actual</th>
 					<th>Fecha</th>
+					<th>Motivo</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -18,6 +19,7 @@
 					<td><?php echo $reasignacion->nombre_origen.' '.$reasignacion->apellido_origen ?></td>
 					<td><?php echo $reasignacion->nombre_destino.' '.$reasignacion->apellido_destino ?></td>
 					<td><?php echo $reasignacion->fecha ?></td>
+					<td><?php echo $reasignacion->motivo ?></td>
 				</tr>
 			<?php endforeach ?>
 			</tbody>

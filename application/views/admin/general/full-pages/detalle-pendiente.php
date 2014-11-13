@@ -27,6 +27,7 @@
 					<div class="col-md-4 text-right"><b>Creado por: </b></div>
 					<div class="col-md-8"><p><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></p></div>
 				</div>
+				<!-- HISTORIAL DE REASIGNACIONES -->
 				<?php if(!empty($reasignaciones)): ?>
 					<div class="col-md-12" style="margin-bottom: 1em;">
 						<div class="col-md-4 text-right"><b>Reasignaciones: </b></div>
@@ -39,6 +40,7 @@
 					<div class="col-md-4 text-right"><b>Oficina origen: </b></div>
 					<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 				</div>
+				<!-- ESTATUS -->
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Estatus: </b></div>
 					<div class="col-md-8">
@@ -54,6 +56,7 @@
 						<?php endif ?>
 					</div>
 				</div>
+				<!-- EJECUTIVOS PARA REASIGNAR PENDIENTE -->
 				<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
 					<div class="col-md-12" style="margin-top: 1em;">
 						<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
@@ -69,6 +72,13 @@
 						</div>
 					</div>
 				<?php endif ?>
+				<!-- MOTIVO DE REASIGNACION -->
+				<div class="col-md-12" style="margin-top: 1em;">
+					<div class="col-md-4 text-right"><b>Motivo: </b></div>
+					<div class="col-md-8">
+							<textarea name="motivo" id="motivo" class="form-control" placeholder="¿Porque vas a reasignarlo?"></textarea>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
