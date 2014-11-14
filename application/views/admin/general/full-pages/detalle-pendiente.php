@@ -41,7 +41,7 @@
 					<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 				</div>
 				<!-- ESTATUS -->
-				<div class="col-md-12">
+				<div class="col-md-12" id="div_estatus">
 					<div class="col-md-4 text-right"><b>Estatus: </b></div>
 					<div class="col-md-8">
 						<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7 || $pendiente->id_estatus_general == 5): ?>
@@ -73,7 +73,7 @@
 					</div>
 				<?php endif ?>
 				<!-- MOTIVO DE REASIGNACION -->
-				<div class="col-md-12" style="margin-top: 1em;">
+				<div class="col-md-12 display-hide" style="margin-top: 1em;" id="div_motivo">
 					<div class="col-md-4 text-right"><b>Motivo: </b></div>
 					<div class="col-md-8">
 							<textarea name="motivo" id="motivo" class="form-control" placeholder="¿Porque vas a reasignarlo?"></textarea>

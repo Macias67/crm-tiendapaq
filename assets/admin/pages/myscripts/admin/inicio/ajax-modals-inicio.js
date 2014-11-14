@@ -33,6 +33,21 @@ var UIExtendedModals = function () {
 				}, 1000);
 			});
 
+
+			$modal.on('shown.bs.modal', function(event) {
+				$('#ejecutivo_destino').change(function () {
+					console.log($('#ejecutivo_destino').val());
+					if($('#ejecutivo_destino').val()!=""){
+						console.log("entre");
+						$('#div_estatus').fadeOut('slow');
+						$('#div_motivo').fadeIn('slow');
+					}else{
+						$('#div_estatus').fadeIn('slow');
+						$('#div_motivo').fadeOut('slow');
+					}
+				});
+			});
+
 			//ajax ventana modal de reasignaciones
 			var $modal2 = $('#ajax-reasignacion-pendiente');
 
