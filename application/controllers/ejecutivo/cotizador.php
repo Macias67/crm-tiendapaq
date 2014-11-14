@@ -268,7 +268,7 @@ class Cotizador extends AbstractAccess {
 		if (!is_dir($dir_root)) {
 			mkdir($dir_root, DIR_WRITE_MODE, TRUE);
 		}
-		$name		= 'cotizacion-'.$folio.'.pdf';
+		$name		= 'tiendapaq-cotiza_'.$folio.'.pdf';
 		$path 		= $dir_root.$name;
 
 		// Si no existe la carpeta comprobantes del cliente la creo
