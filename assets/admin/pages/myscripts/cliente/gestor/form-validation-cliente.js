@@ -1,26 +1,22 @@
 var FormValidationCliente = function () {
 
-  //Funcion para que si es estados unidos no se pinten los estados 
+	//Funcion para que si el pais es estados unidos no se pinten los estados
 	//en el select del formulario de agregar o editar clientes
-  var handPais = function() {
-    var pais;
-    if($('#pais').val()=="Estados Unidos"){
-    	$("#estado").hide('slow/400/fast', function() {
-      	});
-    }
+	var escondeEstado = function() {
+		var pais = $('#pais').val();
 
-  	$("#pais").change(function(){
-      pais = $('#pais').val();
+		if(pais =="Estados Unidos") {
+			$("#div_estado").fadeOut('slow');
+		}
 
-      if(pais=="Estados Unidos"){
-      	$("#estado").hide('slow/400/fast', function() {
-      	});
-      }else{
-      		$("#estado").show('slow/400/fast', function() {
-      		});
-      }
-    });
-  }
+		$("#pais").change(function() {
+			if($('#pais').val() == "Estados Unidos") {
+				$("#div_estado").fadeOut('slow');
+			} else {
+				$("#div_estado").fadeIn('slow');
+			}
+		});
+	}
 
   // PROGRESS BAR PARA CUANDO MANDO UN AJAX
   $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
@@ -220,7 +216,7 @@ var FormValidationCliente = function () {
 		//main function to initiate the module
 		init: function () {
 			handBasicaCliente();
-			handPais();
+			escondeEstado();
 		}
 	};
 }();

@@ -33,7 +33,8 @@ var UIExtendedModals = function () {
 				}, 1000);
 			});
 
-
+			//funcion para ocultar el mensaje de motivo o el select de cambio de estatus
+			//segun sea el caso
 			$modal.on('shown.bs.modal', function(event) {
 				$('#ejecutivo_destino').change(function () {
 					console.log($('#ejecutivo_destino').val());

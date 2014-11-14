@@ -169,7 +169,7 @@
 												</div>
 											</div>
 											<!-- Estado -->
-											<div class="form-group">
+											<div class="form-group" id="div_estado">
 												<label class="col-md-4 control-label">
 													Estado
 												</label>

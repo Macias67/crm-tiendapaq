@@ -30,18 +30,18 @@ var FormValidationCliente = function () {
 
 	//Funcion para que si el pais es estados unidos no se pinten los estados
 	//en el select del formulario de agregar o editar clientes
-	var escondePais = function() {
+	var escondeEstado = function() {
 		var pais = $('#pais').val();
 
 		if(pais =="Estados Unidos") {
-			$("#estado").hide('slow');
+			$("#div_estado").fadeOut('slow');
 		}
 
 		$("#pais").change(function() {
 			if($('#pais').val() == "Estados Unidos") {
-				$("#estado").hide('slow');
+				$("#div_estado").fadeOut('slow');
 			} else {
-				$("#estado").show('slow');
+				$("#div_estado").fadeIn('slow');
 			}
 		});
 	}
@@ -584,7 +584,7 @@ var FormValidationCliente = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
-			escondePais();
+			escondeEstado();
 			handleSpinners();
 			handleInputMasks();
 			handleVersionesCliente();
