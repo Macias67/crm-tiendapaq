@@ -41,13 +41,16 @@
 					<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 				</div>
 				<!-- ESTATUS -->
+				<!-- 3=pendiente, 7=reasignado 5=en proceso -->
 				<div class="col-md-12" id="div_estatus">
 					<div class="col-md-4 text-right"><b>Estatus: </b></div>
 					<div class="col-md-8">
 						<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7 || $pendiente->id_estatus_general == 5): ?>
 							<select id="estatus_pendiente" class="form-control">
-								<option value="<?php echo $estatus[2]->id_estatus ?>"><?php echo $estatus[2]->descripcion ?></option>
-								<option value="<?php echo $estatus[4]->id_estatus ?>"><?php echo $estatus[4]->descripcion ?></option>
+								<?php if($pendiente->id_estatus_general!=5): ?>
+									<option value="<?php echo $estatus[2]->id_estatus ?>" <?php echo ($pendiente->id_estatus_general==2)? "selected":"" ?>><?php echo $estatus[2]->descripcion ?></option>
+								<?php endif ?>
+								<option value="<?php echo $estatus[4]->id_estatus ?>" <?php echo ($pendiente->id_estatus_general==4)? "selected":"" ?>><?php echo $estatus[4]->descripcion ?></option>
 								<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->descripcion ?></option>
 								<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->descripcion ?></option>
 							</select>
