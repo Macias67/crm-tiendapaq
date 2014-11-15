@@ -2,7 +2,7 @@
 	<h3 class="modal-title"><b>Contácto</b></h3>
 	<small> </small>
 </div>
-<form action="<?php echo site_url('cliente/contactos/editar') ?>" id ="form-contacto" method="post" accept-charset="utf-8">
+<form id ="form-contacto" method="post" accept-charset="utf-8">
 	<div class="modal-body form-horizontal">
 		<div class="col-md-12">
 				<!-- DIV ERROR -->

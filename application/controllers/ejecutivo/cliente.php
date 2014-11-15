@@ -429,7 +429,7 @@ class Cliente extends AbstractAccess {
 					// Inserto en la BD
 					if($this->contactosModel->insert($contacto))
 					{
-						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+						$respuesta = array('exito' => TRUE, 'msg' => 'Nuevo contacto añadido.');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
