@@ -847,14 +847,14 @@ class Cliente extends AbstractAccess {
 
 		//obtenemos el di del cliente desde el input hidden
 		$id = $this->input->post('id_cliente');
-		//obtenemos el nombre de usuario que tiene registrado ede cliente
+		//obtenemos el nombre de usuario que tiene registrado ese cliente
 		$usuario_actual = $this->clienteModel->get(array('usuario'), array('id' => $id));
 		//si no hay usuario actual es porque el cliente es prospecto o aun no tiene usuario
 		if($usuario_actual != null)
 		{
 			$usuario_actual = $usuario_actual[0]->usuario;
 		}
-		//verificamos que el nuevo nombre de usuatio no este repetido
+		//verificamos que el nuevo nombre de usuario no este repetido
 		if (($this->clienteModel->exist(array('usuario' => $usuario_nuevo))
 			   && $usuario_nuevo != $usuario_actual)
 			   || $this->ejecutivoModel->exist(array('usuario' => $usuario_nuevo)))

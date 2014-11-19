@@ -35,9 +35,9 @@
 									<thead>
 										<tr>
 											<th width="2%">Activo</th>
-											<th width="3%">Código</th>
-											<th width="5%">R.F.C.</th>
-											<th width="50%">Razón Social</th>
+											<th width="6%">Código</th>
+											<th width="7%">R.F.C.</th>
+											<th width="45%">Razón Social</th>
 											<th width="5%">Email</th>
 											<th width="3%">Tipo</th>
 											<th width="1%"></th>

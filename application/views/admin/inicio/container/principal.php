@@ -73,6 +73,11 @@
 										</span>
 									<?php endif ?>
 								</a>
+								<!-- Asignador de casos -->
+								<a href="<?php echo site_url('#') ?>" class="icon-btn">
+									<i class="fa fa-group"></i>
+									<div>Asignador de casos</div>
+								</a>
 							</div>
 						</div>
 					</div>
