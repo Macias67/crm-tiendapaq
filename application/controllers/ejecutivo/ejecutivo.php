@@ -312,7 +312,7 @@ class Ejecutivo extends AbstractAccess {
 				$this->form_validation->set_rules('oficina', 'Oficina', 'trim|required|xss_clean');
 				$this->form_validation->set_rules('privilegios', 'Privilegios', 'trim|xss_clean');
 				$this->form_validation->set_rules('departamento', 'Departamento', 'trim|required|xss_clean');
-				$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|xss_clean|callback_usuario_check');
 				$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|xss_clean');
 
 				if ($this->form_validation->run() === FALSE)
@@ -446,7 +446,7 @@ class Ejecutivo extends AbstractAccess {
 			case 'password':
 				//reglas para cambiar usuario y password
 				$this->form_validation->set_rules('usuario_actual', 'Usuario Actual','trim|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('usuario_nuevo', 'Usuario Nuevo', 'trim|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('usuario_nuevo', 'Usuario Nuevo', 'trim|max_length[20]|xss_clean|callback_usuario_check');
 				$this->form_validation->set_rules('password_actual',  'Contraseña Actual', 'trim|required|max_length[20]|xss_clean|callback_password_check');
 				$this->form_validation->set_rules('password_nuevo_1', 'Contraseña Nueva', 'trim|required|max_length[20]|xss_clean|callback_confirmacion_check');
 				$this->form_validation->set_rules('password_nuevo_2', 'Confirmacion de Contraseña Nueva','trim|required|max_length[20]|xss_clean');
@@ -588,9 +588,24 @@ class Ejecutivo extends AbstractAccess {
 	 * @return boolean
 	 * @author Diego Rodriguez | Luis Macias
 	 */
-	public function usuario_check($usuario)
+	public function usuario_check($usuario_nuevo)
 	{
-		if ($this->ejecutivoModel->exist(array('usuario' => $usuario))) 
+		$this->load->model('clienteModel');
+
+		//obtenemos el di del ejecutivo desde el input hidden
+		$id = $this->input->post('id');
+		//obtenemos el nombre de usuario que tiene registrado ese ejecutivo
+		$usuario_actual = $this->ejecutivoModel->get(array('usuario'), array('id' => $id));
+		//si no hay usuario actual es porque ejecutivo es nuevo
+		if($usuario_actual != null)
+		{
+			$usuario_actual = $usuario_actual[0]->usuario;
+		}
+
+		//verificamos que el nuevo nombre de usuario no este repetido
+		if (($this->ejecutivoModel->exist(array('usuario' => $usuario_nuevo))
+			   && $usuario_nuevo != $usuario_actual)
+			   || $this->clienteModel->exist(array('usuario' => $usuario_nuevo)))
 		{
 			$this->form_validation->set_message('usuario_check', 'El nombre de usuario ya está registrado.');
 			return FALSE;
