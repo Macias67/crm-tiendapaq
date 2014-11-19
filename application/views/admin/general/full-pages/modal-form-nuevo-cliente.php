@@ -61,7 +61,7 @@
 							<div class="col-md-8">
 								<div class="input-icon">
 									<i class="fa fa-phone"></i>
-									<input type="text" class="form-control" placeholder="Teléfono" id="telefono_contacto" name="telefono_contacto" value="<?php echo $contacto->telefono_contacto ?>">
+									<input type="text" class="form-control telefono_contacto" placeholder="Teléfono" name="telefono_contacto" value="<?php echo $contacto->telefono_contacto ?>">
 								</div>
 							</div>
 						</div>

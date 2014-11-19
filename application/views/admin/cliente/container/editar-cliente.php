@@ -531,7 +531,7 @@
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control" placeholder="Teléfono" id="telefono_contacto" name="telefono_contacto">
+													<input type="text" class="form-control telefono_contacto" placeholder="Teléfono" name="telefono_contacto">
 												</div>
 											</div>
 										</div>
@@ -559,7 +559,6 @@
 				</div>
 			</div>
 		</div>
-
 		<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
 		<div class="modal-cached modal container fade" id="ajax_form_cliente" role="basic" aria-hidden="true">
 			<div class="page-loading page-loading-boxed">
