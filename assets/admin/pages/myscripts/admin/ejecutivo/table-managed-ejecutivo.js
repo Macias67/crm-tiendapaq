@@ -43,128 +43,50 @@ var TableManaged = function () {
 		});
 	}
 
-	// var modalProducto = function() {
-	// 	// general settings
-	// 	$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-	// 		'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-	// 			'<div class="progress progress-striped active">' +
-	// 				'<div class="progress-bar" style="width: 100%;"></div>' +
-	// 			'</div>' +
-	// 		'</div>';
+	// $(document).ready(function() {
+ //    $('input[type=checkbox]').live('click', function(){
+ //        var parent = $(this).parent().attr('id');
+ //        $('#'+parent+' input[type=checkbox]').removeAttr('checked');
+ //        $(this).attr('checked', 'checked');
+ //    });
+	// });
 
-	// 	$.fn.modalmanager.defaults.resize = true;
-
-	// 	//Ventana modal:
-	// 	var $modal = $('#ajax-modal');
-
-	// 	$('#tabla_productos tbody').on('click', '.ajax-editar', function() {
-	// 		var data = $('#tabla_productos').dataTable().api().row($(this).parents('tr')).data();
-	// 		var codigo = data.codigo;
-	// 		// create the backdrop and wait for next modal to be triggered
-	// 		$('body').modalmanager('loading');
-
-	// 		setTimeout(function(){
-	// 			$modal.load('/producto/detalles/'+codigo, function() {
-	// 				var config = {
-	// 					mask: "9{1,7}[.{0,1}9{2}]",
-	// 					greedy: false
-	// 				};
-	// 				$("#precio").inputmask(config);
-	// 				$("#impuesto1").inputmask(config);
-	// 				$("#impuesto2").inputmask(config);
-	// 				$("#retencion1").inputmask(config);
-	// 				$("#retencion2").inputmask(config);
-	// 				$modal.modal();
-	// 			});
-	// 		}, 1000);
-	// 	});
-
-	// 	$modal.on('click', '.update', function() {
-	// 		var codigo		= $('#codigo').val();
-	// 		var codigo_old	= $('#codigo_old').val();
-	// 		var descripcion	= $('#descripcion').val();
-	// 		var unidad		= $('#unidad').val();
-	// 		var precio		= $('#precio').val();
-	// 		var impuesto1	= $('#impuesto1').val();
-	// 		var impuesto2	= $('#impuesto2').val();
-	// 		var retencion1	= $('#retencion1').val();
-	// 		var retencion2	= $('#retencion2').val();
-
-	// 		var producto = {
-	// 			codigo: 		codigo,
-	// 			codigo_old: 	codigo_old,
-	// 			descripcion: 	descripcion,
-	// 			unidad: 			unidad,
-	// 			precio: 			precio,
-	// 			impuesto1: 	impuesto1,
-	// 			impuesto2: 	impuesto2,
-	// 			retencion1: 	retencion1,
-	// 			retencion2: 	retencion2
-	// 		}
-
-	// 		$.ajax({
-	// 			url: $('.form-horizontal').attr('action'),
-	// 			type: 'post',
-	// 			cache: false,
-	// 			dataType: 'json',
-	// 			data: producto,
-	// 			beforeSend: function () {
-	// 				$('body').modalmanager('loading');
-	// 			},
-	// 			error: function(jqXHR, status, error) {
-	// 				console.log("ERROR: "+error);
-	// 				$('body').modalmanager('removeLoading');
-	// 				alert('ERROR: revisa la consola del navegador para más detalles.');
-	// 			},
-	// 			success: function(data) {
-	// 				if (data.exito) {
-	// 					alert("Se han guardado los cambios.");
-	// 					location.reload();
-	// 				} else {
-	// 					alert(data.msg);
-	// 					$('body').modalmanager('removeLoading');
-	// 					//$modal.modal('hide');
-	// 				}
-	// 			}
-	// 		});
-	// 		//$modal.modal('loading');
-	// 	});
-
-	// 	// Eliminar
-	// 	$('#tabla_productos tbody').on('click', '.eliminar',function() {
-	// 		var data = $('#tabla_productos').dataTable().api().row($(this).parents('tr')).data();
-	// 		var codigo = data.codigo;
-	// 		bootbox.confirm('<h3>¿Deseas eleminar este producto de la lista?</h3>', function(result) {
-	// 			if (result) {
-	// 				$.ajax({
-	// 					url: './producto/gestor/eliminar',
-	// 					type: 'post',
-	// 					cache: false,
-	// 					dataType: 'json',
-	// 					data: {codigo: codigo},
-	// 					beforeSend: function () {
-	// 						$('body').modalmanager('loading');
-	// 					},
-	// 					error: function(jqXHR, status, error) {
-	// 						console.log("ERROR: "+jqXHR);
-	// 						$('body').modalmanager('removeLoading');
-	// 						alert('ERROR: revisa la consola del navegador para más detalles.');
-	// 					},
-	// 					success: function(data) {
-	// 						if (data.exito) {
-	// 							alert("Se ha borrado el producto de la lista.");
-	// 							location.reload();
-	// 						} else {
-	// 							alert(data.msg);
-	// 							$('body').modalmanager('removeLoading');
-	// 							//$modal.modal('hide');
-	// 						}
-	// 					}
-	// 				});
-	// 			}
-	// 		});
-	// 	});
-	// }
+	$('.checkboxes').change(function () {
+		//alert('cambio');
+		var parent = $(this).parent().attr('id');
+		$('.checkboxes').removeAttr('checked');
+ 		$(this).attr('checked', 'checked');
+ 		
+		//codigo de cambio de asignador de casos
+  //  $.ajax({
+	 //    url: '',
+	 //    type: 'post',
+	 //    cache: false,
+	 //    dataType: 'json',
+	 //    data: '',
+	 //    beforeSend: function () {
+	 //        //$('body').modalmanager('loading');
+	 //    },
+	 //    error: function(jqXHR, status, error) {
+	 //        console.log("ERROR: "+error);
+	 //        alert('ERROR: revisa la consola del navegador para más detalles.');
+	 //        //$('body').modalmanager('removeLoading');
+	 //    },
+	 //    success: function(data) {
+  //       console.log(data);
+  //       if (data.exito) {
+  //           bootbox.alert("<h4><b>"+data.ejecutivo.primer_nombre+" "+data.ejecutivo.apellido_paterno+"</b> con usuario <b>"+data.ejecutivo.usuario+"</b> añadido con éxito.</h4>", function () {
+  //               parent.location.reload();
+  //           });
+  //       } else {
+  //           console.log("ERROR: "+data.msg);
+  //           error1.html(data.msg);
+  //           error1.show();
+  //           //$('body').modalmanager('removeLoading');
+  //       }
+	 //    }
+		// });
+	})
 
 	return {
 		//main function to initiate the module
@@ -173,7 +95,6 @@ var TableManaged = function () {
 				return;
 			}
 			tablaPendientes();
-			// modalProducto();
 		}
 	};
 }();

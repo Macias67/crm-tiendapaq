@@ -33,12 +33,12 @@
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>Primer Nombre</th>
-											<th>Apellido Paterno</th>
+											<th>Nombre</th>
 											<th>Oficina</th>
 											<th>Departamento</th>
 											<th>Email</th>
 											<th>Teléfono</th>
+											<th>Asignador de casos</th>
 											<th></th>
 											<th></th>
 										</tr>
@@ -47,21 +47,21 @@
 										<?php foreach ($ejecutivos as $ejecutivo) : ?>
 											<tr id="<?php echo $ejecutivo->id ?>">
 												<td><?php echo $ejecutivo->id ?></td>
-												<td><?php echo $ejecutivo->primer_nombre ?></td>
-												<td><?php echo $ejecutivo->apellido_paterno ?></td>
+												<td><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></td>
 												<td><?php echo $ejecutivo->oficina ?></td>
 												<td><?php echo $ejecutivo->departamento ?></td>
 												<td><?php echo $ejecutivo->email ?></td>
 												<td><?php echo $ejecutivo->telefono ?></td>
-												<td><a class="edit" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>">Ver/Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												<td><input type="checkbox" class="checkboxes"/></td>
+												<td><a class="edit btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Ver/Editar </a></td>
+												<td><a class="delete btn btn-circle red btn-xs" href="javascript:;"><i class="fa fa-trash-o"></i> Eliminar </a></td>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
 								</table>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
-										<a href="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>" class="btn green btn-xs" ><i class="fa fa-plus"></i> Nueva Ejecutivo </a>
+										<a href="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>" class="btn btn-circle green btn-xs" ><i class="fa fa-plus"></i> Nuevo Ejecutivo </a>
 									</div>
 								</div>
 							</div>
