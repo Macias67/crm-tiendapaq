@@ -10,7 +10,7 @@ var InfoManagedCliente = function() {
 			'autounmask': true,
 			"mask": "(999) 999-9999"
 		});
-	};
+	}
 
 	var handleContactos = function() {
 		var table = $('#tabla_contactos');
@@ -56,7 +56,7 @@ var InfoManagedCliente = function() {
 		});
 
 		// Validaciones para editar cliente
-		var modal = $('#ajax_form_cliente');
+		var modal = $('#ajax_form_contacto');
 		modal.on('shown.bs.modal', function (e) {
 			maskTelefono();
 			var form = $('#form-contacto');
@@ -197,7 +197,7 @@ var InfoManagedCliente = function() {
 		});
 
 		// Validaciones para neuvo cliente
-		var modal_nuevo = $('#nuevo_cliente_form');
+		var modal_nuevo = $('#nuevo_contacto_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
 			maskTelefono();
 			var form = $('#form-contacto-nuevo');
@@ -303,7 +303,7 @@ var InfoManagedCliente = function() {
 		});
 
 		//funcion para eliminar
-		$('.eliminar').on('click', function (e) {
+		$('.eliminar-contacto').on('click', function (e) {
 			//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
 			var id_cliente 	= $('#tabla_contactos').attr('id-cliente');
 			var Row 		= $(this).parents('tr');
@@ -361,7 +361,7 @@ var InfoManagedCliente = function() {
 		});
 
 		// Validaciones para editar cliente
-		var modal = $('#ajax_form_cliente');
+		var modal = $('#ajax_form_sistema');
 		modal.on('shown.bs.modal', function (e) {
 			maskTelefono();
 			var form = $('#form-contacto');
@@ -502,7 +502,7 @@ var InfoManagedCliente = function() {
 		});
 
 		// Validaciones para neuvo cliente
-		var modal_nuevo = $('#nuevo_cliente_form');
+		var modal_nuevo = $('#nuevo_sistema_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
 			maskTelefono();
 			var form = $('#form-contacto-nuevo');
@@ -608,7 +608,7 @@ var InfoManagedCliente = function() {
 		});
 
 		//funcion para eliminar
-		$('.eliminar').on('click', function (e) {
+		$('.eliminar-sistema').on('click', function (e) {
 			//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
 			var id_cliente 	= $('#tabla_contactos').attr('id-cliente');
 			var Row 		= $(this).parents('tr');
