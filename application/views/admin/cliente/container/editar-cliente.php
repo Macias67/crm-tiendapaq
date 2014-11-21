@@ -466,7 +466,7 @@
 
 		<!-- BEGIN VENTANAS MODALES -->
 
-		<div id="nuevo_cliente_form" class="modal fade" tabindex="-1" aria-hidden="true">
+		<div id="nuevo_cliente_form" class="modal fade" tabindex="-1" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
