@@ -514,10 +514,11 @@ class Cliente extends AbstractAccess {
 	}
 
 	/**
-	 * undocumented function
+	 * VIsta de la modal con los
+	 * datos de un contacto lista para editar
 	 *
 	 * @return void
-	 * @author 
+	 * @author Luis Macias
 	 **/
 	public function contacto($id)
 	{
@@ -582,6 +583,25 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
+		}
+	}
+
+	/**
+	 * VIsta de la modal con los
+	 * datos de un sistema lista para editar
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function sistema($id_cliente)
+	{
+		if ($sistema = $this->sistemasClienteModel->get_where(array('id' => $id_cliente)))
+		{
+			$this->data['sistema'] = $sistema;
+			$this->_vista_completa('modal-form-nuevo-sistema');
+		} else
+		{
+			show_error('No message', 404, 'No existe ese cliente');
 		}
 	}
 
