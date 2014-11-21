@@ -587,7 +587,7 @@ class Ejecutivo extends AbstractAccess {
 
 		//CODIGO CON EL CAMBIO DE EJECUTIVO ASIGNADOR
 
-		$respuesta = array('exito' => TRUE, 'msg' => 'entre al metodo y recibi ID '.$id_ejecutivo );
+		$respuesta = array('exito' => TRUE, 'msg' => 'entre al metodo asignador y recibi ID '.$id_ejecutivo );
 
 		$this->output
 			->set_content_type('application/json')

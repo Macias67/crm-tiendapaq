@@ -43,47 +43,42 @@ var TableManaged = function () {
 		});
 	}
 
-	// $(document).ready(function() {
- //    $('input[type=checkbox]').live('click', function(){
- //        var parent = $(this).parent().attr('id');
- //        $('#'+parent+' input[type=checkbox]').removeAttr('checked');
- //        $(this).attr('checked', 'checked');
- //    });
-	// });
+	//funcion para cambiar de asignador de casos basado en los radiobuttons
+	function Asignador (argument) {
+		$('.radios').on('change', function () {
 
-	$('.radios').on('change', function () {
-
-		var id = $(this).attr('id-radio');
-		console.log(id);
-
-	//codigo de cambio de asignador de casos
-   	$.ajax({
-	    url: '/ejecutivo/asignador/'+id,
-	    type: 'post',
-	    cache: false,
-	    dataType: 'json',
-	    data: 'id='+id,
-	    beforeSend: function () {
-	        //$('body').modalmanager('loading');
-	    },
-	    error: function(jqXHR, status, error) {
-	        console.log("ERROR: "+error);
-	        alert('ERROR: revisa la consola del navegador para más detalles.');
-	        //$('body').modalmanager('removeLoading');
-	    },
-	    success: function(data) {
-        console.log(data);
-        if (data.exito) {
-            alert(data.msg);
-        } else {
-            console.log("ERROR: "+data.msg);
-            //error1.html(data.msg);
-            //error1.show();
-            //$('body').modalmanager('removeLoading');
-        }
-	    }
+			//se obtiene el id del ejecutivo seleccionado
+			var id = $(this).attr('id-radio');
+			console.log(id);
+			//ajax para el cambio de asignador de casos
+	   	$.ajax({
+		    url: '/ejecutivo/asignador/',
+		    type: 'post',
+		    cache: false,
+		    dataType: 'json',
+		    data: 'id='+id,
+		    beforeSend: function () {
+		        //$('body').modalmanager('loading');
+		    },
+		    error: function(jqXHR, status, error) {
+		        console.log("ERROR: "+error);
+		        alert('ERROR: revisa la consola del navegador para más detalles.');
+		        //$('body').modalmanager('removeLoading');
+		    },
+		    success: function(data) {
+	        console.log(data);
+	        if (data.exito) {
+	            alert(data.msg);
+	        } else {
+	            console.log("ERROR: "+data.msg);
+	            //error1.html(data.msg);
+	            //error1.show();
+	            //$('body').modalmanager('removeLoading');
+	        }
+		    }
+			});
 		});
-	});
+	}
 
 	return {
 		//main function to initiate the module
@@ -92,6 +87,7 @@ var TableManaged = function () {
 				return;
 			}
 			tablaPendientes();
+			Asignador();
 		}
 	};
 }();
