@@ -52,7 +52,7 @@
 												<td><?php echo $ejecutivo->departamento ?></td>
 												<td><?php echo $ejecutivo->email ?></td>
 												<td><?php echo $ejecutivo->telefono ?></td>
-												<td><input type="checkbox" class="checkboxes"/></td>
+												<td><input type="checkbox" class="checkboxes" idcheck="<?php echo $ejecutivo->id ?>"></td>
 												<td><a class="edit btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Ver/Editar </a></td>
 												<td><a class="delete btn btn-circle red btn-xs" href="javascript:;"><i class="fa fa-trash-o"></i> Eliminar </a></td>
 											</tr>

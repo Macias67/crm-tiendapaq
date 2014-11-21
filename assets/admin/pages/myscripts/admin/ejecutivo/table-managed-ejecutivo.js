@@ -51,11 +51,21 @@ var TableManaged = function () {
  //    });
 	// });
 
-	$('.checkboxes').change(function () {
-		//alert('cambio');
-		var parent = $(this).parent().attr('id');
-		$('.checkboxes').removeAttr('checked');
- 		$(this).attr('checked', 'checked');
+	$('.checkboxes').on('change', function () {
+
+		var id = $(this).attr('id-check');
+		//console.log($(this).attr('id-check'));
+
+		 $("#tabla_gestionar_ejecutivos tbody tr").each(function (index) {
+		 	var k = $(this).children("td input").attr('idcheck');
+		 		console.log(k);
+		 });
+
+		//$('.checkboxes').prop("checked", false);
+
+ 		// var kokin = $('input[id-check="'+id+'"]');
+
+ 		// 	console.log(kokin);
  		
 		//codigo de cambio de asignador de casos
   //  $.ajax({
