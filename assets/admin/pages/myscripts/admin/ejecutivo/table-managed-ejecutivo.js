@@ -51,52 +51,39 @@ var TableManaged = function () {
  //    });
 	// });
 
-	$('.checkboxes').on('change', function () {
+	$('.radios').on('change', function () {
 
-		var id = $(this).attr('id-check');
-		//console.log($(this).attr('id-check'));
+		var id = $(this).attr('id-radio');
+		console.log(id);
 
-		 $("#tabla_gestionar_ejecutivos tbody tr").each(function (index) {
-		 	var k = $(this).children("td input").attr('idcheck');
-		 		console.log(k);
-		 });
-
-		//$('.checkboxes').prop("checked", false);
-
- 		// var kokin = $('input[id-check="'+id+'"]');
-
- 		// 	console.log(kokin);
- 		
-		//codigo de cambio de asignador de casos
-  //  $.ajax({
-	 //    url: '',
-	 //    type: 'post',
-	 //    cache: false,
-	 //    dataType: 'json',
-	 //    data: '',
-	 //    beforeSend: function () {
-	 //        //$('body').modalmanager('loading');
-	 //    },
-	 //    error: function(jqXHR, status, error) {
-	 //        console.log("ERROR: "+error);
-	 //        alert('ERROR: revisa la consola del navegador para más detalles.');
-	 //        //$('body').modalmanager('removeLoading');
-	 //    },
-	 //    success: function(data) {
-  //       console.log(data);
-  //       if (data.exito) {
-  //           bootbox.alert("<h4><b>"+data.ejecutivo.primer_nombre+" "+data.ejecutivo.apellido_paterno+"</b> con usuario <b>"+data.ejecutivo.usuario+"</b> añadido con éxito.</h4>", function () {
-  //               parent.location.reload();
-  //           });
-  //       } else {
-  //           console.log("ERROR: "+data.msg);
-  //           error1.html(data.msg);
-  //           error1.show();
-  //           //$('body').modalmanager('removeLoading');
-  //       }
-	 //    }
-		// });
-	})
+	//codigo de cambio de asignador de casos
+   	$.ajax({
+	    url: '/ejecutivo/asignador/'+id,
+	    type: 'post',
+	    cache: false,
+	    dataType: 'json',
+	    data: 'id='+id,
+	    beforeSend: function () {
+	        //$('body').modalmanager('loading');
+	    },
+	    error: function(jqXHR, status, error) {
+	        console.log("ERROR: "+error);
+	        alert('ERROR: revisa la consola del navegador para más detalles.');
+	        //$('body').modalmanager('removeLoading');
+	    },
+	    success: function(data) {
+        console.log(data);
+        if (data.exito) {
+            alert(data.msg);
+        } else {
+            console.log("ERROR: "+data.msg);
+            //error1.html(data.msg);
+            //error1.show();
+            //$('body').modalmanager('removeLoading');
+        }
+	    }
+		});
+	});
 
 	return {
 		//main function to initiate the module

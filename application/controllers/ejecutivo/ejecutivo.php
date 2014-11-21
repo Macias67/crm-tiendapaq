@@ -575,6 +575,24 @@ class Ejecutivo extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * funcion para cambiar a el ejecutivo que tiene permiso
+	 * para asignar los casos
+	 * @return json
+	 * @author Diego Rodriguez
+	 **/
+	public function asignador()
+	{
+		$id_ejecutivo = $this->input->post('id');
+
+		//CODIGO CON EL CAMBIO DE EJECUTIVO ASIGNADOR
+
+		$respuesta = array('exito' => TRUE, 'msg' => 'entre al metodo y recibi ID '.$id_ejecutivo );
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
+	}
 
 	/*
 	|--------------------------------------------------------------------------
