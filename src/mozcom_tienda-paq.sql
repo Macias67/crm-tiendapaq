@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2014 a las 20:56:52
+-- Tiempo de generación: 25-11-2014 a las 00:20:31
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -206,6 +206,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `departamento` varchar(30) NOT NULL,
   `privilegios` varchar(30) NOT NULL,
   `mensaje_personal` text NOT NULL,
+  `asignador_casos` varchar(3) DEFAULT 'no',
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario` (`usuario`),
   KEY `ejecutivos_ibfk_1` (`oficina`),
@@ -217,9 +218,9 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 -- Volcado de datos para la tabla `ejecutivos`
 --
 
-INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM'),
-(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)');
+INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`, `asignador_casos`) VALUES
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM', 'si'),
+(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)', 'no');
 
 -- --------------------------------------------------------
 
@@ -492,10 +493,10 @@ INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
 -- Filtros para la tabla `caso`
 --
 ALTER TABLE `caso`
-  ADD CONSTRAINT `caso_ibfk_4` FOREIGN KEY (`folio_cotizacion`) REFERENCES `cotizacion` (`folio`),
   ADD CONSTRAINT `caso_ibfk_1` FOREIGN KEY (`id_lider`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `caso_ibfk_2` FOREIGN KEY (`id_estatus_general`) REFERENCES `estatus_general` (`id_estatus`),
-  ADD CONSTRAINT `caso_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`);
+  ADD CONSTRAINT `caso_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `caso_ibfk_4` FOREIGN KEY (`folio_cotizacion`) REFERENCES `cotizacion` (`folio`);
 
 --
 -- Filtros para la tabla `contactos`

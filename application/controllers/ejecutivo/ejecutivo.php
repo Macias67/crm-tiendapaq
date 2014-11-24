@@ -586,8 +586,11 @@ class Ejecutivo extends AbstractAccess {
 		$id_ejecutivo = $this->input->post('id');
 
 		//CODIGO CON EL CAMBIO DE EJECUTIVO ASIGNADOR
-
-		$respuesta = array('exito' => TRUE, 'msg' => 'entre al metodo asignador y recibi ID '.$id_ejecutivo );
+		if($this->ejecutivoModel->elimina_asignadores() && $this->ejecutivoModel->update(array('asignador_casos' => 'si'), array('id' => $id_ejecutivo))){
+			$respuesta = array('exito' => TRUE, 'msg' => 'Asignador actualizado con éxito');
+		}else{
+			$respuesta = array('exito' => FALSE, 'msg' => 'Error al cambiar de asignador' );
+		}
 
 		$this->output
 			->set_content_type('application/json')

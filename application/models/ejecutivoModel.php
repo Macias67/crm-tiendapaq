@@ -71,6 +71,18 @@ class EjecutivoModel extends MY_Model {
 		return $this->ejecutivo;
 	}
 
+	/**
+	 * funcion para eliminar los asignadores de casos
+	 * @return boolean
+	 * @author Diego Rodriguez
+	 **/
+	public function elimina_asignadores()
+	{
+		$query = 'update '.$this->table.' set asignador_casos ="no"';
+
+		return ($this->db->query($query)) ? TRUE : FALSE;
+	}
+
 }
 
 /* End of file ejecutivoModel.php */
