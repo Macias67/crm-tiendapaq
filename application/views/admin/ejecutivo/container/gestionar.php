@@ -52,7 +52,7 @@
 												<td><?php echo $ejecutivo->departamento ?></td>
 												<td><?php echo $ejecutivo->email ?></td>
 												<td><?php echo $ejecutivo->telefono ?></td>
-												<td><label><input type="radio" name="optionsRadios" class="radios" id-radio="<?php echo $ejecutivo->id ?>"></label></td>
+												<td><label><input type="radio" name="optionsRadios" class="radios" id-radio="<?php echo $ejecutivo->id ?>" <?php echo($ejecutivo->asignador_casos=="si")? 'checked="checked"':""?>></label></td>
 												<td><a class="edit btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Ver/Editar </a></td>
 												<td><a class="delete btn btn-circle red btn-xs" href="javascript:;"><i class="fa fa-trash-o"></i> Eliminar </a></td>
 											</tr>
