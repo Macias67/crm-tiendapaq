@@ -64,15 +64,17 @@
 									<?php endif ?>
 								</a>
 								<!-- Casos por asignar -->
-								<a href="<?php echo site_url('caso') ?>" class="icon-btn">
-									<i class="fa fa-folder-open"></i>
-									<div>Casos por Asignar</div>
-									<?php if ($casos_asignar!=0): ?>
-										<span class="badge badge-danger">
-											<?php echo $casos_asignar ?>
-										</span>
-									<?php endif ?>
-								</a>
+								<?php if($asignador_casos=="si"): ?>
+									<a href="<?php echo site_url('caso') ?>" class="icon-btn">
+										<i class="fa fa-folder-open"></i>
+										<div>Casos por Asignar</div>
+										<?php if ($casos_asignar!=0): ?>
+											<span class="badge badge-danger">
+												<?php echo $casos_asignar ?>
+											</span>
+										<?php endif ?>
+									</a>
+								<?php endif ?>
 								<!-- Asignador de casos -->
 								<a href="<?php echo site_url('#') ?>" class="icon-btn">
 									<i class="fa fa-group"></i>

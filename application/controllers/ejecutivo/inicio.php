@@ -59,6 +59,9 @@ class Inicio extends AbstractAccess {
 			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
 			//cantidad de cotizaciones pagadas por revisar
 			$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
+			//variable para saber si el ejecutivo logeado puede asignar casos
+			$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
+			$this->data['asignador_casos'] = $asignador_casos->asignador_casos;
 			// Listado de actividades para levantar un pendiente
 			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 			// Listado de pendientes DEL USUARIO ACTIVO
@@ -67,6 +70,7 @@ class Inicio extends AbstractAccess {
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 			// Muestro Vista
 			$this->_vista('principal');
+			//var_dump($this->data);
 		}
 	}
 }
