@@ -31,7 +31,9 @@ class Inicio extends AbstractAccess {
 			                'estatus_cotizacion.id_estatus',
 			                'estatus_cotizacion.descripcion');
 			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
+			$this->_vista_completa('verificacion-inicial-de-datos');
 			$this->_vista('principal');
+			//var_dump($this->data);
 		} else
 		{
 			// SECCION PARA GENTE DE TIENDAPAQ
@@ -72,6 +74,11 @@ class Inicio extends AbstractAccess {
 			$this->_vista('principal');
 			//var_dump($this->data);
 		}
+	}
+
+	public function verificacion()
+	{
+		$this->_vista_completa('verificacion-inicial-de-datos');
 	}
 }
 

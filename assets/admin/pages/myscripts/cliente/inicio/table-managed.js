@@ -1,4 +1,4 @@
-/**
+ /**
  * Script para la tabla en vista principal en la seccion
  * de cliente
  */
@@ -43,32 +43,6 @@ var TableManaged = function() {
 		});
 	}
 
-	var ajaxModal = function() {
-
-		// general settings
-		$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-			'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-				'<div class="progress progress-striped active">' +
-					'<div class="progress-bar" style="width: 100%;"></div>' +
-				'</div>' +
-			'</div>';
-
-		$.fn.modalmanager.defaults.resize = true;
-
-		//ajax demo:
-		var $modal = $('#ajax-modal');
-		$('.ajax-detalles').on('click', function(){
-			var folio = $(this).attr('id');
-			// create the backdrop and wait for next modal to be triggered
-			$('body').modalmanager('loading');
-			setTimeout(function(){
-				$modal.load('./cotizacion/detalles/'+folio, '', function(){
-					$modal.modal();
-				});
-			}, 1000);
-		});
-	}
-
 	// Muestra visualizacvion previa del pdf de la
 	// cotizacion al cliente
 	var previaPDF = function() {
@@ -92,7 +66,6 @@ var TableManaged = function() {
 				return;
 			}
 			tablaCotizacion();
-			ajaxModal();
 			previaPDF();
 		}
 	};

@@ -19,16 +19,6 @@ class Cotizacion extends AbstractAccess {
 
 	}
 
-	public function detalles($folio)
-	{
-		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
-			$this->data['cotizacion'] = $cotizacion;
-			$this->_vista_completa('detalle-cotizacion');
-		} else {
-			show_404();
-		}
-	}
-
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
 	 * para los clientes

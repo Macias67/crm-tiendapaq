@@ -11,7 +11,7 @@
 			<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 			<div class="page-sidebar navbar-collapse collapse">
 				<!-- BEGIN SIDEBAR MENU -->
-				<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+				<ul class="page-sidebar-menu page-sidebar-menu-closed" data-auto-scroll="true" data-slide-speed="200">
 					<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
 					<li class="sidebar-toggler-wrapper">
 						<!-- BEGIN SIDEBAR TOGGLER BUTTON -->

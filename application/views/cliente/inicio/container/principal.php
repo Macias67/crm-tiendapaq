@@ -22,11 +22,7 @@
 								<div class="tools">
 									<a href="javascript:;" class="collapse">
 									</a>
-									<a href="#portlet-config" data-toggle="modal" class="config">
-									</a>
 									<a href="javascript:;" class="reload">
-									</a>
-									<a href="javascript:;" class="remove">
 									</a>
 								</div>
 							</div>
@@ -52,7 +48,7 @@
 											<?php if($cotizacion->id_estatus==1): ?>
 												<td><span class="btn btn-xs green"><?php echo ucfirst($cotizacion->descripcion) ?></span></td>
 												<td>
-													<button type="button" class="btn green default cotizacion-previa btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Detalles</button>
+													<button type="button" class="btn green default cotizacion-previa btn-xs" id="<?php echo $cotizacion->folio ?>"><i class="fa fa-file-o"></i> Vista Previa</button>
 													<a class="btn red default btn-xs" href="<?php echo site_url('cotizacion/descarga/'.$cotizacion->folio) ?>"><i class="fa fa-file-o"></i> Descargar</a>
 													<a href="<?php echo site_url('cotizacion/comprobante/'.$cotizacion->folio) ?>" class="btn blue btn-xs"><i class="fa fa-dollar"></i> Comprobar Pago</a>
 												</td>
@@ -92,7 +88,7 @@
 				<!-- END PAGE CONTENT-->
 
 				<!-- ajax -->
-				<div id="ajax-modal" class="modal container fade" tabindex="-1"></div>
+				<div id="ajax-modal-verificacion" class="modal container" tabindex="-1"></div>
 			</div>
 		</div>
 		<!-- END CONTENT -->
