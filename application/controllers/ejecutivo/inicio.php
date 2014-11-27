@@ -31,7 +31,6 @@ class Inicio extends AbstractAccess {
 			                'estatus_cotizacion.id_estatus',
 			                'estatus_cotizacion.descripcion');
 			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
-			$this->_vista_completa('verificacion-inicial-de-datos');
 			$this->_vista('principal');
 			//var_dump($this->data);
 		} else
