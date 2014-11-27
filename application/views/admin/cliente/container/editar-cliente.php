@@ -315,7 +315,7 @@
 												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
-												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_cliente_form">
+												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_contacto_form">
 													<i class="fa fa-plus"></i> Agregar
 												</a>
 											</div>
@@ -343,8 +343,8 @@
 															<td><?php echo $contacto->email_contacto ?></td>
 															<td><?php echo $contacto->telefono_contacto ?></td>
 															<td><?php echo $contacto->puesto_contacto ?></td>
-															<td width="1%"><a href="<?php echo site_url('cliente/contacto/'.$contacto->id) ?>" data-target="#ajax_form_cliente" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i></button></td>
-															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-contacto"><i class="fa fa-trash-o"></i></button></td>
+															<td width="1%"><a href="<?php echo site_url('cliente/contacto/'.$contacto->id) ?>" data-target="#ajax_form_contacto" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i> Ver</button></td>
+															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-contacto"><i class="fa fa-trash-o"></i> Eliminar</button></td>
 														</tr>
 													<?php endforeach ?>
 												</tbody>
@@ -366,7 +366,7 @@
 												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
-												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_cliente_form">
+												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_sistema_form">
 													<i class="fa fa-plus"></i> Agregar
 												</a>
 											</div>
@@ -388,8 +388,8 @@
 															<td><?php echo $sistema->sistema ?></td>
 															<td><?php echo $sistema->version ?></td>
 															<td><?php echo $sistema->no_serie ?></td>
-															<td width="1%"><a href="<?php echo site_url('cliente/sistema/'.$contacto->id) ?>" data-target="#ajax_form_sistema" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i></button></td>
-															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-sistema"><i class="fa fa-trash-o"></i></button></td>
+															<td width="1%"><a href="<?php echo site_url('cliente/sistema/'.$contacto->id) ?>" data-target="#nuevo_sistema_form" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i> Ver</button></td>
+															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-sistema"><i class="fa fa-trash-o"></i> Eliminar</button></td>
 														</tr>
 													<?php endforeach ?>
 												</tbody>
@@ -574,12 +574,13 @@
 			</div>
 		</div>
 		<!-- /.modal -->
-		
+
+		<!-- SISTEMAS -->
 		<div id="nuevo_sistema_form" class="modal fade" tabindex="-1" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title"><b>Contácto</b></h3>
+						<h3 class="modal-title"><b>Sistema</b></h3>
 						<small> </small>
 					</div>
 					<form id ="form-contacto-nuevo" method="post" accept-charset="utf-8">
@@ -593,64 +594,33 @@
 								<!-- BEGIN FORM BODY -->
 								<div class="form-body">
 									<div class="col-md-12">
-										<!-- Nombre(s) -->
+										<!-- Sistema -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Nombre(s): </label>
+											<label class="col-md-4 control-label">Sistema: </label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-user"></i>
-													<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $cliente->id ?>">
-													<input type="text" class="form-control" placeholder="Nombre(s)" name="nombre_contacto">
+													<input type="text" class="form-control" placeholder="Sistema" name="sistema" value="">
 												</div>
 											</div>
 										</div>
-										<!-- Apellido paterno -->
+										<!-- Version -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Apellido paterno: </label>
+											<label class="col-md-4 control-label">Versión: </label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-user"></i>
-													<input type="text" class="form-control" placeholder="Apellido paterno" name="apellido_paterno">
+													<input type="text" class="form-control" placeholder="Version" name="version" value="">
 												</div>
 											</div>
 										</div>
-										<!-- Apellido materno -->
+										<!-- No. Serie -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Apellido materno: </label>
+											<label class="col-md-4 control-label">No. Serie: </label>
 											<div class="col-md-8">
 												<div class="input-icon">
 													<i class="fa fa-user"></i>
-													<input type="text" class="form-control" placeholder="Apellido materno" name="apellido_materno">
-												</div>
-											</div>
-										</div>
-										<!-- Email -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">Email: </label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-envelope"></i>
-													<input type="text" class="form-control" placeholder="Email" name="email_contacto">
-												</div>
-											</div>
-										</div>
-										<!-- Teléfono -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">Teléfono: </label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-phone"></i>
-													<input type="text" class="form-control telefono_contacto" placeholder="Teléfono" name="telefono_contacto">
-												</div>
-											</div>
-										</div>
-										<!-- Puesto -->
-										<div class="form-group">
-											<label class="col-md-4 control-label">Puesto: </label>
-											<div class="col-md-8">
-												<div class="input-icon">
-													<i class="fa fa-certificate"></i>
-													<input type="text" class="form-control" placeholder="Puesto" name="puesto_contacto">
+													<input type="text" class="form-control" placeholder="No. Serie" name="no_serie" value="">
 												</div>
 											</div>
 										</div>

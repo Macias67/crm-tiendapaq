@@ -196,7 +196,7 @@ var InfoManagedCliente = function() {
 			});
 		});
 
-		// Validaciones para neuvo cliente
+		// Validaciones para nuevo cliente
 		var modal_nuevo = $('#nuevo_contacto_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
 			maskTelefono();
