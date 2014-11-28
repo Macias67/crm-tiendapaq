@@ -101,7 +101,9 @@ var UIExtendedModals = function () {
 							if(ejecutivo_destino_text!=""){
 								alert("Pendiente reasignado a : "+data.ejecutivo_destino_text+" con éxito.");
 							}else{
-								alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+								if(id_estatus!=undefined){
+									alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+								}
 							}
 							parent.location.reload();
 						} else {

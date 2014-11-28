@@ -170,10 +170,14 @@ class Pendiente extends AbstractAccess {
 		$motivo										= $this->input->post('motivo');
 
 		if (empty($id_ejecutivo_destino)) {
+			if(empty($id_estatus)){
+				$respuesta = array('exito' => TRUE, 'estatus' => 'Sin Cambios');
+			}else{
 				if($this->pendienteModel->update(array('id_estatus_general' => $id_estatus), array('id_pendiente' => $id_pendiente))){
 					$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
 				}else{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
+				}
 			}
 		}else{
 			$this->load->model('reasignarPendienteModel');
@@ -186,7 +190,7 @@ class Pendiente extends AbstractAccess {
 				'motivo' => $motivo
 				);
 
-			if($this->reasignarPendienteModel->insert($reasignacion) && 
+			if($this->reasignarPendienteModel->insert($reasignacion) &&
 				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus_general' => 7), array('id_pendiente' => $id_pendiente)))
 			{
 				$respuesta = array('exito' => TRUE, 'ejecutivo_destino_text' => $ejecutivo_destino_text);
