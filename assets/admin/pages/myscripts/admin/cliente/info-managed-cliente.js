@@ -5,10 +5,36 @@
  */
 var InfoManagedCliente = function() {
 
+	// Mascara para el campo telefeno
 	var maskTelefono = function() {
 		$(".telefono_contacto").inputmask('mask', {
 			'autounmask': true,
 			"mask": "(999) 999-9999"
+		});
+	}
+
+	// Versiones de sistemas
+	var handleVersionesCliente = function () {
+		var sistema;
+		//funcion change detecta cambios en el objeto
+		//seleccionado es este caso un select
+		$("#select_sistemas").on('change', function(){
+			sistema = $('#select_sistemas').val();
+			//filtro para verificar que hay un sistema seleccionado
+			if(sistema!=undefined && sistema!="")
+			{
+				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
+					if (data.exito) {
+						var opciones_select="<option value=''></option>";
+						for ( var i = 0; i < data.num_versiones; i++ ) {
+							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
+						}
+						$('#select_versiones').html(opciones_select);
+					}
+				}, 'json');
+			}else{
+				$('#select_versiones').html('');
+			}
 		});
 	}
 
@@ -360,10 +386,9 @@ var InfoManagedCliente = function() {
 			"order": [0, 'asc' ] // set first column as a default sort by asc
 		});
 
-		// Validaciones para editar cliente
+		// Validaciones para editar sistema
 		var modal = $('#ajax_form_sistema');
 		modal.on('shown.bs.modal', function (e) {
-			maskTelefono();
 			var form = $('#form-contacto');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -501,10 +526,10 @@ var InfoManagedCliente = function() {
 			});
 		});
 
-		// Validaciones para neuvo cliente
+		// Validaciones para nuevo sistema
 		var modal_nuevo = $('#nuevo_sistema_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
-			maskTelefono();
+			handleVersionesCliente();
 			var form = $('#form-contacto-nuevo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -585,8 +610,8 @@ var InfoManagedCliente = function() {
 					.closest('.form-group').removeClass('has-error'); // set success class to the control group
 				},
 				submitHandler: function (form) {
-					var url 		= '/cliente/contactos/nuevo';
-					var param 	= $('#form-contacto-nuevo').serialize();
+					var url 		= '/cliente/sistemas/nuevo';
+					var param 	= $('#form-sistema-nuevo').serialize();
 
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
