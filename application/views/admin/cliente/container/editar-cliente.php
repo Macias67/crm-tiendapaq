@@ -583,7 +583,7 @@
 						<h3 class="modal-title"><b>Sistema</b></h3>
 						<small> </small>
 					</div>
-					<form id ="form-contacto-nuevo" method="post" accept-charset="utf-8">
+					<form id ="form-sistema-nuevo" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
 							<div class="col-md-12">
 								<!-- DIV ERROR -->
@@ -596,21 +596,30 @@
 									<div class="col-md-12">
 										<!-- Sistema -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Sistema: </label>
+											<label class="col-md-4 control-label">
+												Sistema
+											</label>
 											<div class="col-md-8">
+												<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $cliente->id ?>">
 												<div class="input-icon">
-													<i class="fa fa-user"></i>
-													<input type="text" class="form-control" placeholder="Sistema" name="sistema" value="">
+													<i class="fa fa-info"></i>
+													<select class="form-control" name="sistema" id="select_sistemas">
+														<option value=""></option>
+														<?php foreach ($sistemas_contpaqi as $sistema): ?>
+														<option value="<?php echo $sistema->sistema?>"><?php echo $sistema->sistema ?></option>
+														<?php endforeach ?>
+													</select>
 												</div>
 											</div>
 										</div>
 										<!-- Version -->
 										<div class="form-group">
-											<label class="col-md-4 control-label">Versión: </label>
+											<label class="col-md-4 control-label">Versión</label>
 											<div class="col-md-8">
 												<div class="input-icon">
-													<i class="fa fa-user"></i>
-													<input type="text" class="form-control" placeholder="Version" name="version" value="">
+													<i class="fa fa-history"></i>
+													<select class="form-control" name="version" id="select_versiones">
+													</select>
 												</div>
 											</div>
 										</div>
