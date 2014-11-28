@@ -4,7 +4,7 @@ class Admin extends AbstractAccess {
 
 	public function index()
 	{
-		echo "hola :) kokin 14 11 2014";
+		echo "hola :) kokin 28 11 2014";
 	}
 
 }
