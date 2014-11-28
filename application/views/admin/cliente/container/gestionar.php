@@ -20,8 +20,7 @@
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="icon-speech"></i>
-									<span class="caption-subject bold uppercase"> Portlet</span>
-									<span class="caption-helper">weekly stats...</span>
+									<span class="caption-subject bold uppercase"> Catálogo de clientes</span>
 								</div>
 								<div class="actions">
 									<a href="<?php echo site_url('cliente/gestionar/nuevo') ?>" class="btn btn-circle green">

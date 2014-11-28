@@ -43,8 +43,8 @@
 											<?php foreach ($sistemasoperativos as $sistema): ?>
 												<tr id="<?php echo $sistema->id_so ?>">
 													<td><?php echo $sistema->sistema_operativo ?></td>
-													<td><a class="edit" href="javascript:;">Editar </a></td>
-													<td><a class="delete" href="javascript:;">Eliminar </a></td>
+													<td><a class="btn edit blue btn-circle btn-xs" href="javascript:;"><i class="fa fa-edit"></i> Editar</a></td>
+													<td><a class="btn delete red btn-circle btn-xs" href="javascript:;"><i class="fa fa-trash"></i> Eliminar</a></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>

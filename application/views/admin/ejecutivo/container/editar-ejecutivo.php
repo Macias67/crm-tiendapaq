@@ -173,7 +173,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<hr>
-												<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
+												<button type="submit" class="btn btn-circle green"><i class="fa fa-save"></i> Guardar</button>
 											</div>
 										</div>
 									</div>

@@ -57,7 +57,7 @@
 										</div>
 										<div class="form-group">
 											<div class="col-md-12">
-												<button type="submit" class="btn green" id="loaderbutton"><i class="fa fa-sign-in"></i> Importar</button>
+												<button type="submit" class="btn btn-circle green" id="loaderbutton"><i class="fa fa-sign-in"></i> Importar</button>
 											</div>
 										</div>
 									</div>

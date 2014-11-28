@@ -46,7 +46,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Información básica </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 										</div>
 										<div class="portlet-body form-horizontal">
@@ -312,7 +311,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Contáctos </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
 												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_contacto_form">
@@ -363,7 +361,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Sistemas CONTPAQi® </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
 												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_sistema_form">
@@ -408,7 +405,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Equipos de computo </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 										</div>
 										<div class="portlet-body">
@@ -449,7 +445,7 @@
 											<br>
 											<div class="table-toolbar">
 												<div class="btn-group pull-right">
-													<a href="#" class="btn green btn-xs" data-target="#nuevo-equipo" data-toggle="modal"><i class="fa fa-plus"></i> Nueva Equipo </a>
+													<a href="#" class="btn btn-circle green btn-xs" data-target="#nuevo-equipo" data-toggle="modal"><i class="fa fa-plus"></i> Nuevo Equipo </a>
 												</div>
 											</div>
 										</div>

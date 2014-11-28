@@ -54,15 +54,15 @@
 												<td><?php echo $producto->impuesto2 ?></td>
 												<td><?php echo $producto->retencion1 ?></td>
 												<td><?php echo $producto->retencion2 ?></td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												<td><a class="btn edit blue btn-circle btn-xs" href="javascript:;"><i class="fa fa-edit"></i> Editar </a></td>
+												<td><a class="btn delete red btn-circle btn-xs" href="javascript:;"><i class="fa fa-trash"></i> Eliminar </a></td>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
 								</table>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
-										<button id="tabla_productos_editable_new" class="btn green btn-xs">
+										<button id="tabla_productos_editable_new" class="btn green btn-circle">
 											<i class="fa fa-plus"></i> Nuevo producto
 										</button>
 									</div>

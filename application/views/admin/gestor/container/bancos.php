@@ -48,8 +48,8 @@
 												<td><?php echo $banco->cta ?></td>
 												<td><?php echo $banco->titular ?></td>
 												<td><?php echo $banco->cib ?></td>
-												<td><a class="edit" href="javascript:;">Editar </a></td>
-												<td><a class="delete" href="javascript:;">Eliminar </a></td>
+												<td><a class="btn edit blue btn-circle btn-xs" href="javascript:;"><i class="fa fa-edit"></i> Editar </a></td>
+												<td><a class="btn delete red btn-circle btn-xs" href="javascript:;"><i class="fa fa-trash"></i> Eliminar </a></td>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
@@ -57,7 +57,7 @@
 								<br>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
-										<button id="tabla_bancos_editable_new" class="btn green btn-xs">
+										<button id="tabla_bancos_editable_new" class="btn btn-circle green btn-xs">
 											<i class="fa fa-plus"></i> Nuevo banco
 										</button>
 									</div>

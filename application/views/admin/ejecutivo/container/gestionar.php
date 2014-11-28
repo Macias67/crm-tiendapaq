@@ -61,7 +61,7 @@
 								</table>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
-										<a href="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>" class="btn btn-circle green btn-xs" ><i class="fa fa-plus"></i> Nuevo Ejecutivo </a>
+										<a href="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>" class="btn btn-circle green" ><i class="fa fa-plus"></i> Nuevo Ejecutivo </a>
 									</div>
 								</div>
 							</div>
