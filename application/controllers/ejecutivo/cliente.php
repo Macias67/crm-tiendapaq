@@ -555,7 +555,7 @@ class Cliente extends AbstractAccess {
 				// Inserto a la BD
 				if($this->sistemasClienteModel->insert($sistema_cliente))
 				{
-					$respuesta = array('exito' => TRUE, 'sistema' => $sistema_cliente['sistema'].' versión '.$sistema_cliente['version']);
+					$respuesta = array('exito' => TRUE, 'msg' => 'Se añadio '.$sistema_cliente['sistema'].' v. '.$sistema_cliente['version']);
 				} else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -568,12 +568,11 @@ class Cliente extends AbstractAccess {
 
 			case 'eliminar':
 				$id			= $this->input->post('id');
-				$sistema	= $this->input->post('sistema');
-				$version	= $this->input->post('version');
+				$id_cliente	= $this->input->post('id_cliente');
 
-				if($this->sistemasClienteModel->delete(array('id' => $id)))
+				if($this->sistemasClienteModel->delete(array('id' => $id, 'id_cliente' => $id_cliente)))
 				{
-					$respuesta = array('exito' => TRUE, 'sistema' => $sistema.' versión '.$version);
+					$respuesta = array('exito' => TRUE, 'msg' => 'Sistema removido');
 				}else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
@@ -583,25 +582,6 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
-		}
-	}
-
-	/**
-	 * VIsta de la modal con los
-	 * datos de un sistema lista para editar
-	 *
-	 * @return void
-	 * @author Luis Macias
-	 **/
-	public function sistema($id_cliente)
-	{
-		if ($sistema = $this->sistemasClienteModel->get_where(array('id' => $id_cliente)))
-		{
-			$this->data['sistema'] = $sistema;
-			$this->_vista_completa('modal-form-nuevo-sistema');
-		} else
-		{
-			show_error('No message', 404, 'No existe ese cliente');
 		}
 	}
 
@@ -650,10 +630,60 @@ class Cliente extends AbstractAccess {
 					//Inserto en la BD el nuevo equipo
 					if($this->equiposComputoModel->insert($equipo))
 					{
-						$respuesta = array('exito' => TRUE, 'equipo' => $equipo['nombre_equipo']);
+						$respuesta = array('exito' => TRUE, 'msg' => 'Se agrego nuevo equipo.');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					}
+				}
+				//mando la repuesta
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			break;
+
+			case 'editar':
+				//reglas de contactos
+				$this->form_validation->set_rules('nombre_equipo', 'Nombre del Equipo', 'trim|required|strtoupper|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('arquitectura', 'Arquitectura', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('maquina_virtual', 'Maquina Virtual', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('memoria_ram', 'Memoria RAM', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('sql_server', 'SQL Server', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('sql_management', 'SQL Management', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('instancia_sql', 'Instancia SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('observaciones', 'Observaciones', 'trim|max_length[200]|xss_clean');
+
+				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				} else
+				{
+					//si las reglas son correctas preparo los datos para insertar
+					$equipo = array(
+						'id_cliente'				=> $this->input->post('id_cliente'),
+						'nombre_equipo'		=> $this->input->post('nombre_equipo'),
+						'sistema_operativo'	=> $this->input->post('sistema_operativo'),
+						'arquitectura'			=> $this->input->post('arquitectura'),
+						'maquina_virtual'		=> $this->input->post('maquina_virtual'),
+						'memoria_ram'			=> $this->input->post('memoria_ram'),
+						'sql_server'				=> $this->input->post('sql_server'),
+						'sql_management'		=> $this->input->post('sql_management'),
+						'instancia_sql'			=> $this->input->post('instancia_sql'),
+						'password_sql'			=> $this->input->post('password_sql'),
+						'observaciones'			=> $this->input->post('observaciones')
+					);
+					//obtenemos el id para saber donde actualizar
+					$id = $this->input->post('id');
+					$id_cliente = $this->input->post('id_cliente');
+					//Actualizo en la BD el  equipo
+					if($this->equiposComputoModel->update($equipo, array('id' => $id)))
+					{
+						$respuesta = array('exito' => TRUE, 'msg' => 'Se actualizo la info del equipo.');
+					} else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizó, revisa la consola o la base de datos para detalles');
 					}
 				}
 				//mando la repuesta
@@ -678,6 +708,34 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
+		}
+	}
+
+	/**
+	 * VIsta de la modal con los
+	 * datos de un contacto lista para editar
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function equipo($id)
+	{
+		if ($equipo = $this->equiposComputoModel->get_where(array('id' => $id)))
+		{
+			$this->load->helper('form');
+
+			$this->data['equipo'] = $equipo;
+			$sistemas_operativos	= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+
+			foreach ($sistemas_operativos as $sistema) {
+				# code...
+			}
+			var_dump($sistemas_operativos);
+
+			//$this->_vista_completa('modal-form-nuevo-equipo');
+		} else
+		{
+			show_error();
 		}
 	}
 
