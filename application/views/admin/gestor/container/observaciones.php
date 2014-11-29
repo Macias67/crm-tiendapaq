@@ -43,16 +43,16 @@
 											<?php foreach ($observaciones as $observacion): ?>
 												<tr id="<?php echo $observacion->id_observacion?>">
 													<td><?php echo $observacion->descripcion ?></td>
-													<td><a class="edit" href="javascript:;">Editar </a></td>
-													<td><a class="delete" href="javascript:;">Eliminar </a></td>
+													<td><a class="btn edit blue btn-circle btn-xs" href="javascript:;"><i class="fa fa-edit"></i> Editar </a></td>
+													<td><a class="btn delete red btn-circle btn-xs" href="javascript:;"><i class="fa fa-trash"></i> Eliminar </a></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>
 									</table>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
-											<button id="tabla_observaciones_editable_new" class="btn green btn-xs">
-												<i class="fa fa-plus"></i> Nuevo observacion
+											<button id="tabla_observaciones_editable_new" class="btn btn-circle green btn-xs">
+												<i class="fa fa-plus"></i> Nueva observación
 											</button>
 										</div>
 									</div>

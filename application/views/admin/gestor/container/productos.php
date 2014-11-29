@@ -84,7 +84,7 @@
 								</table>
 								<div class="table-toolbar">
 									<div class="btn-group pull-right">
-										<button id="tabla_productos_editable_new" class="btn green btn-xs">
+										<button id="tabla_productos_editable_new" class="btn green btn-circle btn-xs">
 											<i class="fa fa-plus"></i> Nuevo producto
 										</button>
 									</div>

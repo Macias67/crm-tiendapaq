@@ -46,7 +46,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Información básica </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 										</div>
 										<div class="portlet-body form-horizontal">
@@ -312,7 +311,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Contáctos </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
 												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_contacto_form">
@@ -363,7 +361,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Sistemas CONTPAQi® </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
 												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_sistema_form">

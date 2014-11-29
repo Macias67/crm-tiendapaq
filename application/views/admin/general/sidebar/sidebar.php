@@ -84,13 +84,12 @@
 							<li>
 						</ul>
 					</li>
-					<!-- Calendario -->
-					<li>
+					<!-- Calendario <li>
 						<a href="<?php echo site_url('calendario') ?>">
 							<i class="fa fa-calendar"></i>
 							<span class="title">Calendario</span>
 						</a>
-					</li>
+					</li>-->
 					<!-- Importar -->
 					<li>
 						<a href="<?php echo site_url('catalogo') ?>">

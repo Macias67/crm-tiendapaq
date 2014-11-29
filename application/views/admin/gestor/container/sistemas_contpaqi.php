@@ -41,8 +41,8 @@
 											<?php foreach ($sistemascontpaqi as $sistema): ?>
 												<tr id="<?php echo $sistema->id_sistema ?>">
 													<td><?php echo $sistema->sistema ?></td>
-													<td><a class="edit" href="javascript:;">Editar </a></td>
-													<td><a class="delete" href="javascript:;">Eliminar </a></td>
+													<td><a class="btn edit blue btn-circle btn-xs" href="javascript:;"><i class="fa fa-edit"></i> Editar</a></td>
+													<td><a class="btn delete red btn-circle btn-xs" href="javascript:;"><i class="fa fa-trash"></i> Eliminar</a></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>
@@ -50,7 +50,7 @@
 									<br>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
-											<button id="tabla_sistemas_editable_new" class="btn green btn-xs">
+											<button id="tabla_sistemas_editable_new" class="btn btn-circle green btn-xs">
 												<i class="fa fa-plus"></i> Nuevo sistema
 											</button>
 										</div>
@@ -108,7 +108,7 @@
 									<div class="table-toolbar">
 										<br>
 										<div class="btn-group pull-right">
-											<button id="guardar_versiones" class="btn green btn-xs">
+											<button id="guardar_versiones" class="btn btn-circle green btn-xs">
 												<i class="fa fa-save"></i>  Guardar Versiones
 											</button>
 										</div>

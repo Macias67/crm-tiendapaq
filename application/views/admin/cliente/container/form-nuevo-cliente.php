@@ -534,8 +534,8 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="col-md-offset-2 col-md-10">
-													<button type="submit" class="btn green"><i class="fa fa-save"></i> Guardar</button>
-													<button type="reset" class="btn default"><i class="fa fa-eraser"></i> Limpiar</button>
+													<button type="submit" class="btn btn-circle green"><i class="fa fa-save"></i> Guardar</button>
+													<button type="reset" class="btn btn btn-circle default"><i class="fa fa-eraser"></i> Limpiar</button>
 												</div>
 											</div>
 										</div>
