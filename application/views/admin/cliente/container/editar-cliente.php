@@ -15,7 +15,6 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						<!--?php var_dump($this->data) ?-->
 						<!--BEGIN TABS-->
 						<div class="tabbable-line tabbable-full-width">
 							<ul class="nav nav-tabs">
@@ -46,6 +45,10 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Información básica </span>
+											</div>
+											<div class="actions">
+												<input type="checkbox" class="make-switch" id-cliente="<?php echo $cliente->id ?>" data-on-text="&nbsp;Activo&nbsp;" data-off-text="&nbsp;Inactivo&nbsp;&nbsp;&nbsp;" data-on-color="success" data-off-color="danger" <?php echo ($cliente->activo == '1') ? "checked" : ""?>>
+												<div class="clear-fix"></div>
 											</div>
 										</div>
 										<div class="portlet-body form-horizontal">
@@ -678,7 +681,7 @@
 													<select class="form-control" name="sistema_operativo">
 														<option value=""></option>
 														<?php foreach ($sistemas_operativos as $operativo): ?>
-															<option value="Windows XP"><?php echo $operativo->sistema_operativo ?></option>
+															<option value="<?php echo $operativo->sistema_operativo ?>"><?php echo $operativo->sistema_operativo ?></option>
 														<?php endforeach ?>
 													</select>
 												</div>

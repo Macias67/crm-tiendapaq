@@ -493,11 +493,14 @@ var InfoManagedCliente = function() {
 		var modal = $('#ajax_form_equipo');
 		modal.on('shown.bs.modal', function (e) {
 
-			$('#memoria-ram').spinner();
+			$('#memoria-ram-ajax').spinner();
 
 			var form = $('#form-equipo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
+
+			Metronic.initUniform($('input[type="radio"]', form)); // reinitialize uniform checkboxes on each table reload
+			//Metronic.updateUniform();
 
 			form.validate({
 				errorElement: 'span', //default input error message container
@@ -583,14 +586,14 @@ var InfoManagedCliente = function() {
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
 							Metronic.unblockUI();
-							modal_nuevo.modal('hide');
+							modal.modal('hide');
 							bootbox.alert(data.msg, function() {
 								location.reload();
 							});
 						} else {
 							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
-								modal_nuevo.modal('show');
+								modal.modal('show');
 							});
 							//Metronic.scrollTo(error, -600);
 						}
@@ -715,9 +718,9 @@ var InfoManagedCliente = function() {
 			var id_cliente 	= $('#tabla_contactos').attr('id-cliente');
 			var Row 		= $(this).parents('tr');
 			var id 			= $(Row[0]).attr('id');
-			bootbox.confirm('¿Seguro que quieres eliminar este contacto?', function(response) {
+			bootbox.confirm('¿Seguro que quieres eliminar este equipo?', function(response) {
 				if (response) {
-					$.post('/cliente/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
+					$.post('/cliente/equipos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
 						if (data.exito) {
 							table.DataTable().row(Row).remove().draw();
 						}

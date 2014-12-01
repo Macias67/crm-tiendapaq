@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
+	<!--<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-switch/js/bootstrap-switch.min.js"></script>-->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
@@ -47,7 +48,6 @@
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
-	<!-- <script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>-->
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'info-managed-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-cliente') ?>" type="text/javascript"></script>

@@ -5,6 +5,20 @@
 var FormValidationCliente = function () {
 
 	// Spinner para la memoria ram
+	var handleSwitch = function () {
+		$('.make-switch').on('switchChange.bootstrapSwitch', function(event, state) {
+			var id = $(this).attr('id-cliente');
+			var selected = (state) ? 'true' : 'false';
+			$.post('/cliente/gestionar/activar', {id:id, selected:selected}, function(data, textStatus, xhr) {
+				bootbox.alert(data.mensaje);
+				if (data.exito) {
+					table.dataTable().api().ajax.reload();
+				}
+			}, 'json');
+		});
+	}
+
+	// Spinner para la memoria ram
 	var handleSpinners = function () {
 		$('#memoria-ram').spinner();
 	}
@@ -585,6 +599,7 @@ var FormValidationCliente = function () {
 		//main function to initiate the module
 		init: function () {
 			escondeEstado();
+			handleSwitch();
 			handleSpinners();
 			handleInputMasks();
 			handleVersionesCliente();

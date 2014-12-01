@@ -19,7 +19,8 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-desktop"></i>
-								<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $equipo->id ?>">
+								<input type="hidden" class="form-control" name="id" value="<?php echo $equipo->id ?>">
+								<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $equipo->id_cliente ?>">
 								<input type="text" class="form-control" placeholder="Nombre del Equipo" name="nombre_equipo"  value="<?php echo $equipo->nombre_equipo ?>">
 							</div>
 						</div>
@@ -32,13 +33,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-windows"></i>
-								<select class="form-control" name="sistema_operativo">
-									<option value=""></option>
-									<?php foreach ($sistemas_operativos as $operativo): ?>
-										<?php  ?>
-										<option value="Windows XP"><?php echo $operativo->sistema_operativo ?></option>
-									<?php endforeach ?>
-								</select>
+								<?php echo $select_SO ?>
 							</div>
 						</div>
 					</div>
@@ -50,12 +45,10 @@
 						<div class="col-md-8">
 							<div class="radio-list">
 								<label class="radio-inline">
-									<input type="radio" name="arquitectura" id="arquitectura1" value="x64">
-									x64 (64 bits)
+									<?php echo $radio64 ?> x64 (64 bits)
 								</label>
 								<label class="radio-inline">
-									<input type="radio" name="arquitectura" id="arquitectura2" value="x86">
-									x86 (32 bits)
+									<?php echo $radio86 ?> x86 (32 bits)
 								</label>
 							</div>
 						</div>
@@ -68,12 +61,10 @@
 						<div class="col-md-8">
 							<div class="radio-list">
 								<label class="radio-inline">
-									<input type="radio" name="maquina_virtual" id="maquina_virtual1" value="Si">
-									Sí
+									<?php echo $radioSi ?> Sí
 								</label>
 								<label class="radio-inline">
-									<input type="radio" name="maquina_virtual" id="maquina_virtual2" value="No">
-									No
+									<?php echo $radioNo ?> No
 								</label>
 							</div>
 						</div>
@@ -84,9 +75,9 @@
 							Memoria RAM (GB)
 						</label>
 						<div class="col-md-8">
-							<div id="memoria-ram">
+							<div id="memoria-ram-ajax">
 								<div class="input-group input-small">
-									<input type="text" class="spinner-input form-control" maxlength="2" name="memoria_ram">
+									<input type="text" class="spinner-input form-control" maxlength="2" name="memoria_ram" value="<?php echo $equipo->memoria_ram ?>">
 									<div class="spinner-buttons input-group-btn btn-group-vertical">
 										<button type="button" class="btn spinner-up btn-xs">
 											<i class="fa fa-angle-up"></i>
@@ -109,14 +100,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-database"></i>
-								<select class="form-control" name="sql_server">
-									<option value=""></option>
-									<option value="SQL Server 2005">SQL Server 2005</option>
-									<option value="SQL Server 2008">SQL Server 2008</option>
-									<option value="SQL Server 2008 R2">SQL Server 2008 R2</option>
-									<option value="SQL Server 2012">SQL Server 2012</option>
-									<option value="SQL Server 2014">SQL Server 2014</option>
-								</select>
+								<?php echo $select_SQL ?>
 							</div>
 						</div>
 					</div>
@@ -128,14 +112,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-database"></i>
-								<select class="form-control" name="sql_management">
-									<option value=""></option>
-									<option value="2005">2005</option>
-									<option value="2008">2008</option>
-									<option value="2008 R2">2008 R2</option>
-									<option value="2012">2012</option>
-									<option value="2014">2014</option>
-								</select>
+								<?php echo $select_mgm ?>
 							</div>
 						</div>
 					</div>
@@ -145,7 +122,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa  fa-database"></i>
-								<input type="text" class="form-control" placeholder="Instancia SQL" name="instancia_sql">
+								<input type="text" class="form-control" placeholder="Instancia SQL" name="instancia_sql" value="<?php echo $equipo->instancia_sql ?>">
 							</div>
 						</div>
 					</div>
@@ -155,7 +132,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa  fa-database"></i>
-								<input type="text" class="form-control" placeholder="Contraseña SQL" name="password_sql">
+								<input type="text" class="form-control" placeholder="Contraseña SQL" name="password_sql" value="<?php echo $equipo->password_sql ?>">
 							</div>
 						</div>
 					</div>
@@ -165,7 +142,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-eye"></i>
-								<textarea name="observaciones" class="form-control" placeholder="Observaciones del equipo" class="form-control"></textarea>
+								<textarea name="observaciones" class="form-control" placeholder="Observaciones del equipo" class="form-control"><?php echo $equipo->observaciones ?></textarea>
 							</div>
 						</div>
 					</div>
