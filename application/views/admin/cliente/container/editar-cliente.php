@@ -255,7 +255,7 @@
 															</div>
 														</div>
 														<!-- Estado -->
-														<div class="form-group">
+														<div class="form-group" id="div_estado">
 															<label class="col-md-4 control-label">Estado</label>
 															<div class="col-md-8">
 																<div class="input-icon">

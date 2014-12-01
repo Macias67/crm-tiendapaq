@@ -51,7 +51,7 @@
 									</table>
 									<div class="table-toolbar">
 										<div class="btn-group pull-right">
-											<button id="tabla_operativos_editable_new" class="btn green btn-xs">
+											<button id="tabla_operativos_editable_new" class="btn green btn-circle btn-xs">
 												<i class="fa fa-plus"></i> Nuevo Sistema Operativo
 											</button>
 										</div>

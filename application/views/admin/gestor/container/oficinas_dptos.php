@@ -16,8 +16,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN TABLA OFICINAS -->
-						<div class="col-md-9">
-							<div class="portlet box grey">
+						<div class="col-md-12">
+							<div class="portlet box grey" style="margin-bottom: 0px;">
 								<div class="portlet-title">
 									<div class="caption" style="color: black">
 										<i class="fa fa-building"></i> Oficinas
@@ -72,7 +72,8 @@
 						</div>
 						<!-- END TABLA OFICINAS -->
 						<!-- BEGIN DEPARTAMENTOS -->
-						<div class="col-md-3">
+						<div class="col-md-3"></div>
+						<div class="col-md-6">
 							<div class="portlet box grey">
 								<div class="portlet-title">
 									<div class="caption" style="color: black">
@@ -98,8 +99,8 @@
 											<?php foreach ($departamentos as $departamento) : ?>
 												<tr id="<?php echo $departamento->id_departamento?>">
 													<td><?php echo $departamento->area ?></td>
-													<td><a class="btn edit blue btn-circle btn-xs"  href="javascript:;">Editar</a></td>
-													<td><a class="btn delete red btn-circle btn-xs"  href="javascript:;">Eliminar</a></td>
+													<td><a class="btn edit blue btn-circle btn-xs"  href="javascript:;"><i class="fa fa-edit"></i> Editar</a></td>
+													<td><a class="btn delete red btn-circle btn-xs"  href="javascript:;"><i class ="fa fa-trash"></i> Eliminar</a></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>
