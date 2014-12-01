@@ -49,7 +49,6 @@
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
-	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-ejecutivo') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-ejecutivo') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-image-crop-ejecutivo') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-ejecutivo') ?>" type="text/javascript"></script>
@@ -60,7 +59,6 @@
 			Layout.init(); // init current layout
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
-			ComponentsFormToolsEjecutivo.init();//init de las mascaras de ejecutivo
 			FormValidationEjecutivo.init(); //validacion para editar imagen en perfil
 			FormImageCropEjecutivo.init();//para recortar imagenes
 			TableManaged.init(); //plugin para la tabla de pendientes

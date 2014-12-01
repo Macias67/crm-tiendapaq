@@ -406,7 +406,6 @@
 												<i class="icon-puzzle font-red-flamingo"></i>
 												<span class="caption-subject bold font-red-flamingo uppercase">
 												Equipos de Computo </span>
-												<span class="caption-helper">more samples...</span>
 											</div>
 											<div class="actions">
 												<a class="btn btn-circle green"  data-toggle="modal" href="#nuevo_equipo_form">

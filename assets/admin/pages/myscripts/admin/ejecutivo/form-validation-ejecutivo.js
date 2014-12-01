@@ -1,9 +1,17 @@
 var FormValidationEjecutivo = function () {
 
+    var handleInputMasksEjecutivo= function () {
+        $.extend($.inputmask.defaults, {
+            'autounmask': true
+        });
+
+        $("#telefono").inputmask("mask", {
+            "mask": "(999) 999-9999"
+        });
+    }
+
     // Validacion para formulario de ejecutivo nuevo
     var formularioEjecutivoNuevo = function() {
-        // for more info visit the official plugin documentation:
-        // http://docs.jquery.com/Plugins/Validation
 
         var form1 = $('#form-ejecutivo-nuevo');
         var error1 = $('.alert-danger', form1);
@@ -97,7 +105,7 @@ var FormValidationEjecutivo = function () {
                 success1.hide();
                 error1.html("Tienes Errores en tu formulario");
                 error1.show();
-            //Metronic.scrollTo(error1, -200);
+                handleInputMasksEjecutivo();
             },
             highlight: function (element) { // hightlight error inputs
                 $(element)
@@ -237,7 +245,7 @@ var FormValidationEjecutivo = function () {
                 success1.hide();
                 error1.html("Tienes Errores en tu formulario");
                 error1.show();
-            //Metronic.scrollTo(error1, -200);
+                handleInputMasksEjecutivo();
             },
             highlight: function (element) { // hightlight error inputs
                 $(element)
@@ -500,7 +508,7 @@ var FormValidationEjecutivo = function () {
                 success1.hide();
                 error1.html("Tienes Errores en tu formulario");
                 error1.show();
-            //Metronic.scrollTo(error1, -200);
+                handleInputMasksEjecutivo();
             },
             highlight: function (element) { // hightlight error inputs
                 $(element)

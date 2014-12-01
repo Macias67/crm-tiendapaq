@@ -20,7 +20,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('ejecutivo/gestionar/nuevo') ?>" id="form-ejecutivo-nuevo" accept-charset="utf-8">
+								<form action="<?php echo site_url('ejecutivo/nuevo') ?>" id="form-ejecutivo-nuevo" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- DIV ERROR -->
 										<div class="alert alert-danger display-hide">

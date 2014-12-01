@@ -374,6 +374,8 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
+				handleInputMasks();
+
 				$.ajax({
 					url: $('#form-cliente-completo').attr('action'),
 					type: 'post',
@@ -561,6 +563,7 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
+				handleInputMasks();
 				//ajax para gardar el formulario
 				$.ajax({
 					url: $('#form-basica-cliente').attr('action'),
