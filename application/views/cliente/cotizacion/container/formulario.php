@@ -20,21 +20,21 @@
 								<div class="col-lg-8">
 									<div class="btn-group btn-group-xs btn-group-solid">
 										<!-- The fileinput-button span is used to style the file input field as button -->
-										<span class="btn green btn-xs fileinput-button">
+										<span class="btn green btn-circle btn-xs fileinput-button">
 											<i class="fa fa-plus"></i>
 											<span>Añadir archivos... </span>
 											<input type="file" name="files[]" multiple="">
 										</span>
-										<button type="submit" class="btn blue btn-xs start">
+										<button type="submit" class="btn btn-circle blue btn-xs start">
 											<i class="fa fa-upload"></i>
 											<span>Subir archivos </span>
 										</button>
-										<button type="reset" class="btn warning btn-xs cancel">
+										<button type="reset" class="btn btn-circle warning btn-xs cancel">
 											<i class="fa fa-ban-circle"></i>
 											<span>
 											Cancelar subida </span>
 										</button>
-										<button type="button" class="btn red btn-xs delete">
+										<button type="button" class="btn red btn-circle btn-xs delete">
 											<i class="fa fa-trash"></i>
 											<span>Borrar </span>
 										</button>
@@ -63,7 +63,7 @@
 								</tbody>
 							</table>
 						</form>
-						<button class="btn green btn-lg btn-block" id="confirmar" folio="<?php echo $cotizacion->folio ?>">Confirmar archivos</button>
+						<button class="btn green btn-lg btn-circle btn-block" id="confirmar" folio="<?php echo $cotizacion->folio ?>">Confirmar archivos</button>
 					</div>
 					<div class="col-md-4">
 						<div class="panel panel-success">
