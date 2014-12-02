@@ -129,7 +129,7 @@ var FormValidationEjecutivo = function () {
                 // '</div>';
 
                 // $.fn.modalmanager.defaults.resize = true;
-
+                handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-nuevo').attr('action'),
                     type: 'post',
@@ -269,7 +269,7 @@ var FormValidationEjecutivo = function () {
                 // '</div>';
 
                 // $.fn.modalmanager.defaults.resize = true;
-
+                handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-info').attr('action'),
                     type: 'post',
@@ -377,6 +377,7 @@ var FormValidationEjecutivo = function () {
 
                 // $.fn.modalmanager.defaults.resize = true;
 
+                handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-password').attr('action'),
                     type: 'post',
@@ -532,7 +533,7 @@ var FormValidationEjecutivo = function () {
                 // '</div>';
 
                 // $.fn.modalmanager.defaults.resize = true;
-
+                handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-editado').attr('action'),
                     type: 'post',
