@@ -71,28 +71,48 @@ class Ejecutivo extends AbstractAccess {
 				break;
 
 				case 'editar':
-				  //obtenemos los datos del ejecutivo a ejecutar
+					//obtenemos los datos del ejecutivo a ejecutar
 					$ejecutivo = $this->ejecutivoModel->get_where(array('id' => $id_ejecutivo));
-					 if (!empty($ejecutivo))
-					 {
-					 	// Datos a enviar a la vista
-					 	$this->data['ejecutivo']					= $ejecutivo;
+					if (!empty($ejecutivo))
+					{
+						// Datos a enviar a la vista
+						$this->data['ejecutivo']			= $ejecutivo;
 						$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
 						$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
-						$this->data['tablaoficinas']      = $this->oficinasModel->get(array('ciudad_estado'));
-					 	//Vista de formulario a mostrar
-					 	$this->_vista('editar-ejecutivo');
-					 } else
-					 {
-					 	show_error('No existe este ejecutivo.', 404);
-					 }
-					//var_dump($this->data);
+						$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
+						//Vista de formulario a mostrar
+						$this->_vista('editar-ejecutivo');
+					} else
+					{
+						show_error('No existe este ejecutivo.', 404);
+					}
+				break;
+
+				case 'eliminar':
+					$id = $this->input->post('id');
+					$this->load->model('casoModel');
+					$this->load->model('pendienteModel');
+					// Si existe ejecutivo
+					if ($this->ejecutivoModel->exist(array('id' => $id))) {
+						// NO tiene casos y pendientes creados o asignados
+						if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id))
+						    && !$this->casoModel->exist(array('id_lider' => $id))) {
+							if($this->ejecutivoModel->delete(array('id' => $id))) {
+								$response = array('exito' => TRUE, 'msg' => 'El ejecutivo se eleminó del sistema');
+							}
+						} else {
+							$response = array('exito' => FALSE, 'msg' => 'El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado');
+						}
+					}
+
+					$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode($response));
 				break;
 
 				default:
 					$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('*'));
 					$this->_vista('gestionar');
-					//var_dump($this->data);
 				break;
 			}
 	}

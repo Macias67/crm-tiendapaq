@@ -25,8 +25,7 @@
 								<div class="actions">
 									<a href="<?php echo site_url('cliente/gestionar/nuevo') ?>" class="btn btn-circle green">
 									<i class="fa fa-plus"></i> Agregar </a>
-									<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#">
-									</a>
+									<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"></a>
 								</div>
 							</div>
 							<div class="portlet-body">

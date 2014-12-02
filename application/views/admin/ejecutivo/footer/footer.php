@@ -41,6 +41,7 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>canvasloader-min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
