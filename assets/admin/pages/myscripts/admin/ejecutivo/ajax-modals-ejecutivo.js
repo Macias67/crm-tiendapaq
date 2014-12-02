@@ -7,28 +7,20 @@ var UIExtendedModals = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
-
-			// general settings
-			$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-					'<div class="progress progress-striped active">' +
-						'<div class="progress-bar" style="width: 100%;"></div>' +
-					'</div>' +
-				'</div>';
-
-			$.fn.modalmanager.defaults.resize = true;
-
 			//ajax ventana modal detalles del pendiente
 			var $modal = $('#ajax-detalles-pendiente');
 
 			$('.ajax-pendiente').on('click', function(){
 				var id_pendiente = $(this).attr('id-pendiente');
 				// create the backdrop and wait for next modal to be triggered
-				$('body').modalmanager('loading');
+				Metronic.blockUI({
+            boxed: true
+        });
 
 				setTimeout(function(){
 					$modal.load('/pendiente/detalles/'+id_pendiente, '', function(){
 						$modal.modal();
+						Metronic.unblockUI();
 					});
 				}, 1000);
 			});
@@ -54,7 +46,9 @@ var UIExtendedModals = function () {
 
 			$modal.on('click', '#ajax-reasignacion', function(){
 					var id_pendiente = $(this).attr('id-pendiente');
-					$('body').modalmanager('loading');
+					Metronic.blockUI({
+              boxed: true
+          });
 
 								setTimeout(function(){
 					$modal2.load('/pendiente/reasignaciones/'+id_pendiente, '', function(){
@@ -89,7 +83,9 @@ var UIExtendedModals = function () {
 					data: data,
 					beforeSend: function () {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 0.1);
-						$('body').modalmanager('loading');
+						Metronic.blockUI({
+                boxed: true
+            });
 					},
 					error: function(jqXHR, status, error) {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 1);
@@ -111,7 +107,7 @@ var UIExtendedModals = function () {
 							error1.html(data.msg);
 							error1.show();
 							$('#ajax-detalles-pendiente').fadeTo(100, 1, function(){
-								$('body').modalmanager('removeLoading');
+								Metronic.unblockUI();
 							});
 						}
 					}
