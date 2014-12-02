@@ -473,7 +473,7 @@
 		<!-- END CONTENT -->
 
 		<!-- BEGIN AJAX DETALLE PENDIENTE -->
-				<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1"></div>
+		<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1"></div>
 		<!-- END AJAX DETALLE PENDIENTE -->
 
 		<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->

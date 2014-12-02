@@ -3,6 +3,47 @@
  */
 var TableManaged = function () {
 
+	var tablaPendientes = function () {
+		var table = $('#pendientes-ejecutivo');
+		table.dataTable({
+			"lengthMenu": [
+				[5, 15, 20, -1],
+				[5, 15, 20, "Todos"] // change per page values here
+			],
+			// set the initial value
+			"pageLength": 15,
+			"columns": [
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": false }
+			],
+			"language": {
+				"emptyTable":     "No hay pendientes registrados",
+				"info":           "Mostrando _START_ a _END_ de _TOTAL_ pendientes",
+				"infoEmpty":      "Mostrando 0 a 0 de 0 pendientes",
+				"infoFiltered":   "(de un total de _MAX_ pendientes registrados)",
+				"infoPostFix":    "",
+				"thousands":      ",",
+				"lengthMenu":     "Show _MENU_ registros",
+				"loadingRecords": "Cargando...",
+				"processing":     "Procesando...",
+				"zeroRecords": "No se encontraron coincidencias",
+				"lengthMenu": "_MENU_  Registros",
+				"search": "Buscar: ",
+				"paginate": {
+					"previous": "Anterior",
+					"next": "Siguiente"
+				}
+			},
+			"order": [
+				[4, "desc"]
+			] // set first column as a default sort by asc
+		});
+	}
+
 	var handleTableEjecutivo = function() {
 		var table = $('#tabla_gestionar_ejecutivos');
 
