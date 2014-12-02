@@ -356,6 +356,7 @@ var FormValidationCliente = function () {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
+				handleInputMasks();
 				success.hide();
 				error.html("Tienes Errores en tu formulario");
 				error.show();
@@ -545,6 +546,7 @@ var FormValidationCliente = function () {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
+				handleInputMasks();
 				success.hide();
 				error.html("Tienes Errores en tu formulario");
 				error.show();

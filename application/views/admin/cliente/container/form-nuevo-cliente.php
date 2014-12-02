@@ -14,10 +14,12 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
-						<div class="portlet gren">
+						<div class="portlet light">
 							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-child"></i>Formulario de Nuevo Cliente
+								<div class="caption font-green-sharp">
+									<i class="icon-speech font-green-sharp"></i>
+									<span class="caption-subject bold uppercase"> Formulario de Nuevo Cliente</span>
+									<span class="caption-helper"></span>
 								</div>
 							</div>
 							<div class="portlet-body form-horizontal">
@@ -260,7 +262,7 @@
 
 										<div class="col-md-6">
 											<!-- INFORMACION DE CONTACTO -->
-											<h4><strong>Contácto</strong><small>- Puedes añadir más contactos en la seccion de gestión</small></h4>
+											<h4><strong>Contácto</strong><small> - Puedes añadir más contactos en la seccion de gestión</small></h4>
 											<!-- Nombre del contacto -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
