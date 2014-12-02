@@ -120,15 +120,6 @@ var FormValidationEjecutivo = function () {
                 .closest('.form-group').removeClass('has-error'); // set success class to the control group
             },
             submitHandler: function (form) {
-                // general settings
-                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                //     '<div class="progress progress-striped active">' +
-                //         '<div class="progress-bar" style="width: 100%;"></div>' +
-                //     '</div>' +
-                // '</div>';
-
-                // $.fn.modalmanager.defaults.resize = true;
                 handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-nuevo').attr('action'),
@@ -137,12 +128,14 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo-nuevo').serialize(),
                     beforeSend: function () {
-                        //$('body').modalmanager('loading');
+                        Metronic.blockUI({
+                            boxed: true
+                        });
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.unblockUI();
                     },
                     success: function(data) {
                         console.log(data);
@@ -154,7 +147,7 @@ var FormValidationEjecutivo = function () {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.unblockUI();
                         }
                     }
                 });
@@ -260,15 +253,7 @@ var FormValidationEjecutivo = function () {
                 .closest('.form-group').removeClass('has-error'); // set success class to the control group
             },
             submitHandler: function (form) {
-                // general settings
-                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                //     '<div class="progress progress-striped active">' +
-                //         '<div class="progress-bar" style="width: 100%;"></div>' +
-                //     '</div>' +
-                // '</div>';
 
-                // $.fn.modalmanager.defaults.resize = true;
                 handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-info').attr('action'),
@@ -277,12 +262,14 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo-info').serialize(),
                     beforeSend: function () {
-                        //$('body').modalmanager('loading');
+                        Metronic.blockUI({
+                            boxed: true
+                        });
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.unblockUI();
                     },
                     success: function(data) {
                         console.log(data);
@@ -294,7 +281,7 @@ var FormValidationEjecutivo = function () {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.unblockUI();
                         }
                     }
                 });
@@ -352,7 +339,6 @@ var FormValidationEjecutivo = function () {
                 success1.hide();
                 error1.html("Tienes Errores en tu formulario");
                 error1.show();
-            //Metronic.scrollTo(error1, -200);
             },
             highlight: function (element) { // hightlight error inputs
                 $(element)
@@ -367,16 +353,6 @@ var FormValidationEjecutivo = function () {
                 .closest('.form-group').removeClass('has-error'); // set success class to the control group
             },
             submitHandler: function (form) {
-                // general settings
-                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                //     '<div class="progress progress-striped active">' +
-                //         '<div class="progress-bar" style="width: 100%;"></div>' +
-                //     '</div>' +
-                // '</div>';
-
-                // $.fn.modalmanager.defaults.resize = true;
-
                 handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-password').attr('action'),
@@ -385,12 +361,14 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo-password').serialize(),
                     beforeSend: function () {
-                        //$('body').modalmanager('loading');
+                        Metronic.blockUI({
+                            boxed: true
+                        });
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.unblockUI();
                     },
                     success: function(data) {
                         console.log(data);
@@ -402,7 +380,7 @@ var FormValidationEjecutivo = function () {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.unblockUI();
                         }
                     }
                 });
@@ -524,15 +502,6 @@ var FormValidationEjecutivo = function () {
                 .closest('.form-group').removeClass('has-error'); // set success class to the control group
             },
             submitHandler: function (form) {
-                // general settings
-                // $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-                // '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-                //     '<div class="progress progress-striped active">' +
-                //         '<div class="progress-bar" style="width: 100%;"></div>' +
-                //     '</div>' +
-                // '</div>';
-
-                // $.fn.modalmanager.defaults.resize = true;
                 handleInputMasksEjecutivo();
                 $.ajax({
                     url: $('#form-ejecutivo-editado').attr('action'),
@@ -541,12 +510,14 @@ var FormValidationEjecutivo = function () {
                     dataType: 'json',
                     data: $('#form-ejecutivo-editado').serialize(),
                     beforeSend: function () {
-                        //$('body').modalmanager('loading');
+                        Metronic.blockUI({
+                            boxed: true
+                        });
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.unblockUI();
                     },
                     success: function(data) {
                         console.log(data);
@@ -558,7 +529,7 @@ var FormValidationEjecutivo = function () {
                             console.log("ERROR: "+data.msg);
                             error1.html(data.msg);
                             error1.show();
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.unblockUI();
                         }
                     }
                 });
