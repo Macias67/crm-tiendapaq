@@ -865,11 +865,11 @@ var Metronic = function() {
 					$('body').append('<div class="block-canvas"><div id="canvasloader-container"></div></div>');
 
 					cl = new CanvasLoader('canvasloader-container');
-					cl.setColor('#00e1ff'); // default is '#000000'
+					cl.setColor('#5193fc'); // default is '#000000'
 					cl.setShape('spiral'); // default is 'oval'
-					cl.setDiameter(150); // default is 40
-					cl.setDensity(115); // default is 40
-					cl.setRange(0.9); // default is 1.3
+					cl.setDiameter(129); // default is 40
+					cl.setDensity(160); // default is 40
+					cl.setRange(0.8); // default is 1.3
 					cl.setSpeed(3); // default is 2
 					cl.setFPS(60); // default is 24
 					cl.show(); // Hidden by default
