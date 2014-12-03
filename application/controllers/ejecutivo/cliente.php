@@ -528,7 +528,7 @@ class Cliente extends AbstractAccess {
 			$this->_vista_completa('modal-form-nuevo-cliente');
 		} else
 		{
-			show_error();
+			show_error('No existe este contacto.', 404);
 		}
 	}
 
@@ -785,7 +785,7 @@ class Cliente extends AbstractAccess {
 			$this->_vista_completa('modal-form-nuevo-equipo');
 		} else
 		{
-			show_error();
+			show_error('No existe este equipo de computo.', 404);
 		}
 	}
 
