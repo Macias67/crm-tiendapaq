@@ -376,7 +376,6 @@ var FormValidationCliente = function () {
 			},
 			submitHandler: function (form) {
 				handleInputMasks();
-
 				$.ajax({
 					url: $('#form-cliente-completo').attr('action'),
 					type: 'post',
@@ -384,13 +383,11 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-cliente-completo').serialize(),
 					beforeSend: function () {
-						Metronic.blockUI({
-							boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						bootbox,alert('ERROR: revisa la consola del navegador para más detalles.', function() {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 						});
 					},
 					success: function(data) {
@@ -401,7 +398,7 @@ var FormValidationCliente = function () {
 						} else {
 							error.html(data.msg);
 							error.show();
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							Metronic.scrollTo(error, -600);
 						}
 					}
@@ -574,14 +571,12 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-basica-cliente').serialize(),
 					beforeSend: function () {
-						Metronic.blockUI({
-							boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						Metronic.unblockUI();
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						if (data.exito) {
@@ -591,7 +586,7 @@ var FormValidationCliente = function () {
 						} else {
 							error.html(data.msg);
 							error.show();
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							Metronic.scrollTo(error, -600);
 						}
 					}
