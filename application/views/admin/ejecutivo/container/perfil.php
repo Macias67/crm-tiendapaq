@@ -142,8 +142,7 @@
 																			} ?>
 																		</td>
 																		<td>
-																			<a class=" btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax" data-toggle="modal">View Demo </a>
-																			<a class="btn btn-circle blue btn-xs ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>
+																			<a class=" btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
 																		</td>
 																	</tr>
 																<?php endforeach ?>
@@ -465,7 +464,17 @@
 		<!-- END CONTENT -->
 
 		<!-- BEGIN AJAX DETALLE PENDIENTE -->
-		<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1"></div>
+		<div id="ajax-detalles-pendiente" class="modal container fade" role="basic" aria-hidden="true">
+			<div class="page-loading page-loading-boxed">
+				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+				<span>Cargando... </span>
+			</div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- /.modal -->
 		<!-- END AJAX DETALLE PENDIENTE -->
 
 		<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->

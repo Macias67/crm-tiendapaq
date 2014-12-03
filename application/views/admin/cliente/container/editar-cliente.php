@@ -557,7 +557,7 @@
 		<div id="ajax_form_contacto" class="modal container fade" role="basic" aria-hidden="true">
 			<div class="page-loading page-loading-boxed">
 				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
-				<span>Loading... </span>
+				<span>Cargando... </span>
 			</div>
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -832,7 +832,7 @@
 		<div id="ajax_form_equipo" class="modal fade bs-modal-lg" role="basic" aria-hidden="true">
 			<div class="page-loading page-loading-boxed">
 				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
-				<span>Loading... </span>
+				<span>Cargando... </span>
 			</div>
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
