@@ -30,17 +30,6 @@ var FormValidationPendiente = function () {
 
 	// basic validation
 	var handleValidationPendiente = function() {
-		// for more info visit the official plugin documentation:
-		// http://docs.jquery.com/Plugins/Validation
-
-		$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-		'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-			'<div class="progress progress-striped active">' +
-				'<div class="progress-bar" style="width: 100%;"></div>' +
-			'</div>' +
-		'</div>';
-
-		$.fn.modalmanager.defaults.resize = true;
 
 		var form = $('#form-pendiente');
 		var error1 = $('.alert-danger', form);
@@ -56,7 +45,7 @@ var FormValidationPendiente = function () {
 					required: true
 				},
 				razon_social: {
-					required: true
+					
 				},
 				actividad: {
 					required: true
@@ -72,7 +61,7 @@ var FormValidationPendiente = function () {
 					required: "Se necesita seleccionar a un ejecutivo."
 				},
 				razon_social: {
-					required: "Seleccione un cliente."
+					
 				},
 				actividad: {
 					required: "Selecciona una actividad."
@@ -109,12 +98,12 @@ var FormValidationPendiente = function () {
 					dataType: 'json',
 					data: $('#form-pendiente').serialize(),
 					beforeSend: function () {
-						$('body').modalmanager('loading');
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						$('body').modalmanager('removeLoading');
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						if (data.exito) {
@@ -138,7 +127,7 @@ var FormValidationPendiente = function () {
 									time: 8000,
 									// (function | optional) function called before it opens
 									before_open: function(){
-										$('body').modalmanager('removeLoading');
+										Metronic.removeLoader();
 									}
 								});
 							});
@@ -146,7 +135,7 @@ var FormValidationPendiente = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							$('body').modalmanager('removeLoading');
+							Metronic.removeLoader();
 						}
 					}
 				});
