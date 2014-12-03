@@ -106,18 +106,18 @@ class Pendiente extends AbstractAccess {
 		$this->load->helper('formatofechas');
 
 		$pendiente	= $this->pendienteModel->getPendiente($id_pendiente,
-																											array('pendientes.id_pendiente',
-																														'clientes.razon_social',
-																														'actividades_pendiente.id_actividad as id_actividad_pendiente',
-																														'actividades_pendiente.actividad',
-																														'pendientes.descripcion',
-																														'pendientes.fecha_origen',
-																														'creador.primer_nombre as creador_nombre',
-																														'creador.apellido_paterno as creador_apellido',
-																														'ejecutivo.primer_nombre as ejecutivo_nombre',
-																														'ejecutivo.apellido_paterno as ejecutivo_apellido',
-																														'creador.oficina as oficina',
-																														'pendientes.id_estatus_general'));
+						array('pendientes.id_pendiente',
+									'clientes.razon_social',
+									'actividades_pendiente.id_actividad as id_actividad_pendiente',
+									'actividades_pendiente.actividad',
+									'pendientes.descripcion',
+									'pendientes.fecha_origen',
+									'creador.primer_nombre as creador_nombre',
+									'creador.apellido_paterno as creador_apellido',
+									'ejecutivo.primer_nombre as ejecutivo_nombre',
+									'ejecutivo.apellido_paterno as ejecutivo_apellido',
+									'creador.oficina as oficina',
+									'pendientes.id_estatus_general'));
 		$this->data['pendiente']	= $pendiente;
 		$this->data['estatus']	= $this->estatusGeneralModel->get('*');
 		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));

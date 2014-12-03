@@ -48,15 +48,9 @@
 														 <?php echo $usuario_activo['mensaje_personal'] ?>
 													</p>
 													<hr>
-													<div class="portlet box grey">
+													<div class="portlet gren">
 														<div class="portlet-title">
-															<div class="caption" style="color: black;">
-																 Datos Básicos
-															</div>
-															<div class="tools">
-																<a class="reload" href="javascript:;">
-																</a>
-															</div>
+															<div class="caption" style="color: black;">Datos Básicos</div>
 														</div>
 														<div class="portlet-body">
 															<ul class="list-unstyled">
@@ -69,10 +63,7 @@
 															</ul>
 														</div>
 													</div>
-													<p>
-														<a href="#">
-														www.mywebsite.com </a>
-													</p>
+													<p><a href="#">www.mywebsite.com </a></p>
 													<ul class="list-inline">
 														<li>
 															<i class="fa fa-map-marker"></i> México
@@ -113,50 +104,51 @@
 												<div class="tab-content">
 													<!-- TAB PENDIENTES -->
 													<div class="tab-pane active" id="tab_pendientes">
-														<div class="portlet-body">
-															<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
-																<thead>
-																	<tr>
-																		<th>No.</th>
-																		<th>Actvidad</th>
-																		<th>Empresa</th>
-																		<th>Apertura</th>
-																		<th>Estatus</th>
-																		<th></th>
+														<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
+															<thead>
+																<tr>
+																	<th>No.</th>
+																	<th>Actvidad</th>
+																	<th>Empresa</th>
+																	<th>Apertura</th>
+																	<th>Estatus</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<?php foreach ($pendientes_usuario as $pendiente): ?>
+																	<tr class="odd gradeX">
+																		<td><?php echo $pendiente->id_pendiente ?></td>
+																		<td><?php echo $pendiente->actividad ?></td>
+																		<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+																		<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
+																		<td>
+																			<?php switch ($pendiente->id_estatus_general) {
+																				case 1:
+																					echo '<p class="btn btn-xs red"> Cancelado </p>';
+																				break;
+																				case 2:
+																					echo '<p class="btn btn-xs default"> Cerrado </p>';
+																				break;
+																				case 3:
+																					echo '<p class="btn btn-xs green"> Pendiente </p>';
+																				break;
+																				case 5:
+																					echo '<p class="btn btn-xs yellow"> En Proceso</p>';
+																				break;
+																				case 7:
+																					echo '<p class="btn btn-xs green"> Reasignado </p>';
+																				break;
+																			} ?>
+																		</td>
+																		<td>
+																			<a class=" btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax" data-toggle="modal">View Demo </a>
+																			<a class="btn btn-circle blue btn-xs ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>
+																		</td>
 																	</tr>
-																</thead>
-																<tbody>
-																	<?php foreach ($pendientes_usuario as $pendiente): ?>
-																		<tr class="odd gradeX">
-																			<td><?php echo $pendiente->id_pendiente ?></td>
-																			<td><?php echo $pendiente->actividad ?></td>
-																			<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
-																			<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
-																			<td>
-																				<?php switch ($pendiente->id_estatus_general) {
-																					case 1:
-																						echo '<p class="btn btn-xs red"> Cancelado </p>';
-																					break;
-																					case 2:
-																						echo '<p class="btn btn-xs default"> Cerrado </p>';
-																					break;
-																					case 3:
-																						echo '<p class="btn btn-xs green"> Pendiente </p>';
-																					break;
-																					case 5:
-																						echo '<p class="btn btn-xs yellow"> En Proceso</p>';
-																					break;
-																					case 7:
-																						echo '<p class="btn btn-xs green"> Reasignado </p>';
-																					break;
-																				} ?>
-																			</td>
-																			<td><a class="btn btn-circle blue btn-xs ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
-																		</tr>
-																	<?php endforeach ?>
-																</tbody>
-															</table>
-														</div>
+																<?php endforeach ?>
+															</tbody>
+														</table>
 													</div>
 													<!--TAB CASOS-->
 													<div class="tab-pane" id="tab_casos">
