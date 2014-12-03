@@ -15,10 +15,12 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN FORM EDITAR EJECUTIVO -->
-						<div class="portlet gren" id="nuevo-ejecutivo">
+						<div class="portlet light" id="nuevo-ejecutivo">
 							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-gift"></i>Editar Ejecutivo
+								<div class="caption font-green-sharp">
+									<i class="icon-speech font-green-sharp"></i>
+									<span class="caption-subject bold uppercase"> Ejecutivo</span>
+									<span class="caption-helper"></span>
 								</div>
 							</div>
 							<div class="portlet-body form-horizontal">
@@ -35,7 +37,7 @@
 										</div>
 										<!-- INFORMACION BASICA -->
 										<div class="col-md-6">
-											<h4>Datos Personales</h4>
+											<h4><strong>Datos Personales</strong></h4>
 											<!-- Primer nombre -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
@@ -100,7 +102,7 @@
 										</div>
 										<!-- INFORMACION DEL SISTEMA -->
 										<div class="col-md-6">
-											<h4>Datos del Sistema</h4>
+											<h4><strong>Datos del Sistema</strong></h4>
 											<!-- Oficina -->
 											<div class="form-group">
 												<label class="control-label col-md-4">Oficina </label>
