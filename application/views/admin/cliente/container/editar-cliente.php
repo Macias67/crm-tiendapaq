@@ -344,7 +344,7 @@
 															<td><?php echo $contacto->email_contacto ?></td>
 															<td><?php echo $contacto->telefono_contacto ?></td>
 															<td><?php echo $contacto->puesto_contacto ?></td>
-															<td width="1%"><a href="<?php echo site_url('cliente/contacto/'.$contacto->id) ?>" data-target="#ajax_form_contacto" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i> Ver</button></td>
+															<td width="1%"><a href="<?php echo site_url('cliente/contacto/'.$contacto->id) ?>" data-target="#ajax_form_contacto" data-toggle="modal" class="btn btn-circle blue btn-xs"><i class="fa fa-search-plus"></i> Ver/Editar</button></td>
 															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-contacto"><i class="fa fa-trash-o"></i> Eliminar</button></td>
 														</tr>
 													<?php endforeach ?>
@@ -436,7 +436,7 @@
 															<td><?php echo $equipo->sql_management ?></td>
 															<td><?php echo $equipo->instancia_sql ?></td>
 															<td><?php echo $equipo->password_sql ?></td>
-															<td width="1%"><a href="<?php echo site_url('cliente/equipo/'.$equipo->id) ?>" data-target="#ajax_form_equipo" data-toggle="modal" class="btn btn-circle green btn-xs"><i class="fa fa-search-plus"></i> Ver</button></td>
+															<td width="1%"><a href="<?php echo site_url('cliente/equipo/'.$equipo->id) ?>" data-target="#ajax_form_equipo" data-toggle="modal" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</button></td>
 															<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-equipo"><i class="fa fa-trash-o"></i> Eliminar</button></td>
 														</tr>
 													<?php endforeach ?>
