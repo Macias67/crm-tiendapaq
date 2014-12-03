@@ -8,26 +8,17 @@ var UIExtendedModals = function () {
 		//main function to initiate the module
 		init: function () {
 
-			// general settings
-			$.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-				'<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-					'<div class="progress progress-striped active">' +
-						'<div class="progress-bar" style="width: 100%;"></div>' +
-					'</div>' +
-				'</div>';
-
-			$.fn.modalmanager.defaults.resize = true;
-
 			//ajax ventana modal detalles del pendiente
 			var $modal = $('#ajax-detalles-pendiente');
 
 			$('.ajax-pendiente').on('click', function(){
 				var id_pendiente = $(this).attr('id-pendiente');
 				// create the backdrop and wait for next modal to be triggered
-				$('body').modalmanager('loading');
+				Metronic.showLoader();
 
 				setTimeout(function(){
 					$modal.load('/pendiente/detalles/'+id_pendiente, '', function(){
+						Metronic.removeLoader();
 						$modal.modal();
 					});
 				}, 1000);
@@ -54,9 +45,9 @@ var UIExtendedModals = function () {
 
 			$modal.on('click', '#ajax-reasignacion', function(){
 					var id_pendiente = $(this).attr('id-pendiente');
-					$('body').modalmanager('loading');
+					Metronic.showLoader();
 
-								setTimeout(function(){
+					setTimeout(function(){
 					$modal2.load('/pendiente/reasignaciones/'+id_pendiente, '', function(){
 						$modal2.modal();
 					});
@@ -89,7 +80,7 @@ var UIExtendedModals = function () {
 					data: data,
 					beforeSend: function () {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 0.1);
-						$('body').modalmanager('loading');
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 1);
@@ -99,26 +90,27 @@ var UIExtendedModals = function () {
 					success: function(data) {
 						if (data.exito) {
 							if(ejecutivo_destino_text!=""){
-								alert("Pendiente reasignado a : "+data.ejecutivo_destino_text+" con éxito.");
+								bootbox.alert("<h4>Pendiente reasignado a : <b>"+data.ejecutivo_destino_text+"</b> con éxito.<h4>", function (){
+									parent.location.reload();
+								});
 							}else{
 								if(id_estatus!=undefined){
-									alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+									bootbox.alert("<h4>Pendiente cambiado a : <b>"+data.estatus+"</b> con éxito.<h4>", function () {
+										parent.location.reload();
+									});
 								}
 							}
-							parent.location.reload();
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('#ajax-detalles-pendiente').fadeTo(100, 1, function(){
-								$('body').modalmanager('removeLoading');
+								Metronic.removeLoader();
 							});
 						}
 					}
 				});
 			});
 		}
-
 	};
-
 }();

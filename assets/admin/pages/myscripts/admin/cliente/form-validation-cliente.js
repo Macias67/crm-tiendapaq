@@ -356,7 +356,7 @@ var FormValidationCliente = function () {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
-				handleInputMasks();
+				//handleInputMasks();
 				success.hide();
 				error.html("Tienes Errores en tu formulario");
 				error.show();
@@ -375,7 +375,7 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				handleInputMasks();
+				//handleInputMasks();
 				$.ajax({
 					url: $('#form-cliente-completo').attr('action'),
 					type: 'post',
@@ -393,7 +393,7 @@ var FormValidationCliente = function () {
 					success: function(data) {
 						if (data.exito) {
 							Metronic.removeLoader();
-							bootbox.alert("Cliente <b>"+data.razon_social+"</b> añadido con éxito.", function() {
+							bootbox.alert("<h4>Cliente <b>"+data.razon_social+"</b> añadido con éxito.<h4>", function() {
 								location.reload();
 							});
 						} else {
@@ -544,11 +544,11 @@ var FormValidationCliente = function () {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
-				handleInputMasks();
 				success.hide();
 				error.html("Tienes Errores en tu formulario");
 				error.show();
 				Metronic.scrollTo(error, -600);
+				handleInputMasks();
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -582,7 +582,7 @@ var FormValidationCliente = function () {
 					success: function(data) {
 						if (data.exito) {
 							Metronic.removeLoader();
-							bootbox.alert("Cliente <b>"+data.razon_social+"</b> editado con éxito.", function() {
+							bootbox.alert("<h4>Cliente <b>"+data.razon_social+"</b> editado con éxito.<h4>", function() {
 								location.reload();
 							});
 						} else {

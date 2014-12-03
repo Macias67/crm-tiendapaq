@@ -128,18 +128,17 @@ var FormValidationEjecutivo = function () {
 					dataType: 'json',
 					data: $('#form-ejecutivo-nuevo').serialize(),
 					beforeSend: function () {
-						Metronic.blockUI({
-							boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						Metronic.unblockUI();
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
+							Metronic.removeLoader();
 							bootbox.alert("<h4><b>"+data.ejecutivo.primer_nombre+" "+data.ejecutivo.apellido_paterno+"</b> con usuario <b>"+data.ejecutivo.usuario+"</b> añadido con éxito.</h4>", function () {
 								parent.location.reload();
 							});
@@ -147,7 +146,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 						}
 					}
 				});
@@ -277,18 +276,17 @@ var FormValidationEjecutivo = function () {
 					dataType: 'json',
 					data: $('#form-ejecutivo-editado').serialize(),
 					beforeSend: function () {
-						Metronic.blockUI({
-							boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						Metronic.unblockUI();
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
+							Metronic.removeLoader();
 							bootbox.alert("<h4>Actualizado con éxito.</h4>",function () {
 								parent.location.reload();
 							});
@@ -296,7 +294,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 						}
 					}
 				});
@@ -411,18 +409,17 @@ var FormValidationEjecutivo = function () {
 					dataType: 'json',
 					data: $('#form-ejecutivo-info').serialize(),
 					beforeSend: function () {
-						Metronic.blockUI({
-							boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						Metronic.unblockUI();
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
+							Metronic.removeLoader();
 							bootbox.alert("<h4>Actualizado con éxito.</h4>",function () {
 								parent.location.reload();
 							});
@@ -430,7 +427,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 						}
 					}
 				});
@@ -510,18 +507,17 @@ var FormValidationEjecutivo = function () {
 					dataType: 'json',
 					data: $('#form-ejecutivo-password').serialize(),
 					beforeSend: function () {
-						Metronic.blockUI({
-							boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						Metronic.unblockUI();
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
+							Metronic.removeLoader();
 							bootbox.alert("<h4>Actualizado con éxito.</h4>",function () {
 								parent.location.reload();
 							});
@@ -529,7 +525,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 						}
 					}
 				});

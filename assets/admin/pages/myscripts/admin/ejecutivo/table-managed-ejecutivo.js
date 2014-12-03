@@ -91,11 +91,13 @@ var TableManaged = function () {
 			var nRow 	= $(this).parents('tr')[0];
 			var aData 	= oTable.fnGetData(nRow);
 			var id 		= $(nRow).attr('id');
-			var mensaje = '<h4>¿Seguro que deseas eliminar este ejecutivo del sistema?</h4><br><br><b>Nota: </b> No podrá eliminar los ejecutivos que tengan un caso/pendiente asignado.';
+			var mensaje = '<h4>¿Seguro que deseas eliminar a <b>'+aData[2]+'</b> del sistema?</h4><br><br><b>Nota: </b> No podrá eliminar los ejecutivos que tengan un caso/pendiente asignado.';
 			bootbox.confirm(mensaje, function(result) {
 				if (result) {
+					Metronic.showLoader();
 					$.post('./gestionar/eliminar', {id:id}, function(data, textStatus, xhr) {
 						bootbox.alert(data.msg, function() {
+							Metronic.removeLoader();
 							window.location.reload();
 						});
 					}, 'json');

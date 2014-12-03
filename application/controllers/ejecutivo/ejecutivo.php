@@ -98,10 +98,10 @@ class Ejecutivo extends AbstractAccess {
 						if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id))
 						    && !$this->casoModel->exist(array('id_lider' => $id))) {
 							if($this->ejecutivoModel->delete(array('id' => $id))) {
-								$response = array('exito' => TRUE, 'msg' => 'El ejecutivo se eleminó del sistema');
+								$response = array('exito' => TRUE, 'msg' => '<h4>El ejecutivo se eleminó del sistema.<h4>');
 							}
 						} else {
-							$response = array('exito' => FALSE, 'msg' => 'El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado');
+							$response = array('exito' => FALSE, 'msg' => '<h4>El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado.<h4>');
 						}
 					}
 
@@ -607,9 +607,9 @@ class Ejecutivo extends AbstractAccess {
 
 		//CODIGO CON EL CAMBIO DE EJECUTIVO ASIGNADOR
 		if($this->ejecutivoModel->elimina_asignadores() && $this->ejecutivoModel->update(array('asignador_casos' => 'si'), array('id' => $id_ejecutivo))){
-			$respuesta = array('exito' => TRUE, 'msg' => 'Asignador actualizado con éxito');
+			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Asignador de casos actualizado con éxito.<h4>');
 		}else{
-			$respuesta = array('exito' => FALSE, 'msg' => 'Error al cambiar de asignador' );
+			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error al cambiar de asignador.<h4>');
 		}
 
 		$this->output

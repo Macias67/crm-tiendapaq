@@ -1,26 +1,25 @@
 /**
-* Ventanas modales para los pendientes
-* de cada ejecutivo
-*/
+ * Ventanas modales para los pendientes
+ * de cada ejecutivo
+ */
 var UIExtendedModals = function () {
 
 	return {
 		//main function to initiate the module
 		init: function () {
+
 			//ajax ventana modal detalles del pendiente
 			var $modal = $('#ajax-detalles-pendiente');
 
 			$('.ajax-pendiente').on('click', function(){
 				var id_pendiente = $(this).attr('id-pendiente');
 				// create the backdrop and wait for next modal to be triggered
-				Metronic.blockUI({
-					boxed: true
-				});
+				Metronic.showLoader();
 
 				setTimeout(function(){
 					$modal.load('/pendiente/detalles/'+id_pendiente, '', function(){
-					$modal.modal();
-					Metronic.unblockUI();
+						Metronic.removeLoader();
+						$modal.modal();
 					});
 				}, 1000);
 			});
@@ -44,13 +43,11 @@ var UIExtendedModals = function () {
 			//ajax ventana modal de reasignaciones
 			var $modal2 = $('#ajax-reasignacion-pendiente');
 
-			$modal.on('click', '#ajax-reasignacion', function() {
-				var id_pendiente = $(this).attr('id-pendiente');
-				Metronic.blockUI({
-					boxed: true
-				});
+			$modal.on('click', '#ajax-reasignacion', function(){
+					var id_pendiente = $(this).attr('id-pendiente');
+					Metronic.showLoader();
 
-				setTimeout(function() {
+					setTimeout(function(){
 					$modal2.load('/pendiente/reasignaciones/'+id_pendiente, '', function(){
 						$modal2.modal();
 					});
@@ -83,9 +80,7 @@ var UIExtendedModals = function () {
 					data: data,
 					beforeSend: function () {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 0.1);
-						Metronic.blockUI({
-						boxed: true
-						});
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 1);
@@ -93,27 +88,35 @@ var UIExtendedModals = function () {
 						alert('ERROR: revisa la consola del navegador para más detalles.');
 					},
 					success: function(data) {
+						console.log(id_estatus);
 						if (data.exito) {
-						if(ejecutivo_destino_text!=""){
-							alert("Pendiente reasignado a : "+data.ejecutivo_destino_text+" con éxito.");
-						}else{
-							if(id_estatus!=undefined){
-								alert("Pendiente cambiado a : "+data.estatus+" con éxito.");
+							Metronic.removeLoader();
+							if(ejecutivo_destino_text!=""){
+								bootbox.alert("<h4>Pendiente reasignado a : <b>"+data.ejecutivo_destino_text+"</b> con éxito.<h4>", function (){
+									parent.location.reload();
+								});
+							}else{
+								if(id_estatus==undefined){
+									bootbox.alert("<h4>Pendiente <b> sin cambios</b>.<h4>", function () {
+										parent.location.reload();
+									});
+								}else{
+									bootbox.alert("<h4>Pendiente cambiado a : <b>"+data.estatus+"</b> con éxito.<h4>", function () {
+										parent.location.reload();
+									});
+								}
 							}
-						}
-						parent.location.reload();
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
 							$('#ajax-detalles-pendiente').fadeTo(100, 1, function(){
-							Metronic.unblockUI();
+								Metronic.removeLoader();
 							});
 						}
 					}
 				});
 			});
 		}
-	}
-
+	};
 }();
