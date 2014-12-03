@@ -392,6 +392,7 @@ var FormValidationCliente = function () {
 					},
 					success: function(data) {
 						if (data.exito) {
+							Metronic.removeLoader();
 							bootbox.alert("Cliente <b>"+data.razon_social+"</b> añadido con éxito.", function() {
 								location.reload();
 							});
@@ -580,6 +581,7 @@ var FormValidationCliente = function () {
 					},
 					success: function(data) {
 						if (data.exito) {
+							Metronic.removeLoader();
 							bootbox.alert("Cliente <b>"+data.razon_social+"</b> editado con éxito.", function() {
 								location.reload();
 							});

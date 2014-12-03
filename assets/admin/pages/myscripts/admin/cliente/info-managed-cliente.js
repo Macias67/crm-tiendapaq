@@ -135,9 +135,10 @@ var InfoManagedCliente = function() {
 					var url 		= '/cliente/contactos/editar';
 					var param 	= $('#form-contacto').serialize();
 
+					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							modal.modal('hide');
 							bootbox.alert(data.msg, function() {
 								location.reload();
@@ -146,45 +147,11 @@ var InfoManagedCliente = function() {
 							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal.modal('show');
+								Metronic.removeLoader();
 							});
 							//Metronic.scrollTo(error, -600);
 						}
 					});
-
-					// $.ajax({
-					// 	url: url,
-					// 	type: 'post',
-					// 	cache: false,
-					// 	dataType: 'json',
-					// 	data: param,
-					// 	beforeSend: function () {
-					// 		modal.modal('hide');
-					// 		Metronic.blockUI({
-					// 			boxed: true
-					// 		});
-					// 	},
-					// 	error: function(jqXHR, status, error) {
-					// 		console.log(error);
-					// 		modal.modal('hide');
-					// 		bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
-					// 			Metronic.unblockUI();
-					// 		});
-					// 	},
-					// 	success: function(data) {
-					// 		if (data.exito) {
-					// 			Metronic.unblockUI();
-					// 			bootbox.alert(data.msg, function() {
-					// 				location.reload();
-					// 			});
-					// 		} else {
-					// 			Metronic.unblockUI();
-					// 			bootbox.alert(data.msg, function() {
-					// 				modal.modal('show');
-					// 			});
-					// 			//Metronic.scrollTo(error, -600);
-					// 		}
-					// 	}
-					// });
 				}
 			});
 		});
@@ -276,9 +243,10 @@ var InfoManagedCliente = function() {
 					var url 		= '/cliente/contactos/nuevo';
 					var param 	= $('#form-contacto-nuevo').serialize();
 
+					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							modal_nuevo.modal('hide');
 							bootbox.alert(data.msg, function() {
 								location.reload();
@@ -287,8 +255,8 @@ var InfoManagedCliente = function() {
 							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal_nuevo.modal('show');
+								Metronic.removeLoader();
 							});
-							//Metronic.scrollTo(error, -600);
 						}
 					});
 				}
@@ -303,11 +271,14 @@ var InfoManagedCliente = function() {
 			var id 			= $(Row[0]).attr('id');
 			bootbox.confirm('¿Seguro que quieres eliminar este contacto?', function(response) {
 				if (response) {
+					Metronic.showLoader();
 					$.post('/cliente/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
 						if (data.exito) {
 							table.DataTable().row(Row).remove().draw();
 						}
-						bootbox.alert(data.msg);
+						bootbox.alert(data.msg, function () {
+							Metronic.removeLoader();
+						});
 					}, 'json');
 				}
 			});
@@ -407,10 +378,11 @@ var InfoManagedCliente = function() {
 				submitHandler: function (form) {
 					var url 		= '/cliente/sistemas/nuevo';
 					var param 	= $('#form-sistema-nuevo').serialize();
-
+	
+					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							modal_nuevo.modal('hide');
 							bootbox.alert(data.msg, function() {
 								location.reload();
@@ -419,8 +391,8 @@ var InfoManagedCliente = function() {
 							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal_nuevo.modal('show');
+								Metronic.removeLoader();
 							});
-							//Metronic.scrollTo(error, -600);
 						}
 					});
 				}
@@ -435,11 +407,14 @@ var InfoManagedCliente = function() {
 			var id 			= $(Row[0]).attr('id');
 			bootbox.confirm('¿Seguro que quieres eliminar este sistema?', function(response) {
 				if (response) {
+					Metronic.showLoader();
 					$.post('/cliente/sistemas/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
 						if (data.exito) {
 							table.DataTable().row(Row).remove().draw();
 						}
-						bootbox.alert(data.msg);
+						bootbox.alert(data.msg, function () {
+							Metronic.removeLoader();
+						});
 					}, 'json');
 				}
 			});
@@ -583,9 +558,10 @@ var InfoManagedCliente = function() {
 					var url 		= '/cliente/equipos/editar';
 					var param 	= $('#form-equipo').serialize();
 
+					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							modal.modal('hide');
 							bootbox.alert(data.msg, function() {
 								location.reload();
@@ -594,8 +570,8 @@ var InfoManagedCliente = function() {
 							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal.modal('show');
+								Metronic.removeLoader();
 							});
-							//Metronic.scrollTo(error, -600);
 						}
 					});
 				}
@@ -693,9 +669,10 @@ var InfoManagedCliente = function() {
 					var url 		= '/cliente/equipos/nuevo';
 					var param 	= $('#form-equipo-nuevo').serialize();
 
+					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							modal_nuevo.modal('hide');
 							bootbox.alert(data.msg, function() {
 								location.reload();
@@ -704,8 +681,8 @@ var InfoManagedCliente = function() {
 							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal_nuevo.modal('show');
+								Metronic.removeLoader();
 							});
-							//Metronic.scrollTo(error, -600);
 						}
 					});
 				}
@@ -720,11 +697,14 @@ var InfoManagedCliente = function() {
 			var id 			= $(Row[0]).attr('id');
 			bootbox.confirm('¿Seguro que quieres eliminar este equipo?', function(response) {
 				if (response) {
+					Metronic.showLoader();
 					$.post('/cliente/equipos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
 						if (data.exito) {
 							table.DataTable().row(Row).remove().draw();
 						}
-						bootbox.alert(data.msg);
+						bootbox.alert(data.msg, function () {
+							Metronic.removeLoader();
+						});
 					}, 'json');
 				}
 			});
