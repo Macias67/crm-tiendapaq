@@ -1,5 +1,20 @@
 var FormValidationCliente = function () {
 
+	var handleInputMasks = function () {
+		$.extend($.inputmask.defaults, {
+			'autounmask': true
+		});
+		$("#telefono_1").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+		$("#telefono_2").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+		$("#codigo_postal_mask").inputmask("mask", {
+			"mask": "99999"
+		});
+	}
+
 	//Funcion para que si el pais es estados unidos no se pinten los estados
 	//en el select del formulario de agregar o editar clientes
 	var escondeEstado = function() {
@@ -18,19 +33,8 @@ var FormValidationCliente = function () {
 		});
 	}
 
-  // PROGRESS BAR PARA CUANDO MANDO UN AJAX
-  $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-  '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-      '<div class="progress progress-striped active">' +
-          '<div class="progress-bar" style="width: 100%;"></div>' +
-      '</div>' +
-  '</div>';
-
-
 	// Validacion para formulario de cliente nuevo completo en la vista del sidebar
 	var handBasicaCliente = function() {
-		// for more info visit the official plugin documentation:
-		// http://docs.jquery.com/Plugins/Validation
 
 		var form1 = $('#form-basica-cliente');
 		var error1 = $('.alert-danger', form1);
@@ -162,7 +166,7 @@ var FormValidationCliente = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-			//Metronic.scrollTo(error1, -200);
+			  handleInputMasks();
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -178,8 +182,7 @@ var FormValidationCliente = function () {
 			},
 			submitHandler: function (form) {
 
-				$.fn.modalmanager.defaults.resize = true;
-
+				handleInputMasks();
 				//ajax para gardar el formulario
 				$.ajax({
 					url: $('#form-basica-cliente').attr('action'),
@@ -188,23 +191,24 @@ var FormValidationCliente = function () {
 					dataType: 'json',
 					data: $('#form-basica-cliente').serialize(),
 					beforeSend: function () {
-						$('body').modalmanager('loading');
+						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
-						$('body').modalmanager('removeLoading');
+						Metronic.removeLoader();
 					},
 					success: function(data) {
 						console.log(data);
 						if (data.exito) {
+							Metronic.removeLoader();
 							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
 							parent.location.reload();
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							$('body').modalmanager('removeLoading');
+							Metronic.removeLoader();
 						}
 					}
 				});

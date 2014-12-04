@@ -1,13 +1,5 @@
 var TableEditable = function () {
 
-    // PROGRESS BAR PARA CUANDO MANDO UN AJAX
-    $.fn.modal.defaults.spinner = $.fn.modalmanager.defaults.spinner =
-    '<div class="loading-spinner" style="width: 200px; margin-left: -100px;">' +
-        '<div class="progress progress-striped active">' +
-            '<div class="progress-bar" style="width: 100%;"></div>' +
-        '</div>' +
-    '</div>';
-
     //Tabla de gestion de contactos en modo cliente
     var handleTableContactos= function () {
 
@@ -72,7 +64,7 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: contacto,
                     beforeSend: function () {
-                       $('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
@@ -81,13 +73,14 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             alert("Contacto : "+data.contacto+" actualizado con éxito.");
                             parent.location.reload();
                         } else {
                             alert('Error :'+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            $('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -100,7 +93,7 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: contacto,
                     beforeSend: function () {
-                       $('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
@@ -109,13 +102,14 @@ var TableEditable = function () {
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             alert("Contacto : "+data.contacto+" añadido con éxito.");
                             parent.location.reload();
                         } else {
                             alert('Error :</p>'+data.msg);
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            $('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -224,22 +218,22 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id="+id+"&nombre_contacto="+aData[0]+"&apellido_paterno="+aData[1]+"&apellido_materno="+aData[2],
                     beforeSend: function () {
-                       $('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             alert("Contacto : "+data.contacto+" eliminado con éxito.");
                             parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
                             alert('Error : '+data.msg);
-                            $('body').modalmanager('removeLoading');
-                            //parent.location.reload();
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -367,22 +361,22 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
                     beforeSend: function () {
-                       $('body').modalmanager('loading');
+                        Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             alert("Sistema : "+data.sistema+" eliminado con éxito.");
                             parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
                             alert('Error : '+data.msg);
-                            $('body').modalmanager('removeLoading');
-                            //parent.location.reload();
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -404,20 +398,21 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
                     beforeSend: function () {
-                       $('body').modalmanager('loading');
+                        Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             alert("Sistema : "+data.sistema+" agregado con éxito.");
                             parent.location.reload();
                         } else {
                             alert('Error : '+data.msg);
-                            $('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -513,22 +508,22 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: "id="+id+"&nombre_equipo="+aData[0],
                     beforeSend: function () {
-                       $('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        $('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             alert("Equipo : "+data.equipo+" eliminado con éxito.");
                             parent.location.reload();
                             oTable.fnDeleteRow(nRow);
                         } else {
                             bootbox.alert('Error : '+data.msg);
-                            $('body').modalmanager('removeLoading');
-                            //parent.location.reload();
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -544,20 +539,21 @@ var TableEditable = function () {
                 dataType: 'json',
                 data: $("#form-nuevo-equipo").serialize(),
                 beforeSend: function () {
-                   $('body').modalmanager('loading');
+                   Metronic.showLoader();
                 },
                 error: function(jqXHR, status, error) {
                     console.log("ERROR: "+error);
                     alert('ERROR: revisa la consola del navegador para más detalles.');
-                    $('body').modalmanager('removeLoading');
+                    Metronic.removeLoader();
                 },
                 success: function(data) {
                     if (data.exito) {
+                        Metronic.removeLoader();
                         alert("Equipo : "+data.equipo+" agregado con éxito.");
                          parent.location.reload();
                     } else {
                         alert('Error : '+data.msg);
-                        $('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     }
                 }
             });

@@ -18,15 +18,16 @@ var ComponentsDropdowns = function () {
                     dataType: 'json',
                     data: "sistema="+sistema,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             var opciones_select="<option value=''></option>";
                             for ( var i = 0; i < data.num_versiones; i++ ) {
                                 opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
@@ -34,7 +35,7 @@ var ComponentsDropdowns = function () {
                             $('#select_versiones').html(opciones_select);
                         } else {
                             alert('Error :');
-                            //$('body').modalmanager('removeLoading');
+                           Metronic.removeLoader();
                         }
                     }
                 });
