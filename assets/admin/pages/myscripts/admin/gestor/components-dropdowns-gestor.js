@@ -18,22 +18,23 @@ var ComponentsDropdowns = function () {
                     dataType: 'json',
                     data: "id_sistema="+id_sistema,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             $('#input_versiones').val(data.versiones);
                             $("#input_versiones").select2({
                                 tags: data.versiones.split(', ')
                             });
                         } else {
+                            Metronic.removeLoader();
                             bootbox.alert('<h4><p>Error :</p><p>Esto no debería estar pasando, contacta a soporte técnico</p></h4>');
-                            //$('body').modalmanager('removeLoading');
                         }
                     }
                 });
@@ -58,19 +59,20 @@ var ComponentsDropdowns = function () {
                     dataType: 'json',
                     data: 'id_sistema='+id_sistema+'&nuevas_versiones='+nuevas_versiones,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
+                            Metronic.removeLoader();
                             bootbox.alert('<h4>Versiones actualizadas con éxito<h4>');
                         } else {
                             bootbox.alert('<h4><p>Error : </p>'+data.msg+'</h4>');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });

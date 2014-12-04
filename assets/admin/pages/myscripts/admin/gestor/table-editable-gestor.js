@@ -24,8 +24,8 @@ var TableEditable = function () {
             jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
             jqTds[5].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[5] + '">';
             jqTds[6].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[6] + '">';
-            jqTds[7].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[8].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[7].innerHTML = '<a class="btn edit green btn-circle btn-xs" href="">Guardar</a>';
+            jqTds[8].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
         }
         //funcion para obtener los valores de los inputs y guardarlos en la bd
         //ya sea creando nueva oficina o editando una existente
@@ -66,23 +66,24 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: oficina,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
                             bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, actualizada con éxito</h4>",function () {
+                                Metronic.removeLoader();
                                 parent.location.reload();
                             });
                         } else {
                             bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -95,23 +96,24 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: oficina,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
                             bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, añadida con éxito</h4>", function () {
+                                Metronic.removeLoader();
                                 parent.location.reload();
                             });
                         } else {
                             bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -222,22 +224,21 @@ var TableEditable = function () {
                         dataType: 'json',
                         data: "id_oficina="+id_oficina+"&ciudad="+aData[0]+"&estado="+aData[1],
                         beforeSend: function () {
-                           //('body').modalmanager('loading');
+                           Metronic.showLoader();
                         },
                         error: function(jqXHR, status, error) {
                             console.log("ERROR: "+error);
                             alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         },
                         success: function(data) {
                             if (data.exito) {
+                                Metronic.removeLoader();
                                 bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, eliminada con éxito<h4>");
-                                //parent.location.reload();
                                 oTable.fnDeleteRow(nRow);
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-                                //$('body').modalmanager('removeLoading');
-                                //parent.location.reload();
+                                Metronic.removeLoader();
                             }
                         }
                     });
@@ -308,8 +309,8 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[1].innerHTML = '<a class="btn edit green btn-circle btn-xs" href="">Guardar</a>';
+            jqTds[2].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
         }
 
         //funcion para obtener los valores de los inputs y guardarlos en la bd
@@ -337,23 +338,24 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: departamento,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
                             bootbox.alert("<h4>Departamento: <b>"+data.departamento+"</b> actualizado con éxito</h4>", function () {
+                                Metronic.removeLoader();
                                 parent.location.reload();
                             });
                         } else {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -366,23 +368,24 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: departamento,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
                             bootbox.alert("<h4>Departamento: <b>"+data.departamento+"</b> añadido con éxito<h4>", function () {
+                                Metronic.removeLoader();
                                 parent.location.reload();
                             });
                         } else {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -478,21 +481,22 @@ var TableEditable = function () {
                         dataType: 'json',
                         data: "id_departamento="+id_departamento+"&area="+aData[0],
                         beforeSend: function () {
-                           //('body').modalmanager('loading');
+                           Metronic.showLoader();
                         },
                         error: function(jqXHR, status, error) {
                             console.log("ERROR: "+error);
                             alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         },
                         success: function(data) {
                             if (data.exito) {
+                                Metronic.removeLoader();
                                 bootbox.alert("<h4>Departamento: <b>"+data.departamento+"</b> eliminado con éxito</h4>");
                                 //parent.location.reload();
                                 oTable.fnDeleteRow(nRow);
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-                                //$('body').modalmanager('removeLoading');
+                                Metronic.removeLoader();
                                 //parent.location.reload();
                             }
                         }
@@ -565,8 +569,8 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[1].innerHTML = '<a class="btn edit green btn-circle btn-xs" href="">Guardar</a>';
+            jqTds[2].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
         }
 
         //funcion para obtener los valores de los inputs y guardarlos en la bd
@@ -596,23 +600,24 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: sistema,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
                             bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> actualizado con éxito</h4>", function () {
+                                Metronic.removeLoader();
                                 parent.location.reload();
                             });
                         } else {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -625,12 +630,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: sistema,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -641,7 +646,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -737,22 +742,23 @@ var TableEditable = function () {
                         dataType: 'json',
                         data: "id_sistema="+id_sistema+"&sistema="+aData[0],
                         beforeSend: function () {
-                           //('body').modalmanager('loading');
+                           Metronic.showLoader();
                         },
                         error: function(jqXHR, status, error) {
                             console.log("ERROR: "+error);
                             alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         },
                         success: function(data) {
                             if (data.exito) {
+                                Metronic.removeLoader();
                                 bootbox.alert("<h4>Sistema: <b>"+data.sistema+"</b> eliminado con éxito</h4>", function () {
                                     parent.location.reload();
                                 });
                                 oTable.fnDeleteRow(nRow);
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-                                //$('body').modalmanager('removeLoading');
+                                Metronic.removeLoader();
                             }
                         }
                     });
@@ -824,8 +830,8 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[1].innerHTML = '<a class="btn edit green btn-circle btn-xs" href="">Guardar</a>';
+            jqTds[2].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
         }
 
         //funcion para obtener los valores de los inputs y guardarlos en la bd
@@ -853,12 +859,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: so,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -869,7 +875,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -882,12 +888,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: so,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -898,7 +904,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -994,21 +1000,22 @@ var TableEditable = function () {
                         dataType: 'json',
                         data: "id_so="+id_so+"&sistema_operativo="+aData[0],
                         beforeSend: function () {
-                           //('body').modalmanager('loading');
+                           Metronic.showLoader();
                         },
                         error: function(jqXHR, status, error) {
                             console.log("ERROR: "+error);
                             alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         },
                         success: function(data) {
                             if (data.exito) {
+                                Metronic.removeLoader();
                                 bootbox.alert("<h4>Sistema operativo: <b>"+data.so+"</b> eliminado con éxito<h4>");
                                 //parent.location.reload();
                                 oTable.fnDeleteRow(nRow);
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-                                //$('body').modalmanager('removeLoading');
+                                Metronic.removeLoader();
                                 //parent.location.reload();
                             }
                         }
@@ -1085,8 +1092,8 @@ var TableEditable = function () {
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
             jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
             jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
-            jqTds[5].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[6].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[5].innerHTML = '<a class="btn edit green btn-circle btn-xs" href="">Guardar</a>';
+            jqTds[6].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
         }
 
         //funcion para obtener los valores de los inputs y guardarlos en la bd
@@ -1122,12 +1129,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: banco,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -1138,7 +1145,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -1151,12 +1158,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: banco,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -1167,7 +1174,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -1271,19 +1278,20 @@ var TableEditable = function () {
                         dataType: 'json',
                         data: "id_banco="+id_banco+"&banco="+aData[0],
                         beforeSend: function () {
-                           //('body').modalmanager('loading');
+                           Metronic.showLoader();
                         },
                         error: function(jqXHR, status, error) {
                             console.log("ERROR: "+error);
                             alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         },
                         success: function(data) {
                             if (data.exito) {
+                                Metronic.removeLoader();
                                 bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> eliminado con éxito</h4>");
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-                                //$('body').modalmanager('removeLoading');
+                                Metronic.removeLoader();
                                 //parent.location.reload();
                             }
                         }
@@ -1357,8 +1365,8 @@ var TableEditable = function () {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<a class="edit" href="">Guardar</a>';
-            jqTds[2].innerHTML = '<a class="cancel" href="">Cancelar</a>';
+            jqTds[1].innerHTML = '<a class="btn edit green btn-circle btn-xs" href="">Guardar</a>';
+            jqTds[2].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
         }
 
         //funcion para obtener los valores de los inputs y guardarlos en la bd
@@ -1385,12 +1393,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: observacion,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -1401,7 +1409,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -1414,12 +1422,12 @@ var TableEditable = function () {
                     dataType: 'json',
                     data: observacion,
                     beforeSend: function () {
-                       //('body').modalmanager('loading');
+                       Metronic.showLoader();
                     },
                     error: function(jqXHR, status, error) {
                         console.log("ERROR: "+error);
                         alert('ERROR: revisa la consola del navegador para más detalles.');
-                        //$('body').modalmanager('removeLoading');
+                        Metronic.removeLoader();
                     },
                     success: function(data) {
                         if (data.exito) {
@@ -1430,7 +1438,7 @@ var TableEditable = function () {
                             bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
                             editRow(oTable, nRow);
                             nEditing = nRow;
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         }
                     }
                 });
@@ -1526,21 +1534,22 @@ var TableEditable = function () {
                         dataType: 'json',
                         data: "id_observacion="+id_observacion+"&descripcion="+aData[0],
                         beforeSend: function () {
-                           //('body').modalmanager('loading');
+                           Metronic.showLoader();
                         },
                         error: function(jqXHR, status, error) {
                             console.log("ERROR: "+error);
                             alert('ERROR: revisa la consola del navegador para más detalles.');
-                            //$('body').modalmanager('removeLoading');
+                            Metronic.removeLoader();
                         },
                         success: function(data) {
                             if (data.exito) {
+                                Metronic.removeLoader();
                                 bootbox.alert("<h4>Observación: <b>"+data.observacion+"</b> eliminada con éxito</h4>");
                                 //parent.location.reload();
                                 oTable.fnDeleteRow(nRow);
                             } else {
                                 bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-                                //$('body').modalmanager('removeLoading');/
+                                Metronic.removeLoader();
                             }
                         }
                     });

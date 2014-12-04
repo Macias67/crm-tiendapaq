@@ -499,7 +499,6 @@ var FormValidationEjecutivo = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				handleInputMasksEjecutivo();
 				$.ajax({
 					url: $('#form-ejecutivo-password').attr('action'),
 					type: 'post',
