@@ -560,7 +560,7 @@ class Cliente extends AbstractAccess {
 				// Inserto a la BD
 				if($this->sistemasClienteModel->insert($sistema_cliente))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => 'Se añadio '.$sistema_cliente['sistema'].' v. '.$sistema_cliente['version']);
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se añadio '.$sistema_cliente['sistema'].' v. '.$sistema_cliente['version'].'</h4>');
 				} else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -577,7 +577,7 @@ class Cliente extends AbstractAccess {
 
 				if($this->sistemasClienteModel->delete(array('id' => $id, 'id_cliente' => $id_cliente)))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => 'Sistema removido');
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Sistema eliminado con éxito.</h4>');
 				}else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
@@ -635,7 +635,7 @@ class Cliente extends AbstractAccess {
 					//Inserto en la BD el nuevo equipo
 					if($this->equiposComputoModel->insert($equipo))
 					{
-						$respuesta = array('exito' => TRUE, 'msg' => 'Se agrego nuevo equipo.');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo equipo añadido con éxito.</h4>.');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -684,7 +684,7 @@ class Cliente extends AbstractAccess {
 					//Actualizo en la BD el  equipo
 					if($this->equiposComputoModel->update($equipo, array('id' => $id)))
 					{
-						$respuesta = array('exito' => TRUE, 'msg' => 'Se actualizo la info del equipo.');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se actualizo la info del equipo.</h4>');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizó, revisa la consola o la base de datos para detalles');
@@ -702,7 +702,7 @@ class Cliente extends AbstractAccess {
 
 				if($this->equiposComputoModel->delete(array('id' => $id)))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => 'Se elimino este equipo de la lista.');
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se elimino este equipo de la lista.</h4>');
 				} else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');

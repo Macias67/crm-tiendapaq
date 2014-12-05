@@ -542,10 +542,10 @@ var InfoManagedCliente = function() {
 						required: "Selecciona un sistema operativo."
 					},
 					arquitectura: {
-						required: "Selecciona una arquitectura."
+						required: " "
 					},
 					maquina_virtual: {
-						required:  "Selecciona si es máquina virtual."
+						required:  " "
 					},
 					memoria_ram: {
 						required: "Inidca la cantidad de memoria RAM del equipo."
@@ -651,10 +651,10 @@ var InfoManagedCliente = function() {
 						required: "Selecciona un sistema operativo."
 					},
 					arquitectura: {
-						required: "Selecciona una arquitectura."
+						required: " "
 					},
 					maquina_virtual: {
-						required:  "Selecciona si es máquina virtual."
+						required:  " "
 					},
 					memoria_ram: {
 						required: "Inidca la cantidad de memoria RAM del equipo."
