@@ -85,20 +85,6 @@ var TableManagedCliente = function() {
 			"order": [3, 'asc' ] // Ordenados por Razón Social
 		});
 
-		// Checkbox de la tabla
-		// table.find('.group-checkable').change(function () {
-		// 	var set = jQuery(this).attr("data-set");
-		// 	var checked = jQuery(this).is(":checked");
-		// 	jQuery(set).each(function () {
-		// 		if (checked) {
-		// 			$(this).attr("checked", true);
-		// 		} else {
-		// 			$(this).attr("checked", false);
-		// 		}
-		// 	});
-		// 	jQuery.uniform.update(set);
-		// });
-
 		var tableWrapper = $("#tabla_gestionar_cliente_wrapper")
 		tableWrapper.find(".dataTables_length select").addClass("form-control input-xsmall input-inline");
 
@@ -111,15 +97,18 @@ var TableManagedCliente = function() {
 			var id 			= $(nRow).attr('id');
 			var selected 	= $(this).is(':checked'); // False o True
 			var accion		= (selected) ? 'activar' : 'desactivar'
-			bootbox.confirm("<h5>¿Seguro que quieres <b>"+accion+"</b> al cliente <b>"+ aData.razon_social+"</b>?</h5>", function(result) {
+			bootbox.confirm("<h4>¿Seguro que quieres <b>"+accion+"</b> al cliente <b>"+ aData.razon_social+"</b>?</h4>", function(result) {
 				if (result) {
+					Metronic.showLoader();
 					$.post('./gestionar/activar', {id:id, selected:selected}, function(data, textStatus, xhr) {
 						bootbox.alert(data.mensaje);
 						if (data.exito) {
+							Metronic.removeLoader();
 							table.dataTable().api().ajax.reload();
 						}
 					});
 				} else {
+					Metronic.removeLoader();
 					table.dataTable().api().ajax.reload();
 				}
 			});
@@ -132,7 +121,7 @@ var TableManagedCliente = function() {
 			var nRow 	= $(this).parents('tr')[0];
 			var aData 	= oTable.fnGetData(nRow);
 			var id 		= $(nRow).attr('id');
-			bootbox.confirm("<h5>¿Seguro que quieres eliminar a <b>"+ aData.razon_social+"</b>?</h5>", function(result) {
+			bootbox.confirm("<h4>¿Seguro que quieres eliminar a <b>"+ aData.razon_social+"</b>?</h4>", function(result) {
 				if (result) {
 					$.post('./gestionar/eliminar', {id:id}, function(data, textStatus, xhr) {
 						if (data.exito) {

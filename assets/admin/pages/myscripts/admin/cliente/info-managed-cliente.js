@@ -5,6 +5,38 @@
  */
 var InfoManagedCliente = function() {
 
+	// Mascara para el campo telefeno
+	var maskTelefono = function() {
+		$(".telefono_contacto").inputmask('mask', {
+			"mask": "(999) 999-9999"
+		});
+	}
+
+	// Versiones de sistemas
+	var handleVersionesCliente = function () {
+		var sistema;
+		//funcion change detecta cambios en el objeto
+		//seleccionado es este caso un select
+		$("#select_sistemas").on('change', function(){
+			sistema = $('#select_sistemas').val();
+			//filtro para verificar que hay un sistema seleccionado
+			if(sistema!=undefined && sistema!="")
+			{
+				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
+					if (data.exito) {
+						var opciones_select="<option value=''></option>";
+						for ( var i = 0; i < data.num_versiones; i++ ) {
+							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
+						}
+						$('#select_versiones').html(opciones_select);
+					}
+				}, 'json');
+			}else{
+				$('#select_versiones').html('');
+			}
+		});
+	}
+
 	var handleContactos = function() {
 		var table = $('#tabla_contactos');
 
@@ -148,7 +180,6 @@ var InfoManagedCliente = function() {
 								modal.modal('show');
 								Metronic.removeLoader();
 							});
-							//Metronic.scrollTo(error, -600);
 						}
 					});
 				}
@@ -249,10 +280,9 @@ var InfoManagedCliente = function() {
 								location.reload();
 							});
 						} else {
-							Metronic.unblockUI();
+							Metronic.removeLoader();
 							bootbox.alert(data.msg, function() {
 								modal_nuevo.modal('show');
-								Metronic.removeLoader();
 							});
 						}
 					});
@@ -266,7 +296,7 @@ var InfoManagedCliente = function() {
 			var id_cliente 	= $('#tabla_contactos').attr('id-cliente');
 			var Row 		= $(this).parents('tr');
 			var id 			= $(Row[0]).attr('id');
-			bootbox.confirm('¿Seguro que quieres eliminar este contacto?', function(response) {
+			bootbox.confirm('<h4>¿Seguro que quieres eliminar este contacto?</h4>', function(response) {
 				if (response) {
 					Metronic.showLoader();
 					$.post('/cliente/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
@@ -383,7 +413,6 @@ var InfoManagedCliente = function() {
 								location.reload();
 							});
 						} else {
-							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal_nuevo.modal('show');
 								Metronic.removeLoader();
@@ -400,7 +429,7 @@ var InfoManagedCliente = function() {
 			var id_cliente 	= $('#tabla_contactos').attr('id-cliente');
 			var Row 		= $(this).parents('tr');
 			var id 			= $(Row[0]).attr('id');
-			bootbox.confirm('¿Seguro que quieres eliminar este sistema?', function(response) {
+			bootbox.confirm('<h4>¿Seguro que quieres eliminar este sistema?</h4>', function(response) {
 				if (response) {
 					Metronic.showLoader();
 					$.post('/cliente/sistemas/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
@@ -470,7 +499,6 @@ var InfoManagedCliente = function() {
 			var success = $('.alert-success', form);
 
 			Metronic.initUniform($('input[type="radio"]', form)); // reinitialize uniform checkboxes on each table reload
-			//Metronic.updateUniform();
 
 			form.validate({
 				errorElement: 'span', //default input error message container
@@ -561,7 +589,6 @@ var InfoManagedCliente = function() {
 								location.reload();
 							});
 						} else {
-							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal.modal('show');
 								Metronic.removeLoader();
@@ -671,7 +698,6 @@ var InfoManagedCliente = function() {
 								location.reload();
 							});
 						} else {
-							Metronic.unblockUI();
 							bootbox.alert(data.msg, function() {
 								modal_nuevo.modal('show');
 								Metronic.removeLoader();
@@ -688,7 +714,7 @@ var InfoManagedCliente = function() {
 			var id_cliente 	= $('#tabla_contactos').attr('id-cliente');
 			var Row 		= $(this).parents('tr');
 			var id 			= $(Row[0]).attr('id');
-			bootbox.confirm('¿Seguro que quieres eliminar este equipo?', function(response) {
+			bootbox.confirm('<h4>¿Seguro que quieres eliminar este equipo?</h4>', function(response) {
 				if (response) {
 					Metronic.showLoader();
 					$.post('/cliente/equipos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
@@ -701,38 +727,6 @@ var InfoManagedCliente = function() {
 					}, 'json');
 				}
 			});
-		});
-	}
-
-	// Mascara para el campo telefeno
-	var maskTelefono = function() {
-		$(".telefono_contacto").inputmask('mask', {
-			"mask": "(999) 999-9999"
-		});
-	}
-
-	// Versiones de sistemas
-	var handleVersionesCliente = function () {
-		var sistema;
-		//funcion change detecta cambios en el objeto
-		//seleccionado es este caso un select
-		$("#select_sistemas").on('change', function(){
-			sistema = $('#select_sistemas').val();
-			//filtro para verificar que hay un sistema seleccionado
-			if(sistema!=undefined && sistema!="")
-			{
-				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
-					if (data.exito) {
-						var opciones_select="<option value=''></option>";
-						for ( var i = 0; i < data.num_versiones; i++ ) {
-							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
-						}
-						$('#select_versiones').html(opciones_select);
-					}
-				}, 'json');
-			}else{
-				$('#select_versiones').html('');
-			}
 		});
 	}
 
