@@ -3,19 +3,19 @@
 * http://github.com/RobinHerbots/jquery.inputmask
 * Copyright (c) 2010 - 2014 Robin Herbots
 * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-* Version: 3.1.34
+* Version: 3.1.42
 */
 !function(factory) {
     "function" == typeof define && define.amd ? define([ "jquery", "./jquery.inputmask" ], factory) : factory(jQuery);
 }(function($) {
     return $.extend($.inputmask.defaults.definitions, {
         A: {
-            validator: "[A-Za-zА-яЁёÀ-ÿµ]",
+            validator: "[A-Za-z\u0410-\u044f\u0401\u0451\xc0-\xff\xb5]",
             cardinality: 1,
             casing: "upper"
         },
         "#": {
-            validator: "[0-9A-Za-zА-яЁёÀ-ÿµ]",
+            validator: "[0-9A-Za-z\u0410-\u044f\u0401\u0451\xc0-\xff\xb5]",
             cardinality: 1,
             casing: "upper"
         }

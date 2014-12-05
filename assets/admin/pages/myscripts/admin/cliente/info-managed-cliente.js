@@ -51,7 +51,7 @@ var InfoManagedCliente = function() {
 		// Validaciones para editar cliente
 		var modal = $('#ajax_form_contacto');
 		modal.on('shown.bs.modal', function (e) {
-			maskTelefono();
+			//maskTelefono();
 			var form = $('#form-contacto');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -116,7 +116,8 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
+					//maskTelefono();
+					console.log("hola kokin");
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
@@ -159,7 +160,7 @@ var InfoManagedCliente = function() {
 		// Validaciones para nuevo cliente
 		var modal_nuevo = $('#nuevo_contacto_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
-			maskTelefono();
+			//maskTelefono();
 			var form = $('#form-contacto-nuevo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -224,7 +225,7 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
+					//maskTelefono();
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
@@ -715,6 +716,7 @@ var InfoManagedCliente = function() {
 	var maskTelefono = function() {
 		$(".telefono_contacto").inputmask('mask', {
 			'autounmask': true,
+			'clearMaskOnLostFocus': false,
 			"mask": "(999) 999-9999"
 		});
 	}
@@ -746,6 +748,7 @@ var InfoManagedCliente = function() {
 
 	return {
 		init: function() {
+			maskTelefono();
 			handleContactos();
 			handleSistemas();
 			handleEquipoCom();
