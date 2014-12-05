@@ -51,7 +51,6 @@ var InfoManagedCliente = function() {
 		// Validaciones para editar cliente
 		var modal = $('#ajax_form_contacto');
 		modal.on('shown.bs.modal', function (e) {
-			maskTelefono();
 			var form = $('#form-contacto');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -116,7 +115,7 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
+					console.log("hola kokin");
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
@@ -159,7 +158,6 @@ var InfoManagedCliente = function() {
 		// Validaciones para nuevo cliente
 		var modal_nuevo = $('#nuevo_contacto_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
-			
 			var form = $('#form-contacto-nuevo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -224,21 +222,17 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					console.log('inavlidHandler');
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
-					console.log('highlight');
 					$(element)
 					.closest('.form-group').addClass('has-error'); // set error class to the control group
 				},
 				unhighlight: function (element) { // revert the change done by hightlight
-					console.log('unhighlight');
 					$(element)
 					.closest('.form-group').removeClass('has-error'); // set error class to the control group
 				},
 				success: function (label) {
-					console.log('success');
 					label
 					.closest('.form-group').removeClass('has-error'); // set success class to the control group
 				},
@@ -363,7 +357,6 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
@@ -381,7 +374,6 @@ var InfoManagedCliente = function() {
 				submitHandler: function (form) {
 					var url 		= '/cliente/sistemas/nuevo';
 					var param 	= $('#form-sistema-nuevo').serialize();
-	
 					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
@@ -542,7 +534,6 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
@@ -653,7 +644,6 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
