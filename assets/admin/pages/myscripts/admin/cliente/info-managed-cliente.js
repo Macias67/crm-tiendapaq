@@ -159,7 +159,7 @@ var InfoManagedCliente = function() {
 		// Validaciones para nuevo cliente
 		var modal_nuevo = $('#nuevo_contacto_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
-			maskTelefono();
+			
 			var form = $('#form-contacto-nuevo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -224,18 +224,21 @@ var InfoManagedCliente = function() {
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
-					maskTelefono();
+					console.log('inavlidHandler');
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs
+					console.log('highlight');
 					$(element)
 					.closest('.form-group').addClass('has-error'); // set error class to the control group
 				},
 				unhighlight: function (element) { // revert the change done by hightlight
+					console.log('unhighlight');
 					$(element)
 					.closest('.form-group').removeClass('has-error'); // set error class to the control group
 				},
 				success: function (label) {
+					console.log('success');
 					label
 					.closest('.form-group').removeClass('has-error'); // set success class to the control group
 				},
@@ -714,7 +717,6 @@ var InfoManagedCliente = function() {
 	// Mascara para el campo telefeno
 	var maskTelefono = function() {
 		$(".telefono_contacto").inputmask('mask', {
-			'autounmask': true,
 			"mask": "(999) 999-9999"
 		});
 	}
@@ -746,6 +748,7 @@ var InfoManagedCliente = function() {
 
 	return {
 		init: function() {
+			maskTelefono();
 			handleContactos();
 			handleSistemas();
 			handleEquipoCom();
