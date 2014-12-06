@@ -32,7 +32,7 @@
 					<div class="col-md-12" style="margin-bottom: 1em;">
 						<div class="col-md-4 text-right"><b>Reasignaciones: </b></div>
 						<div class="col-md-8">
-							 <button class="btn blue btn-xs" id="ajax-reasignacion" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal">Ver historial de reasignaciones</button>
+							<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/reasignaciones/'.$pendiente->id_pendiente) ?>" data-target="#ajax-reasignacion-pendiente" data-toggle="modal">Ver historial de reasignaciones</a>
 						</div>
 					</div>
 				<?php endif ?>
@@ -79,7 +79,7 @@
 				<div class="col-md-12 display-hide" style="margin-top: 1em;" id="div_motivo">
 					<div class="col-md-4 text-right"><b>Motivo: </b></div>
 					<div class="col-md-8">
-							<textarea name="motivo" id="motivo" class="form-control" placeholder="¿Porque vas a reasignarlo?"></textarea>
+						<textarea name="motivo" id="motivo" class="form-control" placeholder="¿Porque vas a reasignarlo?"></textarea>
 					</div>
 				</div>
 			</div>

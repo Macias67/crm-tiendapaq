@@ -44,9 +44,7 @@
 											<div class="row">
 												<div class="col-md-12 profile-info">
 													<h1><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></h1>
-													<p>
-														 <?php echo $usuario_activo['mensaje_personal'] ?>
-													</p>
+													<p> <?php echo $usuario_activo['mensaje_personal'] ?></p>
 													<hr>
 													<div class="portlet gren">
 														<div class="portlet-title">
@@ -74,9 +72,6 @@
 														<li>
 															<i class="fa fa-briefcase"></i> Desarrollo
 														</li>
-														<li>
-															<i class="fa fa-heart"></i> Tipo de Sangre
-														</li>
 													</ul>
 												</div>
 											</div>
@@ -93,12 +88,10 @@
 											<div class="tabbable tabbable-custom tabbable-custom-profile">
 												<ul class="nav nav-tabs">
 													<li class="active">
-														<a href="#tab_pendientes" data-toggle="tab">
-														Pendientes</a>
+														<a href="#tab_pendientes" data-toggle="tab">Pendientes</a>
 													</li>
 													<li>
-														<a href="#tab_casos" data-toggle="tab">
-														Casos </a>
+														<a href="#tab_casos" data-toggle="tab">Casos </a>
 													</li>
 												</ul>
 												<div class="tab-content">
@@ -142,7 +135,7 @@
 																			} ?>
 																		</td>
 																		<td>
-																			<a class=" btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+																			<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
 																		</td>
 																	</tr>
 																<?php endforeach ?>
@@ -160,6 +153,7 @@
 									</div>
 								</div>
 								<!-- END TAB PRINCIPAL -->
+
 								<!-- BEGIN TAB EDITAR -->
 								<div class="tab-pane" id="editar">
 									<div class="row profile-account">
@@ -444,6 +438,7 @@
 									</div>
 								</div>
 								<!-- END TAB EDITAR -->
+
 								<!-- BEGIN TAB PROYECTOS -->
 								<div class="tab-pane" id="proyectos">
 									<div class="row">
@@ -464,7 +459,7 @@
 		<!-- END CONTENT -->
 
 		<!-- BEGIN AJAX DETALLE PENDIENTE -->
-		<div id="ajax-detalles-pendiente" class="modal container fade" role="basic" aria-hidden="true">
+		<div id="ajax-detalles-pendiente" class="modal fade" role="basic" aria-hidden="true">
 			<div class="page-loading page-loading-boxed">
 				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
 				<span>Cargando... </span>
@@ -478,5 +473,15 @@
 		<!-- END AJAX DETALLE PENDIENTE -->
 
 		<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
-		<div id="ajax-reasignacion-pendiente" class="modal fade" data-width="650" tabindex="-1" data-focus-on="input:first"></div>
+		<div id="ajax-reasignacion-pendiente" class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="page-loading page-loading-boxed">
+				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+				<span>Cargando... </span>
+			</div>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- /.modal -->
 		<!-- END AJAX REASIGNACIONES PENDIENTE -->

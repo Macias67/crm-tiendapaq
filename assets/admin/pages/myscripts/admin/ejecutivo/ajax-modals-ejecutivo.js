@@ -8,53 +8,19 @@ var UIExtendedModals = function () {
 		//main function to initiate the module
 		init: function () {
 
-			//ajax ventana modal detalles del pendiente
-			var $modal = $('#ajax-detalles-pendiente');
-
-			$('.ajax-pendiente').on('click', function(){
-				var id_pendiente = $(this).attr('id-pendiente');
-				// create the backdrop and wait for next modal to be triggered
-				Metronic.showLoader();
-
-				setTimeout(function(){
-					$modal.load('/pendiente/detalles/'+id_pendiente, '', function(){
-						Metronic.removeLoader();
-						$modal.modal();
-					});
-				}, 1000);
-			});
-
 			//funcion para ocultar el mensaje de motivo o el select de cambio de estatus
 			//segun sea el caso
-			$modal.on('shown.bs.modal', function(event) {
-				$('#ejecutivo_destino').change(function () {
-					console.log($('#ejecutivo_destino').val());
-					if($('#ejecutivo_destino').val()!=""){
-						console.log("entre");
-						$('#div_estatus').fadeOut('slow');
-						$('#div_motivo').fadeIn('slow');
-					}else{
-						$('#div_estatus').fadeIn('slow');
-						$('#div_motivo').fadeOut('slow');
-					}
-				});
+			$('#ajax-detalles-pendiente').on('change', '#ejecutivo_destino',function () {
+				if($('#ejecutivo_destino').val() != ""){
+					$('#div_estatus').fadeOut('slow');
+					$('#div_motivo').fadeIn('slow');
+				}else{
+					$('#div_estatus').fadeIn('slow');
+					$('#div_motivo').fadeOut('slow');
+				}
 			});
 
-			//ajax ventana modal de reasignaciones
-			var $modal2 = $('#ajax-reasignacion-pendiente');
-
-			$modal.on('click', '#ajax-reasignacion', function(){
-					var id_pendiente = $(this).attr('id-pendiente');
-					Metronic.showLoader();
-
-					setTimeout(function(){
-					$modal2.load('/pendiente/reasignaciones/'+id_pendiente, '', function(){
-						$modal2.modal();
-					});
-				}, 1000);
-			});
-
-			$modal.on('click', '.update', function(){
+			$('#ajax-detalles-pendiente').on('click', '.update', function(){
 				var id_pendiente = $('#id_pendiente').val();
 				var id_estatus = $('#estatus_pendiente').val();
 				var estatus_text = $('#estatus_pendiente').find('option:selected').text();
@@ -88,19 +54,13 @@ var UIExtendedModals = function () {
 						alert('ERROR: revisa la consola del navegador para más detalles.');
 					},
 					success: function(data) {
-						console.log(id_estatus);
 						if (data.exito) {
-							Metronic.removeLoader();
 							if(ejecutivo_destino_text!=""){
 								bootbox.alert("<h4>Pendiente reasignado a : <b>"+data.ejecutivo_destino_text+"</b> con éxito.<h4>", function (){
 									parent.location.reload();
 								});
 							}else{
-								if(id_estatus==undefined){
-									bootbox.alert("<h4>Pendiente <b> sin cambios</b>.<h4>", function () {
-										parent.location.reload();
-									});
-								}else{
+								if(id_estatus!=undefined){
 									bootbox.alert("<h4>Pendiente cambiado a : <b>"+data.estatus+"</b> con éxito.<h4>", function () {
 										parent.location.reload();
 									});

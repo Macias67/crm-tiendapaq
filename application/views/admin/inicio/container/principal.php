@@ -24,12 +24,12 @@
 							</div>
 							<div class="portlet-body">
 								<!-- Prospecto -->
-								<a href="" class="icon-btn" data-target="#nuevo-cliente" data-toggle="modal">
+								<a href="#nuevo-cliente" class="icon-btn" data-toggle="modal">
 									<i class="fa  fa-male"></i>
 									<div>Prospecto</div>
 								</a>
 								<!-- Pendiente -->
-								<a href="#" id="pendiente" class="icon-btn" data-target="#nuevo-pendiente" data-toggle="modal">
+								<a id="pendiente" class="icon-btn" href="#nuevo-pendiente" data-toggle="modal">
 									<i class="fa fa-check-square-o"></i>
 									<div>Pendiente</div>
 								</a>
@@ -106,7 +106,9 @@
 												<td><?php echo $pendiente->actividad ?></td>
 												<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
 												<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
-												<td><a class="btn blue btn-xs ajax-pendiente" id-pendiente="<?php echo $pendiente->id_pendiente ?>" data-toggle="modal"> Detalles </a></td>
+												<td>
+													<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+												</td>
 											</tr>
 										<?php endforeach ?>
 										</tbody>
@@ -160,11 +162,16 @@
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
+			</div>
+		</div>
+		<!-- END CONTENT -->
 
-				<!-- BEGIN VENTANAS MODALES -->
+		<!-- BEGIN VENTANAS MODALES -->
 
-				<!-- BEGIN FORM NUEVO CLIENTE PROSPECTO-->
-				<div id="nuevo-cliente" class="modal container fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+		<!-- BEGIN FORM NUEVO CLIENTE PROSPECTO-->
+		<div id="nuevo-cliente" class="modal bs-modal-lg fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
 					<div class="modal-header">
 						<h3 class="modal-title">
 							<b>Registrar prospecto - </b> <small>Registro de un cliente prospecto en TiendaPAQ</small>
@@ -186,7 +193,7 @@
 								<!-- BEGIN FORM BODY -->
 								<div class="form-body">
 									<!-- INFORMACION BASICA -->
-									<div class="col-md-6">
+									<div class="col-md-5">
 										<h4>Información Básica</h4>
 										<!-- Razon Social -->
 										<div class="form-group">
@@ -252,7 +259,7 @@
 										</div>
 									</div>
 									<!-- INFORMACION DE CONTACTO -->
-									<div class="col-md-6">
+									<div class="col-md-7">
 										<h4>Contácto <small>- Puedes añadir más contactos en la seccion de gestión</small></h4>
 										<!-- Nombre del contacto -->
 										<div class="form-group">
@@ -323,10 +330,14 @@
 						</div>
 					</form>
 				</div>
-				<!-- END FORM NUEVO CLIENTE PROSPECTO-->
+			</div>
+		</div>
+		<!-- END FORM NUEVO CLIENTE PROSPECTO-->
 
-				<!-- BEGIN NUEVO PENDIENTE -->
-				<div id="nuevo-pendiente" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+		<!-- BEGIN NUEVO PENDIENTE -->
+		<div id="nuevo-pendiente" class="modal fade" tabindex="-1" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
 					<div class="modal-header">
 						<h3 class="modal-title">
 							<b>Asignar Pendiente</b>
@@ -396,15 +407,34 @@
 						</div>
 					</form>
 				</div>
-				<!-- END NUEVO PENDIENTE -->
-
-				<!-- BEGIN AJAX DETALLE PENDIENTE -->
-				<div id="ajax-detalles-pendiente" class="modal fade" tabindex="-1" data-width="600" ></div>
-				<!-- END AJAX DETALLE PENDIENTE -->
-
-				<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
-				<div id="ajax-reasignacion-pendiente" class="modal fade" data-width="700" tabindex="-1" data-focus-on="input:first"></div>
-				<!-- END AJAX REASIGNACIONES PENDIENTE -->
 			</div>
 		</div>
-		<!-- END CONTENT -->
+		<!-- END NUEVO PENDIENTE -->
+
+		<!-- BEGIN AJAX DETALLE PENDIENTE -->
+		<div id="ajax-detalles-pendiente" class="modal fade" role="basic" aria-hidden="true">
+			<div class="page-loading page-loading-boxed">
+				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+				<span>Cargando... </span>
+			</div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- /.modal -->
+		<!-- END AJAX DETALLE PENDIENTE -->
+
+		<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
+		<div id="ajax-reasignacion-pendiente" class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="page-loading page-loading-boxed">
+				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+				<span>Cargando... </span>
+			</div>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- /.modal -->
+		<!-- END AJAX REASIGNACIONES PENDIENTE -->

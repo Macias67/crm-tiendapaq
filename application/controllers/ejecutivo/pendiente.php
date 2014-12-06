@@ -102,57 +102,55 @@ class Pendiente extends AbstractAccess {
 		$this->load->model('estatusGeneralModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('reasignarPendienteModel');
+		$campos = array('pendientes.id_pendiente',
+						'clientes.razon_social',
+						'actividades_pendiente.id_actividad as id_actividad_pendiente',
+						'actividades_pendiente.actividad',
+						'pendientes.descripcion',
+						'pendientes.fecha_origen',
+						'creador.primer_nombre as creador_nombre',
+						'creador.apellido_paterno as creador_apellido',
+						'ejecutivo.primer_nombre as ejecutivo_nombre',
+						'ejecutivo.apellido_paterno as ejecutivo_apellido',
+						'creador.oficina as oficina',
+						'pendientes.id_estatus_general');
 		//Helper
 		$this->load->helper('formatofechas');
-
-		$pendiente	= $this->pendienteModel->getPendiente($id_pendiente,
-						array('pendientes.id_pendiente',
-									'clientes.razon_social',
-									'actividades_pendiente.id_actividad as id_actividad_pendiente',
-									'actividades_pendiente.actividad',
-									'pendientes.descripcion',
-									'pendientes.fecha_origen',
-									'creador.primer_nombre as creador_nombre',
-									'creador.apellido_paterno as creador_apellido',
-									'ejecutivo.primer_nombre as ejecutivo_nombre',
-									'ejecutivo.apellido_paterno as ejecutivo_apellido',
-									'creador.oficina as oficina',
-									'pendientes.id_estatus_general'));
-		$this->data['pendiente']	= $pendiente;
-		$this->data['estatus']	= $this->estatusGeneralModel->get('*');
-		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
-		$this->data['reasignaciones'] = count($this->reasignarPendienteModel->getReasignaciones($id_pendiente,'*'));
+		$pendiente	= $this->pendienteModel->getPendiente($id_pendiente, $campos);
+		$this->data['pendiente']		= $pendiente;
+		$this->data['estatus']			= $this->estatusGeneralModel->get('*');
+		$this->data['ejecutivos']		= $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
+		$this->data['reasignaciones']	= count($this->reasignarPendienteModel->getReasignaciones($id_pendiente,'*'));
 
 		// SI la actividad es COTIZAR
 		if ($pendiente->id_actividad_pendiente == $this->actividadPendienteModel->SOLICITA_COTIZACION) {
 			$this->data['url_cotiza']= anchor('cotizador/'.$pendiente->id_pendiente, 'Cotizar', 'class="btn red"');
 		}
 
-		$this->_vista_completa('detalle-pendiente');
+		$this->_vista_completa('pendiente/detalle-pendiente');
 	}
 
 	/**
 	 * Funcion para mostrar ventana modal con informacion detallada de un pendientes
 	 * @author  Diego Rodriguez
 	 **/
-		public function reasignaciones($id_pendiente)
+	public function reasignaciones($id_pendiente)
 	{
 		$this->load->model('reasignarPendienteModel');
 		$this->load->helper('formatofechas');
 
-		$reasignaciones = $this->reasignarPendienteModel->getReasignaciones($id_pendiente,
-																	array('origen.primer_nombre as nombre_origen',
-																		    'origen.apellido_paterno as apellido_origen',
-																		    'destino.primer_nombre as nombre_destino',
-																		    'destino.apellido_paterno as apellido_destino',
-																		    'reasignacion_pendiente.fecha',
-																		    'reasignacion_pendiente.motivo'));
+		$campos = array('origen.primer_nombre as nombre_origen',
+						'origen.apellido_paterno as apellido_origen',
+						'destino.primer_nombre as nombre_destino',
+						'destino.apellido_paterno as apellido_destino',
+						'reasignacion_pendiente.fecha',
+						'reasignacion_pendiente.motivo');
+		$reasignaciones = $this->reasignarPendienteModel->getReasignaciones($id_pendiente, $campos);
 		foreach ($reasignaciones as $index => $reasignacion) {
 			$reasignaciones[$index]->fecha = fecha_completa($reasignaciones[$index]->fecha);
 		}
 		$this->data['reasignaciones'] = $reasignaciones;
-
-		$this->_vista_completa('reasignaciones-pendiente');
+		$this->_vista_completa('pendiente/reasignaciones-pendiente');
 	}
 
 	/**

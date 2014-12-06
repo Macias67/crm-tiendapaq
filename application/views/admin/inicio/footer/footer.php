@@ -35,8 +35,6 @@
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js"></script>
-	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
