@@ -105,7 +105,7 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-				handleInputMasksEjecutivo();
+				//Metronic.scrollTo(error, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -120,7 +120,6 @@ var FormValidationEjecutivo = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				handleInputMasksEjecutivo();
 				$.ajax({
 					url: $('#form-ejecutivo-nuevo').attr('action'),
 					type: 'post',
@@ -136,7 +135,6 @@ var FormValidationEjecutivo = function () {
 						Metronic.removeLoader();
 					},
 					success: function(data) {
-						console.log(data);
 						if (data.exito) {
 							Metronic.removeLoader();
 							bootbox.alert("<h4><b>"+data.ejecutivo.primer_nombre+" "+data.ejecutivo.apellido_paterno+"</b> con usuario <b>"+data.ejecutivo.usuario+"</b> añadido con éxito.</h4>", function () {
@@ -253,7 +251,7 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-				handleInputMasksEjecutivo();
+				Metronic.scrollTo(error, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -268,7 +266,6 @@ var FormValidationEjecutivo = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				handleInputMasksEjecutivo();
 				$.ajax({
 					url: $('#form-ejecutivo-editado').attr('action'),
 					type: 'post',
@@ -385,7 +382,6 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-				handleInputMasksEjecutivo();
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -400,8 +396,6 @@ var FormValidationEjecutivo = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-
-				handleInputMasksEjecutivo();
 				$.ajax({
 					url: $('#form-ejecutivo-info').attr('action'),
 					type: 'post',

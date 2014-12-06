@@ -11,8 +11,9 @@ var FormValidationCliente = function () {
 			var selected = (state) ? 'true' : 'false';
 			$.post('/cliente/gestionar/activar', {id:id, selected:selected}, function(data, textStatus, xhr) {
 				bootbox.alert(data.mensaje);
+				Metronic.showLoader();
 				if (data.exito) {
-					table.dataTable().api().ajax.reload();
+					Metronic.removeLoader();
 				}
 			}, 'json');
 		});

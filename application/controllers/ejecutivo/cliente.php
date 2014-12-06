@@ -83,7 +83,7 @@ class Cliente extends AbstractAccess {
 				$id 			= $this->input->post('id');
 				$selected 	= $this->input->post('selected');
 				$activo 	= ($selected == 'true') ? 1 : 0;
-				$mensaje	= ($selected == 'true') ? 'El cliente podrá acceder al sistema y aparecerá en los buscadores.' : 'El cliente ya <b>NO</b> podrá acceder al sistema y desaparecerá de los buscadores del sistema.';
+				$mensaje	= ($selected == 'true') ? '<h4>El cliente podrá acceder al sistema y aparecerá en los buscadores.</h4>' : '<h4>El cliente ya <b>NO</b> podrá acceder al sistema y desaparecerá de los buscadores del sistema.</h4>';
 				if ($this->clienteModel->update(array('activo' => $activo), array('id' => $id))) {
 					$response = array('exito' => TRUE, 'mensaje' => $mensaje);
 				}
@@ -429,7 +429,7 @@ class Cliente extends AbstractAccess {
 					// Inserto en la BD
 					if($this->contactosModel->insert($contacto))
 					{
-						$respuesta = array('exito' => TRUE, 'msg' => 'Nuevo contacto añadido.');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo contacto añadido.</h4>');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -472,7 +472,7 @@ class Cliente extends AbstractAccess {
 					if($this->contactosModel->update($contacto, array('id' => $id)))
 					{
 						$id_cliente = $this->uri->segment(4);
-						$respuesta = array('exito' => TRUE, 'msg' => 'Contacto ha sido acualizado con exito.');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Contacto actualizado con éxito.</h4>');
 					}else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
@@ -493,16 +493,21 @@ class Cliente extends AbstractAccess {
 
 	 			if($total_contactos == 1)
 	 			{
-	 				$respuesta = array('exito' => FALSE, 'msg' => 'No se puede eliminar, necesitas almenos un contacto');
+	 				$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se puede eliminar, necesitas almenos un contacto.</h4>');
 	 			} else
 	 			{
-	 				if ($this->contactosModel->delete(array('id' => $id)))
-					{
-						$respuesta = array('exito' => TRUE, 'msg' => 'Se eliminó el contacto con éxito.');
-					} else
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
-					}
+	 				//IF PARA REVISAR QUE EL CONTACTO SI ESTA RELACIONADO CON ALGUNA COTIZACION NO SE PUEDA ELIMINAR
+	 				//$this->load->model('cotizacionModel');
+	 				//if(count($this->cotizacionModel->get(array('*'), array('')))!=0){
+
+	 				//}else{
+	 					if ($this->contactosModel->delete(array('id' => $id)))
+						{
+							$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se eliminó el contacto con éxito.</h4>');
+						} else {
+							$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+						}
+	 				//}
 	 			}
 
 	      			//mando la repuesta
@@ -555,7 +560,7 @@ class Cliente extends AbstractAccess {
 				// Inserto a la BD
 				if($this->sistemasClienteModel->insert($sistema_cliente))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => 'Se añadio '.$sistema_cliente['sistema'].' v. '.$sistema_cliente['version']);
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se añadio '.$sistema_cliente['sistema'].' v. '.$sistema_cliente['version'].'</h4>');
 				} else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -572,7 +577,7 @@ class Cliente extends AbstractAccess {
 
 				if($this->sistemasClienteModel->delete(array('id' => $id, 'id_cliente' => $id_cliente)))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => 'Sistema removido');
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Sistema eliminado con éxito.</h4>');
 				}else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
@@ -630,7 +635,7 @@ class Cliente extends AbstractAccess {
 					//Inserto en la BD el nuevo equipo
 					if($this->equiposComputoModel->insert($equipo))
 					{
-						$respuesta = array('exito' => TRUE, 'msg' => 'Se agrego nuevo equipo.');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo equipo añadido con éxito.</h4>.');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -679,7 +684,7 @@ class Cliente extends AbstractAccess {
 					//Actualizo en la BD el  equipo
 					if($this->equiposComputoModel->update($equipo, array('id' => $id)))
 					{
-						$respuesta = array('exito' => TRUE, 'msg' => 'Se actualizo la info del equipo.');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se actualizo la info del equipo.</h4>');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizó, revisa la consola o la base de datos para detalles');
@@ -697,7 +702,7 @@ class Cliente extends AbstractAccess {
 
 				if($this->equiposComputoModel->delete(array('id' => $id)))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => 'Se elimino este equipo de la lista.');
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se elimino este equipo de la lista.</h4>');
 				} else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
