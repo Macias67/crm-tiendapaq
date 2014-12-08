@@ -179,7 +179,7 @@
 					</div>
 					<form action="<?php echo site_url('cliente/nuevo') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div class="scroller" style="height: 300px" id="div-scroll">
+							<div class="scroller" style="height: 300px" id="div-scroll-prospecto">
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>

@@ -104,7 +104,7 @@ var FormValidationClienteRapido = function () {
 				success1.hide();
 				error1.html("Tienes errores en tu formulario");
 				error1.show();
-				$('#div-scroll').animate({ scrollTop: 0 }, 600);
+				$('#div-scroll-prospecto').animate({ scrollTop: 0 }, 600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -145,7 +145,7 @@ var FormValidationClienteRapido = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
-							$('#div-scroll').animate({ scrollTop: 0 }, 600);
+							$('#div-scroll-prospecto').animate({ scrollTop: 0 }, 600);
 							$('#nuevo-cliente').fadeTo(100, 1, function(){
 							});
 						}
