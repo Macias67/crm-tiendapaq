@@ -346,7 +346,7 @@
 					</div>
 					<form action="<?php echo site_url('pendiente/nuevo') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div class="scroller" style="height: 300px">
+							<div class="scroller" style="height: 300px" id="div-scroll-pendiente">
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>

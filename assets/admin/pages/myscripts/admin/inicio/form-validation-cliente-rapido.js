@@ -145,6 +145,7 @@ var FormValidationClienteRapido = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							Metronic.removeLoader();
 							$('#div-scroll-prospecto').animate({ scrollTop: 0 }, 600);
 							$('#nuevo-cliente').fadeTo(100, 1, function(){
 							});
