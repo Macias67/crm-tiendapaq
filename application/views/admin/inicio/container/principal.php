@@ -38,11 +38,10 @@
 									<i class="fa fa-file-o"></i>
 									<div>Cotizador</div>
 								</a>
-								<!-- Calendario -->
-								<a href="#" class="icon-btn">
+								<!-- Calendario <a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>
 									<div>Calendario</div>
-								</a>
+								</a> -->
 								<!-- Catálogo de Clientes -->
 								<a href="<?php echo site_url('cliente/gestionar') ?>" class="icon-btn">
 									<i class="fa fa-search"></i>

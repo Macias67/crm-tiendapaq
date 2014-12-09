@@ -5,7 +5,6 @@ var FormValidationPendiente = function () {
 
 	// Select para escoger la razón social
 	var handleSelect2RazonSocial = function () {
-		//$.extend($.fn.select2.defaults, $.fn.select2.locales['es']);
 		$("#razon_social").select2({
 			placeholder: "Razón Social...",
 			allowClear: true,
