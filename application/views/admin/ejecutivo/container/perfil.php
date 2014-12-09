@@ -364,6 +364,12 @@
 																<label class="control-label">Confirmar nueva contraseña</label>
 																<input type="password" name="password_nuevo_2" class="form-control"/>
 															</div>
+															<br>
+															<ul>
+																<li> Puedes cambiar de contraseña sin cambiar de usuario</li>
+																<li> Cambio de usuario requiere cambio de contraseña, o repetir en los 3 campos la contraseña actual</li>
+															</ul>
+															<br>
 														</div>
 														<hr>
 														<div class="form-actions fluid">
