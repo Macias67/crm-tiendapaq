@@ -560,7 +560,7 @@ class Cliente extends AbstractAccess {
 				// Inserto a la BD
 				if($this->sistemasClienteModel->insert($sistema_cliente))
 				{
-					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se añadio '.$sistema_cliente['sistema'].' v. '.$sistema_cliente['version'].'</h4>');
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se añadio <b>'.$sistema_cliente['sistema'].'</b> versión <b>'.$sistema_cliente['version'].'</b></h4>');
 				} else
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');

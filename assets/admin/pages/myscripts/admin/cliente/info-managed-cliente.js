@@ -115,8 +115,7 @@ var InfoManagedCliente = function() {
 						required: true
 					},
 					puesto_contacto: {
-						maxlength: 20,
-						required: true
+						maxlength: 20
 					}
 				},
 				messages: {
@@ -142,8 +141,7 @@ var InfoManagedCliente = function() {
 						required: "Escribe un telefono"
 					},
 					puesto_contacto: {
-						maxlength: "Escribe al menos un contacto",
-						required: "Escribe un puesto."
+						maxlength: "Escribe al menos un contacto"
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
@@ -221,8 +219,7 @@ var InfoManagedCliente = function() {
 						required: true
 					},
 					puesto_contacto: {
-						maxlength: 20,
-						required: true
+						maxlength: 20
 					}
 				},
 				messages: {
@@ -248,8 +245,7 @@ var InfoManagedCliente = function() {
 						required: "Escribe un telefono"
 					},
 					puesto_contacto: {
-						maxlength: "Escribe al menos un contacto",
-						required: "Escribe un puesto."
+						maxlength: "Escribe al menos un contacto"
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
