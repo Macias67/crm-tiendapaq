@@ -144,8 +144,7 @@ var InfoManagedCliente = function() {
 						maxlength: "Escribe al menos un contacto"
 					}
 				},
-				invalidHandler: function (event, validator) { //display error alert on form submit
-					console.log("hola kokin");
+				invalidHandler: function (event, validator) { //display error alert on form submit0
 					error.fadeIn('slow');
 				},
 				highlight: function (element) { // hightlight error inputs

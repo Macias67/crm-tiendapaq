@@ -166,7 +166,7 @@ var FormValidationCliente = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-			  handleInputMasks();
+				$('body').animate({ scrollTop: 0 }, 600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -181,8 +181,6 @@ var FormValidationCliente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-
-				handleInputMasks();
 				//ajax para gardar el formulario
 				$.ajax({
 					url: $('#form-basica-cliente').attr('action'),
@@ -208,6 +206,7 @@ var FormValidationCliente = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
 						}
 					}
@@ -219,6 +218,7 @@ var FormValidationCliente = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
+			handleInputMasks();
 			handBasicaCliente();
 			escondeEstado();
 		}

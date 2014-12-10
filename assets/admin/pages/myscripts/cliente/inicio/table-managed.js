@@ -16,19 +16,18 @@ var TableManaged = function() {
 			// set the initial value
 			"pageLength": 5,
 			"language": {
-				"lengthMenu": "_MENU_ registros",
-				"search": "Buscar:",
-				"paging": {
-					"previous": "Prev",
-					"next": "Sig"
-				},
-				"paginate": {
-					"previous": "Prev",
-					"next": "Sig"
-				},
-				"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-				"zeroRecords": "No se encontró ningún resultado",
-				"infoFiltered": "(filtrado de  un total de _MAX_  entradas)"
+				"emptyTable":     "No hay cotizaciones registradas",
+				"info":           "Mostrando _START_ a _END_ de _TOTAL_ cotizaciones",
+				"infoEmpty":      "Mostrando 0 a 0 de 0 cotizaciones",
+				"infoFiltered":   "(de un total de _MAX_ cotizaciones registradas)",
+				"infoPostFix":    "",
+				"thousands":      ",",
+				"lengthMenu":     "Show _MENU_ entries",
+				"loadingRecords": "Cargando...",
+				"processing":     "Procesando...",
+				"search":         "Buscar : ",
+				"zeroRecords":    "No se encontraron coincidencias",
+				"lengthMenu": "_MENU_ registros"
 			},
 			"columnDefs": [{  // set default column settings
 				'orderable': false,

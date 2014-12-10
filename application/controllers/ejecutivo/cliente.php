@@ -398,7 +398,7 @@ class Cliente extends AbstractAccess {
 	 * @return json
 	 * @author Diego Rodriguez
 	 **/
-	public function contactos($accion)
+	public function contactos($accion,$id=null)
 	{
 		switch ($accion)
 		{
@@ -514,6 +514,18 @@ class Cliente extends AbstractAccess {
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
+			break;
+
+			//caso para llenar los datos del contracto en formulario modal
+			case 'mostrar':
+				if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
+				{
+					$this->data['contacto'] = $contacto;
+					$this->_vista_completa('modal-form-nuevo-cliente');
+				} else
+				{
+					show_error('No existe este contacto.', 404);
+				}
 			break;
 		}
 	}

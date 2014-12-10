@@ -101,20 +101,13 @@
 							<li>
 								<a href="<?php echo site_url('gestor/operativos'); ?>"><i class="fa fa-windows"></i> Sistemas Operativos</a>
 							</li>
+
 							<li>
-								<a href="javascript:;">
-									<i class="fa fa-file-o"></i>
-									<span class="title"> Cotización</span>
-									<span class="arrow "></span>
-								</a>
-							<ul class="sub-menu">
-								<li>
-									<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
-								</li>
-								<li>
-									<a href="<?php echo site_url('gestor/observaciones'); ?>"><i class="fa fa-eye"></i> Observaciones</a>
-								</li>
-							</ul>
+								<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
+							</li>
+
+							<li>
+								<a href="<?php echo site_url('gestor/observaciones'); ?>"><i class="fa fa-eye"></i> Observaciones de pago</a>
 							</li>
 						</ul>
 					</li>
