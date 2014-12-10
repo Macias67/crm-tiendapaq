@@ -398,8 +398,8 @@ var FormValidationCliente = function () {
 						} else {
 							error.html(data.msg);
 							error.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
-							Metronic.scrollTo(error, -600);
 						}
 					}
 				});
@@ -585,8 +585,8 @@ var FormValidationCliente = function () {
 						} else {
 							error.html(data.msg);
 							error.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
-							Metronic.scrollTo(error, -600);
 						}
 					}
 				});

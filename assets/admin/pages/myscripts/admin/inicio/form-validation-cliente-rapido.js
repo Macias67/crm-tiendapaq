@@ -2,12 +2,21 @@
  * Validaciones para el formulario de cliente prospecto
  */
 var FormValidationClienteRapido = function () {
+	//mascaras para el registro de cliente prospecto
+	var handleInputMasks = function () {
+		$.extend($.inputmask.defaults, {
+			'autounmask': true
+		});
 
-	// Spinner para la memoria ram
-	var handleSpinners = function () {
-		$('#memoria-ram').spinner();
+		$("#telefono1").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+
+		$("#telefono_contacto").inputmask("mask", {
+			"mask": "(999) 999-9999"
+		});
+
 	}
-
 	// Validacion para formulario de cliente nuevo rapid en la ventana modal
 	var formularioClienteRapido = function() {
 		// for more info visit the official plugin documentation:
@@ -95,7 +104,7 @@ var FormValidationClienteRapido = function () {
 				success1.hide();
 				error1.html("Tienes errores en tu formulario");
 				error1.show();
-				//Metronic.scrollTo(error1, -200);
+				$('#div-scroll-prospecto').animate({ scrollTop: 0 }, 600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -119,23 +128,26 @@ var FormValidationClienteRapido = function () {
 					data: $('#form-nuevo-cliente').serialize(),
 					beforeSend: function () {
 						$('#nuevo-cliente').fadeTo('slow', 0.1);
-						$('body').modalmanager('loading');
 					},
 					error: function(jqXHR, status, error) {
-						$('#nuevo-cliente').fadeTo('slow', 1);
 						console.log("ERROR: "+error);
 						alert('ERROR: revisa la consola del navegador para más detalles.');
 					},
 					success: function(data) {
+						Metronic.showLoader();
 						if (data.exito) {
-							alert("Cliente "+data.razon_social+" añadido con éxito.");
-							parent.location.reload();
+							bootbox.alert("Cliente "+data.razon_social+" añadido con éxito.", function () {
+								Metronic.removeLoader();
+								parent.location.reload();
+							});
 						} else {
+							Metronic.removeLoader();
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							Metronic.removeLoader();
+							$('#div-scroll-prospecto').animate({ scrollTop: 0 }, 600);
 							$('#nuevo-cliente').fadeTo(100, 1, function(){
-								$('body').modalmanager('removeLoading');
 							});
 						}
 					}
@@ -148,7 +160,7 @@ var FormValidationClienteRapido = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
-			handleSpinners();
+			handleInputMasks();
 			formularioClienteRapido();
 		}
 	};

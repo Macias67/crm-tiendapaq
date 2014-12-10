@@ -38,11 +38,10 @@
 									<i class="fa fa-file-o"></i>
 									<div>Cotizador</div>
 								</a>
-								<!-- Calendario -->
-								<a href="#" class="icon-btn">
+								<!-- Calendario <a href="#" class="icon-btn">
 									<i class="fa fa-calendar"></i>
 									<div>Calendario</div>
-								</a>
+								</a> -->
 								<!-- Catálogo de Clientes -->
 								<a href="<?php echo site_url('cliente/gestionar') ?>" class="icon-btn">
 									<i class="fa fa-search"></i>
@@ -56,7 +55,7 @@
 								<!-- Cotizaciones -->
 								<a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
 									<i class="fa fa-dollar"></i>
-									<div>Cotizaciones para revision</div>
+									<div>Pagos por revisar</div>
 									<?php if ($cotizaciones_revision!=0): ?>
 										<span class="badge badge-danger">
 											<?php echo $cotizaciones_revision ?>
@@ -179,7 +178,7 @@
 					</div>
 					<form action="<?php echo site_url('cliente/nuevo') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div class="scroller" style="height: 300px">
+							<div class="scroller" style="height: 300px" id="div-scroll-prospecto">
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>
@@ -346,7 +345,7 @@
 					</div>
 					<form action="<?php echo site_url('pendiente/nuevo') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
 						<div class="modal-body form-horizontal">
-							<div class="scroller" style="height: 300px">
+							<div class="scroller" style="height: 300px" id="div-scroll-pendiente">
 								<!-- DIV ERROR -->
 								<div class="alert alert-danger display-hide">
 									<button class="close" data-close="alert"></button>

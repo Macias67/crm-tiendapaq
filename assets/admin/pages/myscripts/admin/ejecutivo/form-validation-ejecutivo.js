@@ -105,7 +105,7 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-				//Metronic.scrollTo(error, -600);
+				Metronic.scrollTo(error1, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -144,6 +144,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
 						}
 					}
@@ -291,6 +292,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
 						}
 					}
@@ -382,6 +384,7 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
+				$('body').animate({ scrollTop: 0 }, 600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -421,6 +424,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
 						}
 					}
@@ -479,6 +483,7 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
+				$('body').animate({ scrollTop: 0 }, 600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -518,6 +523,7 @@ var FormValidationEjecutivo = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							$('body').animate({ scrollTop: 0 }, 600);
 							Metronic.removeLoader();
 						}
 					}

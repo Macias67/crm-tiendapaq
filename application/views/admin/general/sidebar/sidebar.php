@@ -59,13 +59,6 @@
 							</li>
 						</ul>
 					</li>
-					<!-- Productos -->
-					<li>
-						<a href="<?php echo site_url('producto') ?>">
-							<i class="fa fa-shopping-cart"></i>
-							<span class="title"> Productos</span>
-						</a>
-					</li>
 					<!-- Ejecutivos -->
 					<li>
 						<a href="javascript:;">
@@ -84,27 +77,12 @@
 							<li>
 						</ul>
 					</li>
-					<!-- Calendario <li>
-						<a href="<?php echo site_url('calendario') ?>">
-							<i class="fa fa-calendar"></i>
-							<span class="title">Calendario</span>
-						</a>
-					</li>-->
-					<!-- Importar -->
+					<!-- Productos -->
 					<li>
-						<a href="<?php echo site_url('catalogo') ?>">
-							<i class="fa fa-upload"></i>
-							<span class="title"> Importar</span>
-							<span class="arrow "></span>
+						<a href="<?php echo site_url('producto') ?>">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="title"> Productos</span>
 						</a>
-						<ul class="sub-menu">
-							<li>
-								<a href="<?php echo site_url('catalogo/clientes'); ?>"><i class="fa fa-users"></i> Clientes</a>
-							</li>
-							<li>
-								<a href="<?php echo site_url('catalogo/productos'); ?>"><i class="fa fa-shopping-cart"></i> Productos</a>
-							</li>
-						</ul>
 					</li>
 					<!-- Gestor General -->
 					<li>
@@ -137,6 +115,28 @@
 									<a href="<?php echo site_url('gestor/observaciones'); ?>"><i class="fa fa-eye"></i> Observaciones</a>
 								</li>
 							</ul>
+							</li>
+						</ul>
+					</li>
+					<!-- Calendario <li>
+						<a href="<?php echo site_url('calendario') ?>">
+							<i class="fa fa-calendar"></i>
+							<span class="title">Calendario</span>
+						</a>
+					</li>-->
+					<!-- Importar -->
+					<li>
+						<a href="<?php echo site_url('catalogo') ?>">
+							<i class="fa fa-upload"></i>
+							<span class="title"> Importar</span>
+							<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('catalogo/clientes'); ?>"><i class="fa fa-users"></i> Clientes</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('catalogo/productos'); ?>"><i class="fa fa-shopping-cart"></i> Productos</a>
 							</li>
 						</ul>
 					</li>

@@ -33,6 +33,7 @@
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2_locale_es.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-tmpl/jquery.tmpl.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>

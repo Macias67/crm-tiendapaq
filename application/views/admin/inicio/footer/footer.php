@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2_locale_es.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>gritter/js/jquery.gritter.js"></script>
@@ -51,7 +52,6 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-cliente-rapido') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-pendiente') ?>" type="text/javascript"></script>
-	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'components-form-tools-cliente-rapido') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'ajax-modals-inicio') ?>" type="text/javascript"></script>
 
 	<script>
@@ -63,7 +63,6 @@
 			TableManaged.init(); // table-managed
 			FormValidationClienteRapido.init(); // form-validation-cliente
 			FormValidationPendiente.init(); // form-validation-pendiente
-			ComponentsFormToolsClienteRapido.init(); //form-components-tools-cliente-rapido de agregar clientes
 			UIExtendedModals.init(); // ajax-modals para modales tipo ajax de los pendientes
 		});
 	</script>

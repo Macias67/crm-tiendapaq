@@ -229,7 +229,7 @@
 					</ul>
 				</li>
 				<!-- END INBOX DROPDOWN -->
-				
+
 				<!-- BEGIN TODO DROPDOWN -->
 				<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -337,29 +337,28 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a href="<?php echo site_url('perfil') ?>">
-							<i class="icon-user"></i> Mi Perfil </a>
+							<i class="icon-user"></i> Perfil </a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="#">
 							<i class="icon-calendar"></i> Calendario </a>
-						</li>
-						<li>
+						</li> -->
+						<!-- <li>
 							<a href="#">
 							<i class="icon-envelope-open"></i> Inbox <span class="badge badge-danger">
 							3 </span>
 							</a>
-						</li>
+						</li> -->
 						<li>
-							<a href="#">
-							<i class="icon-rocket"></i> Tareas <span class="badge badge-success">
-							7 </span>
+							<a href="<?php echo site_url('perfil') ?>">
+							<i class="fa fa-list"></i> Mis Pendentes
 							</a>
 						</li>
 						<li class="divider">
 						</li>
 						<li>
 							<a href="#">
-							<i class="icon-lock"></i> Lock Screen </a>
+							<i class="icon-lock"></i> Bloquear Sesion </a>
 						</li>
 						<li>
 							<a href="<?php echo site_url('logout') ?>">

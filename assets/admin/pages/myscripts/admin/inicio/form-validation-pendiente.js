@@ -45,7 +45,6 @@ var FormValidationPendiente = function () {
 					required: true
 				},
 				razon_social: {
-					
 				},
 				actividad: {
 					required: true
@@ -61,7 +60,6 @@ var FormValidationPendiente = function () {
 					required: "Se necesita seleccionar a un ejecutivo."
 				},
 				razon_social: {
-					
 				},
 				actividad: {
 					required: "Selecciona una actividad."
@@ -75,7 +73,7 @@ var FormValidationPendiente = function () {
 			invalidHandler: function (event, validator) { //display error alert on form submit
 				success1.hide();
 				error1.show();
-				Metronic.scrollTo(error1, -200);
+				$('#div-scroll-pendiente').animate({ scrollTop: 0 }, 600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
@@ -90,7 +88,6 @@ var FormValidationPendiente = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-
 				$.ajax({
 					url: $('#form-pendiente').attr('action'),
 					type: 'post',
@@ -136,6 +133,7 @@ var FormValidationPendiente = function () {
 							error1.html(data.msg);
 							error1.show();
 							Metronic.removeLoader();
+							$('#div-scroll-pendiente').animate({ scrollTop: 0 }, 600);
 						}
 					}
 				});
