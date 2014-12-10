@@ -55,7 +55,7 @@
 								<!-- Cotizaciones -->
 								<a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
 									<i class="fa fa-dollar"></i>
-									<div>Cotizaciones para revision</div>
+									<div>Pagos por revisar</div>
 									<?php if ($cotizaciones_revision!=0): ?>
 										<span class="badge badge-danger">
 											<?php echo $cotizaciones_revision ?>
