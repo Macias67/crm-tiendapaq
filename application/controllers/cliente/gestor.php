@@ -338,10 +338,10 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function equipos($accion=null)
+	public function equipos($accion=null, $id=null)
 	{
 		//se cargan los equipos de computo del cliente y se manda a llamar la vista
-		$this->data['equipos_computo']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
+		$this->data['equipos']=$this->equiposComputoModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
 		$this->data['sistemas_operativos']=$this->sistemasOperativosModel->get(array('*'));
 
 		switch ($accion) {
@@ -383,7 +383,7 @@ class Gestor extends AbstractAccess {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 					}else
 					{
-						$respuesta = array('exito' => TRUE, 'equipo' => $equipo['nombre_equipo']);
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo equipo añadido con éxito.</h4>.');
 					}
 				}
 				//mando la repuesta
@@ -395,18 +395,62 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'editar':
-				# code...
+				//reglas de contactos
+				$this->form_validation->set_rules('nombre_equipo', 'Nombre del Equipo', 'trim|required|strtoupper|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('sistema_operativo', 'Sistema Operativo', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('arquitectura', 'Arquitectura', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('maquina_virtual', 'Maquina Virtual', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('memoria_ram', 'Memoria RAM', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('sql_server', 'SQL Server', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('sql_management', 'SQL Management', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('instancia_sql', 'Instancia SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('password_sql', 'Contraseña SQL', 'trim|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('observaciones', 'Observaciones', 'trim|max_length[200]|xss_clean');
+
+				if($this->form_validation->run() === FALSE)
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+				} else
+				{
+					//si las reglas son correctas preparo los datos para insertar
+					$equipo = array(
+						'nombre_equipo'		=> $this->input->post('nombre_equipo'),
+						'sistema_operativo'	=> $this->input->post('sistema_operativo'),
+						'arquitectura'			=> $this->input->post('arquitectura'),
+						'maquina_virtual'		=> $this->input->post('maquina_virtual'),
+						'memoria_ram'			=> $this->input->post('memoria_ram'),
+						'sql_server'				=> $this->input->post('sql_server'),
+						'sql_management'		=> $this->input->post('sql_management'),
+						'instancia_sql'			=> $this->input->post('instancia_sql'),
+						'password_sql'			=> $this->input->post('password_sql'),
+						'observaciones'			=> $this->input->post('observaciones')
+					);
+					//obtenemos el id para saber donde actualizar
+					$id = $this->input->post('id');
+					$id_cliente = $this->input->post('id_cliente');
+					//Actualizo en la BD el  equipo
+					if($this->equiposComputoModel->update($equipo, array('id' => $id)))
+					{
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se actualizo la info del equipo.</h4>');
+					} else
+					{
+						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizó, revisa la consola o la base de datos para detalles');
+					}
+				}
+				//mando la repuesta
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 
 			case 'eliminar':
 				$id = $this->input->post('id');
-				$nombre_equipo = $this->input->post('nombre_equipo');
 
 				if(!$this->equiposComputoModel->delete(array('id' => $id))){
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 				}else
 				{
-					$respuesta = array('exito' => TRUE, 'equipo' => $nombre_equipo);
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Equipo eliminado con éxito.</h4>');
 				}
 
 				$this->output
@@ -414,9 +458,79 @@ class Gestor extends AbstractAccess {
 				->set_output(json_encode($respuesta));
 			break;
 
+			case 'mostrar':
+				if ($equipo = $this->equiposComputoModel->get_where(array('id' => $id)))
+				{
+					$this->load->helper('form');
+					// Mando html select con valor seleccionado por default para SO
+					$sistemas_operativos	= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+					$select = array();
+					foreach ($sistemas_operativos as $sistema) {
+						$select[$sistema->sistema_operativo] = $sistema->sistema_operativo;
+					}
+					// Radio button de arquitectura
+					$r64 = ($equipo->arquitectura == 'x64') ? TRUE : FALSE;
+					$r86 = ($equipo->arquitectura == 'x86') ? TRUE : FALSE;
+					$radio64 = array(
+							'name'		=> 'arquitectura',
+							'id'			=> 'arquitectura1',
+							'value'		=> 'x64',
+							'checked'	=> $r64);
+
+					$radio86 = array(
+							'name'		=> 'arquitectura',
+							'id'			=> 'arquitectura2',
+							'value'		=> 'x86',
+							'checked'	=> $r86);
+
+					// Radio button de maquina virtual
+					$si = ($equipo->maquina_virtual == 'Si') ? TRUE : FALSE;
+					$radioMVsi = array(
+							'name'		=> 'maquina_virtual',
+							'id'			=> 'maquina_virtual1',
+							'value'		=> 'Si',
+							'checked'	=> $si);
+
+					$radioMVno = array(
+							'name'		=> 'maquina_virtual',
+							'id'			=> 'maquina_virtual2',
+							'value'		=> 'No',
+							'checked'	=> !$si);
+
+					// Mando html select con valor seleccionado por default para SQL Server
+					$select_sqlServer = array(
+							'' => '',
+					              'SQL Server 2005'	=> 'SQL Server 2005',
+					              'SQL Server 2008 R2'=> 'SQL Server 2008 R2',
+					              'SQL Server 2012'	=> 'SQL Server 2012',
+					              'SQL Server 2014'	=> 'SQL Server 2014');
+
+					// Mando html select con valor seleccionado por default para SQL Server
+					$select_mgm = array(
+					              '' => '',
+					              '2005'		=> '2005',
+					              '2008 R2'	=> '2008 R2',
+					              '2012'		=> '2012',
+					              '2014'		=> '2014');
+
+					$this->data['equipo'] 	= $equipo;
+					$this->data['select_SO'] = form_dropdown('sistema_operativo', $select, $equipo->sistema_operativo, 'class="form-control"');
+					$this->data['radio64'] 	= form_radio($radio64);
+					$this->data['radio86'] 	= form_radio($radio86);
+					$this->data['radioSi'] 	= form_radio($radioMVsi);
+					$this->data['radioNo'] 	= form_radio($radioMVno);
+					$this->data['select_SQL'] 	= form_dropdown('sql_server', $select_sqlServer, $equipo->sql_server, 'class="form-control"');
+					$this->data['select_mgm'] 	= form_dropdown('sql_management', $select_mgm, $equipo->sql_management, 'class="form-control"');
+
+					$this->_vista_completa('cliente/modal-form-nuevo-equipo');
+				} else
+				{
+					show_error('No existe este equipo de computo.', 404);
+				}
+			break;
+
 			default:
 				$this->_vista("equipos_computo");
-				//var_dump($this->data);
 			break;
 		}
 	}

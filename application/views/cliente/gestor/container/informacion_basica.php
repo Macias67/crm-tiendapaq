@@ -24,7 +24,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form  action="<?php echo site_url('actualizar/basica/editar') ?>" id="form-basica-cliente" accept-charset="utf-8">
+								<form  action="<?php echo site_url('gestionar/basica/editar') ?>" id="form-basica-cliente" accept-charset="utf-8">
 									<div class="form-body">
 										<!-- DIV ERROR -->
 										<div class="alert alert-danger display-hide">
@@ -89,7 +89,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
-														<input type="text" class="form-control" id="telefono_1" placeholder="(999) 999-9999" name="telefono1" value="<?php echo $usuario_activo['telefono1'] ?>">
+														<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1" value="<?php echo $usuario_activo['telefono1'] ?>">
 													</div>
 												</div>
 											</div>
@@ -99,7 +99,7 @@
 												<div class="col-md-8">
 													<div class="input-icon">
 														<i class="fa fa-phone"></i>
-														<input type="text" class="form-control" id="telefono_2" placeholder="(999) 999-9999" name="telefono2" value="<?php echo $usuario_activo['telefono2'] ?>">
+														<input type="text" class="form-control" id="telefono2" placeholder="(999) 999-9999" name="telefono2" value="<?php echo $usuario_activo['telefono2'] ?>">
 													</div>
 												</div>
 											</div>

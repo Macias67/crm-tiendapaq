@@ -4,10 +4,10 @@ var FormValidationCliente = function () {
 		$.extend($.inputmask.defaults, {
 			'autounmask': true
 		});
-		$("#telefono_1").inputmask("mask", {
+		$("#telefono1").inputmask("mask", {
 			"mask": "(999) 999-9999"
 		});
-		$("#telefono_2").inputmask("mask", {
+		$("#telefono2").inputmask("mask", {
 			"mask": "(999) 999-9999"
 		});
 		$("#codigo_postal_mask").inputmask("mask", {
@@ -200,8 +200,9 @@ var FormValidationCliente = function () {
 						console.log(data);
 						if (data.exito) {
 							Metronic.removeLoader();
-							alert("Informacion de "+data.razon_social+" actualizada con éxito.");
-							parent.location.reload();
+							bootbox.alert("<h4>Información de <b>"+data.razon_social+"</b> actualizada con éxito.</h4>", function () {
+								parent.location.reload();
+							});
 						} else {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);

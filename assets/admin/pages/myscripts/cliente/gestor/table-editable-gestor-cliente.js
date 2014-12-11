@@ -464,30 +464,13 @@ var TableEditable = function () {
         });
     }
 
-    //Tabla de gestion de Equipos de computo en modo cliente
-    //var handleTableEquipos= function () {
-
-        $('#memoria-ram').spinner();
-
-        function restoreRow(oTable, nRow) {
-            var aData = oTable.fnGetData(nRow);
-            var jqTds = $('>td', nRow);
-
-            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-                oTable.fnUpdate(aData[i], nRow, i, false);
-            }
-            oTable.fnDraw();
-        }
-
+    var handleEquipoCom = function() {
         var table = $('#tabla_equipos_cliente');
 
-        var oTable = table.dataTable({
-            "pageLength": 25,
+        table.dataTable({
+            "pageLength": 5,
             "lengthChange": false,
             "columns": [
-                { "orderable": true },
-                { "orderable": true },
-                { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
@@ -498,109 +481,275 @@ var TableEditable = function () {
                 { "orderable": false }
             ],
             "language": {
-                "emptyTable":     "No hay equipos registrados",
-                "info":           "Mostrando _START_ a _END_ de _TOTAL_ equipos",
-                "infoEmpty":      "Mostrando 0 a 0 de 0 equipos",
-                "infoFiltered":   "(de un total de _MAX_ equipos registrados)",
-                "infoPostFix":    "",
-                "thousands":      ",",
-                "lengthMenu":     "Show _MENU_ entries",
-                "loadingRecords": "Cargando...",
-                "processing":     "Procesando...",
-                "search":         "Buscar: ",
-                "zeroRecords":    "No se encontraron coincidencias",
-                "lengthMenu": "_MENU_ registros"
+                "emptyTable" :      "No hay equipos registrados",
+                "info" :            "Mostrando _START_ a _END_ de _TOTAL_ equipos",
+                "infoEmpty" :       "Mostrando 0 a 0 de 0 equipos",
+                "infoFiltered" :    "(de un total de _MAX_ equipos registrados)",
+                "infoPostFix" :     "",
+                "thousands" :       ",",
+                "lengthMenu" :      "Show _MENU_ entries",
+                "loadingRecords" :  "Cargando...",
+                "processing" :      "Procesando...",
+                "search" :          "Buscar: ",
+                "zeroRecords" :     "No se encontraron coincidencias",
+                "lengthMenu" :      "_MENU_ registros"
             },
             "columnDefs": [
                 { // set default column settings
-                'orderable': true,
-                'targets': [0]
+                    'orderable': true,
+                    'targets': [0]
                 },
                 {
-                "searchable": true,
-                "targets": [0]
+                    "searchable": true,
+                    "targets": [0]
                 }
             ],
-            "order": [ 0, 'asc' ] // set first column as a default sort by asc
+            "order": [0, 'asc' ] // set first column as a default sort by asc
         });
 
-        var tableWrapper = $("#tabla_equipos_cliente_wrapper");
+        // Validaciones para editar cliente
+        var modal = $('#ajax_form_equipo');
+        modal.on('shown.bs.modal', function (e) {
 
-        tableWrapper.find(".dataTables_length select").select2({
-            showSearchInput: false //hide search box with special css class
-        }); // initialize select2 dropdown
+            $('#memoria-ram-ajax').spinner();
 
-        //funcion para eliminar oficina
-        table.on('click', '.delete', function (e) {
-            e.preventDefault();
+            var form = $('#form-equipo');
+            var error = $('.alert-danger', form);
+            var success = $('.alert-success', form);
 
-            //valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
-            var nRow = $(this).parents('tr')[0];
-            var aData = oTable.fnGetData(nRow);
-            var id = $(nRow).attr('id');
+            Metronic.initUniform($('input[type="radio"]', form)); // reinitialize uniform checkboxes on each table reload
 
-            if(confirm("¿Seguro que quieres eliminar el equipo "+aData[0]+" ?") == false){
-                return;
-            }else{
-                //ajax para borrar la oficina
-                $.ajax({
-                    url: "/actualizar/equipos/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id="+id+"&nombre_equipo="+aData[0],
-                    beforeSend: function () {
-                       Metronic.showLoader();
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: true, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    nombre_equipo: {
+                        maxlength: 30,
+                        required: true
                     },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        Metronic.removeLoader();
+                    sistema_operativo: {
+                        required: true
                     },
-                    success: function(data) {
+                    arquitectura: {
+                        required: true
+                    },
+                    maquina_virtual: {
+                        required: true
+                    },
+                    memoria_ram: {
+                        required: true
+                    },
+                    sql_server: {
+                    },
+                    sql_management: {
+                    },
+                    instancia_sql: {
+                    },
+                    password_sql: {
+                    },
+                    observaciones: {
+                    }
+                },
+                messages: {
+                    nombre_equipo: {
+                        maxlength: "El nombre debe tener menos de 80 caracteres.",
+                        required: "Escribe el nombre del PC."
+                    },
+                    sistema_operativo: {
+                        required: "Selecciona un sistema operativo."
+                    },
+                    arquitectura: {
+                        required: " "
+                    },
+                    maquina_virtual: {
+                        required: " "
+                    },
+                    memoria_ram: {
+                        required: "Inidca la cantidad de memoria RAM del equipo."
+                    },
+                    sql_server: {
+                    },
+                    sql_management: {
+                    },
+                    instancia_sql: {
+                    },
+                    password_sql: {
+                    },
+                    observaciones: {
+                    }
+                },
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    error.fadeIn('slow');
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+                success: function (label) {
+                    label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+                submitHandler: function (form) {
+                    var url         = '/gestionar/equipos/editar';
+                    var param   = $('#form-equipo').serialize();
+
+                    Metronic.showLoader();
+                    $.post(url, param, function(data, textStatus, xhr) {
                         if (data.exito) {
                             Metronic.removeLoader();
-                            alert("Equipo : "+data.equipo+" eliminado con éxito.");
-                            parent.location.reload();
-                            oTable.fnDeleteRow(nRow);
+                            modal.modal('hide');
+                            bootbox.alert(data.msg, function() {
+                                location.reload();
+                            });
                         } else {
-                            bootbox.alert('Error : '+data.msg);
-                            Metronic.removeLoader();
+                            bootbox.alert(data.msg, function() {
+                                modal.modal('show');
+                                Metronic.removeLoader();
+                            });
                         }
-                    }
-                });
-            }
-        });
-
-        //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
-        $("#btn_guardar_equipo").click(function () {
-            $.ajax({
-                url: "/actualizar/equipos/nuevo",
-                type: 'post',
-                cache: false,
-                dataType: 'json',
-                data: $("#form-nuevo-equipo").serialize(),
-                beforeSend: function () {
-                   Metronic.showLoader();
-                },
-                error: function(jqXHR, status, error) {
-                    console.log("ERROR: "+error);
-                    alert('ERROR: revisa la consola del navegador para más detalles.');
-                    Metronic.removeLoader();
-                },
-                success: function(data) {
-                    if (data.exito) {
-                        Metronic.removeLoader();
-                        alert("Equipo : "+data.equipo+" agregado con éxito.");
-                         parent.location.reload();
-                    } else {
-                        alert('Error : '+data.msg);
-                        Metronic.removeLoader();
-                    }
+                    });
                 }
             });
         });
-    //}
+
+        // Validaciones para nuevo cliente
+        var modal_nuevo = $('#nuevo_equipo_form');
+        modal_nuevo.on('shown.bs.modal', function (e) {
+
+            $('#memoria-ram').spinner();
+
+            var form = $('#form-equipo-nuevo');
+            var error = $('.alert-danger', form);
+            var success = $('.alert-success', form);
+
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: true, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    nombre_equipo: {
+                        maxlength: 30,
+                        required: true
+                    },
+                    sistema_operativo: {
+                        required: true
+                    },
+                    arquitectura: {
+                        required: true
+                    },
+                    maquina_virtual: {
+                        required: true
+                    },
+                    memoria_ram: {
+                        required: true
+                    },
+                    sql_server: {
+                    },
+                    sql_management: {
+                    },
+                    instancia_sql: {
+                    },
+                    password_sql: {
+                    },
+                    observaciones: {
+                    }
+                },
+                messages: {
+                    nombre_equipo: {
+                        maxlength: "El nombre debe tener menos de 80 caracteres.",
+                        required: "Escribe el nombre del PC."
+                    },
+                    sistema_operativo: {
+                        required: "Selecciona un sistema operativo."
+                    },
+                    arquitectura: {
+                        required: " "
+                    },
+                    maquina_virtual: {
+                        required:  " "
+                    },
+                    memoria_ram: {
+                        required: "Inidca la cantidad de memoria RAM del equipo."
+                    },
+                    sql_server: {
+                    },
+                    sql_management: {
+                    },
+                    instancia_sql: {
+                    },
+                    password_sql: {
+                    },
+                    observaciones: {
+                    }
+                },
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    error.fadeIn('slow');
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    $('#arquitectura-error').remove();
+                    $('#maquina_virtual-error').remove();
+                },
+                success: function (label) {
+                    label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+                submitHandler: function (form) {
+                    var url         = '/gestionar/equipos/nuevo';
+                    var param   = $('#form-equipo-nuevo').serialize();
+
+                    Metronic.showLoader();
+                    $.post(url, param, function(data, textStatus, xhr) {
+                        if (data.exito) {
+                            Metronic.removeLoader();
+                            modal_nuevo.modal('hide');
+                            bootbox.alert(data.msg, function() {
+                                location.reload();
+                            });
+                        } else {
+                            bootbox.alert(data.msg, function() {
+                                modal_nuevo.modal('show');
+                                Metronic.removeLoader();
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        //funcion para eliminar
+        $('.eliminar-equipo').on('click', function (e) {
+            //valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
+            var id_cliente  = $('#tabla_contactos').attr('id-cliente');
+            var Row         = $(this).parents('tr');
+            var id          = $(Row[0]).attr('id');
+            bootbox.confirm('<h4>¿Seguro que quieres eliminar este equipo?</h4>', function(response) {
+                if (response) {
+                    Metronic.showLoader();
+                    $.post('/gestionar/equipos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
+                        if (data.exito) {
+                            table.DataTable().row(Row).remove().draw();
+                        }
+                        bootbox.alert(data.msg, function () {
+                            Metronic.removeLoader();
+                        });
+                    }, 'json');
+                }
+            });
+        });
+    }
 
     return {
         //main function to initiate the module
@@ -608,10 +757,9 @@ var TableEditable = function () {
             bootbox.setDefaults({locale: "es"});
             handleInputMasks();
             handleVersionesSistema();
-
             handleContactos();
             handleSistemas();
-            //handleTableEquipos();
+            handleEquipoCom();
         }
     };
 
