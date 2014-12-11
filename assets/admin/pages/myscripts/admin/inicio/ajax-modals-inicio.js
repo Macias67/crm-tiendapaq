@@ -46,6 +46,7 @@ var UIExtendedModals = function () {
 					data: data,
 					beforeSend: function () {
 						$('#ajax-detalles-pendiente').fadeTo('slow', 0.1);
+						console.log(data);
 						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
@@ -54,14 +55,22 @@ var UIExtendedModals = function () {
 						alert('ERROR: revisa la consola del navegador para más detalles.');
 					},
 					success: function(data) {
+						console.log(data);
 						if (data.exito) {
 							if(ejecutivo_destino_text!=""){
 								bootbox.alert("<h4>Pendiente reasignado a : <b>"+data.ejecutivo_destino_text+"</b> con éxito.<h4>", function (){
+									Metronic.removeLoader();
 									parent.location.reload();
 								});
 							}else{
-								if(id_estatus!=undefined){
+								if(estatus_text!=""){
 									bootbox.alert("<h4>Pendiente cambiado a : <b>"+data.estatus+"</b> con éxito.<h4>", function () {
+										Metronic.removeLoader();
+										parent.location.reload();
+									});
+								}else{
+									bootbox.alert("<h4>Sin cambios.<h4>", function () {
+										Metronic.removeLoader();
 										parent.location.reload();
 									});
 								}
@@ -70,6 +79,7 @@ var UIExtendedModals = function () {
 							console.log("ERROR: "+data.msg);
 							error1.html(data.msg);
 							error1.show();
+							Metronic.removeLoader();
 							$('#ajax-detalles-pendiente').fadeTo(100, 1, function(){
 								Metronic.removeLoader();
 							});

@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Blank Page <small>blank page</small></h3>
+						<h3 class="page-title">Cotización - <small>Comprobar Pago</small></h3>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
 				</div>
@@ -18,23 +18,23 @@
 							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 							<div class="row fileupload-buttonbar">
 								<div class="col-lg-8">
-									<div class="btn-group btn-group-xs btn-group-solid">
+									<div class="btn-group btn-group btn-group-solid">
 										<!-- The fileinput-button span is used to style the file input field as button -->
-										<span class="btn green btn-circle btn-xs fileinput-button">
+										<span class="btn green btn-circle fileinput-button">
 											<i class="fa fa-plus"></i>
 											<span>Añadir archivos... </span>
 											<input type="file" name="files[]" multiple="">
 										</span>
-										<button type="submit" class="btn btn-circle blue btn-xs start">
+										<button type="submit" class="btn btn-circle blue start">
 											<i class="fa fa-upload"></i>
 											<span>Subir archivos </span>
 										</button>
-										<button type="reset" class="btn btn-circle warning btn-xs cancel">
+										<button type="reset" class="btn btn-circle warning cancel">
 											<i class="fa fa-ban-circle"></i>
 											<span>
 											Cancelar subida </span>
 										</button>
-										<button type="button" class="btn red btn-circle btn-xs delete">
+										<button type="button" class="btn red btn-circle delete">
 											<i class="fa fa-trash"></i>
 											<span>Borrar </span>
 										</button>

@@ -197,7 +197,6 @@ var FormValidationCliente = function () {
 						Metronic.removeLoader();
 					},
 					success: function(data) {
-						console.log(data);
 						if (data.exito) {
 							Metronic.removeLoader();
 							bootbox.alert("<h4>Información de <b>"+data.razon_social+"</b> actualizada con éxito.</h4>", function () {

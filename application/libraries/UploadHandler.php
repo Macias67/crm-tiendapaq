@@ -25,15 +25,15 @@ class UploadHandler
 		7						=> 'Failed to write file to disk',
 		8						=> 'A PHP extension stopped the file upload',
 		'post_max_size'		=> 'The uploaded file exceeds the post_max_size directive in php.ini',
-		'max_file_size'			=> 'File is too big',
-		'min_file_size'			=> 'File is too small',
+		'max_file_size'			=> 'Archivo demaciado grande',
+		'min_file_size'			=> 'Archivo demaciado pequeño',
 		'accept_file_types'		=> 'Tipo de archivo no permitido',
 		'max_number_of_files'	=> 'Máximo número de archivos permitidos exedido',
-		'max_width'			=> 'Image exceeds maximum width',
-		'min_width'				=> 'Image requires a minimum width',
-		'max_height'			=> 'Image exceeds maximum height',
-		'min_height'			=> 'Image requires a minimum height',
-		'abort'					=> 'File upload aborted',
+		'max_width'			=> 'Ancho de la imagen demaciado grande',
+		'min_width'				=> 'Ancho de la imagen demaciado pequeña',
+		'max_height'			=> 'Altura de la imagen demaciado grande',
+		'min_height'			=> 'Altura de la imagen demaciado pequeña',
+		'abort'					=> 'Subida detenida',
 		'image_resize'			=> 'Failed to resize image'
 	);
 

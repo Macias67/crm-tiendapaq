@@ -81,14 +81,14 @@ class Cotizacion extends AbstractAccess {
 			'max_number_of_files' 	=> 3,
 			'accept_file_types'		=> '/\.(gif|jpe?g|png|pdf)$/i',
 			'image_file_types'		=> '/\.(gif|jpe?g|png)$/i',
-			'min_width'				=> 1024,
-			'min_height'			=> 768,
+			'min_width'				=> 768,
+			'min_height'			=> 512,
 			'image_versions'	=> array(
 				'' => array(
 					'auto_orient'	=> true,
 					'crop' 			=> false,
-					'max_width'	=> 1024,
-					'max_height'	=> 768
+					'max_width'	=> 768,
+					'max_height'	=> 512
 				),
 				// 'medium' => array(
 				// 	'crop' 			=> true,

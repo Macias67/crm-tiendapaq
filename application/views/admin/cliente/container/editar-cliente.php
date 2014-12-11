@@ -545,8 +545,8 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-					<button type="submit" id="btn_guardar_contacto" class="btn green">Guardar</button>
+					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
+					<button type="submit" id="btn_guardar_contacto" class="btn btn-circle green">Guardar</button>
 				</div>
 			</form>
 		</div>
@@ -630,8 +630,8 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-					<button type="submit" id="btn_guardar_sistema" class="btn green">Guardar</button>
+					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
+					<button type="submit" id="btn_guardar_sistema" class="btn btn-circle green">Guardar</button>
 				</div>
 			</form>
 		</div>
@@ -820,8 +820,8 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
-					<button type="submit" id="btn_guardar_equipo" class="btn green">Guardar</button>
+					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
+					<button type="submit" id="btn_guardar_equipo" class="btn btn-circle green">Guardar</button>
 				</div>
 			</form>
 		</div>

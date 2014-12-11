@@ -118,19 +118,19 @@
 																		<td>
 																			<?php switch ($pendiente->id_estatus_general) {
 																				case 1:
-																					echo '<p class="btn btn-xs red"> Cancelado </p>';
+																					echo '<p class="btn btn-circle btn-circle btn-xs red"> Cancelado </p>';
 																				break;
 																				case 2:
-																					echo '<p class="btn btn-xs default"> Cerrado </p>';
+																					echo '<p class="btn btn-circle btn-xs default"> Cerrado </p>';
 																				break;
 																				case 3:
-																					echo '<p class="btn btn-xs green"> Pendiente </p>';
+																					echo '<p class="btn btn-circle btn-xs green"> Pendiente </p>';
 																				break;
 																				case 5:
-																					echo '<p class="btn btn-xs yellow"> En Proceso</p>';
+																					echo '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
 																				break;
 																				case 7:
-																					echo '<p class="btn btn-xs green"> Reasignado </p>';
+																					echo '<p class="btn btn-circle btn-xs green"> Reasignado </p>';
 																				break;
 																			} ?>
 																		</td>
