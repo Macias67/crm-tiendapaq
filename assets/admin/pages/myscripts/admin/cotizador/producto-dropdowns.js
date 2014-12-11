@@ -1,4 +1,4 @@
-var ProductoDropdowns	= function() {
+ var ProductoDropdowns	= function() {
 
 	var jsonProducto = '';
 
@@ -342,7 +342,7 @@ var ProductoDropdowns	= function() {
 					observacion = observacion.substring(0, 140)+'...';
 				}
 				// Cambio atributo del comentario para plugin popovers
-				$('tr#'+codigo+' td button.comments').attr('data-content', observacion);
+				$('tr#'+codigo+'.'+posicion+' td button.comments').attr('data-content', observacion);
 			});
 		});
 	}
