@@ -56,16 +56,16 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('actualizar/basica'); ?>"><i class="fa fa-user"></i> Información básica</a>
+								<a href="<?php echo site_url('gestionar/basica'); ?>"><i class="fa fa-user"></i> Información básica</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('actualizar/contactos'); ?>"><i class="fa fa-users"></i> Contactos</a>
+								<a href="<?php echo site_url('gestionar/contactos'); ?>"><i class="fa fa-users"></i> Contactos</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('actualizar/sistemas'); ?>"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
+								<a href="<?php echo site_url('gestionar/sistemas'); ?>"><i class="fa fa-info"></i> Sistemas <strong>CONTPAQi®</strong></a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('actualizar/equipos'); ?>"><i class="fa fa-desktop"></i> Equipos de cómputo</a>
+								<a href="<?php echo site_url('gestionar/equipos'); ?>"><i class="fa fa-desktop"></i> Equipos de cómputo</a>
 							</li>
 						</ul>
 					</li>

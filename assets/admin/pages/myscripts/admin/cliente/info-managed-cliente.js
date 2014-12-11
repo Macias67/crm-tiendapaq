@@ -83,6 +83,7 @@ var InfoManagedCliente = function() {
 		// Validaciones para editar cliente
 		var modal = $('#ajax_form_contacto');
 		modal.on('shown.bs.modal', function (e) {
+			maskTelefono();
 			var form = $('#form-contacto');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -540,7 +541,7 @@ var InfoManagedCliente = function() {
 						required: " "
 					},
 					maquina_virtual: {
-						required:  " "
+						required: " "
 					},
 					memoria_ram: {
 						required: "Inidca la cantidad de memoria RAM del equipo."
@@ -675,6 +676,8 @@ var InfoManagedCliente = function() {
 				unhighlight: function (element) { // revert the change done by hightlight
 					$(element)
 					.closest('.form-group').removeClass('has-error'); // set error class to the control group
+					$('#arquitectura-error').remove();
+					$('#maquina_virtual-error').remove();
 				},
 				success: function (label) {
 					label

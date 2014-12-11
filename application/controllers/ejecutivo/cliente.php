@@ -429,7 +429,7 @@ class Cliente extends AbstractAccess {
 					// Inserto en la BD
 					if($this->contactosModel->insert($contacto))
 					{
-						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo contacto añadido.</h4>');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Contacto <b>'.$contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].'</b> añadido.</h4>');
 					} else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
@@ -472,7 +472,7 @@ class Cliente extends AbstractAccess {
 					if($this->contactosModel->update($contacto, array('id' => $id)))
 					{
 						$id_cliente = $this->uri->segment(4);
-						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Contacto actualizado con éxito.</h4>');
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Contacto <b>'.$contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].'</b> actualizado con éxito.</h4>');
 					}else
 					{
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
@@ -521,31 +521,12 @@ class Cliente extends AbstractAccess {
 				if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
 				{
 					$this->data['contacto'] = $contacto;
-					$this->_vista_completa('modal-form-nuevo-cliente');
+					$this->_vista_completa('cliente/modal-form-editar-contacto');
 				} else
 				{
 					show_error('No existe este contacto.', 404);
 				}
 			break;
-		}
-	}
-
-	/**
-	 * VIsta de la modal con los
-	 * datos de un contacto lista para editar
-	 *
-	 * @return void
-	 * @author Luis Macias
-	 **/
-	public function contacto($id)
-	{
-		if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
-		{
-			$this->data['contacto'] = $contacto;
-			$this->_vista_completa('modal-form-nuevo-cliente');
-		} else
-		{
-			show_error('No existe este contacto.', 404);
 		}
 	}
 
@@ -608,7 +589,7 @@ class Cliente extends AbstractAccess {
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-	public function equipos($accion)
+	public function equipos($accion, $id=null)
 	{
 		switch ($accion)
 		{
@@ -724,85 +705,77 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
-		}
-	}
 
-	/**
-	 * VIsta de la modal con los
-	 * datos de un contacto lista para editar
-	 *
-	 * @return void
-	 * @author Luis Macias
-	 **/
-	public function equipo($id)
-	{
-		if ($equipo = $this->equiposComputoModel->get_where(array('id' => $id)))
-		{
-			$this->load->helper('form');
-			// Mando html select con valor seleccionado por default para SO
-			$sistemas_operativos	= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
-			$select = array();
-			foreach ($sistemas_operativos as $sistema) {
-				$select[$sistema->sistema_operativo] = $sistema->sistema_operativo;
-			}
-			// Radio button de arquitectura
-			$r64 = ($equipo->arquitectura == 'x64') ? TRUE : FALSE;
-			$r86 = ($equipo->arquitectura == 'x86') ? TRUE : FALSE;
-			$radio64 = array(
-					'name'		=> 'arquitectura',
-					'id'			=> 'arquitectura1',
-					'value'		=> 'x64',
-					'checked'	=> $r64);
+			case 'mostrar':
+				if ($equipo = $this->equiposComputoModel->get_where(array('id' => $id)))
+				{
+					$this->load->helper('form');
+					// Mando html select con valor seleccionado por default para SO
+					$sistemas_operativos	= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+					$select = array();
+					foreach ($sistemas_operativos as $sistema) {
+						$select[$sistema->sistema_operativo] = $sistema->sistema_operativo;
+					}
+					// Radio button de arquitectura
+					$r64 = ($equipo->arquitectura == 'x64') ? TRUE : FALSE;
+					$r86 = ($equipo->arquitectura == 'x86') ? TRUE : FALSE;
+					$radio64 = array(
+							'name'		=> 'arquitectura',
+							'id'			=> 'arquitectura1',
+							'value'		=> 'x64',
+							'checked'	=> $r64);
 
-			$radio86 = array(
-					'name'		=> 'arquitectura',
-					'id'			=> 'arquitectura2',
-					'value'		=> 'x86',
-					'checked'	=> $r86);
+					$radio86 = array(
+							'name'		=> 'arquitectura',
+							'id'			=> 'arquitectura2',
+							'value'		=> 'x86',
+							'checked'	=> $r86);
 
-			// Radio button de maquina virtual
-			$si = ($equipo->maquina_virtual == 'Si') ? TRUE : FALSE;
-			$radioMVsi = array(
-					'name'		=> 'maquina_virtual',
-					'id'			=> 'maquina_virtual1',
-					'value'		=> 'Si',
-					'checked'	=> $si);
+					// Radio button de maquina virtual
+					$si = ($equipo->maquina_virtual == 'Si') ? TRUE : FALSE;
+					$radioMVsi = array(
+							'name'		=> 'maquina_virtual',
+							'id'			=> 'maquina_virtual1',
+							'value'		=> 'Si',
+							'checked'	=> $si);
 
-			$radioMVno = array(
-					'name'		=> 'maquina_virtual',
-					'id'			=> 'maquina_virtual2',
-					'value'		=> 'No',
-					'checked'	=> !$si);
+					$radioMVno = array(
+							'name'		=> 'maquina_virtual',
+							'id'			=> 'maquina_virtual2',
+							'value'		=> 'No',
+							'checked'	=> !$si);
 
-			// Mando html select con valor seleccionado por default para SQL Server
-			$select_sqlServer = array(
-					'' => '',
-			              'SQL Server 2005'	=> 'SQL Server 2005',
-			              'SQL Server 2008 R2'=> 'SQL Server 2008 R2',
-			              'SQL Server 2012'	=> 'SQL Server 2012',
-			              'SQL Server 2014'	=> 'SQL Server 2014');
+					// Mando html select con valor seleccionado por default para SQL Server
+					$select_sqlServer = array(
+							'' => '',
+					              'SQL Server 2005'	=> 'SQL Server 2005',
+					              'SQL Server 2008 R2'=> 'SQL Server 2008 R2',
+					              'SQL Server 2012'	=> 'SQL Server 2012',
+					              'SQL Server 2014'	=> 'SQL Server 2014');
 
-			// Mando html select con valor seleccionado por default para SQL Server
-			$select_mgm = array(
-			              '' => '',
-			              '2005'		=> '2005',
-			              '2008 R2'	=> '2008 R2',
-			              '2012'		=> '2012',
-			              '2014'		=> '2014');
+					// Mando html select con valor seleccionado por default para SQL Server
+					$select_mgm = array(
+					              '' => '',
+					              '2005'		=> '2005',
+					              '2008 R2'	=> '2008 R2',
+					              '2012'		=> '2012',
+					              '2014'		=> '2014');
 
-			$this->data['equipo'] 	= $equipo;
-			$this->data['select_SO'] = form_dropdown('sistema_operativo', $select, $equipo->sistema_operativo, 'class="form-control"');
-			$this->data['radio64'] 	= form_radio($radio64);
-			$this->data['radio86'] 	= form_radio($radio86);
-			$this->data['radioSi'] 	= form_radio($radioMVsi);
-			$this->data['radioNo'] 	= form_radio($radioMVno);
-			$this->data['select_SQL'] 	= form_dropdown('sql_server', $select_sqlServer, $equipo->sql_server, 'class="form-control"');
-			$this->data['select_mgm'] 	= form_dropdown('sql_management', $select_mgm, $equipo->sql_management, 'class="form-control"');
+					$this->data['equipo'] 	= $equipo;
+					$this->data['select_SO'] = form_dropdown('sistema_operativo', $select, $equipo->sistema_operativo, 'class="form-control"');
+					$this->data['radio64'] 	= form_radio($radio64);
+					$this->data['radio86'] 	= form_radio($radio86);
+					$this->data['radioSi'] 	= form_radio($radioMVsi);
+					$this->data['radioNo'] 	= form_radio($radioMVno);
+					$this->data['select_SQL'] 	= form_dropdown('sql_server', $select_sqlServer, $equipo->sql_server, 'class="form-control"');
+					$this->data['select_mgm'] 	= form_dropdown('sql_management', $select_mgm, $equipo->sql_management, 'class="form-control"');
 
-			$this->_vista_completa('modal-form-nuevo-equipo');
-		} else
-		{
-			show_error('No existe este equipo de computo.', 404);
+					$this->_vista_completa('cliente/modal-form-nuevo-equipo');
+				} else
+				{
+					show_error('No existe este equipo de computo.', 404);
+				}
+			break;
 		}
 	}
 

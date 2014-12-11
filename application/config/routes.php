@@ -82,8 +82,8 @@ $route['producto/(:any)']	= $DIR_EJECUTIVO."producto/$1";
 // // Funciones del Gestor
 $route['gestor']			= $DIR_EJECUTIVO."gestor";
 $route['gestor/(:any)']		= $DIR_EJECUTIVO."gestor/$1";
-$route['actualizar']			= $DIR_CLIENTE."gestor";
-$route['actualizar/(:any)']	= $DIR_CLIENTE."gestor/$1";
+$route['gestionar']			= $DIR_CLIENTE."gestor";
+$route['gestionar/(:any)']	= $DIR_CLIENTE."gestor/$1";
 
 // Funciones para el manejor de cotiazacion del cliente
 $route['cotizacion']		= $DIR_CLIENTE."cotizacion";

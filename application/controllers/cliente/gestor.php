@@ -126,7 +126,7 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function contactos($accion=null)
+	public function contactos($accion=null, $id=null)
 	{
 		//se cargan los contactos del cliente y se manda a llamar la vista
 		$this->data['contactos_cliente']=$this->contactosModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
@@ -150,8 +150,8 @@ class Gestor extends AbstractAccess {
 					$contacto = array(
 						'id_cliente'				=> $this->data['usuario_activo']['id'],
 						'nombre_contacto'		=> $this->input->post('nombre_contacto'),
-						'apellido_paterno'		=> $this->input->post('apellido_paterno'),
-						'apellido_materno'		=> $this->input->post('apellido_materno'),
+						'apellido_paterno'	=> $this->input->post('apellido_paterno'),
+						'apellido_materno'	=> $this->input->post('apellido_materno'),
 						'email_contacto'		=> $this->input->post('email_contacto'),
 						'telefono_contacto'	=> $this->input->post('telefono_contacto'),
 						'puesto_contacto'		=> $this->input->post('puesto_contacto')
@@ -162,7 +162,7 @@ class Gestor extends AbstractAccess {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 					}else
 					{
-						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Contacto <b>'.$contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].'</b> añadido.</h4>');
 					}
 				}
 				//mando la repuesta
@@ -203,7 +203,7 @@ class Gestor extends AbstractAccess {
 						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
 					}else
 					{
-						$respuesta = array('exito' => TRUE, 'contacto' => $contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].' '.$contacto['apellido_materno']);
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Contacto <b>'.$contacto['nombre_contacto'].' '.$contacto['apellido_paterno'].'</b> actualizado con éxito.</h4>');
 					}
 				}
 				//mando la repuesta
@@ -236,6 +236,17 @@ class Gestor extends AbstractAccess {
 				$this->output
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
+			break;
+
+			case 'mostrar':
+				if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
+				{
+					$this->data['contacto'] = $contacto;
+					$this->_vista_completa('cliente/modal-form-editar-contacto');
+				} else
+				{
+					show_error('No existe este contacto.', 404);
+				}
 			break;
 
 			default:
