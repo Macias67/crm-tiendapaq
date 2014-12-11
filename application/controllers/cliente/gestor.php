@@ -213,29 +213,34 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-	 		  //se eliminara con el id, la ciudad y estado es colo para mostrar que oficina se borro mas esteticamente
-	 			$id = $this->input->post('id');
-	 			$nombre_contacto = $this->input->post('nombre_contacto');
-	 			$apellido_paterno = $this->input->post('apellido_paterno');
-	 			$apellido_materno = $this->input->post('apellido_materno');
+				$id					= $this->input->post('id'); // ID de la empresa
+				$id_cliente			= $this->input->post('id_cliente'); // ID del cliente
+				$total_contactos	= count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
 
-	 			$cont=count($this->contactosModel->get_where(array('id_cliente' => $this->data['usuario_activo']['id'])));
-	 			if($cont==1){
-	 				$respuesta = array('exito' => FALSE, 'msg' => 'No se puede eliminar, necesitas almenos un contacto');
-	 			}else{
-	 				if (!$this->contactosModel->delete(array('id' => $id)))
-					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
-					}else
-					{
-						$respuesta = array('exito' => TRUE, 'contacto' => $nombre_contacto.' '.$apellido_paterno.' '.$apellido_materno);
-					}
+				// Tambien verificar que no este contemplado en una cotizacion si no NO podra eliminarse
+	 			if($total_contactos == 1)
+	 			{
+	 				$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se puede eliminar, necesitas almenos un contacto.</h4>');
+	 			} else
+	 			{
+	 				//IF PARA REVISAR QUE EL CONTACTO SI ESTA RELACIONADO CON ALGUNA COTIZACION NO SE PUEDA ELIMINAR
+	 				//$this->load->model('cotizacionModel');
+	 				//if(count($this->cotizacionModel->get(array('*'), array('')))!=0){
+
+	 				//}else{
+	 					if ($this->contactosModel->delete(array('id' => $id)))
+						{
+							$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se eliminó el contacto con éxito.</h4>');
+						} else {
+							$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+						}
+	 				//}
 	 			}
 
 	      			//mando la repuesta
 				$this->output
-					 ->set_content_type('application/json')
-					 ->set_output(json_encode($respuesta));
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
 			break;
 
 			case 'mostrar':
@@ -283,6 +288,7 @@ class Gestor extends AbstractAccess {
 				->set_content_type('application/json')
 				->set_output(json_encode($respuesta));
 			break;
+
 			case 'nuevo':
 				//datos a insertar obtenidos del formulario
 				$sistema_cliente = array(
@@ -295,16 +301,12 @@ class Gestor extends AbstractAccess {
 				if(!$this->sistemasClienteModel->insert($sistema_cliente)){
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
 				}else{
-					$respuesta = array('exito' => TRUE, 'sistema' => $sistema_cliente['sistema'].' versión '.$sistema_cliente['version']);
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4><b>'.$sistema_cliente['sistema'].'</b> versión <b>'.$sistema_cliente['version'].'</b> añadido con éxito.</h4>');
 				}
 
 				$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($respuesta));
-			break;
-
-			case 'editar':
-				# code.
 			break;
 
 			case 'eliminar':
@@ -316,7 +318,7 @@ class Gestor extends AbstractAccess {
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 				}else
 				{
-					$respuesta = array('exito' => TRUE, 'sistema' => $sistema.' versión '.$version);
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Sistema eliminado con éxito</h4>');
 				}
 
 				$this->output
@@ -326,7 +328,6 @@ class Gestor extends AbstractAccess {
 
 			default:
 				$this->_vista("sistemas_contpaqi");
-				//var_dump($this->data);
 			break;
 		}
 	}

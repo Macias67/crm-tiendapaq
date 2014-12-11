@@ -321,10 +321,10 @@ var InfoManagedCliente = function() {
 				{ "orderable": false }
 			],
 			"language": {
-				"emptyTable" : 		"No hay contactos registrados",
-				"info" : 				"Mostrando _START_ a _END_ de _TOTAL_ contactos",
-				"infoEmpty" : 		"Mostrando 0 a 0 de 0 contactos",
-				"infoFiltered" : 		"(de un total de _MAX_ contactos registrados)",
+				"emptyTable" : 		"No hay sistemas registrados",
+				"info" : 				"Mostrando _START_ a _END_ de _TOTAL_ sistemas",
+				"infoEmpty" : 		"Mostrando 0 a 0 de 0 sistemas",
+				"infoFiltered" : 		"(de un total de _MAX_ sistemas registrados)",
 				"infoPostFix" : 		"",
 				"thousands" : 		",",
 				"lengthMenu" : 	"Show _MENU_ entries",
@@ -368,7 +368,7 @@ var InfoManagedCliente = function() {
 						required: true,
 					},
 					no_serie: {
-						//maxlength: 20
+						maxlength: 20
 					}
 				},
 				messages: {
@@ -379,7 +379,7 @@ var InfoManagedCliente = function() {
 						required: "Selecciona una versión del sistema."
 					},
 					no_serie: {
-						//maxlength: "Solo debe haber 20 caracteres"
+						maxlength: "No. de Serie debe tener menos de 20 caracteres"
 					}
 				},
 				invalidHandler: function (event, validator) { //display error alert on form submit
@@ -458,10 +458,10 @@ var InfoManagedCliente = function() {
 				{ "orderable": false }
 			],
 			"language": {
-				"emptyTable" : 		"No hay contactos registrados",
-				"info" : 				"Mostrando _START_ a _END_ de _TOTAL_ contactos",
-				"infoEmpty" : 		"Mostrando 0 a 0 de 0 contactos",
-				"infoFiltered" : 		"(de un total de _MAX_ contactos registrados)",
+				"emptyTable" : 		"No hay equipos registrados",
+				"info" : 				"Mostrando _START_ a _END_ de _TOTAL_ equipos",
+				"infoEmpty" : 		"Mostrando 0 a 0 de 0 equipos",
+				"infoFiltered" : 		"(de un total de _MAX_ equipos registrados)",
 				"infoPostFix" : 		"",
 				"thousands" : 		",",
 				"lengthMenu" : 	"Show _MENU_ entries",

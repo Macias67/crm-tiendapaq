@@ -78,12 +78,12 @@ var TableEditable = function () {
             ],
             "language": {
                 "emptyTable" :      "No hay contactos registrados",
-                "info" :                "Mostrando _START_ a _END_ de _TOTAL_ contactos",
+                "info" :            "Mostrando _START_ a _END_ de _TOTAL_ contactos",
                 "infoEmpty" :       "Mostrando 0 a 0 de 0 contactos",
-                "infoFiltered" :        "(de un total de _MAX_ contactos registrados)",
-                "infoPostFix" :         "",
+                "infoFiltered" :    "(de un total de _MAX_ contactos registrados)",
+                "infoPostFix" :     "",
                 "thousands" :       ",",
-                "lengthMenu" :  "Show _MENU_ entries",
+                "lengthMenu" :      "Show _MENU_ entries",
                 "loadingRecords" :  "Cargando...",
                 "processing" :      "Procesando...",
                 "search" :          "Buscar: ",
@@ -169,7 +169,6 @@ var TableEditable = function () {
                     }
                 },
                 invalidHandler: function (event, validator) { //display error alert on form submit
-                    console.log("hola kokin");
                     error.fadeIn('slow');
                 },
                 highlight: function (element) { // hightlight error inputs
@@ -319,7 +318,7 @@ var TableEditable = function () {
             bootbox.confirm('<h4>¿Seguro que quieres eliminar este contacto?</h4>', function(response) {
                 if (response) {
                     Metronic.showLoader();
-                    $.post('/cliente/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
+                    $.post('/gestionar/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
                         if (data.exito) {
                             table.DataTable().row(Row).remove().draw();
                         }
@@ -332,23 +331,11 @@ var TableEditable = function () {
         });
     }
 
-    //Tabla de gestion sistemas contpaqi del cliente
-    var handleTableSistemas= function () {
-
-        function restoreRow(oTable, nRow) {
-            var aData = oTable.fnGetData(nRow);
-            var jqTds = $('>td', nRow);
-
-            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-                oTable.fnUpdate(aData[i], nRow, i, false);
-            }
-            oTable.fnDraw();
-        }
-
+    var handleSistemas = function() {
         var table = $('#tabla_sistemas_cliente');
 
-        var oTable = table.dataTable({
-            "pageLength": 20,
+        table.dataTable({
+            "pageLength": 5,
             "lengthChange": false,
             "columns": [
                 { "orderable": true },
@@ -357,121 +344,128 @@ var TableEditable = function () {
                 { "orderable": false }
             ],
             "language": {
-                "emptyTable":     "No hay sistemas registrados",
-                "info":           "Mostrando _START_ a _END_ de _TOTAL_ sistemas",
-                "infoEmpty":      "Mostrando 0 a 0 de 0 sistemas",
-                "infoFiltered":   "(de un total de _MAX_ sistemas registrados)",
-                "infoPostFix":    "",
-                "thousands":      ",",
-                "lengthMenu":     "Show _MENU_ entries",
-                "loadingRecords": "Cargando...",
-                "processing":     "Procesando...",
-                "search":         "Buscar: ",
-                "zeroRecords":    "No se encontraron coincidencias",
-                "lengthMenu": "_MENU_ registros"
+                "emptyTable" :      "No hay sistemas registrados",
+                "info" :            "Mostrando _START_ a _END_ de _TOTAL_ sistemas",
+                "infoEmpty" :       "Mostrando 0 a 0 de 0 sistemas",
+                "infoFiltered" :    "(de un total de _MAX_ sistemas registrados)",
+                "infoPostFix" :     "",
+                "thousands" :       ",",
+                "lengthMenu" :      "Show _MENU_ entries",
+                "loadingRecords" :  "Cargando...",
+                "processing" :      "Procesando...",
+                "search" :          "Buscar: ",
+                "zeroRecords" :     "No se encontraron coincidencias",
+                "lengthMenu" :      "_MENU_ registros"
             },
             "columnDefs": [
                 { // set default column settings
-                'orderable': true,
-                'targets': [0]
+                    'orderable': true,
+                    'targets': [0]
                 },
                 {
-                "searchable": true,
-                "targets": [0]
+                    "searchable": true,
+                    "targets": [0]
                 }
             ],
-            "order": [ 0, 'asc' ] // set first column as a default sort by asc
+            "order": [0, 'asc' ] // set first column as a default sort by asc
         });
 
-        var tableWrapper = $("#tabla_sistemas_cliente_wrapper");
+        // Validaciones para nuevo sistema
+        var modal_nuevo = $('#nuevo_sistema_form');
+        modal_nuevo.on('shown.bs.modal', function (e) {
+            var form = $('#form-sistema-nuevo');
+            var error = $('.alert-danger', form);
+            var success = $('.alert-success', form);
+            handleVersionesSistema();
 
-        tableWrapper.find(".dataTables_length select").select2({
-            showSearchInput: false //hide search box with special css class
-        }); // initialize select2 dropdown
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: true, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    sistema: {
+                        required: true
+                    },
+                    version: {
+                        required: true,
+                    },
+                    no_serie: {
+                        maxlength: 20
+                    }
+                },
+                messages: {
+                    sistema: {
+                        required: "Seleccione un sistema."
+                    },
+                    version: {
+                        required: "Selecciona una versión del sistema."
+                    },
+                    no_serie: {
+                        maxlength: "No. de Serie debe tener menos de 20 caracteres"
+                    }
+                },
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    error.fadeIn('slow');
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+                success: function (label) {
+                    label
+                    .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+                submitHandler: function (form) {
+                    var url         = '/gestionar/sistemas/nuevo';
+                    var param   = $('#form-sistema-nuevo').serialize();
+                    Metronic.showLoader();
+                    $.post(url, param, function(data, textStatus, xhr) {
+                        if (data.exito) {
+                            Metronic.removeLoader();
+                            modal_nuevo.modal('hide');
+                            bootbox.alert(data.msg, function() {
+                                location.reload();
+                            });
+                        } else {
+                            bootbox.alert(data.msg, function() {
+                                modal_nuevo.modal('show');
+                                Metronic.removeLoader();
+                            });
+                        }
+                    });
+                }
+            });
+        });
 
         //funcion para eliminar
-        table.on('click', '.delete', function (e) {
-            e.preventDefault();
-
+        $('.eliminar-sistema').on('click', function (e) {
             //valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
-            var nRow = $(this).parents('tr')[0];
-            var aData = oTable.fnGetData(nRow);
-            var id = $(nRow).attr('id');
-
-            if(confirm("¿Seguro que quieres eliminar el sistema "+aData[0]+" Versión "+aData[1]+" ?") == false){
-                return;
-            }else{
-                //ajax para borrar
-                $.ajax({
-                    url: "/actualizar/sistemas/eliminar",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "id="+id+"&sistema="+aData[0]+"&version="+aData[1],
-                    beforeSend: function () {
-                        Metronic.showLoader();
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        Metronic.removeLoader();
-                    },
-                    success: function(data) {
+            var id_cliente  = $('#tabla_contactos').attr('id-cliente');
+            var Row         = $(this).parents('tr');
+            var id          = $(Row[0]).attr('id');
+            bootbox.confirm('<h4>¿Seguro que quieres eliminar este sistema?</h4>', function(response) {
+                if (response) {
+                    Metronic.showLoader();
+                    $.post('/gestionar/sistemas/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
                         if (data.exito) {
-                            Metronic.removeLoader();
-                            alert("Sistema : "+data.sistema+" eliminado con éxito.");
-                            parent.location.reload();
-                            oTable.fnDeleteRow(nRow);
-                        } else {
-                            alert('Error : '+data.msg);
-                            Metronic.removeLoader();
+                            table.DataTable().row(Row).remove().draw();
                         }
-                    }
-                });
-            }
-        });
-
-        //METODO PARA GUARDAR UN NUEVO SISTEMA A UN CLIENTE
-        $("#btn_guardar_sistema").click(function () {
-            var sistema = $("#select_sistemas").val();
-            var version = $("#select_versiones").val();
-            var no_serie = $("#no_serie").val();
-
-            if(sistema!="" && version!="")
-            {
-                $.ajax({
-                    url: "/actualizar/sistemas/nuevo",
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: "sistema="+sistema+"&version="+version+"&no_serie="+no_serie,
-                    beforeSend: function () {
-                        Metronic.showLoader();
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        Metronic.removeLoader();
-                    },
-                    success: function(data) {
-                        if (data.exito) {
+                        bootbox.alert(data.msg, function () {
                             Metronic.removeLoader();
-                            alert("Sistema : "+data.sistema+" agregado con éxito.");
-                            parent.location.reload();
-                        } else {
-                            alert('Error : '+data.msg);
-                            Metronic.removeLoader();
-                        }
-                    }
-                });
-            }else{
-                alert("Debes completar el formulario");
-            }
+                        });
+                    }, 'json');
+                }
+            });
         });
     }
 
     //Tabla de gestion de Equipos de computo en modo cliente
-    var handleTableEquipos= function () {
+    //var handleTableEquipos= function () {
 
         $('#memoria-ram').spinner();
 
@@ -606,7 +600,7 @@ var TableEditable = function () {
                 }
             });
         });
-    }
+    //}
 
     return {
         //main function to initiate the module
@@ -616,8 +610,8 @@ var TableEditable = function () {
             handleVersionesSistema();
 
             handleContactos();
-            handleTableSistemas();
-            handleTableEquipos();
+            handleSistemas();
+            //handleTableEquipos();
         }
     };
 
