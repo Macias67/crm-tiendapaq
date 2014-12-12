@@ -576,10 +576,6 @@ class Gestor extends AbstractAccess {
 				'estado'		=> $this->input->post('estado')
 			);
 
-			if($cliente['pais'] == "Estados Unidos") {
-				$cliente['estado'] = "";
-			}
-
 			$id = $this->data['usuario_activo']['id'];
 			//inserto en la bd
 			if(!$this->clienteModel->update($cliente, array('id' => $id))) {

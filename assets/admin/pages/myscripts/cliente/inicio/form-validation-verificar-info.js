@@ -129,6 +129,7 @@ var FormValidation = function () {
                 submitHandler: function (form) {
                      var url     = '/gestionar/verificarinfo';
                      var param   = $('#form-verificar-datos').serialize();
+                     console.log('id de la cotizacion es ')
 
                     Metronic.showLoader();
                     $.post(url, param, function(data, textStatus, xhr) {

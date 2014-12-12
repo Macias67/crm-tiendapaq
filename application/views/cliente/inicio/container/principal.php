@@ -142,6 +142,7 @@
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-asterisk"></i>
+											<input type="hidden" name="id_cliente"  value="<?php echo $usuario_activo['id'] ?>">
 											<input type="text" class="form-control" placeholder="Razón Social" name="razon_social" value="<?php echo $usuario_activo['razon_social'] ?>">
 										</div>
 									</div>
