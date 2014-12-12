@@ -32,10 +32,15 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modalmanager.js"></script>
-	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-modal/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2_locale_es.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>gritter/js/jquery.gritter.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>canvasloader-min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -43,6 +48,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-verificar-info') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -50,6 +56,7 @@
 			QuickSidebar.init() // init quick sidebar
 			// Myscript
 			TableManaged.init();
+			FormValidation.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
