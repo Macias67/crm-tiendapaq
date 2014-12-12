@@ -112,6 +112,7 @@ var FormValidation = function () {
                 },
                 invalidHandler: function (event, validator) { //display error alert on form submit
                     error.fadeIn('slow');
+                    $('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
                 },
                 highlight: function (element) { // hightlight error inputs
                     $(element)
@@ -126,26 +127,27 @@ var FormValidation = function () {
                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
                 },
                 submitHandler: function (form) {
-                    //enviar formulario a controlador y redireccionar al comprobante de pago
-                    alert("Formulario enviado");
-                    // var url     = '/gestionar/contactos/nuevo';
-                    // var param   = $('#form-verificar-datos').serialize();
+                     var url     = '/gestionar/verificarinfo';
+                     var param   = $('#form-verificar-datos').serialize();
 
-                    // Metronic.showLoader();
-                    // $.post(url, param, function(data, textStatus, xhr) {
-                    //     if (data.exito) {
-                    //         Metronic.removeLoader();
-                    //         modal_nuevo.modal('hide');
-                    //         bootbox.alert(data.msg, function() {
-                    //             location.reload();
-                    //         });
-                    //     } else {
-                    //         Metronic.removeLoader();
-                    //         bootbox.alert(data.msg, function() {
-                    //             modal_nuevo.modal('show');
-                    //         });
-                    //     }
-                    // });
+                    Metronic.showLoader();
+                    $.post(url, param, function(data, textStatus, xhr) {
+                        if (data.exito) {
+                            Metronic.removeLoader();
+                            verificarInfo.modal('hide');
+                            bootbox.alert(data.msg, function() {
+                                //location.reload();
+                                //redireccionar a formulario para subir comprobantes de pago
+                            });
+                        } else {
+                            Metronic.removeLoader();
+                            error.html(data.msg);
+                            error.show();
+                            $('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
+                            Metronic.removeLoader();
+                            verificarInfo.modal('show');
+                        }
+                    });
                 }
             });
         });

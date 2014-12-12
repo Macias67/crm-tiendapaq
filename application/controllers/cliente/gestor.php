@@ -535,6 +535,74 @@ class Gestor extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * Funcion para verificar la informacion de los clientes
+	 *
+	 * @return void
+	 * @author Diego
+	 **/
+	public function verificarinfo()
+	{
+		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
+		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
+		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
+		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('estado', 'Estado', 'trim|xss_clean');
+
+		$this->form_validation->set_error_delimiters('','');
+
+		if($this->form_validation->run() === FALSE)
+		{
+			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+		} else
+		{
+			//si las reglas son correctas preparo los datos para insertar
+			$cliente = array(
+				//Datos basicos
+				'razon_social'	=> $this->input->post('razon_social'),
+				'rfc'			=> $this->input->post('rfc'),
+				'email'			=> $this->input->post('email'),
+				'telefono1'		=> $this->input->post('telefono1'),
+				'calle'			=> $this->input->post('calle'),
+				'no_exterior'	=> $this->input->post('no_exterior'),
+				'colonia'		=> $this->input->post('colonia'),
+				'codigo_postal'	=> $this->input->post('codigo_postal'),
+				'ciudad'			=> $this->input->post('ciudad'),
+				'estado'		=> $this->input->post('estado')
+			);
+
+			if($cliente['pais'] == "Estados Unidos") {
+				$cliente['estado'] = "";
+			}
+
+			$id = $this->data['usuario_activo']['id'];
+			//inserto en la bd
+			if(!$this->clienteModel->update($cliente, array('id' => $id))) {
+				$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
+			} else {
+				//actualizo la variable usuario_activo con los nuevos datos
+				$cliente_actualizado = $this->clienteModel->get_where(array('id' => $id));
+				$cliente_actualizado = (array)$cliente_actualizado;
+				//se vuelve a añadir la variable con la ruta de las imagenes ya que no viene desde la bd
+				$cliente_actualizado['ruta_imagenes'] = site_url('assets/admin/pages/media/profile/cliente').'/';
+				$cliente_actualizado['privilegios'] = 'cliente';
+				$this->session->set_userdata('usuario_activo', $cliente_actualizado);
+
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Cliente '.$cliente['razon_social'].' actualizado.</h4>');
+			}
+		}
+
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| CALLBACKS
