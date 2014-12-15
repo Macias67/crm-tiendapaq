@@ -45,17 +45,17 @@
 								<!-- Catálogo de Clientes -->
 								<a href="<?php echo site_url('cliente/gestionar') ?>" class="icon-btn">
 									<i class="fa fa-search"></i>
-									<div>Catálogo de Clientes</div>
+									<div>&nbsp;&nbsp;Catálogo de Clientes&nbsp;&nbsp;</div>
 								</a>
 								<!-- Todos Mis Pendientes -->
 								<a href="<?php echo site_url('perfil') ?>" class="icon-btn">
 									<i class="fa fa-list"></i>
-									<div>Todos Mis Pendientes</div>
+									<div>&nbsp;&nbsp;Todos Mis Pendientes&nbsp;&nbsp;</div>
 								</a>
 								<!-- Cotizaciones -->
 								<a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
 									<i class="fa fa-dollar"></i>
-									<div>Pagos por revisar</div>
+									<div>&nbsp;&nbsp;Pagos por revisar&nbsp;&nbsp;</div>
 									<?php if ($cotizaciones_revision!=0): ?>
 										<span class="badge badge-danger">
 											<?php echo $cotizaciones_revision ?>
@@ -66,7 +66,7 @@
 								<?php if($asignador_casos=="si"): ?>
 									<a href="<?php echo site_url('caso') ?>" class="icon-btn">
 										<i class="fa fa-folder-open"></i>
-										<div>Casos por Asignar</div>
+										<div>&nbsp;&nbsp;Casos por Asignar&nbsp;&nbsp;</div>
 										<?php if ($casos_asignar!=0): ?>
 											<span class="badge badge-danger">
 												<?php echo $casos_asignar ?>

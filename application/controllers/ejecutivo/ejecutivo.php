@@ -98,6 +98,18 @@ class Ejecutivo extends AbstractAccess {
 						if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id))
 						    && !$this->casoModel->exist(array('id_lider' => $id))) {
 							if($this->ejecutivoModel->delete(array('id' => $id))) {
+								// Liberia para eliminar la carpeta correspondiente
+								$this->load->helper('directory');
+								$dir = './assets/admin/pages/media/profile/'.$id.'/';
+								$files_avatar = directory_map($dir);
+								$c = count($files_avatar);
+								// Si hay archivos, elmino uno por uno
+								if ($c > 0) {
+									for ($i=0; $i < $c; $i++) {
+										unlink($dir.$files_avatar[$i]);
+									}
+								}
+								rmdir($dir);
 								$response = array('exito' => TRUE, 'msg' => '<h4>El ejecutivo se eleminó del sistema.<h4>');
 							}
 						} else {
@@ -182,9 +194,22 @@ class Ejecutivo extends AbstractAccess {
 		{
 			//armo la ruta completa donde se guardaran las imagenes y creo el directorio
 			$id_nuevo			= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
-			$ruta				= 'assets/admin/pages/media/profile/';
+			$ruta				= './assets/admin/pages/media/profile/';
 			$ruta_completa	= $ruta.$id_nuevo->id.'/';
 			mkdir($ruta_completa, 0777, TRUE);
+
+			// Añado fotos de prueba
+			// Liberia para eliminar la carpeta correspondiente
+			$this->load->helper('directory');
+			$dir = './assets/admin/pages/media/profile/cliente/';
+			$files_avatar = directory_map($dir);
+			$c = count($files_avatar);
+			// Si hay archivos, elmino uno por uno
+			if ($c > 0) {
+				for ($i=0; $i < $c; $i++) {
+					copy($dir.$files_avatar[$i], $ruta_completa.$files_avatar[$i]);
+				}
+			}
 
 			//reglas para crear la imagen de bloqueo de perfil
 			$config_perfil['image_library']	= 'gd2';
