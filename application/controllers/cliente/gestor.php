@@ -29,12 +29,9 @@ class Gestor extends AbstractAccess {
 	 * @return void
 	 * @author Diego
 	 **/
-	public function basica($accion=null)
+	public function basica($accion=null,$folio=null)
 	{
 		switch ($accion) {
-			case 'nuevo':
-				# code...
-			break;
 			case 'editar':
 				//Datos basicos
 				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
@@ -111,12 +108,12 @@ class Gestor extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
-			case 'eliminar':
-				# code...
+			case 'verificar':
+				$this->data['folio_cotizacion']=$folio;
+				$this->_vista_completa('inicio/form-verificar-datos');
 			break;
 			default:
 				$this->_vista("informacion_basica");
-				//var_dump($this->data);
 			break;
 		}
 	}

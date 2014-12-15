@@ -19,7 +19,7 @@ var FormValidation = function () {
 
     var handleInfo = function() {
         // Validaciones para nuevo cliente
-        var verificarInfo = $('#verificar-info');
+        var verificarInfo = $('#ajax-verificar-info');
         verificarInfo.on('shown.bs.modal', function (e) {
             handleInputMasks();
             var form = $('#form-verificar-datos');
@@ -127,9 +127,11 @@ var FormValidation = function () {
                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
                 },
                 submitHandler: function (form) {
-                     var url     = '/gestionar/verificarinfo';
-                     var param   = $('#form-verificar-datos').serialize();
-                     console.log('id de la cotizacion es ')
+                    var folio = $('#folio_cotizacion').val();
+                    console.log('folio: '+folio);
+                    var url_redireccion = "http://www.crm-tiendapaq.com/cotizacion/comprobante/"+folio;
+                    var url     = '/gestionar/verificarinfo';
+                    var param   = $('#form-verificar-datos').serialize();
 
                     Metronic.showLoader();
                     $.post(url, param, function(data, textStatus, xhr) {
@@ -137,8 +139,7 @@ var FormValidation = function () {
                             Metronic.removeLoader();
                             verificarInfo.modal('hide');
                             bootbox.alert(data.msg, function() {
-                                //location.reload();
-                                //redireccionar a formulario para subir comprobantes de pago
+                                window.location.href = url_redireccion;
                             });
                         } else {
                             Metronic.removeLoader();
