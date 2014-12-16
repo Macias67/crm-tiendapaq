@@ -102,7 +102,7 @@
 				<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
 			</div>
 			<div class="col-md-4 col-sm-4">
-				<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
+				<!-- BEGIN VIDEO TUTORIAL PORTLET-->
 				<div class="portlet gren">
 					<div class="portlet-title">
 						<div class="caption"><i class="fa fa-user"></i> Tutorial</div>
@@ -115,7 +115,7 @@
 						<iframe width="100%" height="270px" src="//www.youtube.com/embed/FqPPZlVCvOQ" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
-				<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
+				<!-- END VIDEO TUTORIAL PORTLET-->
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->

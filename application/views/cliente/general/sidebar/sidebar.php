@@ -44,7 +44,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="javascript:;">
+						<a href="#">
 							<i class="fa fa-folder-open-o"></i><span class="title"> Mis Casos</span>
 						</a>
 					</li>
@@ -68,6 +68,11 @@
 								<a href="<?php echo site_url('gestionar/equipos'); ?>"><i class="fa fa-desktop"></i> Equipos de cómputo</a>
 							</li>
 						</ul>
+					</li>
+					<li>
+						<a href="<?php echo site_url('videoturoriales') ?>">
+							<i class="fa fa-video-camera"></i><span class="title"> Videoturoriales</span>
+						</a>
 					</li>
 				</ul>
 				<!-- END SIDEBAR MENU -->

@@ -55,6 +55,7 @@ class CotizacionModel extends MY_Model {
 		$where = "id_cliente =".$id_cliente;
 		//$this->db->where(array('id_cliente' => $id_cliente, $this->table.'.id_estatus_cotizacion' => $id_estatus));
 		$this->db->where($where);
+		$this->db->order_by("fecha ASC");
 		$query = $this->db->get($this->table);
 		return $query->result();
 	}

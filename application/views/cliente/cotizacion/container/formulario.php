@@ -77,6 +77,20 @@
 								</ul>
 							</div>
 						</div>
+						<!-- BEGIN VIDEO TUTORIAL PORTLET-->
+						<div class="portlet gren">
+							<div class="portlet-title">
+								<div class="caption"><i class="fa fa-user"></i> Tutorial</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse">
+									</a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<iframe width="100%" height="270px" src="//www.youtube.com/embed/FqPPZlVCvOQ" frameborder="0" allowfullscreen></iframe>
+							</div>
+						</div>
+						<!-- END VIDEO TUTORIAL PORTLET-->
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
