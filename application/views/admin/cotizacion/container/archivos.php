@@ -32,6 +32,8 @@
 										<input type="radio" name="valoracion" id="valoracion1" value="aceptado"> Aceptado </label>
 										<label class="radio-inline">
 										<input type="radio" name="valoracion" id="valoracion2" value="irregular"> Irregular </label>
+										<label class="radio-inline">
+										<input type="radio" name="valoracion" id="valoracion3" value="parcial"> Parcial </label>
 									</div>
 								</div>
 								<div class="form-group">

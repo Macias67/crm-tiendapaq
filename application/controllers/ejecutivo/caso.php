@@ -4,11 +4,17 @@ class Caso extends AbstractAccess {
 
 	public function index()
 	{
-		$this->load->model('casoModel');
+		$this->load->model('ejecutivoModel');
+		$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'),array('id' => $this->data['usuario_activo']['id']));
+		if($asignador_casos[0]->asignador_casos=="si"){
+			$this->load->model('casoModel');
 
-		$campos = array('*');
-		$this->data['casos_asignacion'] = $this->casoModel->get_casos_asignacion($campos);
-		$this->_vista('caso');
+			$campos = array('*');
+			$this->data['casos_asignacion'] = $this->casoModel->get_casos_asignacion($campos);
+			$this->_vista('caso');
+		}else{
+			show_404();
+		}
 	}
 
 }

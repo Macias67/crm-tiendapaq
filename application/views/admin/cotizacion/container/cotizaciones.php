@@ -27,9 +27,8 @@
 										<th>Folio</th>
 										<th>Cliente</th>
 										<th>Ejecutivo</th>
-										<th>Fecha</th>
+										<th>Fecha de creación</th>
 										<th>Vigencia</th>
-										<th>Estatus</th>
 										<th></th>
 									</tr>
 								</thead>
@@ -39,10 +38,9 @@
 											<td><?php echo $cotizacion->folio ?></td>
 											<td><?php echo $cotizacion->razon_social ?></td>
 											<td><?php echo $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno ?></td>
-											<td><?php echo $cotizacion->fecha ?></td>
-											<td><?php echo $cotizacion->vigencia ?></td>
-											<td><?php echo $cotizacion->id_estatus_cotizacion ?></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('cotizaciones/revision/'.$cotizacion->folio) ?>"> Detalles </a></td>
+											<td><?php echo fecha_completa($cotizacion->fecha) ?></td>
+											<td><?php echo fecha_completa($cotizacion->vigencia) ?></td>
+											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('cotizaciones/revision/'.$cotizacion->folio) ?>"><i class="fa fa-search"></i> Detalles </a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

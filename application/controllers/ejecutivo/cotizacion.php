@@ -20,6 +20,7 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function index()
 	{
+		$this->load->helper('formatofechas_helper');
 		$this->data['cotizaciones_revision'] = $this->cotizacionModel->get_cotizacion_revision(
 			array(
 				'cotizacion.folio',
@@ -63,7 +64,7 @@ class Cotizacion extends AbstractAccess {
 		$comentarios = $this->input->post('comentarios');
 
 		$this->load->model('estatusCotizacionModel');
-		$response = FALSE;
+		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
 
 		if ($valoracion == 'aceptado') {
 			$this->load->model('estatusGeneralModel');
@@ -86,16 +87,41 @@ class Cotizacion extends AbstractAccess {
 				// Abro un nuevo CASO
 				if ($this->casoModel->insert($caso))
 				{
-					$response = TRUE;
+					$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, nuevo caso abierto en espera de asignación.</h3>');
 				}
 			}
-		} elseif ($valoracion == 'irregular') {
-			if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR,
+		} elseif ($valoracion == 'parcial') {
+				$this->load->model('estatusGeneralModel');
+
+				// Cambie estatus de la cotizacion a PAGADO
+				if ($this->cotizacionModel->update(
+					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL,
+						'observacion_pago' => $comentarios),
+					array('folio' => $folio)))
+				{
+					$this->load->model('casoModel');
+
+					$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
+
+					$caso = array(
+						'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
+						'id_cliente' => $cotizacion->id_cliente,
+						'folio_cotizacion' => $folio,
+						'fecha_inicio' => date('Y-m-d H:i:s'));
+					// Abro un nuevo CASO
+					if ($this->casoModel->insert($caso))
+					{
+						$response = array('exito' => TRUE, 'msg' => '<h3>Cotización con pago parcial, nuevo caso abierto en espera de asignación.</h3>');
+					}
+				}
+
+			}elseif($valoracion == 'irregular'){
+				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR,
 					'observacion_pago' => $comentarios),
-				array('folio' => $folio)))
-			{
-				$response = FALSE;
-			}
+					array('folio' => $folio)))
+				{
+					$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+				}
 		}
 
 		/**
@@ -104,7 +130,7 @@ class Cotizacion extends AbstractAccess {
 
 		$this->output
 			->set_content_type('application/json')
-			->set_output(json_encode(array('exito' => $response)));
+			->set_output(json_encode($response));
 	}
 
 }
