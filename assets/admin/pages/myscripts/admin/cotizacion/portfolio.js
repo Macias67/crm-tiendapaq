@@ -1,5 +1,21 @@
 var Portfolio = function () {
 
+	// Muestra visualizacvion previa del pdf de la
+	// cotizacion al cliente
+	var previaPDF = function() {
+		$('.cotizacion-previa').on('click', function() {
+			// Datos cotizacion
+			var folio = $(this).attr('id');
+			var idcliente = $(this).attr('id-cliente');
+
+			$.post('/cotizaciones/previapdf', {folio:folio, idcliente:idcliente}, function(data) {
+				if (data.existe) {
+					window.open(data.ruta,'','height=800,width=800');
+				}
+			}, 'json');
+		});
+	}
+
 	var validacion = function() {
 		$('#validar').on('click', function() {
 			var folio = $('#folio').val();
@@ -30,6 +46,7 @@ var Portfolio = function () {
 		init: function () {
 			$('.mix-grid').mixitup();
 			validacion();
+			previaPDF();
 		}
 	};
 }();

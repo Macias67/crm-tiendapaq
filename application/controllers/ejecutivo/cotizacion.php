@@ -34,6 +34,32 @@ class Cotizacion extends AbstractAccess {
 		$this->_vista('cotizaciones');
 	}
 
+	/**
+	 * Funcion para previsualizar un pdf con una cotizacion
+	 * para los clientes
+	 *
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
+	public function previapdf()
+	{
+		$folio =$this->input->post('folio');
+		$idcliente  =$this->input->post('idcliente');
+
+		if ($existe = $this->cotizacionModel->exist(array('folio' => $folio)))
+		{
+			$dir_root	= site_url('/clientes/'.$idcliente.'/cotizacion').'/';
+			$name		= 'tiendapaq-cotiza_'.$folio.'.pdf';
+			$path		= $dir_root.$name;
+			$response 	= array('existe' => $existe, 'ruta' => $path);
+		} else {
+			$response 	= array('existe' => $existe);
+		}
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
 	public function revision($folio)
 	{
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
