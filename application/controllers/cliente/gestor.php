@@ -586,7 +586,7 @@ class Gestor extends AbstractAccess {
 				$cliente_actualizado['privilegios'] = 'cliente';
 				$this->session->set_userdata('usuario_activo', $cliente_actualizado);
 
-				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Cliente '.$cliente['razon_social'].' actualizado.</h4>');
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Información de <b>'.$cliente['razon_social'].'</b> actualizada.</h4>');
 			}
 		}
 

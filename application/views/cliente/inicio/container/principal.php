@@ -47,50 +47,47 @@
 									<?php switch ($cotizacion->id_estatus) {
 										// por pagar
 										case 1:
-											echo '<td><span class="btn btn-circle btn-xs green">'.ucfirst($cotizacion->descripcion).'</span></td>
+											echo '<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
-															<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
 															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
 															<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
 														</td>';
 										break;
 										// en revision
 										case 2:
-											echo '<td><span class="btn btn-xs yellow">'.ucfirst($cotizacion->descripcion).'</span></td>
+											echo '<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
-															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver de Pago</a>
+															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver Pago</a>
 														</td>';
 										break;
 										//carrecta
 										case 3:
-											echo '<td><span class="btn btn-circle btn-xs green">'.ucfirst($cotizacion->descripcion).'</span></td>
+											echo '<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
-															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver de Pago</a>
+															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver Pago</a>
 														</td>';
 										break;
 										//irregular
 										case 4:
-											echo '<td><span class="btn btn-circle btn-xs red">'.ucfirst($cotizacion->descripcion).'</span></td>
+											echo '<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
+															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
 															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"><i class="fa fa-dollar"></i> Cambiar Comprobante</a>
 														</td>';
 										break;
 										//vencida
 										case 5:
-											echo '<td><span class="btn btn-circle btn-xs red">'.ucfirst($cotizacion->descripcion).'</span></td>
+											echo '<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
 														</td>';
 										break;
 										//pago parcial
 										case 6:
-											echo '<td><span class="btn btn-circle btn-xs yellow">'.ucfirst($cotizacion->descripcion).'</span></td>
+											echo '<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
+															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
 															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"><i class="fa fa-dollar"></i> Comprobar Pago</a>
 														</td>';
-										break;
-
-										default:
-											# code...
 										break;
 									} ?>
 								</tr>
