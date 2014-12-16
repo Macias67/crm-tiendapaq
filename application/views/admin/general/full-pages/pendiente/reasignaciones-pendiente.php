@@ -29,5 +29,5 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn green" data-dismiss="modal">Aceptar</button>
+	<button type="button" class="btn btn-circle green" data-dismiss="modal">Aceptar</button>
 </div>

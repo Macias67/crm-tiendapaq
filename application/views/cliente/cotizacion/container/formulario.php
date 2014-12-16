@@ -13,11 +13,11 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<form id="fileupload" action="<?php echo site_url('cotizacion/ajax/'.$cotizacion->id_cliente.'/'.$cotizacion->folio) ?>" method="POST" enctype="multipart/form-data">
 							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 							<div class="row fileupload-buttonbar">
-								<div class="col-lg-8">
+								<div class="col-lg-10">
 									<div class="btn-group btn-group btn-group-solid">
 										<!-- The fileinput-button span is used to style the file input field as button -->
 										<span class="btn green btn-circle fileinput-button">
@@ -48,7 +48,7 @@
 									</span>
 								</div>
 								<!-- The global progress information -->
-								<div class="col-lg-4 fileupload-progress fade">
+								<div class="col-lg-2 fileupload-progress fade">
 									<!-- The global progress bar -->
 									<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
 										<div class="progress-bar progress-bar-success" style="width:0%;"></div>
@@ -65,7 +65,8 @@
 						</form>
 						<button class="btn green btn-lg btn-circle btn-block" id="confirmar" folio="<?php echo $cotizacion->folio ?>">Confirmar archivos</button>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
+						<!-- BEGIN ESPECIFICACIONES -->
 						<div class="panel panel-success">
 							<div class="panel-heading">
 								<h3 class="panel-title">Especificaciones de archivos a subir</h3>
@@ -77,6 +78,70 @@
 								</ul>
 							</div>
 						</div>
+						<!-- END ESPECIFICACIONES -->
+						<!-- BEGIN COMENTARIOS COTIZACION-->
+							<div class="portlet">
+								<div class="portlet-title line">
+									<div class="caption">
+										<i class="fa fa-comments"></i>Comentarios de la cotización
+									</div>
+									<div class="tools">
+										<a href="" class="collapse">
+										</a>
+										<a href="" class="reload">
+										</a>
+										<a href="" class="fullscreen">
+										</a>
+									</div>
+								</div>
+								<div class="portlet-body" id="chats">
+									<div class="scroller" style="max-height: 200px;" data-always-visible="1" data-rail-visible1="1">
+										<ul class="chats">
+											<li class="in">
+												<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
+												<div class="message">
+													<span class="arrow">
+													</span>
+													<a href="#" class="name">
+													Bob Nilson </a>
+													<span class="datetime">
+													at 20:09 </span>
+													<span class="body">
+													Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+												</div>
+											</li>
+											<li class="out">
+												<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
+												<div class="message">
+													<span class="arrow">
+													</span>
+													<a href="#" class="name">
+													Lisa Wong </a>
+													<span class="datetime">
+													at 20:11 </span>
+													<span class="body">
+													Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="chat-form">
+										<div class="input-cont">
+											<input class="form-control" type="text" placeholder="Escribe un comentario..."/>
+											<input type="hidden" id="razon_social" value="<?php echo $usuario_activo['razon_social'] ?>">
+											<input type="hidden" id="ruta_imagen" value="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>">
+										</div>
+										<div class="btn-cont">
+											<span class="arrow">
+											</span>
+											<a href="" class="btn blue icn-only">
+											<i class="fa fa-check icon-white"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						<!-- END COMENTARIOS COTIZACION-->
 						<!-- BEGIN VIDEO TUTORIAL PORTLET-->
 						<div class="portlet gren">
 							<div class="portlet-title">
