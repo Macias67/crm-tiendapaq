@@ -1,5 +1,5 @@
 <div class="modal-header">
-		<h4><b>Verificar Datos - <small><a href="#">¿Por qué carajos esto, porque a mi?</a></small></h4>
+		<h4><b>Verificar Datos - <small><a href="#">¿Por qué esto?</a></small></h4>
 </div>
 <form action="#" id="form-verificar-datos" method="post" accept-charset="utf-8">
 	<div class="modal-body form-horizontal">

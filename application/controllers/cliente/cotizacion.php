@@ -115,25 +115,28 @@ class Cotizacion extends AbstractAccess {
 
 		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/');
 
-		if (empty($archivos))
+		//var_dump($archivos);
+		if (count($archivos)<=1 && count($archivos['thumbnail'])==0)
 		{
 			$response = array('exito' => FALSE, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
 		} else
 		{
-			if ($this->cotizacionModel->exist(
-				array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR,
-					'id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR)))
+			if ($this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR)) ||
+				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR)) ||
+				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL)))
 			{
 				$exito = $this->cotizacionModel->update(
 					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
 					array('folio' => $folio));
 				$response = array('exito' => $exito);
+			}else{
+				$response = array('exito' => FALSE, 'msj' => 'Que pena, esto no deberia estar pasando.');
 			}
 		}
+
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
-
 	}
 
 	/**

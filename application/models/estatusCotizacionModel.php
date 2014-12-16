@@ -25,9 +25,10 @@ class estatusCotizacionModel extends CI_Model {
 
 	var $PORPAGAR		= 1;
 	var $REVISION		= 2;
-	var $PAGADO		= 3;
+	var $PAGADO			= 3;
 	var $IRREGULAR	= 4;
 	var $VENCIDO		= 5;
+	var $PARCIAL		= 6;
 
 }
 
