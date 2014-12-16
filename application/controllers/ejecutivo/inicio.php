@@ -25,14 +25,13 @@ class Inicio extends AbstractAccess {
 			$this->load->helper('formatofechas');
 
 			$campos = array('cotizacion.folio',
-			                'cotizacion.fecha',
-			                'cotizacion.vigencia',
-			                'oficinas.ciudad_estado',
-			                'estatus_cotizacion.id_estatus',
-			                'estatus_cotizacion.descripcion');
+						'cotizacion.fecha',
+						'cotizacion.vigencia',
+						'oficinas.ciudad_estado',
+						'estatus_cotizacion.id_estatus',
+						'estatus_cotizacion.descripcion');
 			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
 			$this->_vista('principal');
-			//var_dump($this->data);
 		} else
 		{
 			// SECCION PARA GENTE DE TIENDAPAQ
@@ -69,9 +68,20 @@ class Inicio extends AbstractAccess {
 			$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes('*',$this->usuario_activo['id'], $this->controlador);
 			// Titulo header
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-			// Muestro Vista
-			$this->_vista('principal');
-			//var_dump($this->data);
+
+			$para = 'ing.diegorod@gmail.com';
+			$asunto= 'Prueba de CRM';
+			$mensaje = 'Que onda kokin!';
+			$cabeceras = 	'From: luismacias.angulo@gmail.com' . "\r\n" .
+							'X-Mailer: PHP/' . phpversion();
+
+
+			if(mail($para, $asunto, $mensaje, $cabeceras)) {
+				// Muestro Vista
+				$this->_vista('principal');
+			} else {
+				echo 'Error al enviar mensaje';
+			}
 		}
 	}
 
