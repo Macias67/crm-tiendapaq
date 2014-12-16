@@ -58,10 +58,11 @@
 										case 2:
 											echo '<td><span class="btn btn-xs yellow">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>
+															<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
 															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver de Pago</a>
 														</td>';
 										break;
-										//carrecta
+										//correcta
 										case 3:
 											echo '<td><span class="btn btn-circle btn-xs green">'.ucfirst($cotizacion->descripcion).'</span></td>
 														<td>

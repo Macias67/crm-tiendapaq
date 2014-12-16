@@ -42,6 +42,9 @@
 									<br>
 									<button type="button" id="validar" class="btn btn-circle red btn-block">VALIDAR</button>
 								</div>
+								<div class="form-group">
+									<button type="button" class="btn green default cotizacion-previa btn-circle btn-block" id="<?php echo $cotizacion->folio ?>" id-cliente="<?php echo $cotizacion->id_cliente ?>">Ver Cotización</button>
+								</div>
 							</div>
 						</form>
 					</div>
