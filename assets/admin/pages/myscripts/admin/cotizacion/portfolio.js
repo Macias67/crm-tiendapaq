@@ -6,18 +6,22 @@ var Portfolio = function () {
 			var valoracion = $('input[name="valoracion"]:checked').val();
 			var comentarios = $('textarea#comentarios').val();
 
-			$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
-				alert(data.exito);
-				if (data.exito) {
-					bootbox.alert('<h3>Cotización pagada, nuevo caso abierto en espera de asignación</h3>', function() {
-						window.location = '/caso';
-					});
-				} else {
-					bootbox.alert('<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>', function() {
-						window.location = '/';
-					});
-				}
-			}, 'json');
+			if(valoracion==undefined){
+				bootbox.alert('<h4>Selecciona una valoración.</h4>');
+			}else{
+				$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
+					console.log(data);
+					if (data.exito) {
+						bootbox.alert(data.msg, function() {
+							window.location = '/';
+						});
+					} else {
+						bootbox.alert('<h3>Error, revisa la consola para mas informacíon.</h3>', function() {
+							window.location = '/';
+						});
+					}
+				}, 'json');
+			}
 		});
 	};
 
