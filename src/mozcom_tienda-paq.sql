@@ -149,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `vigencia` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `id_ejecutivo` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
+  `id_contacto` int(11) NOT NULL,
   `id_oficina` int(11) NOT NULL,
   `cotizacion` text NOT NULL,
   `id_observaciones` int(11) NOT NULL,
@@ -161,7 +162,8 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   KEY `cotizacion_ibfk_3` (`id_oficina`),
   KEY `cotizacion_ibfk_4` (`id_estatus_cotizacion`),
   KEY `cotizacion_ibfk_5` (`id_observaciones`),
-  KEY `cotizacion_ibfk_6` (`id_banco`)
+  KEY `cotizacion_ibfk_6` (`id_banco`),
+  KEY `id_contacto` (`id_contacto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -508,6 +510,7 @@ ALTER TABLE `contactos`
 -- Filtros para la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
+  ADD CONSTRAINT `cotizacion_ibfk_7` FOREIGN KEY (`id_contacto`) REFERENCES `contactos` (`id`),
   ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`id_oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,

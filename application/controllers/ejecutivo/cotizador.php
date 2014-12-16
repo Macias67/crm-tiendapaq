@@ -316,6 +316,7 @@ class Cotizador extends AbstractAccess {
 			'vigencia'				=> $vigencia,
 			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
 			'id_cliente'				=> $cliente['id'],
+			'id_contacto'			=> $cliente['contacto'],
 			'id_oficina'				=> $oficina->id_oficina,
 			'cotizacion'				=> json_encode($productos),
 			'id_observaciones'		=> 1,
