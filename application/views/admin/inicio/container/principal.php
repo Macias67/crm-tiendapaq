@@ -165,7 +165,6 @@
 <!-- END CONTENT -->
 
 <!-- BEGIN VENTANAS MODALES -->
-
 <!-- BEGIN FORM NUEVO CLIENTE PROSPECTO-->
 <div id="nuevo-cliente" class="modal bs-modal-lg fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-lg">
@@ -420,7 +419,6 @@
 		</div>
 	</div>
 </div>
-<!-- /.modal -->
 <!-- END AJAX DETALLE PENDIENTE -->
 
 <!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
@@ -434,5 +432,4 @@
 		</div>
 	</div>
 </div>
-<!-- /.modal -->
 <!-- END AJAX REASIGNACIONES PENDIENTE -->

@@ -596,6 +596,18 @@ class Gestor extends AbstractAccess {
 			->set_output(json_encode($respuesta));
 	}
 
+	/**
+	 * Funcion 
+	 *
+	 * @return void
+	 * @author Diego
+	 **/
+	public function porque()
+	{
+		$this->_vista_completa('inicio/porque');
+	}
+
+
 	/*
 	|--------------------------------------------------------------------------
 	| CALLBACKS
