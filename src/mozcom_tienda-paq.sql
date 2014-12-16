@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2014 a las 00:20:31
+-- Tiempo de generación: 16-12-2014 a las 23:08:13
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -117,6 +117,21 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo` (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de los clientes' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentarios_cotizacion`
+--
+
+CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
+  `folio` int(11) NOT NULL,
+  `fecha` timestamp NOT NULL,
+  `tipo` enum('E','C') NOT NULL,
+  `comentario` text NOT NULL,
+  KEY `folio` (`folio`),
+  KEY `folio_2` (`folio`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -266,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
 INSERT INTO `estatus_cotizacion` (`id_estatus`, `descripcion`) VALUES
 (1, 'por pagar'),
 (2, 'revisión'),
-(3, 'correcta'),
+(3, 'pagada'),
 (4, 'irregular'),
 (5, 'vencida'),
 (6, 'pago parcial');
@@ -499,6 +514,12 @@ ALTER TABLE `caso`
   ADD CONSTRAINT `caso_ibfk_2` FOREIGN KEY (`id_estatus_general`) REFERENCES `estatus_general` (`id_estatus`),
   ADD CONSTRAINT `caso_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `caso_ibfk_4` FOREIGN KEY (`folio_cotizacion`) REFERENCES `cotizacion` (`folio`);
+
+--
+-- Filtros para la tabla `comentarios_cotizacion`
+--
+ALTER TABLE `comentarios_cotizacion`
+  ADD CONSTRAINT `comentarios_cotizacion_ibfk_1` FOREIGN KEY (`folio`) REFERENCES `cotizacion` (`folio`);
 
 --
 -- Filtros para la tabla `contactos`

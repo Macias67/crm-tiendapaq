@@ -92,7 +92,7 @@
 									<tr>
 										<th>No.</th>
 										<th>Actvidad</th>
-										<th>Empresa</th>
+										<th>Cliente</th>
 										<th>Apertura</th>
 										<th></th>
 									</tr>
@@ -127,30 +127,13 @@
 							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
 								<thead>
 									<tr>
-										<th>Username</th>
-										<th>Email</th>
-										<th>Status</th>
+										<th>No.</th>
+										<th>Ejecutivo</th>
+										<th>Cliente</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="odd gradeX">
-										<td>shuxer</td>
-										<td>
-											<a href="mailto:shuxer@gmail.com">shuxer@gmail.com </a>
-										</td>
-										<td>
-											<span class="label label-sm label-success">Approved </span>
-										</td>
-									</tr>
-									<tr class="odd gradeX">
-										<td>looper</td>
-										<td>
-											<a href="mailto:looper90@gmail.com">looper90@gmail.com </a>
-										</td>
-										<td>
-											<span class="label label-sm label-warning">Suspended </span>
-										</td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
