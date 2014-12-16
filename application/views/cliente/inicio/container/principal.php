@@ -13,7 +13,7 @@
 
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
-			<div class="col-md-12 col-sm-12">
+			<div class="col-md-8 col-sm-8">
 				<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
 				<div class="portlet gren">
 					<div class="portlet-title">
@@ -97,6 +97,22 @@
 							<?php endforeach ?>
 							</tbody>
 						</table>
+					</div>
+				</div>
+				<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<!-- BEGIN PEDIDOS CLIENTE PEDIENTES PORTLET-->
+				<div class="portlet gren">
+					<div class="portlet-title">
+						<div class="caption"><i class="fa fa-user"></i> Tutorial</div>
+						<div class="tools">
+							<a href="javascript:;" class="collapse">
+							</a>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<iframe width="100%" height="270px" src="//www.youtube.com/embed/FqPPZlVCvOQ" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 				<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
