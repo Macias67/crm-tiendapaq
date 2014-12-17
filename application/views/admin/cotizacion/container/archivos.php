@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<div class="portlet-body" id="chats">
-						<div class="scroller" style="height: 100px;" data-always-visible="1" data-rail-visible1="1">
+						<div class="scroller" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
 							<ul class="chats">
 								<?php foreach ($comentarios as $comentario): ?>
 									<?php if($comentario->tipo=='E'): ?>
@@ -111,6 +111,7 @@
 				<!-- END Portlet FORMULARIO-->
 			</div>
 			<div class="col-md-8">
+				<h3>Archivos enviados por <b><?php echo $cotizacion->razon_social ?></b></h3>
 				<!-- BEGIN FILTER -->
 				<div class="filter-v1 margin-top-10">
 					<div class="row mix-grid thumbnails">
