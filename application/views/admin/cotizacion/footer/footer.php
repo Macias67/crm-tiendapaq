@@ -45,6 +45,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-cotizaciones') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'portfolio') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'comentarios-cotizacion') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -53,6 +54,7 @@
 			//MyScripts
 			TableManaged.init(); //tabla de cotizaciones
 			Portfolio.init(); // VIstas de imagenes de cotizacion
+			ComentariosCotizacion.initComentarios();//comentarios de la cotizacion
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

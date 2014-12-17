@@ -95,7 +95,7 @@
 									</div>
 								</div>
 								<div class="portlet-body" id="chats">
-									<div class="scroller" style="max-height: 200px;" data-always-visible="1" data-rail-visible1="1">
+									<div class="scroller" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
 										<ul class="chats">
 											<?php foreach ($comentarios as $comentario): ?>
 												<?php if($comentario->tipo=='C'): ?>
@@ -111,11 +111,11 @@
 												<?php endif ?>
 												<?php if($comentario->tipo=='E'): ?>
 													<li class="out">
-														<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
+														<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
 														<div class="message">
 															<span class="arrow"></span>
 															<a href="#" class="name">TiendaPAQ</a>
-															<span class="datetime"><?php echo $comentario->fecha ?></span>
+															<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
 															<span class="body"><?php echo $comentario->comentario ?></span>
 														</div>
 													</li>

@@ -1,13 +1,17 @@
-var Chat = function () {
+var ComentariosCotizacion = function () {
 
     return {
-        initChat: function () {
+        initComentarios: function () {
 
             var cont = $('#chats');
             var list = $('.chats', cont);
             var form = $('.chat-form', cont);
             var input = $('input', form);
             var btn = $('.btn', form);
+            //bajar el scroll al ultimo comentario
+            cont.find('.scroller').slimScroll({
+                    scrollTo: 9999
+                });
             //datos para guardar y mostrar el comentario
             var razon_social = $('#razon_social').val();
             var ruta_imagen = $('#ruta_imagen').val();

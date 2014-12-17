@@ -77,7 +77,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-fileupload') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'portfolio') ?>" type="text/javascript"></script>
-	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'chat') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'comentarios-cotizacion') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -86,7 +86,7 @@
 			// MyScript
 			FormFileUpload.init();
 			Portfolio.init();
-			Chat.initChat(); //plugin del chat
+			ComentariosCotizacion.initComentarios(); //plugin del chat
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

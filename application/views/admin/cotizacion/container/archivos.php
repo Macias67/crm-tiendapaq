@@ -14,6 +14,68 @@
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-4">
+				<!-- BEGIN COMENTARIOS COTIZACION-->
+				<div class="portlet">
+					<div class="portlet-title line">
+						<div class="caption">
+							<i class="fa fa-comments"></i>Comentarios de la cotización
+						</div>
+						<div class="tools">
+							<a href="" class="collapse">
+							</a>
+							<a href="" class="reload">
+							</a>
+							<a href="" class="fullscreen">
+							</a>
+						</div>
+					</div>
+					<div class="portlet-body" id="chats">
+						<div class="scroller" style="height: 100px;" data-always-visible="1" data-rail-visible1="1">
+							<ul class="chats">
+								<?php foreach ($comentarios as $comentario): ?>
+									<?php if($comentario->tipo=='E'): ?>
+										<li class="in">
+											<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
+											<div class="message">
+												<span class="arrow"></span>
+												<a href="#" class="name">TiendaPAQ</a>
+												<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
+												<span class="body"><?php echo $comentario->comentario ?></span>
+											</div>
+										</li>
+									<?php endif ?>
+									<?php if($comentario->tipo=='C'): ?>
+										<li class="out">
+											<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
+											<div class="message">
+												<span class="arrow"></span>
+												<a href="#" class="name"><?php echo $cotizacion->razon_social ?></a>
+												<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
+												<span class="body"><?php echo $comentario->comentario ?></span>
+											</div>
+										</li>
+									<?php endif ?>
+								<?php endforeach ?>
+							</ul>
+						</div>
+						<div class="chat-form">
+							<div class="input-cont">
+								<input class="form-control" type="text" placeholder="Escribe un comentario..."/>
+								<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
+								<input type="hidden" id="nombre_ejecutivo" value="<?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?>">
+								<input type="hidden" id="ruta_imagen" value="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>">
+							</div>
+							<div class="btn-cont">
+								<span class="arrow">
+								</span>
+								<a href="" class="btn blue icn-only">
+								<i class="fa fa-check icon-white"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END COMENTARIOS COTIZACION-->
 				<!-- BEGIN Portlet FORMULARIO-->
 				<div class="portlet gren">
 					<div class="portlet-title">
@@ -37,9 +99,6 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label>Comentarios: </label>
-									<textarea class="form-control" id="comentarios" rows="2"></textarea>
-									<br>
 									<button type="button" id="validar" class="btn btn-circle red btn-block">VALIDAR</button>
 								</div>
 								<div class="form-group">
