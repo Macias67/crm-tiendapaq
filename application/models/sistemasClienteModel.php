@@ -4,7 +4,7 @@
  * sistemas del cliente
  *
  * @package default
- * @author Luis Macias
+ * @author Diego Rodriguez
  **/
 class SistemasClienteModel extends MY_Model {
 

@@ -56,7 +56,9 @@ var FormFileUpload = function () {
 					$.post('/cotizacion/estado', {folio: folio}, function(data, textStatus, xhr) {
 						if(data.exito)
 						{
-							location.reload();
+							bootbox.alert('<h3>Archivos enviados con éxito.</h3>', function() {
+								window.location = '/';
+							});
 						} else
 						{
 							bootbox.alert('<h4><b>'+data.msj+'</b></h4>');

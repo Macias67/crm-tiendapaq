@@ -3,7 +3,7 @@
  * Modelo para gestionar la tabla de contactos
  * de los clientes
  *
- * @author Luis Macias
+ * @author Luis Macias | Diego Rodriguez
  */
 class ContactosModel extends MY_Model {
 

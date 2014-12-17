@@ -74,9 +74,13 @@ class Cotizacion extends AbstractAccess {
 					unset($archivos[$index]);
 				}
 			}
+			$this->load->model('comentariosCotizacionModel');
+			$this->load->helper('formatofechas_helper');
 
 			$this->data['cotizacion'] = $cotizacion;
 			$this->data['archivos'] = $archivos;
+			$this->data['comentarios'] = $this->comentariosCotizacionModel->get(array('*'),array('folio' => $folio));
+			//var_dump($this->data);
 			$this->_vista('archivos');
 		} else {
 			show_404();
@@ -87,7 +91,6 @@ class Cotizacion extends AbstractAccess {
 	{
 		$folio = $this->input->post('folio');
 		$valoracion = $this->input->post('valoracion');
-		$comentarios = $this->input->post('comentarios');
 
 		$this->load->model('estatusCotizacionModel');
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
@@ -97,8 +100,7 @@ class Cotizacion extends AbstractAccess {
 
 			// Cambie estatus de la cotizacion a PAGADO
 			if ($this->cotizacionModel->update(
-				array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO,
-					'observacion_pago' => $comentarios),
+				array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
 				array('folio' => $folio)))
 			{
 				$this->load->model('casoModel');
@@ -121,8 +123,7 @@ class Cotizacion extends AbstractAccess {
 
 				// Cambie estatus de la cotizacion a PAGADO
 				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL,
-						'observacion_pago' => $comentarios),
+					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
 					array('folio' => $folio)))
 				{
 					$this->load->model('casoModel');
@@ -142,8 +143,7 @@ class Cotizacion extends AbstractAccess {
 				}
 
 			}elseif($valoracion == 'irregular'){
-				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR,
-					'observacion_pago' => $comentarios),
+				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
 					array('folio' => $folio)))
 				{
 					$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
@@ -159,6 +159,31 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
+ 	/**
+	 * Funcion para guardar los comentarios de la cotizacion
+	 * @author Diego Rodriguez
+	 **/
+	public function comentarios()
+	{
+		$comentario = array(
+			'folio'      => $this->input->post('folio'),
+			'fecha'      => date('Y-m-d H:i:s'),
+			'tipo' 	     => 'E',
+			'comentario' => $this->input->post('comentario'),
+		);
+
+		$this->load->model('comentariosCotizacionModel');
+
+		if($this->comentariosCotizacionModel->insert($comentario)){
+			$respuesta = array('exito' => TRUE);
+		}else{
+			$respuesta = array('exito' => FALSE);
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
+	}
 }
 
 /* End of file cotizacion.php */

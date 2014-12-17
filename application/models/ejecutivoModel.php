@@ -3,7 +3,7 @@
  * Modelo para la tabla de ejecutivos
  *
  * @package default
- * @author Luis Macias
+ * @author Luis Macias | Diego Rodriguez
  **/
 class EjecutivoModel extends MY_Model {
 

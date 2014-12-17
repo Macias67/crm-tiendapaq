@@ -3,7 +3,7 @@
  * Modelo para la tabla de pendientes
  *
  * @package default
- * @author Luis Macias
+ * @author Luis Macias | Diego Rodriguez
  **/
 class PendienteModel extends MY_Model {
 

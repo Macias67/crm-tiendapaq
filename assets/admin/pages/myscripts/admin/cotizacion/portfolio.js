@@ -26,7 +26,6 @@ var Portfolio = function () {
 				bootbox.alert('<h4>Selecciona una valoración.</h4>');
 			}else{
 				$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
-					console.log(data);
 					if (data.exito) {
 						bootbox.alert(data.msg, function() {
 							window.location = '/';

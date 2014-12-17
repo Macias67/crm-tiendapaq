@@ -69,25 +69,9 @@ class Inicio extends AbstractAccess {
 			// Titulo header
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 
-			// $para = 'ing.diegorod@gmail.com';
-			// $asunto= 'Prueba de CRM';
-			// $mensaje = 'Que onda kokin!';
-			// $cabeceras = 	'From: luismacias.angulo@gmail.com' . "\r\n" .
-			// 				'X-Mailer: PHP/' . phpversion();
-
-
-			// if(mail($para, $asunto, $mensaje, $cabeceras)) {
-			// 	// Muestro Vista
-			// } else {
-			// 	echo 'Error al enviar mensaje';
-			// }
-				$this->_vista('principal');
+			// DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
+			$this->_vista('principal');
 		}
-	}
-
-	public function verificacion()
-	{
-		$this->_vista_completa('verificacion-inicial-de-datos');
 	}
 }
 
