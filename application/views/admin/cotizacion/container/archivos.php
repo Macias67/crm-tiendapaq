@@ -46,7 +46,7 @@
 									<?php endif ?>
 									<?php if($comentario->tipo=='C'): ?>
 										<li class="out">
-											<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
+											<img class="avatar" alt="" src="<?php echo site_url('assets/admin/pages/media/profile/cliente').'/chat.jpg' ?>"/>
 											<div class="message">
 												<span class="arrow"></span>
 												<a href="#" class="name"><?php echo $cotizacion->razon_social ?></a>
