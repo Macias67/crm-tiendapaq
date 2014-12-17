@@ -114,39 +114,13 @@
 														<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
 														<div class="message">
 															<span class="arrow"></span>
-															<a href="#" class="name">Soporte Técnico</a>
+															<a href="#" class="name">TiendaPAQ</a>
 															<span class="datetime"><?php echo $comentario->fecha ?></span>
 															<span class="body"><?php echo $comentario->comentario ?></span>
 														</div>
 													</li>
 												<?php endif ?>
 											<?php endforeach ?>
-											<!-- <li class="in">
-												<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
-												<div class="message">
-													<span class="arrow">
-													</span>
-													<a href="#" class="name">
-													Bob Nilson </a>
-													<span class="datetime">
-													at 20:09 </span>
-													<span class="body">
-													Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
-												</div>
-											</li> -->
-											<!-- <li class="out">
-												<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
-												<div class="message">
-													<span class="arrow">
-													</span>
-													<a href="#" class="name">
-													Lisa Wong </a>
-													<span class="datetime">
-													at 20:11 </span>
-													<span class="body">
-													Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
-												</div>
-											</li> -->
 										</ul>
 									</div>
 									<div class="chat-form">

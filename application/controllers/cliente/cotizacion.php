@@ -62,8 +62,7 @@ class Cotizacion extends AbstractAccess {
 				$this->load->helper('formatofechas_helper');
 				$comentarios = $this->comentariosCotizacionModel->get(array('*'),array('folio' => $folio));
 				$this->data['comentarios'] = $comentarios;
-				var_dump($this->data);
-
+				//var_dump($this->data);
 				$this->_vista('formulario');
 			} else
 			{

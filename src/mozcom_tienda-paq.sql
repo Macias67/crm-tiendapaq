@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2014 a las 23:08:13
+-- Tiempo de generación: 17-12-2014 a las 20:43:12
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -170,7 +170,6 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `id_observaciones` int(11) NOT NULL,
   `id_banco` int(11) NOT NULL,
   `id_estatus_cotizacion` int(11) NOT NULL,
-  `observacion_pago` text NOT NULL,
   PRIMARY KEY (`folio`),
   KEY `cotizacion_ibfk_1` (`id_ejecutivo`),
   KEY `cotizacion_ibfk_2` (`id_cliente`),
@@ -531,13 +530,13 @@ ALTER TABLE `contactos`
 -- Filtros para la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
-  ADD CONSTRAINT `cotizacion_ibfk_7` FOREIGN KEY (`id_contacto`) REFERENCES `contactos` (`id`),
   ADD CONSTRAINT `cotizacion_ibfk_1` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_3` FOREIGN KEY (`id_oficina`) REFERENCES `oficinas` (`id_oficina`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_4` FOREIGN KEY (`id_estatus_cotizacion`) REFERENCES `estatus_cotizacion` (`id_estatus`) ON UPDATE CASCADE,
   ADD CONSTRAINT `cotizacion_ibfk_5` FOREIGN KEY (`id_observaciones`) REFERENCES `observaciones` (`id_observacion`),
-  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id_banco`);
+  ADD CONSTRAINT `cotizacion_ibfk_6` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id_banco`),
+  ADD CONSTRAINT `cotizacion_ibfk_7` FOREIGN KEY (`id_contacto`) REFERENCES `contactos` (`id`);
 
 --
 -- Filtros para la tabla `ejecutivos`

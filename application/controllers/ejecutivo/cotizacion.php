@@ -87,7 +87,6 @@ class Cotizacion extends AbstractAccess {
 	{
 		$folio = $this->input->post('folio');
 		$valoracion = $this->input->post('valoracion');
-		$comentarios = $this->input->post('comentarios');
 
 		$this->load->model('estatusCotizacionModel');
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
@@ -97,8 +96,7 @@ class Cotizacion extends AbstractAccess {
 
 			// Cambie estatus de la cotizacion a PAGADO
 			if ($this->cotizacionModel->update(
-				array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO,
-					'observacion_pago' => $comentarios),
+				array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
 				array('folio' => $folio)))
 			{
 				$this->load->model('casoModel');
@@ -121,8 +119,7 @@ class Cotizacion extends AbstractAccess {
 
 				// Cambie estatus de la cotizacion a PAGADO
 				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL,
-						'observacion_pago' => $comentarios),
+					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
 					array('folio' => $folio)))
 				{
 					$this->load->model('casoModel');
@@ -142,8 +139,7 @@ class Cotizacion extends AbstractAccess {
 				}
 
 			}elseif($valoracion == 'irregular'){
-				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR,
-					'observacion_pago' => $comentarios),
+				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
 					array('folio' => $folio)))
 				{
 					$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
