@@ -3,7 +3,7 @@
  * Modelo para gestionar los sistemas contpaqi
  *
  * @package default
- * @author Luis Macias
+ * @author Diego Rodriguez
  **/
 class SistemasContpaqiModel extends MY_Model {
 

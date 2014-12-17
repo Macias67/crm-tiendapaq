@@ -44,6 +44,10 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
+	/**
+	 * Funcion 
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
 	public function comprobante($folio)
 	{
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
@@ -53,6 +57,13 @@ class Cotizacion extends AbstractAccess {
 					$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->IRREGULAR ||
 					$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PARCIAL)
 			{
+				//si se muestra el formulario para cargar archivos obtenemos los comentarios
+				$this->load->model('comentariosCotizacionModel');
+				$this->load->helper('formatofechas_helper');
+				$comentarios = $this->comentariosCotizacionModel->get(array('*'),array('folio' => $folio));
+				$this->data['comentarios'] = $comentarios;
+				var_dump($this->data);
+
 				$this->_vista('formulario');
 			} else
 			{
@@ -157,6 +168,32 @@ class Cotizacion extends AbstractAccess {
 			$path 	= $dir_root.$name;
 			force_download($name, file_get_contents($path));
 		}
+	}
+
+	/**
+	 * Funcion para guardar los comentarios de la cotizacion
+	 * @author Diego Rodriguez
+	 **/
+	public function comentarios()
+	{
+		$comentario = array(
+			'folio'      => $this->input->post('folio'),
+			'fecha'      => date('Y-m-d H:i:s'),
+			'tipo' 	     => 'C',
+			'comentario' => $this->input->post('comentario'),
+		);
+
+		$this->load->model('comentariosCotizacionModel');
+
+		if($this->comentariosCotizacionModel->insert($comentario)){
+			$respuesta = array('exito' => TRUE);
+		}else{
+			$respuesta = array('exito' => FALSE);
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
 	}
 }
 

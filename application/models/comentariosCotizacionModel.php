@@ -1,19 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * Modelo para la tabla de observaciones
- * de una cotizacion
+ * Modelo para la tabla comentarios_cotizacion
  *
- * @package default
  * @author Diego Rodriguez
- **/
-class observacionCotizacionModel extends MY_Model {
+ */
+class ComentariosCotizacionModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse
 	 *
 	 * @var string
 	 **/
-	const TABLE = 'observaciones';
+	const TABLE = 'comentarios_cotizacion';
 
 	/**
 	 * Constructor
@@ -24,7 +22,8 @@ class observacionCotizacionModel extends MY_Model {
 		$this->table	= self::TABLE;
 	}
 
+
 }
 
-/* End of file observacionModel.php */
-/* Location: ./application/models/observacionModel.php */
+/* End of file bancoModel.php */
+/* Location: ./application/models/bancoModel.php */

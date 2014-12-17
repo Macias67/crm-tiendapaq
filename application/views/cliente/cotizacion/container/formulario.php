@@ -97,7 +97,31 @@
 								<div class="portlet-body" id="chats">
 									<div class="scroller" style="max-height: 200px;" data-always-visible="1" data-rail-visible1="1">
 										<ul class="chats">
-											<li class="in">
+											<?php foreach ($comentarios as $comentario): ?>
+												<?php if($comentario->tipo=='C'): ?>
+													<li class="in">
+														<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
+														<div class="message">
+															<span class="arrow"></span>
+															<a href="#" class="name"><?php echo $usuario_activo['razon_social'] ?></a>
+															<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
+															<span class="body"><?php echo $comentario->comentario ?></span>
+														</div>
+													</li>
+												<?php endif ?>
+												<?php if($comentario->tipo=='E'): ?>
+													<li class="out">
+														<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
+														<div class="message">
+															<span class="arrow"></span>
+															<a href="#" class="name">Soporte Técnico</a>
+															<span class="datetime"><?php echo $comentario->fecha ?></span>
+															<span class="body"><?php echo $comentario->comentario ?></span>
+														</div>
+													</li>
+												<?php endif ?>
+											<?php endforeach ?>
+											<!-- <li class="in">
 												<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
 												<div class="message">
 													<span class="arrow">
@@ -109,8 +133,8 @@
 													<span class="body">
 													Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
 												</div>
-											</li>
-											<li class="out">
+											</li> -->
+											<!-- <li class="out">
 												<img class="avatar" alt="" src="../../assets/admin/layout/img/avatar2.jpg"/>
 												<div class="message">
 													<span class="arrow">
@@ -122,12 +146,13 @@
 													<span class="body">
 													Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
 												</div>
-											</li>
+											</li> -->
 										</ul>
 									</div>
 									<div class="chat-form">
 										<div class="input-cont">
 											<input class="form-control" type="text" placeholder="Escribe un comentario..."/>
+											<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
 											<input type="hidden" id="razon_social" value="<?php echo $usuario_activo['razon_social'] ?>">
 											<input type="hidden" id="ruta_imagen" value="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>">
 										</div>

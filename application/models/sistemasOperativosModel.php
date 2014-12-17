@@ -3,7 +3,7 @@
  * Modelo para gestionar los sistemas operativos
  *
  * @package default
- * @author Luis Macias
+ * @author Diego Rodriguez
  **/
 class SistemasOperativosModel extends MY_Model {
 

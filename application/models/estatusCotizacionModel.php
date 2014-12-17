@@ -3,7 +3,7 @@
  * Modelo para estatus de las cotizaciones
  *
  * @package default
- * @author Luis Macias
+ * @author Luis Macias | Diego Rodriguez
  **/
 class estatusCotizacionModel extends CI_Model {
 

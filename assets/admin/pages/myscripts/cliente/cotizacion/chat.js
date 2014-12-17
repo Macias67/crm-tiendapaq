@@ -8,11 +8,12 @@ var Chat = function () {
             var form = $('.chat-form', cont);
             var input = $('input', form);
             var btn = $('.btn', form);
+            //datos para guardar y mostrar el comentario
             var razon_social = $('#razon_social').val();
             var ruta_imagen = $('#ruta_imagen').val();
+            var folio = $('#folio').val();
 
             var handleClick = function (e) {
-                //console.log(razon_social);
                 e.preventDefault();
 
                 var comentario = input.val();
@@ -28,7 +29,7 @@ var Chat = function () {
                 tpl += '<img class="avatar" alt="" src="'+ruta_imagen+'"/>';
                 tpl += '<div class="message">';
                 tpl += '<span class="arrow"></span>';
-                tpl += '<a href="#" class="name">'+razon_social+'</a>&nbsp;';
+                tpl += '<a href="" class="name">'+razon_social+'</a>&nbsp;';
                 tpl += '<span class="datetime">el '+fecha+' a las ' + hora + '</span>';
                 tpl += '<span class="body">';
                 tpl += comentario;
@@ -36,8 +37,22 @@ var Chat = function () {
                 tpl += '</div>';
                 tpl += '</li>';
 
-                var msg = list.append(tpl);
-                input.val("");
+                //metodo para guardar el comentario en la base de datos
+                var url     = '/cotizacion/comentarios';
+                var param = {
+                    folio:folio,
+                    comentario:comentario
+                }
+
+                $.post(url, param, function(data, textStatus, xhr) {
+                    if (data.exito) {
+                        var msg = list.append(tpl);
+                        input.val("");
+                    } else {
+                        var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
+                        input.val("");
+                    }
+                });
 
                 var getLastPostPos = function () {
                     var height = 0;

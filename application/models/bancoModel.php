@@ -2,7 +2,7 @@
 /**
  * Modelo para la tabla bancos
  *
- * @author Luis Macias
+ * @author Diego Rodriguez
  */
 class BancoModel extends MY_Model {
 

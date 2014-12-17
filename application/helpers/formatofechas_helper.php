@@ -34,6 +34,21 @@ function fecha_formato($date)
 	return $fecha;
 }
 
+function fecha_chat($timestamp)
+{
+	$fecha 			= date('d/n/Y', strtotime($timestamp));
+	$hora 			= date('h:i A', strtotime($timestamp));
+	$array_fecha	= explode('/', $fecha);
+	$dia			= $array_fecha[0];
+	$mes			= $array_fecha[1];
+	$ano			= $array_fecha[2];
+	$fecha_php	= $mes.'/'.$dia.'/'.$ano;
+	$unix			= strtotime($fecha_php);
+	$dia_numero	= date('w', $unix);
+	$fecha			= 'el '.$dia.'/'.$mes.'/'.$ano.' a las '.$hora;
+	return $fecha;
+}
+
 function numero_a_mes($numero)
 {
 	switch ($numero)
