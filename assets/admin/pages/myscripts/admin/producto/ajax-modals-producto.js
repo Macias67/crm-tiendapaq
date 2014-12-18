@@ -35,8 +35,8 @@ var UIExtendedModals = function () {
 				}
 			],
 			"rowCallback" : function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-				$('td:eq(8)', nRow).html('<a href="/producto/detalles/'+aData.codigo+'" class="btn btn-circle green btn-xs ajax-editar" data-target="#ajax_form_producto" data-toggle="modal">Detalles</a>');
-				$('td:eq(9)', nRow).html('<button type="button" class="btn btn-circle red btn-xs eliminar" codigo="P001">Eliminar</button>');
+				$('td:eq(8)', nRow).html('<a href="/producto/detalles/'+aData.codigo+'" class="btn btn-circle blue btn-xs ajax-editar" data-target="#ajax_form_producto" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>');
+				$('td:eq(9)', nRow).html('<button type="button" class="btn btn-circle red btn-xs eliminar" codigo="P001"><i class="fa fa-trash"></i> Eliminar</button>');
 			},
 			// set the initial value
 			"pageLength": 15,
@@ -108,7 +108,7 @@ var UIExtendedModals = function () {
 				success: function(data) {
 					if (data.exito) {
 						modal.modal('hide');
-						bootbox.alert("Se han guardado los cambios.", function() {
+						bootbox.alert("<h4>Producto actualizado con éxito.</h4>", function() {
 							Metronic.removeLoader(function() {
 								location.reload();
 							});
@@ -116,6 +116,7 @@ var UIExtendedModals = function () {
 					} else {
 						bootbox.alert(data.msg, function() {
 							modal.modal('hide');
+							Metronic.removeLoader();
 						});
 					}
 				}
@@ -158,7 +159,7 @@ var UIExtendedModals = function () {
 				success: function(data) {
 					if (data.exito) {
 						modal_nuevo.modal('hide');
-						bootbox.alert("Se han agreguedo nuevo producto.", function() {
+						bootbox.alert("Nuevo producto añadido con éxito.", function() {
 							Metronic.removeLoader(function() {
 								location.reload();
 							});
@@ -166,6 +167,7 @@ var UIExtendedModals = function () {
 					} else {
 						bootbox.alert(data.msg, function() {
 							modal.modal('hide');
+							Metronic.removeLoader();
 						});
 					}
 				}
@@ -176,7 +178,7 @@ var UIExtendedModals = function () {
 		$('#tabla_productos tbody').on('click', '.eliminar',function() {
 			var data = $('#tabla_productos').dataTable().api().row($(this).parents('tr')).data();
 			var codigo = data.codigo;
-			bootbox.confirm('<h3>¿Deseas eleminar este producto de la lista?</h3>', function(result) {
+			bootbox.confirm('<h3>¿Deseas eleminar este producto?</h3>', function(result) {
 				if (result) {
 					$.ajax({
 						url: './producto/gestor/eliminar',
@@ -196,13 +198,14 @@ var UIExtendedModals = function () {
 						},
 						success: function(data) {
 							if (data.exito) {
-								bootbox.alert("Se han borrado el producto de la base de datos.", function() {
+								bootbox.alert("<h4>Producto eliminado.</h4>", function() {
 									Metronic.removeLoader(function() {
 										location.reload();
 									});
 								});
 							} else {
 								bootbox.alert(data.msg);
+								Metronic.removeLoader();
 							}
 						}
 					});
