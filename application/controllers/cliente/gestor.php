@@ -210,7 +210,7 @@ class Gestor extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				$id					= $this->input->post('id'); // ID de la empresa
+				$id_contacto					= $this->input->post('id'); // ID del contacto
 				$id_cliente			= $this->input->post('id_cliente'); // ID del cliente
 				$total_contactos	= count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
 
@@ -221,17 +221,17 @@ class Gestor extends AbstractAccess {
 	 			} else
 	 			{
 	 				//IF PARA REVISAR QUE EL CONTACTO SI ESTA RELACIONADO CON ALGUNA COTIZACION NO SE PUEDA ELIMINAR
-	 				//$this->load->model('cotizacionModel');
-	 				//if(count($this->cotizacionModel->get(array('*'), array('')))!=0){
-
-	 				//}else{
-	 					if ($this->contactosModel->delete(array('id' => $id)))
+	 				$this->load->model('cotizacionModel');
+	 				if(count($this->cotizacionModel->get(array('*'), array('id_contacto' => $id_contacto)))>0){
+	 					$respuesta = array('exito' => FALSE, 'msg' => '<h4>No puedes eliminar este contacto, esta ligado a una cotización.</h4>');
+	 				}else{
+	 					if ($this->contactosModel->delete(array('id' => $id_contacto)))
 						{
 							$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se eliminó el contacto con éxito.</h4>');
 						} else {
 							$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 						}
-	 				//}
+	 				}
 	 			}
 
 	      			//mando la repuesta
@@ -244,7 +244,7 @@ class Gestor extends AbstractAccess {
 				if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
 				{
 					$this->data['contacto'] = $contacto;
-					$this->_vista_completa('cliente/modal-form-editar-contacto');
+					$this->_vista_completa('gestor/modal-form-editar-contacto');
 				} else
 				{
 					show_error('No existe este contacto.', 404);
@@ -387,8 +387,6 @@ class Gestor extends AbstractAccess {
 				$this->output
 					 ->set_content_type('application/json')
 					 ->set_output(json_encode($respuesta));
-
-
 			break;
 
 			case 'editar':
@@ -519,7 +517,7 @@ class Gestor extends AbstractAccess {
 					$this->data['select_SQL'] 	= form_dropdown('sql_server', $select_sqlServer, $equipo->sql_server, 'class="form-control"');
 					$this->data['select_mgm'] 	= form_dropdown('sql_management', $select_mgm, $equipo->sql_management, 'class="form-control"');
 
-					$this->_vista_completa('cliente/modal-form-nuevo-equipo');
+					$this->_vista_completa('gestor/modal-form-editar-equipo');
 				} else
 				{
 					show_error('No existe este equipo de computo.', 404);

@@ -4,7 +4,7 @@
  */
 var UIExtendedModals = function () {
 
-	var tablaClientes = function () {
+	var tablaProductos = function () {
 		var table = $('#tabla_productos');
 
 		table.dataTable({
@@ -220,7 +220,7 @@ var UIExtendedModals = function () {
 			if (!jQuery().dataTable) {
 				return;
 			}
-			tablaClientes();
+			tablaProductos();
 			modalProducto();
 		}
 	};

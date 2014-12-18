@@ -485,7 +485,7 @@ class Cliente extends AbstractAccess {
 			break;
 
 			case 'eliminar':
-				$id					= $this->input->post('id'); // ID de la empresa
+				$id_contacto					= $this->input->post('id'); // ID del contacto
 				$id_cliente			= $this->input->post('id_cliente'); // ID del cliente
 				$total_contactos	= count($this->contactosModel->get_where(array('id_cliente' => $id_cliente)));
 
@@ -497,17 +497,17 @@ class Cliente extends AbstractAccess {
 	 			} else
 	 			{
 	 				//IF PARA REVISAR QUE EL CONTACTO SI ESTA RELACIONADO CON ALGUNA COTIZACION NO SE PUEDA ELIMINAR
-	 				//$this->load->model('cotizacionModel');
-	 				//if(count($this->cotizacionModel->get(array('*'), array('')))!=0){
-
-	 				//}else{
-	 					if ($this->contactosModel->delete(array('id' => $id)))
+	 				$this->load->model('cotizacionModel');
+	 				if(count($this->cotizacionModel->get(array('*'), array('id_contacto' => $id_contacto)))>0){
+	 					$respuesta = array('exito' => FALSE, 'msg' => '<h4>No puedes eliminar este contacto, esta ligado a una cotización.</h4>');
+	 				}else{
+	 					if ($this->contactosModel->delete(array('id' => $id_contacto)))
 						{
 							$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se eliminó el contacto con éxito.</h4>');
 						} else {
 							$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
 						}
-	 				//}
+	 				}
 	 			}
 
 	      			//mando la repuesta
