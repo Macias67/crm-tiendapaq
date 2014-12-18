@@ -35,8 +35,8 @@ var UIExtendedModals = function () {
 				}
 			],
 			"rowCallback" : function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-				$('td:eq(8)', nRow).html('<a href="/producto/detalles/'+aData.codigo+'" class="btn green btn-xs ajax-editar" data-target="#ajax_form_producto" data-toggle="modal">Detalles</a>');
-				$('td:eq(9)', nRow).html('<button type="button" class="btn red btn-xs eliminar" codigo="P001">Eliminar</button>');
+				$('td:eq(8)', nRow).html('<a href="/producto/detalles/'+aData.codigo+'" class="btn btn-circle green btn-xs ajax-editar" data-target="#ajax_form_producto" data-toggle="modal">Detalles</a>');
+				$('td:eq(9)', nRow).html('<button type="button" class="btn btn-circle red btn-xs eliminar" codigo="P001">Eliminar</button>');
 			},
 			// set the initial value
 			"pageLength": 15,
@@ -58,11 +58,11 @@ var UIExtendedModals = function () {
 			"columnDefs": [
 				{  // set default column settings
 					'orderable': false,
-					'targets': [8]
+					'targets': [8, 9]
 				},
 				{
 					"searchable": false,
-					"targets": [8]
+					"targets": [8, 9]
 				}
 			],
 			"order": [

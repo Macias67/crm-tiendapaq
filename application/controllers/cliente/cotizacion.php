@@ -127,7 +127,7 @@ class Cotizacion extends AbstractAccess {
 		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/');
 
 		//var_dump($archivos);
-		if (count($archivos)<=1 && count($archivos['thumbnail'])==0)
+		if (count($archivos) <=1 && (!isset($archivos['thumbnail']) || count($archivos['thumbnail']) == 0))
 		{
 			$response = array('exito' => FALSE, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
 		} else

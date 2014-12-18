@@ -13,7 +13,7 @@
 
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-5">
 				<!-- BEGIN COMENTARIOS COTIZACION-->
 				<div class="portlet">
 					<div class="portlet-title line">
@@ -87,7 +87,7 @@
 						<form role="form">
 							<div class="form-body">
 								<div class="form-group">
-									<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
+									<!-- <input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>"> -->
 									<label>Valoración: </label>
 									<div class="radio-list">
 										<label class="radio-inline">
@@ -110,7 +110,7 @@
 				</div>
 				<!-- END Portlet FORMULARIO-->
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-7">
 				<h3>Archivos enviados por <b><?php echo $cotizacion->razon_social ?></b></h3>
 				<!-- BEGIN FILTER -->
 				<div class="filter-v1 margin-top-10">
