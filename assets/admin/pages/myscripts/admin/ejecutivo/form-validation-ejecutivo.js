@@ -535,6 +535,7 @@ var FormValidationEjecutivo = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
+			bootbox.setDefaults({locale: "es"});
 			handleInputMasksEjecutivo();
 			formularioEjecutivoNuevo();
 			formularioEjecutivoEditado();

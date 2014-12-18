@@ -220,6 +220,7 @@ var UIExtendedModals = function () {
 			if (!jQuery().dataTable) {
 				return;
 			}
+			bootbox.setDefaults({locale: "es"});
 			tablaProductos();
 			modalProducto();
 		}

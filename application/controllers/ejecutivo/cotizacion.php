@@ -106,8 +106,6 @@ class Cotizacion extends AbstractAccess {
 				$this->load->model('casoModel');
 
 				$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
-
-
 				$caso = array(
 					'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
 					'id_cliente' => $cotizacion->id_cliente,
@@ -122,7 +120,7 @@ class Cotizacion extends AbstractAccess {
 		} elseif ($valoracion == 'parcial') {
 				$this->load->model('estatusGeneralModel');
 
-				// Cambie estatus de la cotizacion a PAGADO
+				// Cambie estatus de la cotizacion a PARCIAL
 				if ($this->cotizacionModel->update(
 					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
 					array('folio' => $folio)))
@@ -130,7 +128,6 @@ class Cotizacion extends AbstractAccess {
 					$this->load->model('casoModel');
 
 					$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
-
 					$caso = array(
 						'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
 						'id_cliente' => $cotizacion->id_cliente,

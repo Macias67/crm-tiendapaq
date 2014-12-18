@@ -137,6 +137,7 @@ var TableManagedCliente = function() {
 	}
 	return {
 		init: function() {
+			bootbox.setDefaults({locale: "es"});
 			handleTableClientes();
 		}
 	};

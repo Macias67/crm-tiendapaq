@@ -194,7 +194,7 @@
 						{% if (!i && !o.options.autoUpload) { %}
 							<button class="btn blue start" disabled>
 								<i class="fa fa-upload"></i>
-								<span>Iniciar</span>
+								<span>Subir</span>
 							</button>
 						{% } %}
 						{% if (!i) { %}
