@@ -24,9 +24,6 @@ class Caso extends AbstractAccess {
 	{
 		$this->load->model('ejecutivoModel');
 		$this->load->helper('formatofechas_helper');
-		$this->load->model('ejecutivoModel');
-
-		$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
 		//var_dump($this->data);
 
 		$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'),array('id' => $this->data['usuario_activo']['id']));
@@ -57,9 +54,20 @@ class Caso extends AbstractAccess {
 	 * @return json
 	 * @author Diego Rodriguez
 	 **/
-	public function asignar($id_caso,$id_ejecutivo)
+	public function asignar($accion=null,$id_caso=null,$id_ejecutivo=null)
 	{
-		
+		switch ($accion) {
+			case 'asignar':
+				# code...
+			break;
+			case 'mostrar':
+				$this->load->model('ejecutivoModel');
+				$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
+				$this->data['id_caso'] = $id_caso;
+
+				$this->_vista_completa('caso/modal-asignar-ejecutivo');
+			break;
+		}
 	}
 
 }
