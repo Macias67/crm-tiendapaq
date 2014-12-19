@@ -62,7 +62,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title"><b>Asignar caso a ejecutivo</b></h3>
+				<h4 class="modal-title"><b>Asignar caso a ejecutivo</b></h4>
 				<small> </small>
 			</div>
 			<form id ="form-sistema-nuevo" method="post" accept-charset="utf-8">
@@ -79,16 +79,15 @@
 								<!-- Sistema -->
 								<div class="form-group">
 									<label class="col-md-4 control-label">
-										Sistema
+										Ejecutivo
 									</label>
 									<div class="col-md-8">
-										<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $cliente->id ?>">
 										<div class="input-icon">
 											<i class="fa fa-info"></i>
 											<select class="form-control" name="sistema" id="select_sistemas">
 												<option value=""></option>
-												<?php foreach ($sistemas_contpaqi as $sistema): ?>
-												<option value="<?php echo $sistema->sistema?>"><?php echo $sistema->sistema ?></option>
+												<?php foreach ($ejecutivos as $ejecutivo): ?>
+													<option value="<?php echo $ejecutivo->id?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
 												<?php endforeach ?>
 											</select>
 										</div>
@@ -102,7 +101,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
-					<button type="submit" id="btn_guardar_sistema" class="btn btn-circle green">Guardar</button>
+					<button type="submit" id="btn_asignar_caso" class="btn btn-circle green">Asignar</button>
 				</div>
 			</form>
 		</div>

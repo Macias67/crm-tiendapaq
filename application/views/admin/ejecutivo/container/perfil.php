@@ -61,7 +61,7 @@
 															</ul>
 														</div>
 													</div>
-													<p><a href="#">www.mywebsite.com </a></p>
+													<p><a href="#">www.facebook.com/usuario </a></p>
 													<ul class="list-inline">
 														<li>
 															<i class="fa fa-map-marker"></i> México
@@ -102,7 +102,7 @@
 																<tr>
 																	<th>No.</th>
 																	<th>Actvidad</th>
-																	<th>Empresa</th>
+																	<th>Cliente</th>
 																	<th>Apertura</th>
 																	<th>Estatus</th>
 																	<th></th>
@@ -144,7 +144,28 @@
 													</div>
 													<!--TAB CASOS-->
 													<div class="tab-pane" id="tab_casos">
-														Aqui va la tabla de los casos del ejecutivo
+														<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
+															<thead>
+																<tr>
+																	<th>No.</th>
+																	<th>Cliente</th>
+																	<th>Apertura</th>
+																	<th>Vigencia (aprox.)</th>
+																	<th>Estatus</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr class="odd gradeX">
+																	<td>1</td>
+																	<td>Almacenes Juapesa SA</td>
+																	<td>Lunes, 15 de Diciembre de 2014 a las 12:05 AM</td>
+																	<td>Viernes, 19 de Diciembre de 2014 a las 10:00 PM</td>
+																	<td><a href="#" class="btn yellow btn-circle btn-xs disabled">En Proceso</a></td>
+																	<td><a href="#" class="btn blue btn-circle btn-xs"><i class="fa fa-search"></i> Detalles</a></td>
+																</tr>
+															</tbody>
+														</table>
 													</div>
 												</div>
 											</div>
@@ -475,7 +496,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.modal -->
 		<!-- END AJAX DETALLE PENDIENTE -->
 
 		<!-- BEGIN AJAX REASIGNACIONES PENDIENTE -->
@@ -489,5 +509,4 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.modal -->
 		<!-- END AJAX REASIGNACIONES PENDIENTE -->
