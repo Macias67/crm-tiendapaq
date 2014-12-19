@@ -25,8 +25,8 @@
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-group"></i>
+												<input type="hidden" id="id_caso" value="<?php echo $id_caso ?>">
 												<select class="form-control" name="ejecutivos" id="select_ejecutivo">
-													<option value=""></option>
 													<?php foreach ($ejecutivos as $ejecutivo): ?>
 														<option value="<?php echo $ejecutivo->id?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
 													<?php endforeach ?>

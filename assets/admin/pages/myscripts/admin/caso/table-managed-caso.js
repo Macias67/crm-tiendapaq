@@ -51,14 +51,15 @@ var TableManaged = function () {
     var modal = $('#ajax-asignar-ejecutivo');
     modal.on('shown.bs.modal', function (e) {
       $('.btn_asignar_caso').on('click', function () {
-        var id_caso = $('#').val();
-        var id_ejecutivo = $('#').val();
+        var id_caso = $('#id_caso').val();
+        var id_ejecutivo = $('#select_ejecutivo').val();
 
         bootbox.confirm('<h4>¿Seguro que quieres asignarle el caso a este ejecutivo?</h4>', function(response) {
           if (response) {
              alert('enviar peticion a controlador');
+             console.log('id_caso '+id_caso+' id_ejecutivo '+id_ejecutivo);
         //     //Metronic.showLoader();
-        //     // $.post('/cliente/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
+        //     // $.post('/caso/asignar/asignar/', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
         //     //   if (data.exito) {
         //     //     table.DataTable().row(Row).remove().draw();
         //     //   }
