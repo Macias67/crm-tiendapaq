@@ -21,7 +21,7 @@
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">
-							<table class="table table-striped table-bordered table-hover" id="tabla-cosos-asignar">
+							<table class="table table-striped table-bordered table-hover" id="tabla-casos-asignar">
 								<thead>
 									<tr>
 										<th>No. Caso</th>
@@ -84,7 +84,7 @@
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-info"></i>
-											<select class="form-control" name="sistema" id="select_sistemas">
+											<select class="form-control" name="ejecutivos" id="select_ejecutivo">
 												<option value=""></option>
 												<?php foreach ($ejecutivos as $ejecutivo): ?>
 													<option value="<?php echo $ejecutivo->id?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
@@ -100,8 +100,8 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-circle green btn_asignar_caso">Asignar</button>
 					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
-					<button type="submit" id="btn_asignar_caso" class="btn btn-circle green">Asignar</button>
 				</div>
 			</form>
 		</div>

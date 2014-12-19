@@ -5,7 +5,7 @@ var TableManaged = function () {
 
 	var CasosAsignar = function () {
 
-		var table = $('#tabla-cosos-asignar');
+		var table = $('#tabla-casos-asignar');
 
 		table.dataTable({
 			"lengthMenu": [
@@ -47,6 +47,28 @@ var TableManaged = function () {
       ],
       "order": [ 0, 'asc' ] // set first column as a default sort by asc
   	});
+
+    //funcion para asignar caso
+    $('.btn_asignar_caso').on('click', function () {
+      var id_caso = $('#').val();
+      var id_ejecutivo = $('#').val();
+
+      bootbox.confirm('<h4>¿Seguro que quieres asignarle el caso a este ejecutivo?</h4>', function(response) {
+        if (response) {
+           alert('enviar peticion a controlador');
+      //     //Metronic.showLoader();
+      //     // $.post('/cliente/contactos/eliminar', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
+      //     //   if (data.exito) {
+      //     //     table.DataTable().row(Row).remove().draw();
+      //     //   }
+      //     //   bootbox.alert(data.msg, function () {
+      //     //     Metronic.removeLoader();
+      //     //   });
+      //     // }, 'json');
+        }
+      });
+    });
+
 	}
 
 	return {
