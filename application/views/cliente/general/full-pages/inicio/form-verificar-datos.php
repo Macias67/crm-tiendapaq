@@ -1,5 +1,5 @@
 <div class="modal-header">
-		<h4><b>Verificar Datos - <small><a href="<?php echo site_url('/gestionar/porque') ?>" data-target="#ajax-porque" data-toggle="modal">¿Por qué esto?</a></small></h4>
+		<h3><b>Verificar Datos - <small><a href="<?php echo site_url('/gestionar/porque') ?>" data-target="#ajax-porque" data-toggle="modal">¿Por qué esto?</a></small></h3>
 </div>
 <form action="#" id="form-verificar-datos" method="post" accept-charset="utf-8">
 	<div class="modal-body form-horizontal">

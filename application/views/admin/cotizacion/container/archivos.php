@@ -92,7 +92,7 @@
 									<label>Valoración: </label>
 									<div class="radio-list">
 										<label class="radio-inline">
-										<input type="radio" name="valoracion" id="valoracion1" value="aceptado"> Aceptado </label>
+										<input type="radio" name="valoracion" id="valoracion1" value="aceptado"> Pagado </label>
 										<label class="radio-inline">
 										<input type="radio" name="valoracion" id="valoracion2" value="irregular"> Irregular </label>
 										<label class="radio-inline">
