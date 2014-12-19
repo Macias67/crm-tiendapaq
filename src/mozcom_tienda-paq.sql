@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2014 a las 20:43:12
+-- Tiempo de generación: 19-12-2014 a las 00:59:16
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -128,9 +128,12 @@ CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
   `folio` int(11) NOT NULL,
   `fecha` timestamp NOT NULL,
   `tipo` enum('E','C') NOT NULL,
+  `id_ejecutivo` int(11) DEFAULT NULL,
   `comentario` text NOT NULL,
   KEY `folio` (`folio`),
-  KEY `folio_2` (`folio`)
+  KEY `folio_2` (`folio`),
+  KEY `id_ejecutivo` (`id_ejecutivo`),
+  KEY `id_ejecutivo_2` (`id_ejecutivo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -518,6 +521,7 @@ ALTER TABLE `caso`
 -- Filtros para la tabla `comentarios_cotizacion`
 --
 ALTER TABLE `comentarios_cotizacion`
+  ADD CONSTRAINT `comentarios_cotizacion_ibfk_2` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`),
   ADD CONSTRAINT `comentarios_cotizacion_ibfk_1` FOREIGN KEY (`folio`) REFERENCES `cotizacion` (`folio`);
 
 --

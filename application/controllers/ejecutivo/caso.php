@@ -5,6 +5,9 @@ class Caso extends AbstractAccess {
 	public function index()
 	{
 		$this->load->model('ejecutivoModel');
+		$this->load->helper('formatofechas_helper');
+		$this->load->model('ejecutivoModel');
+
 		$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'),array('id' => $this->data['usuario_activo']['id']));
 		if($asignador_casos[0]->asignador_casos=="si"){
 			$this->load->model('casoModel');
