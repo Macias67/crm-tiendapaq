@@ -29,7 +29,6 @@
 							</a>
 						</div>
 					</div>
-					<?php var_dump($this->data) ?>
 					<div class="portlet-body" id="chats">
 						<div class="scroller" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
 							<ul class="chats">

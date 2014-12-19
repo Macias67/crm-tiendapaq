@@ -178,7 +178,7 @@ class Cotizacion extends AbstractAccess {
 			'folio'        => $this->input->post('folio'),
 			'fecha'        => date('Y-m-d H:i:s'),
 			'tipo' 	       => 'C',
-			'id_ejecutivo' =>	NULL,
+			'id_ejecutivo' =>	1,
 			'comentario'   => $this->input->post('comentario'),
 		);
 
