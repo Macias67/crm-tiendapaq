@@ -111,10 +111,10 @@
 												<?php endif ?>
 												<?php if($comentario->tipo=='E'): ?>
 													<li class="out">
-														<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
+														<img class="avatar" alt="" src="<?php echo site_url('assets/admin/pages/media/profile').'/'.$comentario->id_ejecutivo.'/chat.jpg' ?>"/>
 														<div class="message">
 															<span class="arrow"></span>
-															<a href="#" class="name">TiendaPAQ</a>
+															<a href="#" class="name"><?php echo $comentario->nombre_ejecutivo.' '.$comentario->apellido_ejecutivo ?></a>
 															<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
 															<span class="body"><?php echo $comentario->comentario ?></span>
 														</div>

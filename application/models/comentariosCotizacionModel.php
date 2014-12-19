@@ -22,6 +22,28 @@ class ComentariosCotizacionModel extends MY_Model {
 		$this->table	= self::TABLE;
 	}
 
+/**
+	 * undocumented function
+	 *
+	 * @return Array Object
+	 * @author Diego Rodriguez
+	 **/
+	public function get_comentarios($folio)
+	{
+
+		$this->db->select(array(
+			                      'comentarios_cotizacion.folio','comentarios_cotizacion.fecha', 
+			                      'comentarios_cotizacion.tipo', 'comentarios_cotizacion.comentario',
+			                      'ejecutivos.id as id_ejecutivo',
+			                      'ejecutivos.primer_nombre as nombre_ejecutivo',
+			                      'ejecutivos.apellido_paterno as apellido_ejecutivo'));
+		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+		$where = "folio =".$folio;
+		$this->db->where($where);
+		$this->db->order_by("fecha ASC");
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
 
 }
 

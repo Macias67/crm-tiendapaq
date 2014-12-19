@@ -29,16 +29,17 @@
 							</a>
 						</div>
 					</div>
+					<?php var_dump($this->data) ?>
 					<div class="portlet-body" id="chats">
 						<div class="scroller" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
 							<ul class="chats">
 								<?php foreach ($comentarios as $comentario): ?>
 									<?php if($comentario->tipo=='E'): ?>
 										<li class="in">
-											<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
+											<img class="avatar" alt="" src="<?php echo site_url('assets/admin/pages/media/profile').'/'.$comentario->id_ejecutivo.'/chat.jpg' ?>"/>
 											<div class="message">
 												<span class="arrow"></span>
-												<a href="#" class="name">TiendaPAQ</a>
+												<a href="#" class="name"><?php echo $comentario->nombre_ejecutivo.' '.$comentario->apellido_ejecutivo?></a>
 												<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
 												<span class="body"><?php echo $comentario->comentario ?></span>
 											</div>
@@ -61,6 +62,7 @@
 						<div class="chat-form">
 							<div class="input-cont">
 								<input class="form-control" type="text" placeholder="Escribe un comentario..."/>
+								<input type="hidden" id="id_ejecutivo" value="<?php echo $usuario_activo['id'] ?>">
 								<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
 								<input type="hidden" id="nombre_ejecutivo" value="<?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?>">
 								<input type="hidden" id="ruta_imagen" value="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>">

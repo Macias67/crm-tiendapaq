@@ -16,6 +16,7 @@ var ComentariosCotizacion = function () {
             var nombre_ejecutivo = $('#nombre_ejecutivo').val();
             var ruta_imagen = $('#ruta_imagen').val();
             var folio = $('#folio').val();
+            var id_ejecutivo = $('#id_ejecutivo').val();
 
             var handleClick = function (e) {
                 e.preventDefault();
@@ -33,7 +34,7 @@ var ComentariosCotizacion = function () {
                 tpl += '<img class="avatar" alt="" src="'+ruta_imagen+'"/>';
                 tpl += '<div class="message">';
                 tpl += '<span class="arrow"></span>';
-                tpl += '<a href="" class="name">TiendaPAQ</a>&nbsp;';
+                tpl += '<a href="" class="name">'+nombre_ejecutivo+'</a>&nbsp;';
                 tpl += '<span class="datetime">el '+fecha+' a las ' + hora + '</span>';
                 tpl += '<span class="body">';
                 tpl += comentario;
@@ -45,7 +46,8 @@ var ComentariosCotizacion = function () {
                 var url     = '/cotizaciones/comentarios';
                 var param = {
                     folio:folio,
-                    comentario:comentario
+                    comentario:comentario,
+                    id_ejecutivo:id_ejecutivo
                 }
 
                 $.post(url, param, function(data, textStatus, xhr) {

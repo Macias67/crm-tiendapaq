@@ -77,10 +77,10 @@ class Cotizacion extends AbstractAccess {
 			$this->load->model('comentariosCotizacionModel');
 			$this->load->helper('formatofechas_helper');
 
+
 			$this->data['cotizacion'] = $cotizacion;
 			$this->data['archivos'] = $archivos;
-			$this->data['comentarios'] = $this->comentariosCotizacionModel->get(array('*'),array('folio' => $folio));
-			//var_dump($this->data);
+			$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 			$this->_vista('archivos');
 		} else {
 			show_404();
@@ -164,10 +164,11 @@ class Cotizacion extends AbstractAccess {
 	public function comentarios()
 	{
 		$comentario = array(
-			'folio'      => $this->input->post('folio'),
-			'fecha'      => date('Y-m-d H:i:s'),
-			'tipo' 	     => 'E',
-			'comentario' => $this->input->post('comentario'),
+			'folio'      	 => $this->input->post('folio'),
+			'fecha'      	 => date('Y-m-d H:i:s'),
+			'tipo' 	     	 => 'E',
+			'id_ejecutivo' => $this->input->post('id_ejecutivo'),
+			'comentario'   => $this->input->post('comentario'),
 		);
 
 		$this->load->model('comentariosCotizacionModel');

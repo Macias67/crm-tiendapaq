@@ -60,9 +60,8 @@ class Cotizacion extends AbstractAccess {
 				//si se muestra el formulario para cargar archivos obtenemos los comentarios
 				$this->load->model('comentariosCotizacionModel');
 				$this->load->helper('formatofechas_helper');
-				$comentarios = $this->comentariosCotizacionModel->get(array('*'),array('folio' => $folio));
+				$comentarios = $this->comentariosCotizacionModel->get_comentarios($folio);
 				$this->data['comentarios'] = $comentarios;
-				//var_dump($this->data);
 				$this->_vista('formulario');
 			} else
 			{
@@ -176,10 +175,11 @@ class Cotizacion extends AbstractAccess {
 	public function comentarios()
 	{
 		$comentario = array(
-			'folio'      => $this->input->post('folio'),
-			'fecha'      => date('Y-m-d H:i:s'),
-			'tipo' 	     => 'C',
-			'comentario' => $this->input->post('comentario'),
+			'folio'        => $this->input->post('folio'),
+			'fecha'        => date('Y-m-d H:i:s'),
+			'tipo' 	       => 'C',
+			'id_ejecutivo' =>	NULL,
+			'comentario'   => $this->input->post('comentario'),
 		);
 
 		$this->load->model('comentariosCotizacionModel');
