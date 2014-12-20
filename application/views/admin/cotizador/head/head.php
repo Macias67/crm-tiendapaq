@@ -24,6 +24,7 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link href="<?php echo $assets_admin_pages ?>css/invoice.css" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datepicker/css/datepicker3.css"/>
 	<!-- END PAGE LEVEL STYLES -->

@@ -199,6 +199,19 @@ class Cotizador extends AbstractAccess {
 		$html2pdf->Output($path, 'F');
 	}
 
+	public function prueba()
+	{
+		require_once APPPATH.'third_party/html2pdf/html2pdf.class.php';
+		$html2pdf = new HTML2PDF('P','LETTER','es');
+		$stylesheet = $this->_vista_completa('cotizacion.php', TRUE);
+
+		// Ejemplo de HTML2PDF
+		// ob_clean();
+		$html2pdf->WriteHTML($stylesheet);
+		$html2pdf->Output();
+		//$this->_vista('diseno');
+	}
+
 	/**
 	 * Funcion para crear los pdf y enviarlos
 	 * via email al cliente
