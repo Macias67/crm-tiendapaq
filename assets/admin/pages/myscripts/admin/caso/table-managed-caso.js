@@ -53,20 +53,21 @@ var TableManaged = function () {
       $('.btn_asignar_caso').on('click', function () {
         var id_caso = $('#id_caso').val();
         var id_ejecutivo = $('#select_ejecutivo').val();
+        var ejecutivo_text = $("#select_ejecutivo option:selected").html()
 
         bootbox.confirm('<h4>¿Seguro que quieres asignarle el caso a este ejecutivo?</h4>', function(response) {
           if (response) {
-             alert('enviar peticion a controlador');
-             console.log('id_caso '+id_caso+' id_ejecutivo '+id_ejecutivo);
-        //     //Metronic.showLoader();
-        //     // $.post('/caso/asignar/asignar/', {id_cliente:id_cliente, id:id}, function(data, textStatus, xhr) {
-        //     //   if (data.exito) {
-        //     //     table.DataTable().row(Row).remove().draw();
-        //     //   }
-        //     //   bootbox.alert(data.msg, function () {
-        //     //     Metronic.removeLoader();
-        //     //   });
-        //     // }, 'json');
+             Metronic.showLoader();
+            $.post('/caso/asignar/asignar/', {id_caso:id_caso, id_ejecutivo:id_ejecutivo}, function(data, textStatus, xhr) {
+              if (data.exito) {
+                bootbox.alert('<h4>Caso asignado a <b>'+ejecutivo_text+'</b> con éxito</h4>',function () {
+                  parent.location.reload();
+                });
+              }
+              bootbox.alert(data.msg, function () {
+                Metronic.removeLoader();
+              });
+            }, 'json');
           }
         });
       });

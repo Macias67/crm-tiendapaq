@@ -34,13 +34,13 @@
 								<tbody>
 									<?php foreach ($casos_asignacion as $caso ): ?>
 										<tr>
-											<td><?php echo $caso->id ?></td>
+											<td><?php echo $caso->id_caso ?></td>
 											<td><?php echo $caso->razon_social ?></td>
 											<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 											<td><a class="btn yellow btn-circle btn-xs disabled" href=""><?php echo ucfirst($caso->descripcion) ?></a></td>
 											<td>
 												<a class="btn blue btn-circle btn-xs" href="#"><i class="fa fa-search"></i> Detalles</a>
-												<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/caso/asignar/mostrar/'.$caso->id) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal" ><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
+												<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/caso/asignar/mostrar/'.$caso->id_caso) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal" ><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
 											</td>
 										</tr>
 									<?php endforeach ?>

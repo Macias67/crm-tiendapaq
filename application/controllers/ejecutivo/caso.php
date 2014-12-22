@@ -30,7 +30,7 @@ class Caso extends AbstractAccess {
 		if($asignador_casos[0]->asignador_casos=="si"){
 			$this->load->model('casoModel');
 
-			$campos = array('*');
+			$campos = array('caso.id as id_caso','clientes.razon_social','estatus_general.descripcion','id_cliente','folio_cotizacion','fecha_inicio','fecha_final');
 			$this->data['casos_asignacion'] = $this->casoModel->get_casos_asignacion($campos);
 			$this->_vista('casos_asignar');
 		}else{
@@ -54,12 +54,26 @@ class Caso extends AbstractAccess {
 	 * @return json
 	 * @author Diego Rodriguez
 	 **/
-	public function asignar($accion=null,$id_caso=null,$id_ejecutivo=null)
+	public function asignar($accion=null, $id_caso=null)
 	{
 		switch ($accion) {
 			case 'asignar':
-				# code...
+				$this->load->model('estatusGeneralModel');
+
+				$id_caso = $this->input->post('id_caso');
+				$id_ejecutivo = $this->input->post('id_ejecutivo');
+
+				if($this->casoModel->update(array('id_lider' => $id_ejecutivo, 'id_estatus_general' => $this->estatusGeneralModel->PENDIENTE),array('id' => $id_caso))){
+					$respuesta = array('exito' => TRUE);
+				}else{
+					$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error, revisa la consola para mas información</h4>');
+				}
+
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode($respuesta));
 			break;
+
 			case 'mostrar':
 				$this->load->model('ejecutivoModel');
 				$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
