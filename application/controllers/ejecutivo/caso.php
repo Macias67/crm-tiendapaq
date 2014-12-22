@@ -30,7 +30,11 @@ class Caso extends AbstractAccess {
 		if($asignador_casos[0]->asignador_casos=="si"){
 			$this->load->model('casoModel');
 
-			$campos = array('caso.id as id_caso','clientes.razon_social','estatus_general.descripcion','id_cliente','folio_cotizacion','fecha_inicio','fecha_final');
+			$campos = array('caso.id as id_caso',
+				              'clientes.razon_social',
+				              'estatus_general.descripcion',
+				              'id_cliente','folio_cotizacion',
+				              'fecha_inicio','fecha_final');
 			$this->data['casos_asignacion'] = $this->casoModel->get_casos_asignacion($campos);
 			$this->_vista('casos_asignar');
 		}else{

@@ -54,7 +54,7 @@ class EjecutivoModel extends MY_Model {
 		$this->ejecutivo->telefono			= $data['telefono'];
 		$this->ejecutivo->oficina				= $data['oficina'];
 		$this->ejecutivo->departamento		= $data['departamento'];
-		$this->ejecutivo->mensaje_personal	= "Bienenido a CRM Tiendapaq";
+		$this->ejecutivo->mensaje_personal	= "Bienvenido a CRM TiendaPAQ";
 
 		if($editado==FALSE)
 		{

@@ -31,6 +31,9 @@ class Ejecutivo extends AbstractAccess {
 		//cargo los modelos a usar
 		$this->load->model('departamentoModel');
 		$this->load->model('oficinasModel');
+		$this->load->model('casoModel');
+		//cargo los helpers a usar
+		$this->load->helper('formatofechas_helper');
 		//cargamos los datos completos del usuario para mostrarlos en el perfil
 		$usuario_temp	= (array)$this->ejecutivoModel->get_where(array('id' => $this->usuario_activo['id']));
 		$usuario_temp['ruta_imagenes']	= site_url('assets/admin/pages/media/profile/'.$this->usuario_activo['id']).'/';
@@ -40,6 +43,15 @@ class Ejecutivo extends AbstractAccess {
 		//variables precargadas para mostrar datos el los selects del formulario de edicion
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		$this->data['tablaoficinas']			= $this->oficinasModel->get(array('ciudad_estado'));
+		//variable de los casos del ejecutivo
+		$this->data['casos'] = $this->casoModel->get_casos_ejecutivo($this->usuario_activo['id'], 
+				                                                         array('caso.id as id_caso',
+				                                                         	     'clientes.razon_social',
+				                                                         	     'estatus_general.descripcion',
+				                                                         	     'id_cliente',
+				                                                         	     'folio_cotizacion',
+				                                                         	     'fecha_inicio',
+				                                                         	     'fecha_final'));
 		//mandamos la vista principal
 		$this->_vista('perfil');
 		//var_dump($this->data);
