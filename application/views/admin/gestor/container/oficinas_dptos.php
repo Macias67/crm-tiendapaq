@@ -217,7 +217,7 @@ BEGIN CONTENT -->
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-phone"></i>
-											<input type="text" class="form-control telefono_contacto" placeholder="Teléfono" name="telefono">
+											<input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
 										</div>
 									</div>
 								</div>
