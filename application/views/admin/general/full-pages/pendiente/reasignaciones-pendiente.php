@@ -10,7 +10,7 @@
 					<tr>
 						<th>Ejecutivo Anterior</th>
 						<th>Ejecutivo Actual</th>
-						<th>Fecha</th>
+						<th>Fecha de reasignación</th>
 						<th>Motivo</th>
 					</tr>
 				</thead>

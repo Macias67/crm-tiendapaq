@@ -89,19 +89,18 @@ var UIExtendedModals = function () {
 			});
 
 			$('#ajax-detalles-caso').on('click', '.ver-cotizacion', function(){
-				var url 		= '/cotizacion/previapdf';
-				var folio = $('#folio_cotizacion').val();
-				var id_cliente = $('#id_cliente').val();
-				alert('click en ver cotizacion, folio :'+folio+' id_cliente: '+id_cliente);
+      var url     = '/cotizaciones/previapdf';
+      var folio = $('#folio_cotizacion').val();
+      var idcliente = $('#id_cliente').val();
 
-				$.post(url, {folio:folio,id_cliente:id_cliente}, function(data, textStatus, xhr) {
-					if (data.existe) {
-						window.open(data.ruta,'','height=800,width=800');
-					}else{
-						bootbox.alert('<h4>Error, el pdf de la cotización no existe o ha sido eliminado.</h4>');
-					}
-				}, 'json');
-			});
+      $.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
+        if (data.existe) {
+          window.open(data.ruta,'','height=800,width=800');
+        }else{
+          bootbox.alert('<h4>Error, el pdf de la cotización no existe o ha sido eliminado.</h4>');
+        }
+      }, 'json');
+    });
 
 		}
 	};

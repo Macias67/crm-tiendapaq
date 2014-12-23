@@ -344,7 +344,6 @@
 									<label class="control-label col-md-4">Ejecutivo</label>
 									<div class="col-md-8">
 										<select class="form-control" name="ejecutivo">
-											<option value=""></option>
 											<?php foreach ($ejecutivos as $ejecutivo): ?>
 											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
 											<?php endforeach ?>
