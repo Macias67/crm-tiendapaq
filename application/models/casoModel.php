@@ -53,6 +53,14 @@ class CasoModel extends MY_Model {
 		return $query->result();
 	}
 
+	public function get_caso_detalles($id_caso)
+	{
+		$this->load->model('estatusGeneralModel');
+		
+		$this->db->select('*');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+	}
+
 }
 
 /* End of file casoModel.php */

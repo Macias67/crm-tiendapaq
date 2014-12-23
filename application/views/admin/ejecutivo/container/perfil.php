@@ -156,21 +156,13 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr class="odd gradeX">
-															<td>1</td>
-															<td>Almacenes Juapesa SA</td>
-															<td>Lunes, 15 de Diciembre de 2014 a las 12:05 AM</td>
-															<td>Viernes, 19 de Diciembre de 2014 a las 10:00 PM</td>
-															<td><a href="#" class="btn yellow btn-circle btn-xs disabled">En Proceso</a></td>
-															<td><a href="#" class="btn blue btn-circle btn-xs"><i class="fa fa-search"></i> Detalles</a></td>
-														</tr>
 														<?php foreach ($casos as $caso): ?>
 															<tr class="odd gradeX">
 																<td><?php echo $caso->id_caso ?></td>
 																<td><?php echo $caso->razon_social ?></td>
 																<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 																<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
-																<td><a href="#" class="btn yellow btn-circle btn-xs disabled"><?php echo $caso->descripcion ?></a></td>
+																<td><a href="#" class="btn yellow btn-circle btn-xs disabled"><?php echo ucfirst($caso->descripcion) ?></a></td>
 																<td><a href="#" class="btn blue btn-circle btn-xs"><i class="fa fa-search"></i> Detalles</a></td>
 															</tr>
 														<?php endforeach ?>
@@ -520,3 +512,16 @@
 	</div>
 </div>
 <!-- END AJAX REASIGNACIONES PENDIENTE -->
+
+<!-- BEGIN DETALLES CASO  MODAL -->
+<div id="ajax-detalles-caso" class="modal fade" role="basic" aria-hidden="true">
+	<div class="page-loading page-loading-boxed">
+		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<span>Cargando... </span>
+	</div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+<!-- END DETALLES CASO  MODAL-->

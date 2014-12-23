@@ -39,8 +39,8 @@
 											<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 											<td><a class="btn yellow btn-circle btn-xs disabled" href=""><?php echo ucfirst($caso->descripcion) ?></a></td>
 											<td>
-												<a class="btn blue btn-circle btn-xs" href="#"><i class="fa fa-search"></i> Detalles</a>
-												<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/caso/asignar/mostrar/'.$caso->id_caso) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal" ><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
+												<a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>
+												<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/caso/asignar/mostrar/'.$caso->id_caso) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal"><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
 											</td>
 										</tr>
 									<?php endforeach ?>
@@ -56,6 +56,19 @@
 	</div>
 </div>
 <!-- END CONTENT -->
+
+<!-- BEGIN DETALLES CASO  MODAL -->
+<div id="ajax-detalles-caso" class="modal fade" role="basic" aria-hidden="true">
+	<div class="page-loading page-loading-boxed">
+		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<span>Cargando... </span>
+	</div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+<!-- END DETALLES CASO  MODAL-->
 
 <!-- BEGIN ASIGNAR EJECUTIVO MODAL -->
 <div id="ajax-asignar-ejecutivo" class="modal fade" role="basic" aria-hidden="true">
