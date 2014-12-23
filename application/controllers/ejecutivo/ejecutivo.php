@@ -54,7 +54,6 @@ class Ejecutivo extends AbstractAccess {
 				                                                         	     'fecha_final'));
 		//mandamos la vista principal
 		$this->_vista('perfil');
-		//var_dump($this->data);
 	}
 
 	/**

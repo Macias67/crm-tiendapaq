@@ -49,7 +49,10 @@ class Caso extends AbstractAccess {
 	 **/
 	public function detalles($id_caso)
 	{
-		
+		$this->load->helper('formatofechas_helper');
+		$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);
+
+		$this->_vista_completa('caso/modal-detalles-caso');
 	}
 
 	/**

@@ -163,7 +163,7 @@
 																<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 																<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
 																<td><a href="#" class="btn yellow btn-circle btn-xs disabled"><?php echo ucfirst($caso->descripcion) ?></a></td>
-																<td><a href="#" class="btn blue btn-circle btn-xs"><i class="fa fa-search"></i> Detalles</a></td>
+																<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
 															</tr>
 														<?php endforeach ?>
 													</tbody>
