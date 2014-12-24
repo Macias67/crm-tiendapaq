@@ -26,7 +26,7 @@ class Gestor extends AbstractAccess {
 	* Funcion para la gestion de las oficinas
 	* @author Diego Rodriguez
 	**/
-	public function oficinas($accion=null)
+	public function oficinas($accion=null, $id_oficina=null)
 	{
 		//carga de los modelos y datosa usar
 		$this->load->model('departamentoModel');
@@ -40,9 +40,9 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('estado','Estado','trim|required|strtolower|ucwords|max_length[30]|xss_clean');
 				$this->form_validation->set_rules('colonia','Colonia','trim|required|strtolower|ucwords|max_length[30]|xss_clean');
 				$this->form_validation->set_rules('calle','Calle','trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-				$this->form_validation->set_rules('numero','Número','trim|required|max_length[5]|xss_clean');
-				$this->form_validation->set_rules('email','Email','trim|required|strtolower|valid_email|max_length[50]|xss_clean');
-				$this->form_validation->set_rules('telefono','Teléfono','trim|required|max_length[14]|xss_clean');
+				$this->form_validation->set_rules('numero','Número','trim||max_length[5]|xss_clean');
+				$this->form_validation->set_rules('email','Email','trim||strtolower|valid_email|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('telefono','Teléfono','trim||max_length[14]|xss_clean');
 
 				if($this->form_validation->run() === FALSE)
 				{
@@ -64,10 +64,10 @@ class Gestor extends AbstractAccess {
 					//inserto en la bd
 					if(!$this->oficinasModel->insert($oficina))
 					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+						$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se agrego, revisa la consola o la base de datos para detalles.</h4>');
 					}else
 					{
-						$respuesta = array('exito' => TRUE, 'oficina' => $oficina['ciudad_estado']);
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4> Oficina de <b>'.$oficina['ciudad_estado'].'</b> añadida con éxito.</h4>');
 					}
 				}
 					//mando la repuesta
@@ -108,10 +108,10 @@ class Gestor extends AbstractAccess {
 
 					if(!$this->oficinasModel->update($oficina, array('id_oficina' => $id_oficina)))
 					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');
+						$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se actualizo, revisa la consola o la base de datos para detalles.</h4>');
 					}else
 					{
-						$respuesta = array('exito' => TRUE, 'oficina' => $oficina['ciudad_estado']);
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Oficina de <b>'.$oficina['ciudad_estado'].'</b> actualizada con éxito.</h4>');
 					}
 					}
 					//mando la repuesta
@@ -129,21 +129,27 @@ class Gestor extends AbstractAccess {
 				$cont=count($this->ejecutivoModel->get_where(array('oficina' => $ciudad.', '.$estado)));
 				if($cont != 0)
 				{
-					$respuesta=array('exito' => FALSE, 'msg' => 'No se puede eliminar, hay ejecutivos asignados a esta oficina!');
+					$respuesta=array('exito' => FALSE, 'msg' => '<h4>No se puede eliminar, hay ejecutivos asignados a esta oficina.</h4>');
 				} else
 				{
 					if (!$this->oficinasModel->delete(array('id_oficina' => $id_oficina)))
 					{
-						$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+						$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se elimino, revisa la consola o la base de datos</h4>');
 					} else
 					{
-						$respuesta = array('exito' => TRUE, 'oficina' => $ciudad.', '.$estado);
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Oficina de <b>'.$ciudad.', '.$estado.'</b> eliminada con éxito.</h4>');
 					}
 				}
 					//mando la repuesta
 					$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
+			break;
+
+			case 'mostrar':
+				$this->data['oficina'] = $this->oficinasModel->get(array('*'), array('id_oficina' => $id_oficina), null, 'ASC', 1);
+				
+				$this->_vista_completa('gestor/modal-editar-oficina');
 			break;
 
 			default:

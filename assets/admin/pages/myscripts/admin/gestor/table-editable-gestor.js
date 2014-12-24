@@ -1,295 +1,290 @@
 var TableEditable = function () {
 
+		// Mascara para el campo telefeno
+		var maskTelefono = function() {
+			$(".telefono").inputmask('mask', {
+				"mask": "(999) 999-9999"
+			});
+		}
+
 		//Tabla de gestion de oficinas
 		var handleTableOficinas = function () {
 
-				function restoreRow(oTable, nRow) {
-						var aData = oTable.fnGetData(nRow);
-						var jqTds = $('>td', nRow);
+			var table = $('#tabla_oficinas_editable');
 
-						for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-								oTable.fnUpdate(aData[i], nRow, i, false);
-						}
-						oTable.fnDraw();
-				}
-				//funcion que abre los inputs para poder ser editados y pinta sus valores correspondientes
-				function editRow(oTable, nRow) {
-						var aData = oTable.fnGetData(nRow);
-						var jqTds = $('>td', nRow);
-						//en el priumer campo (id) deshabilitamos que lo puedan editar, los demas quedan como editables
-						jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-						jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-						jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-						jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
-						jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
-						jqTds[5].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[5] + '">';
-						jqTds[6].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[6] + '">';
-						jqTds[7].innerHTML = '<a class="btn edit green btn-circle btn-xs" href=""><i class="fa fa-save"></i> Guardar</a>';
-						jqTds[8].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
-				}
-				//funcion para obtener los valores de los inputs y guardarlos en la bd
-				//ya sea creando nueva oficina o editando una existente
-				function saveRow(oTable, nRow) {
-						var jqInputs = $('input', nRow);
+			var oTable = table.dataTable({
+					"pageLength": 25,
+					searching: false,
+					"lengthChange": false,
+					"columns": [
+							{ "orderable": true },
+							{ "orderable": true },
+							{ "orderable": true },
+							{ "orderable": true },
+							{ "orderable": true },
+							{ "orderable": true },
+							{ "orderable": false },
+							{ "orderable": false },
+							{ "orderable": false }
+					],
+					"language": {
+							"emptyTable":     "No hay oficinas registradas",
+							"info":           "Mostrando _START_ a _END_ de _TOTAL_ oficinas",
+							"infoEmpty":      "Mostrando 0 a 0 de 0 oficinas",
+							"infoFiltered":   "(de un total de _MAX_ oficinas registradas)",
+							"infoPostFix":    "",
+							"thousands":      ",",
+							"lengthMenu":     "Show _MENU_ registros",
+							"loadingRecords": "Cargando...",
+							"processing":     "Procesando...",
+							"zeroRecords":    "No se encontraron coincidencias",
+							"lengthMenu": "_MENU_ registros"
+					},
+					"columnDefs": [
+							{ // set default column settings
+							'orderable': true,
+							'targets': [0]
+							},
+							{
+							"searchable": true,
+							"targets": [0]
+							}
+					],
+					"order": [] // set first column as a default sort by asc
+			});
 
-						oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-						oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-						oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-						oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-						oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
-						oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
-						oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-						oTable.fnUpdate('<a class="btn edit blue btn-circle btn-xs" href=""><i class="fa fa-edit"></i> Editar</a>', nRow, 7, false);
-						oTable.fnUpdate('<a class="btn delete red btn-circle btn-xs" href=""><i class="fa fa-trash"></i> Eliminar</a>', nRow, 8, false);
-						oTable.fnDraw();
+			// Validaciones para editar cliente
+			var modal = $('#ajax_editar_oficina');
+			modal.on('shown.bs.modal', function (e) {
+				maskTelefono();
+				var form = $('#form-editar-oficina');
+				var error = $('.alert-danger', form);
+				var success = $('.alert-success', form);
 
-						//extraemos el id del tr para saber que objeto manipulamos
-						var id_oficina = $(nRow).attr('id');
-						//variable creada a manera de sintaxis post para mandar los valores al controlador gestor/oficinas
-						var oficina='id_oficina='+id_oficina+'&'+
-												'ciudad='+jqInputs[0].value+'&'+
-												'estado='+jqInputs[1].value+'&'+
-												'colonia='+jqInputs[2].value+'&'+
-												'calle='+jqInputs[3].value+'&'+
-												'numero='+jqInputs[4].value+'&'+
-												'email='+jqInputs[5].value+'&'+
-												'telefono='+jqInputs[6].value;
-
-						//if para saber si se trata de una oficina editada o de una nueva
-						//si no tiene id es nueva, si tiene un id existente es editada
-						if(id_oficina != undefined)
-						{
-								$.ajax({
-										url: "/gestor/oficinas/editar",
-										type: 'post',
-										cache: false,
-										dataType: 'json',
-										data: oficina,
-										beforeSend: function () {
-											 Metronic.showLoader();
-										},
-										error: function(jqXHR, status, error) {
-												console.log("ERROR: "+error);
-												alert('ERROR: revisa la consola del navegador para más detalles.');
-												Metronic.removeLoader();
-										},
-										success: function(data) {
-												if (data.exito) {
-														bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, actualizada con éxito</h4>",function () {
-																Metronic.removeLoader();
-																parent.location.reload();
-														});
-												} else {
-														bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-														editRow(oTable, nRow);
-														nEditing = nRow;
-														Metronic.removeLoader();
-												}
-										}
-								});
-						}else
-						{
-								$.ajax({
-										url: "/gestor/oficinas/nuevo",
-										type: 'post',
-										cache: false,
-										dataType: 'json',
-										data: oficina,
-										beforeSend: function () {
-											 Metronic.showLoader();
-										},
-										error: function(jqXHR, status, error) {
-												console.log("ERROR: "+error);
-												alert('ERROR: revisa la consola del navegador para más detalles.');
-												Metronic.removeLoader();
-										},
-										success: function(data) {
-												if (data.exito) {
-														bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, añadida con éxito</h4>", function () {
-																Metronic.removeLoader();
-																parent.location.reload();
-														});
-												} else {
-														bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-														editRow(oTable, nRow);
-														nEditing = nRow;
-														Metronic.removeLoader();
-												}
-										}
-								});
-						}
-				}
-
-				function cancelEditRow(oTable, nRow) {
-						var jqInputs = $('input', nRow);
-
-						oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-						oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-						oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-						oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-						oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
-						oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
-						oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-						oTable.fnUpdate('<a class="btn edit blue btn-circle btn-xs" href=""><i class="fa fa-edit"></i> Editar</a>', nRow, 7, false);
-						oTable.fnDraw();
-				}
-
-				var table = $('#tabla_oficinas_editable');
-
-				var oTable = table.dataTable({
-						"pageLength": 25,
-						searching: false,
-						"lengthChange": false,
-						"columns": [
-								{ "orderable": true },
-								{ "orderable": true },
-								{ "orderable": true },
-								{ "orderable": true },
-								{ "orderable": true },
-								{ "orderable": true },
-								{ "orderable": false },
-								{ "orderable": false },
-								{ "orderable": false }
-						],
-						"language": {
-								"emptyTable":     "No hay oficinas registradas",
-								"info":           "Mostrando _START_ a _END_ de _TOTAL_ oficinas",
-								"infoEmpty":      "Mostrando 0 a 0 de 0 oficinas",
-								"infoFiltered":   "(de un total de _MAX_ oficinas registradas)",
-								"infoPostFix":    "",
-								"thousands":      ",",
-								"lengthMenu":     "Show _MENU_ registros",
-								"loadingRecords": "Cargando...",
-								"processing":     "Procesando...",
-								"zeroRecords":    "No se encontraron coincidencias",
-								"lengthMenu": "_MENU_ registros"
+				form.validate({
+					errorElement: 'span', //default input error message container
+					errorClass: 'help-block help-block-error', // default input error message class
+					focusInvalid: true, // do not focus the last invalid input
+					ignore: "",  // validate all fields including form hidden input
+					rules: {
+						ciudad: {
+							maxlength: 40,
+							required: true
 						},
-						"columnDefs": [
-								{ // set default column settings
-								'orderable': true,
-								'targets': [0]
-								},
-								{
-								"searchable": true,
-								"targets": [0]
-								}
-						],
-						"order": [] // set first column as a default sort by asc
-				});
-
-				var tableWrapper = $("#tabla_oficinas_editable_wrapper");
-
-				tableWrapper.find(".dataTables_length select").select2({
-						showSearchInput: false //hide search box with special css class
-				}); // initialize select2 dropdown
-
-				var nEditing = null;
-				var nNew = false;
-
-				//funcion para crear nueva oficina
-				$('#tabla_oficinas_editable_new').click(function (e) {
-						e.preventDefault();
-						//si hay una nueva en edicion o esta editando otra no podemos crear otra nueva
-						if (nNew || nEditing)
-						{
-								bootbox.alert("<h4>Aun no terminass de editar!</h4>");
-						} else
-						{
-								//valores por default en ls inputs al crear nueva oficina
-								var aiNew = oTable.fnAddData(['', '', '', '', '#', '','(999) 999-9999','','']);
-								var nRow = oTable.fnGetNodes(aiNew[0]);
-								editRow(oTable, nRow);
-								nEditing = nRow;
-								nNew = true;
+						estado: {
+							//select
+						},
+						colonia: {
+							maxlength: 30,
+							required: true
+						},
+						calle: {
+							maxlength: 50,
+							required: true
+						},
+						numero: {
+							maxlength: 5
+						},
+						email: {
+							maxlength: 50,
+							email: true
+						},
+						telefono: {
+							maxlength: 14
 						}
-				});
+					},
+					messages: {
+						ciudad: {
+							maxlength: "La ciudad debe tener menos de 40 caracteres",
+							required: "Escribe la ciudad"
+						},
+						estado: {
+							//select
+						},
+						colonia: {
+							maxlength: "La colonia debe tener menos de 30 caracteres",
+							required: "Escribe la colonia"
+						},
+						calle: {
+							maxlength: "La calle debe tener menos de 50 caracteres",
+							required: "Escribe la calle"
+						},
+						numero: {
+							maxlength: "El numero debe tener menos de 5 digitos"
+						},
+						email: {
+							maxlength: "El email debe tener menos de 50 caracteres",
+							email: "Escribe un email valido"
+						},
+						telefono: {
+						//mascara
+						}
+					},
+					invalidHandler: function (event, validator) { //display error alert on form submit0
+						error.fadeIn('slow');
+					},
+					highlight: function (element) { // hightlight error inputs
+						$(element)
+						.closest('.form-group').addClass('has-error'); // set error class to the control group
+					},
+					unhighlight: function (element) { // revert the change done by hightlight
+						$(element)
+						.closest('.form-group').removeClass('has-error'); // set error class to the control group
+					},
+					success: function (label) {
+						label
+						.closest('.form-group').removeClass('has-error'); // set success class to the control group
+					},
+					submitHandler: function (form) {
+						var url 		= '/gestor/oficinas/editar';
+						var param 	= $('#form-editar-oficina').serialize();
 
-				//funcion para eliminar oficina
-				table.on('click', '.delete', function (e) {
-						e.preventDefault();
-
-						//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
-						var nRow = $(this).parents('tr')[0];
-						var aData = oTable.fnGetData(nRow);
-						var id_oficina = $(nRow).attr('id');
-
-						bootbox.confirm("<h4>¿Seguro que quieres eliminar la oficina de <b>"+aData[0]+", "+aData[1]+"</b>?</h4>", function (result){
-								//result guarda el booleano respondido en el comfirm
-								if(result){
-										//ajax para borrar la oficina
-										$.ajax({
-												url: "/gestor/oficinas/eliminar",
-												type: 'post',
-												cache: false,
-												dataType: 'json',
-												data: "id_oficina="+id_oficina+"&ciudad="+aData[0]+"&estado="+aData[1],
-												beforeSend: function () {
-													 Metronic.showLoader();
-												},
-												error: function(jqXHR, status, error) {
-														console.log("ERROR: "+error);
-														alert('ERROR: revisa la consola del navegador para más detalles.');
-														Metronic.removeLoader();
-												},
-												success: function(data) {
-														if (data.exito) {
-																Metronic.removeLoader();
-																bootbox.alert("<h4>Oficina de : <b>"+data.oficina+"</b>, eliminada con éxito<h4>");
-																oTable.fnDeleteRow(nRow);
-														} else {
-																bootbox.alert('<h4><p>Error :</p>'+data.msg+'<h4>');
-																Metronic.removeLoader();
-														}
-												}
-										});
-								}else{
-										return;
-								}
+						Metronic.showLoader();
+						$.post(url, param, function(data, textStatus, xhr) {
+							if (data.exito) {
+								Metronic.removeLoader();
+								modal.modal('hide');
+								bootbox.alert(data.msg, function() {
+									location.reload();
+								});
+							} else {
+								Metronic.unblockUI();
+								bootbox.alert(data.msg, function() {
+									modal.modal('show');
+									Metronic.removeLoader();
+								});
+							}
 						});
+					}
 				});
+			});
 
-				table.on('click', '.cancel', function (e) {
-						e.preventDefault();
+			// Validaciones para nuevo cliente
+			var modal_nuevo = $('#modal_nueva_oficina');
+			modal_nuevo.on('shown.bs.modal', function (e) {
+				maskTelefono();
+				var form = $('#form-nueva-oficina');
+				var error = $('.alert-danger', form);
+				var success = $('.alert-success', form);
 
-						if (nNew) {
-								oTable.fnDeleteRow(nEditing);
-								nEditing = null;
-								nNew = false;
-						} else {
-								restoreRow(oTable, nEditing);
-								nEditing = null;
+				form.validate({
+					errorElement: 'span', //default input error message container
+					errorClass: 'help-block help-block-error', // default input error message class
+					focusInvalid: true, // do not focus the last invalid input
+					ignore: "",  // validate all fields including form hidden input
+					rules: {
+						ciudad: {
+							maxlength: 40,
+							required: true
+						},
+						estado: {
+							//select
+						},
+						colonia: {
+							maxlength: 30,
+							required: true
+						},
+						calle: {
+							maxlength: 50,
+							required: true
+						},
+						numero: {
+							maxlength: 5
+						},
+						email: {
+							maxlength: 50,
+							email: true
+						},
+						telefono: {
+							maxlength: 14
 						}
-				});
-
-				//funcion para editar una oficina
-				table.on('click', '.edit', function (e) {
-						e.preventDefault();
-						if(nNew)
-						{
-								saveRow(oTable, nEditing);
-								nEditing = nRow;
-								nNew = true;
-						}else
-						{
-								/* Get the row as a parent of the link that was clicked on */
-								var nRow = $(this).parents('tr')[0];
-
-								if (nEditing !== null && nEditing != nRow) {
-										/* Currently editing - but not this row - restore the old before continuing to edit mode */
-										restoreRow(oTable, nEditing);
-										editRow(oTable, nRow);
-										nEditing = nRow;
-								} else if (nEditing == nRow && this.innerHTML == '<i class="fa fa-save"></i> Guardar') {
-										/* Editing this row and want to save it */
-										saveRow(oTable, nEditing);
-										nEditing = null;
-								} else {
-										/* No edit in progress - let's start one */
-										editRow(oTable, nRow);
-										nEditing = nRow;
-								}
+					},
+					messages: {
+						ciudad: {
+							maxlength: "La ciudad debe tener menos de 40 caracteres",
+							required: "Escribe la ciudad"
+						},
+						estado: {
+							//select
+						},
+						colonia: {
+							maxlength: "La colonia debe tener menos de 30 caracteres",
+							required: "Escribe la colonia"
+						},
+						calle: {
+							maxlength: "La calle debe tener menos de 50 caracteres",
+							required: "Escribe la calle"
+						},
+						numero: {
+							maxlength: "El numero debe tener menos de 5 digitos"
+						},
+						email: {
+							maxlength: "El email debe tener menos de 50 caracteres",
+							email: "Escribe un email valido"
+						},
+						telefono: {
+						//mascara
 						}
+					},
+					invalidHandler: function (event, validator) { //display error alert on form submit
+						error.fadeIn('slow');
+					},
+					highlight: function (element) { // hightlight error inputs
+						$(element)
+						.closest('.form-group').addClass('has-error'); // set error class to the control group
+					},
+					unhighlight: function (element) { // revert the change done by hightlight
+						$(element)
+						.closest('.form-group').removeClass('has-error'); // set error class to the control group
+					},
+					success: function (label) {
+						label
+						.closest('.form-group').removeClass('has-error'); // set success class to the control group
+					},
+					submitHandler: function (form) {
+						var url 		= '/gestor/oficinas/nuevo';
+						var param 	= $('#form-nueva-oficina').serialize();
+
+						 Metronic.showLoader();
+						$.post(url, param, function(data, textStatus, xhr) {
+							if (data.exito) {
+								Metronic.removeLoader();
+								modal_nuevo.modal('hide');
+								bootbox.alert(data.msg, function() {
+									location.reload();
+								});
+							} else {
+								Metronic.removeLoader();
+								bootbox.alert(data.msg, function() {
+									modal_nuevo.modal('show');
+								});
+							}
+						});
+					}
 				});
+			});
+
+			//funcion para eliminar
+			$('.eliminar-oficina').on('click', function (e) {
+				//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
+				var Row 		    = $(this).parents('tr');
+				var id_oficina 	= $(Row[0]).attr('id');
+				var ciudad 	=  $(Row[0]).attr('ciudad');
+				var estado 	=  $(Row[0]).attr('estado');
+				bootbox.confirm('<h4>¿Seguro que quieres esta oficina?</h4>', function(response) {
+					if (response) {
+						Metronic.showLoader();
+						$.post('/gestor/oficinas/eliminar', {id_oficina:id_oficina,ciudad:ciudad,estado:estado}, function(data, textStatus, xhr) {
+							if (data.exito) {
+								table.DataTable().row(Row).remove().draw();
+							}
+							bootbox.alert(data.msg, function () {
+								Metronic.removeLoader();
+							});
+						}, 'json');
+					}
+				});
+			});
 		}
 
 		//Tabla de gestion de departamentos

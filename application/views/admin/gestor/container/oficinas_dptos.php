@@ -45,7 +45,7 @@ BEGIN CONTENT -->
 								</thead>
 								<tbody>
 									<?php foreach ($oficinas as $oficina) : ?>
-										<tr id="<?php echo $oficina->id_oficina ?>">
+										<tr id="<?php echo $oficina->id_oficina ?>" ciudad="<?php echo $oficina->ciudad ?>" estado="<?php echo $oficina->estado ?>">
 											<td><?php echo $oficina->ciudad ?></td>
 											<td><?php echo $oficina->estado ?></td>
 											<td><?php echo $oficina->colonia ?></td>
@@ -53,17 +53,15 @@ BEGIN CONTENT -->
 											<td><?php echo $oficina->numero ?></td>
 											<td><?php echo $oficina->email ?></td>
 											<td><?php echo $oficina->telefono ?></td>
-											<td><a class="btn edit blue btn-circle btn-xs" href="javascript:;"><i class="fa fa-edit"></i> Editar</a></td>
-											<td><a class="btn delete red btn-circle btn-xs" href="javascript:;"><i class="fa fa-trash"></i> Eliminar</a></td>
+											<td><a class="btn edit blue btn-circle btn-xs" href="<?php echo site_url('/gestor/oficinas/mostrar/'.$oficina->id_oficina) ?>" data-target="#ajax_editar_oficina" data-toggle="modal"><i class="fa fa-edit"></i> Editar</a></td>
+											<td><a class="btn delete red btn-circle btn-xs eliminar-oficina" href="javascript:;"><i class="fa fa-trash"></i> Eliminar</a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
 							</table>
 							<div class="table-toolbar">
 								<div class="btn-group pull-right">
-									<button id="tabla_oficinas_editable_new" class="btn btn-circle green btn-xs">
-										<i class="fa fa-plus"></i> Nueva oficina
-									</button>
+									<a class="btn btn-circle green btn-xs" href="#modal_nueva_oficina" data-toggle="modal"><i class="fa fa-plus"></i> Nueva oficina</a>
 								</div>
 							</div>
 						</div>
@@ -130,7 +128,7 @@ BEGIN CONTENT -->
 				<h3 class="modal-title"><b>Nueva Oficina</b></h3>
 				<small> </small>
 			</div>
-			<form id ="form-contacto-nuevo" method="post" accept-charset="utf-8">
+			<form id ="form-nueva-oficina" method="post" accept-charset="utf-8">
 				<div class="modal-body form-horizontal">
 					<div class="col-md-12">
 						<!-- DIV ERROR -->
@@ -143,7 +141,9 @@ BEGIN CONTENT -->
 							<div class="col-md-12">
 								<!-- Ciudad -->
 								<div class="form-group">
-									<label class="col-md-4 control-label">Ciudad: </label>
+									<label class="col-md-4 control-label">
+										Ciudad<span class="required" aria-required="true">*</span>
+									</label>
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-map-marker"></i>
@@ -154,7 +154,7 @@ BEGIN CONTENT -->
 								<!-- Estado -->
 								<div class="form-group" id="div_estado">
 									<label class="col-md-4 control-label">
-										Estado
+										Estado<span class="required" aria-required="true">*</span>
 									</label>
 									<div class="col-md-8">
 										<div class="input-icon">
@@ -197,13 +197,13 @@ BEGIN CONTENT -->
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-map-marker"></i>
-											<input type="text" class="form-control" placeholder="Numero" name="numero">
+											<input type="text" class="form-control" id="numero" placeholder="Numero" name="numero">
 										</div>
 									</div>
 								</div>
 								<!-- Email -->
 								<div class="form-group">
-									<label class="col-md-4 control-label">Email: </label>
+									<label class="col-md-4 control-label">Email </label>
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-envelope"></i>
@@ -213,11 +213,11 @@ BEGIN CONTENT -->
 								</div>
 								<!-- Teléfono -->
 								<div class="form-group">
-									<label class="col-md-4 control-label">Teléfono: </label>
+									<label class="col-md-4 control-label">Teléfono </label>
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-phone"></i>
-											<input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+											<input type="text" class="form-control telefono" placeholder="Teléfono" name="telefono">
 										</div>
 									</div>
 								</div>
