@@ -113,7 +113,7 @@ class PendienteModel extends MY_Model {
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
 		$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
-		$where = "`id_ejecutivo` != $id_ejecutivo AND id_estatus_general=".$this->estatusGeneralModel->PENDIENTE." OR id_estatus_general=".$this->estatusGeneralModel->REASIGNADO;
+		$where = "id_estatus_general = ".$this->estatusGeneralModel->PENDIENTE." OR id_estatus_general = ".$this->estatusGeneralModel->REASIGNADO;
 		$this->db->where($where);
 
 		$query = $this->db->get($this->table);
