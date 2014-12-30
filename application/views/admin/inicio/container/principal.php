@@ -134,6 +134,16 @@
 									</tr>
 								</thead>
 								<tbody>
+								<?php foreach ($pendientes_generales as $pendiente) : ?>
+									<tr class="odd gradeX">
+										<td><?php echo $pendiente->id_pendiente ?></td>
+										<td><?php echo $pendiente->primer_nombre.' '.$pendiente->apellido_paterno ?></td>
+										<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+										<td>
+											<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+										</td>
+									</tr>
+								<?php endforeach ?>
 								</tbody>
 							</table>
 						</div>
