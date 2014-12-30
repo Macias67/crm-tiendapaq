@@ -5,6 +5,21 @@ var TableEditable = function () {
 			$(".telefono").inputmask('mask', {
 				"mask": "(999) 999-9999"
 			});
+
+			//mascara de sucursal 4 digitos
+			$(".sucursal").inputmask('mask', {
+				"mask": "9999"
+			});
+
+			//mascara de cuenta 4 digitos
+			$(".cta").inputmask('mask', {
+				"mask": "9999"
+			});
+			//mascara de clave interbancaria 18 digitos
+			$(".cib").inputmask('mask', {
+				"mask": "999999999999999999"
+			});
+
 		}
 
 		//Tabla de gestion de oficinas
@@ -53,7 +68,7 @@ var TableEditable = function () {
 					"order": [] // set first column as a default sort by asc
 			});
 
-			// Validaciones para editar cliente
+			// Validaciones para editar oficina
 			var modal = $('#ajax_editar_oficina');
 			modal.on('shown.bs.modal', function (e) {
 				maskTelefono();
@@ -122,6 +137,7 @@ var TableEditable = function () {
 					},
 					invalidHandler: function (event, validator) { //display error alert on form submit0
 						error.fadeIn('slow');
+						Metronic.removeLoader();
 					},
 					highlight: function (element) { // hightlight error inputs
 						$(element)
@@ -159,7 +175,7 @@ var TableEditable = function () {
 				});
 			});
 
-			// Validaciones para nuevo cliente
+			// Validaciones para nueva oficina
 			var modal_nuevo = $('#modal_nueva_oficina');
 			modal_nuevo.on('shown.bs.modal', function (e) {
 				maskTelefono();
@@ -1069,124 +1085,6 @@ var TableEditable = function () {
 		//Tabla de gestion de bancos
 		var handleTableBancos = function () {
 
-				function restoreRow(oTable, nRow) {
-						var aData = oTable.fnGetData(nRow);
-						var jqTds = $('>td', nRow);
-
-						for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-								oTable.fnUpdate(aData[i], nRow, i, false);
-						}
-						oTable.fnDraw();
-				}
-				//funcion que abre los inputs para poder ser editados e imprime sus valores correspondientes
-				function editRow(oTable, nRow) {
-						var aData = oTable.fnGetData(nRow);
-						var jqTds = $('>td', nRow);
-						jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-						jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-						jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-						jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
-						jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
-						jqTds[5].innerHTML = '<a class="btn edit green btn-circle btn-xs" href=""><i class="fa fa-save"></i> Guardar</a>';
-						jqTds[6].innerHTML = '<a class="btn cancel red btn-circle btn-xs" href=""><i class="fa fa-ban"></i> Cancelar</a>';
-				}
-
-				//funcion para obtener los valores de los inputs y guardarlos en la bd
-				//ya sea creando nuevo o editando existente
-				function saveRow(oTable, nRow) {
-						var jqInputs = $('input', nRow);
-
-						oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-						oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-						oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-						oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-						oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
-						oTable.fnUpdate('<a class="btn edit blue btn-circle btn-xs" href=""><i class="fa fa-edit"></i> Editar</a>', nRow, 5, false);
-						oTable.fnUpdate('<a class="btn delete red btn-circle btn-xs" href=""><i class="fa fa-trash"></i> Eliminar</a>', nRow, 6, false);
-						oTable.fnDraw();
-
-						var id_banco = $(nRow).attr('id');
-						//variable creada a manera de sintaxis post para mandar los valores al controlador gestor
-						var banco='id_banco='+id_banco+'&'+
-											'banco='+jqInputs[0].value+'&'+
-											'sucursal='+jqInputs[1].value+'&'+
-											'cta='+jqInputs[2].value+'&'+
-											'titular='+jqInputs[3].value+'&'+
-											'cib='+jqInputs[4].value;
-						//if para saber si se trata editar o nuevo
-						//si no tiene id es nuevo, si tiene un id existente es editar
-						if(id_banco!=undefined)
-						{
-								$.ajax({
-										url: "/gestor/bancos/editar",
-										type: 'post',
-										cache: false,
-										dataType: 'json',
-										data: banco,
-										beforeSend: function () {
-											 Metronic.showLoader();
-										},
-										error: function(jqXHR, status, error) {
-												console.log("ERROR: "+error);
-												alert('ERROR: revisa la consola del navegador para más detalles.');
-												Metronic.removeLoader();
-										},
-										success: function(data) {
-												if (data.exito) {
-														bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> actualizado con éxito </h4>", function () {
-																parent.location.reload();
-														});
-												} else {
-														bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
-														editRow(oTable, nRow);
-														nEditing = nRow;
-														Metronic.removeLoader();
-												}
-										}
-								});
-						}else
-						{
-								$.ajax({
-										url: "/gestor/bancos/nuevo",
-										type: 'post',
-										cache: false,
-										dataType: 'json',
-										data: banco,
-										beforeSend: function () {
-											 Metronic.showLoader();
-										},
-										error: function(jqXHR, status, error) {
-												console.log("ERROR: "+error);
-												alert('ERROR: revisa la consola del navegador para más detalles.');
-												Metronic.removeLoader();
-										},
-										success: function(data) {
-												if (data.exito) {
-														bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> añadido con éxito </h4>",function () {
-																parent.location.reload();
-														});
-												} else {
-														bootbox.alert('<h4><p>Error: </p>'+data.msg+'</h4>');
-														editRow(oTable, nRow);
-														nEditing = nRow;
-														Metronic.removeLoader();
-												}
-										}
-								});
-						}
-				}
-
-				function cancelEditRow(oTable, nRow) {
-						var jqInputs = $('input', nRow);
-						oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-						oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-						oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-						oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-						oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
-						oTable.fnUpdate('<a class="btn edit blue btn-circle btn-xs" href=""><i class="fa fa-edit"></i> Editar</a>', nRow, 5, false);
-						oTable.fnDraw();
-				}
-
 				var table = $('#tabla_bancos_editable');
 
 				//mensajes y caracteristicas de la tabla
@@ -1229,118 +1127,202 @@ var TableEditable = function () {
 						 "order": []
 				});
 
-				var tableWrapper = $("#tabla_bancos_editable_wrapper");
+			// Validaciones para editar banco
+			var modal = $('#ajax_editar_banco');
+			modal.on('shown.bs.modal', function (e) {
+				maskTelefono();
+				var form = $('#form-editar-banco');
+				var error = $('.alert-danger', form);
+				var success = $('.alert-success', form);
 
-				tableWrapper.find(".dataTables_length select").select2({
-						showSearchInput: false //hide search box with special css class
-				}); // initialize select2 dropdown
-
-				var nEditing = null;
-				var nNew = false;
-
-				//funcion para crear nuevo
-				$('#tabla_bancos_editable_new').click(function (e) {
-						e.preventDefault();
-						//verificacion de que no este editando una fila antes de crear otra
-						if (nNew || nEditing) {
-								bootbox.alert("<h4>Aun no ternimas de editar!</h4>");
-						}else{
-								//valores por default en los inputs al crear nuevo
-								var aiNew = oTable.fnAddData(['','','','','','','']);
-								var nRow = oTable.fnGetNodes(aiNew[0]);
-								editRow(oTable, nRow);
-								nEditing = nRow;
-								nNew = true;
+				form.validate({
+					errorElement: 'span', //default input error message container
+					errorClass: 'help-block help-block-error', // default input error message class
+					focusInvalid: true, // do not focus the last invalid input
+					ignore: "",  // validate all fields including form hidden input
+					rules: {
+						banco: {
+							//select
+						},
+						sucursal: {
+							//mascara
+						},
+						cta: {
+							//mascara
+						},
+						titular: {
+							maxlength: 50,
+							required: true
+						},
+						cib: {
+							//mascara
 						}
-				});
+					},
+					messages: {
+						banco: {
+							//select
+						},
+						sucursal: {
+							//mascara
+						},
+						cta: {
+							//mascara
+						},
+						titular: {
+							maxlength: "El titular debe tener menos de 50 caracteres",
+							required: "Escribe el titular"
+						},
+						cib: {
+							//mascara
+						}
+					},
+					invalidHandler: function (event, validator) { //display error alert on form submit0
+						error.fadeIn('slow');
+						Metronic.removeLoader();
+					},
+					highlight: function (element) { // hightlight error inputs
+						$(element)
+						.closest('.form-group').addClass('has-error'); // set error class to the control group
+					},
+					unhighlight: function (element) { // revert the change done by hightlight
+						$(element)
+						.closest('.form-group').removeClass('has-error'); // set error class to the control group
+					},
+					success: function (label) {
+						label
+						.closest('.form-group').removeClass('has-error'); // set success class to the control group
+					},
+					submitHandler: function (form) {
+						var url 		= '/gestor/bancos/editar';
+						var param 	= $('#form-editar-banco').serialize();
 
-				//funcion para eliminar
-				table.on('click', '.delete', function (e) {
-						e.preventDefault();
-
-						var nRow = $(this).parents('tr')[0];
-						//valores de la fila a eliminar guardados en aData ademas el id para guiarnos en la bd
-						var aData = oTable.fnGetData(nRow);
-						var id_banco = $(nRow).attr('id');
-
-						bootbox.confirm("<h4>¿Seguro que quieres borrar banco <b>"+aData[0]+"</b>?</h4>",function (result) {
-								if(result){
-										//ajax para borrar
-										$.ajax({
-												url: "/gestor/bancos/eliminar",
-												type: 'post',
-												cache: false,
-												dataType: 'json',
-												data: "id_banco="+id_banco+"&banco="+aData[0],
-												beforeSend: function () {
-													 Metronic.showLoader();
-												},
-												error: function(jqXHR, status, error) {
-														console.log("ERROR: "+error);
-														alert('ERROR: revisa la consola del navegador para más detalles.');
-														Metronic.removeLoader();
-												},
-												success: function(data) {
-														if (data.exito) {
-																Metronic.removeLoader();
-																bootbox.alert("<h4> Banco: <b>"+data.banco+"</b> eliminado con éxito</h4>");
-														} else {
-																bootbox.alert('<h4><p>Error :</p>'+data.msg+'</h4>');
-																Metronic.removeLoader();
-																//parent.location.reload();
-														}
-												}
-										});
-										oTable.fnDeleteRow(nRow);
-								}else{
-										return;
-								}
+						Metronic.showLoader();
+						$.post(url, param, function(data, textStatus, xhr) {
+							if (data.exito) {
+								Metronic.removeLoader();
+								modal.modal('hide');
+								bootbox.alert(data.msg, function() {
+									location.reload();
+								});
+							} else {
+								Metronic.unblockUI();
+								bootbox.alert(data.msg, function() {
+									modal.modal('show');
+									Metronic.removeLoader();
+								});
+							}
 						});
+					}
 				});
+			});
 
-				//funcion cancelar
-				table.on('click', '.cancel', function (e) {
-						e.preventDefault();
+			// Validaciones para nuevo banco
+			var modal_nuevo = $('#modal_nuevo_banco');
+			modal_nuevo.on('shown.bs.modal', function (e) {
+				maskTelefono();
+				var form = $('#form-nuevo-banco');
+				var error = $('.alert-danger', form);
+				var success = $('.alert-success', form);
 
-						if (nNew) {
-								oTable.fnDeleteRow(nEditing);
-								nEditing = null;
-								nNew = false;
-						} else {
-								restoreRow(oTable, nEditing);
-								nEditing = null;
+				form.validate({
+					errorElement: 'span', //default input error message container
+					errorClass: 'help-block help-block-error', // default input error message class
+					focusInvalid: true, // do not focus the last invalid input
+					ignore: "",  // validate all fields including form hidden input
+					rules: {
+						banco: {
+							//select
+						},
+						sucursal: {
+							//mascara
+						},
+						cta: {
+							//mascara
+						},
+						titular: {
+							maxlength: 50,
+							required: true
+						},
+						cib: {
+							//mascara
 						}
-				});
-
-				//funcion para editar una oficina
-				table.on('click', '.edit', function (e) {
-						e.preventDefault();
-						if(nNew)
-						{
-								saveRow(oTable, nEditing);
-								nEditing = nRow;
-								nNew = true;
-						}else
-						{
-								/* Get the row as a parent of the link that was clicked on */
-								var nRow = $(this).parents('tr')[0];
-
-								if (nEditing !== null && nEditing != nRow) {
-										/* Currently editing - but not this row - restore the old before continuing to edit mode */
-										restoreRow(oTable, nEditing);
-										editRow(oTable, nRow);
-										nEditing = nRow;
-								} else if (nEditing == nRow && this.innerHTML == '<i class="fa fa-save"></i> Guardar') {
-										/* Editing this row and want to save it */
-										saveRow(oTable, nEditing);
-										nEditing = null;
-								} else {
-										/* No edit in progress - let's start one */
-										editRow(oTable, nRow);
-										nEditing = nRow;
-								}
+					},
+					messages: {
+						banco: {
+							//select
+						},
+						sucursal: {
+							//mascara
+						},
+						cta: {
+							//mascara
+						},
+						titular: {
+							maxlength: "El titular debe tener menos de 50 caracteres",
+							required: "Escribe el titular"
+						},
+						cib: {
+							//mascara
 						}
+					},
+					invalidHandler: function (event, validator) { //display error alert on form submit
+						error.fadeIn('slow');
+						Metronic.removeLoader();
+					},
+					highlight: function (element) { // hightlight error inputs
+						$(element)
+						.closest('.form-group').addClass('has-error'); // set error class to the control group
+					},
+					unhighlight: function (element) { // revert the change done by hightlight
+						$(element)
+						.closest('.form-group').removeClass('has-error'); // set error class to the control group
+					},
+					success: function (label) {
+						label
+						.closest('.form-group').removeClass('has-error'); // set success class to the control group
+					},
+					submitHandler: function (form) {
+						var url 		= '/gestor/bancos/nuevo';
+						var param 	= $('#form-nuevo-banco').serialize();
+
+						Metronic.showLoader();
+						$.post(url, param, function(data, textStatus, xhr) {
+							if (data.exito) {
+								Metronic.removeLoader();
+								modal_nuevo.modal('hide');
+								bootbox.alert(data.msg, function() {
+									location.reload();
+								});
+							} else {
+								Metronic.removeLoader();
+								bootbox.alert(data.msg, function() {
+									modal_nuevo.modal('show');
+								});
+							}
+						});
+					}
 				});
+			});
+
+			//funcion para eliminar
+			$('.eliminar-banco').on('click', function (e) {
+				//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
+				var Row 		    = $(this).parents('tr');
+				var id_banco 	= $(Row[0]).attr('id');
+				bootbox.confirm('<h4>¿Seguro que quieres eliminar este banco?</h4>', function(response) {
+					if (response) {
+						Metronic.showLoader();
+						$.post('/gestor/bancos/eliminar', {id_banco:id_banco}, function(data, textStatus, xhr) {
+							if (data.exito) {
+								table.DataTable().row(Row).remove().draw();
+							}
+							bootbox.alert(data.msg, function () {
+								Metronic.removeLoader();
+							});
+						}, 'json');
+					}
+				});
+			});
 		}
 
 		//Tabla de gestion de sistemas operativos

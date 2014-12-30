@@ -82,9 +82,9 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('estado','Estado','trim|required|strtolower|ucwords|max_length[30]|xss_clean');
 				$this->form_validation->set_rules('colonia','Colonia','trim|required|strtolower|ucwords|max_length[30]|xss_clean');
 				$this->form_validation->set_rules('calle','Calle','trim|required|strtolower|ucwords|max_length[50]|xss_clean');
-				$this->form_validation->set_rules('numero','Número','trim|required|max_length[5]|xss_clean');
-				$this->form_validation->set_rules('email','Email','trim|required|strtolower|valid_email|max_length[50]|xss_clean');
-				$this->form_validation->set_rules('telefono','Teléfono','trim|required|max_length[14]|xss_clean');
+				$this->form_validation->set_rules('numero','Número','trim|max_length[5]|xss_clean');
+				$this->form_validation->set_rules('email','Email','trim|strtolower|valid_email|max_length[50]|xss_clean');
+				$this->form_validation->set_rules('telefono','Teléfono','trim|max_length[14]|xss_clean');
 
 				if($this->form_validation->run() === FALSE)
 				{
@@ -472,7 +472,7 @@ class Gestor extends AbstractAccess {
 	* funcion para gestionar los bancos
 	* @author Diego Rodriguez
 	**/
-	public function bancos($accion=null)
+	public function bancos($accion=null,$id_banco=null)
 	{
 		//carga de los modelos a usar en el controlador
 		$this->load->model('bancoModel');
@@ -480,10 +480,10 @@ class Gestor extends AbstractAccess {
 		switch ($accion) {
 			case 'nuevo':
 				$this->form_validation->set_rules('banco', 'Banco', 'trim|required|max_length[30]|strtoupper|xss_clean');
-				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|numeric|max_length[8]|xss_clean');
-				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|numeric|max_length[8]|xss_clean');
+				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|max_length[8]|callback_numeros_check|xss_clean');
+				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|max_length[8]|callback_numeros_check|xss_clean');
 				$this->form_validation->set_rules('titular', 'Titular', 'trim|required|max_length[50]|strtoupper|xss_clean');
-				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|numeric|min_length[18]|max_length[18]|strtoupper|xss_clean');
+				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|min_length[18]|max_length[18]|callback_numeros_check|xss_clean');
 
 				if(!$this->form_validation->run())
 				{
@@ -503,7 +503,7 @@ class Gestor extends AbstractAccess {
 						$respuesta = array('exito' => FALSE, 'msg' => "No se agrego, revisa la consola o la base de datos");
 					} else
 					{
-						$respuesta = array('exito' => TRUE, 'banco' => $banco['banco']);
+						$respuesta = array('exito' => TRUE, 'msg' => "<h4>Banco <b>".$banco['banco']."</b> añadido con éxito.</h4>");
 					}
 				}
 
@@ -514,10 +514,10 @@ class Gestor extends AbstractAccess {
 
 			case 'editar':
 				$this->form_validation->set_rules('banco', 'Banco', 'trim|required|max_length[30]|strtoupper|xss_clean');
-				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|numeric|max_length[8]|xss_clean');
-				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|numeric|max_length[8]|xss_clean');
+				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|max_length[8]|callback_numeros_check|xss_clean');
+				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|max_length[8]|callback_numeros_check|xss_clean');
 				$this->form_validation->set_rules('titular', 'Titular', 'trim|required|max_length[50]|strtoupper|xss_clean');
-				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|numeric|min_length[18]|max_length[18]|strtoupper|xss_clean');
+				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|min_length[18]|max_length[18]|callback_numeros_check|xss_clean');
 
 				if(!$this->form_validation->run())
 				{
@@ -538,7 +538,7 @@ class Gestor extends AbstractAccess {
 						$respuesta = array('exito' => FALSE, 'msg' => "No se agrego, revisa la consola o la base de datos");
 					} else
 					{
-						$respuesta = array('exito' => TRUE, 'banco' => $banco['banco']);
+						$respuesta = array('exito' => TRUE, 'msg' => "<h4>Banco <b>".$banco['banco']."</b> actualizado con éxito.</h4>");
 					}
 				}
 
@@ -549,19 +549,24 @@ class Gestor extends AbstractAccess {
 
 			case 'eliminar':
 				$id_banco	=$this->input->post('id_banco');
-				$banco		=$this->input->post('banco');
 
 				if(!$this->bancoModel->delete(array('id_banco' => $id_banco)))
 				{
 					$respuesta = array('exito' => FALSE, 'msg' => "No se elimino, revisa la consola o la base de datos");
 				} else
 				{
-					$respuesta = array('exito' => TRUE, 'banco' => $banco);
+					$respuesta = array('exito' => TRUE, 'msg' => "<h4>Banco eliminado con éxito.</h4>");
 				}
 
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
+			break;
+
+			case 'mostrar':
+				$this->data['banco'] = $this->bancoModel->get(array('*'),array('id_banco' => $id_banco), null, 'ASC', 1);
+
+				$this->_vista_completa('gestor/modal-editar-banco');
 			break;
 
 			default:
@@ -693,6 +698,26 @@ class Gestor extends AbstractAccess {
 		{
 			return TRUE;
 		}
+	}
+
+		/**
+	 * Callback para revisar que esten todos los numeros
+	 * @param  string $num Numero a revisar
+	 * @return boolean
+	 * @author Diego Rodriguez
+	 */
+	public function numeros_check($num)
+	{
+		$flag = false;
+
+		if(ctype_digit($num)){
+			$flag = true;
+		}else{
+			$flag=false;
+			$this->form_validation->set_message('numeros_check', 'Faltan numeros en algun campo.');
+		}
+
+		return $flag;
 	}
 }
 
