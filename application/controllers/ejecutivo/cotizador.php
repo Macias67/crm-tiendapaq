@@ -203,11 +203,16 @@ class Cotizador extends AbstractAccess {
 	{
 		require_once APPPATH.'third_party/html2pdf/html2pdf.class.php';
 		$html2pdf = new HTML2PDF('P','LETTER','es');
-		$stylesheet = $this->_vista_completa('cotizacion.php', TRUE);
+		$style = '<style type="text/css">';
+		$style .= file_get_contents($this->data['assets_global_plugins'].'kickstart/css/kickstart.css');
+		$style .= '</style>';
+		$html = $this->_vista_completa('cotizacion.php', TRUE);
+
+		//var_dump($style.$html);
 
 		// Ejemplo de HTML2PDF
-		// ob_clean();
-		$html2pdf->WriteHTML($stylesheet);
+		ob_clean();
+		$html2pdf->WriteHTML($style.$html);
 		$html2pdf->Output();
 		//$this->_vista('diseno');
 	}
