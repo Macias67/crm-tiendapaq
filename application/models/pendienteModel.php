@@ -84,7 +84,7 @@ class PendienteModel extends MY_Model {
 	 * regisrado en la tabla de la base de datos
 	 *
 	 * @return object
-	 * @author Luis Macias
+	 * @author Luis Macias | Diego Rodriguez
 	 **/
 	public function getPendiente($id_pendiente,$campos)
 	{
@@ -99,6 +99,26 @@ class PendienteModel extends MY_Model {
 		$query = $this->db->get($this->table);
 
 		return $query->row();
+	}
+
+	/**
+	 * Retorna los pendientes de los demas usuarios
+	 *
+	 * @return object
+	 * @author Diego Rodriguez
+	 **/
+	public function get_pendientes_generales($campos,$id_ejecutivo)
+	{
+		$this->db->select($campos);
+		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
+		$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
+		$where = "id_estatus_general = ".$this->estatusGeneralModel->PENDIENTE." OR id_estatus_general = ".$this->estatusGeneralModel->REASIGNADO;
+		$this->db->where($where);
+
+		$query = $this->db->get($this->table);
+
+		return $query->result();
 	}
 
 	/**

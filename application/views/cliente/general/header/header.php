@@ -30,19 +30,19 @@
 		<!-- BEGIN TOP NAVIGATION MENU -->
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
-				<!-- BEGIN NOTIFICATION DROPDOWN -->
+								<!-- BEGIN NOTIFICATION DROPDOWN -->
 				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-bell"></i>
-					<span class="badge badge-default">
-					7 </span>
+					<!-- <span class="badge badge-default">
+					7 </span> -->
 					</a>
 					<ul class="dropdown-menu">
 						<li class="external">
-							<h3><span class="bold">12 pending</span> notifications</h3>
-							<a href="extra_profile.html">view all</a>
+							<h3>No hay notificaciones nuevas</h3>
+							<a href="#">Ver todo</a>
 						</li>
-						<li>
+						<!-- <li>
 							<ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
 								<li>
 									<a href="javascript:;">
@@ -135,7 +135,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 				<!-- END NOTIFICATION DROPDOWN -->
@@ -143,16 +143,14 @@
 				<!-- BEGIN INBOX DROPDOWN -->
 				<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<i class="icon-envelope-open"></i>
-					<span class="badge badge-default">
-					4 </span>
+						<i class="icon-envelope-open"></i>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="external">
-							<h3>You have <span class="bold">7 New</span> Messages</h3>
-							<a href="page_inbox.html">view all</a>
+							<h3>No hay nuevos mensajes</h3>
+							<a href="#">Ver todo</a>
 						</li>
-						<li>
+						<!-- <li>
 							<ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
 								<li>
 									<a href="inbox.html?a=view">
@@ -225,7 +223,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 				<!-- END INBOX DROPDOWN -->
@@ -233,16 +231,14 @@
 				<!-- BEGIN TODO DROPDOWN -->
 				<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<i class="icon-calendar"></i>
-					<span class="badge badge-default">
-					3 </span>
+						<i class="icon-calendar"></i>
 					</a>
 					<ul class="dropdown-menu extended tasks">
 						<li class="external">
-							<h3>You have <span class="bold">12 pending</span> tasks</h3>
-							<a href="page_todo.html">view all</a>
+							<h3>No hay tareas nuevas</h3>
+							<a href="#">Ver todo</a>
 						</li>
-						<li>
+						<!-- <li>
 							<ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
 								<li>
 									<a href="javascript:;">
@@ -322,7 +318,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 				<!-- END TODO DROPDOWN -->
