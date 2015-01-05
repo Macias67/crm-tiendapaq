@@ -5,6 +5,7 @@
 var UIExtendedModals = function () {
 
 	return {
+		bootbox.setDefaults({locale: "es"});
 		//main function to initiate the module
 		init: function () {
 

@@ -457,6 +457,7 @@
 
 	return {
 		init: function() {
+			bootbox.setDefaults({locale: "es"});
 			fechaVigencia();
 			handlerCliente();
 			handleSelect2Productos();

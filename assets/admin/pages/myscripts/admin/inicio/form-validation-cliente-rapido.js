@@ -160,6 +160,7 @@ var FormValidationClienteRapido = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
+			bootbox.setDefaults({locale: "es"});
 			handleInputMasks();
 			formularioClienteRapido();
 		}
