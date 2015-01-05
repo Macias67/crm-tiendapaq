@@ -148,7 +148,7 @@ class Producto extends AbstractAccess {
 		if($producto = $this->productoModel->get_where(array('codigo' => $codigo)))
 		{
 			$this->data['producto'] = $producto;
-			$this->_vista_completa('detalle-producto');
+			$this->_vista_completa('producto/detalle-producto');
 		} else {
 			show_error('El código de producto no existe', 404);
 		}
@@ -227,7 +227,7 @@ class Producto extends AbstractAccess {
 		$codigo_old = $this->input->post('codigo_old');
 		if ($this->productoModel->exist(array('codigo' => $codigo)) && $codigo!=$codigo_old)
 		{
-			$this->form_validation->set_message('codigo_check', 'El código ya está registrado.');
+			$this->form_validation->set_message('codigo_check', '<h4>El código ya está registrado, intenta con otro.</h4>');
 			return FALSE;
 		} else {
 			return TRUE;

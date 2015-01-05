@@ -94,7 +94,7 @@
 			</div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn green" id="editar_producto">Guardar</button>
-		<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
+		<button type="button" class="btn green btn-circle" id="editar_producto">Guardar</button>
+		<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
 	</div>
 </form>

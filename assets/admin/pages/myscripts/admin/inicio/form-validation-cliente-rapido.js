@@ -136,7 +136,7 @@ var FormValidationClienteRapido = function () {
 					success: function(data) {
 						Metronic.showLoader();
 						if (data.exito) {
-							bootbox.alert("Cliente "+data.razon_social+" añadido con éxito.", function () {
+							bootbox.alert("<h4>Cliente prospecto <b>"+data.razon_social+"</b> añadido con éxito.</h4>", function () {
 								Metronic.removeLoader();
 								parent.location.reload();
 							});

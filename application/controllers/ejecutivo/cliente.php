@@ -280,7 +280,7 @@ class Cliente extends AbstractAccess {
 					// Armo la respuesta para el JSON
 					$respuesta = array(
 						'exito'	=> FALSE,
-						'msg'	=> 'No se inserto cliente en la BD');
+						'msg'	=> '<h4>Error desconocido, resiva la consola para mas detalles.</h4>');
 				}
 			}
 		}

@@ -730,6 +730,7 @@ var InfoManagedCliente = function() {
 
 	return {
 		init: function() {
+			bootbox.setDefaults({locale: "es"});
 			maskTelefono();
 			handleContactos();
 			handleSistemas();

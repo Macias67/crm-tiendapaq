@@ -159,7 +159,7 @@ var UIExtendedModals = function () {
 				success: function(data) {
 					if (data.exito) {
 						modal_nuevo.modal('hide');
-						bootbox.alert("Nuevo producto añadido con éxito.", function() {
+						bootbox.alert("<h4>Nuevo producto añadido con éxito.</h4>", function() {
 							Metronic.removeLoader(function() {
 								location.reload();
 							});

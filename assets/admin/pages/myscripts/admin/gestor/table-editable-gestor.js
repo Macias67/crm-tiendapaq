@@ -1593,5 +1593,4 @@ var TableEditable = function () {
 						handleTableObservaciones();
 				}
 		};
-
 }();
