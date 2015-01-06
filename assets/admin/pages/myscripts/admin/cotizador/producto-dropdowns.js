@@ -136,7 +136,7 @@
 			allowClear: true,
 			minimumInputLength: 3,
 			ajax: {
-				url: "/cotizador/json",
+				url: "/cotizador/producto/buscar",
 				type: 'post',
 				dataType: 'json',
 				quietMillis: 500,
@@ -165,10 +165,12 @@
 
 		// Cuando seleccione un producto
 		$('#producto').on('select2-selecting', function(e) {
-			var codigo	= e.val;
-			$.getJSON('/cotizador/json/'+codigo, null, function(json, textStatus) {
+			var texto	= e.object.text;
+
+			$.post('/cotizador/producto/agregar', {texto:texto}, function(json, textStatus, xhr) {
 				jsonProducto = json;
-			});
+			}, 'json');
+
 		});
 	}
 

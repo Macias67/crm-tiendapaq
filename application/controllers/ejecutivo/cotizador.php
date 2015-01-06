@@ -3,7 +3,7 @@
  * Controlador para llevar acabo la cotizacion
  * a un cliente
  *
- * @author Luis Macias
+ * @author Luis Macias |Diego Rodriguez
  **/
 class Cotizador extends AbstractAccess {
 
@@ -21,7 +21,7 @@ class Cotizador extends AbstractAccess {
 	/**
 	 * Vista Principal
 	 *
-	 * @author Luis Macias
+	 * @author Luis Macias | Diego Rodriguez
 	 **/
 	public function index()
 	{
@@ -82,41 +82,40 @@ class Cotizador extends AbstractAccess {
 	}
 
 	/**
-	 * Metodo para mostrar las empresas
-	 * de menera de JSON
+	 * Metodo para buscar y obtener productos
+	 * de menera de JSON para el cotizador
 	 *
-	 * @param $codigo
-	 * @return void
-	 * @author Luis Macias
+	 * @param $opcion, $texto
+	 * @return json
+	 * @author Luis Macias | Diego Rodriguez
 	 **/
-	public function json($codigo = null)
+	public function producto($opcion)
 	{
-		if (is_null($codigo)) {
-			$query	= $this->input->post('q');
-			$limit 	= $this->input->post('page_limit');
-			if (!empty($query) && !empty($limit)) {
-				$resultados = $this->productoModel->get_select_query(
-					array('codigo','descripcion'),
-					$query,
-					$limit);
-				$res = array();
-				if (!empty($resultados)) {
-					foreach ($resultados as $value) {
-						array_push($res, array("id" => $value->codigo, "text" => $value->descripcion));
+		switch ($opcion) {
+			case 'buscar':
+				$query	= $this->input->post('q');
+				$limit 	= $this->input->post('page_limit');
+				if (!empty($query) && !empty($limit)) {
+					$resultados = $this->productoModel->get_productos_like(
+						array('codigo','descripcion'),
+						$query,
+						$limit);
+					$res = array();
+					if (!empty($resultados)) {
+						foreach ($resultados as $value) {
+							array_push($res, array("id" => $value->codigo, "text" => $value->descripcion));
+						}
+					} else {
+						$res = array("id"=>"0","text"=>"No se encontraron resultados...");
 					}
-				} else {
-					$res = array("id"=>"0","text"=>"No se encontraron resultados...");
 				}
-			}
-		} else {
-			$res = $this->productoModel->get_like(
-					array('*'),
-					'codigo',
-					$codigo,
-					'descripcion',
-					'ASC',
-					1);
-			$res = $res[0];
+			break;
+
+			case 'agregar':
+				$texto = $this->input->post('texto');
+				$res = $this->productoModel->get(array('*'),array('descripcion' => $texto), null,'ASC',1);
+				//$res = $res[0];
+			break;
 		}
 
 		// Muestro la salida
@@ -129,7 +128,7 @@ class Cotizador extends AbstractAccess {
 	 * Funcion para crear los pdf temporales
 	 * para la vista previa antes de enviarlos a un cliente
 	 *
-	 * @author Luis Macias
+	 * @author Luis Macias | Diego Rodriguez
 	 **/
 	public function previapdf()
 	{

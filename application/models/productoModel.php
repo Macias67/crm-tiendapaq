@@ -4,7 +4,7 @@
  * y funciones para procesar la informacion
  *
  * @package default
- * @author Luis Macias
+ * @author Luis Macias | Diego Rodriguez
  **/
 class ProductoModel extends TxtManager {
 
@@ -130,7 +130,7 @@ class ProductoModel extends TxtManager {
 	 * @param string $limit el limite a extraer
 	 * @return array object
 	 **/
-	public function get_select_query($campos = array('*'), $like, $limit)
+	public function get_productos_like($campos = array('*'), $like, $limit)
 	{
 		$this->db->select($campos);
 		$this->db->like('codigo', $like);
