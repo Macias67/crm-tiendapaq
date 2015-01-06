@@ -165,9 +165,9 @@
 
 		// Cuando seleccione un producto
 		$('#producto').on('select2-selecting', function(e) {
-			var texto	= e.object.text;
+			var codigo	= e.val;
 
-			$.post('/cotizador/producto/agregar', {texto:texto}, function(json, textStatus, xhr) {
+			$.post('/cotizador/producto/agregar', {codigo:codigo}, function(json, textStatus, xhr) {
 				jsonProducto = json;
 			}, 'json');
 

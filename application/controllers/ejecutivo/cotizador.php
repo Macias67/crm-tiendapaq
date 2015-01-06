@@ -85,7 +85,7 @@ class Cotizador extends AbstractAccess {
 	 * Metodo para buscar y obtener productos
 	 * de menera de JSON para el cotizador
 	 *
-	 * @param $opcion, $texto
+	 * @param $opcion
 	 * @return json
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
@@ -112,8 +112,8 @@ class Cotizador extends AbstractAccess {
 			break;
 
 			case 'agregar':
-				$texto = $this->input->post('texto');
-				$res = $this->productoModel->get(array('*'),array('descripcion' => $texto), null,'ASC',1);
+				$codigo = $this->input->post('codigo');
+				$res = $this->productoModel->get(array('*'),array('codigo' => $codigo), null,'ASC',1);
 				//$res = $res[0];
 			break;
 		}
