@@ -208,13 +208,13 @@
 				descuento = total*porcentaje;
 				total = total - descuento;
 			} else {
-				bootbox.alert('El porcentaje del descuento no es válido.');
+				bootbox.alert('<h4>El porcentaje del descuento no es válido.</h4>');
 				return false;
 			}
 		} else if(descuento == '') {
 			descuento = 0;
 		} else {
-			bootbox.alert('El descuento no es válido.');
+			bootbox.alert('<h4>El descuento no es válido.</h4>');
 			return false;
 		}
 
@@ -293,7 +293,7 @@
 					});
 				}
 			} else {
-				bootbox.alert('Selecciona un producto.');
+				bootbox.alert('<h4>Selecciona un producto.</h4>');
 			}
 
 		});
