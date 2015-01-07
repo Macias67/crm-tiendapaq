@@ -5,9 +5,9 @@
 var UIExtendedModals = function () {
 
 	return {
-		bootbox.setDefaults({locale: "es"});
 		//main function to initiate the module
 		init: function () {
+			bootbox.setDefaults({locale: "es"});
 
 			//funcion para ocultar el mensaje de motivo o el select de cambio de estatus
 			//segun sea el caso

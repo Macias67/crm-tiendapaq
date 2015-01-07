@@ -44,6 +44,47 @@ var TableManaged = function () {
 		});
 	}
 
+	var tablaCasos = function () {
+		var table = $('#casos-ejecutivo');
+		table.dataTable({
+			"lengthMenu": [
+				[5, 15, 20, -1],
+				[5, 15, 20, "Todos"] // change per page values here
+			],
+			// set the initial value
+			"pageLength": 15,
+			"columns": [
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": false }
+			],
+			"language": {
+				"emptyTable":     "No hay casos registrados",
+				"info":           "Mostrando _START_ a _END_ de _TOTAL_ casos",
+				"infoEmpty":      "Mostrando 0 a 0 de 0 casos",
+				"infoFiltered":   "(de un total de _MAX_ casos registrados)",
+				"infoPostFix":    "",
+				"thousands":      ",",
+				"lengthMenu":     "Show _MENU_ registros",
+				"loadingRecords": "Cargando...",
+				"processing":     "Procesando...",
+				"zeroRecords": "No se encontraron coincidencias",
+				"lengthMenu": "_MENU_  Registros",
+				"search": "Buscar: ",
+				"paginate": {
+					"previous": "Anterior",
+					"next": "Siguiente"
+				}
+			},
+			"order": [
+				[4, "desc"]
+			] // set first column as a default sort by asc
+		});
+	}
+
 	var handleTableEjecutivo = function() {
 		var table = $('#tabla_gestionar_ejecutivos');
 
@@ -146,6 +187,8 @@ var TableManaged = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
+			tablaPendientes();
+			tablaCasos();
 			handleTableEjecutivo();
 			asignador();
 		}

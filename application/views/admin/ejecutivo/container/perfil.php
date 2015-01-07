@@ -144,7 +144,7 @@
 											</div>
 											<!--TAB CASOS-->
 											<div class="tab-pane" id="tab_casos">
-												<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
+												<table class="table table-striped table-bordered table-hover" id="casos-ejecutivo">
 													<thead>
 														<tr>
 															<th>No.</th>
