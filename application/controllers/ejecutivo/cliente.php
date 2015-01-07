@@ -521,7 +521,7 @@ class Cliente extends AbstractAccess {
 				if ($contacto = $this->contactosModel->get_where(array('id' => $id)))
 				{
 					$this->data['contacto'] = $contacto;
-					$this->_vista_completa('cliente/modal-form-editar-contacto');
+					$this->_vista_completa('cliente/modal-editar-contacto');
 				} else
 				{
 					show_error('No existe este contacto.', 404);
@@ -770,7 +770,7 @@ class Cliente extends AbstractAccess {
 					$this->data['select_SQL'] 	= form_dropdown('sql_server', $select_sqlServer, $equipo->sql_server, 'class="form-control"');
 					$this->data['select_mgm'] 	= form_dropdown('sql_management', $select_mgm, $equipo->sql_management, 'class="form-control"');
 
-					$this->_vista_completa('cliente/modal-form-nuevo-equipo');
+					$this->_vista_completa('cliente/modal-editar-equipo');
 				} else
 				{
 					show_error('No existe este equipo de computo.', 404);
