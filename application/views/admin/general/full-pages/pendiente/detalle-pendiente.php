@@ -41,7 +41,7 @@
 					<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 				</div>
 				<!-- ESTATUS -->
-				<?php if($usuario_activo['id']==$pendiente->id_pendiente): ?>
+				<?php if($usuario_activo['id']==$pendiente->id_ejecutivo): ?>
 					<!-- 3=pendiente, 7=reasignado 5=en proceso -->
 					<div class="col-md-12" id="div_estatus">
 						<div class="col-md-4 text-right"><b>Estatus: </b></div>
@@ -84,7 +84,7 @@
 						</div>
 					</div>
 				<?php endif ?>
-				<?php if($usuario_activo['id']!=$pendiente->id_pendiente): ?>
+				<?php if($usuario_activo['id']!=$pendiente->id_ejecutivo): ?>
 					<div class="col-md-12">
 						<div class="col-md-4 text-right"><b>Estatus: </b></div>
 						<span class="label label-sm label-success"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span>
@@ -95,14 +95,14 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<?php if($usuario_activo['id']==$pendiente->id_pendiente): ?>
+	<?php if($usuario_activo['id']==$pendiente->id_ejecutivo): ?>
 		<button type="button" class="btn green btn-circle update">Aceptar</button>
 		<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
 		<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
 			<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
 		<?php endif ?>
 	<?php endif ?>
-	<?php if($usuario_activo['id']==$pendiente->id_pendiente): ?>
+	<?php if($usuario_activo['id']!=$pendiente->id_ejecutivo): ?>
 		<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
 	<?php endif ?>
 </div>
