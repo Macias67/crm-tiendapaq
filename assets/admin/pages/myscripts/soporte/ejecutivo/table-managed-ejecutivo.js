@@ -124,8 +124,6 @@ var TableManaged = function () {
 			],
 			"order": [1, 'asc' ] // Ordenados por Razón Social
 		});
-
-		
 	}
 
 

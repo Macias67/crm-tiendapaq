@@ -103,7 +103,7 @@
 														</tr>
 													</thead>
 													<tbody>
-														<?php foreach ($pendientes_usuario as $pendiente): ?>
+														<?php foreach ($pendientes_ejecutivo as $pendiente): ?>
 															<tr class="odd gradeX">
 																<td><?php echo $pendiente->id_pendiente ?></td>
 																<td><?php echo $pendiente->actividad ?></td>

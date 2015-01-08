@@ -41,55 +41,68 @@
 					<div class="col-md-8"><p><?php echo $pendiente->oficina ?></p></div>
 				</div>
 				<!-- ESTATUS -->
-				<!-- 3=pendiente, 7=reasignado 5=en proceso -->
-				<div class="col-md-12" id="div_estatus">
-					<div class="col-md-4 text-right"><b>Estatus: </b></div>
-					<div class="col-md-8">
-						<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7 || $pendiente->id_estatus_general == 5): ?>
-							<select id="estatus_pendiente" class="form-control">
-								<?php if($pendiente->id_estatus_general!=5): ?>
-									<option value="<?php echo $estatus[2]->id_estatus ?>" <?php echo ($pendiente->id_estatus_general==2)? "selected":"" ?>><?php echo $estatus[2]->descripcion ?></option>
-								<?php endif ?>
-								<option value="<?php echo $estatus[4]->id_estatus ?>" <?php echo ($pendiente->id_estatus_general==4)? "selected":"" ?>><?php echo $estatus[4]->descripcion ?></option>
-								<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->descripcion ?></option>
-								<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->descripcion ?></option>
-							</select>
-						<?php else: ?>
-							<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span>
-						<?php endif ?>
-					</div>
-				</div>
-				<!-- EJECUTIVOS PARA REASIGNAR PENDIENTE -->
-				<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
-					<div class="col-md-12" style="margin-top: 1em;">
-						<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
+				<?php if($usuario_activo['id']==$pendiente->id_pendiente): ?>
+					<!-- 3=pendiente, 7=reasignado 5=en proceso -->
+					<div class="col-md-12" id="div_estatus">
+						<div class="col-md-4 text-right"><b>Estatus: </b></div>
 						<div class="col-md-8">
-							<select id="ejecutivo_destino" class="form-control">
-								<option value=""></option>
-								<?php foreach ($ejecutivos as $ejecutivo): ?>
-									<?php if($ejecutivo->id!=$usuario_activo['id']): ?>
-										<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+							<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7 || $pendiente->id_estatus_general == 5): ?>
+								<select id="estatus_pendiente" class="form-control">
+									<?php if($pendiente->id_estatus_general!=5): ?>
+										<option value="<?php echo $estatus[2]->id_estatus ?>" <?php echo ($pendiente->id_estatus_general==2)? "selected":"" ?>><?php echo $estatus[2]->descripcion ?></option>
 									<?php endif ?>
-								<?php endforeach ?>
-							</select>
+									<option value="<?php echo $estatus[4]->id_estatus ?>" <?php echo ($pendiente->id_estatus_general==4)? "selected":"" ?>><?php echo $estatus[4]->descripcion ?></option>
+									<option value="<?php echo $estatus[1]->id_estatus ?>"><?php echo $estatus[1]->descripcion ?></option>
+									<option value="<?php echo $estatus[0]->id_estatus ?>"><?php echo $estatus[0]->descripcion ?></option>
+								</select>
+							<?php else: ?>
+								<span class="label label-sm label-danger"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span>
+							<?php endif ?>
+						</div>
+					</div>
+					<!-- EJECUTIVOS PARA REASIGNAR PENDIENTE -->
+					<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
+						<div class="col-md-12" style="margin-top: 1em;">
+							<div class="col-md-4 text-right"><b>Reasignar a: </b></div>
+							<div class="col-md-8">
+								<select id="ejecutivo_destino" class="form-control">
+									<option value=""></option>
+									<?php foreach ($ejecutivos as $ejecutivo): ?>
+										<?php if($ejecutivo->id!=$usuario_activo['id']): ?>
+											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+										<?php endif ?>
+									<?php endforeach ?>
+								</select>
+							</div>
+						</div>
+					<?php endif ?>
+					<!-- MOTIVO DE REASIGNACION -->
+					<div class="col-md-12 display-hide" style="margin-top: 1em;" id="div_motivo">
+						<div class="col-md-4 text-right"><b>Motivo: </b></div>
+						<div class="col-md-8">
+							<textarea name="motivo" id="motivo" class="form-control" placeholder="¿Porque vas a reasignarlo?"></textarea>
 						</div>
 					</div>
 				<?php endif ?>
-				<!-- MOTIVO DE REASIGNACION -->
-				<div class="col-md-12 display-hide" style="margin-top: 1em;" id="div_motivo">
-					<div class="col-md-4 text-right"><b>Motivo: </b></div>
-					<div class="col-md-8">
-						<textarea name="motivo" id="motivo" class="form-control" placeholder="¿Porque vas a reasignarlo?"></textarea>
+				<?php if($usuario_activo['id']!=$pendiente->id_pendiente): ?>
+					<div class="col-md-12">
+						<div class="col-md-4 text-right"><b>Estatus: </b></div>
+						<span class="label label-sm label-success"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span>
 					</div>
-				</div>
+				<?php endif ?>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn green btn-circle update">Aceptar</button>
-	<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
-	<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
-		<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
+	<?php if($usuario_activo['id']==$pendiente->id_pendiente): ?>
+		<button type="button" class="btn green btn-circle update">Aceptar</button>
+		<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
+		<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
+			<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
+		<?php endif ?>
+	<?php endif ?>
+	<?php if($usuario_activo['id']==$pendiente->id_pendiente): ?>
+		<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
 	<?php endif ?>
 </div>
