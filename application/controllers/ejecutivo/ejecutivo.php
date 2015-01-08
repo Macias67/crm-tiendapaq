@@ -145,6 +145,30 @@ class Ejecutivo extends AbstractAccess {
 			}
 	}
 
+	/**
+	 * funcion para mostrar el catalogo de los ejecutivos y
+	 * sus perfiles esten disponobles para otros ejecutivos
+	 *
+	 * @author Diego Rodriguez
+	 **/
+
+	public function catalogo($id_ejecutivo=null)
+	{
+		if(empty($id_ejecutivo)){
+			$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('*'));
+			$this->_vista('catalogo');
+		}else{
+			$this->load->model('casoModel');
+			$this->load->model('pendienteModel');
+
+			$this->data['ejecutivo'] = $this->ejecutivoModel->get(array('*'),array('id' => $id_ejecutivo),null,'ASC',1);
+			$this->data['ejecutivo']->ruta_img_ejecutivo = site_url('assets/admin/pages/media/profile').'/'.$this->data['ejecutivo']->id.'/';
+			$this->data['casos'] = $this->casoModel->get_casos_ejecutivo($id_ejecutivo);
+			//var_dump($this->data);
+			$this->_vista('perfil_ejecutivo');
+		}
+	}
+
 
 	/**
 	 * Funcion para mostrar el formulario para crear

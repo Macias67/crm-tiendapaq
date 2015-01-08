@@ -25,10 +25,9 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<table class="table table-striped table-hover table-bordered" id="tabla_gestionar_ejecutivos">
+								<table class="table table-striped table-hover table-bordered" id="tabla_catalogo_ejecutivos">
 									<thead>
 										<tr>
-											<th width="1%"><i class="fa fa-asterisk"></i></th>
 											<th width="1%">ID</th>
 											<th width="25%">Nombre</th>
 											<th width="10%">Oficina</th>
@@ -37,13 +36,11 @@
 											<th width="10%">Teléfono</th>
 											<th width="5%">Privilegio</th>
 											<th></th>
-											<th></th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php foreach ($ejecutivos as $ejecutivo) : ?>
 											<tr id="<?php echo $ejecutivo->id ?>">
-												<td><label><input type="radio" name="optionsRadios" class="radios" id-radio="<?php echo $ejecutivo->id ?>" <?php echo($ejecutivo->asignador_casos=="si")? 'checked="checked"':""?>></label></td>
 												<td><?php echo $ejecutivo->id ?></td>
 												<td><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->segundo_nombre.' '.$ejecutivo->apellido_materno.' '.$ejecutivo->apellido_paterno ?></td>
 												<td><?php echo $ejecutivo->oficina ?></td>
@@ -51,15 +48,11 @@
 												<td><?php echo $ejecutivo->email ?></td>
 												<td><?php echo $ejecutivo->telefono ?></td>
 												<td><?php echo $ejecutivo->privilegios ?></td>
-												<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Editar</a></td>
-												<td><button class="delete btn btn-circle red btn-xs"><i class="fa fa-trash-o"></i> Eliminar </button></td>
+												<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/catalogo').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Ver Perfil</a></td>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
 								</table>
-							</div>
-							<div class="portlet-footer">
-								<i class="fa fa-asterisk"></i> Encargado de asignar los casos nuevos.
 							</div>
 						</div>
 						<!-- END TABLA CLIENTES -->

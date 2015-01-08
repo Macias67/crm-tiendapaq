@@ -105,10 +105,10 @@ var TableManaged = function () {
 				{ "orderable": false }
 			],
 			"language": {
-				"emptyTable": 		"No hay clientes registrados",
-				"info": 				"Mostrando _START_ a _END_ de _TOTAL_ clientes",
+				"emptyTable": 		"No hay ejecutivos registrados",
+				"info": 				"Mostrando _START_ a _END_ de _TOTAL_ ejecutivos",
 				"infoEmpty": 		"No se ha registrado ningún cliente",
-				"infoFiltered": 		"(de un total de _MAX_ clientes registrados)",
+				"infoFiltered": 		"(de un total de _MAX_ ejecutivos registrados)",
 				"infoPostFix": 		"",
 				"thousands": 		",",
 				"lengthMenu": 		"_MENU_ entradas",
