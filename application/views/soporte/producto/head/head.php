@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8"/>
-	<title><?php echo $titulo ?></title>
+	<title>CRM | TiendaPaq</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 	<meta content="" name="description"/>
@@ -23,11 +23,10 @@
 	<link href="<?php echo $assets_global_plugins ?>bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 	<!-- END GLOBAL MANDATORY STYLES -->
 
-	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>gritter/css/jquery.gritter.css" />
-	<!-- END PAGE LEVEL PLUGINS -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
 	<link href="<?php echo $assets_global_css ?>components.css" rel="stylesheet" type="text/css"/>

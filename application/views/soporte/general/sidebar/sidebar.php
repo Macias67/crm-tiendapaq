@@ -43,24 +43,53 @@
 						<span class="title"> Inicio</span>
 						</a>
 					</li>
+					<!-- Clientes -->
 					<li>
 						<a href="#">
-						<i class="fa fa-users"></i>
-						<span class="title"> Clientes</span>
+							<i class="fa fa-users"></i>
+							<span class="title"> Clientes</span>
+							<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('cliente/gestionar/nuevo'); ?>"><i class="fa fa-plus"></i> Añadir</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('cliente/gestionar'); ?>"><i class="fa fa-cogs"></i> Gestionar</a>
+							</li>
+						</ul>
+					</li>
+					<!-- Ejecutivos -->
+					<li>
+						<a href="javascript:;">
+						<i class="fa fa-user"></i>
+						<span class="title"> Ejecutivos</span>
 						<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="<?php echo site_url('admin/add'); ?>"><i class="fa fa-plus"></i> Añadir</a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-cogs"></i> Gestionar</a>
+								<a href="<?php echo site_url('ejecutivo/catalogo'); ?>">
+								<i class="fa fa-list"></i> Catálogo</a>
 							</li>
 						</ul>
 					</li>
+					<!-- Productos -->
 					<li>
-						<a href="#">
-						<i class="icon-settings"></i>
+						<a href="<?php echo site_url('producto') ?>">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="title"> Productos</span>
+						</a>
+					</li>
+					<!-- Calendario <li>
+						<a href="<?php echo site_url('calendario') ?>">
+							<i class="fa fa-calendar"></i>
+							<span class="title">Calendario</span>
+						</a>
+					</li>-->
+					<!-- Cerrar Sesion -->
+					<li>
+						<a href="<?php echo site_url('logout') ?>">
+						<i class="fa fa-key"></i>
 						<span class="title">Cerrar Sesion</span></a>
 					</li>
 				</ul>
