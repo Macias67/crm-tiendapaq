@@ -200,20 +200,200 @@ class Cotizador extends AbstractAccess {
 
 	public function prueba()
 	{
-		require_once APPPATH.'third_party/html2pdf/html2pdf.class.php';
-		$html2pdf = new HTML2PDF('P','LETTER','es');
-		$style = '<style type="text/css">';
-		$style .= file_get_contents($this->data['assets_global_plugins'].'kickstart/css/kickstart.css');
-		$style .= '</style>';
-		$html = $this->_vista_completa('cotizacion.php', TRUE);
+		// Cargo libreria del pdf
+		$this->load->library('pdf');
+		$this->pdf = new PDF();
 
-		//var_dump($style.$html);
+		$this->pdf->AddPage();
+		$this->pdf->AliasNbPages();
+		// Nombre del supervisor
+		$this->pdf->SetFillColor(18,143,188);
+		$this->pdf->SetTextColor(255, 255, 255);
+		// // Nombre del supervisor
+		// $this->pdf->SetFont('Arial','B',20);
+		// $this->pdf->Cell(180, 8, 'Luis Macias', 0, 1,'L', 1);
+		// // Salto
+		// $this->pdf->Ln(4);
+		// // Cliente
+		// $this->pdf->SetFont('Arial','',10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'Cliente:', 00, 0);
+		// // Nombre Cliente
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->Cell(50, 6, 'Su Empresa', 00, 1);
+		// // RFC
+		// $this->pdf->SetFont('Arial','',10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'R.F.C.:', 00, 0);
+		// // Datos RFC
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(50, 6, 'AAA00AAAA', 00, 1);
+		// // Domicilio
+		// $this->pdf->SetFont('Arial','',10);
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'Domicilio:', 00, 0);
+		// // Datos domicilio
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(50, 6, 'Cuarzo #541', 00, 1);
+		// // Teléfono
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'Teléfono:', 00, 0);
+		// // Datos Teléfono
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(42, 6, '(392) 698 5470', 00, 0);
+		// // Colonia
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'Colonia:', 00, 0);
+		// // Datos Colonia
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(42, 6, 'Solidaridad', 00, 0);
+		// // C.P.
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'C.P.:', 00, 0);
+		// // Datos C.P.
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(42, 6, '47810', 00, 1);
+		// // Ciudad
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'Ciudad:', 0, 0);
+		// // Datos Ciudad
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(42, 6, 'Ocotlán', 0, 0);
+		// // Estado
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'Estado:', 0, 0);
+		// // Datos Estado
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(42, 6, 'Jalisco', 0, 0);
+		// // País
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(18, 6, 'País:', 0, 0);
+		// // Datos País
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(42, 6, 'Mexico', 0, 1);
+		// // Expedicion
+		// $this->pdf->SetFont('Arial', '', 10);
+		// $this->pdf->SetTextColor(120, 120, 120);
+		// $this->pdf->Cell(35, 6, "Lugar de Expedición:", 0, 0);
+		// // Datos Expedicion
+		// $this->pdf->SetFont('Arial','B',10);
+		// $this->pdf->SetTextColor(18,143,188);
+		// $this->pdf->Cell(40, 6, 'Datos Requeridos', 0, 1);
+		$this->pdf->Ln(5);
+		// Tabla
+		$this->pdf->SetFillColor(18,143,188);
+		$this->pdf->SetTextColor(255, 255, 255);
+		$this->pdf->SetDrawColor(160, 160, 160);
+		$this->pdf->SetFont('Arial','B',8);
+		$this->pdf->Cell(15, 5, 'Cantidad', 0, 0,'C', 1);
+		$this->pdf->Cell(15, 5, 'Unidad', 0, 0,'C', 1);
+		$this->pdf->Cell(105, 5, utf8_decode('Concepto/Descripción'), 0, 0,'C', 1);
+		$this->pdf->Cell(20, 5, 'Valor Unitario', 0, 0,'C', 1);
+		$this->pdf->Cell(25, 5, 'Importe', 0, 1,'C', 1);
+		// Valores
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(0, 0, 0);
 
-		// Ejemplo de HTML2PDF
+		// Productos
+		for ($i=0; $i < 5; $i++) {
+			// SI tiene observacion
+			$bool_obs = ($i % 2 != 0);
+			$this->pdf->SetFont('Arial','B',8);
+			$this->pdf->Cell(15, 5, sprintf ('%0.2f', '40'), 'LBR', 0,'C');
+			$this->pdf->Cell(15, 5, 'Unidad', 'BR', 0,'C');
+			$this->pdf->Cell(105, 5, utf8_decode('Queso Chipotle'), $bool_obs ? 'R' : 'BR', 0, 'L');
+			$this->pdf->Cell(20, 5, sprintf ('%0.2f', '78'), 'BR', 0,'C');
+			$this->pdf->Cell(25, 5, sprintf ('%0.2f', '150'), 'BR', 1,'C');
+			// Obervacion
+			if ($bool_obs) {
+				$this->pdf->SetFont('Arial','',7);
+				//Save the current position
+				$x = $this->pdf->GetX();
+				$y = $this->pdf->GetY();
+				$height = $this->pdf->GetMultiCellHeight(105, 4, 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. DEget lacinia odio sem nec elit.', 'BR', 'L');
+				$this->pdf->Cell(15, $height, '', 'LBR', 0,'C');
+				$this->pdf->Cell(15, $height, '', 'BR', 0,'C');
+				$this->pdf->MultiCell(105, 4, 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. DEget lacinia odio sem nec elit.', 'BR', 'L', TRUE);
+				//Put the position to the right of the cell
+        			$this->pdf->SetXY($x+(15+15+105),$y);
+				$this->pdf->Cell(20, $height, '', 'BR', 0,'C');
+				$this->pdf->Cell(25, $height, '', 'BR', 1,'C');
+			}
+		}
+		$this->pdf->Ln(5);
+		// Importe con Letra
+		$this->pdf->SetFillColor(18,143,188);
+		$this->pdf->SetTextColor(255, 255, 255);
+		$this->pdf->SetFont('Arial','B',8);
+		$this->pdf->Cell(120, 5, 'Importe con letra', 0, 0,'C', 1);
+		// Subtotal
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(150, 150, 150);
+		$this->pdf->SetFont('Arial','B',10);
+		$this->pdf->Cell(10);
+		$this->pdf->Cell(25, 5, 'SUBTOTAL:', 1, 0);
+		// Valor Subtotal
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(18, 143, 188);
+		$this->pdf->SetFont('Arial','B',10);
+		$this->pdf->Cell(25, 5, sprintf ('%0.2f', 500), 1, 1);
+		// Valores Importe con Letra
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(0, 0, 0);
+		$this->pdf->SetFont('Arial','',8);
+		//$this->pdf->Cell(120, 5, strtoupper($this->numeroaletra->ValorEnLetras(500, 'PESOS')), 'LBR', 0,'C');
+		$this->pdf->Cell(120, 5, 'QUINIENTOS', 'LBR', 0,'C');
+		// Subtotal
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(150, 150, 150);
+		$this->pdf->SetFont('Arial','B',10);
+		$this->pdf->Cell(10);
+		$this->pdf->Cell(25, 5, 'I.V.A.:', 1, 0);
+		// Valor Subtotal
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(18, 143, 188);
+		$this->pdf->SetFont('Arial','B',10);
+		$this->pdf->Cell(25, 5, sprintf ('%0.2f', 450), 1, 1);
+		// Metodo pago
+		$this->pdf->SetFillColor(18,143,188);
+		$this->pdf->SetTextColor(255, 255, 255);
+		$this->pdf->SetFont('Arial','B',8);
+		$this->pdf->Cell(120, 5, utf8_decode('NOTA'), 0, 0,'C', 1);
+		// Subtotal
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(150, 150, 150);
+		$this->pdf->SetFont('Arial','B',10);
+		$this->pdf->Cell(10);
+		$this->pdf->Cell(25, 5, 'TOTAL:', 1, 0);
+		// Valor Subtotal
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(18, 143, 188);
+		$this->pdf->SetFont('Arial','B',10);
+		$this->pdf->Cell(25, 5, sprintf ('%0.2f', 500), 1, 1);
+		// Valores
+		$this->pdf->SetFillColor(255,255,255);
+		$this->pdf->SetTextColor(0, 0, 0);
+		$this->pdf->SetFont('Arial','',7);
+		$this->pdf->MultiCell(120, 1, '', 'LR');
+		$this->pdf->MultiCell(120, 3, utf8_decode('Las promociones, servicios sin costo, descuentos adicionales o cualquier negociación realizada con el ejecutivo de ventas deberá quedar por escrito en un e-mail adicional a este documento de lo contrario no serán validas.'), 'LBR');
 		ob_clean();
-		$html2pdf->WriteHTML($style.$html);
-		$html2pdf->Output();
-		//$this->_vista('diseno');
+		$this->pdf->Output('iPedido_1.pdf', 'I');
 	}
 
 	/**

@@ -11,7 +11,7 @@ class PDF extends FPDF {
 	public function Header()
 	{
 		$this->SetMargins(15,0,15);
-	       $this->Image('src/LogoTiendaPAQ.gif',15, 10, 70);
+	       $this->Image('assets/admin/layout/img/logo-big.png',15, 10, 70);
 	       $this->Cell(85);
 
 		$this->SetFillColor(18,143,188);
@@ -55,7 +55,7 @@ class PDF extends FPDF {
 		$this->Cell(80,5,'Cuarzo #9-A, Col. Solidaridad, Ocotlan Jal.', 0,0,'C');
 
 		$this->SetTextColor(0, 0, 0);
-		$this->SetFont('Arial','B',9);
+		$this->SetFont('Arial','B',8);
 		$this->Cell(100,4,'OPERADORA DE TUBERIA INDUSTRIAL DE MEXICO SA DE CV', 0,0,'L');
 
 		$this->Ln(5);
@@ -63,24 +63,24 @@ class PDF extends FPDF {
 		// $this->SetFont('Arial','B',9);
 		$this->Cell(80,5,'Tel. (392) 925 3808, 9234808, 925 5864', 0,0,'C');
 
-		$this->Cell(10,4,"At\'n:", 0,0,'L');
-		$this->SetFont('Arial','',9);
-		$this->Cell(90,4,'SILVIA HERNANDEZ', 0,0,'L');
+		$this->Cell(15,4,utf8_decode('Contácto:'), 0,0,'L');
+		$this->SetFont('Arial','',8);
+		$this->Cell(85,4,'SILVIA HERNANDEZ', 0,0,'L');
 
 		$this->Ln(5);
 		$this->SetFont('Arial','B',9);
 		$this->Cell(80,5,'ventas@tiendapaq.com.mx', 0,0,'C');
 
-		$this->SetFont('Arial','B',9);
+		$this->SetFont('Arial','B',8);
 		$this->Cell(10,4,'Tel:', 0,0,'L');
 
-		$this->SetFont('Arial','',9);
+		$this->SetFont('Arial','',8);
 		$this->Cell(30,4,'5553892406', 0,0,'L');
 
-		$this->SetFont('Arial','B',9);
+		$this->SetFont('Arial','B',8);
 		$this->Cell(10,4,'Email:', 0,0,'L');
 
-		$this->SetFont('Arial','',9);
+		$this->SetFont('Arial','',8);
 		$this->Cell(50,4,'silvia_hernandez_df@hotmail.com', 0,0,'L');
 
 		$this->Ln(10);
@@ -91,7 +91,7 @@ class PDF extends FPDF {
 
 	public function Footer()
 	{
-		$this->Ln(30);
+		$this->Ln(10);
 
 		$this->SetFillColor(255,255,255);
 		$this->SetTextColor(0, 0, 0);
@@ -104,8 +104,140 @@ class PDF extends FPDF {
 		$this->Cell(90,5,'METODO DE PAGO', 'LTR',1,'C', 1);
 
 		$this->SetFont('Arial','',6);
-		$this->MultiCell(90, 3,"*PRECIOS MAS IVA SUJETOS A CAMBIO SIN PREVIO AVISO.\n*FORMA DE PAGO POR ANTICIPADO.\n*TIEMPO DE ENTREGA: DE 5 A 8 DIAS HABILES.\n*EL PRECIO NO INCLUYE SERVICIOS DE IMPLEMENTACION, CAPACITACION O ASESORIA ADICIONAL A LA EXPRESAMENTE SE ALADA EN ESTA COTIZACION\n*LOS CURSOS Y SESIONES REMOTAS ESTAN SUJETOS A PROGRAMACION.\n*NO INCLUYE GASTOS DE VIATICOS EN CASO DE QUE ESTOS SE GENEREN SE FACTURAN POR SEPARADO,",'LR', 'L');
-		$this->Cell(90, 3,"*PRECIOS MAS IVA SUJETOS A CAMBIO SIN PREVIO AVISO.\n*FORMA DE PAGO POR ANTICIPADO.\n*TIEMPO DE ENTREGA: DE 5 A 8 DIAS HABILES.\n*EL PRECIO NO INCLUYE SERVICIOS DE IMPLEMENTACION, CAPACITACION O ASESORIA ADICIONAL A LA EXPRESAMENTE SE ALADA EN ESTA COTIZACION\n*LOS CURSOS Y SESIONES REMOTAS ESTAN SUJETOS A PROGRAMACION.\n*NO INCLUYE GASTOS DE VIATICOS EN CASO DE QUE ESTOS SE GENEREN SE FACTURAN POR SEPARADO,",'LR', 'L');
+		//Save the current position
+		$x = $this->GetX();
+		$y = $this->GetY();
+		$this->MultiCell(90, 4, chr(149).' PRECIOS MAS IVA SUJETOS A CAMBIO SIN PREVIO AVISO.', 'LR', 'L');
+		$this->MultiCell(90, 4, chr(149).' FORMA DE PAGO POR ANTICIPADO.', 'LR', 'L');
+		$this->MultiCell(90, 4, chr(149).' TIEMPO DE ENTREGA: DE 3 A 5 DIAS HABILES.', 'LR', 'L');
+		$this->MultiCell(90, 4, chr(149).' PRECIOS MAS IVA SUJETOS A CAMBIO SIN PREVIO AVISO.', 'LR', 'L');
+		$this->MultiCell(90, 4, chr(149).utf8_decode(' EL PRECIO NO INCLUYE SERVICIOS DE IMPLEMENTACION, CAPACITACION O ASESORIA ADICIONAL A LA EXPRESAMENTE SEÑALADA EN ESTA COTIZACION.'), 'LR', 'L');
+		$this->MultiCell(90, 4, chr(149).' LOS CURSOS Y SESIONES REMOTAS ESTAN SUJETOS A PROGRAMACION.', 'LR', 'L');
+		$this->MultiCell(90, 4, chr(149).' NO INCLUYE GASTOS DE VIATICOS EN CASO DE QUE ESTOS SE GENEREN SE FACTURAN POR SEPARADO.', 'LRB', 'L');
+
+		$this->SetXY($x+90,$y);
+		$this->MultiCell(90, 3, utf8_decode(' Realizar depósito o transferencia electrónica por el monto total de esta cotización a la siguiente cuenta bancaria:'), 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 5, '', 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 3, utf8_decode('Banco: Banamex Sucursal: 4320 Cta.: 9518'), 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 3, utf8_decode('Titular: GLORIA GUADALUPE CAMARENA FLORES'), 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 3, utf8_decode('CIB: 002362432000095183'), 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 5, '', 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 3, utf8_decode('Una vez realizado su pago deberá enviar su ficha/comprobante de depósito, indicando el Folio de su cotización al e-mail: ventas@tiendapaq.com.mx'), 'R', 'C');
+		$this->SetXY($this->GetX()+90,$this->GetY());
+		$this->MultiCell(90, 5, '', 'RB', 'C');
+	}
+
+	function GetMultiCellHeight($w, $h, $txt, $border=null, $align='J') {
+		// Calculate MultiCell with automatic or explicit line breaks height
+		// $border is un-used, but I kept it in the parameters to keep the call
+		//   to this function consistent with MultiCell()
+		$cw = &$this->CurrentFont['cw'];
+		if($w==0)
+			$w = $this->w-$this->rMargin-$this->x;
+		$wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
+		$s = str_replace("\r",'',$txt);
+		$nb = strlen($s);
+		if($nb>0 && $s[$nb-1]=="\n")
+			$nb--;
+		$sep = -1;
+		$i = 0;
+		$j = 0;
+		$l = 0;
+		$ns = 0;
+		$height = 0;
+		while($i<$nb)
+		{
+			// Get next character
+			$c = $s[$i];
+			if($c=="\n")
+			{
+				// Explicit line break
+				if($this->ws>0)
+				{
+					$this->ws = 0;
+					$this->_out('0 Tw');
+				}
+				//Increase Height
+				$height += $h;
+				$i++;
+				$sep = -1;
+				$j = $i;
+				$l = 0;
+				$ns = 0;
+				continue;
+			}
+			if($c==' ')
+			{
+				$sep = $i;
+				$ls = $l;
+				$ns++;
+			}
+			$l += $cw[$c];
+			if($l>$wmax)
+			{
+				// Automatic line break
+				if($sep==-1)
+				{
+					if($i==$j)
+						$i++;
+					if($this->ws>0)
+					{
+						$this->ws = 0;
+						$this->_out('0 Tw');
+					}
+					//Increase Height
+					$height += $h;
+				}
+				else
+				{
+					if($align=='J')
+					{
+						$this->ws = ($ns>1) ? ($wmax-$ls)/1000*$this->FontSize/($ns-1) : 0;
+						$this->_out(sprintf('%.3F Tw',$this->ws*$this->k));
+					}
+					//Increase Height
+					$height += $h;
+					$i = $sep+1;
+				}
+				$sep = -1;
+				$j = $i;
+				$l = 0;
+				$ns = 0;
+			}
+			else
+				$i++;
+		}
+		// Last chunk
+		if($this->ws>0)
+		{
+			$this->ws = 0;
+			$this->_out('0 Tw');
+		}
+		//Increase Height
+		$height += $h;
+
+		return $height;
+	}
+
+	//MultiCell with bullet
+	function MultiCellBlt($w, $h, $blt, $txt, $border=0, $align='J', $fill=false)
+	{
+		//Get bullet width including margins
+		$blt_width = $this->GetStringWidth($blt)+$this->cMargin*2;
+		//Save x
+		$bak_x = $this->x;
+		//Output bullet
+		$this->Cell($blt_width,$h,$blt,0,'',$fill);
+		//Output text
+		$this->MultiCell($w-$blt_width,$h,$txt,$border,$align,$fill);
+		//Restore x
+		$this->x = $bak_x;
 	}
 }
 
