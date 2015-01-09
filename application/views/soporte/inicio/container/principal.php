@@ -51,8 +51,7 @@
 							<i class="fa fa-list"></i>
 							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
 						</a>
-						<!-- Cotizaciones -->
-						<a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
+						<!-- Cotizaciones <a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
 							<i class="fa fa-dollar"></i>
 							<div>&nbsp;&nbsp;Pagos por revisar&nbsp;&nbsp;</div>
 							<?php if ($cotizaciones_revision!=0): ?>
@@ -60,7 +59,7 @@
 									<?php echo $cotizaciones_revision ?>
 								</span>
 							<?php endif ?>
-						</a>
+						</a>-->
 						<!-- Casos por asignar -->
 						<?php if($asignador_casos=="si"): ?>
 							<a href="<?php echo site_url('caso') ?>" class="icon-btn">

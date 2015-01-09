@@ -20,9 +20,15 @@
 					<div class="col-md-8"><p><?php echo $pendiente->descripcion ?></p></div>
 				</div>
 				<div class="col-md-12">
-					<div class="col-md-4 text-right"><b>Fecha asignada: </b></div>
+					<div class="col-md-4 text-right"><b>Creación: </b></div>
 					<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_origen) ?></p></div>
 				</div>
+				<?php if($pendiente->id_estatus_general==2): ?>
+					<div class="col-md-12">
+						<div class="col-md-4 text-right"><b>Finalización: </b></div>
+						<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_finaliza) ?></p></div>
+					</div>
+				<?php endif ?>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Creado por: </b></div>
 					<div class="col-md-8"><p><a href="<?php echo site_url('ejecutivo/catalogo'.'/'.$pendiente->id_ejecutivo) ?>"><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></a></p></div>

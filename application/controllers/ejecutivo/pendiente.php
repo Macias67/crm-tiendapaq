@@ -110,6 +110,7 @@ class Pendiente extends AbstractAccess {
 						'actividades_pendiente.actividad',
 						'pendientes.descripcion',
 						'pendientes.fecha_origen',
+						'pendientes.fecha_finaliza',
 						'creador.primer_nombre as creador_nombre',
 						'creador.apellido_paterno as creador_apellido',
 						'ejecutivo.primer_nombre as ejecutivo_nombre',
@@ -174,6 +175,9 @@ class Pendiente extends AbstractAccess {
 				$respuesta = array('exito' => TRUE, 'estatus' => 'Sin Cambios');
 			}else{
 				if($this->pendienteModel->update(array('id_estatus_general' => $id_estatus), array('id_pendiente' => $id_pendiente))){
+					if($id_estatus==$this->estatusGeneralModel->CERRADO){
+						$this->pendienteModel->update(array('fecha_finaliza' => date('Y-m-d H:i:s')), array('id_pendiente' => $id_pendiente));
+					}
 					$respuesta = array('exito' => TRUE, 'estatus' => $estatus_text);
 				}else{
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
