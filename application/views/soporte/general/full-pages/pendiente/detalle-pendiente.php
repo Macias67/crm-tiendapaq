@@ -9,7 +9,7 @@
 				<div class="col-md-12">
 					<input type="hidden" id="id_pendiente" value="<?php echo $pendiente->id_pendiente ?>">
 					<div class="col-md-4 text-right"><b>Razón Social: </b></div>
-					<div class="col-md-8"><p><?php echo $pendiente->razon_social ?></p></div>
+					<div class="col-md-8"><p><a href="<?php echo site_url('cliente/gestionar/editar'.'/'.$pendiente->id_cliente) ?>"><?php echo $pendiente->razon_social ?></a></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Actividad: </b></div>
@@ -25,7 +25,7 @@
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Creado por: </b></div>
-					<div class="col-md-8"><p><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></p></div>
+					<div class="col-md-8"><p><a href="<?php echo site_url('ejecutivo/catalogo'.'/'.$pendiente->id_ejecutivo) ?>"><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></a></p></div>
 				</div>
 				<!-- HISTORIAL DE REASIGNACIONES -->
 				<?php if(!empty($reasignaciones)): ?>
@@ -87,7 +87,9 @@
 				<?php if($usuario_activo['id']!=$pendiente->id_ejecutivo): ?>
 					<div class="col-md-12">
 						<div class="col-md-4 text-right"><b>Estatus: </b></div>
-						<span class="label label-sm label-success"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span>
+						<div class="col-md-8">
+							<p><span class="label label-sm label-success"><b><?php echo strtoupper($estatus[($pendiente->id_estatus_general)-1]->descripcion) ?></b></span></p>
+						</div>
 					</div>
 				<?php endif ?>
 			</div>
