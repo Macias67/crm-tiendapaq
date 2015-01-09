@@ -104,6 +104,7 @@ class Pendiente extends AbstractAccess {
 		$this->load->model('reasignarPendienteModel');
 		$campos = array('pendientes.id_pendiente',
 						'pendientes.id_ejecutivo',
+						'clientes.id as id_cliente',
 						'clientes.razon_social',
 						'actividades_pendiente.id_actividad as id_actividad_pendiente',
 						'actividades_pendiente.actividad',

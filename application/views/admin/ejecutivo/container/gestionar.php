@@ -55,7 +55,10 @@
 												<td><?php echo $ejecutivo->email ?></td>
 												<td><?php echo $ejecutivo->telefono ?></td>
 												<td><?php echo $ejecutivo->privilegios ?></td>
-												<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Editar</a></td>
+												<td>
+													<a class="btn btn-circle green btn-xs" href="<?php echo site_url('ejecutivo/catalogo').'/'.$ejecutivo->id?>"><i class="fa fa-search"></i> Ver Perfil</a>
+													<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('ejecutivo/gestionar/editar').'/'.$ejecutivo->id?>"><i class="fa fa-edit"></i> Editar</a>
+												</td>
 												<td><button class="delete btn btn-circle red btn-xs"><i class="fa fa-trash-o"></i> Eliminar </button></td>
 											</tr>
 										<?php endforeach ?>
