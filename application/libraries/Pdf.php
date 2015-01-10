@@ -3,9 +3,16 @@ require_once APPPATH.'third_party/fpdf/fpdf.php';
 
 class PDF extends FPDF {
 
+	var $COTIZACION;
+
 	public function __construct()
 	{
 		parent::__construct();
+	}
+
+	public function init($cotizacion)
+	{
+		$COTIZACION = $cotizacion;
 	}
 
 	public function Header()

@@ -156,54 +156,15 @@ class Cotizador extends AbstractAccess {
 		// Folio de la cotizacion
 		$folio = $this->cotizacionModel->getSiguienteFolio();
 
-		// Ejemplo de HTML2PDF
-	    	$content = "
-	    	<page backtop='7mm' backbottom='7mm' backleft='10mm' backright='10mm'>
-
-			<h1>Datos de la cotización</h1>
-
-			<h5>Folio: </h5>
-			<p>".$cotizacion['folio']."</p>
-
-			<h5>Fecha: </h5>
-			<p>".date('Y-m-d')."</p>
-
-			<h5>Ejecutivo: </h5>
-			<p>$nombre</p>
-
-			<h5>Cliente: </h5>
-			<p>".$data_cliente[0]->id." - ".$data_cliente[0]->rfc." - ".$data_cliente[0]->razon_social."</p>
-
-			<h5>Productos: </h5>
-		";
-
-		foreach ($productos as $producto) {
-			$content .= "<b>".$producto['codigo'].' - '.$producto['descripcion']."</b>";
-			$content .= "<p style='font-size: 12px'>".$producto['observacion']."</p>";
-		}
-
-		$content .= "</page>";
-
-		require_once APPPATH.'third_party/html2pdf/html2pdf.class.php';
-		$html2pdf = new HTML2PDF('P','LETTER','es');
-		$html2pdf->WriteHTML($content);
-
-		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/tmp/cotizacion/';
-		if (!is_dir($dir_root)) {
-			mkdir($dir_root, DIR_WRITE_MODE, TRUE);
-		}
-		$name		= 'tmp'.$cotizacion['ejecutivo'].''.$data_cliente[0]->id.'-'.$cotizacion['folio'].'.pdf';
-		$path 		= $dir_root.$name;
-
-		$html2pdf->Output($path, 'F');
+		pdf($cotizacion);
 	}
 
-	public function prueba()
+	public function pdf($cotizacion)
 	{
 		// Cargo libreria del pdf
 		$this->load->library('pdf');
 		$this->pdf = new PDF();
-
+		$this->pdf->init();
 		$this->pdf->AddPage();
 		$this->pdf->AliasNbPages();
 		// Nombre del supervisor
