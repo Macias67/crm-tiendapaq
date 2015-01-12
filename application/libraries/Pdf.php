@@ -3,20 +3,43 @@ require_once APPPATH.'third_party/fpdf/fpdf.php';
 
 class PDF extends FPDF {
 
-	var $COTIZACION;
+	public $OFICINA;
+	public $COTIZACION;
+	public $CLIENTE;
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function init($cotizacion)
+	public function init($oficina, $cotizacion, $cliente)
 	{
-		$COTIZACION = $cotizacion;
+		$this->OFICINA 		=  $oficina;
+		$this->COTIZACION 	= $cotizacion;
+		$this->CLIENTE 		= $cliente;
 	}
 
 	public function Header()
 	{
+		// Variables
+
+		// OFICINA
+		$direccion_oficina 	= utf8_decode($this->OFICINA->calle.' '.$this->OFICINA->numero.', Col. '.$this->OFICINA->colonia.', '.$this->OFICINA->ciudad.', '.$this->OFICINA->estado);
+		$telefono_oficina 	= 'Tel. '.$this->OFICINA->telefono;
+		$correo_oficina 	= $this->OFICINA->email;
+
+		// COTIZACION
+		$folio 		= $this->COTIZACION['folio'];
+		$agente 	= utf8_decode($this->COTIZACION['agente']);
+
+		// CLIENTE
+		$razon_social 	=  $this->CLIENTE['razon_social'];
+		$contacto 		=  utf8_decode($this->CLIENTE['contacto']);
+		$telefono 		=  $this->CLIENTE['telefono'];
+		$email 			=  $this->CLIENTE['email'];
+
+		/* ---------- CREACION DEL PDF -------------*/
+
 		$this->SetMargins(15,0,15);
 	       $this->Image('assets/admin/layout/img/logo-big.png',15, 10, 70);
 	       $this->Cell(85);
@@ -32,12 +55,12 @@ class PDF extends FPDF {
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',9);
 		$this->Cell(25,4,'Folio:', 0,0,'L');
-		$this->Cell(25,4,'5439', 0,0,'L');
+		$this->Cell(25,4, $folio, 0,0,'L');
 
 
 		$this->Cell(25,4,'Fecha:', 0,0,'L');
 		$this->SetFont('Arial','',9);
-		$this->Cell(25,4,'02/07/2014', 0,0,'L');
+		$this->Cell(25,4,date('d/m/Y'), 0,0,'L');
 
 		$this->Ln(5);
 		$this->Cell(80);
@@ -46,7 +69,7 @@ class PDF extends FPDF {
 		$this->Cell(25,4,'Agente:', 0,0,'L');
 
 		$this->SetFont('Arial','',9);
-		$this->Cell(75,4,'LUIS ALBERTO MACIAS ANGULO', 0,0,'L');
+		$this->Cell(75,4, $agente, 0,0,'L');
 
 		$this->Ln(10);
 		$this->Cell(80);
@@ -59,36 +82,36 @@ class PDF extends FPDF {
 		$this->Ln(6);
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',9);
-		$this->Cell(80,5,'Cuarzo #9-A, Col. Solidaridad, Ocotlan Jal.', 0,0,'C');
+		$this->Cell(80,1, $direccion_oficina, 0,0,'C');
 
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',8);
-		$this->Cell(100,4,'OPERADORA DE TUBERIA INDUSTRIAL DE MEXICO SA DE CV', 0,0,'L');
+		$this->Cell(100,4, $razon_social, 0,0,'L');
 
 		$this->Ln(5);
-		// $this->SetTextColor(0, 0, 0);
-		// $this->SetFont('Arial','B',9);
-		$this->Cell(80,5,'Tel. (392) 925 3808, 9234808, 925 5864', 0,0,'C');
+		$this->SetTextColor(0, 0, 0);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(80,1, $telefono_oficina, 0,0,'C');
 
-		$this->Cell(15,4,utf8_decode('Contácto:'), 0,0,'L');
+		$this->Cell(15,4, utf8_decode('Contácto:'), 0,0,'L');
 		$this->SetFont('Arial','',8);
-		$this->Cell(85,4,'SILVIA HERNANDEZ', 0,0,'L');
+		$this->Cell(85,4, $contacto, 0,0,'L');
 
 		$this->Ln(5);
 		$this->SetFont('Arial','B',9);
-		$this->Cell(80,5,'ventas@tiendapaq.com.mx', 0,0,'C');
+		$this->Cell(80,1, $correo_oficina, 0,0,'C');
 
 		$this->SetFont('Arial','B',8);
 		$this->Cell(10,4,'Tel:', 0,0,'L');
 
 		$this->SetFont('Arial','',8);
-		$this->Cell(30,4,'5553892406', 0,0,'L');
+		$this->Cell(30,4, $telefono, 0,0,'L');
 
 		$this->SetFont('Arial','B',8);
 		$this->Cell(10,4,'Email:', 0,0,'L');
 
 		$this->SetFont('Arial','',8);
-		$this->Cell(50,4,'silvia_hernandez_df@hotmail.com', 0,0,'L');
+		$this->Cell(50,4, $email, 0,0,'L');
 
 		$this->Ln(10);
 

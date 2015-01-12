@@ -57,6 +57,23 @@ class ContactosModel extends MY_Model {
 		}
 		return $this->contactos_cliente;
 	}
+
+	/**
+	 * Obtener informacion completa de contacto con su
+	 * respectiva empresa
+	 *
+	 * @return object
+	 * @author Luis Macias
+	 **/
+	public function getClientePorContacto($campos, $id_contacto)
+	{
+		$this->db->select($campos);
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		$where = array("contactos.id" => $id_contacto);
+		$this->db->where($where);
+		$query = $this->db->get($this->table);
+		return $query->row();
+	}
 }
 
 /* End of file contactosModel.php */

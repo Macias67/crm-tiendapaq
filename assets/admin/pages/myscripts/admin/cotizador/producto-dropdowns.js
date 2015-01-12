@@ -244,17 +244,17 @@
 
 	// Calcula los datos totales de la cotizacion
 	var calculaTotal = function(total) {
-		var subtotal	= parseFloat($('#subtotal').html().split(' ')[1]);
-		var iva			= parseFloat($('#iva').html().split(' ')[1]);
-		var _total		= parseFloat($('#total b').html().split(' ')[1]);
+		var subtotal	= parseFloat($('#subtotal').html());
+		var iva			= parseFloat($('#iva').html());
+		var _total		= parseFloat($('#total').html());
 		// Aumento al calculo TOTAL
 		subtotal	= Math.round((subtotal + total)*100)/100;
 		iva			= Math.round((subtotal*0.16)*100)/100;
 		_total 		= Math.round((subtotal+iva)*100)/100;
 		// Muestro
-		$('#subtotal').html('$ '+subtotal);
-		$('#iva').html('$ '+iva);
-		$('#total b').html('$ '+_total);
+		$('#subtotal').html(subtotal);
+		$('#iva').html(iva);
+		$('#total').html(_total);
 	}
 
 	// Agruega una columna a la tabla
@@ -392,9 +392,18 @@
 							productos.push(producto);
 						});
 
-						$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function(data) {
+						// Total
+						var total = {
+							subtotal: 	$('#subtotal').html(),
+							iva: 			$('#iva').html(),
+							total: 		$('#total').html()
+						}
+
+						$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total}, function(data) {
+							console.log('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf');
 							window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800,width=800');
-						});
+							//console.log(data);
+						}, 'json');
 					} else {
 						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
 					}

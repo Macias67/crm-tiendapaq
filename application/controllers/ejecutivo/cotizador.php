@@ -137,34 +137,65 @@ class Cotizador extends AbstractAccess {
 		$cotizacion	= $this->input->post('cotizacion');
 		$cliente		= $this->input->post('cliente');
 		$productos 	= $this->input->post('productos');
+		$total 			= $this->input->post('total');
+
+		//Oficina de expedicion
+		$this->load->model('oficinasModel');
+		$oficina_ejecutivo = $this->ejecutivoModel->get('oficina', array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
+		$oficina = $this->oficinasModel->get_where(array('ciudad_estado' => $oficina_ejecutivo->oficina));
+
+		// Seccion cotizacion
+		$data_ejecutivo = $this->ejecutivoModel->get(
+			array('primer_nombre', 'segundo_nombre', 'apellido_paterno', 'apellido_materno'),
+			array('id' => $cotizacion['ejecutivo']));
+		// Nombre del ejecutivo
+		$nombre = 	$data_ejecutivo[0]->primer_nombre.' '.
+					$data_ejecutivo[0]->segundo_nombre.' '.
+					$data_ejecutivo[0]->apellido_paterno.' '.
+					$data_ejecutivo[0]->apellido_materno;
+		$cotizacion['agente'] = $nombre;
 
 		// Info del cliente
 		$data_cliente = $this->clienteModel->get(
 			array('id','razon_social', 'rfc'),
 			array('id' => $cliente['id']));
+		$this->load->model('contactosModel');
+		$campos = array('clientes.razon_social',
+		               		'contactos.nombre_contacto',
+		               		'contactos.apellido_paterno',
+		               		'contactos.apellido_materno',
+		               		'contactos.email_contacto',
+		               		'contactos.telefono_contacto');
+		$cliente = $this->contactosModel->getClientePorContacto($campos, $cliente['contacto']);
 
-		//Info del ejecutivo
-		$data_ejecutivo = $this->ejecutivoModel->get(
-			array('primer_nombre', 'segundo_nombre', 'apellido_paterno', 'apellido_materno'),
-			array('id' => $cotizacion['ejecutivo']));
-		// Nombre del ejecurivo
-		$nombre = 	$data_ejecutivo[0]->primer_nombre.' '.
-					$data_ejecutivo[0]->segundo_nombre.' '.
-					$data_ejecutivo[0]->apellido_paterno.' '.
-					$data_ejecutivo[0]->apellido_materno;
+		$cliente  = array('razon_social' => $cliente->razon_social,
+		                  		'contacto' => $cliente->nombre_contacto.' '.$cliente->apellido_paterno.' '.$cliente->apellido_materno,
+		                  		'telefono' => $cliente->telefono_contacto,
+		                  		'email' => $cliente->email_contacto);
 
 		// Folio de la cotizacion
-		$folio = $this->cotizacionModel->getSiguienteFolio();
+		//$folio = $this->cotizacionModel->getSiguienteFolio();
 
-		pdf($cotizacion);
+		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/tmp/cotizacion/';
+		if (!is_dir($dir_root)) {
+			mkdir($dir_root, DIR_WRITE_MODE, TRUE);
+		}
+		$name		= 'tmp'.$cotizacion['ejecutivo'].$data_cliente[0]->id.'-'.$cotizacion['folio'].'.pdf';
+		$path 		= $dir_root.$name;
+
+		//echo json_encode(array('data' =>$oficina));
+
+		$this->_pdf($oficina, $cotizacion, $cliente, $productos, $total, $path);
 	}
 
-	public function pdf($cotizacion)
+	private function _pdf($oficina, $cotizacion, $cliente, $productos, $total, $path)
 	{
-		// Cargo libreria del pdf
+		// Cargo libreria del pdf y numeroaletra
 		$this->load->library('pdf');
+		$this->load->library('numeroaletra');
+
 		$this->pdf = new PDF();
-		$this->pdf->init();
+		$this->pdf->init($oficina, $cotizacion, $cliente);
 		$this->pdf->AddPage();
 		$this->pdf->AliasNbPages();
 		// Nombre del supervisor
@@ -263,7 +294,7 @@ class Cotizador extends AbstractAccess {
 		$this->pdf->SetDrawColor(160, 160, 160);
 		$this->pdf->SetFont('Arial','B',8);
 		$this->pdf->Cell(15, 5, 'Cantidad', 0, 0,'C', 1);
-		$this->pdf->Cell(15, 5, 'Unidad', 0, 0,'C', 1);
+		$this->pdf->Cell(15, 5, utf8_decode('Código'), 0, 0,'C', 1);
 		$this->pdf->Cell(105, 5, utf8_decode('Concepto/Descripción'), 0, 0,'C', 1);
 		$this->pdf->Cell(20, 5, 'Valor Unitario', 0, 0,'C', 1);
 		$this->pdf->Cell(25, 5, 'Importe', 0, 1,'C', 1);
@@ -272,25 +303,26 @@ class Cotizador extends AbstractAccess {
 		$this->pdf->SetTextColor(0, 0, 0);
 
 		// Productos
-		for ($i=0; $i < 5; $i++) {
+		$total_productos = count($productos);
+		for ($i=0; $i < $total_productos; $i++) {
 			// SI tiene observacion
-			$bool_obs = ($i % 2 != 0);
+			$bool_obs = empty($productos[$i]['observacion']);
 			$this->pdf->SetFont('Arial','B',8);
-			$this->pdf->Cell(15, 5, sprintf ('%0.2f', '40'), 'LBR', 0,'C');
-			$this->pdf->Cell(15, 5, 'Unidad', 'BR', 0,'C');
-			$this->pdf->Cell(105, 5, utf8_decode('Queso Chipotle'), $bool_obs ? 'R' : 'BR', 0, 'L');
-			$this->pdf->Cell(20, 5, sprintf ('%0.2f', '78'), 'BR', 0,'C');
-			$this->pdf->Cell(25, 5, sprintf ('%0.2f', '150'), 'BR', 1,'C');
+			$this->pdf->Cell(15, 5, $productos[$i]['cantidad'], 'LBR', 0,'C');
+			$this->pdf->Cell(15, 5, $productos[$i]['codigo'], 'BR', 0,'C');
+			$this->pdf->Cell(105, 5, utf8_decode($productos[$i]['descripcion']), !$bool_obs ? 'R' : 'BR', 0, 'L');
+			$this->pdf->Cell(20, 5, sprintf ('%0.2f', $productos[$i]['precio']), 'BR', 0,'C');
+			$this->pdf->Cell(25, 5, sprintf ('%0.2f', $productos[$i]['total']), 'BR', 1,'C');
 			// Obervacion
-			if ($bool_obs) {
+			if (!$bool_obs) {
 				$this->pdf->SetFont('Arial','',7);
 				//Save the current position
 				$x = $this->pdf->GetX();
 				$y = $this->pdf->GetY();
-				$height = $this->pdf->GetMultiCellHeight(105, 4, 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. DEget lacinia odio sem nec elit.', 'BR', 'L');
+				$height = $this->pdf->GetMultiCellHeight(105, 4, $productos[$i]['observacion'], 'BR', 'L');
 				$this->pdf->Cell(15, $height, '', 'LBR', 0,'C');
 				$this->pdf->Cell(15, $height, '', 'BR', 0,'C');
-				$this->pdf->MultiCell(105, 4, 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. DEget lacinia odio sem nec elit.', 'BR', 'L', TRUE);
+				$this->pdf->MultiCell(105, 4,  utf8_decode($productos[$i]['observacion']), 'LBR', 'L', TRUE);
 				//Put the position to the right of the cell
         			$this->pdf->SetXY($x+(15+15+105),$y);
 				$this->pdf->Cell(20, $height, '', 'BR', 0,'C');
@@ -313,13 +345,12 @@ class Cotizador extends AbstractAccess {
 		$this->pdf->SetFillColor(255,255,255);
 		$this->pdf->SetTextColor(18, 143, 188);
 		$this->pdf->SetFont('Arial','B',10);
-		$this->pdf->Cell(25, 5, sprintf ('%0.2f', 500), 1, 1);
+		$this->pdf->Cell(25, 5, sprintf ('%0.2f', $total['subtotal']), 1, 1);
 		// Valores Importe con Letra
 		$this->pdf->SetFillColor(255,255,255);
 		$this->pdf->SetTextColor(0, 0, 0);
 		$this->pdf->SetFont('Arial','',8);
-		//$this->pdf->Cell(120, 5, strtoupper($this->numeroaletra->ValorEnLetras(500, 'PESOS')), 'LBR', 0,'C');
-		$this->pdf->Cell(120, 5, 'QUINIENTOS', 'LBR', 0,'C');
+		$this->pdf->Cell(120, 5, strtoupper($this->numeroaletra->ValorEnLetras($total['total'], 'PESOS')), 'LBR', 0,'C');
 		// Subtotal
 		$this->pdf->SetFillColor(255,255,255);
 		$this->pdf->SetTextColor(150, 150, 150);
@@ -330,7 +361,7 @@ class Cotizador extends AbstractAccess {
 		$this->pdf->SetFillColor(255,255,255);
 		$this->pdf->SetTextColor(18, 143, 188);
 		$this->pdf->SetFont('Arial','B',10);
-		$this->pdf->Cell(25, 5, sprintf ('%0.2f', 450), 1, 1);
+		$this->pdf->Cell(25, 5, sprintf ('%0.2f', $total['iva']), 1, 1);
 		// Metodo pago
 		$this->pdf->SetFillColor(18,143,188);
 		$this->pdf->SetTextColor(255, 255, 255);
@@ -346,15 +377,14 @@ class Cotizador extends AbstractAccess {
 		$this->pdf->SetFillColor(255,255,255);
 		$this->pdf->SetTextColor(18, 143, 188);
 		$this->pdf->SetFont('Arial','B',10);
-		$this->pdf->Cell(25, 5, sprintf ('%0.2f', 500), 1, 1);
+		$this->pdf->Cell(25, 5, sprintf ('%0.2f', $total['total']), 1, 1);
 		// Valores
 		$this->pdf->SetFillColor(255,255,255);
 		$this->pdf->SetTextColor(0, 0, 0);
 		$this->pdf->SetFont('Arial','',7);
 		$this->pdf->MultiCell(120, 1, '', 'LR');
 		$this->pdf->MultiCell(120, 3, utf8_decode('Las promociones, servicios sin costo, descuentos adicionales o cualquier negociación realizada con el ejecutivo de ventas deberá quedar por escrito en un e-mail adicional a este documento de lo contrario no serán validas.'), 'LBR');
-		ob_clean();
-		$this->pdf->Output('iPedido_1.pdf', 'I');
+		$this->pdf->Output($path, 'F');
 	}
 
 	/**
