@@ -6,17 +6,19 @@ class PDF extends FPDF {
 	public $OFICINA;
 	public $COTIZACION;
 	public $CLIENTE;
+	public $BANCO;
 
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function init($oficina, $cotizacion, $cliente)
+	public function init($oficina, $cotizacion, $cliente, $banco)
 	{
 		$this->OFICINA 		=  $oficina;
 		$this->COTIZACION 	= $cotizacion;
 		$this->CLIENTE 		= $cliente;
+		$this->BANCO 			= $banco;
 	}
 
 	public function Header()
@@ -150,11 +152,11 @@ class PDF extends FPDF {
 		$this->SetXY($this->GetX()+90,$this->GetY());
 		$this->MultiCell(90, 5, '', 'R', 'C');
 		$this->SetXY($this->GetX()+90,$this->GetY());
-		$this->MultiCell(90, 3, utf8_decode('Banco: Banamex Sucursal: 4320 Cta.: 9518'), 'R', 'C');
+		$this->MultiCell(90, 3, utf8_decode('Banco: '.$this->BANCO->banco.' Sucursal: '.$this->BANCO->sucursal.' Cta.: '.$this->BANCO->cta), 'R', 'C');
 		$this->SetXY($this->GetX()+90,$this->GetY());
-		$this->MultiCell(90, 3, utf8_decode('Titular: GLORIA GUADALUPE CAMARENA FLORES'), 'R', 'C');
+		$this->MultiCell(90, 3, utf8_decode('Titular: '.$this->BANCO->titular), 'R', 'C');
 		$this->SetXY($this->GetX()+90,$this->GetY());
-		$this->MultiCell(90, 3, utf8_decode('CIB: 002362432000095183'), 'R', 'C');
+		$this->MultiCell(90, 3, utf8_decode('CIB: '.$this->BANCO->cib), 'R', 'C');
 		$this->SetXY($this->GetX()+90,$this->GetY());
 		$this->MultiCell(90, 5, '', 'R', 'C');
 		$this->SetXY($this->GetX()+90,$this->GetY());

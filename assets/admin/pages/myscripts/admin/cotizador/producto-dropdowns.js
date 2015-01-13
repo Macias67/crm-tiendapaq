@@ -400,10 +400,9 @@
 						}
 
 						$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total}, function(data) {
-							console.log('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf');
-							window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800,width=800');
+							window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800, width=800');
 							//console.log(data);
-						}, 'json');
+						});
 					} else {
 						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
 					}
@@ -475,6 +474,30 @@
 							bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
 								window.location = '/';
 							});
+						});
+						// Envio de datos por AJAX
+						$.ajax({
+							url: '/cotizador/enviapdf',
+							type: 'post',
+							cache: false,
+							dataType: 'json',
+							data: info,
+							beforeSend: function () {
+								Metronic.showLoader();
+							},
+							error: function(jqXHR, status, error) {
+								Metronic.removeLoader();
+								console.log("ERROR: "+error);
+								alert('ERROR: revisa la consola del navegador para más detalles.');
+							},
+							success: function(data) {
+								console.log(data);
+								bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
+									Metronic.removeLoader(function() {
+										window.location = '/';
+									});
+								});
+							}
 						});
 					} else {
 						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
