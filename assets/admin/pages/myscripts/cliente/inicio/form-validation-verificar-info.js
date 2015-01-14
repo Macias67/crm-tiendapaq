@@ -19,6 +19,7 @@ var FormValidation = function () {
 		// Validaciones para nuevo cliente
 		var verificarInfo = $('#ajax-verificar-info');
 		verificarInfo.on('shown.bs.modal', function (e) {
+			handleInputMasks();
 			var form = $('#form-verificar-datos');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
