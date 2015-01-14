@@ -19,6 +19,7 @@ var FormValidation = function () {
 		// Validaciones para nuevo cliente
 		var verificarInfo = $('#ajax-verificar-info');
 		verificarInfo.on('shown.bs.modal', function (e) {
+			handleInputMasks();
 			var form = $('#form-verificar-datos');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
@@ -124,29 +125,28 @@ var FormValidation = function () {
 					.closest('.form-group').removeClass('has-error'); // set success class to the control group
 				},
 				submitHandler: function (form) {
-					alert("hola");
-					// var folio = $('#folio_cotizacion').val();
-					// var url_redireccion = "http://www.crm-tiendapaq.com/cotizacion/comprobante/"+folio;
-					// var url     = '/gestionar/verificarinfo';
-					// var param   = $('#form-verificar-datos').serialize();
+					var folio = $('#folio_cotizacion').val();
+					var url_redireccion = "http://www.crm-tiendapaq.com/cotizacion/comprobante/"+folio;
+					var url     = '/gestionar/verificarinfo';
+					var param   = $('#form-verificar-datos').serialize();
 
-					// Metronic.showLoader();
-					// $.post(url, param, function(data, textStatus, xhr) {
-					// 	if (data.exito) {
-					// 		Metronic.removeLoader();
-					// 		verificarInfo.modal('hide');
-					// 		bootbox.alert(data.msg, function() {
-					// 			window.location.href = url_redireccion;
-					// 		});
-					// 	} else {
-					// 		Metronic.removeLoader();
-					// 		error.html(data.msg);
-					// 		error.show();
-					// 		$('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
-					// 		Metronic.removeLoader();
-					// 		verificarInfo.modal('show');
-					// 	}
-					// }, 'json');
+					Metronic.showLoader();
+					$.post(url, param, function(data, textStatus, xhr) {
+						if (data.exito) {
+							Metronic.removeLoader();
+							verificarInfo.modal('hide');
+							bootbox.alert(data.msg, function() {
+								window.location.href = url_redireccion;
+							});
+						} else {
+							Metronic.removeLoader();
+							error.html(data.msg);
+							error.show();
+							$('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
+							Metronic.removeLoader();
+							verificarInfo.modal('show');
+						}
+					}, 'json');
 				}
 			});
 		});
