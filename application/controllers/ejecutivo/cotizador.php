@@ -234,6 +234,7 @@ class Cotizador extends AbstractAccess {
 		$this->load->model('contactosModel');
 		$campos = array('clientes.id',
 						'clientes.razon_social',
+						'contactos.id AS id_contacto',
 		               		'contactos.nombre_contacto',
 		               		'contactos.apellido_paterno',
 		               		'contactos.apellido_materno',
@@ -241,11 +242,12 @@ class Cotizador extends AbstractAccess {
 		               		'contactos.telefono_contacto');
 		$cliente = $this->contactosModel->getClientePorContacto($campos, $cliente['contacto']);
 
-		$cliente  = array('id' => $cliente->id,
-						'razon_social' => $cliente->razon_social,
-		                  		'contacto' => $cliente['contacto'],
-		                  		'telefono' => $cliente['telefono_contacto'],
-		                  		'email' => $cliente['email_contacto']);
+		$cliente  = array('id' 			=> $cliente->id,
+						'razon_social' 	=> $cliente->razon_social,
+						'id_contacto' 	=> $cliente->id_contacto,
+		                  		'contacto' 		=>  $cliente->nombre_contacto.' '.$cliente->apellido_paterno.' '.$cliente->apellido_materno,
+		                  		'telefono' 		=> $cliente->telefono_contacto,
+		                  		'email' 			=> $cliente->email_contacto);
 
 		// Banco
 		$this->load->model('bancoModel');
@@ -304,7 +306,7 @@ class Cotizador extends AbstractAccess {
 			'vigencia'				=> $vigencia,
 			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
 			'id_cliente'				=> $cliente['id'],
-			'id_contacto'			=> $cliente['contacto'],
+			'id_contacto'			=> $cliente['id_contacto'],
 			'id_oficina'				=> $oficina->id_oficina,
 			'cotizacion'				=> json_encode($productos),
 			'id_observaciones'		=> 1,

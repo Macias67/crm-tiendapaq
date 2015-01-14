@@ -399,9 +399,25 @@
 							total: 		$('#total').html()
 						}
 
-						$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total}, function(data) {
-							window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800, width=800');
-							//console.log(data);
+						// Envio de datos por AJAX
+						$.ajax({
+							url: '/cotizador/previapdf',
+							type: 'post',
+							cache: false,
+							data: {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total},
+							beforeSend: function () {
+								Metronic.showLoader();
+							},
+							error: function(jqXHR, status, error) {
+								Metronic.removeLoader();
+								console.log("ERROR: "+error);
+								alert('ERROR: revisa la consola del navegador para más detalles.');
+							},
+							success: function(data) {
+								Metronic.removeLoader(function() {
+									window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800, width=800');
+								});
+							}
 						});
 					} else {
 						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
@@ -461,20 +477,20 @@
 							productos.push(producto);
 						});
 
+						// Total
+						var total = {
+							subtotal: 	$('#subtotal').html(),
+							iva: 			$('#iva').html(),
+							total: 		$('#total').html()
+						}
+
 						var info;
 						// Si es pendiente
 						if (pendiente != undefined) {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, pendiente: pendiente}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, pendiente: pendiente}
 						} else {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total}
 						}
-
-						$.post('/cotizador/enviapdf', info, function(data) {
-							console.log(data);
-							bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
-								window.location = '/';
-							});
-						});
 						// Envio de datos por AJAX
 						$.ajax({
 							url: '/cotizador/enviapdf',

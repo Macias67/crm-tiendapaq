@@ -1,7 +1,7 @@
 <div class="modal-header">
 		<h3><b>Verificar Datos - <small><a href="<?php echo site_url('/gestionar/porque') ?>" data-target="#ajax-porque" data-toggle="modal">¿Por qué esto?</a></small></h3>
 </div>
-<form action="#" id="form-verificar-datos" method="post" accept-charset="utf-8">
+<form id="form-verificar-datos" method="post" accept-charset="utf-8">
 	<div class="modal-body form-horizontal">
 		<div class="scroller" style="height: 350px" id="div-scroll-verificar-datos">
 			<!-- DIV ERROR -->

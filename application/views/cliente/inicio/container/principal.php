@@ -47,11 +47,12 @@
 									<?php switch ($cotizacion->id_estatus) {
 										// por pagar
 										case 1:
-											echo '<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-														<td>
-															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
-															<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
-														</td>';
+											echo '
+												<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+												<td>
+													<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
+													<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
+												</td>';
 										break;
 										// en revision
 										case 2:
@@ -86,11 +87,12 @@
 										break;
 										//pago parcial
 										case 6:
-											echo '<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-														<td>
-															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
-															<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
-														</td>';
+											echo '
+												<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+												<td>
+													<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
+													<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
+												</td>';
 										break;
 									} ?>
 								</tr>

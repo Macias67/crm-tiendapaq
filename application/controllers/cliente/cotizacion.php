@@ -162,7 +162,7 @@ class Cotizacion extends AbstractAccess {
 		if ($this->cotizacionModel->exist(array('folio' => $folio)))
 		{
 			$dir_root	= site_url('/clientes/'.$this->usuario_activo['id'].'/cotizacion').'/';
-			$name		= 'tiendapaq-cotiza_'.$folio.'.pdf';
+			$name		= 'crm-cotizacion_'.$folio.'.pdf';
 			$path 	= $dir_root.$name;
 			force_download($name, file_get_contents($path));
 		}
