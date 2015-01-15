@@ -60,25 +60,20 @@ class CotizacionModel extends MY_Model {
 		return $query->result();
 	}
 
-	public function get_cotizacion_cliente($folio,$campos=null)
+	public function get_cotizacion_cliente($folio)
 	{
-		$this->db->select('*');
-		$this->db->join('oficinas', $this->table.'.id_oficina = oficinas.id_oficina', 'inner');
-		$this->db->join('observaciones', $this->table.'.id_observaciones = observaciones.id_observacion', 'inner');
-		$this->db->join('bancos', $this->table.'.id_banco = bancos.id_banco', 'inner');
-		$this->db->join('estatus_cotizacion', $this->table.'.id_estatus_cotizacion = estatus_cotizacion.id_estatus', 'inner');
+		$this->db->select(array('cotizacion.folio','cotizacion.id_cliente','cotizacion.id_estatus_cotizacion','clientes.razon_social'));
+		//$this->db->join('oficinas', $this->table.'.id_oficina = oficinas.id_oficina', 'inner');
+		//$this->db->join('observaciones', $this->table.'.id_observaciones = observaciones.id_observacion', 'inner');
+		//$this->db->join('bancos', $this->table.'.id_banco = bancos.id_banco', 'inner');
+		//$this->db->join('estatus_cotizacion', $this->table.'.id_estatus_cotizacion = estatus_cotizacion.id_estatus', 'inner');
 		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
 		$this->db->where(array('folio' => $folio));
 		$query = $this->db->get($this->table);
 		// Parseo el JSON
 		$cotizacion =  $query->row();
 
-		if ($cotizacion) {
-			$cotizacion->cotizacion = json_decode($cotizacion->cotizacion);
-			return $cotizacion;
-		} else {
-			return null;
-		}
+		return  $query->row();
 	}
 
 /**
