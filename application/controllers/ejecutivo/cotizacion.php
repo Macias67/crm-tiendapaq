@@ -51,17 +51,28 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function catalogo()
 	{
-		$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones(
-			array(
-				'cotizacion.folio',
-				'clientes.razon_social',
-				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno',
-				'cotizacion.fecha',
-				'cotizacion.vigencia',
-				'cotizacion.id_estatus_cotizacion',
-				'estatus_cotizacion.descripcion'
-			));
+		$this->load->model('estatusCotizacionModel');
+		//codigo para revisar cotizaciones vencidas
+		$campos = array(
+								'cotizacion.folio',
+								'clientes.razon_social',
+								'ejecutivos.primer_nombre',
+								'ejecutivos.apellido_paterno',
+								'cotizacion.fecha',
+								'cotizacion.vigencia',
+								'cotizacion.id_estatus_cotizacion',
+								'estatus_cotizacion.descripcion'
+							);
+		$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones($campos);
+		$fecha_actual = date('Y-m-d H:i:s');
+		foreach ($this->data['cotizaciones'] as $cotizacion) {
+			if($fecha_actual > $cotizacion->vigencia){
+				$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
+			}
+		}
+
+		//despues de la revision de muestra la vista
+		$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones($campos);
 		$this->_vista('cotizaciones-catalogo');
 	}
 	/**

@@ -12,7 +12,6 @@
 		<!-- END PAGE HEADER-->
 
 		<!-- BEGIN PAGE CONTENT-->
-		<?php var_dump($this->data) ?>
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN TABLA MIS PENDIENTES-->
