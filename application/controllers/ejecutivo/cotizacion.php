@@ -134,10 +134,11 @@ class Cotizacion extends AbstractAccess {
 		$valoracion = $this->input->post('valoracion');
 
 		$this->load->model('estatusCotizacionModel');
+		$this->load->model('estatusGeneralModel');
+
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
 
-		if ($valoracion == 'aceptado') {
-			$this->load->model('estatusGeneralModel');
+		if ($valoracion == "aceptado") {
 
 			// Cambie estatus de la cotizacion a PAGADO
 			if ($this->cotizacionModel->update(
@@ -158,34 +159,36 @@ class Cotizacion extends AbstractAccess {
 					$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, nuevo caso abierto en espera de asignación.</h3>');
 				}
 			}
-		} elseif ($valoracion == 'irregular') {
-				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
-					array('folio' => $folio)))
+		}
+
+		if ($valoracion == "irregular") {
+			if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
+				array('folio' => $folio)))
+			{
+				$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+			}
+		}
+
+		if ($valoracion == "parcial"){
+			// Cambie estatus de la cotizacion a PARCIAL
+			if ($this->cotizacionModel->update(
+				array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
+				array('folio' => $folio)))
+			{
+				$this->load->model('casoModel');
+
+				$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
+				$caso = array(
+					'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
+					'id_cliente' => $cotizacion->id_cliente,
+					'folio_cotizacion' => $folio,
+					'fecha_inicio' => date('Y-m-d H:i:s'));
+				// Abro un nuevo CASO
+				if ($this->casoModel->insert($caso))
 				{
-					$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+					$response = array('exito' => TRUE, 'msg' => '<h3>Cotización con pago parcial, nuevo caso abierto en espera de asignación.</h3>');
 				}
-			} elseif ($valoracion == 'parcial'){
-					$this->load->model('estatusGeneralModel');
-
-					// Cambie estatus de la cotizacion a PARCIAL
-					if ($this->cotizacionModel->update(
-						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
-						array('folio' => $folio)))
-					{
-						$this->load->model('casoModel');
-
-						$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
-						$caso = array(
-							'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
-							'id_cliente' => $cotizacion->id_cliente,
-							'folio_cotizacion' => $folio,
-							'fecha_inicio' => date('Y-m-d H:i:s'));
-						// Abro un nuevo CASO
-						if ($this->casoModel->insert($caso))
-						{
-							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización con pago parcial, nuevo caso abierto en espera de asignación.</h3>');
-						}
-				}
+			}
 		}
 
 		/**

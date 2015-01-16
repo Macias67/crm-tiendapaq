@@ -44,19 +44,43 @@ var ComentariosCotizacion = function () {
 
                 //metodo para guardar el comentario en la base de datos
                 var url     = '/cotizaciones/comentarios';
-                var param = {
-                    folio:folio,
-                    comentario:comentario,
-                    id_ejecutivo:id_ejecutivo
-                }
+                // var param = {
+                //     folio:folio,
+                //     comentario:comentario,
+                //     id_ejecutivo:id_ejecutivo
+                // }
 
-                $.post(url, param, function(data, textStatus, xhr) {
-                    if (data.exito) {
-                        var msg = list.append(tpl);
-                        input.val("");
-                    } else {
-                        var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
-                        input.val("");
+                // $.post(url, param, function(data, textStatus, xhr) {
+                //     if (data.exito) {
+                //         var msg = list.append(tpl);
+                //         input.val("");
+                //     } else {
+                //         var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
+                //         input.val("");
+                //     }
+                // }, 'json');
+
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: "folio="+folio+"&comentario="+comentario+"&id_ejecutivo="+id_ejecutivo,
+                    beforeSend: function () {
+                        //Metronic.showLoader();
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+                            var msg = list.append(tpl);
+                            input.val("");
+                        } else {
+                            var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
+                            input.val("");
+                        }
                     }
                 });
 
