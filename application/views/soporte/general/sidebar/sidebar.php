@@ -59,6 +59,24 @@
 							</li>
 						</ul>
 					</li>
+					<!-- Cotizaciones -->
+					<li>
+						<a href="javascript:;">
+						<i class="fa fa-list"></i>
+						<span class="title"> Cotizaciones</span>
+						<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('cotizaciones/revisar') ?>">
+								<i class="fa fa-dollar"></i> Pagos por revisar</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('cotizaciones/catalogo') ?>">
+								<i class="fa fa-search"></i> Catálogo</a>
+							<li>
+						</ul>
+					</li>
 					<!-- Ejecutivos -->
 					<li>
 						<a href="javascript:;">

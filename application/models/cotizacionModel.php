@@ -41,7 +41,7 @@ class CotizacionModel extends MY_Model {
 	 * undocumented function
 	 *
 	 * @return Array Object
-	 * @author Luis Macias
+	 * @author Luis Macias | Diego Rodriguez
 	 **/
 	public function get_cotizaciones_cliente($id_cliente, $campos='*')
 	{
@@ -60,6 +60,11 @@ class CotizacionModel extends MY_Model {
 		return $query->result();
 	}
 
+	/**
+	 * funcion para regresar los satos de una cotizacion del cliente
+	 *
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
 	public function get_cotizacion_cliente($folio)
 	{
 		$this->db->select(array('cotizacion.folio','cotizacion.id_cliente','cotizacion.id_estatus_cotizacion','clientes.razon_social'));
@@ -74,6 +79,17 @@ class CotizacionModel extends MY_Model {
 		$cotizacion =  $query->row();
 
 		return  $query->row();
+	}
+
+	/**
+	 * funcion para extraer los datos de las cotizaciones
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function get_cotizaciones($campos)
+	{
+		# code...
 	}
 
 /**

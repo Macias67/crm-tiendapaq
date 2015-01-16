@@ -11,6 +11,7 @@ class Cotizacion extends AbstractAccess {
 	{
 		parent::__construct();
 		$this->load->model('cotizacionModel');
+		$this->load->helper('formatofechas_helper');
 	}
 
 	/**
@@ -20,7 +21,16 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function index()
 	{
-		$this->load->helper('formatofechas_helper');
+	}
+
+	/**
+	 * muestra la vista para cotizaciones con pendiente de revisar pago
+	 *
+	 * @author Diego Rodriguez
+	 **/
+
+	public function revisar()
+	{
 		$this->data['cotizaciones_revision'] = $this->cotizacionModel->get_cotizacion_revision(
 			array(
 				'cotizacion.folio',
@@ -31,9 +41,28 @@ class Cotizacion extends AbstractAccess {
 				'cotizacion.vigencia',
 				'cotizacion.id_estatus_cotizacion'
 			));
-		$this->_vista('cotizaciones');
+		$this->_vista('cotizaciones-revision');
 	}
 
+	/**
+	 * muestra la vista del catalogo de cotizaciones
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function catalogo()
+	{
+		// $this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones(
+		// 	array(
+		// 		'cotizacion.folio',
+		// 		'clientes.razon_social',
+		// 		'ejecutivos.primer_nombre',
+		// 		'ejecutivos.apellido_paterno',
+		// 		'cotizacion.fecha',
+		// 		'cotizacion.vigencia',
+		// 		'cotizacion.id_estatus_cotizacion'
+		// 	));
+		$this->_vista('cotizaciones-catalogo');
+	}
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
 	 * para los clientes
