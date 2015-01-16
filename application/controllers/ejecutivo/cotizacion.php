@@ -51,16 +51,17 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function catalogo()
 	{
-		// $this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones(
-		// 	array(
-		// 		'cotizacion.folio',
-		// 		'clientes.razon_social',
-		// 		'ejecutivos.primer_nombre',
-		// 		'ejecutivos.apellido_paterno',
-		// 		'cotizacion.fecha',
-		// 		'cotizacion.vigencia',
-		// 		'cotizacion.id_estatus_cotizacion'
-		// 	));
+		$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones(
+			array(
+				'cotizacion.folio',
+				'clientes.razon_social',
+				'ejecutivos.primer_nombre',
+				'ejecutivos.apellido_paterno',
+				'cotizacion.fecha',
+				'cotizacion.vigencia',
+				'cotizacion.id_estatus_cotizacion',
+				'estatus_cotizacion.descripcion'
+			));
 		$this->_vista('cotizaciones-catalogo');
 	}
 	/**

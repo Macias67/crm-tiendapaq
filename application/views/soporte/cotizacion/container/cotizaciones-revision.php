@@ -34,7 +34,7 @@
 								</thead>
 								<tbody>
 									<?php foreach ($cotizaciones_revision as $cotizacion): ?>
-										<tr>
+										<tr class="odd gradeX">
 											<td><?php echo $cotizacion->folio ?></td>
 											<td><?php echo $cotizacion->razon_social ?></td>
 											<td><?php echo $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno ?></td>

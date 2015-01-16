@@ -32,7 +32,7 @@ class Cotizacion extends AbstractAccess {
 		if ($existe = $this->cotizacionModel->exist(array('folio' => $folio)))
 		{
 			$dir_root	= site_url('/clientes/'.$this->usuario_activo['id'].'/cotizacion').'/';
-			$name		= 'crm-cotizacion_'.$folio.'.pdf';
+			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
 			$path		= $dir_root.$name;
 			$response 	= array('existe' => $existe, 'ruta' => $path);
 		} else {
@@ -162,7 +162,7 @@ class Cotizacion extends AbstractAccess {
 		if ($this->cotizacionModel->exist(array('folio' => $folio)))
 		{
 			$dir_root	= site_url('/clientes/'.$this->usuario_activo['id'].'/cotizacion').'/';
-			$name		= 'crm-cotizacion_'.$folio.'.pdf';
+			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
 			$path 	= $dir_root.$name;
 			force_download($name, file_get_contents($path));
 		}
