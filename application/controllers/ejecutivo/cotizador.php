@@ -206,6 +206,7 @@ class Cotizador extends AbstractAccess {
 		$cliente		= $this->input->post('cliente');
 		$productos 	= $this->input->post('productos');
 		$total 			= $this->input->post('total');
+		$pendiente 	= $this->input->post('pendiente');
 
 		//Oficina de expedicion
 		$this->load->model('oficinasModel');
