@@ -52,7 +52,7 @@
 							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
 						</a>
 						<!-- Cotizaciones -->
-						<a href="<?php echo site_url('cotizaciones') ?>" class="icon-btn">
+						<a href="<?php echo site_url('cotizaciones/revisar') ?>" class="icon-btn">
 							<i class="fa fa-dollar"></i>
 							<div>&nbsp;&nbsp;Pagos por revisar&nbsp;&nbsp;</div>
 							<?php if ($cotizaciones_revision!=0): ?>
