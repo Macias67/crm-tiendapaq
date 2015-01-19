@@ -40,8 +40,7 @@ INSERT INTO `actividades_pendiente` (`id_actividad`, `actividad`) VALUES
 (1, 'Asesoría a diagnosticar'),
 (2, 'Asesoría específica'),
 (3, 'Solicitud de cotización'),
-(4, 'Soporte Técnico'),
-(5, 'Recado');
+(4, 'Recado');
 
 -- --------------------------------------------------------
 

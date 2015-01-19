@@ -3,7 +3,7 @@
  */
 var TableManagedCliente = function() {
 
-	//Tabla de gestion sistemas contpaqi del cliente
+	//Tabla de gestion de clientes
 	var handleTableClientes= function () {
 
 		var table = $('#tabla_gestionar_cliente');

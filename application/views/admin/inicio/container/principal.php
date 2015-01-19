@@ -51,7 +51,12 @@
 							<i class="fa fa-list"></i>
 							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
 						</a>
-						<!-- Cotizaciones -->
+						<!-- Gestor de cotizaciones -->
+						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" class="icon-btn">
+							<i class="fa fa-file-pdf-o"></i>
+							<div>&nbsp;&nbsp;Cotizaciones enviadas&nbsp;&nbsp;</div>
+						</a>
+						<!-- Revision de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/revisar') ?>" class="icon-btn">
 							<i class="fa fa-dollar"></i>
 							<div>&nbsp;&nbsp;Pagos por revisar&nbsp;&nbsp;</div>
@@ -83,7 +88,7 @@
 				<!-- BEGIN TABLA MIS PENDIENTES-->
 				<div class="portlet gren">
 					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Mis Nuevos Pendientes</div>
+						<div class="caption"><i class="fa fa-user"></i>Nuevos pendientes por atender...</div>
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">

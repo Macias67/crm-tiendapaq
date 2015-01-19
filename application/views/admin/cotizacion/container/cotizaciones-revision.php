@@ -21,7 +21,7 @@
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">
-							<table class="table table-striped table-bordered table-hover" id="tabla-cotizaciones">
+							<table class="table table-striped table-bordered table-hover" id="tabla-cotizaciones-revision">
 								<thead>
 									<tr>
 										<th>Folio</th>

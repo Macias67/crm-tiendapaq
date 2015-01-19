@@ -75,6 +75,67 @@ class Cotizacion extends AbstractAccess {
 		$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones($campos);
 		$this->_vista('cotizaciones-catalogo');
 	}
+
+	/**
+	 * Metodo consultado para el plugin
+	 * dataTable del archivo table-managed.cliente
+	 * que es la tabla vía ajax
+	 *
+	 * @return json
+	 * @author Luis Macias
+	 **/
+	public function table()
+	{
+		$draw			= $this->input->post('draw');
+		$start			= $this->input->post('start');
+		$length		= $this->input->post('length');
+		$order			= $this->input->post('order');
+		$columns		= $this->input->post('columns');
+		$search		= $this->input->post('search');
+		$total			=  $this->cotizacionModel->count();
+		if($length == -1)
+		{
+			$length	= null;
+			$start		= null;
+		}
+		$cotizaciones	= $this->cotizacionModel->get_or_like(
+							array('folio', 'id_cliente', 'id_ejecutivo', 'fecha', 'vigencia', 'id_estatus_cotizacion'),
+							array(
+								'folio'					=> $search['value'],
+								'id_cliente'				=> $search['value'],
+								'id_ejecutivo'			=> $search['value'],
+								'fecha'					=> $search['value'],
+								'vigencia'				=> $search['value'],
+								'id_estatus_cotizacion' => $search['value']
+							),
+							$columns[$order[0]['column']]['data'],
+							$order[0]['dir'],
+							$length,
+							$start
+		                                     );
+		$proceso	= array();
+
+		foreach ($cotizaciones as $index => $cotizacion) {
+			$p = array(
+				'folio'						=> $cotizacion->folio,
+				'id_cliente'					=> $cotizacion->id_cliente,
+				'id_ejecutivo'				=> $cotizacion->id_ejecutivo,
+				'fecha'						=> $cotizacion->fecha,
+				'vigencia'					=> $cotizacion->vigencia,
+				'id_estatus_cotizacion'		=> $cotizacion->id_estatus_cotizacion
+			       );
+			array_push($proceso, $p);
+		}
+		$data = array(
+			'draw'				=> $draw,
+			'recordsTotal'		=> count($cotizaciones),
+			'recordsFiltered'	=> $total,
+			'data'				=> $proceso);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+	}
+
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
 	 * para los clientes

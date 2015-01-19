@@ -9,7 +9,7 @@
 				<div class="col-md-12">
 					<input type="hidden" id="id_pendiente" value="<?php echo $pendiente->id_pendiente ?>">
 					<div class="col-md-4 text-right"><b>Razón Social: </b></div>
-					<div class="col-md-8"><p><a href="<?php echo site_url('cliente/gestionar/editar'.'/'.$pendiente->id_cliente) ?>"><?php echo $pendiente->razon_social ?></a></p></div>
+					<div class="col-md-8"><p><a href="<?php echo site_url('cliente/gestionar/editar'.'/'.$pendiente->id_cliente) ?>" target="_blank"><?php echo $pendiente->razon_social ?></a></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Actividad: </b></div>
@@ -23,7 +23,7 @@
 					<div class="col-md-4 text-right"><b>Creación: </b></div>
 					<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_origen) ?></p></div>
 				</div>
-				<?php if($pendiente->id_estatus_general==2): ?>
+				<?php if($pendiente->id_estatus_general == 2): // Cerrado?>
 					<div class="col-md-12">
 						<div class="col-md-4 text-right"><b>Finalización: </b></div>
 						<div class="col-md-8"><p><?php echo fecha_completa($pendiente->fecha_finaliza) ?></p></div>
@@ -31,7 +31,7 @@
 				<?php endif ?>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Creado por: </b></div>
-					<div class="col-md-8"><p><a href="<?php echo site_url('ejecutivo/catalogo'.'/'.$pendiente->id_ejecutivo) ?>"><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></a></p></div>
+					<div class="col-md-8"><p><a href="<?php echo site_url('ejecutivo/catalogo'.'/'.$pendiente->id_ejecutivo) ?>" target="_blank"><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></a></p></div>
 				</div>
 				<!-- HISTORIAL DE REASIGNACIONES -->
 				<?php if(!empty($reasignaciones)): ?>
@@ -106,7 +106,7 @@
 	<?php if($usuario_activo['id']==$pendiente->id_ejecutivo): ?>
 		<button type="button" class="btn green btn-circle update">Aceptar</button>
 		<button type="button" class="btn default btn-circle" data-dismiss="modal">Cerrar</button>
-		<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 7): ?>
+		<?php if($pendiente->id_estatus_general == 3 || $pendiente->id_estatus_general == 5 || $pendiente->id_estatus_general == 7): ?>
 			<?php echo (isset($url_cotiza)) ? $url_cotiza : '' ?>
 		<?php endif ?>
 	<?php endif ?>

@@ -52,7 +52,7 @@
 			Layout.init(); // init current layout
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
-			TableManaged.init(); //tabla de cotizaciones
+			TableManagedCotizaciones.init(); //tabla de cotizaciones
 			Portfolio.init(); // VIstas de imagenes de cotizacion
 			ComentariosCotizacion.initComentarios();//comentarios de la cotizacion
 		});
