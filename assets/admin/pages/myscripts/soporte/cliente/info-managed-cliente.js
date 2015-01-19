@@ -5,7 +5,7 @@
  */
 var InfoManagedCliente = function() {
 
-	// Mascara para el campo telefeno
+	// Mascara para el campo telefeno en el model editar/nuevo cliente
 	var maskTelefono = function() {
 		$(".telefono_contacto").inputmask('mask', {
 			"mask": "(999) 999-9999"
@@ -37,6 +37,7 @@ var InfoManagedCliente = function() {
 		});
 	}
 
+	// Contactos de un cliente
 	var handleContactos = function() {
 		var table = $('#tabla_contactos');
 

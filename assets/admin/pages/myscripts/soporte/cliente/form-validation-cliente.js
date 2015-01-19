@@ -25,6 +25,7 @@ var FormValidationCliente = function () {
 	}
 
 	// Mascaras para los campos de telefono
+	// en la parte de la informacion del cliente
 	var handleInputMasks = function () {
 		$.extend($.inputmask.defaults, {
 			'autounmask': true

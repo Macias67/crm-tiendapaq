@@ -14,7 +14,7 @@
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
-				<!-- BEGIN TABLA MIS PENDIENTES-->
+				<!-- BEGIN TABLA COTIZACIONES-->
 				<div class="portlet gren">
 					<div class="portlet-title">
 						<div class="caption"><i class="fa fa-user"></i>Cotizaciones</div>
@@ -30,10 +30,9 @@
 										<th>Fecha de creación</th>
 										<th>Vigencia</th>
 										<th>Estatus</th>
-										<th></th>
 									</tr>
 								</thead>
-								<tbody>
+								<!-- <tbody>
 									<?php foreach ($cotizaciones as $cotizacion): ?>
 										<tr class="odd gradeX">
 											<td><?php echo $cotizacion->folio ?></td>
@@ -74,12 +73,12 @@
 											</td>
 										</tr>
 									<?php endforeach ?>
-								</tbody>
+								</tbody> -->
 							</table>
 						</div>
 					</div>
 				</div>
-				<!-- END TABLA MIS PENDIENTES-->
+				<!-- END TABLA COTIZACIONES-->
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->
