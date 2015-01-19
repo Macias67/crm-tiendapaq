@@ -54,11 +54,12 @@ var ComentariosCotizacion = function () {
                     if (data.exito) {
                         var msg = list.append(tpl);
                         input.val("");
+                        parent.location.reload();
                     } else {
                         var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
                         input.val("");
                     }
-                });
+                }, 'json');
 
                 var getLastPostPos = function () {
                     var height = 0;

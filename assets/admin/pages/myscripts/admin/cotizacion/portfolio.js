@@ -25,44 +25,18 @@ var Portfolio = function () {
 				bootbox.alert('<h4>Selecciona una valoración.</h4>');
 			}else{
 
-				// $.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
-				// 	if (data.exito) {
-				// 		bootbox.alert(data.msg, function() {
-				// 			window.location = '/';
-				// 		});
-				// 	} else {
-				// 		bootbox.alert('<h3>Error, revisa la consola para mas informacíon.</h3>', function() {
-				// 			window.location = '/';
-				// 		});
-				// 	}
-				// }, 'json');
+				$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion}, function(data, textStatus, xhr) {
+					if (data.exito) {
+						bootbox.alert(data.msg, function() {
+							window.location = '/';
+						});
+					} else {
+						bootbox.alert('<h3>Error, revisa la consola para mas informacíon.</h3>', function() {
+							window.location = '/';
+						});
+					}
+				}, 'json');
 
-
-        $.ajax({
-            url: '/cotizaciones/apertura',
-            type: 'post',
-            cache: false,
-            dataType: 'json',
-            data: "folio="+folio+"&valoracion="+valoracion,
-            beforeSend: function () {
-                //Metronic.showLoader();
-            },
-            error: function(jqXHR, status, error) {
-                console.log("ERROR: "+error);
-                alert('ERROR: revisa la consola del navegador para más detalles.');
-            },
-            success: function(data) {
-              if (data.exito) {
-								bootbox.alert(data.msg, function() {
-									window.location = '/';
-								});
-							} else {
-								bootbox.alert('<h3>Error, revisa la consola para mas informacíon.</h3>', function() {
-									window.location = '/';
-								});
-							}
-            }
-        });
 			}
 		});
 	};

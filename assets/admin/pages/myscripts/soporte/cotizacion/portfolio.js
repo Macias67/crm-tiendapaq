@@ -20,12 +20,12 @@ var Portfolio = function () {
 		$('#validar').on('click', function() {
 			var folio = $('#folio').val();
 			var valoracion = $('input[name="valoracion"]:checked').val();
-			var comentarios = $('textarea#comentarios').val();
 
 			if(valoracion==undefined){
 				bootbox.alert('<h4>Selecciona una valoración.</h4>');
 			}else{
-				$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion, comentarios:comentarios}, function(data, textStatus, xhr) {
+
+				$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion}, function(data, textStatus, xhr) {
 					if (data.exito) {
 						bootbox.alert(data.msg, function() {
 							window.location = '/';
@@ -36,6 +36,7 @@ var Portfolio = function () {
 						});
 					}
 				}, 'json');
+
 			}
 		});
 	};
