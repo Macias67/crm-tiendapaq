@@ -68,33 +68,31 @@ var TableManagedCotizaciones = function () {
 				{ "data": "id_ejecutivo" },
 				{ "data": "fecha" },
 				{ "data": "vigencia" },
-				{ "data": "id_estatus_cotizacion" }
-				// {
-				// 	"data": null,
-				// 	"defaultContent": '<button type="button" class="btn btn-circle red btn-xs eliminar"><i class="fa fa-trash-o"></i> Eliminar</button>'
-				// }
+				{ "data": "id_estatus_cotizacion" },
+				{
+					"data": null,
+					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar</button>'
+				},
+				{
+					"data": null,
+					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs detalles"><i class="fa fa-eye"></i> Detalles</button>'
+				}
 			],
-			// "rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-			// 	// Desactivado
-			// 	if (!aData.activo) {
-			// 		$(nRow).addClass('danger');
-			// 	}
-			// 	// Checkbox
-			// 	var checkbox = (aData.activo) ? 'checked' : '';
-			// 	$(nRow).addClass('odd gradeX');
-			// 	$('td:eq(0)', nRow).html('<input type="checkbox" class="checkboxes" '+checkbox+'/>');
-			// 	// Tipo de Cliente
-			// 	if (aData.tipo == "Normal") {
-			// 		$('td:eq(5)', nRow).html('<span class="badge badge-success"><b>'+aData.tipo+'</b></span>');
-			// 	} else if (aData.tipo == "Prospecto") {
-			// 		$('td:eq(5)', nRow).html('<span class="badge badge-warning"><b>'+aData.tipo+'</b></span>');
-			// 	} else if(aData.tipo == "Distribuidor"){
-			// 		$('td:eq(5)', nRow).html('<span class="badge badge-danger"><b>'+aData.tipo+'</b></span>');
-			// 	}
-			// 	// Enlace a la edicion
-			// 	var id  = $(nRow).attr('id');
-			// 	$('td:eq(6)', nRow).html('<a type="button" href="/cliente/gestionar/editar/'+id+'" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</a>');
-			// },
+			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				// Tipo de Cliente
+				var color = '';
+				if (aData.id_estatus_cotizacion == "Por Pagar" || aData.id_estatus_cotizacion == "Correcta") {
+					color = 'green';
+				} else if(aData.id_estatus_cotizacion == "En Revision" || aData.id_estatus_cotizacion == "Pago Parcial") {
+					color = 'yellow';
+				} else if(aData.id_estatus_cotizacion == "Irregular" || aData.id_estatus_cotizacion == "Vencida") {
+					color = 'red';
+				}
+				$('td:eq(5)', nRow).html('<span class="btn btn-circle btn-xs '+color+' disabled">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+				// Enlace a la edicion
+				//var id  = $(nRow).attr('id');
+				//$('td:eq(6)', nRow).html('<a type="button" href="/cliente/gestionar/editar/'+id+'" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</a>');
+			},
 			// "drawCallback": function(settings) {
 			// 	Metronic.initUniform($('input[type="checkbox"]', table)); // reinitialize uniform checkboxes on each table reload
 			// },
@@ -114,8 +112,8 @@ var TableManagedCotizaciones = function () {
 			},
 			"columnDefs": [
 				{ // set default column settings
-					// 'orderable': false,
-					// 'targets': [0,6,7]
+					'orderable': false,
+					'targets': [6,7]
 				},
 				{
 					// "searchable": true,

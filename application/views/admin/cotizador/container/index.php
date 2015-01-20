@@ -18,7 +18,7 @@
 
 						<div class="row">
 							<!-- Cotización -->
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<div class="portlet gren">
 
 									<div class="portlet-title">
@@ -49,8 +49,13 @@
 									</div>
 								</div>
 							</div>
+						</div>
+
+						<hr>
+
+						<div class="row">
 							<!-- Cliente -->
-							<div class="col-md-8">
+							<div class="col-md-12">
 								<div class="portlet gren">
 
 									<div class="portlet-title">

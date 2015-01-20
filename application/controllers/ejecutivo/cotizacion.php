@@ -78,7 +78,7 @@ class Cotizacion extends AbstractAccess {
 
 	/**
 	 * Metodo consultado para el plugin
-	 * dataTable del archivo table-managed.cliente
+	 * dataTable del archivo table-managed.cotizacion
 	 * que es la tabla vía ajax
 	 *
 	 * @return json
@@ -98,31 +98,51 @@ class Cotizacion extends AbstractAccess {
 			$length	= null;
 			$start		= null;
 		}
-		$cotizaciones	= $this->cotizacionModel->get_or_like(
-							array('folio', 'id_cliente', 'id_ejecutivo', 'fecha', 'vigencia', 'id_estatus_cotizacion'),
-							array(
-								'folio'					=> $search['value'],
-								'id_cliente'				=> $search['value'],
-								'id_ejecutivo'			=> $search['value'],
-								'fecha'					=> $search['value'],
-								'vigencia'				=> $search['value'],
-								'id_estatus_cotizacion' => $search['value']
-							),
-							$columns[$order[0]['column']]['data'],
-							$order[0]['dir'],
-							$length,
-							$start
-		                                     );
+		$campos = array(
+				'cotizacion.folio',
+				'cotizacion.fecha',
+				'cotizacion.vigencia',
+		              'clientes.razon_social',
+		              'ejecutivos.primer_nombre',
+		              'ejecutivos.segundo_nombre',
+		              'ejecutivos.apellido_paterno',
+		              'ejecutivos.apellido_materno',
+		              'estatus_cotizacion.descripcion');
+		$joins = array('clientes', 'ejecutivos', 'estatus_cotizacion');
+		$like = array(
+			'folio'								=> $search['value'],
+			'clientes.razon_social'				=> $search['value'],
+			'ejecutivos.primer_nombre'		=> $search['value'],
+		       'ejecutivos.segundo_nombre' 		=> $search['value'],
+			'ejecutivos.apellido_paterno' 		=> $search['value'],
+			'ejecutivos.apellido_materno' 		=> $search['value'],
+			'fecha'								=> $search['value'],
+			'vigencia'							=> $search['value'],
+			'estatus_cotizacion.descripcion' 	=> $search['value']
+		);
+		$orderBy 		= $columns[$order[0]['column']]['data'];
+		$orderForm 	= $order[0]['dir'];
+		$limit 			= $length;
+		$offset 		= $start;
+		$cotizaciones	= $this->cotizacionModel->get_cotizacion_cliente_table(
+		                                                                     $campos,
+		                                                                     $joins,
+		                                                                     $like,
+		                                                                     $orderBy,
+		                                                                     $orderForm,
+		                                                                     $limit,
+		                                                                     $offset);
 		$proceso	= array();
 
+		$this->load->helper('formatofechas');
 		foreach ($cotizaciones as $index => $cotizacion) {
 			$p = array(
 				'folio'						=> $cotizacion->folio,
-				'id_cliente'					=> $cotizacion->id_cliente,
-				'id_ejecutivo'				=> $cotizacion->id_ejecutivo,
-				'fecha'						=> $cotizacion->fecha,
-				'vigencia'					=> $cotizacion->vigencia,
-				'id_estatus_cotizacion'		=> $cotizacion->id_estatus_cotizacion
+				'id_cliente'					=> $cotizacion->razon_social,
+				'id_ejecutivo'				=> $cotizacion->primer_nombre.' '.$cotizacion->segundo_nombre.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno,
+				'fecha'						=> fecha_completa($cotizacion->fecha),
+				'vigencia'					=> fecha_completa($cotizacion->vigencia),
+				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion)
 			       );
 			array_push($proceso, $p);
 		}
@@ -164,7 +184,12 @@ class Cotizacion extends AbstractAccess {
 
 	public function revision($folio)
 	{
-		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
+		$campos = array(
+		               'cotizacion.folio',
+		               'cotizacion.id_cliente',
+		               'cotizacion.id_estatus_cotizacion',
+		               'clientes.razon_social');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
 			//var_dump($cotizacion);
 			$this->load->model('estatusCotizacionModel');
 			$this->load->helper('directory');
