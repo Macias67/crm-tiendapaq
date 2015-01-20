@@ -18,7 +18,7 @@
 
 						<div class="row">
 							<!-- Cotización -->
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<div class="portlet gren">
 
 									<div class="portlet-title">
@@ -49,8 +49,13 @@
 									</div>
 								</div>
 							</div>
+						</div>
+
+						<hr>
+
+						<div class="row">
 							<!-- Cliente -->
-							<div class="col-md-8">
+							<div class="col-md-12">
 								<div class="portlet gren">
 
 									<div class="portlet-title">
@@ -205,9 +210,9 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td id="subtotal">$ 0</td>
-														<td id="iva">$ 0</td>
-														<td id="total"><b style="color: red">$ 0</b></td>
+														<td>$ <span id="subtotal">0</span></td>
+														<td>$ <span id="iva">0</td>
+														<td><b style="color: red">$  <span id="total">0</span></b></td>
 													</tr>
 												</tbody>
 											</table>
