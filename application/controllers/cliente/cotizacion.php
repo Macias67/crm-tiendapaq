@@ -50,7 +50,9 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function comprobante($folio)
 	{
-		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($folio)) {
+		$campos = array('cotizacion.folio','cotizacion.id_cliente','cotizacion.id_estatus_cotizacion','clientes.razon_social');
+		$joins = array('clientes');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, $joins, $folio)) {
 			$this->load->model('estatusCotizacionModel');
 			$this->data['cotizacion'] = $cotizacion;
 			if ($cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PORPAGAR ||

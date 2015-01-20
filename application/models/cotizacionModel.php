@@ -61,7 +61,7 @@ class CotizacionModel extends MY_Model {
 	}
 
 	/**
-	 * funcion para regresar los satos de una cotizacion del cliente
+	 * funcion para regresar los datos de una cotizacion del cliente
 	 *
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
