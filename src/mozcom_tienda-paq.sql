@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2014 a las 00:59:16
+-- Tiempo de generación: 20-01-2015 a las 21:50:45
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -400,7 +400,9 @@ CREATE TABLE IF NOT EXISTS `privilegios` (
 --
 
 INSERT INTO `privilegios` (`privilegios`) VALUES
-('admin');
+('admin'),
+('soporte'),
+('ventas');
 
 -- --------------------------------------------------------
 

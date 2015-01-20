@@ -26,6 +26,7 @@ var ComentariosCotizacion = function () {
                     return;
                 }
 
+                Metronic.showLoader();
                 var time = new Date();
                 var fecha = (time.getDate() + '/' + (time.getMonth()+1) + '/' + time.getFullYear());
                 var hora = (time.getHours() + ':' + time.getMinutes());
@@ -52,10 +53,12 @@ var ComentariosCotizacion = function () {
 
                 $.post(url, param, function(data, textStatus, xhr) {
                     if (data.exito) {
+                        Metronic.removeLoader();
                         var msg = list.append(tpl);
                         input.val("");
                         parent.location.reload();
                     } else {
+                        Metronic.removeLoader();
                         var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
                         input.val("");
                     }
