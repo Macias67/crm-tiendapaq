@@ -25,11 +25,11 @@
 								<thead>
 									<tr>
 										<th width="1%">Folio</th>
-										<th width="25%">Cliente</th>
-										<th width="15%">Ejecutivo</th>
-										<th width="15%">Fecha de creación</th>
-										<th width="15%">Vigencia</th>
-										<th width="5%">Estatus</th>
+										<th width="20%">Cliente</th>
+										<th width="10%">Ejecutivo</th>
+										<th width="20%">Fecha de creación</th>
+										<th width="20%">Vigencia</th>
+										<th width="1%">Estatus</th>
 										<th width="1%"></th>
 										<th width="1%"></th>
 									</tr>

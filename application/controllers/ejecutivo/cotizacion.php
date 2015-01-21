@@ -28,7 +28,6 @@ class Cotizacion extends AbstractAccess {
 	 *
 	 * @author Diego Rodriguez
 	 **/
-
 	public function revisar()
 	{
 		$this->data['cotizaciones_revision'] = $this->cotizacionModel->get_cotizacion_revision(
@@ -137,9 +136,10 @@ class Cotizacion extends AbstractAccess {
 		$this->load->helper('formatofechas');
 		foreach ($cotizaciones as $index => $cotizacion) {
 			$p = array(
+				'DT_RowId'					=> $cotizacion->folio,
 				'folio'						=> $cotizacion->folio,
 				'id_cliente'					=> $cotizacion->razon_social,
-				'id_ejecutivo'				=> $cotizacion->primer_nombre.' '.$cotizacion->segundo_nombre.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno,
+				'id_ejecutivo'				=> $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno,
 				'fecha'						=> fecha_completa($cotizacion->fecha),
 				'vigencia'					=> fecha_completa($cotizacion->vigencia),
 				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion)
@@ -175,6 +175,31 @@ class Cotizacion extends AbstractAccess {
 			$response 	= array('existe' => $existe, 'ruta' => $path);
 		} else {
 			$response 	= array('existe' => $existe);
+		}
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+	/**
+	 * Funcion para previsualizar un pdf con una cotizacion
+	 * para los clientes
+	 *
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
+	public function previa()
+	{
+		$folio =$this->input->post('folio');
+
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente(array('id_cliente'), array(''), $folio))
+		{
+			$dir_root	= site_url('/clientes/'.$cotizacion->id_cliente.'/cotizacion').'/';
+			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+			$path		= $dir_root.$name;
+			$response 	= array('existe' => TRUE, 'ruta' => $path);
+		} else {
+			$response 	= array('existe' => FALSE);
 		}
 		//mando la repuesta
 		$this->output

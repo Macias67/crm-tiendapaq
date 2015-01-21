@@ -88,7 +88,7 @@
 				<!-- BEGIN TABLA MIS PENDIENTES-->
 				<div class="portlet gren">
 					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Nuevos pendientes por atender...</div>
+						<div class="caption"><i class="fa fa-user"></i>Nuevos pendientes sin atender...</div>
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">
@@ -125,7 +125,7 @@
 				<!-- BEGIN TABLA PENDIENTES GENERALES-->
 				<div class="portlet gren">
 					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Pendientes Generales</div>
+						<div class="caption"><i class="fa fa-user"></i>Pendientes generales sin atender...</div>
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">

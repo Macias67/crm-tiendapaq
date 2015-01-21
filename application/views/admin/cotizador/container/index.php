@@ -115,7 +115,7 @@
 													<a href="javascript:;" class="expand"></a>
 												</div>
 											</div>
-											<div class="portlet-body display-hide">
+											<div class="portlet-body">
 												<div class="col-md-12">
 													<div class="col-md-12">
 														<div class="col-md-4 text-right"><b>Razón Social: </b></div>

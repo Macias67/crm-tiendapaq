@@ -121,10 +121,14 @@ var FormValidationPendiente = function () {
 									// (bool | optional) if you want it to fade out on its own or just sit there
 									sticky: false,
 									// (int | optional) the time you want it to be alive for before fading out (milliseconds)
-									time: 8000,
+									time: 3000,
 									// (function | optional) function called before it opens
 									before_open: function(){
 										Metronic.removeLoader();
+									},
+									// (function | optional) function called after it closes
+									after_close: function(){
+										location.reload(true);
 									}
 								});
 							});
