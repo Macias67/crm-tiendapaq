@@ -75,7 +75,7 @@ var TableManagedCotizaciones = function () {
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs detalles"><i class="fa fa-eye"></i> Detalles</button>'
+					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs ver"><i class="fa fa-eye"></i> Ver PDF</button>'
 				}
 			],
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -121,6 +121,30 @@ var TableManagedCotizaciones = function () {
 				}
 			],
 			"order": [0, 'desc' ] // Ordenados por Razón Social
+		});
+		table.on('click', '.ver', function(e) {
+			var nRow 	= $(this).parents('tr')[0];
+			var folio 		= $(nRow).attr('id');
+			// Envio de datos por AJAX
+			$.ajax({
+				url: '/cotizaciones/previa',
+				type: 'post',
+				cache: false,
+				data: {folio:folio},
+				beforeSend: function () {
+					Metronic.showLoader();
+				},
+				error: function(jqXHR, status, error) {
+					Metronic.removeLoader();
+					console.log("ERROR: "+error);
+					alert('ERROR: revisa la consola del navegador para más detalles.');
+				},
+				success: function(data) {
+					Metronic.removeLoader(function() {
+						window.open(data.ruta,'','height=800, width=800');
+					});
+				}
+			});
 		});
 	};
 
