@@ -52,7 +52,7 @@ class Cotizacion extends AbstractAccess {
 	{
 		$campos = array('cotizacion.folio','cotizacion.id_cliente','cotizacion.id_estatus_cotizacion','clientes.razon_social');
 		$joins = array('clientes');
-		
+
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, $joins, $folio)) {
 			$this->load->model('estatusCotizacionModel');
 			$this->data['cotizacion'] = $cotizacion;
