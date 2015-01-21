@@ -159,6 +159,9 @@ var FormValidationEjecutivo = function () {
 		var form1 = $('#form-ejecutivo-editado');
 		var error1 = $('.alert-danger', form1);
 		var success1 = $('.alert-success', form1);
+		var id_ejecutivo = $('#id_ejecutivo').val();
+		var usuario_activo = $('#usuario_activo').val();
+		var url_redireccion = "http://www.crm-tiendapaq.com/logout";
 
 		form1.validate({
 			errorElement: 'span', //default input error message container
@@ -282,11 +285,14 @@ var FormValidationEjecutivo = function () {
 						Metronic.removeLoader();
 					},
 					success: function(data) {
-						console.log(data);
 						if (data.exito) {
 							Metronic.removeLoader();
 							bootbox.alert("<h4>Actualizado con éxito.</h4>",function () {
-								parent.location.reload();
+								if(id_ejecutivo==usuario_activo){
+									window.location.href = url_redireccion;
+								}else{
+									parent.location.reload();
+								}
 							});
 						} else {
 							console.log("ERROR: "+data.msg);

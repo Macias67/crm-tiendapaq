@@ -44,7 +44,8 @@
 													Primer Nombre<span class="required" aria-required="true">*</span>
 												</label>
 												<div class="col-md-8">
-													<input type="hidden" class="form-control" name="id" value="<?php echo $ejecutivo->id ?>">
+													<input type="hidden" class="form-control" id="id_ejecutivo" name="id" value="<?php echo $ejecutivo->id ?>">
+													<input type="hidden" class="form-control" id="usuario_activo" value="<?php echo $usuario_activo['id'] ?>">
 													<input type="text" class="form-control" placeholder="Primer Nombre" name="primer_nombre" value="<?php echo $ejecutivo->primer_nombre ?>">
 												</div>
 											</div>
