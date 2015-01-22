@@ -192,7 +192,7 @@ class Cotizacion extends AbstractAccess {
 			$this->load->model('cotizacionModel');
 			$this->cotizacionModel->update(array('visto' => 0),array('folio' => $comentario['folio']));
 			$this->cotizacionModel->incrementa_comentarios($comentario['folio']);
-			
+
 			$respuesta = array('exito' => TRUE);
 		}else{
 			$respuesta = array('exito' => FALSE);

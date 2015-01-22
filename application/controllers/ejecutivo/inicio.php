@@ -68,9 +68,11 @@ class Inicio extends AbstractAccess {
 				'primer_nombre');
 			//variables para registro de un cliente prospecto
 			$this->data['user_pass_prospecto'] =  $this->clienteModel->password();
+			//cantidad de cotizaciones con nuevos comentarios
+			$this->data['cotizaciones_comentarios'] = count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
 			//cantidad de cotizaciones pagadas por revisar
 			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
-			//cantidad de cotizaciones pagadas por revisar
+			//cantidad de casos por asignar
 			$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 			//variable para saber si el ejecutivo logeado puede asignar casos
 			$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
