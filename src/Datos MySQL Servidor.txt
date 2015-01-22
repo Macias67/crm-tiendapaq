@@ -1,0 +1,3 @@
+BD: crm-tiendapaq
+User: tiendapaq
+Pass: 43gzh%0Bgtsts1000

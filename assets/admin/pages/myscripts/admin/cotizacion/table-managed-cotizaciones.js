@@ -71,6 +71,10 @@ var TableManagedCotizaciones = function () {
 				{ "data": "id_estatus_cotizacion" },
 				{
 					"data": null,
+					"defaultContent": ''
+				},
+				{
+					"data": null,
 					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar</button>'
 				},
 				{
@@ -89,6 +93,14 @@ var TableManagedCotizaciones = function () {
 					color = 'red';
 				}
 				$('td:eq(5)', nRow).html('<span class="btn btn-circle btn-xs '+color+' disabled">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+
+				if (aData.total_comentarios_sinver == 0) {
+					color = 'default';
+				} else {
+					color = 'danger';
+				}
+				$('td:eq(6)', nRow).html('<span class="badge badge-'+color+'"><b> 6 </b></span>');
+
 				// Enlace a la edicion
 				//var id  = $(nRow).attr('id');
 				//$('td:eq(6)', nRow).html('<a type="button" href="/cliente/gestionar/editar/'+id+'" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</a>');

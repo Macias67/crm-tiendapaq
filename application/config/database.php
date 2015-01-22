@@ -56,10 +56,10 @@ if ($local) {
 	$db['default']['password']	= '';
 	$db['default']['database']	= 'mozcom_tienda-paq';
 } else {
-	$db['default']['hostname']	= '7moz.com';
-	$db['default']['username']	= 'mozcom_macias';
-	$db['default']['password']	= '761992LMacias';
-	$db['default']['database']	= 'mozcom_tienda-paq';
+	$db['default']['hostname']	= 'sycpaq.com';
+	$db['default']['username']	= 'tiendapaq';
+	$db['default']['password']	= '43gzh%0Bgtsts1000';
+	$db['default']['database']	= 'crm-tiendapaq';
 }
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';

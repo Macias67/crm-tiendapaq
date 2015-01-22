@@ -24,12 +24,13 @@
 							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-cotizaciones">
 								<thead>
 									<tr>
-										<th width="1%">Folio</th>
+										<th width="1%">Fo.</th>
 										<th width="20%">Cliente</th>
 										<th width="10%">Ejecutivo</th>
 										<th width="20%">Fecha de creación</th>
 										<th width="20%">Vigencia</th>
 										<th width="1%">Estatus</th>
+										<th width="1%"><i class="fa fa-comment"></i></th>
 										<th width="1%"></th>
 										<th width="1%"></th>
 									</tr>

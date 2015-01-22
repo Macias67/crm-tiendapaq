@@ -134,7 +134,10 @@ class Cotizacion extends AbstractAccess {
 		$proceso	= array();
 
 		$this->load->helper('formatofechas');
+		$this->load->model('comentariosCotizacionModel');
 		foreach ($cotizaciones as $index => $cotizacion) {
+			$total_comentario 		= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $cotizacion->folio), null, 'ASC', 1);
+			$total_comentario_sinver 	= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $cotizacion->folio, 'visto' => 0), null, 'ASC', 1);
 			$p = array(
 				'DT_RowId'					=> $cotizacion->folio,
 				'folio'						=> $cotizacion->folio,
@@ -142,7 +145,9 @@ class Cotizacion extends AbstractAccess {
 				'id_ejecutivo'				=> $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno,
 				'fecha'						=> fecha_completa($cotizacion->fecha),
 				'vigencia'					=> fecha_completa($cotizacion->vigencia),
-				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion)
+				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion),
+				'total_comentarios'		=> $total_comentario->total_coment,
+				'total_comentarios_sinver'	=> $total_comentario_sinver->total_coment
 			       );
 			array_push($proceso, $p);
 		}
