@@ -188,6 +188,11 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('comentariosCotizacionModel');
 
 		if($this->comentariosCotizacionModel->insert($comentario)){
+			//notifico que hay mensajes no vistos e incremento el numero de mensajes
+			$this->load->model('cotizacionModel');
+			$this->cotizacionModel->update(array('visto' => 0),array('folio' => $comentario['folio']));
+			$this->cotizacionModel->incrementa_comentarios($comentario['folio']);
+			
 			$respuesta = array('exito' => TRUE);
 		}else{
 			$respuesta = array('exito' => FALSE);

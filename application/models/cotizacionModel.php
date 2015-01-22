@@ -190,6 +190,17 @@ class CotizacionModel extends MY_Model {
 		return  $query->result();
 	}
 
+	/**
+	 * funcion para aumentar en 1 el total de comentarios de una cotizacion
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function incrementa_comentarios($folio)
+	{
+		$this->db->set('total_comentarios', '`total_comentarios`+1',FALSE);
+		$this->db->where('folio', $folio);
+		$this->db->update($this->table);
+	}
 }
 
 /* End of file cotizacionModel.php */
