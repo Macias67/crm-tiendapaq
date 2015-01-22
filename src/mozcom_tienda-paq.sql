@@ -129,6 +129,7 @@ CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
   `tipo` enum('E','C') NOT NULL,
   `id_ejecutivo` int(11) DEFAULT NULL,
   `comentario` text NOT NULL,
+  `visto` tinyint(1) NOT NULL DEFAULT '0',
   KEY `folio` (`folio`),
   KEY `folio_2` (`folio`),
   KEY `id_ejecutivo` (`id_ejecutivo`),
