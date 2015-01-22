@@ -43,7 +43,7 @@ class CotizacionModel extends MY_Model {
 	 * @return Array Object
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
-	public function get_cotizaciones_cliente($id_cliente, $campos='*')
+	public function get_cotizaciones_cliente($id_cliente, $campos='*', $where=null)
 	{
 		$this->load->model('estatusCotizacionModel');
 
@@ -52,9 +52,12 @@ class CotizacionModel extends MY_Model {
 		$this->db->join('observaciones', $this->table.'.id_observaciones = observaciones.id_observacion', 'inner');
 		$this->db->join('bancos', $this->table.'.id_banco = bancos.id_banco', 'inner');
 		$this->db->join('estatus_cotizacion', $this->table.'.id_estatus_cotizacion = estatus_cotizacion.id_estatus', 'inner');
-		$where = "id_cliente =".$id_cliente;
-		//$this->db->where(array('id_cliente' => $id_cliente, $this->table.'.id_estatus_cotizacion' => $id_estatus));
-		$this->db->where($where);
+		if(!empty($where)){
+			$this->db->where($where);
+		}else{
+			$where2 = "id_cliente =".$id_cliente;
+			$this->db->where($where2);
+		}
 		$this->db->order_by("fecha ASC");
 		$query = $this->db->get($this->table);
 		return $query->result();
@@ -103,7 +106,7 @@ class CotizacionModel extends MY_Model {
 	 * @return void
 	 * @author Diego Rodriguez
 	 **/
-	public function get_cotizaciones($campos)
+	public function get_cotizaciones($campos, $where=null)
 	{
 		$this->db->select($campos);
 		//$this->db->join('oficinas', $this->table.'.id_oficina = oficinas.id_oficina', 'inner');
@@ -112,6 +115,9 @@ class CotizacionModel extends MY_Model {
 		$this->db->join('estatus_cotizacion', $this->table.'.id_estatus_cotizacion = estatus_cotizacion.id_estatus', 'inner');
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		if(!empty($where)){
+			$this->db->where($where);
+		}
 		$query = $this->db->get($this->table);
 
 		return  $query->result();

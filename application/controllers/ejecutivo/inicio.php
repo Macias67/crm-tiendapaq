@@ -24,17 +24,19 @@ class Inicio extends AbstractAccess {
 			// Cargo helper
 			$this->load->helper('formatofechas');
 
+			//codigo para cambiar cotizaciones a vencidas
 			$campos = array('cotizacion.folio',
 						'cotizacion.fecha',
 						'cotizacion.vigencia',
 						'oficinas.ciudad_estado',
 						'estatus_cotizacion.id_estatus',
 						'estatus_cotizacion.descripcion');
+			$where = array('id_cliente' => $this->usuario_activo['id'],'cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
 
 			//seccion de codigo para revisar cotizaciones vencidas
-			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
+			$cotizaciones = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos, $where);
 			$fecha_actual = date('Y-m-d H:i:s');
-			foreach ($this->data['cotizaciones'] as $cotizacion) {
+			foreach ($cotizaciones as $cotizacion) {
 				if($fecha_actual > $cotizacion->vigencia){
 					$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
 				}
