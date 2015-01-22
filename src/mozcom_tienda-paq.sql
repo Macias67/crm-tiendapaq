@@ -173,6 +173,8 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `id_observaciones` int(11) NOT NULL,
   `id_banco` int(11) NOT NULL,
   `id_estatus_cotizacion` int(11) NOT NULL,
+  `total_comentarios` int(11) NOT NULL,
+  `visto` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`folio`),
   KEY `cotizacion_ibfk_1` (`id_ejecutivo`),
   KEY `cotizacion_ibfk_2` (`id_cliente`),

@@ -136,7 +136,6 @@ class Catalogo extends AbstractAccess {
 	 */
 	public function pattern_check_clientes($file)
 	{
-		$this->load->model('clienteModel');
 		if ($this->clienteModel->pattern_check($file))
 		{
 			return TRUE;

@@ -70,7 +70,7 @@ var TableManagedCotizaciones = function () {
 				{ "data": "vigencia" },
 				{ "data": "id_estatus_cotizacion" },
 				{
-					"data": null,
+					"data": 'visto',
 					"defaultContent": ''
 				},
 				{
@@ -94,12 +94,12 @@ var TableManagedCotizaciones = function () {
 				}
 				$('td:eq(5)', nRow).html('<span class="btn btn-circle btn-xs '+color+' disabled">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
 
-				if (aData.total_comentarios_sinver == 0) {
-					color = 'default';
-				} else {
+				if (aData.visto == false && aData.total_comentarios > 0) {
 					color = 'danger';
+				} else {
+					color = 'default';
 				}
-				$('td:eq(6)', nRow).html('<span class="badge badge-'+color+'"><b> 6 </b></span>');
+				$('td:eq(6)', nRow).html('<span class="badge badge-'+color+'"><b> '+aData.total_comentarios+' </b></span>');
 
 				// Enlace a la edicion
 				//var id  = $(nRow).attr('id');
@@ -125,14 +125,14 @@ var TableManagedCotizaciones = function () {
 			"columnDefs": [
 				{ // set default column settings
 					'orderable': false,
-					'targets': [6,7]
+					'targets': [7,8]
 				},
 				{
 					// "searchable": true,
 					// "targets": [0]
 				}
 			],
-			"order": [0, 'desc' ] // Ordenados por Razón Social
+			"order": [0, 'desc' ] // Ordenados por Folio
 		});
 		table.on('click', '.ver', function(e) {
 			var nRow 	= $(this).parents('tr')[0];
