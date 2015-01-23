@@ -13,79 +13,6 @@
 		<table class="body">
 		<tr>
 			<td class="center" align="center" valign="top">
-				<!-- BEGIN: Header -->
-				<table class="page-header" align="center" style="width: 100%;background: #1f1f1f;">
-				<tr>
-					<td class="center" align="center">
-						<!-- BEGIN: Header Container -->
-						<table class="container" align="center">
-						<tr>
-							<td>
-								<table class="row ">
-								<tr>
-									<td class="wrapper vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;">
-										<!-- BEGIN: Logo -->
-										<table class="six columns">
-										<tr>
-											<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;">
-												<a href="index.html">
-												<img src="<?php echo $assets_admin_layout.'img/logo.png' ?>" width="86" height="14" border="0" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
-												</a>
-											</td>
-										</tr>
-										</table>
-										<!-- END: Logo -->
-									</td>
-									<td class="wrapper vertical-middle last" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;">
-										<!-- BEGIN: Social Icons -->
-										<table class="six columns">
-										<tr>
-											<td>
-												<table class="wrapper social-icons" align="right" style="float: right;">
-												<tr>
-													<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-														<a href="#">
-														<img src="<?php echo $assets_admin_pages.'media/email/social_facebook.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
-														</a>
-													</td>
-													<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-														<a href="#">
-														<img src="<?php echo $assets_admin_pages.'media/email/social_twitter.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
-														</a>
-													</td>
-													<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-														<a href="#">
-														<img src="<?php echo $assets_admin_pages.'media/email/social_googleplus.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
-														</a>
-													</td>
-													<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-														<a href="#">
-														<img src="<?php echo $assets_admin_pages.'media/email/social_linkedin.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
-														</a>
-													</td>
-													<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;padding-right: 0 !important;">
-														<a href="#">
-														<img src="<?php echo $assets_admin_pages.'media/email/social_rss.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
-														</a>
-													</td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										</table>
-										<!-- END: Social Icons -->
-									</td>
-								</tr>
-								</table>
-							</td>
-						</tr>
-						</table>
-						<!-- END: Header Container -->
-					</td>
-				</tr>
-				</table>
-				<!-- END: Header -->
-
 				<!-- BEGIN: Content -->
 				<table class="container content" align="center">
 				<tr>
@@ -93,26 +20,26 @@
 						<table class="row note">
 						<tr>
 							<td class="wrapper last">
-								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Sistemas TiendaPAQ distribuidor autorizado C	ONTPAQi</h4>
+								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">TIENDAPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi</h4>
 								<p>
-									 Estos son tus datos para inicio de session:
+									 Estos son sus datos para inicio de session:
 								</p>
 								<!-- BEGIN: Note Panel -->
 								<table class="twelve columns" style="margin-bottom: 10px">
 								<tr>
-									<td>Usuario:          <?php echo $recordar->usuario ?></td>
-									<td>Contraseña:  <?php echo $recordar->password ?></td>
 									<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-										<a href="https://www.sycpaq.com">
-										https://www.sycpaq.com </a>
-									</td>
-									<td class="expander">
+										<b>Usuario:</b>          <?php echo $recordar->usuario ?>
 									</td>
 								</tr>
-								tr
+								<tr>
+									<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+										<b>Contraseña:</b>  <?php echo $recordar->password ?>
+									</td>
+								</tr>
 								</table>
 								<p>
-									 Puedes hacer click en el link para ir a la pagina principal
+									 Puede hacer click en el link para ir a la pagina principal:
+									 <a href="http://www.sycpaq.com">http://www.sycpaq.com </a>
 								</p>
 								<!-- END: Note Panel -->
 							</td>
@@ -127,12 +54,14 @@
 								<table class="twelve columns">
 								<tr>
 									<td>
-										<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">70% Disscount!</h4>
-										<p>
-											 Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. Pellentesque sem dolor, fringilla et pharetra vitae
-										</p>
-										<img src="<?php echo $assets_admin_pages.'media/email/article.png' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
+										<img src="<?php echo $assets_admin_pages.'media/email/LogoTiendaPAQ.gif' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
 									</td>
+									<td>
+										<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Soporte técnico y capacitacion.</h4>
+											<p>
+												Reciba un cordial saludo y nuestro agradecimiento por su confianza e interes en los Productos y Servicios que ofrecemos.
+											</p>
+										</td>
 									<td class="expander">
 									</td>
 								</tr>
@@ -158,7 +87,7 @@
 								<tr>
 									<td class="wrapper last" style="vertical-align: middle;color: #fff;">
 										<span style="font-size:12px;">
-										<i>This ia a system generated email and reply is not required.</i>
+										<i>Email generado por el sistema, no reenviar.</i>
 										</span>
 									</td>
 								</tr>
@@ -170,22 +99,13 @@
 									<td class="wrapper" style="vertical-align: middle;color: #fff;">
 										<table class="four columns">
 										<tr>
-											<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;">
-												 &copy; Keenthemes 2013.
+											<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
+												<a href="https://www.facebook.com/Tiendapaq">
+												<img src="<?php echo $assets_admin_pages.'media/email/social_facebook.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
+												</a>
 											</td>
-										</tr>
-										</table>
-									</td>
-									<td class="wrapper last" style="vertical-align: middle;color: #fff;">
-										<table class="eight columns">
-										<tr>
-											<td class="vertical-middle align-reverse" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;text-align: right;color: #fff;">
-												<a href="#">
-												About Us </a>
-												&nbsp; <a href="#">
-												Privacy Policy </a>
-												&nbsp; <a href="#">
-												Terms of Use </a>
+											<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;">
+												 &copy; TiendaPAQ 2015.
 											</td>
 										</tr>
 										</table>
