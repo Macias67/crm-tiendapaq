@@ -85,6 +85,7 @@
 				</tr>
 				</table>
 				<!-- END: Header -->
+
 				<!-- BEGIN: Content -->
 				<table class="container content" align="center">
 				<tr>
@@ -92,23 +93,26 @@
 						<table class="row note">
 						<tr>
 							<td class="wrapper last">
-								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Thank you for joining the Metronic Community!</h4>
+								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Sistemas TiendaPAQ distribuidor autorizado C	ONTPAQi</h4>
 								<p>
-									 Please click the following URL to activate your account:
+									 Estos son tus datos para inicio de session:
 								</p>
 								<!-- BEGIN: Note Panel -->
 								<table class="twelve columns" style="margin-bottom: 10px">
 								<tr>
+									<td>Usuario:          <?php echo $recordar->usuario ?></td>
+									<td>Contraseña:  <?php echo $recordar->password ?></td>
 									<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-										<a href="https://www.keenthemes.com/signup/activate/">
-										https://www.keenthemes.com/signup/activate/?code=1212 </a>
+										<a href="https://www.sycpaq.com">
+										https://www.sycpaq.com </a>
 									</td>
 									<td class="expander">
 									</td>
 								</tr>
+								tr
 								</table>
 								<p>
-									 If clicking the URL above does not work, copy and paste the URL into a browser window.
+									 Puedes hacer click en el link para ir a la pagina principal
 								</p>
 								<!-- END: Note Panel -->
 							</td>
@@ -141,6 +145,7 @@
 				</tr>
 				</table>
 				<!-- END: Content -->
+
 				<!-- BEGIN: Footer -->
 				<table class="page-footer" align="center" style="width: 100%;background: #2f2f2f;">
 				<tr>

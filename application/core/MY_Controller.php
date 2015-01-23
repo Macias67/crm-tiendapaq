@@ -373,13 +373,14 @@ abstract class AbstractAccess extends AbstractController {
 
 			$this->email->subject('Datos de logueo CRM');
 			// Contenido del correo
+			$this->data['recordar'] = $this->ejecutivoModel->get(array('usuario', 'password'), array('email' => $email), null, 'ASC', 1);
 			$html = $this->load->view('admin/general/full-pages/email/email_login.php', $this->data,TRUE);
 			$this->email->message($html);
 			$this->email->send();
 
 			$data = array(
 			              'exito' => TRUE,
-			              'mensaje' => 'Se ha enviado un email al correo indicado con los datos de logueo.',
+			              'mensaje' => 'Se ha enviado un email al email indicado con los datos de logueo.',
 			              'debugger' => $this->email->print_debugger());
 		} else {
 			$data = array('exito' => FALSE, 'mensaje' => 'No existe ningún usuario registrado con este email.');

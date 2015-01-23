@@ -114,7 +114,8 @@ var Login = function () {
 			},
 			messages: {
 				email: {
-					required: "El Email es requerido."
+					required: "El email es requerido.",
+					email: "Dirección email no válida."
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
