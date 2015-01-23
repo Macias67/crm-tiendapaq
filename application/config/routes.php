@@ -48,6 +48,7 @@ $route['404_override']			= '';
 $route['login']			= $DIR_EJECUTIVO."inicio/login";
 $route['cookiescreen']	= $DIR_EJECUTIVO."inicio/cookiescreen";
 $route['validation']		= $DIR_EJECUTIVO."inicio/validation";
+$route['recordar']		= $DIR_EJECUTIVO."inicio/recordar";
 $route['logout']		= $DIR_EJECUTIVO."inicio/logout";
 
 // Funciones cliente

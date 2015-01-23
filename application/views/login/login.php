@@ -126,6 +126,7 @@
 		<form class="forget-form" action="index.html" method="post">
 			<h3>¿Olvidaste la contraseña?</h3>
 			<p>Ingresa tu e-mail para restablecer tu contraseña.</p>
+			<p id="notice_email"></p>
 			<div class="form-group">
 				<div class="input-icon">
 					<i class="fa fa-envelope"></i>

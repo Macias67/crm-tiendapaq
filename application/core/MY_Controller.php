@@ -360,7 +360,34 @@ abstract class AbstractAccess extends AbstractController {
 	 **/
 	public function recordar()
 	{
-		# code...
+		$email = $this->input->post('email');
+		$this->load->model('ejecutivoModel');
+		if ($ejecutivo = $this->ejecutivoModel->get_where(array('email' => $email))) {
+			// Envio del email
+			$this->load->library('email');
+			$this->email->set_mailtype("html");
+			$this->email->from('recovery@sycpaq.com', 'Sistema de Recuperación');
+			$this->email->to($ejecutivo->email);
+			//$this->email->cc('another@example.com');
+			//$this->email->bcc('and@another.com');
+
+			$this->email->subject('Datos de logueo CRM');
+			// Contenido del correo
+			$html = $this->load->view('admin/general/full-pages/email/email_login.php', $this->data,TRUE);
+			$this->email->message($html);
+			$this->email->send();
+
+			$data = array(
+			              'exito' => TRUE,
+			              'mensaje' => 'Se ha enviado un email al correo indicado con los datos de logueo.',
+			              'debugger' => $this->email->print_debugger());
+		} else {
+			$data = array('exito' => FALSE, 'mensaje' => 'No existe ningún usuario registrado con este email.');
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
 	}
 
 	/**
