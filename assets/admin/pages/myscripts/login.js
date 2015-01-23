@@ -114,7 +114,7 @@ var Login = function () {
 			},
 			messages: {
 				email: {
-					required: "Email is required."
+					required: "El Email es requerido."
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
@@ -130,7 +130,36 @@ var Login = function () {
 				error.insertAfter(element.closest('.input-icon'));
 			},
 			submitHandler: function (form) {
-				form.submit();
+				var email = $('input.email').val();
+				// Hacemos la peticion ajax
+				$.ajax({
+					url: '/recordar',
+					type: 'post',
+					dataType: 'json',
+					cache: false,
+					data: {email: email},
+					error: function(jqXHR, status, error) {
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+					},
+					success: function (response) {
+						if (response.respuesta) {
+							notice.html('<i class="fa fa-unlock"></i> '+response.mensaje);
+							notice.attr('style', 'color: green; text-shadow: 0px 0px 5px rgba(0, 200, 0, 0.4)')
+							setTimeout(function() {
+								window.location = '/';
+							}, 2500);
+						} else {
+							notice.attr('style', 'color: #d30000; text-shadow: 0px 0px 5px rgba(200, 0, 0, 0.4)')
+								.html('<i class="fa fa-lock"></i> '+response.mensaje);
+							setTimeout(function() {
+								notice.fadeOut(300, function() {
+									$(this).html(message).removeAttr('style').fadeIn(100);
+								});
+							}, 2500);
+						};
+					}
+				});
 			}
 		});
 

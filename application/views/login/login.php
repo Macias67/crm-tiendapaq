@@ -129,7 +129,7 @@
 			<div class="form-group">
 				<div class="input-icon">
 					<i class="fa fa-envelope"></i>
-					<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email"/>
+					<input class="form-control placeholder-no-fix email" type="text" autocomplete="off" placeholder="Email" name="email"/>
 				</div>
 			</div>
 			<div class="form-actions">

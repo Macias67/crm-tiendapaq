@@ -177,7 +177,8 @@ abstract class AbstractAccess extends AbstractController {
 		if (method_exists($this, $method)) {
 			// SI el metodo ($method) que llamo son difrentes a cualquiera de estos
 			// entonces llamos a _admin() para validar que haya una sesion activa
-			if ($method != 'login' && $method != 'validation' && $method != 'cookiescreen') {
+			if ($method != 'login' && $method != 'validation'
+				&& $method != 'cookiescreen' && $method != 'recordar') {
 				$this->_admin();
 			}
 			return call_user_func_array(array($this, $method), $params);
@@ -348,6 +349,18 @@ abstract class AbstractAccess extends AbstractController {
 
 		// Imprimo la respuesta
 		echo json_encode(array('respuesta' => $respuesta, 'mensaje' => $mensaje));
+	}
+
+	/**
+	 * Funcion que hace envio de un correo electronico
+	 *  a un email recordando losdatos de logueo
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function recordar()
+	{
+		# code...
 	}
 
 	/**
