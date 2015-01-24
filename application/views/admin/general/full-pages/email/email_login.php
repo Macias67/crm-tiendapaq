@@ -38,7 +38,7 @@
 								</tr>
 								</table>
 								<p>
-									 Puede hacer click en el link para ir a la pagina principal:
+									 Puede hacer click en el enlace para ir a la pagina principal:
 									 <a href="http://www.sycpaq.com">http://www.sycpaq.com </a>
 								</p>
 								<!-- END: Note Panel -->
@@ -57,7 +57,7 @@
 										<img src="<?php echo $assets_admin_pages.'media/email/LogoTiendaPAQ.gif' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
 									</td>
 									<td>
-										<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Soporte técnico y capacitacion.</h4>
+										<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Soporte técnico y capacitación.</h4>
 											<p>
 												Reciba un cordial saludo y nuestro agradecimiento por su confianza e interes en los Productos y Servicios que ofrecemos.
 											</p>
