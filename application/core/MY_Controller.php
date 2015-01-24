@@ -380,7 +380,7 @@ abstract class AbstractAccess extends AbstractController {
 
 			$data = array(
 			              'exito' => TRUE,
-			              'mensaje' => 'Se ha enviado un email al email indicado con los datos de logueo.',
+			              'mensaje' => 'Se ha enviado un correo al email indicado con los datos de logueo.',
 			              'debugger' => $this->email->print_debugger());
 		} else {
 			$data = array('exito' => FALSE, 'mensaje' => 'No existe ningún usuario registrado con este email.');

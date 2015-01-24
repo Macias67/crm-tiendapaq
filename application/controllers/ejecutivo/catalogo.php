@@ -59,7 +59,7 @@ class Catalogo extends AbstractAccess {
 				$ruta	= 'src/'.$this->usuario_activo['usuario'];
 				// Si no existe la carpeta upload
 				if (!is_dir($ruta)) {
-					mkdir($ruta, 0777, TRUE);
+					mkdir($ruta, DIR_WRITE_MODE, TRUE);
 				}
 
 				//Configuracion para la subida del archivo

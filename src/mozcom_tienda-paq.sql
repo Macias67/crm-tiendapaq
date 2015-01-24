@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 --
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`, `asignador_casos`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luis.macias@tiendapaq.com.mx', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM', 'si'),
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luismacias.angulo@gmail.com', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM', 'si'),
 (2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)', 'no');
 
 -- --------------------------------------------------------

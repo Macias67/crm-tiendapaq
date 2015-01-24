@@ -2,11 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Metronic | Email Templates - Responsive System <br> Email Template</title>
-		<!--IMPORTANT:
-		Before deploying this email template into your application make sure you convert all the css code in <style> tag using http://beaker.mailchimp.com/inline-css.
-		Chrome and other few mail clients do not support <style> tag so the above converter from mailchip will make sure that all the css code will be converted into inline css.
-		-->
+		<title> Responsive System <br> Email Template</title>
 		<meta name="viewport" content="width=device-width">
 	</head>
 	<body style="min-width: 100%;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;margin: 0;padding: 0;direction: ltr;background: #f6f8f1;width: 100% !important;">

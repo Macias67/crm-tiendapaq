@@ -415,7 +415,7 @@
 							},
 							success: function(data) {
 								Metronic.removeLoader(function() {
-									window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800, width=800');
+									window.open('/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800, width=800');
 								});
 							}
 						});

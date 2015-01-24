@@ -314,6 +314,21 @@ class Cotizador extends AbstractAccess {
 			'id_banco'				=> 1,
 			'id_estatus_cotizacion'	=> $this->estatusCotizacionModel->PORPAGAR);
 
+		//Envio Email con el PDF
+		$this->load->library('email');
+		$this->email->set_mailtype("html");
+		$this->email->from('cotizacion@sycpaq.com', $cotizacion['agente'].' - TiendaPAQ');
+		$this->email->to($cliente['email']);
+		//$this->email->cc('another@example.com');
+		//$this->email->bcc('and@another.com');
+		$this->email->subject('Envío de Cotización TiendaPAQ');
+		// Contenido del correo
+		$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
+		$this->email->message($html);
+		// Adjunto PDF
+		$this->email->attach($path);
+		$this->email->send();
+
 		if($this->cotizacionModel->insert($cotizacion)) {
 			echo json_encode($cotizacion);
 		}
