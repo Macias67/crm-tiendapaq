@@ -562,6 +562,7 @@ class Gestor extends AbstractAccess {
 				'razon_social'	=> $this->input->post('razon_social'),
 				'rfc'			=> $this->input->post('rfc'),
 				'email'			=> $this->input->post('email'),
+				'tipo'                    => 'normal',
 				'telefono1'		=> $this->input->post('telefono1'),
 				'calle'			=> $this->input->post('calle'),
 				'no_exterior'	=> $this->input->post('no_exterior'),

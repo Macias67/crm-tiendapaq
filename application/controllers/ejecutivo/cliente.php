@@ -407,7 +407,7 @@ class Cliente extends AbstractAccess {
 				$this->form_validation->set_rules('nombre_contacto', 'Nombre', 'trim|required|strtolower|ucwords|max_length[30]|xss_clean');
 				$this->form_validation->set_rules('apellido_paterno', 'Apellido Paterno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
 				$this->form_validation->set_rules('apellido_materno', 'Apellido Materno', 'trim|required|strtolower|ucwords|max_length[20]|xss_clean');
-				$this->form_validation->set_rules('email_contacto', 'Email', 'trim|required|strtolower|valid_email|max_length[30]|xss_clean');
+				$this->form_validation->set_rules('email_contacto', 'Email', 'trim|required|strtolower|valid_email|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('telefono_contacto', 'Teléfono', 'trim|required|max_length[14]|xss_clean');
 				$this->form_validation->set_rules('puesto_contacto', 'Puesto', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
 
