@@ -21,12 +21,8 @@
 							<i class="fa fa-comments"></i>Comentarios de la cotización
 						</div>
 						<div class="tools">
-							<a href="" class="collapse">
-							</a>
-							<a href="" class="reload">
-							</a>
-							<a href="" class="fullscreen">
-							</a>
+							<!-- <a href="" class="reload">
+							</a> -->
 						</div>
 					</div>
 					<div class="portlet-body" id="chats">
@@ -81,7 +77,7 @@
 				<div class="portlet gren">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Validación de documentos
+							<i class="fa fa-gift"></i> Validación de documentos
 						</div>
 					</div>
 					<div class="portlet-body form">
@@ -122,8 +118,8 @@
 								<img class="img-responsive" src="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" alt="">
 								<div class="mix-details">
 									<h3><?php echo $archivo ?></h3>
-									<a class="mix-link"><i class="fa fa-link"></i></a>
-									<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Cotización #<?php echo $cotizacion->folio ?>" data-rel="fancybox-button">
+									<a class="mix-link" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" target="_blank" title="Ampliar"><i class="fa fa-expand"></i></a>
+									<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Ver" data-rel="fancybox-button">
 										<i class="fa fa-search"></i>
 									</a>
 								</div>
