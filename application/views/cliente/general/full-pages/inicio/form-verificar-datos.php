@@ -68,7 +68,8 @@
 					<br>
 					<br>
 					<ul>
-						<li>Puedes editar mas información en la seccion de gestión</li>
+						<li>Puedes editar mas información en la seccion de gestión.</li>
+						<li>Los campos vacíos ponerlos con ' -- '.</li>
 					</ul>
 				</div>
 				<!-- INFORMACION DE CONTACTO -->

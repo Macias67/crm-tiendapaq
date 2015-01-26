@@ -13,7 +13,7 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-7">
 						<!-- BEGIN FILTER -->
 						<div class="filter-v1 margin-top-10">
 							<div class="row mix-grid thumbnails">
@@ -23,8 +23,8 @@
 										<img class="img-responsive" src="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" alt="">
 										<div class="mix-details">
 											<h3><?php echo $archivo ?></h3>
-											<a class="mix-link"><i class="fa fa-link"></i></a>
-											<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Cotización #<?php echo $cotizacion->folio ?>" data-rel="fancybox-button">
+											<a class="mix-link" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" target="_blank" title="Ampliar"><i class="fa fa-expand"></i></a>
+											<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$archivo) ?>" title="Ver" data-rel="fancybox-button">
 												<i class="fa fa-search"></i>
 											</a>
 										</div>

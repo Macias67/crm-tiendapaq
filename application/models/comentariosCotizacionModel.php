@@ -22,7 +22,7 @@ class ComentariosCotizacionModel extends MY_Model {
 		$this->table	= self::TABLE;
 	}
 
-/**
+	/**
 	 * undocumented function
 	 *
 	 * @return Array Object
@@ -32,7 +32,7 @@ class ComentariosCotizacionModel extends MY_Model {
 	{
 
 		$this->db->select(array(
-			                      'comentarios_cotizacion.folio','comentarios_cotizacion.fecha', 
+			                      'comentarios_cotizacion.folio','comentarios_cotizacion.fecha',
 			                      'comentarios_cotizacion.tipo', 'comentarios_cotizacion.comentario',
 			                      'ejecutivos.id as id_ejecutivo',
 			                      'ejecutivos.primer_nombre as nombre_ejecutivo',
@@ -43,6 +43,13 @@ class ComentariosCotizacionModel extends MY_Model {
 		$this->db->order_by("fecha ASC");
 		$query = $this->db->get($this->table);
 		return $query->result();
+	}
+
+	public function marcar_comentarios_visto($folio)
+	{
+		$this->db->where(array('folio' => $folio));
+		$this->db->set(array('visto' => 1));
+		return $this->db->update($this->table);
 	}
 
 }

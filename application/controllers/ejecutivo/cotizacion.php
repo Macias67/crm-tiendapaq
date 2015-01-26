@@ -212,6 +212,12 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
+	/**
+	 * Funcion para mostrar la vista de revisión
+	 * de una cotización
+	 *
+	 * @param  [int] $folio [Folio de la ctizacion]
+	 */
 	public function revision($folio)
 	{
 		$campos = array(
@@ -220,7 +226,13 @@ class Cotizacion extends AbstractAccess {
 		               'cotizacion.id_estatus_cotizacion',
 		               'clientes.razon_social');
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
-			//var_dump($cotizacion);
+
+			// Marco como VISTO el campo de la tabla en cotizaciones y
+			// los comentarios respectivos
+			$this->load->model('comentariosCotizacionModel');
+			$this->comentariosCotizacionModel->marcar_comentarios_visto($folio);
+			$this->cotizacionModel->update(array('visto' => 1), array('folio' => $folio));
+
 			$this->load->model('estatusCotizacionModel');
 			$this->load->helper('directory');
 			$archivos = directory_map('./clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/', 1);
@@ -231,9 +243,7 @@ class Cotizacion extends AbstractAccess {
 					unset($archivos[$index]);
 				}
 			}
-			$this->load->model('comentariosCotizacionModel');
 			$this->load->helper('formatofechas_helper');
-
 
 			$this->data['cotizacion'] = $cotizacion;
 			$this->data['archivos'] = $archivos;
