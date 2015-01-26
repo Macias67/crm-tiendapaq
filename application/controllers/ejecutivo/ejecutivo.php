@@ -51,6 +51,7 @@ class Ejecutivo extends AbstractAccess {
 		//variable de los casos del ejecutivo
 		$this->data['casos'] = $this->casoModel->get_casos_ejecutivo($this->usuario_activo['id'],
 				                                                         array('caso.id as id_caso',
+				                                                         		'caso.id_estatus_general',
 				                                                         	     'clientes.razon_social',
 				                                                         	     'estatus_general.descripcion',
 				                                                         	     'id_cliente',
