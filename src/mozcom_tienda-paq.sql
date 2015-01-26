@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
+  `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
   `folio` int(11) NOT NULL,
   `fecha` timestamp NOT NULL,
   `tipo` enum('E','C') NOT NULL,
