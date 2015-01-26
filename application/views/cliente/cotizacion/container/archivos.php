@@ -35,6 +35,62 @@
 						</div>
 						<!-- END FILTER -->
 					</div>
+					<div class="col-md-5">
+						<!-- BEGIN COMENTARIOS COTIZACION-->
+						<div class="portlet">
+							<div class="portlet-title line">
+								<div class="caption">
+									<i class="fa fa-comments"></i> Comentarios de la cotización - <small>Contestaremos a la brevedad...</small>
+								</div>
+							</div>
+							<div class="portlet-body" id="chats">
+								<div class="scroller" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
+									<ul class="chats">
+										<?php foreach ($comentarios as $comentario): ?>
+											<?php if($comentario->tipo=='C'): ?>
+												<li class="in">
+													<img class="avatar" alt="" src="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>"/>
+													<div class="message">
+														<span class="arrow"></span>
+														<a href="#" class="name"><?php echo $usuario_activo['razon_social'] ?></a>
+														<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
+														<span class="body"><?php echo $comentario->comentario ?></span>
+													</div>
+												</li>
+											<?php endif ?>
+											<?php if($comentario->tipo=='E'): ?>
+												<li class="out">
+													<img class="avatar" alt="" src="<?php echo site_url('assets/admin/pages/media/profile').'/'.$comentario->id_ejecutivo.'/chat.jpg' ?>"/>
+													<div class="message">
+														<span class="arrow"></span>
+														<a href="#" class="name"><?php echo $comentario->nombre_ejecutivo.' '.$comentario->apellido_ejecutivo ?></a>
+														<span class="datetime"><?php echo fecha_chat($comentario->fecha) ?></span>
+														<span class="body"><?php echo $comentario->comentario ?></span>
+													</div>
+												</li>
+											<?php endif ?>
+										<?php endforeach ?>
+									</ul>
+								</div>
+								<div class="chat-form">
+									<div class="input-cont">
+										<input class="form-control" type="text" placeholder="Escribe un comentario..."/>
+										<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
+										<input type="hidden" id="razon_social" value="<?php echo $usuario_activo['razon_social'] ?>">
+										<input type="hidden" id="ruta_imagen" value="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>">
+									</div>
+									<div class="btn-cont">
+										<span class="arrow">
+										</span>
+										<a href="" class="btn blue icn-only">
+										<i class="fa fa-check icon-white"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END COMENTARIOS COTIZACION-->
+					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
 			</div>

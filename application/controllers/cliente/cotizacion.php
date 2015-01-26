@@ -53,6 +53,12 @@ class Cotizacion extends AbstractAccess {
 		$campos = array('cotizacion.folio','cotizacion.id_cliente','cotizacion.id_estatus_cotizacion','clientes.razon_social');
 		$joins = array('clientes');
 
+		//cargo los comentarios
+		$this->load->model('comentariosCotizacionModel');
+		$this->load->helper('formatofechas_helper');
+		$comentarios = $this->comentariosCotizacionModel->get_comentarios($folio);
+		$this->data['comentarios'] = $comentarios;
+
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, $joins, $folio)) {
 			$this->load->model('estatusCotizacionModel');
 			$this->data['cotizacion'] = $cotizacion;
@@ -60,11 +66,6 @@ class Cotizacion extends AbstractAccess {
 					$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->IRREGULAR ||
 					$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PARCIAL)
 			{
-				//si se muestra el formulario para cargar archivos obtenemos los comentarios
-				$this->load->model('comentariosCotizacionModel');
-				$this->load->helper('formatofechas_helper');
-				$comentarios = $this->comentariosCotizacionModel->get_comentarios($folio);
-				$this->data['comentarios'] = $comentarios;
 				$this->_vista('formulario');
 			} else
 			{
