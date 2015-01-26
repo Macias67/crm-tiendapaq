@@ -244,17 +244,17 @@
 
 	// Calcula los datos totales de la cotizacion
 	var calculaTotal = function(total) {
-		var subtotal	= parseFloat($('#subtotal').html().split(' ')[1]);
-		var iva			= parseFloat($('#iva').html().split(' ')[1]);
-		var _total		= parseFloat($('#total b').html().split(' ')[1]);
+		var subtotal	= parseFloat($('#subtotal').html());
+		var iva			= parseFloat($('#iva').html());
+		var _total		= parseFloat($('#total').html());
 		// Aumento al calculo TOTAL
 		subtotal	= Math.round((subtotal + total)*100)/100;
 		iva			= Math.round((subtotal*0.16)*100)/100;
 		_total 		= Math.round((subtotal+iva)*100)/100;
 		// Muestro
-		$('#subtotal').html('$ '+subtotal);
-		$('#iva').html('$ '+iva);
-		$('#total b').html('$ '+_total);
+		$('#subtotal').html(subtotal);
+		$('#iva').html(iva);
+		$('#total').html(_total);
 	}
 
 	// Agruega una columna a la tabla
@@ -392,8 +392,32 @@
 							productos.push(producto);
 						});
 
-						$.post('/cotizador/previapdf', {cotizacion:cotizacion, cliente:cliente, productos:productos}, function(data) {
-							window.open('http://www.crm-tiendapaq.com/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800,width=800');
+						// Total
+						var total = {
+							subtotal: 	$('#subtotal').html(),
+							iva: 			$('#iva').html(),
+							total: 		$('#total').html()
+						}
+
+						// Envio de datos por AJAX
+						$.ajax({
+							url: '/cotizador/previapdf',
+							type: 'post',
+							cache: false,
+							data: {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total},
+							beforeSend: function () {
+								Metronic.showLoader();
+							},
+							error: function(jqXHR, status, error) {
+								Metronic.removeLoader();
+								console.log("ERROR: "+error);
+								alert('ERROR: revisa la consola del navegador para más detalles.');
+							},
+							success: function(data) {
+								Metronic.removeLoader(function() {
+									window.open('/tmp/cotizacion/tmp'+cotizacion.ejecutivo+cliente.id+'-'+cotizacion.folio+'.pdf','','height=800, width=800');
+								});
+							}
 						});
 					} else {
 						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
@@ -453,19 +477,43 @@
 							productos.push(producto);
 						});
 
+						// Total
+						var total = {
+							subtotal: 	$('#subtotal').html(),
+							iva: 			$('#iva').html(),
+							total: 		$('#total').html()
+						}
+
 						var info;
 						// Si es pendiente
 						if (pendiente != undefined) {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, pendiente: pendiente}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, pendiente: pendiente}
 						} else {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total}
 						}
-
-						$.post('/cotizador/enviapdf', info, function(data) {
-							console.log(data);
-							bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
-								window.location = '/';
-							});
+						// Envio de datos por AJAX
+						$.ajax({
+							url: '/cotizador/enviapdf',
+							type: 'post',
+							cache: false,
+							dataType: 'json',
+							data: info,
+							beforeSend: function () {
+								Metronic.showLoader();
+							},
+							error: function(jqXHR, status, error) {
+								Metronic.removeLoader();
+								console.log("ERROR: "+error);
+								alert('ERROR: revisa la consola del navegador para más detalles.');
+							},
+							success: function(data) {
+								console.log(data);
+								bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
+									Metronic.removeLoader(function() {
+										window.location = '/';
+									});
+								});
+							}
 						});
 					} else {
 						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');

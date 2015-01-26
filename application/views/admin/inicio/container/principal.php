@@ -97,30 +97,32 @@
 							<div class="caption"><i class="fa fa-user"></i> Nuevos pendientes sin atender...</div>
 						</div>
 						<div class="portlet-body">
-							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>Actvidad</th>
-										<th>Cliente</th>
-										<th>Apertura</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php foreach ($pendientes_usuario as $pendiente) : ?>
-									<tr class="odd gradeX">
-										<td><?php echo $pendiente->id_pendiente ?></td>
-										<td><?php echo $pendiente->actividad ?></td>
-										<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
-										<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
-										<td>
-											<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
-										</td>
-									</tr>
-								<?php endforeach ?>
-								</tbody>
-							</table>
+							<div class="scroller" style="height:400px">
+								<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
+									<thead>
+										<tr>
+											<th>No.</th>
+											<th>Actvidad</th>
+											<th>Cliente</th>
+											<th>Apertura</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php foreach ($pendientes_usuario as $pendiente) : ?>
+										<tr class="odd gradeX">
+											<td><?php echo $pendiente->id_pendiente ?></td>
+											<td><?php echo $pendiente->actividad ?></td>
+											<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+											<td><?php echo fecha_completa($pendiente->fecha_origen) ?></td>
+											<td>
+												<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+											</td>
+										</tr>
+									<?php endforeach ?>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 					<!-- END TABLA MIS PENDIENTES-->
@@ -132,28 +134,30 @@
 							<div class="caption"><i class="fa fa-user"></i> Pendientes generales sin atender...</div>
 						</div>
 						<div class="portlet-body">
-							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>Ejecutivo</th>
-										<th>Cliente</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php foreach ($pendientes_generales as $pendiente) : ?>
-									<tr class="odd gradeX">
-										<td><?php echo $pendiente->id_pendiente ?></td>
-										<td><?php echo $pendiente->primer_nombre.' '.$pendiente->apellido_paterno ?></td>
-										<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
-										<td>
-											<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
-										</td>
-									</tr>
-								<?php endforeach ?>
-								</tbody>
-							</table>
+							<div class="scroller" style="height:400px">
+								<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
+									<thead>
+										<tr>
+											<th>No.</th>
+											<th>Ejecutivo</th>
+											<th>Cliente</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php foreach ($pendientes_generales as $pendiente) : ?>
+										<tr class="odd gradeX">
+											<td><?php echo $pendiente->id_pendiente ?></td>
+											<td><?php echo $pendiente->primer_nombre.' '.$pendiente->apellido_paterno ?></td>
+											<td><?php echo (empty($pendiente->razon_social)) ? '----' : $pendiente->razon_social ?></td>
+											<td>
+												<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/pendiente/detalles/'.$pendiente->id_pendiente) ?>" data-target="#ajax-detalles-pendiente" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+											</td>
+										</tr>
+									<?php endforeach ?>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 					<!-- END TABLA PENDIENTES GENERALES-->
