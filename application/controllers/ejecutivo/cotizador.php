@@ -230,7 +230,7 @@ class Cotizador extends AbstractAccess {
 
 		// Info del cliente
 		$data_cliente = $this->clienteModel->get(
-			array('id','razon_social', 'rfc'),
+			array('id','razon_social', 'rfc', 'usuario', 'password'),
 			array('id' => $cliente['id']));
 		$this->load->model('contactosModel');
 		$campos = array('clientes.id',
@@ -318,12 +318,14 @@ class Cotizador extends AbstractAccess {
 			//Envio Email con el PDF
 			$this->load->library('email');
 			$this->email->set_mailtype('html');
-			$this->email->from('cotizacion@sycpaq.com', $cotizacion['agente'].' - TiendaPAQ');
+			$this->email->from('cotizacion@sycpaq.com', $cliente['contacto'].' - TiendaPAQ');
 			$this->email->to($cliente['email']);
 			//$this->email->cc('another@example.com');
 			//$this->email->bcc('and@another.com');
 			$this->email->subject('Envío de Cotización TiendaPAQ');
 			// Contenido del correo
+			 $this->data['usuario'] 		= $data_cliente[0]->usuario;
+			 $this->data['password'] 	= $data_cliente[0]->password;
 			$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
 			$this->email->message($html);
 			// Adjunto PDF
