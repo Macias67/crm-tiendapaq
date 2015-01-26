@@ -62,7 +62,7 @@
 					<!-- Cotizaciones -->
 					<li>
 						<a href="javascript:;">
-						<i class="fa fa-list"></i>
+						<i class="fa fa-file-pdf-o"></i>
 						<span class="title"> Cotizaciones</span>
 						<span class="arrow "></span>
 						</a>

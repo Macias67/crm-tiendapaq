@@ -9,7 +9,7 @@ var TableManagedCliente = function() {
 		var table = $('#tabla_gestionar_cliente');
 
 		var oTable = table.dataTable({
-			"pageLength": 20,
+			"pageLength": 15,
 			"lengthMenu": [
 				[5, 15, 20, 50, 100],
 				[5, 15, 20, 50, 100] // change per page values here
@@ -17,7 +17,7 @@ var TableManagedCliente = function() {
 			"processing": true,
 			"serverSide": true,
 			"ajax": {
-				"url": "table",
+				"url": "./table",
 				"type": "POST"
 			},
 			"columns": [

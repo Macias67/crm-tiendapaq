@@ -33,7 +33,7 @@
 						<table class="table table-striped table-hover table-bordered" id="tabla_gestionar_cliente">
 							<thead>
 								<tr>
-									<th width="2%">Activo</th>
+									<th width="1%"><i class="fa fa-power-off"></i></th>
 									<th width="6%">Código</th>
 									<th width="7%">R.F.C.</th>
 									<th width="45%">Razón Social</th>

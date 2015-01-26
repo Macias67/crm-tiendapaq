@@ -1,4 +1,4 @@
-BEGIN CONTENT -->
+<!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
@@ -15,32 +15,30 @@ BEGIN CONTENT -->
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN TABLA OFICINAS -->
-				<div class="col-md-12">
-					<div class="portlet box grey" style="margin-bottom: 0px;">
+				<div class="col-md-9">
+					<div class="portlet light">
 						<div class="portlet-title">
-							<div class="caption" style="color: black">
-								<i class="fa fa-building"></i> Oficinas
+							<div class="caption">
+								<i class="fa fa-building"></i>
+								<span class="caption-subject bold uppercase"> Oficinas</span>
 							</div>
-							<div class="tools" style="color: black">
-								<a href="javascript:;" class="collapse">
-								</a>
-								<a href="javascript:;" class="reload">
-								</a>
+							<div class="actions">
+								<a class="btn btn-circle green btn-xs" href="#modal_nueva_oficina" data-toggle="modal"><i class="fa fa-plus"></i> Nueva oficina</a>
 							</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-hover table-bordered" id="tabla_oficinas_editable">
 								<thead>
 									<tr>
-										<th>Ciudad</th>
-										<th>Estado</th>
-										<th>Colonia</th>
-										<th>Calle</th>
-										<th>Número</th>
-										<th>Email</th>
-										<th>Teléfono</th>
-										<th></th>
-										<th></th>
+										<th width="1%">Ciudad</th>
+										<th width="5%">Estado</th>
+										<th width="10%">Colonia</th>
+										<th width="10%">Calle</th>
+										<th width="1%">Número</th>
+										<th width="20%">Email</th>
+										<th width="10%">Teléfono</th>
+										<th width="1%"></th>
+										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -59,28 +57,23 @@ BEGIN CONTENT -->
 									<?php endforeach ?>
 								</tbody>
 							</table>
-							<div class="table-toolbar">
-								<div class="btn-group pull-right">
-									<a class="btn btn-circle green btn-xs" href="#modal_nueva_oficina" data-toggle="modal"><i class="fa fa-plus"></i> Nueva oficina</a>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 				<!-- END TABLA OFICINAS -->
+
 				<!-- BEGIN DEPARTAMENTOS -->
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<div class="portlet box grey">
+				<div class="col-md-3">
+					<div class="portlet light">
 						<div class="portlet-title">
-							<div class="caption" style="color: black">
-								<i class="fa fa-briefcase"></i> Departamentos
+							<div class="caption">
+								<i class="fa fa-briefcase"></i>
+								<span class="caption-subject bold uppercase"> Departamentos</span>
 							</div>
-							<div class="tools" style="color: black">
-								<a href="javascript:;" class="collapse">
-								</a>
-								<a href="javascript:;" class="reload">
-								</a>
+							<div class="actions">
+								<button id="tabla_departamentos_editable_new" class="btn btn-circle green btn-xs">
+									<i class="fa fa-plus"></i> Nuevo departamento
+								</button>
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -96,19 +89,12 @@ BEGIN CONTENT -->
 									<?php foreach ($departamentos as $departamento) : ?>
 										<tr id="<?php echo $departamento->id_departamento?>">
 											<td><?php echo $departamento->area ?></td>
-											<td><a class="btn edit blue btn-circle btn-xs"  href="javascript:;"><i class="fa fa-edit"></i> Editar</a></td>
-											<td><a class="btn delete red btn-circle btn-xs"  href="javascript:;"><i class ="fa fa-trash"></i> Eliminar</a></td>
+											<td><a class="btn edit blue btn-circle btn-xs"  href="javascript:;"><i class="fa fa-edit"></i></a></td>
+											<td><a class="btn delete red btn-circle btn-xs"  href="javascript:;"><i class ="fa fa-trash"></i></a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
 							</table>
-							<div class="table-toolbar">
-								<div class="btn-group pull-right">
-									<button id="tabla_departamentos_editable_new" class="btn btn-circle green btn-xs">
-										<i class="fa fa-plus"></i> Nuevo departamento
-									</button>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

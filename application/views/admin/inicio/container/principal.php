@@ -90,13 +90,13 @@
 		<!-- Pendientes -->
 		<div class="row">
 			<div class="col-md-7">
-				<!-- BEGIN TABLA MIS PENDIENTES-->
-				<div class="portlet gren">
-					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Nuevos pendientes sin atender...</div>
-					</div>
-					<div class="portlet-body">
-						<div class="scroller" style="height:400px">
+				<div class="col-md-12">
+					<!-- BEGIN TABLA MIS PENDIENTES-->
+					<div class="portlet gren">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-user"></i> Nuevos pendientes sin atender...</div>
+						</div>
+						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
 								<thead>
 									<tr>
@@ -123,17 +123,15 @@
 							</table>
 						</div>
 					</div>
+					<!-- END TABLA MIS PENDIENTES-->
 				</div>
-				<!-- END TABLA MIS PENDIENTES-->
-			</div>
-			<div class="col-md-5">
-				<!-- BEGIN TABLA PENDIENTES GENERALES-->
-				<div class="portlet gren">
-					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Pendientes generales sin atender...</div>
-					</div>
-					<div class="portlet-body">
-						<div class="scroller" style="height:400px">
+				<div class="col-md-12">
+					<!-- BEGIN TABLA PENDIENTES GENERALES-->
+					<div class="portlet gren">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-user"></i> Pendientes generales sin atender...</div>
+						</div>
+						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
 								<thead>
 									<tr>
@@ -158,8 +156,32 @@
 							</table>
 						</div>
 					</div>
+					<!-- END TABLA PENDIENTES GENERALES-->
 				</div>
-				<!-- END TABLA PENDIENTES GENERALES-->
+			</div>
+			<div class="col-md-5">
+				<div class="col-md-12">
+					<!-- BEGIN TABLA MIS PENDIENTES-->
+					<div class="portlet gren">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-search"></i> Búsqueda rápida de clientes.</div>
+						</div>
+						<div class="portlet-body">
+							<table class="table table-striped table-bordered table-hover" id="tabla_busqueda_cliente">
+								<thead>
+									<tr>
+										<th width="1%"><i class="fa fa-power-off"></i></th>
+										<th width="7%">R.F.C.</th>
+										<th width="45%">Razón Social</th>
+										<th width="3%">Tipo</th>
+										<th width="1%"></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+					<!-- END TABLA MIS PENDIENTES-->
+				</div>
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->
