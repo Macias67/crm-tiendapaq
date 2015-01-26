@@ -16,15 +16,15 @@
 						<table class="row note">
 						<tr>
 							<td class="wrapper last">
-								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">TIENDAPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi</h4>
+								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> TiendaPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
 								<p>
-									 Estos son sus datos para inicio de session:
+									 Estos son sus datos para inicio de sesión:
 								</p>
 								<!-- BEGIN: Note Panel -->
 								<table class="twelve columns" style="margin-bottom: 10px">
 								<tr>
 									<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-										<b>Usuario:</b>          <?php echo $recordar->usuario ?>
+										<b>Usuario:</b> <?php echo $recordar->usuario ?>
 									</td>
 								</tr>
 								<tr>
@@ -35,7 +35,7 @@
 								</table>
 								<p>
 									 Puede hacer click en el enlace para ir a la pagina principal:
-									 <a href="http://www.sycpaq.com">http://www.sycpaq.com </a>
+									 <a href="<?php echo base_url() ?>"><?php echo base_url() ?> </a>
 								</p>
 								<!-- END: Note Panel -->
 							</td>
@@ -53,7 +53,7 @@
 										<img src="<?php echo $assets_admin_pages.'media/email/LogoTiendaPAQ.gif' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
 									</td>
 									<td>
-										<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;">Soporte técnico y capacitación.</h4>
+										<h4 style="font-size: 18px;display: block;margin: 5px 0 15px 0;"> Soporte técnico y capacitación. </h4>
 											<p>
 												Reciba un cordial saludo y nuestro agradecimiento por su confianza e interes en los Productos y Servicios que ofrecemos.
 											</p>
@@ -91,22 +91,22 @@
 								<!-- END: Unsubscribe -->
 								<!-- BEGIN: Footer Panel -->
 								<table class="row">
-								<tr>
-									<td class="wrapper" style="vertical-align: middle;color: #fff;">
-										<table class="four columns">
-										<tr>
-											<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-												<a href="https://www.facebook.com/Tiendapaq">
-												<img src="<?php echo $assets_admin_pages.'media/email/social_facebook.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
-												</a>
-											</td>
-											<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;">
-												 &copy; TiendaPAQ 2015.
-											</td>
-										</tr>
-										</table>
-									</td>
-								</tr>
+									<tr>
+										<td class="wrapper" style="vertical-align: middle;color: #fff;">
+											<table class="four columns">
+											<tr>
+												<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
+													<a href="https://www.facebook.com/Tiendapaq">
+													<img src="<?php echo $assets_admin_pages.'media/email/social_facebook.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
+													</a>
+												</td>
+												<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;">
+													 &copy; TiendaPAQ 2015.
+												</td>
+											</tr>
+											</table>
+										</td>
+									</tr>
 								</table>
 								<!-- END: Footer Panel List -->
 							</td>

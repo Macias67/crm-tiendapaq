@@ -156,7 +156,25 @@
 																<td><?php echo $caso->razon_social ?></td>
 																<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 																<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
-																<td><a href="#" class="btn yellow btn-circle btn-xs disabled"><?php echo ucfirst($caso->descripcion) ?></a></td>
+																<td>
+																	<?php switch ($caso->id_estatus_general) {
+																		case 1:
+																			echo '<p class="btn btn-circle btn-circle btn-xs red"> Cancelado </p>';
+																		break;
+																		case 2:
+																			echo '<p class="btn btn-circle btn-xs default"> Cerrado </p>';
+																		break;
+																		case 3:
+																			echo '<p class="btn btn-circle btn-xs green"> Pendiente </p>';
+																		break;
+																		case 5:
+																			echo '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
+																		break;
+																		case 7:
+																			echo '<p class="btn btn-circle btn-xs green"> Reasignado </p>';
+																		break;
+																	} ?>
+																</td>
 																<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
 															</tr>
 														<?php endforeach ?>

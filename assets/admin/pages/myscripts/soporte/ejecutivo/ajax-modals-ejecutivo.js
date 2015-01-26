@@ -102,6 +102,25 @@ var UIExtendedModals = function () {
       }, 'json');
     });
 
+	$('#ajax-detalles-caso').on('click', '.cerrar-caso', function(){
+		bootbox.confirm('<h4>¿Seguro que quieres cerrar este caso?</h4>', function (response) {
+			if(response){
+				var url     = '/caso/cerrar';
+			      var id_caso = $('#id_caso').val();
+
+			      $.post(url, {id_caso:id_caso}, function(data, textStatus, xhr) {
+			        if (data.exito) {
+			         bootbox.alert(data.msg);
+			         parent.location.reload();
+			        }else{
+			          bootbox.alert(data.msg);
+
+			        }
+			      }, 'json');
+			}
+		});
+   	 });
+
 		}
 	};
 }();

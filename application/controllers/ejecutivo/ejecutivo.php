@@ -164,7 +164,14 @@ class Ejecutivo extends AbstractAccess {
 
 			$this->data['ejecutivo'] = $this->ejecutivoModel->get(array('*'),array('id' => $id_ejecutivo),null,'ASC',1);
 			$this->data['ejecutivo']->ruta_img_ejecutivo = site_url('assets/admin/pages/media/profile').'/'.$this->data['ejecutivo']->id.'/';
-			$this->data['casos'] = $this->casoModel->get_casos_ejecutivo($id_ejecutivo);
+			$this->data['casos'] = $this->casoModel->get_casos_ejecutivo($id_ejecutivo, array('caso.id as id_caso',
+							'caso.id_estatus_general',
+				                      'estatus_general.descripcion',
+				                      'clientes.razon_social',
+				                      'clientes.id as id_cliente',
+				                      'caso.folio_cotizacion',
+				                      'caso.fecha_inicio',
+				                      'caso.fecha_final'));
 			$this->data['pendientes_ejecutivo'] = $this->pendienteModel->getPendientes('*',$id_ejecutivo);
 			//var_dump($this->data);
 			$this->_vista('perfil_ejecutivo');
