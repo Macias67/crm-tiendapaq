@@ -74,7 +74,9 @@
 					<div class="panel-body">
 						<ul>
 							<li>El tamaño por archivo maximo es de <strong>2 MB</strong>. </li>
-							<li>Unicamente archivos  (<strong>JPG, PNG, PDF</strong>) son permitidos.</li>
+							<li>Unicamente archivos  (<strong>JPG ó PNG</strong>) son permitidos.</li>
+							<li>El tamaño de la imagen debe ser mínimo  <strong>756px de ancho</strong> y <strong>512px de alto</strong>. <a data-toggle="modal" href="#basic">¿Cómo verifico?</a></li>
+							<li>Puede subir hasta <strong>3 archivos</strong> para combrobar el pago.</li>
 						</ul>
 					</div>
 				</div>
@@ -83,15 +85,7 @@
 					<div class="portlet">
 						<div class="portlet-title line">
 							<div class="caption">
-								<i class="fa fa-comments"></i>Comentarios de la cotización
-							</div>
-							<div class="tools">
-								<a href="" class="collapse">
-								</a>
-								<a href="" class="reload">
-								</a>
-								<a href="" class="fullscreen">
-								</a>
+								<i class="fa fa-comments"></i> Comentarios de la cotización - <small>Contestaremos a la brevedad...</small>
 							</div>
 						</div>
 						<div class="portlet-body" id="chats">
@@ -158,6 +152,27 @@
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->
+
+		<!-- BEGIN MODAL -->
+		<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">Verificar tamaño de imagen.</h4>
+					</div>
+					<div class="modal-body">
+						<img style="width: 100%" src="<?php echo $assets_admin_pages ?>media/cliente/verificar.jpg" alt="verificar">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">Ok</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- END MODAL -->
 	</div>
 </div>
 <!-- END CONTENT -->

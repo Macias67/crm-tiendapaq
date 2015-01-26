@@ -84,6 +84,13 @@ class Cotizacion extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * Funcion encargada de subir los archivos mediante
+	 * AJAX y el plugin
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function ajax($cliente, $folio)
 	{
 		error_reporting(E_ALL | E_STRICT);
@@ -94,14 +101,14 @@ class Cotizacion extends AbstractAccess {
 			'max_number_of_files' 	=> 3,
 			'accept_file_types'		=> '/\.(gif|jpe?g|png|pdf)$/i',
 			'image_file_types'		=> '/\.(gif|jpe?g|png)$/i',
-			'min_width'				=> 768,
-			'min_height'			=> 512,
+			'min_width'				=> 800,
+			'min_height'			=> 600,
 			'image_versions'	=> array(
 				'' => array(
 					'auto_orient'	=> true,
 					'crop' 			=> false,
-					'max_width'	=> 768,
-					'max_height'	=> 512
+					'max_width'	=> 800,
+					'max_height'	=> 600
 				),
 				// 'medium' => array(
 				// 	'crop' 			=> true,

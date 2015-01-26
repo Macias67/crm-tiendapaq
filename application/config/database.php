@@ -48,9 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$local = TRUE;
-
-if ($local) {
+if (LOCAL) {
 	$db['default']['hostname']	= 'localhost';
 	$db['default']['username']	= 'root';
 	$db['default']['password']	= '';

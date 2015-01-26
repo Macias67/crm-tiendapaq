@@ -95,7 +95,7 @@ class PDF extends FPDF {
 		$this->SetFont('Arial','B',9);
 		$this->Cell(80,1, $telefono_oficina, 0,0,'C');
 
-		$this->Cell(15,4, utf8_decode('Contácto:'), 0,0,'L');
+		$this->Cell(15,4, utf8_decode('Contacto:'), 0,0,'L');
 		$this->SetFont('Arial','',8);
 		$this->Cell(85,4, $contacto, 0,0,'L');
 

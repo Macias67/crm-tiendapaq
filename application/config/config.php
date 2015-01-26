@@ -14,8 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.crm-tiendapaq.com/';
-//$config['base_url']	= 'http://www.sycpaq.com/';
+$config['base_url']	= 'http://'.$_SERVER['SERVER_NAME'].'/';
 
 
 /*

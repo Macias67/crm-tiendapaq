@@ -68,6 +68,10 @@
 						</a>
 						<ul class="sub-menu">
 							<li>
+								<a href="<?php echo site_url('cotizador') ?>">
+								<i class="fa fa-plus"></i> Nueva cotización</a>
+							</li>
+							<li>
 								<a href="<?php echo site_url('cotizaciones/revisar') ?>">
 								<i class="fa fa-dollar"></i> Pagos por revisar</a>
 							</li>
