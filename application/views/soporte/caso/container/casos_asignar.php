@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title">Blank Page <small>blank page</small></h3>
+				<h3 class="page-title">Casos</h3>
 				<!-- END PAGE TITLE & BREADCRUMB-->
 			</div>
 		</div>

@@ -9,6 +9,7 @@
 				<div class="col-md-12">
 					<input type="hidden" id="folio_cotizacion" value="<?php echo $caso->folio_cotizacion ?>">
 					<input type="hidden" id="id_cliente" value="<?php echo $caso->id_cliente ?>">
+					<input type="hidden" id="id_caso" value="<?php echo $caso->id_caso ?>">
 					<div class="col-md-4 text-right"><b>No. de caso: </b></div>
 					<div class="col-md-8"><p><?php echo $caso->id_caso ?></p></div>
 				</div>
@@ -42,4 +43,7 @@
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn green btn-circle" data-dismiss="modal">Aceptar</button>
+	<?php if($caso->id_estatus_general!=2): ?>
+		<button type="button" class="btn red btn-circle cerrar-caso" >Cerrar caso</button>
+	<?php endif ?>
 </div>

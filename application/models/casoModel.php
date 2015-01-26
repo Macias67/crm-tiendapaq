@@ -58,6 +58,7 @@ class CasoModel extends MY_Model {
 		//si no hay lider en el caso, no se hacer el inner join con la tabla ejecutivos para no tener error
 		if(empty($lider)){
 			$this->db->select(array('caso.id as id_caso',
+							'caso.id_estatus_general',
 				                      'ejecutivos.primer_nombre',
 				                      'ejecutivos.apellido_paterno',
 				                      'estatus_general.descripcion',
@@ -70,6 +71,7 @@ class CasoModel extends MY_Model {
 			$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
 		}else{
 			$this->db->select(array('caso.id as id_caso',
+						'caso.id_estatus_general',
 			                      'estatus_general.descripcion',
 			                      'clientes.razon_social',
 			                      'clientes.id as id_cliente',
