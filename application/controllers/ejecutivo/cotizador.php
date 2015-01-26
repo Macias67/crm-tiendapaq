@@ -317,7 +317,7 @@ class Cotizador extends AbstractAccess {
 		if (!LOCAL) {
 			//Envio Email con el PDF
 			$this->load->library('email');
-			$this->email->set_mailtype("html");
+			$this->email->set_mailtype('html');
 			$this->email->from('cotizacion@sycpaq.com', $cotizacion['agente'].' - TiendaPAQ');
 			$this->email->to($cliente['email']);
 			//$this->email->cc('another@example.com');

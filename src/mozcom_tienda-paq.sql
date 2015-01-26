@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
   `id_ejecutivo` int(11) DEFAULT NULL,
   `comentario` text NOT NULL,
   `visto` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_comentario`),
   KEY `folio` (`folio`),
   KEY `folio_2` (`folio`),
   KEY `id_ejecutivo` (`id_ejecutivo`),

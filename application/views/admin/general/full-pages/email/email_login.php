@@ -24,7 +24,7 @@
 								<table class="twelve columns" style="margin-bottom: 10px">
 								<tr>
 									<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-										<b>Usuario:</b>          <?php echo $recordar->usuario ?>
+										<b>Usuario:</b> <?php echo $recordar->usuario ?>
 									</td>
 								</tr>
 								<tr>
