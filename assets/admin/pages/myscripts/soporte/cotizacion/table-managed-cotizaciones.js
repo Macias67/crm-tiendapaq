@@ -70,12 +70,16 @@ var TableManagedCotizaciones = function () {
 				{ "data": "vigencia" },
 				{ "data": "id_estatus_cotizacion" },
 				{
+					"data": 'visto',
+					"defaultContent": ''
+				},
+				{
 					"data": null,
 					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar</button>'
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs ver"><i class="fa fa-eye"></i> Ver PDF</button>'
+					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs detalle"><i class="fa fa-search"></i> Detalles</button>'
 				}
 			],
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -89,6 +93,14 @@ var TableManagedCotizaciones = function () {
 					color = 'red';
 				}
 				$('td:eq(5)', nRow).html('<span class="btn btn-circle btn-xs '+color+' disabled">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+
+				if (aData.visto == false && aData.total_comentarios > 0) {
+					color = 'danger';
+				} else {
+					color = 'default';
+				}
+				$('td:eq(6)', nRow).html('<span class="badge badge-'+color+'"><b> '+aData.total_comentarios+' </b></span>');
+
 				// Enlace a la edicion
 				//var id  = $(nRow).attr('id');
 				//$('td:eq(6)', nRow).html('<a type="button" href="/cliente/gestionar/editar/'+id+'" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</a>');
@@ -113,38 +125,43 @@ var TableManagedCotizaciones = function () {
 			"columnDefs": [
 				{ // set default column settings
 					'orderable': false,
-					'targets': [6,7]
+					'targets': [7,8]
 				},
 				{
 					// "searchable": true,
 					// "targets": [0]
 				}
 			],
-			"order": [0, 'desc' ] // Ordenados por Razón Social
+			"order": [0, 'desc' ] // Ordenados por Folio
 		});
-		table.on('click', '.ver', function(e) {
+		table.on('click', '.detalle', function(e) {
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 		= $(nRow).attr('id');
-			// Envio de datos por AJAX
-			$.ajax({
-				url: '/cotizaciones/previa',
-				type: 'post',
-				cache: false,
-				data: {folio:folio},
-				beforeSend: function () {
-					Metronic.showLoader();
-				},
-				error: function(jqXHR, status, error) {
-					Metronic.removeLoader();
-					console.log("ERROR: "+error);
-					alert('ERROR: revisa la consola del navegador para más detalles.');
-				},
-				success: function(data) {
-					Metronic.removeLoader(function() {
-						window.open(data.ruta,'','height=800, width=800');
-					});
-				}
-			});
+
+			//REDIRECCIONAR A LA VISTA DONDE SE PUEDAN VER LOS COMENTARIOS Y LOS ARCHIVOS
+			//ENCIADOS POR EL CLIENTE
+
+
+			// // Envio de datos por AJAX
+			// $.ajax({
+			// 	url: '/cotizaciones/previa',
+			// 	type: 'post',
+			// 	cache: false,
+			// 	data: {folio:folio},
+			// 	beforeSend: function () {
+			// 		Metronic.showLoader();
+			// 	},
+			// 	error: function(jqXHR, status, error) {
+			// 		Metronic.removeLoader();
+			// 		console.log("ERROR: "+error);
+			// 		alert('ERROR: revisa la consola del navegador para más detalles.');
+			// 	},
+			// 	success: function(data) {
+			// 		Metronic.removeLoader(function() {
+			// 			window.open(data.ruta,'','height=800, width=800');
+			// 		});
+			// 	}
+			// });
 		});
 	};
 

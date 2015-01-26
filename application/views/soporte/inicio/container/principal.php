@@ -55,6 +55,11 @@
 						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" class="icon-btn">
 							<i class="fa fa-file-pdf-o"></i>
 							<div>&nbsp;&nbsp;Cotizaciones enviadas&nbsp;&nbsp;</div>
+							<?php if ($cotizaciones_comentarios!=0): ?>
+								<span class="badge badge-danger">
+									<?php echo $cotizaciones_comentarios ?>
+								</span>
+							<?php endif ?>
 						</a>
 						<!-- Revision de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/revisar') ?>" class="icon-btn">
