@@ -134,6 +134,32 @@ var TableManagedCotizaciones = function () {
 			],
 			"order": [0, 'desc' ] // Ordenados por Folio
 		});
+		table.on('click', '.reenviar', function(event) {
+			var nRow 	= $(this).parents('tr')[0];
+			var folio 	= $(nRow).attr('id');
+
+			$.ajax({
+				url: '/cotizaciones/reenvio',
+				type: 'post',
+				cache: false,
+				data: {folio:folio},
+				beforeSend: function () {
+					Metronic.showLoader();
+				},
+				error: function(jqXHR, status, error) {
+					Metronic.removeLoader();
+					console.log("ERROR: "+error);
+					alert('ERROR: revisa la consola del navegador para más detalles.');
+				},
+				success: function(data) {
+					if (data.exito) {
+						bootbox.alert('Se ha reenviado la cotización al email de la empresa.', function() {
+							Metronic.removeLoader();
+						});
+					};
+				}
+			});
+		});
 		table.on('click', '.detalle', function(e) {
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 		= $(nRow).attr('id');

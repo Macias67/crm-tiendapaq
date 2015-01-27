@@ -326,6 +326,43 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
+	public function reenvio()
+	{
+		$folio = $this->input->post('folio');
+
+		$cotizacion = $this->load->model('cotizacionModel')->get_cotizacion_cliente(
+		                                                                          array('id_cliente', 'clientes.razon_social','clientes.usuario', 'clientes.password'),
+		                                                                          array('clientes'),
+		                                                                          $folio);
+
+		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
+		$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+		$path 		= $dir_root.$name;
+
+		if (!LOCAL) {
+			//Envio Email con el PDF
+			$this->load->library('email');
+			$this->email->set_mailtype('html');
+			$this->email->from('cotizacion@sycpaq.com', $cliente['contacto'].' - TiendaPAQ');
+			$this->email->to($cliente['email']);
+			//$this->email->cc('another@example.com');
+			//$this->email->bcc('and@another.com');
+			$this->email->subject('Envío de Cotización TiendaPAQ');
+			// Contenido del correo
+			 $this->data['usuario'] 		= $data_cliente[0]->usuario;
+			 $this->data['password'] 	= $data_cliente[0]->password;
+			$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
+			$this->email->message($html);
+			// Adjunto PDF
+			$this->email->attach($path);
+			$this->email->send();
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode(array('exito' => TRUE, 'path' => $path)));
+	}
+
  	/**
 	 * Funcion para guardar los comentarios de la cotizacion
 	 * @author Diego Rodriguez
