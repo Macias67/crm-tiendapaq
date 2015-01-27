@@ -85,7 +85,7 @@ var TableManagedCotizaciones = function () {
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				// Tipo de Cliente
 				var color = '';
-				if (aData.id_estatus_cotizacion == "Por Pagar" || aData.id_estatus_cotizacion == "Correcta") {
+				if (aData.id_estatus_cotizacion == "Por Pagar" || aData.id_estatus_cotizacion == "Pagada") {
 					color = 'green';
 				} else if(aData.id_estatus_cotizacion == "En Revision" || aData.id_estatus_cotizacion == "Pago Parcial") {
 					color = 'yellow';
