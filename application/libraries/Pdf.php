@@ -26,7 +26,8 @@ class PDF extends FPDF {
 		// Variables
 
 		// OFICINA
-		$direccion_oficina 	= utf8_decode($this->OFICINA->calle.' '.$this->OFICINA->numero.', Col. '.$this->OFICINA->colonia.', '.$this->OFICINA->ciudad.', '.$this->OFICINA->estado);
+		$direccion_oficina 	= utf8_decode($this->OFICINA->calle.' '.$this->OFICINA->numero.', Col. '.$this->OFICINA->colonia);
+		$ciudad							= utf8_decode($this->OFICINA->ciudad.', '.$this->OFICINA->estado);
 		$telefono_oficina 	= 'Tel. '.$this->OFICINA->telefono;
 		$correo_oficina 	= $this->OFICINA->email;
 
@@ -85,6 +86,10 @@ class PDF extends FPDF {
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',9);
 		$this->Cell(80,1, $direccion_oficina, 0,0,'C');
+
+		$this->Ln(5);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(80,1, $ciudad, 0,0,'C');
 
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',8);
