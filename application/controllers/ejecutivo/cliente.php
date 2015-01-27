@@ -110,7 +110,7 @@ class Cliente extends AbstractAccess {
 	{
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|callback_email_check|xss_clean');
 		//Acceso al sistema
 		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[10]|callback_usuario_check|xss_clean');
 		$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[10]|xss_clean');
@@ -302,7 +302,7 @@ class Cliente extends AbstractAccess {
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|callback_email_check|xss_clean');
 		$this->form_validation->set_rules('tipo', 'Tipo', 'trim|xss_clean');
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
@@ -935,7 +935,7 @@ class Cliente extends AbstractAccess {
  	 */
  	public function rfc_check($rfc)
  	{
- 		//obtenemos el di del cliente desde el input hidden
+ 		//obtenemos el id del cliente desde el input hidden
  		$id = $this->input->post('id_cliente');
  		$rfc_actual = $this->clienteModel->get(array('rfc'), array('id' => $id));
  		//si no hay rfc actual es porque el cliente es prospecto o aun no tiene rfc
@@ -963,7 +963,7 @@ class Cliente extends AbstractAccess {
 	{ //leemos el modelo para comparar con usuarios te tabla ejecutivos
 		$this->load->model('ejecutivoModel');
 
-		//obtenemos el di del cliente desde el input hidden
+		//obtenemos el id del cliente desde el input hidden
 		$id = $this->input->post('id_cliente');
 		//obtenemos el nombre de usuario que tiene registrado ese cliente
 		$usuario_actual = $this->clienteModel->get(array('usuario'), array('id' => $id));
@@ -984,6 +984,31 @@ class Cliente extends AbstractAccess {
 			return TRUE;
 		}
 	}
+
+	/**
+ 	 * Callback para revisar que no se repitan emails
+ 	 * @param  string $email Email a revisar
+ 	 * @return boolean
+ 	 * @author Diego Rodriguez
+ 	 */
+ 	public function email_check($email)
+ 	{
+ 		//obtenemos el id del cliente desde el input hidden
+ 		$id = $this->input->post('id_cliente');
+ 		$email_actual = $this->clienteModel->get(array('email'), array('id' => $id));
+ 		//si no hay rfc actual es porque el cliente es prospecto o aun no tiene rfc
+ 		if($email_actual != null)
+ 		{
+ 			$email_actual = $email_actual[0]->email;
+ 		}
+ 		if ($this->clienteModel->exist(array('email' => $email)) && $email != $email_actual)
+ 		{
+ 			$this->form_validation->set_message('email_check', 'El Email ya está registrado para otro cliente.');
+ 			return FALSE;
+ 		} else {
+ 			return TRUE;
+ 		}
+ 	}
 }
 
 /* End of file cliente.php */

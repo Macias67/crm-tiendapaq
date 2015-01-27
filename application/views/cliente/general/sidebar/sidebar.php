@@ -24,8 +24,8 @@
 						<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
 						<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
 						<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-						<form class="sidebar-search" action="extra_search.html" method="POST">
-							<a href="javascript:;" class="remove">
+						<form class="sidebar-search" action="#" method="POST">
+							<a href="#" class="remove">
 							<i class="icon-close"></i>
 							</a>
 							<div class="input-group">
@@ -44,7 +44,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="<?php echo site_url('/casos') ?>">
 							<i class="fa fa-folder-open-o"></i><span class="title"> Mis Casos</span>
 						</a>
 					</li>
@@ -70,7 +70,7 @@
 						</ul>
 					</li>
 					<li>
-						<a href="<?php echo site_url('videoturoriales') ?>">
+						<a href="<?php echo site_url('#') ?>">
 							<i class="fa fa-video-camera"></i><span class="title"> Videoturoriales</span>
 						</a>
 					</li>

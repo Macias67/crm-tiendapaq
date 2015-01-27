@@ -36,7 +36,7 @@ class Gestor extends AbstractAccess {
 				//Datos basicos
 				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 				$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
-				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|callback_email_check|xss_clean');
 				$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 				$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 				$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -540,7 +540,7 @@ class Gestor extends AbstractAccess {
 	{
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|callback_email_check|xss_clean');
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
@@ -671,6 +671,31 @@ class Gestor extends AbstractAccess {
 			return TRUE;
 		}
 	}
+
+	/**
+ 	 * Callback para revisar que no se repitan emails
+ 	 * @param  string $email Email a revisar
+ 	 * @return boolean
+ 	 * @author Diego Rodriguez
+ 	 */
+ 	public function email_check($email)
+ 	{
+ 		//obtenemos el id del cliente desde el input hidden
+ 		$id = $this->input->post('id_cliente');
+ 		$email_actual = $this->clienteModel->get(array('email'), array('id' => $id));
+ 		//si no hay rfc actual es porque el cliente es prospecto o aun no tiene rfc
+ 		if($email_actual != null)
+ 		{
+ 			$email_actual = $email_actual[0]->email;
+ 		}
+ 		if ($this->clienteModel->exist(array('email' => $email)) && $email != $email_actual)
+ 		{
+ 			$this->form_validation->set_message('email_check', 'El Email ya está registrado para otro cliente.');
+ 			return FALSE;
+ 		} else {
+ 			return TRUE;
+ 		}
+ 	}
 
 }
 

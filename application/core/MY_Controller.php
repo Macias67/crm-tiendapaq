@@ -362,18 +362,30 @@ abstract class AbstractAccess extends AbstractController {
 	{
 		$email = $this->input->post('email');
 		$this->load->model('ejecutivoModel');
-		if ($ejecutivo = $this->ejecutivoModel->get_where(array('email' => $email))) {
+		$this->load->model('clienteModel');
+
+		$ejecutivo = $this->ejecutivoModel->get_where(array('email' => $email));
+		$cliente = $this->clienteModel->get_where(array('email' => $email));
+
+		if (!empty($ejecutivo) || !empty($cliente)) {
 			// Envio del email
 			$this->load->library('email');
 			$this->email->set_mailtype("html");
 			$this->email->from('recovery@sycpaq.com', 'Sistema de Recuperación');
-			$this->email->to($ejecutivo->email);
+			//$this->email->to($ejecutivo->email);
 			//$this->email->cc('another@example.com');
 			//$this->email->bcc('and@another.com');
 
 			$this->email->subject('Datos de logueo CRM');
-			// Contenido del correo
-			$this->data['recordar'] = $this->ejecutivoModel->get(array('usuario', 'password'), array('email' => $email), null, 'ASC', 1);
+			// Contenido del correo dependiendo si fue cliente o ejecutivo
+			if(empty($cliente)){
+				$this->email->to($ejecutivo->email);
+				$this->data['recordar'] = $this->ejecutivoModel->get(array('usuario', 'password'), array('email' => $email), null, 'ASC', 1);
+			}else{
+				$this->email->to($cliente->email);
+				$this->data['recordar'] = $this->clienteModel->get(array('usuario', 'password'), array('email' => $email), null, 'ASC', 1);
+			}
+
 			$html = $this->load->view('admin/general/full-pages/email/email_login.php', $this->data,TRUE);
 			$this->email->message($html);
 			$this->email->send();
