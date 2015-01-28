@@ -162,34 +162,14 @@ var TableManagedCotizaciones = function () {
 				}
 			});
 		});
+
 		table.on('click', '.detalle', function(e) {
+			Metronic.showLoader();
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 		= $(nRow).attr('id');
-			alert('hola');
 			//REDIRECCIONAR A LA VISTA DONDE SE PUEDAN VER LOS COMENTARIOS Y LOS ARCHIVOS
-			//ENCIADOS POR EL CLIENTE
-
-
-			// // Envio de datos por AJAX
-			// $.ajax({
-			// 	url: '/cotizaciones/previa',
-			// 	type: 'post',
-			// 	cache: false,
-			// 	data: {folio:folio},
-			// 	beforeSend: function () {
-			// 		Metronic.showLoader();
-			// 	},
-			// 	error: function(jqXHR, status, error) {
-			// 		Metronic.removeLoader();
-			// 		console.log("ERROR: "+error);
-			// 		alert('ERROR: revisa la consola del navegador para más detalles.');
-			// 	},
-			// 	success: function(data) {
-			// 		Metronic.removeLoader(function() {
-			// 			window.open(data.ruta,'','height=800, width=800');
-			// 		});
-			// 	}
-			// });
+			//ENVIADOS POR EL CLIENTE
+			window.location.href = '/cotizaciones/detalles/'+folio;
 		});
 	};
 

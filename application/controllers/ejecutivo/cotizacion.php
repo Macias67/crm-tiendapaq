@@ -2,7 +2,7 @@
 /**
  * Controlador para ver el listado de cotizaciones
  *
- * @author Diego Rodriguez
+ * @author Diego Rodriguez | Luis Macias
  **/
 class Cotizacion extends AbstractAccess {
 
@@ -408,6 +408,30 @@ class Cotizacion extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
+	}
+
+	/**
+	 * Funcion para mostrar una vista solo con los detalles
+	 * de una cotizacion
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function detalles($folio)
+	{
+		$this->load->model('comentariosCotizacionModel');
+
+		$campos = array(
+		               'cotizacion.folio',
+		               'cotizacion.id_cliente',
+		               'cotizacion.id_estatus_cotizacion',
+		               'clientes.razon_social');
+
+		$this->data['cotizacion'] = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio);
+		$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
+
+
+		var_dump($this->data);
+		//$this->_vista('archivos_cliente');
 	}
 }
 
