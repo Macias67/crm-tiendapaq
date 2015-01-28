@@ -75,7 +75,7 @@ var TableManagedCotizaciones = function () {
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar</button>'
+					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar </button>'
 				},
 				{
 					"data": null,
@@ -85,7 +85,7 @@ var TableManagedCotizaciones = function () {
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				// Tipo de Cliente
 				var color = '';
-				if (aData.id_estatus_cotizacion == "Por Pagar" || aData.id_estatus_cotizacion == "Correcta") {
+				if (aData.id_estatus_cotizacion == "Por Pagar" || aData.id_estatus_cotizacion == "Pagada") {
 					color = 'green';
 				} else if(aData.id_estatus_cotizacion == "En Revision" || aData.id_estatus_cotizacion == "Pago Parcial") {
 					color = 'yellow';
@@ -134,10 +134,38 @@ var TableManagedCotizaciones = function () {
 			],
 			"order": [0, 'desc' ] // Ordenados por Folio
 		});
+
+		table.on('click', '.reenviar', function(e) {
+			e.preventDefault();
+			var nRow 	= $(this).parents('tr')[0];
+			var folio 	= $(nRow).attr('id');
+
+			$.ajax({
+				url: '/cotizaciones/reenvio',
+				type: 'post',
+				cache: false,
+				data: {folio:folio},
+				beforeSend: function () {
+					Metronic.showLoader();
+				},
+				error: function(jqXHR, status, error) {
+					Metronic.removeLoader();
+					console.log("ERROR: "+error);
+					alert('ERROR: revisa la consola del navegador para más detalles.');
+				},
+				success: function(data) {
+					if (data.exito) {
+						bootbox.alert('<h3>Se ha reenviado la cotización al email de la empresa.</h3>', function() {
+							Metronic.removeLoader();
+						});
+					};
+				}
+			});
+		});
 		table.on('click', '.detalle', function(e) {
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 		= $(nRow).attr('id');
-
+			alert('hola');
 			//REDIRECCIONAR A LA VISTA DONDE SE PUEDAN VER LOS COMENTARIOS Y LOS ARCHIVOS
 			//ENCIADOS POR EL CLIENTE
 
