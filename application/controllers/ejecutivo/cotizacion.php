@@ -330,8 +330,19 @@ class Cotizacion extends AbstractAccess {
 	{
 		$folio = $this->input->post('folio');
 
-		$cotizacion = $this->load->model('cotizacionModel')->get_cotizacion_cliente(
-		                                                                          array('id_cliente', 'clientes.razon_social','clientes.usuario', 'clientes.password'),
+		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
+		                                                                          array('id_cliente',
+		                                                                          	'folio',
+		                                                                          	'fecha',
+		                                                                          	'vigencia',
+		                                                                          	'contactos.nombre_contacto',
+		                                                                          	'contactos.apellido_paterno',
+		                                                                          	'contactos.apellido_materno',
+		                                                                          	'clientes.razon_social',
+		                                                                          	'clientes.email',
+		                                                                          	'clientes.usuario',
+		                                                                          	'clientes.password',
+		                                                                          	'estatus_cotizacion.descripcion'),
 		                                                                          array('clientes'),
 		                                                                          $folio);
 
@@ -339,28 +350,37 @@ class Cotizacion extends AbstractAccess {
 		$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
 		$path 		= $dir_root.$name;
 
+		$enviado = TRUE;
 		if (!LOCAL) {
-			//Envio Email con el PDF
+			$this->load->helper('formatofechas');
 			$this->load->library('email');
+
+			$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
+			//Envio Email con el PDF
 			$this->email->set_mailtype('html');
-			$this->email->from('cotizacion@sycpaq.com', $cliente['contacto'].' - TiendaPAQ');
-			$this->email->to($cliente['email']);
+			$this->email->from('cotizacion@sycpaq.com', $cotizacion->razon_social.' - TiendaPAQ');
+			$this->email->to($cotizacion->email);
 			//$this->email->cc('another@example.com');
 			//$this->email->bcc('and@another.com');
 			$this->email->subject('Envío de Cotización TiendaPAQ');
 			// Contenido del correo
-			 $this->data['usuario'] 		= $data_cliente[0]->usuario;
-			 $this->data['password'] 	= $data_cliente[0]->password;
+			$this->data['usuario'] 		= $cotizacion->usuario;
+			$this->data['password'] 	= $cotizacion->password;
+			$this->data['folio'] 			= $cotizacion->folio;
+			$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
+			$this->data['vigencia'] 		= fecha_completa($cotizacion->vigencia);
+			$this->data['contacto'] 	= $contacto;
+			$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
 			$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
 			$this->email->message($html);
 			// Adjunto PDF
 			$this->email->attach($path);
-			$this->email->send();
+			$enviado= $this->email->send();
 		}
 
 		$this->output
 			->set_content_type('application/json')
-			->set_output(json_encode(array('exito' => TRUE, 'path' => $path)));
+			->set_output(json_encode(array('exito' => $enviado)));
 	}
 
  	/**

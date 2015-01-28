@@ -75,7 +75,7 @@ var TableManagedCotizaciones = function () {
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar</button>'
+					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar </button>'
 				},
 				{
 					"data": null,
@@ -134,7 +134,9 @@ var TableManagedCotizaciones = function () {
 			],
 			"order": [0, 'desc' ] // Ordenados por Folio
 		});
-		table.on('click', '.reenviar', function(event) {
+
+		table.on('click', '.reenviar', function(e) {
+			e.preventDefault();
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 	= $(nRow).attr('id');
 
@@ -153,7 +155,7 @@ var TableManagedCotizaciones = function () {
 				},
 				success: function(data) {
 					if (data.exito) {
-						bootbox.alert('Se ha reenviado la cotización al email de la empresa.', function() {
+						bootbox.alert('<h3>Se ha reenviado la cotización al email de la empresa.</h3>', function() {
 							Metronic.removeLoader();
 						});
 					};
@@ -163,7 +165,7 @@ var TableManagedCotizaciones = function () {
 		table.on('click', '.detalle', function(e) {
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 		= $(nRow).attr('id');
-
+			alert('hola');
 			//REDIRECCIONAR A LA VISTA DONDE SE PUEDAN VER LOS COMENTARIOS Y LOS ARCHIVOS
 			//ENCIADOS POR EL CLIENTE
 
