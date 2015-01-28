@@ -331,10 +331,11 @@ class Cotizacion extends AbstractAccess {
 		$folio = $this->input->post('folio');
 
 		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-		                                                                          array('id_cliente',
-		                                                                          	'folio',
-		                                                                          	'fecha',
-		                                                                          	'vigencia',
+		                                                                          array(
+		                                                                                'cotizacion.id_cliente',
+		                                                                          	'cotizacion.folio',
+		                                                                          	'cotizacion.fecha',
+		                                                                          	'cotizacion.vigencia',
 		                                                                          	'contactos.nombre_contacto',
 		                                                                          	'contactos.apellido_paterno',
 		                                                                          	'contactos.apellido_materno',
@@ -343,7 +344,7 @@ class Cotizacion extends AbstractAccess {
 		                                                                          	'clientes.usuario',
 		                                                                          	'clientes.password',
 		                                                                          	'estatus_cotizacion.descripcion'),
-		                                                                          array('clientes'),
+		                                                                          array('clientes', 'contactos', 'estatus_cotizacion'),
 		                                                                          $folio);
 
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
