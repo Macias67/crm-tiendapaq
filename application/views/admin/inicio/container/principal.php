@@ -19,7 +19,7 @@
 			<div class="col-md-12">
 				<div class="portlet gren">
 					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-bolt"></i> Accesos Rápidos</div>
+						<div class="caption"><i class="fa fa-bolt"></i> Accesos Rápidos </div>
 					</div>
 					<div class="portlet-body">
 						<!-- Prospecto -->

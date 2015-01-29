@@ -304,7 +304,7 @@ class Cotizador extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 
 		$cotizacion = array(
-			//'fecha'					=> date('Y-m-d'), // cuurent timestamp en la BD
+			'fecha'      	 	=> date('Y-m-d H:i:s'),
 			'vigencia'				=> $vigencia,
 			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
 			'id_cliente'				=> $cliente['id'],
