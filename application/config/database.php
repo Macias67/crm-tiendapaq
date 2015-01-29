@@ -53,11 +53,11 @@ if (LOCAL) {
 	$db['default']['username']	= 'root';
 	$db['default']['password']	= '';
 } else {
-	$db['default']['hostname']	= 'sycpaq.com';
-	$db['default']['username']	= 'tiendapaq';
-	$db['default']['password']	= '43gzh%0Bgtsts1000';
+	$db['default']['hostname']	= 'moz67.com';
+	$db['default']['username']	= 'moz_tiendapaq';
+	$db['default']['password']	= 'gtsts1000';
 }
-$db['default']['database']	= 'crm-tiendapaq';
+$db['default']['database']	= 'moz_tiendapaq';
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';
 $db['default']['pconnect']	= TRUE;
