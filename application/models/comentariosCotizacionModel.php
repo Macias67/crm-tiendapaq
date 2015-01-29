@@ -45,9 +45,9 @@ class ComentariosCotizacionModel extends MY_Model {
 		return $query->result();
 	}
 
-	public function marcar_comentarios_visto($folio)
+	public function marcar_comentarios_visto($folio, $tipo)
 	{
-		$this->db->where(array('folio' => $folio));
+		$this->db->where(array('folio' => $folio, 'tipo' => strtoupper($tipo)));
 		$this->db->set(array('visto' => 1));
 		return $this->db->update($this->table);
 	}

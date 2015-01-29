@@ -2134,6 +2134,10 @@ Page content
   margin-top: 0px;
   padding: 0px;
   background-color: #fff;
+  background: url(../img/bg-general.jpg) #fff center fixed no-repeat;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 .page-container-bg-solid .page-content {
   background: #f1f3fa;

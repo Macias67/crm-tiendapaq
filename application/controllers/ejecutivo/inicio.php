@@ -8,12 +8,12 @@ class Inicio extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
+		// Cargo modelos
+		$this->load->model('cotizacionModel');
 	}
 
 	public function index()
 	{
-		// Cargo modelos
-		$this->load->model('cotizacionModel');
 
 		if($this->usuario_activo['privilegios'] == "cliente")
 		{
@@ -28,6 +28,8 @@ class Inicio extends AbstractAccess {
 			$campos = array('cotizacion.folio',
 						'cotizacion.fecha',
 						'cotizacion.vigencia',
+						'cotizacion.total_comentarios',
+						'cotizacion.visto',
 						'oficinas.ciudad_estado',
 						'estatus_cotizacion.id_estatus',
 						'estatus_cotizacion.descripcion');
@@ -100,6 +102,22 @@ class Inicio extends AbstractAccess {
 			// DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
 			$this->_vista('principal');
 		}
+	}
+
+	public function actualiza()
+	{
+		$this->load->model('casoModel');
+
+		$comentarios_cotizacion 	= count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
+		$cotizaciones_revision 		= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
+		$casos_asignar 			= count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode(array(
+			             'comentarios_cotizacion' 	=> $comentarios_cotizacion,
+			             'cotizaciones_revision' 		=> $cotizaciones_revision,
+			             'casos_asignar'				=> $casos_asignar
+			             )));
 	}
 }
 

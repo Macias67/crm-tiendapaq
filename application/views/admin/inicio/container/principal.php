@@ -52,20 +52,20 @@
 							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
 						</a>
 						<!-- Gestor de cotizaciones -->
-						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" class="icon-btn">
+						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" id="cotizacion_comentada" class="icon-btn">
 							<i class="fa fa-file-pdf-o"></i>
 							<div>&nbsp;&nbsp;Cotizaciones enviadas&nbsp;&nbsp;</div>
-							<?php if ($cotizaciones_comentarios!=0): ?>
+							<?php if ($cotizaciones_comentarios !=0): ?>
 								<span class="badge badge-danger">
 									<?php echo $cotizaciones_comentarios ?>
 								</span>
 							<?php endif ?>
 						</a>
 						<!-- Revision de cotizaciones -->
-						<a href="<?php echo site_url('cotizaciones/revisar') ?>" class="icon-btn">
+						<a href="<?php echo site_url('cotizaciones/revisar') ?>"  id="pagos_revisar" class="icon-btn">
 							<i class="fa fa-dollar"></i>
 							<div>&nbsp;&nbsp;Pagos por revisar&nbsp;&nbsp;</div>
-							<?php if ($cotizaciones_revision!=0): ?>
+							<?php if ($cotizaciones_revision !=0): ?>
 								<span class="badge badge-danger">
 									<?php echo $cotizaciones_revision ?>
 								</span>
@@ -73,7 +73,7 @@
 						</a>
 						<!-- Casos por asignar -->
 						<?php if($asignador_casos=="si"): ?>
-							<a href="<?php echo site_url('caso') ?>" class="icon-btn">
+							<a href="<?php echo site_url('caso') ?>" id="casos_asignar" class="icon-btn">
 								<i class="fa fa-folder-open"></i>
 								<div>&nbsp;&nbsp;Casos por asignar&nbsp;&nbsp;</div>
 								<?php if ($casos_asignar!=0): ?>
@@ -100,11 +100,11 @@
 							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
 								<thead>
 									<tr>
-										<th>No.</th>
-										<th>Actvidad</th>
-										<th>Cliente</th>
-										<th>Apertura</th>
-										<th></th>
+										<th width="1%">No.</th>
+										<th width="15%">Actvidad</th>
+										<th width="30%">Cliente</th>
+										<th width="20%">Apertura</th>
+										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -135,10 +135,10 @@
 							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
 								<thead>
 									<tr>
-										<th>No.</th>
-										<th>Ejecutivo</th>
-										<th>Cliente</th>
-										<th></th>
+										<th width="1%">No.</th>
+										<th width="10%">Ejecutivo</th>
+										<th width="40%">Cliente</th>
+										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
