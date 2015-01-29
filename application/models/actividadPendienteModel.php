@@ -15,6 +15,7 @@ class ActividadPendienteModel extends MY_Model {
 	 **/
 	const TABLE = '	actividades_pendiente';
 
+
 	/*
 	* Actividades disponibles
 	 */
