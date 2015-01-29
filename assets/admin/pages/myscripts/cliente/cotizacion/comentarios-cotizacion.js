@@ -52,9 +52,15 @@ var ComentariosCotizacion = function () {
 					if (data.exito) {
 						var msg = list.append(tpl);
 						input.val("");
+						cont.find('.scroller').slimScroll({
+							scrollTo: getLastPostPos()+200
+						});
 					} else {
 						var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
 						input.val("");
+						cont.find('.scroller').slimScroll({
+							scrollTo: getLastPostPos()+200
+						});
 					}
 				});
 
@@ -66,10 +72,6 @@ var ComentariosCotizacion = function () {
 
 					return height;
 				}
-
-				cont.find('.scroller').slimScroll({
-					scrollTo: getLastPostPos()
-				});
 			}
 
 			$('body').on('click', '.message .name', function (e) {
