@@ -320,7 +320,7 @@ class Cotizador extends AbstractAccess {
 			$this->load->library('email');
 			$this->load->helper('formatofechas');
 			$this->email->set_mailtype('html');
-			$this->email->from('cotizacion@sycpaq.com', $cliente['contacto'].' - TiendaPAQ');
+			$this->email->from('cotizacion@moz67.com','Cotización TiendaPAQ');
 			$this->email->to($cliente['email']);
 			//$this->email->cc('another@example.com');
 			//$this->email->bcc('and@another.com');
