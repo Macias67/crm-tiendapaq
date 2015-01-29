@@ -2,7 +2,7 @@
 /**
  * Controlador para ver el listado de cotizaciones
  *
- * @author Diego Rodriguez
+ * @author Diego Rodriguez | Luis Macias
  **/
 class Cotizacion extends AbstractAccess {
 
@@ -409,6 +409,45 @@ class Cotizacion extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
+	}
+
+	/**
+	 * Funcion para mostrar una vista solo con los detalles
+	 * de una cotizacion
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function detalles($folio)
+	{
+		$this->load->model('comentariosCotizacionModel');
+
+		// Marco como VISTO el campo de la tabla en cotizaciones y
+		// los comentarios respectivos
+		$this->load->model('comentariosCotizacionModel');
+		$this->comentariosCotizacionModel->marcar_comentarios_visto($folio);
+		$this->cotizacionModel->update(array('visto' => 1), array('folio' => $folio));
+
+		$campos = array(
+		               'cotizacion.folio',
+		               'cotizacion.id_cliente',
+		               'cotizacion.id_estatus_cotizacion',
+		               'clientes.razon_social');
+		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio);
+
+		$this->load->helper('directory');
+		$archivos = directory_map('./clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/', 1);
+		// Descarto la carpeta de las thumnail
+		foreach ($archivos as $index => $archivo) {
+			if ($archivos[$index] == 'thumbnail') {
+				unset($archivos[$index]);
+			}
+		}
+
+		$this->data['archivos'] = $archivos;
+		$this->data['cotizacion'] = $cotizacion;
+		$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
+
+		$this->_vista('detalles');
 	}
 }
 

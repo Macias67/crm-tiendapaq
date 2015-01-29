@@ -35,19 +35,50 @@
 								</table>
 								<!-- BEGIN: Note Panel -->
 								<table class="twelve columns" style="margin-bottom: 10px">
-								<tr>
-									<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-										<a href="<?php echo base_url() ?>">
-										<?php echo base_url() ?> </a>
-									</td>
-									<td class="expander">
-									</td>
-								</tr>
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Nuestra aplicación web:</b> <a href="<?php echo base_url() ?>"><?php echo base_url() ?> </a>
+										</td>
+										<td class="expander">
+										</td>
+									</tr>
 								</table>
+								<!-- END: Note Panel -->
+								<p>
+									Información de la cotización.
+								</p>
+								<!-- BEGIN: Note Panel -->
+								<table class="twelve columns" style="margin-bottom: 10px">
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Folio:</b> <?php echo $folio ?>
+										</td>
+									</tr>
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Fecha:</b>  <?php echo $fecha ?>
+										</td>
+									</tr>
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Vigencia:</b>  <?php echo $vigencia ?>
+										</td>
+									</tr>
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Se le cotizó a:</b>  <?php echo $contacto ?>
+										</td>
+									</tr>
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Estatus de la cotización:</b>  <?php echo $estatus ?>
+										</td>
+									</tr>
+								</table>
+								<!-- END: Note Panel -->
 								<p>
 									Si al hacer clic en la URL de arriba no funciona, copia y pega la URL en el navegador.
 								</p>
-								<!-- END: Note Panel -->
 							</td>
 						</tr>
 						</table>
