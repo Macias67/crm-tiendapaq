@@ -147,7 +147,7 @@ class Cotizacion extends AbstractAccess {
 				'vigencia'					=> fecha_completa($cotizacion->vigencia),
 				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion),
 				'total_comentarios'		=> $cotizacion->total_comentarios,
-				'visto'							=> ($cotizacion->visto) ? TRUE : FALSE
+				'visto'						=> ($cotizacion->visto) ? TRUE : FALSE
 			       );
 			array_push($proceso, $p);
 		}
@@ -230,7 +230,7 @@ class Cotizacion extends AbstractAccess {
 			// Marco como VISTO el campo de la tabla en cotizaciones y
 			// los comentarios respectivos
 			$this->load->model('comentariosCotizacionModel');
-			$this->comentariosCotizacionModel->marcar_comentarios_visto($folio);
+			$this->comentariosCotizacionModel->marcar_comentarios_visto($folio, 'c');
 			$this->cotizacionModel->update(array('visto' => 1), array('folio' => $folio));
 
 			$this->load->model('estatusCotizacionModel');
@@ -275,10 +275,11 @@ class Cotizacion extends AbstractAccess {
 
 				$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
 				$caso = array(
-					'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
-					'id_cliente' => $cotizacion->id_cliente,
-					'folio_cotizacion' => $folio,
-					'fecha_inicio' => date('Y-m-d H:i:s'));
+				       	'id_lider' 				=> NULL,
+					'id_estatus_general' 	=> $this->estatusGeneralModel->PORASIGNAR,
+					'id_cliente' 				=> $cotizacion->id_cliente,
+					'folio_cotizacion'		=> $folio,
+					'fecha_inicio' 			=> date('Y-m-d H:i:s'));
 				// Abro un nuevo CASO
 				if ($this->casoModel->insert($caso))
 				{
@@ -331,10 +332,11 @@ class Cotizacion extends AbstractAccess {
 		$folio = $this->input->post('folio');
 
 		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-		                                                                          array('id_cliente',
-		                                                                          	'folio',
-		                                                                          	'fecha',
-		                                                                          	'vigencia',
+		                                                                          array(
+		                                                                                'cotizacion.id_cliente',
+		                                                                          	'cotizacion.folio',
+		                                                                          	'cotizacion.fecha',
+		                                                                          	'cotizacion.vigencia',
 		                                                                          	'contactos.nombre_contacto',
 		                                                                          	'contactos.apellido_paterno',
 		                                                                          	'contactos.apellido_materno',
@@ -343,7 +345,7 @@ class Cotizacion extends AbstractAccess {
 		                                                                          	'clientes.usuario',
 		                                                                          	'clientes.password',
 		                                                                          	'estatus_cotizacion.descripcion'),
-		                                                                          array('clientes'),
+		                                                                          array('clientes', 'contactos', 'estatus_cotizacion'),
 		                                                                          $folio);
 
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
@@ -390,16 +392,20 @@ class Cotizacion extends AbstractAccess {
 	public function comentarios()
 	{
 		$comentario = array(
-			'folio'      	 => $this->input->post('folio'),
-			'fecha'      	 => date('Y-m-d H:i:s'),
-			'tipo' 	     	 => 'E',
-			'id_ejecutivo' => $this->input->post('id_ejecutivo'),
-			'comentario'   => $this->input->post('comentario'),
+			'folio'      	 	=> $this->input->post('folio'),
+			'fecha'      	 	=> date('Y-m-d H:i:s'),
+			'tipo' 	     	 	=> 'E',
+			'id_ejecutivo' 	=> $this->input->post('id_ejecutivo'),
+			'comentario' 	=> $this->input->post('comentario'),
 		);
 
 		$this->load->model('comentariosCotizacionModel');
 
 		if($this->comentariosCotizacionModel->insert($comentario)){
+			//notifico que hay mensajes no vistos e incremento el numero de mensajes
+			$this->load->model('cotizacionModel');
+			$this->cotizacionModel->incrementa_comentarios($comentario['folio']);
+
 			$respuesta = array('exito' => TRUE);
 		}else{
 			$respuesta = array('exito' => FALSE);
@@ -423,7 +429,7 @@ class Cotizacion extends AbstractAccess {
 		// Marco como VISTO el campo de la tabla en cotizaciones y
 		// los comentarios respectivos
 		$this->load->model('comentariosCotizacionModel');
-		$this->comentariosCotizacionModel->marcar_comentarios_visto($folio);
+		$this->comentariosCotizacionModel->marcar_comentarios_visto($folio, 'c');
 		$this->cotizacionModel->update(array('visto' => 1), array('folio' => $folio));
 
 		$campos = array(

@@ -33,6 +33,7 @@
 									<th>Fecha de emisión</th>
 									<th>Vigencia hasta</th>
 									<th>Oficina</th>
+									<th><i class="fa fa-comment"></i></th>
 									<th>Estatus</th>
 									<th></th>
 								</tr>
@@ -44,6 +45,7 @@
 									<td><?php echo fecha_formato($cotizacion->fecha) ?></td>
 									<td><?php echo fecha_formato($cotizacion->vigencia) ?></td>
 									<td><?php echo $cotizacion->ciudad_estado ?></td>
+									<td><span class="badge badge-<?php echo ($cotizacion->visto) ? 'default' : 'danger' ?>"><b> <?php echo $cotizacion->total_comentarios ?> </b></span></td>
 									<?php switch ($cotizacion->id_estatus) {
 										// por pagar
 										case 1:

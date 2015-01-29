@@ -57,6 +57,7 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('comentariosCotizacionModel');
 		$this->load->helper('formatofechas_helper');
 		$comentarios = $this->comentariosCotizacionModel->get_comentarios($folio);
+		$this->comentariosCotizacionModel->marcar_comentarios_visto($folio, 'E');
 		$this->data['comentarios'] = $comentarios;
 
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, $joins, $folio)) {
@@ -189,11 +190,11 @@ class Cotizacion extends AbstractAccess {
 	public function comentarios()
 	{
 		$comentario = array(
-			'folio'        => $this->input->post('folio'),
-			'fecha'        => date('Y-m-d H:i:s'),
-			'tipo' 	       => 'C',
-			'id_ejecutivo' =>	1,
-			'comentario'   => $this->input->post('comentario'),
+			'folio'        		=> $this->input->post('folio'),
+			'fecha'        		=> date('Y-m-d H:i:s'),
+			'tipo' 	       		=> 'C',
+			'id_ejecutivo' 	=>	1,
+			'comentario'   	=> $this->input->post('comentario'),
 		);
 
 		$this->load->model('comentariosCotizacionModel');

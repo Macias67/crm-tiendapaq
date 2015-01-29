@@ -31,9 +31,7 @@ var Portfolio = function () {
 							window.location = '/';
 						});
 					} else {
-						bootbox.alert('<h3>Error, revisa la consola para mas informacíon.</h3>', function() {
-							window.location = '/';
-						});
+						bootbox.alert('<h3>Error, revisa la consola para mas informacíon.</h3>');
 					}
 				}, 'json');
 

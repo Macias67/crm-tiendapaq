@@ -217,6 +217,7 @@ class Cotizador extends AbstractAccess {
 
 		// Folio de la cotizacion
 		$cotizacion['folio'] = $this->cotizacionModel->getSiguienteFolio();
+		$folio = $cotizacion['folio'];
 		// Datos ejecutivo
 		$data_ejecutivo = $this->ejecutivoModel->get(
 			array('primer_nombre', 'segundo_nombre', 'apellido_paterno', 'apellido_materno'),
@@ -317,6 +318,7 @@ class Cotizador extends AbstractAccess {
 		if (!LOCAL) {
 			//Envio Email con el PDF
 			$this->load->library('email');
+			$this->load->helper('formatofechas');
 			$this->email->set_mailtype('html');
 			$this->email->from('cotizacion@sycpaq.com', $cliente['contacto'].' - TiendaPAQ');
 			$this->email->to($cliente['email']);
@@ -326,6 +328,11 @@ class Cotizador extends AbstractAccess {
 			// Contenido del correo
 			 $this->data['usuario'] 		= $data_cliente[0]->usuario;
 			 $this->data['password'] 	= $data_cliente[0]->password;
+			 $this->data['folio'] 		= $folio;
+			$this->data['fecha'] 		= fecha_completa(date('Y-m-d H:i:s'));
+			$this->data['vigencia'] 		= fecha_completa($vigencia);
+			$this->data['contacto'] 	= $cliente['contacto'];
+			$this->data['estatus'] 		= ucwords('Por Pagar');
 			$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
 			$this->email->message($html);
 			// Adjunto PDF
