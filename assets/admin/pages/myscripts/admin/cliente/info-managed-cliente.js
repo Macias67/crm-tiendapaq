@@ -180,7 +180,7 @@ var InfoManagedCliente = function() {
 								Metronic.removeLoader();
 							});
 						}
-					});
+					}, 'json');
 				}
 			});
 		});
@@ -282,7 +282,7 @@ var InfoManagedCliente = function() {
 								modal_nuevo.modal('show');
 							});
 						}
-					});
+					}, 'json');
 				}
 			});
 		});
@@ -415,7 +415,7 @@ var InfoManagedCliente = function() {
 								Metronic.removeLoader();
 							});
 						}
-					});
+					}, 'json');
 				}
 			});
 		});
@@ -591,7 +591,7 @@ var InfoManagedCliente = function() {
 								Metronic.removeLoader();
 							});
 						}
-					});
+					}, 'json');
 				}
 			});
 		});
@@ -702,7 +702,7 @@ var InfoManagedCliente = function() {
 								Metronic.removeLoader();
 							});
 						}
-					});
+					}, 'json');
 				}
 			});
 		});
