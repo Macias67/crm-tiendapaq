@@ -53,13 +53,13 @@ var ComentariosCotizacion = function () {
 						var msg = list.append(tpl);
 						input.val("");
 						cont.find('.scroller').slimScroll({
-							scrollTo: getLastPostPos()+200
+							scrollTo: getLastPostPos()+500
 						});
 					} else {
 						var msg = list.append('<span>Error, tu mensaje no ha podido ser enviado</span>');
 						input.val("");
 						cont.find('.scroller').slimScroll({
-							scrollTo: getLastPostPos()+200
+							scrollTo: getLastPostPos()+500
 						});
 					}
 				});
