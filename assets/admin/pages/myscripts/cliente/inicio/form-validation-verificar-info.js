@@ -126,7 +126,7 @@ var FormValidation = function () {
 				},
 				submitHandler: function (form) {
 					var folio = $('#folio_cotizacion').val();
-					var url_redireccion = "http://www.crm-tiendapaq.com/cotizacion/comprobante/"+folio;
+					var url_redireccion = "/cotizacion/comprobante/"+folio;
 					var url     = '/gestionar/verificarinfo';
 					var param   = $('#form-verificar-datos').serialize();
 

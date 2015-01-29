@@ -50,6 +50,7 @@ $route['cookiescreen']	= $DIR_EJECUTIVO."inicio/cookiescreen";
 $route['validation']		= $DIR_EJECUTIVO."inicio/validation";
 $route['recordar']		= $DIR_EJECUTIVO."inicio/recordar";
 $route['logout']		= $DIR_EJECUTIVO."inicio/logout";
+$route['inicio/(:any)']	= $DIR_EJECUTIVO."inicio/$1";
 
 // Funciones cliente
 $route['cliente/(:any)']	= $DIR_EJECUTIVO."cliente/$1";
