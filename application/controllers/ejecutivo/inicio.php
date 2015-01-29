@@ -28,6 +28,8 @@ class Inicio extends AbstractAccess {
 			$campos = array('cotizacion.folio',
 						'cotizacion.fecha',
 						'cotizacion.vigencia',
+						'cotizacion.total_comentarios',
+						'cotizacion.visto',
 						'oficinas.ciudad_estado',
 						'estatus_cotizacion.id_estatus',
 						'estatus_cotizacion.descripcion');

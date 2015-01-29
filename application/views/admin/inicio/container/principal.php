@@ -100,11 +100,11 @@
 							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
 								<thead>
 									<tr>
-										<th>No.</th>
-										<th>Actvidad</th>
-										<th>Cliente</th>
-										<th>Apertura</th>
-										<th></th>
+										<th width="1%">No.</th>
+										<th width="15%">Actvidad</th>
+										<th width="30%">Cliente</th>
+										<th width="20%">Apertura</th>
+										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -135,10 +135,10 @@
 							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
 								<thead>
 									<tr>
-										<th>No.</th>
-										<th>Ejecutivo</th>
-										<th>Cliente</th>
-										<th></th>
+										<th width="1%">No.</th>
+										<th width="10%">Ejecutivo</th>
+										<th width="40%">Cliente</th>
+										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
