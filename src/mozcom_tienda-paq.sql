@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
   `folio` int(11) NOT NULL,
-  `fecha` timestamp NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tipo` enum('E','C') NOT NULL,
   `id_ejecutivo` int(11) DEFAULT NULL,
   `comentario` text NOT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 
 CREATE TABLE IF NOT EXISTS `cotizacion` (
   `folio` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `vigencia` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `id_ejecutivo` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
@@ -243,7 +243,13 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`, `asignador_casos`) VALUES
 (1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luismacias.angulo@gmail.com', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM', 'si'),
-(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)', 'no');
+(2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)', 'no'),
+(3, 'Ma.', 'Guadalupe', 'Rodríguez', 'Figueroa', 'Ocotlán, Jalisco', 'ma', 'ma', 'lupita.ventas@tiendapaq.com.mx', '(392) 110-1796', 'Ventas', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(4, 'Anayansi', '', 'Eguiza', 'Navarro', 'Ocotlán, Jalisco', 'anayansi', 'anayansi', 'ana.eguiza@tiendapaq.com.mx', '(392) 941-0781', 'Ventas', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(5, 'Diego', 'Alejandro', 'Aleriano', 'Gutierrez', 'Ocotlán, Jalisco', 'diego', 'diego', 'diego.soporte@tiendapaq.com.mx', '(392) 100-7341', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(6, 'Claudia', 'Alejandra', 'Delgadillo', 'Pulido', 'Ocotlán, Jalisco', 'claudia', 'claudia', 'alejandra.soporte@tiendapaq.com.mx', '(392) 111-0110', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(7, 'Brenda', '', 'Zermeno', 'Torrez', 'Ocotlán, Jalisco', 'brenda', 'brenda', 'brenda.soporte@tiendapaq.com.mx', '(392) 121-1446', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(8, 'Mary', '', 'Torres', 'Villanueva', 'Ocotlán, Jalisco', 'mary', 'mary', 'mary.soporte@tiendapaq.com.mx', '(392) 928-8512', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no');
 
 -- --------------------------------------------------------
 
