@@ -54,10 +54,10 @@ if (LOCAL) {
 	$db['default']['password']	= '';
 } else {
 	$db['default']['hostname']	= 'localhost';
-	$db['default']['username']	= 'moz_admin';
-	$db['default']['password']	= 'gtsts1000';
+	$db['default']['username']	= 'tiendapaq';
+	$db['default']['password']	= '43gzh%0Bgtsts1000';
 }
-$db['default']['database']	= 'moz_tiendapaq';
+$db['default']['database']	= 'crm-tiendapaq';
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';
 $db['default']['pconnect']	= TRUE;

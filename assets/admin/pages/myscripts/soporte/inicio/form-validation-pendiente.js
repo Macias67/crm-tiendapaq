@@ -121,7 +121,7 @@ var FormValidationPendiente = function () {
 									// (bool | optional) if you want it to fade out on its own or just sit there
 									sticky: false,
 									// (int | optional) the time you want it to be alive for before fading out (milliseconds)
-									time: 3000,
+									time: 1000,
 									// (function | optional) function called before it opens
 									before_open: function(){
 										Metronic.removeLoader();
