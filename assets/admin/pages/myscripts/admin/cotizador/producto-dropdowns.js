@@ -8,6 +8,14 @@
 
 	var observaciones = [];
 
+	var mascaraPrecioFinal = function() {
+		var config = {
+			mask: "9{1,7}[.{0,1}9{2}]",
+			greedy: false
+		};
+		$("#precio_final").inputmask(config);
+	};
+
 	var fechaVigencia = function() {
 		if (jQuery().datepicker) {
 
@@ -169,6 +177,7 @@
 
 			$.post('/cotizador/producto/agregar', {codigo:codigo}, function(json, textStatus, xhr) {
 				jsonProducto = json;
+				$("#precio_final").val(parseFloat(json.precio));
 			}, 'json');
 
 		});
@@ -179,8 +188,9 @@
 
 		var cantidad	= $('#cantidad').spinner('value');
 		var descuento	= $('#descuento').val();
+		var precio_final = $("#precio_final").val(); // Campo precio final
 
-		var neto = parseFloat(data.precio) * cantidad;
+		var neto = parseFloat(precio_final) * cantidad; // Campo precio final
 		var total = neto;
 
 		// Expresiones regulares
@@ -190,7 +200,7 @@
 		// Válidamos los descuentos
 		if (descuento.match(pesos)) {
 			descuento = parseFloat(descuento.substr(1, descuento.length));
-			var real = parseFloat(jsonProducto.precio);
+			var real = parseFloat(precio_final); // Campo precio final
 			if (descuento >= 0 && descuento <= (real*cantidad)) {
 				total = total - descuento;
 			} else{
@@ -230,7 +240,7 @@
 			'impuesto1' : 	data.impuesto1,
 			'impuesto2' : 	data.impuesto2,
 			'descripcion' : 	data.descripcion,
-			'precio' : 		data.precio,
+			'precio' : 		precio_final, // Campo precio final
 			'retencion1' : 	data.retencion1,
 			'retencion2' : 	data.retencion2,
 			'unidad' : 		data.unidad,
@@ -270,6 +280,7 @@
 					$('#producto').select2('data', null);
 					$('#cantidad').spinner('value', 1);
 					$('#descuento').val('');
+					$('#precio_final').val('');
 					jsonProducto = '';
 					// Agrego al array observaciones
 					observaciones.push({codigo:codigo,observacion:''});
@@ -531,6 +542,7 @@
 	return {
 		init: function() {
 			bootbox.setDefaults({locale: "es"});
+			mascaraPrecioFinal();
 			fechaVigencia();
 			handlerCliente();
 			handleSelect2Productos();

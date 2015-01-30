@@ -332,7 +332,7 @@
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu">
-						<li>
+						<!-- <li>
 							<a href="inbox.html">
 							<i class="icon-envelope-open"></i> Inbox <span class="badge badge-danger">
 							3 </span>
@@ -343,7 +343,7 @@
 						<li>
 							<a href="extra_lock.html">
 							<i class="icon-lock"></i> Bloquear Sesion </a>
-						</li>
+						</li> -->
 						<li>
 							<a href="<?php echo site_url('logout') ?>">
 							<i class="icon-key"></i> Cerrar Sesion </a>

@@ -156,9 +156,10 @@
 											<!-- Empresa -->
 											<div class="form-group">
 												<input type="hidden" class="form-control input-inline select2" id="producto" name="producto" style="width: 100%">
+												<div class="clearfix"></div>
 											</div>
 
-											<div class="form-group">
+											<div class="form-group" style="margin-bottom: 0px;">
 												<div class="col-md-6">
 													<label>Cantidad</label>
 													<div id="cantidad">
@@ -181,6 +182,15 @@
 													<label for="descuento" id="label-desc">Descuento</label>
 													<input type="text" class="form-control" placeholder="99.99% ó $99.99" id="descuento">
 												</div>
+												<div class="clearfix"></div>
+											</div>
+
+											<div class="form-group">
+												<div class="col-md-12">
+													<label for="precio_final" id="label-desc">Precio final (Unitario y sin IVA)</label>
+													<input type="text" class="form-control" placeholder="" id="precio_final">
+												</div>
+												<div class="clearfix"></div>
 											</div>
 
 											<div class="form-group">
