@@ -309,7 +309,7 @@ abstract class AbstractAccess extends AbstractController {
 					if($cliente)
 					{
 						// Valido que los datos sean correcto
-						if ($cliente->usuario == $usuario && $cliente->password == $password)
+						if ($cliente->usuario == $usuario && $cliente->password == $password && $cliente->activo == 1)
 						{
 							// Si selecciona recordar, agrego cookie para recordar el usuario
 							if ($remember == 'true')
@@ -337,7 +337,7 @@ abstract class AbstractAccess extends AbstractController {
 						}else
 						{
 							$respuesta	= FALSE;
-							$mensaje	= 'La contraseña es incorrecta';
+							$mensaje	= 'La contraseña es incorrecta ó usuario desactivado';
 						}
 					}
 				}

@@ -163,7 +163,7 @@ class Cotizacion extends AbstractAccess {
 
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
-	 * para los clientes
+	 * para los clientes desde el cotizador
 	 *
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
@@ -189,7 +189,7 @@ class Cotizacion extends AbstractAccess {
 
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
-	 * para los clientes
+	 * para los clientes desde otras secciones ya copn la cotizacion creada
 	 *
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
@@ -253,6 +253,15 @@ class Cotizacion extends AbstractAccess {
 			show_404();
 		}
 	}
+
+	/**
+	 * funcion para la apertura de un caso dada una cotizacion por
+	 * pagada o con un pago parcial, de modo contrario se notifica al
+	 * cliente de su irregularidad
+	 *
+	 * @return void
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
 
 	public function apertura()
 	{
