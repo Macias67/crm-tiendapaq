@@ -81,45 +81,43 @@ class Caso extends AbstractAccess {
 				$id_caso = $this->input->post('id_caso');
 				$id_ejecutivo = $this->input->post('id_ejecutivo');
 
-				//if($this->casoModel->update(array('id_lider' => $id_ejecutivo, 'id_estatus_general' => $this->estatusGeneralModel->PENDIENTE),array('id' => $id_caso))){
-				if(TRUE){
+				if($this->casoModel->update(array('id_lider' => $id_ejecutivo, 'id_estatus_general' => $this->estatusGeneralModel->PENDIENTE),array('id' => $id_caso))){
 					//SECCION ENVIAR CORREO A CONTACTO DE COTIZACION NOTIFICANDO QUE SU CASO HA SIDO ABIERTO Y ASIGNADO
 					$enviado = TRUE;
-					if (LOCAL) {
+					if (!LOCAL) {
+						$this->load->model('casoModel');
 						$this->load->model('cotizacionModel');
 						$this->load->model('contactosModel');
 						$this->load->model('clienteModel');
 						$this->load->helper('formatofechas');
-						//$this->load->library('email');
+						$this->load->library('email');
 
-						$folio_cotizacion = $this->casoModel->get(array('folio_cotizacion'),array('id' => $id_caso), null, 'ASC', 1);
-						$id_contacto = $this->cotizacionModel->get(array('id_contacto'),array('folio' => $folio_cotizacion->folio_cotizacion), null, 'ASC', 1);
-						$contacto = $this->contactosModel->get('*', array('id' => $id_contacto->id_contacto), null, 'ASC', 1);
-						$cliente = $this->clienteModel->get(array('usuario','password'),array('id' => $contacto->id_cliente), null, 'ASC', 1);
-
-						var_dump($cliente->password);
+						$caso 				= $this->casoModel->get_where(array('id' => $id_caso));
+						$folio_cotizacion 	= $this->casoModel->get(array('folio_cotizacion'),array('id' => $id_caso), null, 'ASC', 1);
+						$id_contacto 		= $this->cotizacionModel->get(array('id_contacto'),array('folio' => $folio_cotizacion->folio_cotizacion), null, 'ASC', 1);
+						$contacto 			= $this->contactosModel->get('*', array('id' => $id_contacto->id_contacto), null, 'ASC', 1);
+						$cliente 			= $this->clienteModel->get(array('usuario','password'),array('id' => $contacto->id_cliente), null, 'ASC', 1);
 
 						$nombre_contacto = $contacto->nombre_contacto.' '.$contacto->apellido_paterno.' '.$contacto->apellido_materno;
 						//Envio Email
-						$this->email->set_mailtype('html');
-						$this->email->from('caso@sycpaq.com', 'Apertura de Caso - TiendaPAQ');
-						$this->email->to($cotizacion->email);
+						//$this->email->set_mailtype('html');
+						$this->email->from('notificacion@moz67.com', 'Apertura de Caso - TiendaPAQ');
+						$this->email->to($contacto->email);
 						//$this->email->cc('another@example.com');
 						//$this->email->bcc('and@another.com');
 						$this->email->subject('Apertura de Caso - TiendaPAQ');
 						//Contenido del correo
-						// $this->data['usuario'] 		= $cotizacion->usuario;
-						// $this->data['password'] 	= $cotizacion->password;
-						// $this->data['folio'] 			= $cotizacion->folio;
-						// $this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
+						$this->data['usuario'] 		= $cliente->usuario;
+						$this->data['password'] 	= $cliente->password;
+						$this->data['id_caso'] 		= $caso->id;
+						$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
 						// $this->data['vigencia'] 		= fecha_completa($cotizacion->vigencia);
-						// $this->data['contacto'] 	= $contacto;
-						// $this->data['estatus'] 		= ucwords($cotizacion->descripcion);
-						// $html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
-						// $this->email->message($html);
+						$this->data['contacto'] 	= $nombre_contacto;
+						$html = $this->load->view('admin/general/full-pages/email/email_inicio_caso.php', $this->data, TRUE);
+						$this->email->message($html);
 						// // Adjunto PDF
 						// $this->email->attach($path);
-						// $enviado= $this->email->send();
+						$enviado= $this->email->send();
 					}
 
 					$respuesta = array('exito' => TRUE);
