@@ -182,7 +182,7 @@ var TableManaged = function () {
 							Metronic.removeLoader();
 							table.dataTable().api().ajax.reload();
 						}
-					});
+					}, 'json');
 				} else {
 					Metronic.removeLoader();
 					table.dataTable().api().ajax.reload();

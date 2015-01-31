@@ -108,7 +108,7 @@ var TableManagedCliente = function() {
 							Metronic.removeLoader();
 							table.dataTable().api().ajax.reload();
 						}
-					});
+					}, 'json');
 				} else {
 					Metronic.removeLoader();
 					table.dataTable().api().ajax.reload();
@@ -130,7 +130,7 @@ var TableManagedCliente = function() {
 							oTable.fnDeleteRow(nRow);
 						}
 						bootbox.alert(data.mensaje);
-					});
+					}, 'json');
 				};
 			});
 		});

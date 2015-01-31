@@ -131,7 +131,7 @@ var TableManagedCliente = function() {
 							oTable.fnDeleteRow(nRow);
 						}
 						bootbox.alert(data.mensaje);
-					});
+					}, 'json');
 				};
 			});
 		});
