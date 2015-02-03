@@ -247,67 +247,65 @@ class Ejecutivo extends AbstractAccess {
 			$ruta_completa	= $ruta.$id_nuevo->id.'/';
 			mkdir($ruta_completa, 0777, TRUE);
 
-			// Añado fotos de prueba
-			// Liberia para eliminar la carpeta correspondiente
+			// Se copian las imagenes de la carpeta cliente a la capeta del nuevo usuario
 			$this->load->helper('directory');
 			$dir = './assets/admin/pages/media/profile/cliente/';
 			$files_avatar = directory_map($dir);
 			$c = count($files_avatar);
-			// Si hay archivos, elmino uno por uno
 			if ($c > 0) {
 				for ($i=0; $i < $c; $i++) {
 					copy($dir.$files_avatar[$i], $ruta_completa.$files_avatar[$i]);
 				}
 			}
 
-			//reglas para crear la imagen de bloqueo de perfil
-			$config_perfil['image_library']	= 'gd2';
-			$config_perfil['source_image']	= $ruta.'default.jpg';
-			$config_perfil['x_axis']			= 0;
-			$config_perfil['y_axis']			= 0;
-			$config_perfil['new_image']	= $ruta_completa.'perfil.jpg';
+			//reglas para crear la imagen de perfil
+			// $config_perfil['image_library']	= 'gd2';
+			// $config_perfil['source_image']	= $ruta.'default.jpg';
+			// $config_perfil['x_axis']			= 0;
+			// $config_perfil['y_axis']			= 0;
+			// $config_perfil['new_image']	= $ruta_completa.'perfil.jpg';
 
-			//reglas para crear la imagen de bloqueo de sesion
-			$config_block['image_library']	= 'gd2';
-			$config_block['source_image']	= $ruta_completa.'perfil.jpg';
-			$config_block['maintain_ratio']	= FALSE;
-			$config_block['width']			= 366;
-			$config_block['height']			= 281;
-			$config_block['x_axis']			= 0;
-			$config_block['y_axis']			= 0;
-			$config_block['maintain_ratio']	= FALSE;
-			$config_block['new_image']	= $ruta_completa.'block.jpg';
+			// //reglas para crear la imagen de bloqueo de sesion
+			// $config_block['image_library']	= 'gd2';
+			// $config_block['source_image']	= $ruta_completa.'perfil.jpg';
+			// $config_block['maintain_ratio']	= FALSE;
+			// $config_block['width']			= 366;
+			// $config_block['height']			= 281;
+			// $config_block['x_axis']			= 0;
+			// $config_block['y_axis']			= 0;
+			// $config_block['maintain_ratio']	= FALSE;
+			// $config_block['new_image']	= $ruta_completa.'block.jpg';
 
-			//reglas para la creacion de la imagen miniatura
-			$config_miniatura['image_library']	= 'gd2';
-			$config_miniatura['source_image']	= $ruta_completa.'block.jpg';
-			$config_miniatura['width']			= 29;
-			$config_miniatura['height']		= 29;
-			$config_miniatura['new_image']	= $ruta_completa.'mini.jpg';
+			// //reglas para la creacion de la imagen miniatura
+			// $config_miniatura['image_library']	= 'gd2';
+			// $config_miniatura['source_image']	= $ruta_completa.'block.jpg';
+			// $config_miniatura['width']			= 29;
+			// $config_miniatura['height']		= 29;
+			// $config_miniatura['new_image']	= $ruta_completa.'mini.jpg';
 
-			//reglas para la creacion de la imagen de chat
-			$config_chat['image_library']	= 'gd2';
-			$config_chat['source_image']	= $ruta_completa.'block.jpg';
-			$config_chat['width']			= 45;
-			$config_chat['height']			= 45;
-			$config_chat['new_image']		= $ruta_completa.'chat.jpg';
+			// //reglas para la creacion de la imagen de chat
+			// $config_chat['image_library']	= 'gd2';
+			// $config_chat['source_image']	= $ruta_completa.'block.jpg';
+			// $config_chat['width']			= 45;
+			// $config_chat['height']			= 45;
+			// $config_chat['new_image']		= $ruta_completa.'chat.jpg';
 
-			//inicio las reglas de imagen de perfil
-			$this->image_lib->initialize($config_perfil);
-			//corto la imagen de perfil y creo las demas
-			$this->image_lib->crop();
-			//limpio las reglas para leer nuevas
-			$this->image_lib->clear();
-			//creo las demas imagenes banado en las reglas definidas arriba
-			$this->image_lib->initialize($config_block);
-			$this->image_lib->crop();
-			$this->image_lib->clear();
-			$this->image_lib->initialize($config_miniatura);
-			$this->image_lib->resize();
-			$this->image_lib->clear();
-			$this->image_lib->initialize($config_chat);
-			$this->image_lib->resize();
-			$this->image_lib->clear();
+			// //inicio las reglas de imagen de perfil
+			// $this->image_lib->initialize($config_perfil);
+			// //corto la imagen de perfil y creo las demas
+			// $this->image_lib->crop();
+			// //limpio las reglas para leer nuevas
+			// $this->image_lib->clear();
+			// //creo las demas imagenes banado en las reglas definidas arriba
+			// $this->image_lib->initialize($config_block);
+			// $this->image_lib->crop();
+			// $this->image_lib->clear();
+			// $this->image_lib->initialize($config_miniatura);
+			// $this->image_lib->resize();
+			// $this->image_lib->clear();
+			// $this->image_lib->initialize($config_chat);
+			// $this->image_lib->resize();
+			// $this->image_lib->clear();
 		}
 		// Muestro la salida
 		$this->output
