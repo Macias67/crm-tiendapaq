@@ -110,27 +110,32 @@ class Ejecutivo extends AbstractAccess {
 					$this->load->model('casoModel');
 					$this->load->model('pendienteModel');
 					// Si existe ejecutivo
-					if ($this->ejecutivoModel->exist(array('id' => $id))) {
-						// NO tiene casos y pendientes creados o asignados
-						if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id))
-						    && !$this->casoModel->exist(array('id_lider' => $id))) {
-							if($this->ejecutivoModel->delete(array('id' => $id))) {
-								// Liberia para eliminar la carpeta correspondiente
-								$this->load->helper('directory');
-								$dir = './assets/admin/pages/media/profile/'.$id.'/';
-								$files_avatar = directory_map($dir);
-								$c = count($files_avatar);
-								// Si hay archivos, elmino uno por uno
-								if ($c > 0) {
-									for ($i=0; $i < $c; $i++) {
-										unlink($dir.$files_avatar[$i]);
+					if ($this->ejecutivoModel->exist(array('id' => $id)) ) {
+						//Si no es el mismo quien esta logueado
+						if($id!=$this->usuario_activo['id']){
+							// NO tiene casos y pendientes creados o asignados
+							if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id)) && !$this->casoModel->exist(array('id_lider' => $id))) 
+							{
+								if($this->ejecutivoModel->delete(array('id' => $id))) {
+									// Liberia para eliminar la carpeta correspondiente
+									$this->load->helper('directory');
+									$dir = './assets/admin/pages/media/profile/'.$id.'/';
+									$files_avatar = directory_map($dir);
+									$c = count($files_avatar);
+									// Si hay archivos, elmino uno por uno
+									if ($c > 0) {
+										for ($i=0; $i < $c; $i++) {
+											unlink($dir.$files_avatar[$i]);
+										}
 									}
+									rmdir($dir);
+									$response = array('exito' => TRUE, 'msg' => '<h4>El ejecutivo se eleminó del sistema.<h4>');
 								}
-								rmdir($dir);
-								$response = array('exito' => TRUE, 'msg' => '<h4>El ejecutivo se eleminó del sistema.<h4>');
+							} else {
+								$response = array('exito' => FALSE, 'msg' => '<h4>El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado.<h4>');
 							}
-						} else {
-							$response = array('exito' => FALSE, 'msg' => '<h4>El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado.<h4>');
+						}else{
+							$response = array('exito' => FALSE, 'msg' => '<h4>No puedes eliminarte a ti mismo del sistema.<h4>');
 						}
 					}
 
