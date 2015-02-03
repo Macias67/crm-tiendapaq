@@ -31,7 +31,7 @@
 				<?php endif ?>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Creado por: </b></div>
-					<div class="col-md-8"><p><a href="<?php echo site_url('ejecutivo/catalogo'.'/'.$pendiente->id_ejecutivo) ?>" target="_blank"><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></a></p></div>
+					<div class="col-md-8"><p><a href="<?php echo site_url('ejecutivo/catalogo'.'/'.$pendiente->id_creador) ?>" target="_blank"><?php echo $pendiente->creador_nombre.' '.$pendiente->creador_apellido ?></a></p></div>
 				</div>
 				<!-- HISTORIAL DE REASIGNACIONES -->
 				<?php if(!empty($reasignaciones)): ?>

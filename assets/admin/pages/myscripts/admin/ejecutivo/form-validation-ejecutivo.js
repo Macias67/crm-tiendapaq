@@ -161,7 +161,7 @@ var FormValidationEjecutivo = function () {
 		var success1 = $('.alert-success', form1);
 		var id_ejecutivo = $('#id_ejecutivo').val();
 		var usuario_activo = $('#usuario_activo').val();
-		var url_redireccion = "http://www.crm-tiendapaq.com/logout";
+		var url_redireccion = "/logout";
 
 		form1.validate({
 			errorElement: 'span', //default input error message container
