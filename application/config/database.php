@@ -57,7 +57,7 @@ if (LOCAL) {
 	$db['default']['username']	= 'moz_admin';
 	$db['default']['password']	= 'gtsts1000';
 }
-$db['default']['database']	= 'moz_tiendapaq';
+$db['default']['database']	= 'crm-tiendapaq';
 $db['default']['dbdriver']	= 'mysql';
 $db['default']['dbprefix']	= '';
 $db['default']['pconnect']	= TRUE;

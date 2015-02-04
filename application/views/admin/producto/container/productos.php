@@ -95,10 +95,7 @@
 													<label class="col-md-3 control-label">Unidad</label>
 													<div class="col-md-9">
 														<select class="form-control" name="unidad">
-															<option value="Metro">Metro</option>
-															<option value="Kilos">Kilos</option>
-															<option value="Litros">Litros</option>
-															<option value="Unidad">Unidad</option>
+															<option value="Horas">Horas</option>
 														</select>
 													</div>
 												</div>
