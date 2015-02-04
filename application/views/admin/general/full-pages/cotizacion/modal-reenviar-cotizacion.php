@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-	<h4 class="modal-title"><b>Selecciona el contacto</b></h4>
+	<h4 class="modal-title"><b>Cotización <?php echo $folio ?></b> - <small>Selecciona el contacto para el reenvio</small></h4>
 </div>
 <div class="modal-body">
 	<div class="scroller">
@@ -23,9 +23,22 @@
 												<!-- <input type="hidden" id="id_caso" value="<?php echo $id_caso ?>"> -->
 												<select class="form-control" name="contacto" id="select_contacto">
 													<?php foreach ($contactos as $contacto): ?>
-														<option value="<?php echo $contacto->email_contacto?>"><?php echo $contacto->nombre_contacto.' '.$contacto->apellido_paterno ?></option>
+														<option value="<?php echo $contacto->email_contacto?>" id-contacto="<?php echo $contacto->id ?>"><?php echo $contacto->nombre_contacto.' '.$contacto->apellido_paterno ?></option>
 													<?php endforeach ?>
 												</select>
+											</div>
+										</div>
+									</div>
+									<!-- Email -->
+									<div class="form-group">
+										<label class="col-md-4 control-label">
+											Email: 
+										</label>
+										<div class="col-md-8">
+											<div class="input-icon">
+												<i class="fa fa-inbox"></i>
+												<input type="hidden" id="folio" value="<?php echo $folio ?>">
+												<label class="form-control email_contacto" type"text" value=""></label>
 											</div>
 										</div>
 									</div>

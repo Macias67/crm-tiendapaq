@@ -342,17 +342,19 @@ class Cotizacion extends AbstractAccess {
 		if(empty($id_contacto)){
 			$this->load->model('contactosModel');
 
-			//$folio = $this->input->post('folio');
 			$id_cliente = $this->cotizacionModel->get(array('id_cliente'),array('folio' => $folio),null,'ASC',1);
 			$this->data['contactos'] = $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente->id_cliente));
+			$this->data['folio'] = $folio;
 
-			var_dump($this->data);
+			//var_dump($this->data);
 
 			$this->_vista_completa('cotizacion/modal-reenviar-cotizacion');
 
 		}else{
 			//si hay id de contacto, extraigo el correo del contacto y reenvio la cotizacion
 			$folio = $this->input->post('folio');
+
+			echo "Hola kukin";
 
 			// $cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
 			//                                                                           array(
