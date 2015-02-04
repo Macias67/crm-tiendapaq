@@ -336,62 +336,78 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
-	public function reenvio()
+	public function reenvio($folio, $id_contacto=null)
 	{
-		$folio = $this->input->post('folio');
+		//si no hay id de contacto lanzo la vista con la lista de contactos
+		if(empty($id_contacto)){
+			$this->load->model('contactosModel');
 
-		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-		                                                                          array(
-		                                                                                'cotizacion.id_cliente',
-		                                                                          	'cotizacion.folio',
-		                                                                          	'cotizacion.fecha',
-		                                                                          	'cotizacion.vigencia',
-		                                                                          	'contactos.nombre_contacto',
-		                                                                          	'contactos.apellido_paterno',
-		                                                                          	'contactos.apellido_materno',
-		                                                                          	'clientes.razon_social',
-		                                                                          	'clientes.email',
-		                                                                          	'clientes.usuario',
-		                                                                          	'clientes.password',
-		                                                                          	'estatus_cotizacion.descripcion'),
-		                                                                          array('clientes', 'contactos', 'estatus_cotizacion'),
-		                                                                          $folio);
+			//$folio = $this->input->post('folio');
+			$id_cliente = $this->cotizacionModel->get(array('id_cliente'),array('folio' => $folio),null,'ASC',1);
+			$this->data['contactos'] = $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente->id_cliente));
 
-		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
-		$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
-		$path 		= $dir_root.$name;
+			var_dump($this->data);
 
-		$enviado = TRUE;
-		if (!LOCAL) {
-			$this->load->helper('formatofechas');
-			$this->load->library('email');
+			$this->_vista_completa('cotizacion/modal-reenviar-cotizacion');
 
-			$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
-			//Envio Email con el PDF
-			$this->email->set_mailtype('html');
-			$this->email->from('cotizacion@sycpaq.com', 'Reenvio/Cotización - TiendaPAQ');
-			$this->email->to($cotizacion->email);
-			//$this->email->cc('another@example.com');
-			//$this->email->bcc('and@another.com');
-			$this->email->subject('Envío de Cotización TiendaPAQ');
-			// Contenido del correo
-			$this->data['usuario'] 		= $cotizacion->usuario;
-			$this->data['password'] 	= $cotizacion->password;
-			$this->data['folio'] 			= $cotizacion->folio;
-			$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
-			$this->data['vigencia'] 		= fecha_completa($cotizacion->vigencia);
-			$this->data['contacto'] 	= $contacto;
-			$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
-			$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
-			$this->email->message($html);
-			// Adjunto PDF
-			$this->email->attach($path);
-			$enviado= $this->email->send();
+		}else{
+			//si hay id de contacto, extraigo el correo del contacto y reenvio la cotizacion
+			$folio = $this->input->post('folio');
+
+			// $cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
+			//                                                                           array(
+			//                                                                                 'cotizacion.id_cliente',
+			//                                                                           	'cotizacion.folio',
+			//                                                                           	'cotizacion.fecha',
+			//                                                                           	'cotizacion.vigencia',
+			//                                                                           	'contactos.nombre_contacto',
+			//                                                                           	'contactos.apellido_paterno',
+			//                                                                           	'contactos.apellido_materno',
+			//                                                                           	'clientes.razon_social',
+			//                                                                           	'clientes.email',
+			//                                                                           	'clientes.usuario',
+			//                                                                           	'clientes.password',
+			//                                                                           	'estatus_cotizacion.descripcion'),
+			//                                                                           array('clientes', 'contactos', 'estatus_cotizacion'),
+			//                                                                           $folio);
+
+			// $dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
+			// $name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+			// $path 		= $dir_root.$name;
+
+			// $enviado = TRUE;
+			// if (!LOCAL) {
+			// 	$this->load->helper('formatofechas');
+			// 	$this->load->library('email');
+
+			// 	$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
+			// 	//Envio Email con el PDF
+			// 	$this->email->set_mailtype('html');
+			// 	$this->email->from('cotizacion@sycpaq.com', 'Reenvio/Cotización - TiendaPAQ');
+			// 	$this->email->to($cotizacion->email);
+			// 	//$this->email->cc('another@example.com');
+			// 	//$this->email->bcc('and@another.com');
+			// 	$this->email->subject('Envío de Cotización TiendaPAQ');
+			// 	// Contenido del correo
+			// 	$this->data['usuario'] 		= $cotizacion->usuario;
+			// 	$this->data['password'] 	= $cotizacion->password;
+			// 	$this->data['folio'] 			= $cotizacion->folio;
+			// 	$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
+			// 	$this->data['vigencia'] 		= fecha_completa($cotizacion->vigencia);
+			// 	$this->data['contacto'] 	= $contacto;
+			// 	$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
+			// 	$html = $this->load->view('admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
+			// 	$this->email->message($html);
+			// 	// Adjunto PDF
+			// 	$this->email->attach($path);
+			// 	$enviado= $this->email->send();
+			// }
+
+			// $this->output
+			// 	->set_content_type('application/json')
+			// 	->set_output(json_encode(array('exito' => $enviado)));
+
 		}
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode(array('exito' => $enviado)));
 	}
 
  	/**
