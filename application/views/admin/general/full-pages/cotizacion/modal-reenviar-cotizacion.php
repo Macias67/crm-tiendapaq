@@ -22,8 +22,9 @@
 												<i class="fa fa-user"></i>
 												<!-- <input type="hidden" id="id_caso" value="<?php echo $id_caso ?>"> -->
 												<select class="form-control" name="contacto" id="select_contacto">
+													<option value=""></option>
 													<?php foreach ($contactos as $contacto): ?>
-														<option value="<?php echo $contacto->email_contacto?>" id-contacto="<?php echo $contacto->id ?>"><?php echo $contacto->nombre_contacto.' '.$contacto->apellido_paterno ?></option>
+														<option value="<?php echo $contacto->email_contacto?>"><?php echo $contacto->nombre_contacto.' '.$contacto->apellido_paterno ?></option>
 													<?php endforeach ?>
 												</select>
 											</div>

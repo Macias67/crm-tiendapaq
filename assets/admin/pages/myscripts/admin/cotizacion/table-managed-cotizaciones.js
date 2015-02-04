@@ -146,38 +146,34 @@ var TableManagedCotizaciones = function () {
 
 			$('#select_contacto').change(function() {
 				$('.email_contacto').text($('#select_contacto').val());
-
-				console.log($('#select_contacto').attr('id-contacto', 'value'));
-
-
+				$('.email_contacto').val($('#select_contacto').val());
 			});
 
 			$('.btn_reenviar_cotizacion').on('click', function() {
-			// 	var folio = $('#folio').val();
-			// 	var id_contacto = $('#select_contacto').attr('id-contacto');
-			// 	var email_contacto = $('#select_contacto').val();
-			// 	//POST O AJAX PARA REENVIAR LA COTIZACION AL CONTACTO SELECCIONADO
-			// 	$.ajax({
-			// 		url: '/cotizaciones/reenvio/'+folio+"/"+id_contacto,
-			// 		type: 'post',
-			// 		cache: false,
-			// 		data: null,
-			// 		beforeSend: function () {
-			// 			Metronic.showLoader();
-			// 		},
-			// 		error: function(jqXHR, status, error) {
-			// 			Metronic.removeLoader();
-			// 			console.log("ERROR: "+error);
-			// 			alert('ERROR: revisa la consola del navegador para más detalles.');
-			// 		},
-			// 		success: function(data) {
-			// 			// if (data.exito) {
-			// 			// 	bootbox.alert('<h3>Se ha reenviado la cotización al email de la empresa.</h3>', function() {
-			// 			// 		Metronic.removeLoader();
-			// 			// 	});
-			// 			// };
-			// 		}
-			// 	});
+				var folio = $('#folio').val();
+				var email_contacto = $('#select_contacto').val();
+
+				$.ajax({
+					url: '/cotizaciones/reenvio/'+folio,
+					type: 'post',
+					cache: false,
+					data: {email_contacto:email_contacto},
+					beforeSend: function () {
+						Metronic.showLoader();
+					},
+					error: function(jqXHR, status, error) {
+						Metronic.removeLoader();
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+					},
+					success: function(data) {
+						if (data.exito) {
+							bootbox.alert('<h3>Se ha reenviado la cotización al email de la empresa.</h3>', function() {
+								Metronic.removeLoader();
+							});
+						};
+					}
+				});
 			});
 
 		});//modal
