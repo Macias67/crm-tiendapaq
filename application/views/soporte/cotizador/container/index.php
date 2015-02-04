@@ -49,6 +49,21 @@
 									</div>
 								</div>
 							</div>
+							<!-- Banco -->
+							<div class="col-md-6">
+								<div class="portlet gren">
+
+									<div class="portlet-title">
+										<div class="caption"><i class="fa fa-gift"></i> Bancos</div>
+									</div>
+									<div class="portlet-body">
+										<div class="form-group">
+											<label>Contactos</label>
+											<select class="form-control" id="contactos" name="contactos"></select>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<hr>
