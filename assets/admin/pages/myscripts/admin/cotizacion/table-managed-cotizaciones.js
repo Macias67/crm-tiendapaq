@@ -169,7 +169,6 @@ var TableManagedCotizaciones = function () {
 					success: function(data) {
 						if (data.exito) {
 							bootbox.alert('<h3>Se ha reenviado la cotización al email del contacto.</h3>', function() {
-								Metronic.removeLoader();
 								parent.location.reload();
 							});
 						};

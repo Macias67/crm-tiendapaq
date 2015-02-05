@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-01-2015 a las 21:50:45
+-- Tiempo de generación: 05-02-2015 a las 19:47:42
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `mozcom_tienda-paq`
+-- Base de datos: `crm-tiendapaq`
 --
 
 -- --------------------------------------------------------
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `comentarios_cotizacion` (
   KEY `folio_2` (`folio`),
   KEY `id_ejecutivo` (`id_ejecutivo`),
   KEY `id_ejecutivo_2` (`id_ejecutivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   KEY `ejecutivos_ibfk_1` (`oficina`),
   KEY `ejecutivos_ibfk_2` (`departamento`),
   KEY `ejecutivos_ibfk_3` (`privilegios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa' AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `ejecutivos`
@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `estatus_cotizacion` (
   `id_estatus` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(30) NOT NULL,
   PRIMARY KEY (`id_estatus`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Estatus para las cotizaciones' AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `estatus_cotizacion`
@@ -296,7 +296,8 @@ INSERT INTO `estatus_cotizacion` (`id_estatus`, `descripcion`) VALUES
 (3, 'pagada'),
 (4, 'irregular'),
 (5, 'vencida'),
-(6, 'pago parcial');
+(6, 'pago parcial'),
+(7, 'cancelada');
 
 -- --------------------------------------------------------
 
