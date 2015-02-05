@@ -89,7 +89,7 @@ var TableManagedCotizaciones = function () {
 					color = 'green';
 				} else if(aData.id_estatus_cotizacion == "En Revision" || aData.id_estatus_cotizacion == "Pago Parcial") {
 					color = 'yellow';
-				} else if(aData.id_estatus_cotizacion == "Irregular" || aData.id_estatus_cotizacion == "Vencida") {
+				} else if(aData.id_estatus_cotizacion == "Irregular" || aData.id_estatus_cotizacion == "Vencida" ||aData.id_estatus_cotizacion == "Cancelada" ) {
 					color = 'red';
 				}
 				$('td:eq(5)', nRow).html('<span class="btn btn-circle btn-xs '+color+' disabled">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
@@ -104,6 +104,9 @@ var TableManagedCotizaciones = function () {
 				//codigo para mostrar la modal para seleccionar al contacto para reenviarle la cotizacion
 				$('td:eq(7)', nRow).html('<a href="/cotizaciones/reenvio/'+aData.folio+'" class="btn btn-circle blue btn-xs" data-target="#ajax-contactos-reenvio" data-toggle="modal"><i class="fa fa-mail-forward"></i> Reenviar </a>');
 
+				if(aData.id_estatus_cotizacion == "Por Pagar"){
+					$('td:eq(8)', nRow).html('<a class="btn btn-circle blue btn-xs detalle"><i class="fa fa-search"></i> Detalles</a><a class="btn red default btn-circle btn-xs cancelar-cotizacion" folio="'+aData.folio+'"><i class="fa fa-ban"></i> Cancelar</a>');
+				}
 			},
 			"language": {
 				"emptyTable": 		"No hay cotizaciones registrados",
@@ -175,8 +178,27 @@ var TableManagedCotizaciones = function () {
 					}
 				});
 			});
-
 		});//modal
+
+		//Click para cancelar cotizacion
+		table.on('click', '.cancelar-cotizacion', function(e) {
+			var folio = $(this).attr('folio');
+			bootbox.confirm("<h4>¿Seguro que quieres cancelar la cotizacion?</h4>", function (result) {
+				if(result){
+					$.post('/cotizacion/cancelar', {folio:folio}, function(data, textStatus, xhr) {
+						if(data.exito){
+							bootbox.alert(data.msg, function () {
+								parent.location.reload();
+							});
+						}else{
+							bootbox.alert(data.msg);
+						}
+					}, 'json');
+				}else{
+					return;
+				}
+			});
+		});
 
 	};
 

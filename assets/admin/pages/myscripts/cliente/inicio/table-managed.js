@@ -57,6 +57,27 @@ var TableManaged = function() {
 		});
 	}
 
+	var cacelarCotizacion = function () {
+		$('.cancelar-cotizacion').on('click', function() {
+			var folio = $(this).attr('folio');
+			bootbox.confirm("<h4>¿Seguro que quieres cancelar la cotizacion?</h4>", function (result) {
+				if(result){
+					$.post('/cotizacion/cancelar', {folio:folio}, function(data, textStatus, xhr) {
+						if(data.exito){
+							bootbox.alert(data.msg, function () {
+								parent.location.reload();
+							});
+						}else{
+							bootbox.alert(data.msg);
+						}
+					}, 'json');
+				}else{
+					return;
+				}
+			});
+		});
+	}
+
 
 	return {
 		//main function to initiate the module
@@ -66,6 +87,7 @@ var TableManaged = function() {
 			}
 			tablaCotizacion();
 			previaPDF();
+			cacelarCotizacion();
 		}
 	};
 }();
