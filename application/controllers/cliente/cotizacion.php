@@ -184,6 +184,28 @@ class Cotizacion extends AbstractAccess {
 	}
 
 	/**
+	 * funcion para cancelar una cotizacion
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function cancelar()
+	{
+		$this->load->model('estatusCotizacionModel');
+		$folio = $this->input->post('folio');
+
+		if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA),array('folio' => $folio))){
+			$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
+		}else{
+			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );
+		}
+
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
+	}
+
+	/**
 	 * Funcion para guardar los comentarios de la cotizacion
 	 * @author Diego Rodriguez
 	 **/
