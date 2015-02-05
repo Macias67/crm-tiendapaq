@@ -151,13 +151,13 @@ var TableManagedCotizaciones = function () {
 
 			$('.btn_reenviar_cotizacion').on('click', function() {
 				var folio = $('#folio').val();
-				var email_contacto = $('#select_contacto').val();
+				var email = $('#select_contacto').val();
 
 				$.ajax({
 					url: '/cotizaciones/reenvio/'+folio,
 					type: 'post',
 					cache: false,
-					data: {email_contacto:email_contacto},
+					data: {email:email},
 					beforeSend: function () {
 						Metronic.showLoader();
 					},
