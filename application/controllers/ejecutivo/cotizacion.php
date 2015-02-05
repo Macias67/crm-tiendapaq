@@ -352,21 +352,21 @@ class Cotizacion extends AbstractAccess {
 			$email = $this->input->post('email');
 
 			$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-			                                                                          array(
-			                                                                                'cotizacion.id_cliente',
-			                                                                          	'cotizacion.folio',
-			                                                                          	'cotizacion.fecha',
-			                                                                          	'cotizacion.vigencia',
-			                                                                          	'contactos.nombre_contacto',
-			                                                                          	'contactos.apellido_paterno',
-			                                                                          	'contactos.apellido_materno',
-			                                                                          	'clientes.razon_social',
-			                                                                          	'clientes.email',
-			                                                                          	'clientes.usuario',
-			                                                                          	'clientes.password',
-			                                                                          	'estatus_cotizacion.descripcion'),
-			                                                                          array('clientes', 'contactos', 'estatus_cotizacion'),
-			                                                                          $folio);
+                                                                    array(
+                                                                          'cotizacion.id_cliente',
+                                                                    	'cotizacion.folio',
+                                                                    	'cotizacion.fecha',
+                                                                    	'cotizacion.vigencia',
+                                                                    	'contactos.nombre_contacto',
+                                                                    	'contactos.apellido_paterno',
+                                                                    	'contactos.apellido_materno',
+                                                                    	'clientes.razon_social',
+                                                                    	'clientes.email',
+                                                                    	'clientes.usuario',
+                                                                    	'clientes.password',
+                                                                    	'estatus_cotizacion.descripcion'),
+                                                                    array('clientes', 'contactos', 'estatus_cotizacion'),
+                                                                    $folio);
 
 			$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
 			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';

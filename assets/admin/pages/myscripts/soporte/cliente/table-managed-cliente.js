@@ -98,7 +98,8 @@ var TableManagedCliente = function() {
 			var aData 		= oTable.fnGetData(nRow);
 			var id 			= $(nRow).attr('id');
 			var selected 	= $(this).is(':checked'); // False o True
-			var accion		= (selected) ? 'activar' : 'desactivar'
+			var accion		= (selected) ? 'activar' : 'desactivar';
+
 			bootbox.confirm("<h4>¿Seguro que quieres <b>"+accion+"</b> al cliente <b>"+ aData.razon_social+"</b>?</h4>", function(result) {
 				if (result) {
 					Metronic.showLoader();

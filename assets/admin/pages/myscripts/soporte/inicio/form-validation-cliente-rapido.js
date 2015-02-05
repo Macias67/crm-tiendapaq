@@ -15,7 +15,6 @@ var FormValidationClienteRapido = function () {
 		$("#telefono_contacto").inputmask("mask", {
 			"mask": "(999) 999-9999"
 		});
-
 	}
 	// Validacion para formulario de cliente nuevo rapid en la ventana modal
 	var formularioClienteRapido = function() {

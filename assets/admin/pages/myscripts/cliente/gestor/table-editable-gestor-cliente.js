@@ -202,7 +202,7 @@ var TableEditable = function () {
                                 Metronic.removeLoader();
                             });
                         }
-                    });
+                    }, 'json');
                 }
             });
         });
@@ -304,7 +304,7 @@ var TableEditable = function () {
                                 modal_nuevo.modal('show');
                             });
                         }
-                    });
+                    }, 'json');
                 }
             });
         });
@@ -437,7 +437,7 @@ var TableEditable = function () {
                                 Metronic.removeLoader();
                             });
                         }
-                    });
+                    }, 'json');
                 }
             });
         });
@@ -613,7 +613,7 @@ var TableEditable = function () {
                                 Metronic.removeLoader();
                             });
                         }
-                    });
+                    }, 'json');
                 }
             });
         });
@@ -724,7 +724,7 @@ var TableEditable = function () {
                                 Metronic.removeLoader();
                             });
                         }
-                    });
+                    }, 'json');
                 }
             });
         });

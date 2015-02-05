@@ -1,5 +1,5 @@
 /**
- * Manejo de tablas de pendientes individuales y generales
+ * Manejo de tabla de cotizaciones
  */
 var TableManagedCotizaciones = function () {
 
@@ -75,11 +75,11 @@ var TableManagedCotizaciones = function () {
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs reenviar"><i class="fa fa-mail-forward"></i> Reenviar </button>'
+					"defaultContent": '<a class="btn btn-circle blue btn-xs" data-target="#ajax-contactos-reenvio" data-toggle="modal"><i class="fa fa-mail-forward"></i> Reenviar </a>'
 				},
 				{
 					"data": null,
-					"defaultContent": '<button type="button" class="btn btn-circle blue btn-xs detalle"><i class="fa fa-search"></i> Detalles</button>'
+					"defaultContent": '<a class="btn btn-circle blue btn-xs detalle"><i class="fa fa-search"></i> Detalles</a>'
 				}
 			],
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -101,13 +101,10 @@ var TableManagedCotizaciones = function () {
 				}
 				$('td:eq(6)', nRow).html('<span class="badge badge-'+color+'"><b> '+aData.total_comentarios+' </b></span>');
 
-				// Enlace a la edicion
-				//var id  = $(nRow).attr('id');
-				//$('td:eq(6)', nRow).html('<a type="button" href="/cliente/gestionar/editar/'+id+'" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</a>');
+				//codigo para mostrar la modal para seleccionar al contacto para reenviarle la cotizacion
+				$('td:eq(7)', nRow).html('<a href="/cotizaciones/reenvio/'+aData.folio+'" class="btn btn-circle blue btn-xs" data-target="#ajax-contactos-reenvio" data-toggle="modal"><i class="fa fa-mail-forward"></i> Reenviar </a>');
+
 			},
-			// "drawCallback": function(settings) {
-			// 	Metronic.initUniform($('input[type="checkbox"]', table)); // reinitialize uniform checkboxes on each table reload
-			// },
 			"language": {
 				"emptyTable": 		"No hay cotizaciones registrados",
 				"info": 				"Mostrando _START_ a _END_ de _TOTAL_ cotizaciones",
@@ -135,42 +132,53 @@ var TableManagedCotizaciones = function () {
 			"order": [0, 'desc' ] // Ordenados por Folio
 		});
 
-		table.on('click', '.reenviar', function(e) {
-			e.preventDefault();
-			var nRow 	= $(this).parents('tr')[0];
-			var folio 	= $(nRow).attr('id');
-
-			$.ajax({
-				url: '/cotizaciones/reenvio',
-				type: 'post',
-				cache: false,
-				data: {folio:folio},
-				beforeSend: function () {
-					Metronic.showLoader();
-				},
-				error: function(jqXHR, status, error) {
-					Metronic.removeLoader();
-					console.log("ERROR: "+error);
-					alert('ERROR: revisa la consola del navegador para más detalles.');
-				},
-				success: function(data) {
-					if (data.exito) {
-						bootbox.alert('<h3>Se ha reenviado la cotización al email de la empresa.</h3>', function() {
-							Metronic.removeLoader();
-						});
-					};
-				}
-			});
-		});
-
 		table.on('click', '.detalle', function(e) {
 			Metronic.showLoader();
 			var nRow 	= $(this).parents('tr')[0];
 			var folio 		= $(nRow).attr('id');
-			//REDIRECCIONAR A LA VISTA DONDE SE PUEDAN VER LOS COMENTARIOS Y LOS ARCHIVOS
-			//ENVIADOS POR EL CLIENTE
+			//REDIRECCIONAR A LA VISTA DONDE SE PUEDAN VER LOS COMENTARIOS Y LOS ARCHIVOS ENVIADOS POR EL CLIENTE
 			window.location.href = '/cotizaciones/detalles/'+folio;
 		});
+
+		//Cuando se muestra la ventana de contactos de reenvio
+		var modal = $('#ajax-contactos-reenvio');
+		modal.on('shown.bs.modal', function (e) {
+
+			$('#select_contacto').change(function() {
+				$('.email_contacto').text($('#select_contacto').val());
+				$('.email_contacto').val($('#select_contacto').val());
+			});
+
+			$('.btn_reenviar_cotizacion').on('click', function() {
+				var folio = $('#folio').val();
+				var email = $('#select_contacto').val();
+
+				$.ajax({
+					url: '/cotizaciones/reenvio/'+folio,
+					type: 'post',
+					cache: false,
+					data: {email:email},
+					beforeSend: function () {
+						Metronic.showLoader();
+					},
+					error: function(jqXHR, status, error) {
+						Metronic.removeLoader();
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+					},
+					success: function(data) {
+						if (data.exito) {
+							bootbox.alert('<h3>Se ha reenviado la cotización al email del contacto.</h3>', function() {
+								Metronic.removeLoader();
+								parent.location.reload();
+							});
+						};
+					}
+				});
+			});
+
+		});//modal
+
 	};
 
 	return {
