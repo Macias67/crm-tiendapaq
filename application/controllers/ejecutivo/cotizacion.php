@@ -235,18 +235,25 @@ class Cotizacion extends AbstractAccess {
 
 			$this->load->model('estatusCotizacionModel');
 			$this->load->helper('directory');
+			$this->load->helper('file');
 			$archivos = directory_map('./clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/', 1);
+
+			$imagenes 	= array();
+			$pdfs 		= array();
 
 			// Descarto la carpeta de las thumnail
 			foreach ($archivos as $index => $archivo) {
-				if ($archivos[$index] == 'thumbnail') {
-					unset($archivos[$index]);
+				$tipo = explode("/", get_mime_by_extension($archivos[$index]));
+				if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
+					array_push($imagenes, $archivos[$index]);
+				} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
+					array_push($pdfs, $archivos[$index]);
 				}
 			}
 			$this->load->helper('formatofechas_helper');
 
-			$this->data['cotizacion'] = $cotizacion;
-			$this->data['archivos'] = $archivos;
+			$this->data['cotizacion'] 	= $cotizacion;
+			$this->data['imagenes'] 	= $imagenes;
 			$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 			$this->_vista('archivos');
 		} else {
