@@ -58,8 +58,12 @@
 									</div>
 									<div class="portlet-body">
 										<div class="form-group">
-											<label>Contactos</label>
-											<select class="form-control" id="contactos" name="contactos"></select>
+											<label>Banco: </label>
+											<select class="form-control" id="banco" name="banco">
+												<?php foreach ($bancos as $index => $banco): ?>
+												<option value="<?php echo $banco->id_banco ?>"><?php echo $banco->banco ?></option>
+												<?php endforeach ?>
+											</select>
 										</div>
 									</div>
 								</div>

@@ -376,7 +376,8 @@
 						// Datos cotizacion
 						var cotizacion = {
 							folio: $('#folio').html(),
-							ejecutivo: $('.ejecutivo').attr('id')
+							ejecutivo: $('.ejecutivo').attr('id'),
+							banco: $('#banco option:selected').val()
 						}
 
 						// Datos del cliente
@@ -461,7 +462,8 @@
 						var cotizacion = {
 							folio: 		$('#folio').html(),
 							ejecutivo: 	$('.ejecutivo').attr('id'),
-							vigencia: 	$('#vigencia').val()
+							vigencia: 	$('#vigencia').val(),
+							banco: 		$('#banco option:selected').val()
 						}
 
 						// Datos del cliente

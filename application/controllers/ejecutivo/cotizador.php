@@ -25,6 +25,9 @@ class Cotizador extends AbstractAccess {
 	 **/
 	public function index()
 	{
+		// Modelo para los bancos
+		$this->load->model('bancomodel');
+		$this->data['bancos']				= $this->bancomodel->get(array('id_banco', 'banco'));
 		// Formato fechas
 		$this->load->helper('formatofechas');
 		$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
@@ -178,7 +181,7 @@ class Cotizador extends AbstractAccess {
 
 		// Banco
 		$this->load->model('bancoModel');
-		$banco = $this->bancoModel->get_where(array('id_banco' => 1));
+		$banco = $this->bancoModel->get_where(array('id_banco' => $cotizacion['banco']));
 
 		// Creo directorio para pdf
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/tmp/cotizacion/';
@@ -253,7 +256,7 @@ class Cotizador extends AbstractAccess {
 
 		// Banco
 		$this->load->model('bancoModel');
-		$banco = $this->bancoModel->get_where(array('id_banco' => 1));
+		$banco = $this->bancoModel->get_where(array('id_banco' => $cotizacion['banco']));
 
 		// Si no existe la carpeta cotizacion del cliente la creo
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cliente['id'].'/cotizacion/';
