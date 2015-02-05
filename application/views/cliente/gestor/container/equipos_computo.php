@@ -33,10 +33,9 @@
 								<tr>
 									<th>Nombre</th>
 									<th>S.O.</th>
+									<th>Memoria RAM</th>
 									<th>Server</th>
 									<th>Management</th>
-									<th>Instancia</th>
-									<th>Contaseña</th>
 									<th></th>
 									<th></th>
 								</tr>
@@ -46,10 +45,9 @@
 									<tr id="<?php echo $equipo->id ?>">
 										<td><?php echo $equipo->nombre_equipo ?></td>
 										<td><?php echo $equipo->sistema_operativo ?></td>
+										<td><?php echo $equipo->memoria_ram ?></td>
 										<td><?php echo $equipo->sql_server ?></td>
 										<td><?php echo $equipo->sql_management ?></td>
-										<td><?php echo $equipo->instancia_sql ?></td>
-										<td><?php echo $equipo->password_sql ?></td>
 										<td width="1%"><a href="<?php echo site_url('gestionar/equipos/mostrar/'.$equipo->id) ?>" data-target="#ajax_form_equipo" data-toggle="modal" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</button></td>
 										<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-equipo"><i class="fa fa-trash-o"></i> Eliminar</button></td>
 									</tr>
@@ -207,26 +205,6 @@
 												<option value="2012">2012</option>
 												<option value="2014">2014</option>
 											</select>
-										</div>
-									</div>
-								</div>
-								<!-- Instalcia SQL -->
-								<div class="form-group">
-									<label class="col-md-4 control-label">Instancia SQL</label>
-									<div class="col-md-8">
-										<div class="input-icon">
-											<i class="fa  fa-database"></i>
-											<input type="text" class="form-control" placeholder="Instancia SQL" name="instancia_sql">
-										</div>
-									</div>
-								</div>
-								<!-- Contraseña SQL -->
-								<div class="form-group">
-									<label class="col-md-4 control-label">Contraseña SQL</label>
-									<div class="col-md-8">
-										<div class="input-icon">
-											<i class="fa  fa-database"></i>
-											<input type="text" class="form-control" placeholder="Contraseña SQL" name="password_sql">
 										</div>
 									</div>
 								</div>

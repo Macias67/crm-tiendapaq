@@ -116,26 +116,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- Instalcia SQL -->
-					<div class="form-group">
-						<label class="col-md-4 control-label">Instancia SQL</label>
-						<div class="col-md-8">
-							<div class="input-icon">
-								<i class="fa  fa-database"></i>
-								<input type="text" class="form-control" placeholder="Instancia SQL" name="instancia_sql" value="<?php echo $equipo->instancia_sql ?>">
-							</div>
-						</div>
-					</div>
-					<!-- Contraseña SQL -->
-					<div class="form-group">
-						<label class="col-md-4 control-label">Contraseña SQL</label>
-						<div class="col-md-8">
-							<div class="input-icon">
-								<i class="fa  fa-database"></i>
-								<input type="text" class="form-control" placeholder="Contraseña SQL" name="password_sql" value="<?php echo $equipo->password_sql ?>">
-							</div>
-						</div>
-					</div>
 					<!-- Observaciones Generales -->
 					<div class="form-group">
 						<label class="col-md-4 control-label">Observaciones</label>

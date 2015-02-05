@@ -46,3 +46,16 @@
 	</div>
 </div>
 <!-- END CONTENT -->
+
+<!-- BEGIN ASIGNAR EJECUTIVO MODAL -->
+<div id="ajax-contactos-reenvio" class="modal fade" role="basic" aria-hidden="true">
+	<div class="page-loading page-loading-boxed">
+		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<span>Cargando... </span>
+	</div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+<!-- END ASIGNAR EJECUTIVO MODAL-->
