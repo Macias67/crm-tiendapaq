@@ -1,4 +1,4 @@
-<!-- BEGIN CONTENT -->
+BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
@@ -49,7 +49,7 @@
 						<!-- Todos Mis Pendientes -->
 						<a href="<?php echo site_url('perfil') ?>" class="icon-btn">
 							<i class="fa fa-list"></i>
-							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
+							<div>&nbsp;&nbsp;Mis pendientes&nbsp;&nbsp;</div>
 						</a>
 						<!-- Gestor de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" id="cotizacion_comentada" class="icon-btn">
@@ -83,6 +83,11 @@
 								<?php endif ?>
 							</a>
 						<?php endif ?>
+						<!-- Abrir caso -->
+						<a href="#nuevo-caso" class="icon-btn" data-toggle="modal">
+							<i class="fa fa-arrow-circle-o-up"></i>
+							<div>Abrir Caso</div>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -432,6 +437,70 @@
 </div>
 <!-- END NUEVO PENDIENTE -->
 
+<!-- BEGIN NUEVO CASO -->
+<div id="nuevo-caso" class="modal fade" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">
+					<b>Apertura directa de caso</b>
+				</h3>
+				<small>Nuevo caso</small>
+			</div>
+			<form action="<?php echo site_url('caso/abrir') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
+				<div class="modal-body form-horizontal">
+					<div class="scroller" style="height: 300px" id="div-scroll-pendiente">
+						<!-- DIV ERROR -->
+						<div class="alert alert-danger display-hide">
+							<button class="close" data-close="alert"></button>
+							Tienes Errores en tu formulario
+						</div>
+						<!-- DIV SUCCESS -->
+						<div class="alert alert-success display-hide">
+							<button class="close" data-close="alert"></button>
+							Exito en el formulario
+						</div>
+						<div class="form-body">
+							<div class="col-md-12">
+								<!-- Ejectuivo -->
+								<div class="form-group">
+									<label class="control-label col-md-4">Lider</label>
+									<div class="col-md-8">
+										<select class="form-control" name="lider_caso">
+											<?php foreach ($ejecutivos as $ejecutivo): ?>
+											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+											<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+								<!-- Empresa -->
+								<div class="form-group">
+									<label class="control-label col-md-4">Razón Social</label>
+									<div class="col-md-8">
+										<input type="hidden" id="razon_social_caso" name="razon_social_caso" class="form-control select2">
+									</div>
+								</div>
+								<!-- Fecha -->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Descripción</label>
+									<div class="col-md-8">
+										<textarea class="form-control" rows="3" style="resize: none;" name="descripcion_caso"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
+					<button type="submit" class="btn btn-circle green">Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- END NUEVO CASO -->
+
 <!-- BEGIN AJAX DETALLE PENDIENTE -->
 <div id="ajax-detalles-pendiente" class="modal fade" role="basic" aria-hidden="true">
 	<div class="page-loading page-loading-boxed">
@@ -456,4 +525,4 @@
 		</div>
 	</div>
 </div>
-<!-- END AJAX REASIGNACIONES PENDIENTE -->
+<!-- END AJAX REASIGNACIONES PENDIENTE

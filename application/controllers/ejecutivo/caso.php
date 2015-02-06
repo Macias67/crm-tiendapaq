@@ -149,6 +149,20 @@ class Caso extends AbstractAccess {
 	}
 
 	/**
+	 * funcion para abrir un caso de manera directa
+	 *
+	 * @return void
+	 * @author Diego Rodriguez
+	 **/
+	public function abrir()
+	{
+		$id_lider = $this->input->post('lider_caso');
+		$id_cliente = $this->input->post('razon_social_caso');
+		$descripcion = $this->input->post('descripcion_caso');
+
+	}
+
+	/**
 	 * funcion pra cerrar un caso
 	 *
 	 * @author Diego Rodriguez

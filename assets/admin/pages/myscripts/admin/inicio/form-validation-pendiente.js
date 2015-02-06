@@ -28,6 +28,31 @@ var FormValidationPendiente = function () {
 		});
 	}
 
+	// Select para escoger la razón social
+	var handleSelect2RazonSocialCaso = function () {
+		$("#razon_social_caso").select2({
+			placeholder: "Razón Social...",
+			allowClear: true,
+			minimumInputLength: 3,
+			ajax: {
+				url: "/cliente/json",
+				type: 'post',
+				dataType: 'json',
+				quietMillis: 500,
+				data: function (term, page) {
+					return {
+						q: term, // search term
+						//page_limit: 5
+					};
+				},
+				results: function (data, page) { // parse the results into the format expected by Select2.
+					// since we are using custom formatting functions we do not need to alter remote JSON data
+					return {results: data};
+				}
+			}
+		});
+	}
+
 	// basic validation
 	var handleValidationPendiente = function() {
 
@@ -150,6 +175,7 @@ var FormValidationPendiente = function () {
 		init: function () {
 			handleSelect2RazonSocial();
 			handleValidationPendiente();
+			handleSelect2RazonSocialCaso();
 		}
 	};
 }();
