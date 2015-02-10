@@ -49,7 +49,7 @@
 											<tr id="<?php echo $ejecutivo->id ?>">
 												<td><label><input type="radio" name="optionsRadios" class="radios" id-radio="<?php echo $ejecutivo->id ?>" <?php echo($ejecutivo->asignador_casos=="si")? 'checked="checked"':""?>></label></td>
 												<td><?php echo $ejecutivo->id ?></td>
-												<td><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->segundo_nombre.' '.$ejecutivo->apellido_materno.' '.$ejecutivo->apellido_paterno ?></td>
+												<td><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->segundo_nombre.' '.$ejecutivo->apellido_paterno.' '.$ejecutivo->apellido_materno ?></td>
 												<td><?php echo $ejecutivo->oficina ?></td>
 												<td><?php echo $ejecutivo->departamento ?></td>
 												<td><?php echo $ejecutivo->email ?></td>
