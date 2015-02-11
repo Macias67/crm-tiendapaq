@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-02-2015 a las 19:47:42
+-- Tiempo de generación: 11-02-2015 a las 21:45:37
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -76,9 +76,10 @@ CREATE TABLE IF NOT EXISTS `caso` (
   `id_lider` int(11) DEFAULT NULL,
   `id_estatus_general` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
-  `folio_cotizacion` int(11) NOT NULL,
+  `folio_cotizacion` int(11) DEFAULT NULL,
   `fecha_inicio` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `fecha_final` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `descripcion` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_lider` (`id_lider`,`id_estatus_general`,`id_cliente`,`folio_cotizacion`),
   KEY `id_estatus_general` (`id_estatus_general`),

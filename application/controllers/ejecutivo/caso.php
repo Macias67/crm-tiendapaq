@@ -156,12 +156,24 @@ class Caso extends AbstractAccess {
 	 **/
 	public function abrir()
 	{
-		$id_lider = $this->input->post('lider_caso');
-		$id_cliente = $this->input->post('razon_social_caso');
-		$descripcion = $this->input->post('descripcion_caso');
+		$this->load->model('estatusGeneralModel');
 
-		
+		$caso = array('id_lider' => $this->input->post('lider_caso'),
+		 							'id_estatus_general' => $this->estatusGeneralModel->PENDIENTE,
+		 							'id_cliente' => $this->input->post('razon_social_caso'),
+		 							'fecha_inicio' => date('Y-m-d H:i:s'),
+		 							'descripcion' => $this->input->post('descripcion_caso')
+		 				);
 
+		if($this->casoModel->insert($caso)){
+			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso abierto con éxito.</h4>');
+		}else{
+			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
 	}
 
 	/**

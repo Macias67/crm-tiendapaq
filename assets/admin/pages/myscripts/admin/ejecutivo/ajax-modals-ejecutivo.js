@@ -97,7 +97,7 @@ var UIExtendedModals = function () {
         if (data.existe) {
           window.open(data.ruta,'','height=800,width=800');
         }else{
-          bootbox.alert('<h4>Error, el pdf de la cotización no existe o ha sido eliminado.</h4>');
+          bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
         }
       }, 'json');
     });

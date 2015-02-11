@@ -447,9 +447,9 @@
 				</h3>
 				<small>Nuevo caso</small>
 			</div>
-			<form action="<?php echo site_url('caso/abrir') ?>" id="form-pendiente" method="post" accept-charset="utf-8">
+			<form action="<?php echo site_url('caso/abrir') ?>" id="form-caso" method="post" accept-charset="utf-8">
 				<div class="modal-body form-horizontal">
-					<div class="scroller" style="height: 300px" id="div-scroll-pendiente">
+					<div class="scroller" style="height: 200px" id="div-scroll-caso">
 						<!-- DIV ERROR -->
 						<div class="alert alert-danger display-hide">
 							<button class="close" data-close="alert"></button>
@@ -480,7 +480,7 @@
 										<input type="hidden" id="razon_social_caso" name="razon_social_caso" class="form-control select2">
 									</div>
 								</div>
-								<!-- Fecha -->
+								<!-- Descipcion -->
 								<div class="form-group">
 									<label class="col-md-4 control-label">Descripción</label>
 									<div class="col-md-8">
