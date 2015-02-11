@@ -45,6 +45,7 @@ var FormValidationCaso = function () {
 					required: true
 				},
 				razon_social_caso: {
+					required: true
 				},
 				descripcion_caso: {
 					required: true,
@@ -56,6 +57,7 @@ var FormValidationCaso = function () {
 					required: "Se necesita seleccionar a un ejecutivo."
 				},
 				razon_social_caso: {
+					required: "Se necesita seleccionar a un cliente."
 				},
 				descripcion_caso: {
 					required: "Especifíca la descripción del caso.",

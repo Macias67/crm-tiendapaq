@@ -449,7 +449,7 @@
 			</div>
 			<form action="<?php echo site_url('caso/abrir') ?>" id="form-caso" method="post" accept-charset="utf-8">
 				<div class="modal-body form-horizontal">
-					<div class="scroller" style="height: 200px" id="div-scroll-caso">
+					<div class="scroller" style="height: 250px" id="div-scroll-caso">
 						<!-- DIV ERROR -->
 						<div class="alert alert-danger display-hide">
 							<button class="close" data-close="alert"></button>
