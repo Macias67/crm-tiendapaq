@@ -53,6 +53,7 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-pendiente') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'ajax-modals-inicio') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'fake-realtime') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-caso') ?>" type="text/javascript"></script>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -65,6 +66,7 @@
 			FormValidationPendiente.init(); // form-validation-pendiente
 			UIExtendedModals.init(); // ajax-modals para modales tipo ajax de los pendientes
 			FakeRealTime.init();
+			FormValidationCaso.init(); // form-validation-caso
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

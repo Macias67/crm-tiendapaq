@@ -111,7 +111,7 @@ var TableManagedCotizaciones = function () {
 			"language": {
 				"emptyTable": 		"No hay cotizaciones registrados",
 				"info": 				"Mostrando _START_ a _END_ de _TOTAL_ cotizaciones",
-				"infoEmpty": 		"No se ha registrado ningún cliente",
+				"infoEmpty": 		"No se ha registrado ningúna cotización",
 				"infoFiltered": 		"(de un total de _MAX_ cotizaciones registrados)",
 				"infoPostFix": 		"",
 				"thousands": 		",",

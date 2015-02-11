@@ -1,4 +1,4 @@
-BEGIN CONTENT -->
+<!--BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
@@ -49,7 +49,7 @@ BEGIN CONTENT -->
 						<!-- Todos Mis Pendientes -->
 						<a href="<?php echo site_url('perfil') ?>" class="icon-btn">
 							<i class="fa fa-list"></i>
-							<div>&nbsp;&nbsp;Mis pendientes&nbsp;&nbsp;</div>
+							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
 						</a>
 						<!-- Gestor de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" id="cotizacion_comentada" class="icon-btn">
@@ -493,7 +493,7 @@ BEGIN CONTENT -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
-					<button type="submit" class="btn btn-circle green">Crear</button>
+					<button type="submit" class="btn btn-circle green">Abrir</button>
 				</div>
 			</form>
 		</div>
@@ -525,4 +525,4 @@ BEGIN CONTENT -->
 		</div>
 	</div>
 </div>
-<!-- END AJAX REASIGNACIONES PENDIENTE
+<!-- END AJAX REASIGNACIONES PENDIENTE -->

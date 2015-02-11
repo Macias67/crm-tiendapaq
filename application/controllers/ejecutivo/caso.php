@@ -160,6 +160,8 @@ class Caso extends AbstractAccess {
 		$id_cliente = $this->input->post('razon_social_caso');
 		$descripcion = $this->input->post('descripcion_caso');
 
+		
+
 	}
 
 	/**
