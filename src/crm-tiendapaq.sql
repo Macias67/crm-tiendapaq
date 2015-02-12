@@ -208,7 +208,8 @@ CREATE TABLE IF NOT EXISTS `departamento` (
 INSERT INTO `departamento` (`id_departamento`, `area`) VALUES
 (1, 'Desarrollo'),
 (2, 'Soporte Técnico'),
-(3, 'Ventas');
+(3, 'Ventas'),
+(4, 'Administrativo');
 
 -- --------------------------------------------------------
 
@@ -243,14 +244,17 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
 --
 
 INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_paterno`, `apellido_materno`, `oficina`, `usuario`, `password`, `email`, `telefono`, `departamento`, `privilegios`, `mensaje_personal`, `asignador_casos`) VALUES
-(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luismacias.angulo@gmail.com', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM', 'si'),
+(1, 'Luis', 'Alberto', 'Macias', 'Angulo', 'Ocotlán, Jalisco', 'tiendapaq', 'gtsts1000', 'luismacias.angulo@gmail.com', '(392) 941-8119', 'Desarrollo', 'admin', 'Prueba CRM', 'no'),
 (2, 'Diego', 'Iván', 'Rodríguez', 'Cuevas', 'Ocotlán, Jalisco', 'diego92', 'qwerty', 'diego.rodriguez@tiendapaq.com.mx', '(331) 064-7421', 'Desarrollo', 'admin', 'Bienenido a CRM Tiendapaq ( ͡° ͜ʖ ͡°)', 'no'),
 (3, 'Ma.', 'Guadalupe', 'Rodríguez', 'Figueroa', 'Ocotlán, Jalisco', 'ma', 'ma', 'lupita.ventas@tiendapaq.com.mx', '(392) 110-1796', 'Ventas', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
 (4, 'Anayansi', '', 'Eguiza', 'Navarro', 'Ocotlán, Jalisco', 'anayansi', 'anayansi', 'ana.eguiza@tiendapaq.com.mx', '(392) 941-0781', 'Ventas', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
 (5, 'Diego', 'Alejandro', 'Aleriano', 'Gutierrez', 'Ocotlán, Jalisco', 'diego', 'diego', 'diego.soporte@tiendapaq.com.mx', '(392) 100-7341', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
 (6, 'Claudia', 'Alejandra', 'Delgadillo', 'Pulido', 'Ocotlán, Jalisco', 'claudia', 'claudia', 'alejandra.soporte@tiendapaq.com.mx', '(392) 111-0110', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
 (7, 'Brenda', '', 'Zermeno', 'Torrez', 'Ocotlán, Jalisco', 'brenda', 'brenda', 'brenda.soporte@tiendapaq.com.mx', '(392) 121-1446', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
-(8, 'Mary', '', 'Torres', 'Villanueva', 'Ocotlán, Jalisco', 'mary', 'mary', 'mary.soporte@tiendapaq.com.mx', '(392) 928-8512', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no');
+(8, 'Mary', '', 'Torres', 'Villanueva', 'Ocotlán, Jalisco', 'mary', 'mary', 'mary.soporte@tiendapaq.com.mx', '(392) 928-8512', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(9, 'Eleazar', '', 'Frias', 'Carrillo', 'Ocotlán, Jalisco', 'efriasc', 'fice710403', 'eleazar.soporte@tiendapaq.com.mx', '(392) 100-3182', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'si'),
+(10, 'Gloria', 'Guadalupe', 'Camarena', 'Flores', 'Ocotlán, Jalisco', 'gloriacam', '711215', 'gloria.ventas@tiendapaq.com.mx', '(392) 104-7077', 'Ventas', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(11, 'Maria', 'De Lourdes', 'Rivera', 'Hernandez', 'Ocotlán, Jalisco', 'lourdesrh', 'gtsts1000', 'lourdes.administracion@tiendapaq.com.mx', '(392) 925-3808', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no');
 
 -- --------------------------------------------------------
 
@@ -343,7 +347,12 @@ CREATE TABLE IF NOT EXISTS `observaciones` (
 --
 
 INSERT INTO `observaciones` (`id_observacion`, `descripcion`) VALUES
-(1, 'PRECIOS MAS IVA SUJETOS A CAMBIOS SIN PREVIO AVISO');
+(1, 'PRECIOS MAS IVA, SUJETOS A CAMBIOS SIN PREVIO AVISO'),
+(2, 'FORMA DE PAGO POR ANTICIPADO, LOS SERVICIOS SE PROGRAMAN UNA VEZ CONFIRMADO EL DEPOSITO.'),
+(3, 'TIEMPO DE ENTREGA DE 2 A 5 DIAS HABILES.'),
+(4, 'LOS PRECIOS DEL SOFTWARE NO INCLUYEN SERVICIOS DE IMPLEMENTACION, CAPACITACION O ASESORIA TECNICA ADICIONAL A LA EXPRESAMENTE SEÑALADA EN ESTA COTIZACION.'),
+(5, 'LOS CURSOS, SESIONES REMOTAS Y CUALQUIER OTRO SERVICIO ESTA SUJETO A PROGRAMACION DE ACUERDO A NUESTRAS CARGAS DE TRABAJO. LAS URGENCIAS TIENEN UN SOBRE-PRECIO.'),
+(6, 'NUESTROS PRECIOS NO INCLUYEN GASTOS DE VIAJE Y HOSPEDAJE, ESTOS SE COTIZAN POR SEPARADO.');
 
 -- --------------------------------------------------------
 
@@ -370,8 +379,9 @@ CREATE TABLE IF NOT EXISTS `oficinas` (
 --
 
 INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colonia`, `calle`, `numero`, `email`, `telefono`) VALUES
+(1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808'),
 (2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
-(1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808');
+(3, 'Uruapan, Michoacán', 'Uruapan', 'Michoacán', 'Niño Obrero', 'Costa Rica', '79', 'uruapan@tiendapaq.com.mx', '(452) 148-6464');
 
 -- --------------------------------------------------------
 
@@ -435,6 +445,27 @@ CREATE TABLE IF NOT EXISTS `productos` (
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro de productos';
 
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`codigo`, `descripcion`, `unidad`, `precio`, `impuesto1`, `impuesto2`, `retencion1`, `retencion2`) VALUES
+('CTIB', 'CONTPAQI BANCOS', 'Unidad', 5290, 16, 0, 0, 0),
+('CTIC', 'CONTPAQI CONTABILIDAD', 'Unidad', 5290, 16, 0, 0, 0),
+('CTICM', 'CONTPAQI COMERCIAL', 'Unidad', 6990, 16, 0, 0, 0),
+('CTIFE', 'CONTPAQI FACTURA ELECTRONICA', 'Unidad', 3390, 16, 0, 0, 0),
+('CTIFEL', 'CONTPAQI FACTURA ELECTRONICA EN LINEA+', 'Unidad', 990, 16, 0, 0, 0),
+('CTIN', 'CONTPAQI NOMINAS', 'Unidad', 3990, 16, 0, 0, 0),
+('CTINL', 'CONTPAQI CFDI NOMINAS+', 'Unidad', 990, 16, 0, 0, 0),
+('CTIPV', 'CONTPAQI PUNTO DE VENTA', 'Unidad', 2990, 16, 0, 0, 0),
+('CTITN', 'CONTPAQI TABLERO DE NEGOCIOS BI', 'Unidad', 5390, 16, 0, 0, 0),
+('CTIXML', 'CONTPAQI XML EN LINEA+', 'Unidad', 1490, 16, 0, 0, 0),
+('ECG', 'EQUIPO DE COMPUTO O ELECTRONICO', 'Unidad', 5000, 16, 0, 0, 0),
+('SAT', 'SERVICIO DE ASESORIA TECNICA', 'Unidad', 500, 16, 0, 0, 0),
+('SC', 'SERVICIO DE CAPACITACION', 'Unidad', 2500, 16, 0, 0, 0),
+('SCTI', 'SISTEMAS CONTPAQI', 'Unidad', 5000, 16, 0, 0, 0),
+('SYA', 'SOFTWARE Y APLICACIONES', 'Unidad', 5000, 16, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -488,13 +519,17 @@ CREATE TABLE IF NOT EXISTS `sistemas_contpaqi` (
 --
 
 INSERT INTO `sistemas_contpaqi` (`id_sistema`, `sistema`, `versiones`) VALUES
-(1, 'CONTPAQi® CONTABILIDAD', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.1, 7.1.0, 7.1.1, 7.2.0'),
-(2, 'CONTPAQi® NÓMINAS', '4.0.0, 4.0.1, 4.0.2, 4.0.3, 4.0.4, 4.0.5, 4.0.6, 5.0.0, 5.0.1, 5.1.0, 5.1.2, 5.1.3, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 6.2.0, 6.2.1, 6.2.2, 6.3.0'),
-(3, 'CONTPAQI® BANCOS', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 7.1.0, 7.1.1, 7.2.0'),
-(4, 'CONTPAQI® ADMINPAQ®', '7.0.0, 7.1.1, 7.1.2, 7.2.0, 7.2.1, 7.3.0, 7.3.1, 7.3.2, 7.3.3'),
-(5, 'CONTPAQI® COMERCIAL', '1.0.1'),
-(6, 'CONTPAQI® FACTURA ELECTRÓNICA', '2.1.0, 2.2.0, 2.2.1, 2.3.0, 2.3.1, 2.3.2, 2.5.0, 2.5.1, 2.5.2'),
-(7, 'CONTPAQI® PUNTO DE VENTA', '3.0.0, 3.1.1, 3.2.0, 3.2.2');
+(1, 'CONTPAQI CONTABILIDAD', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.1, 7.1.0, 7.1.1, 7.2.0, 7.3.0, 7.4.1, 7.4.2, 7.5.0, 7.6.0, 7.7.0'),
+(2, 'CONTPAQI NÓMINAS', '4.0.0, 4.0.1, 4.0.2, 4.0.3, 4.0.4, 4.0.5, 4.0.6, 5.0.0, 5.0.1, 5.1.0, 5.1.2, 5.1.3, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 6.2.0, 6.2.1, 6.2.2, 6.3.0, 6.3.1, 6.4.0, 6.4.1, 6.4.2'),
+(3, 'CONTPAQI BANCOS', '5.0.0, 5.1.0, 5.1.1, 5.1.2, 5.1.3, 5.1.4, 5.1.5, 6.0.0, 6.0.1, 6.0.2, 6.1.0, 7.1.0, 7.1.1, 7.2.0, 7.3.0, 7.4.1, 7.4.2, 7.5.0, 7.6.0, 7.7.0'),
+(4, 'ADMINPAQ', '7.0.0, 7.1.1, 7.1.2, 7.2.0, 7.2.1, 7.3.0, 7.3.1, 7.3.2, 7.3.3, 8.0.0, 8.1.0'),
+(5, 'CONTPAQI COMERCIAL', '1.0.1, 1.0.2, 1.1.1, 1.1.0'),
+(6, 'CONTPAQI FACTURA ELECTRÓNICA', '2.1.0, 2.2.0, 2.2.1, 2.3.0, 2.3.1, 2.3.2, 2.5.0, 2.5.1, 2.5.2, 2.6.1'),
+(7, 'CONTPAQI PUNTO DE VENTA', '3.0.0, 3.1.1, 3.2.0, 3.2.2'),
+(8, 'CONTPAQI XML EN LINEA', '1.1.0'),
+(9, 'CONTPAQI CFDI EN LINEA', ''),
+(10, 'CONTPAQI TABLERO DE NEGOCIOS', '1.0.0'),
+(11, 'CONTPAQI CFDI NOMINAS', '1.0.1, 1.0.2, 1.1.0');
 
 -- --------------------------------------------------------
 
@@ -516,7 +551,11 @@ INSERT INTO `sistemas_operativos` (`id_so`, `sistema_operativo`) VALUES
 (1, 'Windows Xp'),
 (2, 'Windows Vista'),
 (3, 'Windows 7'),
-(4, 'Windows 8');
+(4, 'Windows 8'),
+(5, 'Win Server 2003'),
+(6, 'Win Server 2008 R2'),
+(7, 'Win Server Enterprice'),
+(8, 'Win Server 2012');
 
 --
 -- Restricciones para tablas volcadas
