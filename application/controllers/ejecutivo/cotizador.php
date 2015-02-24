@@ -256,7 +256,7 @@ class Cotizador extends AbstractAccess {
 
 		// Banco
 		$this->load->model('bancoModel');
-		$banco = $this->bancoModel->get_where(array('id_banco' => $cotizacion['banco']));
+		$banco = $this->bancoModel->get_where(array('id_banco' => 1));
 
 		// Si no existe la carpeta cotizacion del cliente la creo
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cliente['id'].'/cotizacion/';

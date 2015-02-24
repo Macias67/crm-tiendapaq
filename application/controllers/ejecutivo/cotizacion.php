@@ -236,7 +236,8 @@ class Cotizacion extends AbstractAccess {
 			$this->load->model('estatusCotizacionModel');
 			$this->load->helper('directory');
 			$this->load->helper('file');
-			$archivos = directory_map('./clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/', 1);
+			$ruta = '/clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/';
+			$archivos = directory_map('.'.$ruta, 1);
 
 			$imagenes 	= array();
 			$pdfs 		= array();
@@ -254,6 +255,8 @@ class Cotizacion extends AbstractAccess {
 
 			$this->data['cotizacion'] 	= $cotizacion;
 			$this->data['imagenes'] 	= $imagenes;
+			$this->data['pdfs'] 			= $pdfs;
+			$this->data['ruta_pdf']		= $ruta;
 			$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 			$this->_vista('archivos');
 		} else {

@@ -129,6 +129,14 @@
 					</div>
 				</div>
 				<!-- END FILTER -->
+				<div class="col-md-12">
+				<?php foreach ($pdfs as $index => $pdf): ?>
+					<a class="icon-btn muestra-pdf" file="<?php echo $pdf ?>" ruta="<?php echo $ruta_pdf ?>">
+						<i class="fa fa-file-pdf-o"></i>
+						<div>&nbsp;&nbsp;<?php echo $pdf ?>&nbsp;&nbsp;</div>
+					</a>
+				<?php endforeach ?>
+				</div>
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->

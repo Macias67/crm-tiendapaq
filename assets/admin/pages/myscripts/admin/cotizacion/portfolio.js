@@ -16,6 +16,16 @@ var Portfolio = function () {
 		});
 	}
 
+
+	var muestraPDFCliente = function() {
+		$('.muestra-pdf').on('click', function(event) {
+			/* Act on the event */
+			var file = $(this).attr('file');
+			var ruta = $(this).attr('ruta');
+			window.open(ruta+file,'','height=600,width=500');
+		});
+	}
+
 	var validacion = function() {
 		$('#validar').on('click', function() {
 			var folio = $('#folio').val();
@@ -43,6 +53,7 @@ var Portfolio = function () {
 		//main function to initiate the module
 		init: function () {
 			$('.mix-grid').mixitup();
+			muestraPDFCliente();
 			validacion();
 			previaPDF();
 		}
