@@ -65,7 +65,7 @@
 							</div>
 							<div class="actions">
 								<div class="btn-group pull-right">
-									<button id="tabla_sistemas_editable_new" class="btn btn-circle green btn-xs">
+									<button id="guardar_versiones" class="btn btn-circle green btn-xs">
 										<i class="fa fa-save"></i> Guardar versiones
 									</button>
 								</div>
@@ -103,9 +103,6 @@
 							<br>
 							<br>
 							<br>
-							<div class="table-toolbar">
-								<br>
-							</div>
 						</div>
 					</div>
 				</div>
