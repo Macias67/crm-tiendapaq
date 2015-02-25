@@ -106,7 +106,7 @@
 </div>
 <!-- END CONTENT -->
 
-<!-- BEGIN MODAL NUEVA OICINA -->
+<!-- BEGIN MODAL NUEVA OFICINA -->
 <div id="modal_nueva_oficina" class="modal fade" tabindex="-1" data-backdrop="static" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -223,7 +223,7 @@
 </div>
 <!-- END MODAL NUEVA OFICINA -->
 
-<!-- BEGIN MODAL EDITAR OFICINA -->
+<!-- BEGIN MODAL EDITAR DEPTO -->
 <div id="ajax_editar_oficina" class="modal container fade" role="basic" aria-hidden="true">
 	<div class="page-loading page-loading-boxed">
 		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
@@ -234,4 +234,4 @@
 		</div>
 	</div>
 </div>
-<!-- END MODAL EDITAR OFICINA -->
+<!-- END MODAL EDITAR DEPTO -->
