@@ -14,16 +14,17 @@
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="portlet box grey">
+				<div class="portlet light">
 					<div class="portlet-title">
-						<div class="caption" style="color: black">
-							<i class="fa fa-usd"></i> Bancos
+						<div class="caption">
+							<span class="caption-subject bold uppercase"><i class="fa fa-usd"></i> Bancos</span> 
 						</div>
-						<div class="tools" style="color: black">
-							<a href="javascript:;" class="collapse">
+						<div class="actions">
+							<div class="btn-group pull-right">
+							<a id="btn_nuevo_banco" class="btn btn-circle green btn-xs" href="#modal_nuevo_banco" data-toggle="modal">
+								<i class="fa fa-plus"></i> Nuevo banco
 							</a>
-							<a href="javascript:;" class="reload">
-							</a>
+							</div>
 						</div>
 					</div>
 					<div class="portlet-body">
@@ -54,13 +55,6 @@
 							</tbody>
 						</table>
 						<br>
-						<div class="table-toolbar">
-							<div class="btn-group pull-right">
-								<a id="btn_nuevo_banco" class="btn btn-circle green btn-xs" href="#modal_nuevo_banco" data-toggle="modal">
-									<i class="fa fa-plus"></i> Nuevo banco
-								</a>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
