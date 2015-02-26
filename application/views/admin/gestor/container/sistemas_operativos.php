@@ -18,17 +18,19 @@
 						<div class="col-md-3">
 						</div>
 						<div class="col-md-6">
-							<div class="portlet box grey">
+							<div class="portlet light">
 								<div class="portlet-title">
-									<div class="caption" style="color: black">
-										<i class="fa fa-windows"></i> Sistemas Operativos
+									<div class="caption">
+										<span class="caption-subject bold uppercase"><i class="fa fa-windows"></i> Sistemas Operativos</span>
 									</div>
-									<div class="tools" style="color: black">
-										<a href="javascript:;" class="collapse">
-										</a>
-										<a href="javascript:;" class="reload">
-										</a>
-									</div>
+									<div class="actions">
+										<div class="btn-group pull-right">
+											<button id="tabla_operativos_editable_new" class="btn green btn-circle btn-xs">
+												<i class="fa fa-plus"></i> Nuevo Sistema Operativo
+											</button>
+										</div>
+								</a>
+							</div>
 								</div>
 								<div class="portlet-body">
 									<table class="table table-striped table-hover table-bordered" id="tabla_operativos_editable">
@@ -49,13 +51,6 @@
 											<?php endforeach ?>
 										</tbody>
 									</table>
-									<div class="table-toolbar">
-										<div class="btn-group pull-right">
-											<button id="tabla_operativos_editable_new" class="btn green btn-circle btn-xs">
-												<i class="fa fa-plus"></i> Nuevo Sistema Operativo
-											</button>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
