@@ -29,8 +29,7 @@
 												<i class="fa fa-plus"></i> Nuevo Sistema Operativo
 											</button>
 										</div>
-								</a>
-							</div>
+									</div>
 								</div>
 								<div class="portlet-body">
 									<table class="table table-striped table-hover table-bordered" id="tabla_operativos_editable">
