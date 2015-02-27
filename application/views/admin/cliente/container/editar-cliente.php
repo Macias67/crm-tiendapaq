@@ -356,7 +356,7 @@
 
 						<!--Sistemas-->
 						<div class="tab-pane" id="sistemas">
-							<!-- BEGIN TABLA SIATEMAS CONTPAQI -->
+							<!-- BEGIN TABLA SISTEMAS CONTPAQI -->
 							<div class="portlet light">
 								<div class="portlet-title">
 									<div class="caption">
@@ -378,6 +378,7 @@
 												<th>Versión</th>
 												<th>Número de Serie</th>
 												<th></th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -386,6 +387,7 @@
 													<td><?php echo $sistema->sistema ?></td>
 													<td><?php echo $sistema->version ?></td>
 													<td><?php echo $sistema->no_serie ?></td>
+													<td width="1%"><a href="<?php echo site_url('cliente/sistemas/mostrar/'.$sistema->id) ?>" data-target="#ajax_form_sistema" data-toggle="modal" class="btn btn-circle blue btn-xs"><i class="fa fa-search"></i> Ver/Editar</button></td>
 													<td width="1%"><button type="button" class="btn btn-circle red btn-xs eliminar-sistema"><i class="fa fa-trash-o"></i> Eliminar</button></td>
 												</tr>
 											<?php endforeach ?>
@@ -393,7 +395,7 @@
 									</table>
 								</div>
 							</div>
-							<!-- END TABLA SIATEMAS CONTPAQI -->
+							<!-- END TABLA SISTEMAS CONTPAQI -->
 						</div>
 
 						<!--Equipos-->
@@ -634,6 +636,17 @@
 					<button type="submit" id="btn_guardar_sistema" class="btn btn-circle green">Guardar</button>
 				</div>
 			</form>
+		</div>
+	</div>
+</div>
+<!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
+<div id="ajax_form_sistema" class="modal fade bs-modal-lg" role="basic" aria-hidden="true">
+	<div class="page-loading page-loading-boxed">
+		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<span>Cargando... </span>
+	</div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
 		</div>
 	</div>
 </div>

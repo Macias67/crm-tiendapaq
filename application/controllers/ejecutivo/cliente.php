@@ -535,9 +535,9 @@ class Cliente extends AbstractAccess {
 	 * de los clientes desde modo administrador
 	 *
 	 * @return void
-	 * @author Diego Rodriguez
+	 * @author Diego Rodriguez | Julio Trujillo
 	 **/
-	public function sistemas($accion)
+	public function sistemas($accion,$id=null)
 	{
 		switch ($accion)
 		{
@@ -545,9 +545,9 @@ class Cliente extends AbstractAccess {
 				//datos a insertar obtenidos del formulario
 				$sistema_cliente = array(
 					'id_cliente'	=> $this->input->post('id_cliente'),
-					'sistema'	=> $this->input->post('sistema'),
-					'version'	=> $this->input->post('version'),
-					'no_serie'	=> $this->input->post('no_serie')
+					'sistema'		=> $this->input->post('sistema'),
+					'version'		=> $this->input->post('version'),
+					'no_serie'		=> $this->input->post('no_serie')
 				 );
 
 				// Inserto a la BD
@@ -579,6 +579,25 @@ class Cliente extends AbstractAccess {
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
+			break;
+			case 'mostrar':
+				if ($sistema = $this->sistemasClienteModel->get_where(array('id' => $id)))
+				{
+					$this->load->helper('form');
+					// Busco todos los sistemas de Contpaqi para mandarlos en select
+					$sistemas_cliente	= $this->sistemasContpaqiModel->get(array('*'), $where = null, $orderBy = 'sistema', $orderForm = 'ASC');
+					$select = array(); // Aquí se guardarán sólo los sistemas
+					foreach ($sistemas_cliente as $sistema_cliente) {
+						$select[$sistema_cliente->sistema] = $sistema_cliente->sistema;
+					}
+
+					$this->data['sistema'] = $sistema;
+					$this->data['select_SIS'] = form_dropdown('sistema_cliente', $select, $sistema->sistema, 'class="form-control"');
+					$this->_vista_completa('cliente/modal-editar-sistema');
+				} else
+				{
+					show_error('No existe este sistema.', 404);
+				}
 			break;
 		}
 	}
@@ -721,13 +740,13 @@ class Cliente extends AbstractAccess {
 					$r86 = ($equipo->arquitectura == 'x86') ? TRUE : FALSE;
 					$radio64 = array(
 							'name'		=> 'arquitectura',
-							'id'			=> 'arquitectura1',
+							'id'		=> 'arquitectura1',
 							'value'		=> 'x64',
 							'checked'	=> $r64);
 
 					$radio86 = array(
 							'name'		=> 'arquitectura',
-							'id'			=> 'arquitectura2',
+							'id'		=> 'arquitectura2',
 							'value'		=> 'x86',
 							'checked'	=> $r86);
 
@@ -735,13 +754,13 @@ class Cliente extends AbstractAccess {
 					$si = ($equipo->maquina_virtual == 'Si') ? TRUE : FALSE;
 					$radioMVsi = array(
 							'name'		=> 'maquina_virtual',
-							'id'			=> 'maquina_virtual1',
+							'id'		=> 'maquina_virtual1',
 							'value'		=> 'Si',
 							'checked'	=> $si);
 
 					$radioMVno = array(
 							'name'		=> 'maquina_virtual',
-							'id'			=> 'maquina_virtual2',
+							'id'		=> 'maquina_virtual2',
 							'value'		=> 'No',
 							'checked'	=> !$si);
 
