@@ -36,7 +36,7 @@
 	<link href="<?php echo $assets_global_css ?>components.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_global_css ?>plugins.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_admin_layout ?>css/layout.css" rel="stylesheet" type="text/css"/>
-	<link id="style_color" href="<?php echo $assets_admin_layout ?>css/themes/default.css" rel="stylesheet" type="text/css"/>
+	<link id="style_color" href="<?php echo $assets_admin_layout ?>css/themes/blue.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo $assets_admin_layout ?>css/custom.css" rel="stylesheet" type="text/css"/>
 	<!-- END THEME STYLES -->
 

@@ -1,5 +1,5 @@
 /********************
- METRONIC COMPONENTS 
+ METRONIC COMPONENTS
 ********************/
 /***
 General reset
@@ -3808,7 +3808,8 @@ Portlets
 /* Light Portlet */
 .portlet.light {
   padding: 12px 20px 15px 20px;
-  background-color: #fff;
+  /*background-color: #fff;*/
+  background-color: rgba(255, 255, 255, 0.2);
 }
 .portlet.light.bordered {
   border: 1px solid #e1e1e1 !important;
@@ -4986,7 +4987,8 @@ Custom tabs
   border-color: #d4d4d4 #d4d4d4 transparent;
 }
 .tabbable-custom > .tab-content {
-  background-color: #fff;
+  /*background-color: #fff;*/
+  background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid #ddd;
   padding: 10px;
 }
@@ -5082,7 +5084,8 @@ Custom tabs
 }
 .tabbable-line > .tab-content {
   margin-top: -3px;
-  background-color: #fff;
+  /*background-color: #fff;*/
+  background-color: rgba(255, 255, 255, 0.61);
   border: 0;
   border-top: 1px solid #eee;
   padding: 15px 0;

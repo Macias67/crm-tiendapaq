@@ -323,7 +323,7 @@ Page Header
 /* Page sidebar */
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
-  background-color: #3d3d3d;
+/*  background-color: #3d3d3d;*/
   /* Default sidebar */
   /* light sidebar */
   /* Sidebar search */
