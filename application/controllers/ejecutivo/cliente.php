@@ -580,6 +580,7 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
+			
 			case 'mostrar':
 				if ($sistema = $this->sistemasClienteModel->get_where(array('id' => $id)))
 				{
@@ -591,8 +592,9 @@ class Cliente extends AbstractAccess {
 						$select[$sistema_cliente->sistema] = $sistema_cliente->sistema;
 					}
 
+					// Mandamos datos a la vista y la llamamos
 					$this->data['sistema'] = $sistema;
-					$this->data['select_SIS'] = form_dropdown('sistema_cliente', $select, $sistema->sistema, 'class="form-control"');
+					$this->data['select_SIS'] = form_dropdown('sistema_editar', $select, $sistema->sistema, 'class="form-control" id="select_sistemas"'); // Despliega un select
 					$this->_vista_completa('cliente/modal-editar-sistema');
 				} else
 				{

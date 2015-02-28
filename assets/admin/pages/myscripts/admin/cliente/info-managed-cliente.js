@@ -319,6 +319,7 @@ var InfoManagedCliente = function() {
 				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
+				{ "orderable": false },
 				{ "orderable": false }
 			],
 			"language": {
@@ -346,6 +347,79 @@ var InfoManagedCliente = function() {
 				}
 			],
 			"order": [0, 'asc' ] // set first column as a default sort by asc
+		});
+
+		// Validaciones para editar sistema
+		var modal = $('#ajax_form_sistema');
+		modal.on('shown.bs.modal', function (e) {
+			var form = $('#form-sistema');
+			var error = $('.alert-danger', form);
+			var success = $('.alert-success', form);
+			handleVersionesCliente();
+
+
+			form.validate({
+				errorElement: 'span', //default input error message container
+				errorClass: 'help-block help-block-error', // default input error message class
+				focusInvalid: true, // do not focus the last invalid input
+				ignore: "",  // validate all fields including form hidden input
+				rules: {
+					sistema: {
+						required: true
+					},
+					version: {
+						required: true,
+					},
+					no_serie: {
+						maxlength: 20
+					}
+				},
+				messages: {
+					sistema: {
+						required: "Seleccione un sistema."
+					},
+					version: {
+						required: "Selecciona una versión del sistema."
+					},
+					no_serie: {
+						maxlength: "No. de Serie debe tener menos de 20 caracteres"
+					}
+				},
+				invalidHandler: function (event, validator) { //display error alert on form submit
+					error.fadeIn('slow');
+				},
+				highlight: function (element) { // hightlight error inputs
+					$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+				},
+				unhighlight: function (element) { // revert the change done by hightlight
+					$(element)
+					.closest('.form-group').removeClass('has-error'); // set error class to the control group
+				},
+				success: function (label) {
+					label
+					.closest('.form-group').removeClass('has-error'); // set success class to the control group
+				},
+				submitHandler: function (form) {
+					var url 		= '/cliente/sistemas/editar';
+					var param 	= $('#form-sistema').serialize();
+					Metronic.showLoader();
+					$.post(url, param, function(data, textStatus, xhr) {
+						if (data.exito) {
+							Metronic.removeLoader();
+							modal_nuevo.modal('hide');
+							bootbox.alert(data.msg, function() {
+								location.reload();
+							});
+						} else {
+							bootbox.alert(data.msg, function() {
+								modal_nuevo.modal('show');
+								Metronic.removeLoader();
+							});
+						}
+					}, 'json');
+				}
+			});
 		});
 
 		// Validaciones para nuevo sistema

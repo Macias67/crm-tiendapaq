@@ -2,7 +2,7 @@
 	<h3 class="modal-title"><b>Sistema</b></h3>
 	<small> </small>
 </div>
-<form id ="form-sistema-nuevo" method="post" accept-charset="utf-8">
+<form id="form-sistema" method="post" accept-charset="utf-8">
 	<div class="modal-body form-horizontal">
 		<div class="col-md-12">
 			<!-- DIV ERROR -->
@@ -21,7 +21,6 @@
 						<div class="col-md-8">
 							<input type="hidden" class="form-control" name="id" value="<?php echo $sistema->id ?>">
 							<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $sistema->id_cliente ?>">
-							<!-- Revisar con macias lo del id de cliente -->
 							<div class="input-icon">
 								<i class="fa fa-info"></i>
 								<?php echo $select_SIS ?>

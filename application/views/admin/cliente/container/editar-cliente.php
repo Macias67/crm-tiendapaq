@@ -640,12 +640,12 @@
 	</div>
 </div>
 <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
-<div id="ajax_form_sistema" class="modal fade bs-modal-lg" role="basic" aria-hidden="true">
+<div id="ajax_form_sistema" class="modal fade container fade" role="basic" aria-hidden="true">
 	<div class="page-loading page-loading-boxed">
 		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
 		<span>Cargando... </span>
 	</div>
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 		<div class="modal-content">
 		</div>
 	</div>
