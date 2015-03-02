@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div class="portlet-body">
-						<table class="table table-striped table-hover table-bordered" id="tabla_bancos_editable">>
+						<table class="table table-striped table-hover table-bordered" id="tabla_bancos_editable">
 							<thead>
 								<tr>
 									<th>Banco</th>
