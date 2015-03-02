@@ -17,18 +17,18 @@
 				<div class="portlet light">
 					<div class="portlet-title">
 						<div class="caption">
-							<span class="caption-subject bold uppercase"><i class="fa fa-usd"></i> Bancos</span> 
+							<span class="caption-subject bold uppercase"><i class="fa fa-usd"></i> Bancos</span>
 						</div>
 						<div class="actions">
 							<div class="btn-group pull-right">
-							<a id="btn_nuevo_banco" class="btn btn-circle green btn-xs" href="#modal_nuevo_banco" data-toggle="modal">
-								<i class="fa fa-plus"></i> Nuevo banco
-							</a>
+								<a id="btn_nuevo_banco" class="btn btn-circle green btn-xs" href="#modal_nuevo_banco" data-toggle="modal">
+									<i class="fa fa-plus"></i> Nuevo banco
+								</a>
 							</div>
 						</div>
 					</div>
 					<div class="portlet-body">
-						<table class="table table-striped table-hover table-bordered" id="tabla_bancos_editable">
+						<table class="table table-striped table-hover table-bordered" id="tabla_bancos_editable">>
 							<thead>
 								<tr>
 									<th>Banco</th>
@@ -41,7 +41,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach ($bancos as $banco): ?>
+								<?php foreach ($bancos as $banco) : ?>
 									<tr id="<?php echo $banco->id_banco?>">
 										<td><?php echo $banco->banco ?></td>
 										<td><?php echo $banco->sucursal ?></td>
@@ -54,9 +54,9 @@
 								<?php endforeach ?>
 							</tbody>
 						</table>
-						<br>
 					</div>
 				</div>
+				<!-- END TABLA BANCOS -->
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->

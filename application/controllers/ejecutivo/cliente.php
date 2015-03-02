@@ -378,7 +378,7 @@ class Cliente extends AbstractAccess {
 	public function versiones()
 	{
 		$sistema	= $this->input->post('sistema');
-		$versiones	= $this->sistemasContpaqiModel->get(array('versiones'),array('sistema' => $sistema));
+		$versiones	= $this->sistemasContpaqiModel->get(array('versiones'), array('sistema' => $sistema));
 
 		// El string que traje de la bd lo convierto a array
 		$versiones_array	= explode(',',$versiones[0]->versiones);
@@ -393,7 +393,38 @@ class Cliente extends AbstractAccess {
 	}
 
 	/**
-	 * Funcion para gestionar los contactos de los clientes desde modo administrador
+	 * Funcion que me responde mediante JSON
+	 * la version que tiene el cliente
+	 * segun el sistema.
+	 *
+	 * @author Luis Macias
+	 **/
+	public function version_cliente()
+	{
+		$sistema	= $this->input->post('sistema');
+		// Obtengo la version actual del sistema del CLIENTE
+		$sistema_cliente 	= $this->sistemasClienteModel->get_where(array('sistema' => $sistema));
+		// Obtengo TODAS las versiones disponibles del sistema
+		$versiones			= $this->sistemasContpaqiModel->get(array('versiones'), array('sistema' => $sistema));
+		// El string que traje de la bd lo convierto a array
+		$versiones_array	= explode(',',$versiones[0]->versiones);
+		// Cuento total de versiones
+		$num_versiones	= count($versiones_array);
+		// Armo mi respuesta
+		$response = array(
+		                  'exito' 			=> TRUE,
+		                  'version_actual' 	=> $sistema_cliente->version,
+		                  'num_versiones'	=> $num_versiones,
+		                  'versiones' 		=> $versiones_array);
+		// Respondo con JSON
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+	/**
+	 * Funcion para gestionar los contactos de
+	 * los clientes desde modo administrador
 	 *
 	 * @return json
 	 * @author Diego Rodriguez
@@ -535,19 +566,19 @@ class Cliente extends AbstractAccess {
 	 * de los clientes desde modo administrador
 	 *
 	 * @return void
-	 * @author Diego Rodriguez
+	 * @author Diego Rodriguez | Julio Trujillo
 	 **/
-	public function sistemas($accion)
+	public function sistemas($accion,$id=null)
 	{
 		switch ($accion)
 		{
 			case 'nuevo':
 				//datos a insertar obtenidos del formulario
 				$sistema_cliente = array(
-					'id_cliente'	=> $this->input->post('id_cliente'),
-					'sistema'	=> $this->input->post('sistema'),
-					'version'	=> $this->input->post('version'),
-					'no_serie'	=> $this->input->post('no_serie')
+					'id_cliente'		=> $this->input->post('id_cliente'),
+					'sistema'		=> $this->input->post('sistema'),
+					'version'		=> $this->input->post('version'),
+					'no_serie'		=> $this->input->post('no_serie')
 				 );
 
 				// Inserto a la BD
@@ -556,7 +587,31 @@ class Cliente extends AbstractAccess {
 					$respuesta = array('exito' => TRUE, 'msg' => '<h4><b>'.$sistema_cliente['sistema'].'</b> versión <b>'.$sistema_cliente['version'].'</b> añadido con éxito.</h4>');
 				} else
 				{
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se agregó, revisa la consola o la base de datos para detalles');
+				}
+
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			break;
+
+			case 'editar':
+				// Datos que se actualizarán obtenidos del formulario
+				$sistema_cliente = array(
+					'id_cliente'		=> $this->input->post('id_cliente'),
+					'sistema'		=> $this->input->post('sistema_editar'),
+					'version'		=> $this->input->post('sistema_version_editar'),
+					'no_serie'		=> $this->input->post('no_serie')
+				 );
+				// Obtenemos el id del sistema para saber en dónde actualizar
+				$id = $this->input->post('id');
+				// Actualizo la Base de datos
+				if($this->sistemasClienteModel->update($sistema_cliente, array('id' => $id)))
+				{
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se actualizó la información del sistema</h4>');
+				} else
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizó, revisa la consola o la base de datos para más detalles');
 				}
 
 				$this->output
@@ -573,12 +628,46 @@ class Cliente extends AbstractAccess {
 					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Sistema eliminado con éxito.</h4>');
 				}else
 				{
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se eliminó, revisa la consola o la base de datos');
 				}
 
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
+			break;
+
+			case 'mostrar':
+				if ($sistema_cliente = $this->sistemasClienteModel->get_where(array('id' => $id)))
+				{
+					$this->load->helper('form');
+					// Busco todos los sistemas de Contpaqi para mandarlos en select
+					$sistemas	= $this->sistemasContpaqiModel->get(array('*'), null, 'sistema');
+					// Extraigo todos las versiones de un sistema en especifico
+					$versiones_string	= $this->sistemasContpaqiModel->get(array('versiones'), array('sistema' => $sistema_cliente->sistema), 'sistema', 'ASC', 1);
+					$sistemas_array = array(); // Aquí se guardarán sólo los sistemas
+					$versiones_array = array(); // Aquí se guardarán sólo los versiones
+					// Se convierte string de versiones a arreglo simple de versiones
+					$versiones_explode = explode(',', $versiones_string->versiones);
+					// Formando array clave-valor para armado de select de sistemas
+					foreach ($sistemas as $sistema) {
+						$sistemas_array[$sistema->sistema] = $sistema->sistema;
+					}
+					// Formando array clave-valor para armado de select de versiones
+					foreach ($versiones_explode as $index => $version) {
+						$version = trim($version);
+						$versiones_array[$version] = $version;
+					}
+
+
+					// Mandamos datos a la vista y la llamamos
+					$this->data['sistema'] 		= $sistema_cliente;
+					$this->data['select_SIS'] 	= form_dropdown('sistema_editar', $sistemas_array, $sistema_cliente->sistema, 'class="form-control select_sistemas"'); // Despliega un select
+					$this->data['select_VERS'] 	= form_dropdown('sistema_version_editar', $versiones_array, $sistema_cliente->version, 'class="form-control select_versiones"'); // Despliega un select
+					$this->_vista_completa('cliente/modal-editar-sistema');
+				} else
+				{
+					show_error('No existe este sistema.', 404);
+				}
 			break;
 		}
 	}
@@ -721,13 +810,13 @@ class Cliente extends AbstractAccess {
 					$r86 = ($equipo->arquitectura == 'x86') ? TRUE : FALSE;
 					$radio64 = array(
 							'name'		=> 'arquitectura',
-							'id'			=> 'arquitectura1',
+							'id'		=> 'arquitectura1',
 							'value'		=> 'x64',
 							'checked'	=> $r64);
 
 					$radio86 = array(
 							'name'		=> 'arquitectura',
-							'id'			=> 'arquitectura2',
+							'id'		=> 'arquitectura2',
 							'value'		=> 'x86',
 							'checked'	=> $r86);
 
@@ -735,13 +824,13 @@ class Cliente extends AbstractAccess {
 					$si = ($equipo->maquina_virtual == 'Si') ? TRUE : FALSE;
 					$radioMVsi = array(
 							'name'		=> 'maquina_virtual',
-							'id'			=> 'maquina_virtual1',
+							'id'		=> 'maquina_virtual1',
 							'value'		=> 'Si',
 							'checked'	=> $si);
 
 					$radioMVno = array(
 							'name'		=> 'maquina_virtual',
-							'id'			=> 'maquina_virtual2',
+							'id'		=> 'maquina_virtual2',
 							'value'		=> 'No',
 							'checked'	=> !$si);
 

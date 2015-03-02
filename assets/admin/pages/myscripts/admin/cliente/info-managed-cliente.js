@@ -13,28 +13,57 @@ var InfoManagedCliente = function() {
 	}
 
 	// Versiones de sistemas
-	var handleVersionesCliente = function () {
+	var handleVersionesClienteNuevo = function () {
 		var sistema;
 		//funcion change detecta cambios en el objeto
 		//seleccionado es este caso un select
-		$("#select_sistemas").on('change', function(){
-			sistema = $('#select_sistemas').val();
+		$(".select_sistemas").on('change', function(){
+			sistema = $(this).val();
 			//filtro para verificar que hay un sistema seleccionado
 			if(sistema!=undefined && sistema!="")
 			{
 				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
 					if (data.exito) {
-						var opciones_select="<option value=''></option>";
+						var opciones_select="";
 						for ( var i = 0; i < data.num_versiones; i++ ) {
 							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
 						}
-						$('#select_versiones').html(opciones_select);
+						$('.select_versiones').html(opciones_select);
 					}
 				}, 'json');
 			}else{
-				$('#select_versiones').html('');
+				$('.select_versiones').html('');
 			}
 		});
+	}
+
+	// Metodo para cargar versiones en modal cuando
+	// se edite la version del sistema
+	var handleVersionesClienteEditar = function () {
+		var sistema;
+		//funcion change detecta cambios en el objeto
+		//seleccionado es este caso un select
+		sistema = $('.select_sistemas').val();
+		//filtro para verificar que hay un sistema seleccionado
+		if(sistema!=undefined && sistema!="")
+		{
+			$.post('/cliente/version_cliente', {sistema: sistema}, function(data, textStatus, xhr) {
+				if (data.exito) {
+					var opciones_select="";
+					for ( var i = 0; i < data.num_versiones; i++ ) {
+						var version = $.trim(data.versiones[i]);
+						if (version == data.version_actual) {
+							opciones_select+='<option value='+'"'+version+'"'+' selected>'+version+'</option>';
+						} else {
+							opciones_select+='<option value='+'"'+version+'"'+'>'+version+'</option>';
+						}
+					}
+					$('.select_versiones').html(opciones_select);
+				}
+			}, 'json');
+		}else{
+			$('.select_versiones').html('');
+		}
 	}
 
 	// Contactos de un cliente
@@ -319,6 +348,7 @@ var InfoManagedCliente = function() {
 				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
+				{ "orderable": false },
 				{ "orderable": false }
 			],
 			"language": {
@@ -348,13 +378,84 @@ var InfoManagedCliente = function() {
 			"order": [0, 'asc' ] // set first column as a default sort by asc
 		});
 
+		// Validaciones para editar sistema
+		var modal_editar = $('#ajax_form_sistema');
+		modal_editar.on('shown.bs.modal', function (e) {
+			var form = $('#form-sistema-editar');
+			var error = $('.alert-danger', form);
+			var success = $('.alert-success', form);
+			handleVersionesClienteNuevo();
+			form.validate({
+				errorElement: 'span', //default input error message container
+				errorClass: 'help-block help-block-error', // default input error message class
+				focusInvalid: true, // do not focus the last invalid input
+				ignore: "",  // validate all fields including form hidden input
+				rules: {
+					sistema: {
+						required: true
+					},
+					version: {
+						required: true,
+					},
+					no_serie: {
+						maxlength: 15
+					}
+				},
+				messages: {
+					sistema: {
+						required: "Seleccione un sistema."
+					},
+					version: {
+						required: "Selecciona una versión del sistema."
+					},
+					no_serie: {
+						maxlength: "No. de Serie debe tener menos de 20 caracteres"
+					}
+				},
+				invalidHandler: function (event, validator) { //display error alert on form submit
+					error.fadeIn('slow');
+				},
+				highlight: function (element) { // hightlight error inputs
+					$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+				},
+				unhighlight: function (element) { // revert the change done by hightlight
+					$(element)
+					.closest('.form-group').removeClass('has-error'); // set error class to the control group
+				},
+				success: function (label) {
+					label
+					.closest('.form-group').removeClass('has-error'); // set success class to the control group
+				},
+				submitHandler: function (form) {
+					var url 		= '/cliente/sistemas/editar';
+					var param 	= $('#form-sistema-editar').serialize();
+					Metronic.showLoader();
+					$.post(url, param, function(data, textStatus, xhr) {
+						if (data.exito) {
+							Metronic.removeLoader();
+							modal_nuevo.modal('hide');
+							bootbox.alert(data.msg, function() {
+								location.reload();
+							});
+						} else {
+							bootbox.alert(data.msg, function() {
+								modal_nuevo.modal('show');
+								Metronic.removeLoader();
+							});
+						}
+					}, 'json');
+				}
+			});
+		});
+
 		// Validaciones para nuevo sistema
 		var modal_nuevo = $('#nuevo_sistema_form');
 		modal_nuevo.on('shown.bs.modal', function (e) {
 			var form = $('#form-sistema-nuevo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
-			handleVersionesCliente();
+			handleVersionesClienteNuevo();
 
 			form.validate({
 				errorElement: 'span', //default input error message container
