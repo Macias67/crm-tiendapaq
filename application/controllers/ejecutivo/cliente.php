@@ -556,13 +556,39 @@ class Cliente extends AbstractAccess {
 					$respuesta = array('exito' => TRUE, 'msg' => '<h4><b>'.$sistema_cliente['sistema'].'</b> versión <b>'.$sistema_cliente['version'].'</b> añadido con éxito.</h4>');
 				} else
 				{
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se agregó, revisa la consola o la base de datos para detalles');
 				}
 
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));
 			break;
+
+			case 'editar':
+			$this->form_validation->set_rules('no_serie', 'Número de serie', 'trim|max_length[15]|xss_clean');
+				// Datos que se actualizarán obtenidos del formulario
+				$sistema_cliente = array(
+					'id_cliente'	=> $this->input->post('id_cliente'),
+					'sistema'		=> $this->input->post('sistema_editar'),
+					'version'		=> $this->input->post('version'),
+					'no_serie'		=> $this->input->post('no_serie')
+				 );
+				// Obtenemos el id del sistema para saber en dónde actualizar
+					$id = $this->input->post('id');
+				// Actualizo la Base de datos
+				if($this->sistemasClienteModel->update($sistema_cliente, array('id' => $id)))
+				{
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se actualizó la información del sistema</h4>');
+				} else
+				{
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizó, revisa la consola o la base de datos para más detalles');
+				}
+
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			break;
+
 
 			case 'eliminar':
 				$id			= $this->input->post('id');
@@ -573,7 +599,7 @@ class Cliente extends AbstractAccess {
 					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Sistema eliminado con éxito.</h4>');
 				}else
 				{
-					$respuesta = array('exito' => FALSE, 'msg' => 'No se elimino, revisa la consola o la base de datos');
+					$respuesta = array('exito' => FALSE, 'msg' => 'No se eliminó, revisa la consola o la base de datos');
 				}
 
 				$this->output
@@ -594,7 +620,7 @@ class Cliente extends AbstractAccess {
 
 					// Mandamos datos a la vista y la llamamos
 					$this->data['sistema'] = $sistema;
-					$this->data['select_SIS'] = form_dropdown('sistema_editar', $select, $sistema->sistema, 'class="form-control" id="select_sistemas"'); // Despliega un select
+					$this->data['select_SIS'] = form_dropdown('sistema_editar', $select, $sistema->sistema, 'class="form-control" id="select_sistemas2"'); // Despliega un select
 					$this->_vista_completa('cliente/modal-editar-sistema');
 				} else
 				{

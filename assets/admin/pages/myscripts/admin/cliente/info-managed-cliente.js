@@ -37,6 +37,30 @@ var InfoManagedCliente = function() {
 		});
 	}
 
+	var handleVersionesCliente2 = function () {
+		var sistema;
+		//funcion change detecta cambios en el objeto
+		//seleccionado es este caso un select
+		$("#select_sistemas2").on('change', function(){
+			sistema = $('#select_sistemas2').val();
+			//filtro para verificar que hay un sistema seleccionado
+			if(sistema!=undefined && sistema!="")
+			{
+				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
+					if (data.exito) {
+						var opciones_select="<option value=''></option>";
+						for ( var i = 0; i < data.num_versiones; i++ ) {
+							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
+						}
+						$('#select_versiones2').html(opciones_select);
+					}
+				}, 'json');
+			}else{
+				$('#select_versiones2').html('');
+			}
+		});
+	}
+
 	// Contactos de un cliente
 	var handleContactos = function() {
 		var table = $('#tabla_contactos');
@@ -355,7 +379,7 @@ var InfoManagedCliente = function() {
 			var form = $('#form-sistema');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
-			handleVersionesCliente();
+			handleVersionesCliente2();
 
 
 			form.validate({
@@ -371,7 +395,7 @@ var InfoManagedCliente = function() {
 						required: true,
 					},
 					no_serie: {
-						maxlength: 20
+						maxlength: 15
 					}
 				},
 				messages: {

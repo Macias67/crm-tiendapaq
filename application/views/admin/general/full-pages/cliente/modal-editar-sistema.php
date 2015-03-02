@@ -33,7 +33,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-history"></i>
-								<select class="form-control" name="version" id="select_versiones"></select>
+								<select class="form-control" name="version" id="select_versiones2"></select>
 							</div>
 						</div>
 					</div>
