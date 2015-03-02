@@ -2,7 +2,7 @@
 	<h3 class="modal-title"><b>Sistema</b></h3>
 	<small> </small>
 </div>
-<form id="form-sistema" method="post" accept-charset="utf-8">
+<form id="form-sistema-editar" method="post" accept-charset="utf-8">
 	<div class="modal-body form-horizontal">
 		<div class="col-md-12">
 			<!-- DIV ERROR -->
@@ -33,7 +33,10 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-history"></i>
-								<select class="form-control" name="version" id="select_versiones2"></select>
+								<?php echo $select_VERS ?>
+								<!-- <select class="form-control" name="version" id="select_versiones_edita">
+
+								</select> -->
 							</div>
 						</div>
 					</div>
@@ -43,7 +46,7 @@
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-user"></i>
-								<input type="text" class="form-control" placeholder="No. Serie" name="no_serie" value="">
+								<input type="text" class="form-control" placeholder="No. Serie" name="no_serie" value="<?php echo $sistema->no_serie ?>">
 							</div>
 						</div>
 					</div>

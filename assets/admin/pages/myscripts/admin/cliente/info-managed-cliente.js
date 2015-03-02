@@ -13,52 +13,57 @@ var InfoManagedCliente = function() {
 	}
 
 	// Versiones de sistemas
-	var handleVersionesCliente = function () {
+	var handleVersionesClienteNuevo = function () {
 		var sistema;
 		//funcion change detecta cambios en el objeto
 		//seleccionado es este caso un select
-		$("#select_sistemas").on('change', function(){
-			sistema = $('#select_sistemas').val();
+		$(".select_sistemas").on('change', function(){
+			sistema = $(this).val();
 			//filtro para verificar que hay un sistema seleccionado
 			if(sistema!=undefined && sistema!="")
 			{
 				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
 					if (data.exito) {
-						var opciones_select="<option value=''></option>";
+						var opciones_select="";
 						for ( var i = 0; i < data.num_versiones; i++ ) {
 							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
 						}
-						$('#select_versiones').html(opciones_select);
+						$('.select_versiones').html(opciones_select);
 					}
 				}, 'json');
 			}else{
-				$('#select_versiones').html('');
+				$('.select_versiones').html('');
 			}
 		});
 	}
 
-	var handleVersionesCliente2 = function () {
+	// Metodo para cargar versiones en modal cuando
+	// se edite la version del sistema
+	var handleVersionesClienteEditar = function () {
 		var sistema;
 		//funcion change detecta cambios en el objeto
 		//seleccionado es este caso un select
-		$("#select_sistemas2").on('change', function(){
-			sistema = $('#select_sistemas2').val();
-			//filtro para verificar que hay un sistema seleccionado
-			if(sistema!=undefined && sistema!="")
-			{
-				$.post('/cliente/versiones', {sistema: sistema}, function(data, textStatus, xhr) {
-					if (data.exito) {
-						var opciones_select="<option value=''></option>";
-						for ( var i = 0; i < data.num_versiones; i++ ) {
-							opciones_select+='<option value='+'"'+$.trim(data.versiones[i])+'"'+'>'+$.trim(data.versiones[i])+'</option>';
+		sistema = $('.select_sistemas').val();
+		//filtro para verificar que hay un sistema seleccionado
+		if(sistema!=undefined && sistema!="")
+		{
+			$.post('/cliente/version_cliente', {sistema: sistema}, function(data, textStatus, xhr) {
+				if (data.exito) {
+					var opciones_select="";
+					for ( var i = 0; i < data.num_versiones; i++ ) {
+						var version = $.trim(data.versiones[i]);
+						if (version == data.version_actual) {
+							opciones_select+='<option value='+'"'+version+'"'+' selected>'+version+'</option>';
+						} else {
+							opciones_select+='<option value='+'"'+version+'"'+'>'+version+'</option>';
 						}
-						$('#select_versiones2').html(opciones_select);
 					}
-				}, 'json');
-			}else{
-				$('#select_versiones2').html('');
-			}
-		});
+					$('.select_versiones').html(opciones_select);
+				}
+			}, 'json');
+		}else{
+			$('.select_versiones').html('');
+		}
 	}
 
 	// Contactos de un cliente
@@ -374,14 +379,12 @@ var InfoManagedCliente = function() {
 		});
 
 		// Validaciones para editar sistema
-		var modal = $('#ajax_form_sistema');
-		modal.on('shown.bs.modal', function (e) {
-			var form = $('#form-sistema');
+		var modal_editar = $('#ajax_form_sistema');
+		modal_editar.on('shown.bs.modal', function (e) {
+			var form = $('#form-sistema-editar');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
-			handleVersionesCliente2();
-
-
+			handleVersionesClienteNuevo();
 			form.validate({
 				errorElement: 'span', //default input error message container
 				errorClass: 'help-block help-block-error', // default input error message class
@@ -426,7 +429,7 @@ var InfoManagedCliente = function() {
 				},
 				submitHandler: function (form) {
 					var url 		= '/cliente/sistemas/editar';
-					var param 	= $('#form-sistema').serialize();
+					var param 	= $('#form-sistema-editar').serialize();
 					Metronic.showLoader();
 					$.post(url, param, function(data, textStatus, xhr) {
 						if (data.exito) {
@@ -452,7 +455,7 @@ var InfoManagedCliente = function() {
 			var form = $('#form-sistema-nuevo');
 			var error = $('.alert-danger', form);
 			var success = $('.alert-success', form);
-			handleVersionesCliente();
+			handleVersionesClienteNuevo();
 
 			form.validate({
 				errorElement: 'span', //default input error message container

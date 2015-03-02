@@ -29,7 +29,7 @@ class CotizacionModel extends MY_Model {
 	{
 		$folio = $this->cotizacionModel->get('folio', null, 'folio', 'DESC', 1);
 		if (empty($folio)) {
-			$folio = 1;
+			$folio = 7100; // valor definido por Eleazar
 		} else {
 			$folio = (int)$folio->folio;
 			$folio++;

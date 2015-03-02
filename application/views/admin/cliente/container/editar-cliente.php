@@ -595,7 +595,7 @@
 										<input type="hidden" class="form-control" name="id_cliente" value="<?php echo $cliente->id ?>">
 										<div class="input-icon">
 											<i class="fa fa-info"></i>
-											<select class="form-control" name="sistema" id="select_sistemas">
+											<select class="form-control select_sistemas" name="sistema">
 												<option value=""></option>
 												<?php foreach ($sistemas_contpaqi as $sistema): ?>
 												<option value="<?php echo $sistema->sistema?>"><?php echo $sistema->sistema ?></option>
@@ -610,7 +610,7 @@
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-history"></i>
-											<select class="form-control" name="version" id="select_versiones">
+											<select class="form-control select_versiones" name="version">
 											</select>
 										</div>
 									</div>
