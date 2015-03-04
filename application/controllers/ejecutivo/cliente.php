@@ -110,7 +110,7 @@ class Cliente extends AbstractAccess {
 	{
 		//Datos basicos
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|callback_email_check|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|required|valid_email|xss_clean'); // NO VALIDA EMAIL 04/03/15
 		//Acceso al sistema
 		$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|max_length[10]|callback_usuario_check|xss_clean');
 		$this->form_validation->set_rules('password', 'Contraseña', 'trim|required|max_length[10]|xss_clean');
