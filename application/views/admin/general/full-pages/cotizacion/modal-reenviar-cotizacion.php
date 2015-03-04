@@ -39,7 +39,7 @@
 											<div class="input-icon">
 												<i class="fa fa-inbox"></i>
 												<input type="hidden" id="folio" value="<?php echo $folio ?>">
-												<label class="form-control email_contacto" type"text" value=""></label>
+												<input class="form-control email_contacto" type"text" value="">
 											</div>
 										</div>
 									</div>

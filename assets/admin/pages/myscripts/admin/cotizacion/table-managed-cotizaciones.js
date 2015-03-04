@@ -154,7 +154,7 @@ var TableManagedCotizaciones = function () {
 
 			$('.btn_reenviar_cotizacion').on('click', function() {
 				var folio = $('#folio').val();
-				var email = $('#select_contacto').val();
+				var email = $('.email_contacto').val();
 
 				$.ajax({
 					url: '/cotizaciones/reenvio/'+folio,
