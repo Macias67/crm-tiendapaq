@@ -493,16 +493,27 @@ class Cotizacion extends AbstractAccess {
 		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio);
 
 		$this->load->helper('directory');
-		$archivos = directory_map('./clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/', 1);
+		$this->load->helper('file');
+		$ruta = '/clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/';
+		$archivos = directory_map('.'.$ruta, 1);
+
+		$imagenes 	= array();
+		$pdfs 		= array();
+
 		// Descarto la carpeta de las thumnail
 		foreach ($archivos as $index => $archivo) {
-			if ($archivos[$index] == 'thumbnail') {
-				unset($archivos[$index]);
+			$tipo = explode("/", get_mime_by_extension($archivos[$index]));
+			if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
+				array_push($imagenes, $archivos[$index]);
+			} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
+				array_push($pdfs, $archivos[$index]);
 			}
 		}
 
-		$this->data['archivos'] = $archivos;
-		$this->data['cotizacion'] = $cotizacion;
+		$this->data['cotizacion'] 	= $cotizacion;
+		$this->data['imagenes'] 	= $imagenes;
+		$this->data['pdfs'] 			= $pdfs;
+		$this->data['ruta_pdf']		= $ruta;
 		$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 
 		$this->_vista('detalles');
