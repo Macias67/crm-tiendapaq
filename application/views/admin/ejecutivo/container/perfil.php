@@ -142,7 +142,7 @@
 													</tbody>
 												</table>
 											</div>
-											<!--TAB CASOS-->
+											<!-- INICIO TAB CASOS-->
 											<div class="tab-pane" id="tab_casos">
 												<table class="table table-striped table-bordered table-hover" id="casos-ejecutivo">
 													<thead>
@@ -187,6 +187,7 @@
 													</tbody>
 												</table>
 											</div>
+											<!-- FIN TAB CASOS-->
 										</div>
 									</div>
 									<!-- END PANEL PENDIENTES-CASOS -->
