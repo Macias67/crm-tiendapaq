@@ -237,18 +237,18 @@ var TableManaged = function () {
 
 	// Agregué este evento del que ya tenía en Perfil>Casos
 	$('#ajax-detalles-caso').on('click', '.ver-cotizacion', function(){
-				var url     = '/cotizaciones/previapdf';
-				var folio = $('#folio_cotizacion').val();
-				var idcliente = $('#id_cliente').val();
+		var url     = '/cotizaciones/previapdf';
+		var folio = $('#folio_cotizacion').val();
+		var idcliente = $('#id_cliente').val();
 
-				$.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
-					if (data.existe) {
-						window.open(data.ruta,'','height=800,width=800');
-					}else{
-						bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
-					}
-				}, 'json');
-			});
+		$.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
+			if (data.existe) {
+				window.open(data.ruta,'','height=800,width=800');
+			}else{
+				bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
+			}
+		}, 'json');
+	});
 
 	// Agregué este evento del que ya tenía en Perfil>Casos
 	$('#ajax-detalles-caso').on('click', '.cerrar-caso', function(){
