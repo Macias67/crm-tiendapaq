@@ -89,37 +89,36 @@ var UIExtendedModals = function () {
 			});
 
 			$('#ajax-detalles-caso').on('click', '.ver-cotizacion', function(){
-      var url     = '/cotizaciones/previapdf';
-      var folio = $('#folio_cotizacion').val();
-      var idcliente = $('#id_cliente').val();
+				var url     = '/cotizaciones/previapdf';
+				var folio = $('#folio_cotizacion').val();
+				var idcliente = $('#id_cliente').val();
 
-      $.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
-        if (data.existe) {
-          window.open(data.ruta,'','height=800,width=800');
-        }else{
-          bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
-        }
-      }, 'json');
-    });
+				$.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
+					if (data.existe) {
+						window.open(data.ruta,'','height=800,width=800');
+					}else{
+						bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
+					}
+				}, 'json');
+			});
 
-	$('#ajax-detalles-caso').on('click', '.cerrar-caso', function(){
-		bootbox.confirm('<h4>¿Seguro que quieres cerrar este caso?</h4>', function (response) {
-			if(response){
-				var url     = '/caso/cerrar';
-			      var id_caso = $('#id_caso').val();
+			$('#ajax-detalles-caso').on('click', '.cerrar-caso', function(){
+				bootbox.confirm('<h4>¿Seguro que quieres cerrar este caso?</h4>', function (response) {
+					if(response){
+						var url     = '/caso/cerrar';
+						var id_caso = $('#id_caso').val();
 
-			      $.post(url, {id_caso:id_caso}, function(data, textStatus, xhr) {
-			        if (data.exito) {
-			         bootbox.alert(data.msg);
-			         parent.location.reload();
-			        }else{
-			          bootbox.alert(data.msg);
-
-			        }
-			      }, 'json');
-			}
-		});
-   	 });
+						$.post(url, {id_caso:id_caso}, function(data, textStatus, xhr) {
+							if (data.exito) {
+								bootbox.alert(data.msg);
+								parent.location.reload();
+							}else{
+								bootbox.alert(data.msg);
+							}
+					    	}, 'json');
+					}
+				});
+		   	 });
 
 		}
 	};
