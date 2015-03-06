@@ -14,7 +14,6 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
-
 		if($this->usuario_activo['privilegios'] == "cliente")
 		{
 			// SECCION PARA CLIENTES
@@ -83,18 +82,18 @@ class Inicio extends AbstractAccess {
 			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
 			// Listado de pendientes DEL USUARIO ACTIVO
 			$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(array(	'id_pendiente',
-																								                                     	'actividades_pendiente.actividad',
-																								                                     	'clientes.razon_social',
-																								                                     	'fecha_origen',
-																								                                     	'id_estatus_general'),
-																								                                       $this->usuario_activo['id'], 
-																								                                       $this->controlador);
+															'actividades_pendiente.actividad',
+															'clientes.razon_social',
+															'fecha_origen',
+															'id_estatus_general'),
+															$this->usuario_activo['id'],
+															$this->controlador);
 			//los pendientes de los demas usuarios
-			$this->data['pendientes_generales'] = $this->pendienteModel->get_pendientes_generales(array('id_pendiente',
-																											                                     	'ejecutivos.primer_nombre',
-																											                                     	'ejecutivos.apellido_paterno',
-																											                                     	'clientes.razon_social',
-																											                                     	'id_estatus_general'),
+			$this->data['pendientes_generales'] = $this->pendienteModel->get_pendientes_generales(array(	'id_pendiente',
+													                                     	'ejecutivos.primer_nombre',
+													                                     	'ejecutivos.apellido_paterno',
+													                                     	'clientes.razon_social',
+													                                     	'id_estatus_general'),
 																																														$this->usuario_activo['id']);
 			// Titulo header
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
@@ -110,6 +109,7 @@ class Inicio extends AbstractAccess {
 				                                                'folio_cotizacion',
 				                                                'fecha_inicio',
 				                                                'fecha_final'));
+
 			// DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
 			$this->_vista('principal');
 		}
