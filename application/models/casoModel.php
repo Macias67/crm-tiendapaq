@@ -59,6 +59,25 @@ class CasoModel extends MY_Model {
 	}
 
 	/**
+	 * Función para obtener todos los
+	 * casos de los ejecutivos
+	 *
+	 * @author Julio Trujillo
+	 **/
+	// public function get_casos_ejecutivo($id_ejecutivo, $campos='*')
+	// {
+	// 	$this->load->model('estatusGeneralModel');
+
+	// 	$this->db->select($campos);
+	// 	$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+	// 	$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+	// 	$where = array($this->table.'.id_lider' => $id_ejecutivo);
+	// 	$this->db->where($where);
+	// 	$query = $this->db->get($this->table);
+	// 	return $query->result();
+	// }
+
+	/**
 	 * funcion para obtener los detalles de un casa para la
 	 * ventana modal detalles de caso, realiza validacion de
 	 * si el caso esta o no asignado a un lider
