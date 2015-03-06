@@ -1,4 +1,4 @@
-<!--BEGIN CONTENT -->
+BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
@@ -89,10 +89,10 @@
 							<div>Abrir Caso</div>
 						</a>
 						<!-- Revision de casos -->
-						<a href="<?php echo site_url('caso/revisar') ?>"  id="casos_revisar" class="icon-btn">
+						<!-- <a href="<?php echo site_url('caso/revisar') ?>"  id="casos_revisar" class="icon-btn">
 							<i class="fa  fa-briefcase"></i>
 							<div>&nbsp;&nbsp;Casos&nbsp;&nbsp;</div>
-						</a>
+						</a> -->
 					</div>
 				</div>
 			</div>
@@ -596,4 +596,4 @@
 		</div>
 	</div>
 </div>
-<!-- END DETALLES CASO  MODAL-->
+<!-- END DETALLES CASO  MODAL
