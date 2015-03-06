@@ -390,7 +390,7 @@ class Cotizacion extends AbstractAccess {
 				$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
 				//Envio Email con el PDF
 				$this->email->set_mailtype('html');
-				$this->email->from('cotizacion@sycpaq.com', 'Reenvio/Cotización - TiendaPAQ');
+				$this->email->from('cotizacion@moz67.com', 'Reenvio/Cotización - TiendaPAQ');
 				$this->email->to($email);
 				//$this->email->cc('another@example.com');
 				//$this->email->bcc('and@another.com');

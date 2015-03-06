@@ -85,14 +85,20 @@ var TableManagedCotizaciones = function () {
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				// Tipo de Cliente
 				var color = '';
-				if (aData.id_estatus_cotizacion == "Por Pagar" || aData.id_estatus_cotizacion == "Pagada") {
-					color = 'green';
-				} else if(aData.id_estatus_cotizacion == "En Revision" || aData.id_estatus_cotizacion == "Pago Parcial") {
-					color = 'yellow';
-				} else if(aData.id_estatus_cotizacion == "Irregular" || aData.id_estatus_cotizacion == "Vencida" ||aData.id_estatus_cotizacion == "Cancelada" ) {
-					color = 'red';
+				if (aData.id_estatus_cotizacion == "Por Pagar") {
+					color = 'bg-green-turquoise';
+				} else if(aData.id_estatus_cotizacion == "Pagada") {
+					color = 'bg-green';
+				} else if(aData.id_estatus_cotizacion == "En Revision") {
+					color = 'badge-warning';
+				} else if(aData.id_estatus_cotizacion == "Pago Parcial") {
+					color = 'bg-yellow';
+				}else if(aData.id_estatus_cotizacion == "Irregular" || aData.id_estatus_cotizacion == "Vencida") {
+					color = 'badge-danger';
+				} else if(aData.id_estatus_cotizacion == "Cancelada") {
+					color = 'bg-grey-gallery';
 				}
-				$('td:eq(5)', nRow).html('<span class="btn btn-circle btn-xs '+color+' disabled">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+				$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
 
 				if (aData.visto == false && aData.total_comentarios > 0) {
 					color = 'danger';
