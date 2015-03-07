@@ -230,20 +230,18 @@
 								<thead>
 									<tr>
 										<th>No.</th>
+										<th>Ejecutivo</th>
 										<th>Cliente</th>
-										<th>Apertura</th>
-										<th>Vigencia (aprox.)</th>
 										<th>Estatus</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-								<?php foreach ($casos as $caso): ?>
+								<?php foreach ($casos_generales as $caso): ?>
 									<tr class="odd gradeX">
 										<td><?php echo $caso->id_caso ?></td>
+										<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
 										<td><?php echo $caso->razon_social ?></td>
-										<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-										<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
 										<td>
 											<?php switch ($caso->id_estatus_general) {
 												case 1:
@@ -263,7 +261,7 @@
 												break;
 											} ?>
 										</td>
-										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-casos-generales" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
+										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles_generales/'.$caso->id_caso) ?>" data-target="#ajax-casos-generales" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
 									</tr>
 								<?php endforeach ?>
 								</tbody>

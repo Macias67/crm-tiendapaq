@@ -194,6 +194,7 @@ var TableManaged = function () {
 	// Tabla de los casos
 	var tablaCasosIndividual = function () {
 		var table = $('#mis_casos');
+
 		table.dataTable({
 			"scrollY": "300px",
 			"scrollCollapse": true,
@@ -238,6 +239,7 @@ var TableManaged = function () {
 		// Tabla de los casos
 	var tablaCasosGenerales = function () {
 		var table = $('#mis_casos_generales');
+
 		table.dataTable({
 			"scrollY": "300px",
 			"scrollCollapse": true,
@@ -248,7 +250,6 @@ var TableManaged = function () {
 			// set the initial value
 			"pageLength": 5,
 			"columns": [
-				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
@@ -274,13 +275,13 @@ var TableManaged = function () {
 				}
 			},
 			"order": [
-				[4, "desc"]
+				[0, "asc"]
 			] // set first column as a default sort by asc
 		});
 	}
 
-	// Agregué este evento del que ya tenía en Perfil>Casos
-		$('#ajax-casos-generales').on('click', '.ver-cotizacion', function(){
+	// Agregué este evento del que ya tenía en Perfil>Casos Para detalles de un solo ejecutivo
+		$('#ajax-detalles-caso').on('click', '.ver-cotizacion', function(){
 		var url     = '/cotizaciones/previapdf';
 		var folio = $('#folio_cotizacion').val();
 		var idcliente = $('#id_cliente').val();
@@ -294,8 +295,8 @@ var TableManaged = function () {
 		}, 'json');
 	});
 
-	// Agregué este evento del que ya tenía en Perfil>Casos
-	$('#ajax-casos-generales').on('click', '.cerrar-caso', function(){
+	// Agregué este evento del que ya tenía en Perfil>Casos Para detalles de un solo ejecutivo
+	$('#ajax-detalles-caso').on('click', '.cerrar-caso', function(){
 		bootbox.confirm('<h4>¿Seguro que quieres cerrar este caso?</h4>', function (response) {
 			if(response){
 				var url     = '/caso/cerrar';
@@ -312,6 +313,21 @@ var TableManaged = function () {
 			}
 		});
    	 });
+
+	// Agregué este evento del que ya tenía en Perfil>Casos Para detalles de casos generales
+		$('#ajax-casos-generales').on('click', '.ver-cotizacion', function(){
+		var url     = '/cotizaciones/previapdf';
+		var folio = $('#folio_cotizacion').val();
+		var idcliente = $('#id_cliente').val();
+
+		$.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
+			if (data.existe) {
+				window.open(data.ruta,'','height=800,width=800');
+			}else{
+				bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
+			}
+		}, 'json');
+	});
 
 	return {
 		//main function to initiate the module

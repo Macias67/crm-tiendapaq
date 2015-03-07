@@ -94,7 +94,7 @@ class Inicio extends AbstractAccess {
 													                                     	'ejecutivos.apellido_paterno',
 													                                     	'clientes.razon_social',
 													                                     	'id_estatus_general'),
-																																														$this->usuario_activo['id']);
+																							$this->usuario_activo['id']);
 			// Titulo header
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 
@@ -110,7 +110,18 @@ class Inicio extends AbstractAccess {
 				                                                'fecha_inicio',
 				                                                'fecha_final'));
 
-			// DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
+			// Cargo todos los casos para tabla casos generales
+			$this->data['casos_generales'] = $this->casoModel->
+				get_casos_generales($this->usuario_activo['id'],
+									 array( 'caso.id as id_caso',
+									 		'ejecutivos.primer_nombre',
+											'ejecutivos.apellido_paterno',
+											'caso.id_estatus_general',
+											'clientes.razon_social',
+				                            'estatus_general.descripcion',
+				                            'folio_cotizacion'));
+
+			//DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
 			$this->_vista('principal');
 		}
 	}

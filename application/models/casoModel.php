@@ -64,18 +64,19 @@ class CasoModel extends MY_Model {
 	 *
 	 * @author Julio Trujillo
 	 **/
-	// public function get_casos_ejecutivo($id_ejecutivo, $campos='*')
-	// {
-	// 	$this->load->model('estatusGeneralModel');
+	public function get_casos_generales($id_lider, $campos='*')
+	{
+		$this->load->model('estatusGeneralModel');
 
-	// 	$this->db->select($campos);
-	// 	$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
-	// 	$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
-	// 	$where = array($this->table.'.id_lider' => $id_ejecutivo);
-	// 	$this->db->where($where);
-	// 	$query = $this->db->get($this->table);
-	// 	return $query->result();
-	// }
+		$this->db->select($campos);
+		$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+		$where = "id_estatus_general = ".$this->estatusGeneralModel->PENDIENTE." OR id_estatus_general = ".$this->estatusGeneralModel->REASIGNADO;
+		$this->db->where($where);
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
 
 	/**
 	 * funcion para obtener los detalles de un casa para la
