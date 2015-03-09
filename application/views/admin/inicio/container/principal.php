@@ -88,11 +88,11 @@
 							<i class="fa fa-arrow-circle-o-up"></i>
 							<div>Abrir Caso</div>
 						</a>
-						<!-- Revision de casos -->
-						<!-- <a href="<?php echo site_url('caso/revisar') ?>"  id="casos_revisar" class="icon-btn">
-							<i class="fa  fa-briefcase"></i>
-							<div>&nbsp;&nbsp;Casos&nbsp;&nbsp;</div>
-						</a> -->
+						<!-- Revisión eventos -->
+						<a href="<?php echo site_url('evento/revisar') ?>"  class="icon-btn">
+							<i class="fa fa-list-ul"></i>
+							<div>&nbsp;&nbsp;Eventos&nbsp;&nbsp;</div>
+						</a>
 					</div>
 				</div>
 			</div>
