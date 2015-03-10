@@ -22,7 +22,7 @@
 							<span class="caption-subject bold uppercase"> Catálogo de eventos</span>
 						</div>
 						<div class="actions">
-							<a href="<?php echo site_url('cliente/gestionar/nuevo') ?>" class="btn btn-circle green">
+							<a href="<?php echo site_url('evento/gestionar/nuevo') ?>" class="btn btn-circle green">
 							<i class="fa fa-plus"></i> Agregar </a>
 						</div>
 					</div>
