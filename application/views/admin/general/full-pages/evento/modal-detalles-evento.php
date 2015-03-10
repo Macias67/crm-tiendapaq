@@ -9,7 +9,6 @@
 				<div class="col-md-12">
 					<input type="hidden" id="id_evento" value="<?php echo $evento[0]->id_evento ?>">
 					<input type="hidden" id="id_ejecutivo" value="<?php echo $evento[0]->id_ejecutivo ?>">
-					<input type="hidden" id="id_cliente" value="<?php echo $evento[0]->id_cliente ?>">
 					<div class="col-md-4 text-right"><b>No. de evento: </b></div>
 					<div class="col-md-8"><p><?php echo $evento[0]->id_evento ?></p></div>
 				</div>
@@ -23,15 +22,15 @@
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Fecha de evento: </b></div>
-					<div class="col-md-8"><p><?php echo $evento[0]->fecha_evento ?></p></div>
+					<div class="col-md-8"><p><?php echo fecha_formato($evento[0]->fecha_evento) ?></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Fecha de creación: </b></div>
-					<div class="col-md-8"><p><?php echo $evento[0]->fecha_creacion ?></p></div>
+					<div class="col-md-8"><p><?php echo fecha_completa($evento[0]->fecha_creacion) ?></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Costo: </b></div>
-					<div class="col-md-8"><p><?php echo ucfirst($evento[0]->costo)?></p></div>
+					<div class="col-md-8"><p><?php echo ucfirst("$ ".$evento[0]->costo)?></p></div>
 				</div>
 			</div>
 		</div>

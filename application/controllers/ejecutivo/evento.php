@@ -11,7 +11,7 @@ class Evento extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('eventoModel');
+		$this->load->model('eventoModel'); // Cargo mi modelo de eventos
 	}
 
 	public function index()
@@ -19,22 +19,24 @@ class Evento extends AbstractAccess {
 
 	/**
 	 * Muestra la vista para los
-	 * eventos
+	 * eventos.
+	 *
 	 * @author Julio Trujillo
 	 **/
 	public function revisar()
 	{
-		// Cargo la librería para las fechas
+		// Cargo la librería para las fechas con formato
 		$this->load->helper('formatofechas_helper');
 
-		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
-			array(
-				'eventos.id_evento',
-				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno',
-				'eventos.titulo',
-				'eventos.fecha_creacion'
-			));
+		$this->data['eventos_revision'] = $this->eventoModel // Modelo al cual mandaré mis campos con array siguiente
+												->get_evento_revision( // Función que recibirá el array
+													array(	'eventos.id_evento',
+															'ejecutivos.primer_nombre',
+															'ejecutivos.apellido_paterno',
+															'eventos.titulo',
+															'eventos.fecha_creacion'
+													)
+												);
 		$this->_vista('administrar');
 	}
 
@@ -42,28 +44,28 @@ class Evento extends AbstractAccess {
 	 * Función para mostrar ventana modal
 	 * con informacion detallada
 	 * sobre un evento.
+	 *
 	 * @author  Julio Trujillo
 	 **/
 	public function detalles($id_evento)
 	{
-		// Cargo la librería para las fechas
+		// Cargo la librería para las fechas con formato
 		$this->load->helper('formatofechas_helper');
 
-		$this->data['evento'] = $this->eventoModel->get_evento_revision(
-			array(
-				'eventos.id_evento',
-				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno',
-				'eventos.titulo',
-				'eventos.fecha_evento',
-				'eventos.fecha_creacion',
-				'eventos.descripcion',
-				'eventos.temario',
-				'eventos.sesiones',
-				'eventos.hora',
-				'eventos.duracion',
-				'eventos.costo',
-			));
+		$this->data['evento'] = $this->eventoModel // Modelo al cual mandaré mis campos con array siguiente
+										->get_evento_revision( // Función que recibirá el array
+											array(	'eventos.id_evento',
+													'ejecutivos.primer_nombre',
+													'ejecutivos.apellido_paterno',
+													'eventos.titulo',
+													'eventos.fecha_evento',
+													'eventos.fecha_creacion',
+													'eventos.sesiones',
+													'eventos.hora',
+													'eventos.duracion',
+													'eventos.costo',
+												)
+											);
 
 		$this->_vista_completa('evento/modal-detalles-evento');
 	}

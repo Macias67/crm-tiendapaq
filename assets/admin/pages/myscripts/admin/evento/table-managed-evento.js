@@ -22,18 +22,18 @@ var TableManagedEvento = function() {
 				{ "orderable": false }
 			],
 			"language": {
-				"emptyTable":"No hay cotizaciones registradas",
-				"info":"Mostrando _START_ a _END_ de _TOTAL_ cotizaciones",
-				"infoEmpty":"Mostrando 0 a 0 de 0 cotizaciones",
-				"infoFiltered":"(de un total de _MAX_ cotizaciones registradas)",
-				"infoPostFix":"",
-				"thousands":",",
-				"lengthMenu":"Show _MENU_ entries",
-				"loadingRecords": "Cargando...",
-				"processing":"Procesando...",
-				"search":"Buscar: ",
-				"zeroRecords":"No se encontraron coincidencias",
-				"lengthMenu": "_MENU_ registros"
+		        "emptyTable":     "No hay eventos por asignar",
+		        "info":           "Mostrando _START_ a _END_ de _TOTAL_ eventos",
+		        "infoEmpty":      "Mostrando 0 a 0 de 0 eventos",
+		        "infoFiltered":   "(de un total de _MAX_ eventos)",
+		        "infoPostFix":    "",
+		        "thousands":      ",",
+		        "lengthMenu":     "Show _MENU_ entries",
+		        "loadingRecords": "Cargando...",
+		        "processing":     "Procesando...",
+		        "search":         "Buscar: ",
+		        "zeroRecords":    "No se encontraron coincidencias",
+		        "lengthMenu": "_MENU_ registros"
 			},
 			"columnDefs": [
 				{ // set default column settings
@@ -51,7 +51,7 @@ var TableManagedEvento = function() {
 
 	return {
 		init: function() {
-			bootbox.setDefaults({locale: "es"});
+			//bootbox.setDefaults({locale: "es"});
 			revisionEventos();
 		}
 	};
