@@ -8,7 +8,7 @@
 | Ya sea local o vía remoto
 |
 */
-define('LOCAL', true);
+define('LOCAL', TRUE);
 
 /*
 |--------------------------------------------------------------------------
