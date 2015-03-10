@@ -59,6 +59,26 @@ class CasoModel extends MY_Model {
 	}
 
 	/**
+	 * Función para obtener todos los
+	 * casos de los ejecutivos
+	 *
+	 * @author Julio Trujillo
+	 **/
+	public function get_casos_generales($id_lider, $campos='*')
+	{
+		$this->load->model('estatusGeneralModel');
+
+		$this->db->select($campos);
+		$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+		$where = "id_estatus_general = ".$this->estatusGeneralModel->PENDIENTE." OR id_estatus_general = ".$this->estatusGeneralModel->REASIGNADO;
+		$this->db->where($where);
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
+
+	/**
 	 * funcion para obtener los detalles de un casa para la
 	 * ventana modal detalles de caso, realiza validacion de
 	 * si el caso esta o no asignado a un lider
@@ -70,20 +90,20 @@ class CasoModel extends MY_Model {
 		//si no hay lider en el caso, no se hacer el inner join con la tabla ejecutivos para no tener error
 		if(empty($lider)){
 			$this->db->select(array('caso.id as id_caso',
-															'caso.id_estatus_general',
-				                      'ejecutivos.primer_nombre',
-				                      'ejecutivos.apellido_paterno',
-				                      'estatus_general.descripcion',
-				                      'clientes.razon_social',
-				                      'clientes.id as id_cliente',
-				                      'caso.folio_cotizacion',
-				                      'caso.fecha_inicio',
-				                      'caso.fecha_final'));
+						'caso.id_estatus_general',
+				                      	'ejecutivos.primer_nombre',
+				                      	'ejecutivos.apellido_paterno',
+				                      	'estatus_general.descripcion',
+				                      	'clientes.razon_social',
+				                      	'clientes.id as id_cliente',
+				                      	'caso.folio_cotizacion',
+				                      	'caso.fecha_inicio',
+				                      	'caso.fecha_final'));
 
 			$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
 		}else{
 			$this->db->select(array('caso.id as id_caso',
-															'caso.id_estatus_general',
+						'caso.id_estatus_general',
 				                      'estatus_general.descripcion',
 				                      'clientes.razon_social',
 				                      'clientes.id as id_cliente',

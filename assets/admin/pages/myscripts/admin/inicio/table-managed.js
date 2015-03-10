@@ -192,8 +192,9 @@ var TableManaged = function () {
 	};
 
 	// Tabla de los casos
-	var tablaCasosPrincipal = function () {
+	var tablaCasosIndividual = function () {
 		var table = $('#mis_casos');
+
 		table.dataTable({
 			"scrollY": "300px",
 			"scrollCollapse": true,
@@ -235,8 +236,52 @@ var TableManaged = function () {
 		});
 	}
 
-	// Agregué este evento del que ya tenía en Perfil>Casos
-	$('#ajax-detalles-caso').on('click', '.ver-cotizacion', function(){
+		// Tabla de los casos
+	var tablaCasosGenerales = function () {
+		var table = $('#mis_casos_generales');
+
+		table.dataTable({
+			"scrollY": "300px",
+			"scrollCollapse": true,
+			"lengthMenu": [
+				[5, 15, 20, -1],
+				[5, 15, 20, "Todos"] // change per page values here
+			],
+			// set the initial value
+			"pageLength": 5,
+			"columns": [
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": false }
+			],
+			"language": {
+				"emptyTable":     "No hay casos registrados",
+				"info":           "Mostrando _START_ a _END_ de _TOTAL_ casos",
+				"infoEmpty":      "Mostrando 0 a 0 de 0 casos",
+				"infoFiltered":   "(de un total de _MAX_ casos registrados)",
+				"infoPostFix":    "",
+				"thousands":      ",",
+				"lengthMenu":     "Show _MENU_ registros",
+				"loadingRecords": "Cargando...",
+				"processing":     "Procesando...",
+				"zeroRecords": "No se encontraron coincidencias",
+				"lengthMenu": "_MENU_  Registros",
+				"search": "Buscar: ",
+				"paginate": {
+					"previous": "Anterior",
+					"next": "Siguiente"
+				}
+			},
+			"order": [
+				[0, "asc"]
+			] // set first column as a default sort by asc
+		});
+	}
+
+	// Agregué este evento del que ya tenía en Perfil>Casos Para detalles de un solo ejecutivo
+		$('#ajax-detalles-caso').on('click', '.ver-cotizacion', function(){
 		var url     = '/cotizaciones/previapdf';
 		var folio = $('#folio_cotizacion').val();
 		var idcliente = $('#id_cliente').val();
@@ -250,7 +295,7 @@ var TableManaged = function () {
 		}, 'json');
 	});
 
-	// Agregué este evento del que ya tenía en Perfil>Casos
+	// Agregué este evento del que ya tenía en Perfil>Casos Para detalles de un solo ejecutivo
 	$('#ajax-detalles-caso').on('click', '.cerrar-caso', function(){
 		bootbox.confirm('<h4>¿Seguro que quieres cerrar este caso?</h4>', function (response) {
 			if(response){
@@ -269,6 +314,21 @@ var TableManaged = function () {
 		});
    	 });
 
+	// Agregué este evento del que ya tenía en Perfil>Casos Para detalles de casos generales
+		$('#ajax-casos-generales').on('click', '.ver-cotizacion', function(){
+		var url     = '/cotizaciones/previapdf';
+		var folio = $('#folio_cotizacion').val();
+		var idcliente = $('#id_cliente').val();
+
+		$.post(url, {folio:folio,idcliente:idcliente}, function(data, textStatus, xhr) {
+			if (data.existe) {
+				window.open(data.ruta,'','height=800,width=800');
+			}else{
+				bootbox.alert('<h4>Este caso no tiene una cotización ligada.</h4>');
+			}
+		}, 'json');
+	});
+
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -278,7 +338,8 @@ var TableManaged = function () {
 			misPendientes();
 			pendientesGrales();
 			busquedaRapidaClientes();
-			tablaCasosPrincipal();
+			tablaCasosIndividual();
+			tablaCasosGenerales();
 		}
 	};
 }();

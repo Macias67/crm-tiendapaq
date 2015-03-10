@@ -72,6 +72,10 @@ $route['catalogo/clientes']		= $DIR_EJECUTIVO."catalogo";
 $route['catalogo/productos']	= $DIR_EJECUTIVO."catalogo";
 $route['catalogo/(:any)']		= $DIR_EJECUTIVO."catalogo/$1";
 
+// Funciones catalogo de eventos
+$route['evento']			= $DIR_EJECUTIVO."evento";
+$route['evento/(:any)']		= $DIR_EJECUTIVO."evento/$1";
+
 // Funciones cotizador
 $route['cotizador']			= $DIR_EJECUTIVO."cotizador";
 $route['cotizador/(:num)']	= $DIR_EJECUTIVO."cotizador/pendiente/$1";
