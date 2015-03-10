@@ -103,7 +103,7 @@ class CasoModel extends MY_Model {
 			$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
 		}else{
 			$this->db->select(array('caso.id as id_caso',
-															'caso.id_estatus_general',
+						'caso.id_estatus_general',
 				                      'estatus_general.descripcion',
 				                      'clientes.razon_social',
 				                      'clientes.id as id_cliente',

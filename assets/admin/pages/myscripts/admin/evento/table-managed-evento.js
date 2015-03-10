@@ -13,17 +13,10 @@ var TableManagedEvento = function() {
 				[5, 15, 20, "Todos"] // change per page values here
 			],
 			"pageLength": 10,
-			"lengthChange": true,
+			"lengthChange": false,
 			"columns": [
 				{ "orderable": true },
 				{ "orderable": true },
-				{ "orderable": true },
-				{ "orderable": false },
-				{ "orderable": false },
-				{ "orderable": false },
-				{ "orderable": false },
-				{ "orderable": true },
-				{ "orderable": false },
 				{ "orderable": false },
 				{ "orderable": false },
 				{ "orderable": false }
@@ -56,25 +49,6 @@ var TableManagedEvento = function() {
 		});
 	};
 
-	// 	//funcion para eliminar
-	// 	table.on('click', '.eliminar', function (e) {
-	// 		e.preventDefault();
-	// 		//valores de la fila a eliminar guardados en aData y el id para saber cual objeto eliminar
-	// 		var nRow 	= $(this).parents('tr')[0];
-	// 		var aData 	= oTable.fnGetData(nRow);
-	// 		var id 		= $(nRow).attr('id');
-	// 		bootbox.confirm("<h4>¿Seguro que quieres eliminar a <b>"+ aData.razon_social+"</b>?</h4>", function(result) {
-	// 			if (result) {
-	// 				$.post('./gestionar/eliminar', {id:id}, function(data, textStatus, xhr) {
-	// 					if (data.exito) {
-	// 						oTable.fnDeleteRow(nRow);
-	// 					}
-	// 					bootbox.alert(data.mensaje);
-	// 				}, 'json');
-	// 			};
-	// 		});
-	// 	});
-	// }
 	return {
 		init: function() {
 			bootbox.setDefaults({locale: "es"});

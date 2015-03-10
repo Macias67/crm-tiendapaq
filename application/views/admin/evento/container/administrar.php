@@ -33,15 +33,8 @@
 									<tr>
 										<th width="1%">No.</th>
 										<th width="10%">Ejecutivo</th>
-										<th width="20%">Cliente</th>
 										<th width="10%">Título</th>
-										<th width="20%">Descripción</th>
-										<th width="20%">Temario</th>
-										<th width="1%">Sesiones</th>
-										<th width="15%">Fecha de evento</th>
-										<th width="5%">Horario</th>
-										<th width="1%">Duración</th>
-										<th width="1%">Costo</th>
+										<th width="15%">Fecha de creación</th>
 										<th width="1%"></th>
 									</tr>
 								</thead>
@@ -50,16 +43,9 @@
 										<tr class="odd gradeX">
 											<td><?php echo $evento->id_evento ?></td>
 											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
-											<td><?php echo $evento->razon_social ?></td>
 											<td><?php echo $evento->titulo ?></td>
-											<td><?php echo $evento->descripcion ?></td>
-											<td><?php echo $evento->temario ?></td>
-											<td><?php echo $evento->sesiones ?></td>
-											<td><?php echo $evento->fecha ?></td>
-											<td><?php echo $evento->hora ?></td>
-											<td><?php echo $evento->duracion ?></td>
-											<td><?php echo $evento->costo ?></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('cotizaciones/revision/'.$evento->folio) ?>"><i class="fa fa-search"></i> Detalles </a></td>
+											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
+											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
@@ -74,3 +60,15 @@
 	</div>
 </div>
 <!-- END CONTENT -->
+<!-- BEGIN DETALLES MODAL -->
+<div id="ajax-detalles-evento" class="modal fade" role="basic" aria-hidden="true">
+	<div class="page-loading page-loading-boxed">
+		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<span>Cargando... </span>
+	</div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+<!-- END DETALLES MODAL -->

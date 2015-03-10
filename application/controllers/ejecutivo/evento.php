@@ -24,14 +24,39 @@ class Evento extends AbstractAccess {
 	 **/
 	public function revisar()
 	{
+		// Cargo la librería para las fechas
+		$this->load->helper('formatofechas_helper');
+
 		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
 			array(
 				'eventos.id_evento',
-				'clientes.razon_social',
 				'ejecutivos.primer_nombre',
 				'ejecutivos.apellido_paterno',
 				'eventos.titulo',
-				'eventos.fecha',
+				'eventos.fecha_creacion'
+			));
+		$this->_vista('administrar');
+	}
+
+	/**
+	 * Función para mostrar ventana modal
+	 * con informacion detallada
+	 * sobre un evento.
+	 * @author  Julio Trujillo
+	 **/
+	public function detalles($id_evento)
+	{
+		// Cargo la librería para las fechas
+		$this->load->helper('formatofechas_helper');
+
+		$this->data['evento'] = $this->eventoModel->get_evento_revision(
+			array(
+				'eventos.id_evento',
+				'ejecutivos.primer_nombre',
+				'ejecutivos.apellido_paterno',
+				'eventos.titulo',
+				'eventos.fecha_evento',
+				'eventos.fecha_creacion',
 				'eventos.descripcion',
 				'eventos.temario',
 				'eventos.sesiones',
@@ -39,10 +64,9 @@ class Evento extends AbstractAccess {
 				'eventos.duracion',
 				'eventos.costo',
 			));
-		$this->_vista('administrar');
+
+		$this->_vista_completa('evento/modal-detalles-evento');
 	}
-
-
 }
 
 /* End of file eventos.php */
