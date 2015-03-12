@@ -99,6 +99,17 @@ class Inicio extends AbstractAccess {
 			// Titulo header
 			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
 
+			// Cargo los casos para tabla casos
+			$this->data['casos'] = $this->casoModel
+						->get_casos_ejecutivo($this->usuario_activo['id'],
+							array(	'caso.id as id_caso',
+				                                    	'caso.id_estatus_general',
+				                                                'clientes.razon_social',
+				                                                'estatus_general.descripcion',
+				                                                'id_cliente',
+				                                                'folio_cotizacion',
+				                                                'fecha_inicio',
+				                                                'fecha_final'));
 			// DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
 			$this->_vista('principal');
 		}

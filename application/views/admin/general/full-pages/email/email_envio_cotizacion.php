@@ -39,6 +39,9 @@
 										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
 											<b>Nuestra aplicación web:</b> <a href="<?php echo base_url() ?>"><?php echo base_url() ?> </a>
 										</td>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<a href="https://www.youtube.com/watch?v=pCKrm0ZZE3s"><b>Videotutorial de nuestra aplicación</b></a>
+										</td>
 										<td class="expander">
 										</td>
 									</tr>
