@@ -261,7 +261,7 @@
 												break;
 											} ?>
 										</td>
-										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-casos-generales" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
+										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles_generales/'.$caso->id_caso) ?>" data-target="#ajax-casos-generales" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
 									</tr>
 								<?php endforeach ?>
 								</tbody>

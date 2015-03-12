@@ -67,6 +67,31 @@ class Caso extends AbstractAccess {
 	}
 
 	/**
+	 * Función que mostrar los
+	 * detalles de los casos
+	 * generales
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function detalles_generales($id_caso)
+	{
+		$this->load->helper('formatofechas_helper');
+
+		//verificamos si el caso un no tiene lider para saber como hacer la consulta en eñl model
+		$lider = $this->casoModel->get(array('id_lider'), array('id' => $id_caso), null, 'ASC', 1);
+
+		if(empty($lider->id_lider)){
+			$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso, 'vacio');
+			$this->data['caso']->primer_nombre = 'SIN';
+			$this->data['caso']->apellido_paterno = ' LIDER';
+
+		}else{
+			$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);
+		}
+
+		$this->_vista_completa('caso/modal-casos-generales');
+	}
+	/**
 	 * Funcion para asignarle un caso a un ejecutivo
 	 *
 	 * @return json
