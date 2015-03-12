@@ -43,7 +43,4 @@
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn green btn-circle" data-dismiss="modal">Aceptar</button>
-	<?php if($caso->id_estatus_general!=2): ?>
-		<button type="button" class="btn red btn-circle cerrar-caso" >Cerrar caso</button>
-	<?php endif ?>
 </div>

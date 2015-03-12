@@ -12,11 +12,12 @@ var TableManagedEvento = function() {
 				[5, 15, 20, -1],
 				[5, 15, 20, "Todos"] // change per page values here
 			],
-			"pageLength": 10,
-			"lengthChange": false,
+			"pageLength": 10, // Número de registros que se mostrarán
+			"lengthChange": false, // No podrá cambiar el usuario el número de registros
 			"columns": [
 				{ "orderable": true },
 				{ "orderable": true },
+				{ "orderable": false },
 				{ "orderable": false },
 				{ "orderable": false },
 				{ "orderable": false }
