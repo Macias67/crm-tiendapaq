@@ -37,6 +37,7 @@ var TableManagedCliente = function() {
 				}
 			],
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				console.log(aData);
 				// Desactivado
 				if (!aData.activo) {
 					$(nRow).addClass('danger');

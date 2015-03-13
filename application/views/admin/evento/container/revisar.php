@@ -46,7 +46,7 @@
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
 											<td><a class="btn btn-circle blue btn-xs" href="" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Ver/Editar  </a></td>
-											<td><a class="btn btn-circle green-meadow btn-xs" href="" data-target="#ajax-mostrar-participantes" data-toggle="modal"><i class="fa fa-search"></i> Participantes  </a></td>
+											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>" ><i class="fa fa-search"></i> Participantes  </a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
