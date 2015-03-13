@@ -37,7 +37,20 @@
 										</div>
 
 										<div class="col-md-6">
-											<!-- obtengo el titulo -->
+
+											<!-- Ejectuivo -->
+								<div class="form-group">
+									<label class="control-label col-md-4">Ejecutivo</label>
+									<div class="col-md-8">
+										<select class="form-control" name="lider_caso">
+											<?php foreach ($ejecutivos as $ejecutivo): ?>
+											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+											<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+
+											<!-- titulo -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
 													Titulo<span class="required" aria-required="true">*</span>
@@ -92,9 +105,10 @@
 															</div>
 														</div>
 													</div>
-													<span class="help-block">GB</span>
 												</div>
 											</div>
+											
+
 										</div>
 									</div>
 									<div class="form-actions fluid">
