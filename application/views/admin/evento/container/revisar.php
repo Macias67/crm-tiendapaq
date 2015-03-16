@@ -64,7 +64,7 @@
 <!-- BEGIN DETALLES MODAL -->
 <!-- <div id="ajax-detalles-evento" class="modal fade" role="basic" aria-hidden="true">
 	<div class="page-loading page-loading-boxed">
-		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<img src="<?php //echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
 		<span>Cargando... </span>
 	</div>
 	<div class="modal-dialog">

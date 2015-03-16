@@ -27,6 +27,7 @@
 
 		public function get_evento_revision($campos)
 		{
+
 			$this->db->select($campos);
 			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 			$query = $this->db->get($this->table);
