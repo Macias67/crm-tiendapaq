@@ -8,10 +8,7 @@
 | Ya sea local o vía remoto
 |
 */
-
 define('LOCAL', TRUE);
-
-
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

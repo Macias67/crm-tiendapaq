@@ -34,12 +34,5 @@
 			return $query->result();
 		}
 
-		public function get_detalles_participante($value='')
-		{
-			
-		}
-
-}
-
 /* End of file eventoModel.php */
 /* Location: ./application/models/eventoModel.php */
