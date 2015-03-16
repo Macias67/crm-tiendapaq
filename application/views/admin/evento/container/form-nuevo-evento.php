@@ -108,6 +108,15 @@
 												</div>
 											</div>
 											
+											<div class="form-group">
+												<label class="col-md-4 control-label">
+													sesiones<span class="required" aria-required="true">*</span>
+												</label>
+												<div id="material_comprado"  > </div>
+												<div id="div_1">
+												    <input  type="date"  name="materiales[]" id="materiales1" style="width:200px;" /> <span style="float:left;padding: 8px 0px 8px 8px;">fecha: </span> <input type="text"   name="cantidadmateriales[]"  style="width:40px;" /><input class="bt_plus" id="1" type="button" value="+" /><div class="error_form"></div>
+												</div>
+											</div>
 
 										</div>
 									</div>
