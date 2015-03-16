@@ -11,7 +11,6 @@ class Evento extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('eventoModel'); // Cargo mi modelo de eventos
 	}
 
 	public function index()
@@ -29,14 +28,14 @@ class Evento extends AbstractAccess {
 		$this->load->helper('formatofechas_helper');
 
 		$this->data['eventos_revision'] = $this->eventoModel // Modelo al cual mandaré mis campos con array siguiente
-												->get_evento_revision( // Función que recibirá el array
-													array(	'eventos.id_evento',
-															'ejecutivos.primer_nombre',
-															'ejecutivos.apellido_paterno',
-															'eventos.titulo',
-															'eventos.fecha_creacion'
-													)
-												);
+								->get_evento_revision( // Función que recibirá el array
+									array(	'eventos.id_evento',
+										'ejecutivos.primer_nombre',
+										'ejecutivos.apellido_paterno',
+										'eventos.titulo',
+										'eventos.fecha_creacion'
+									)
+								);
 		$this->_vista('revisar');
 	}
 
@@ -68,10 +67,10 @@ class Evento extends AbstractAccess {
 	{
 		$draw		= $this->input->post('draw');
 		$start		= $this->input->post('start');
-		$length		= $this->input->post('length');
+		$length	= $this->input->post('length');
 		$order		= $this->input->post('order');
 		$columns	= $this->input->post('columns');
-		$search		= $this->input->post('search');
+		$search	= $this->input->post('search');
 		$total		=  $this->eventoModel->count();
 
 		if($length == -1)
@@ -94,17 +93,18 @@ class Evento extends AbstractAccess {
 							$length,
 							$start
 		                                     );
+		var_dump($contactos);
 		$proceso	= array();
 
-		foreach ($clientes as $index => $cliente) {
+		foreach ($contactos as $index => $contacto) {
 			$p = array(
-				"DT_RowId"	=> $cliente->id,
+				"DT_RowId"		=> $cliente->id,
 				'codigo'		=> $cliente->codigo,
-				'razon_social'	=> $cliente->razon_social,
+				'razon_social'		=> $cliente->razon_social,
 				'rfc'			=> $cliente->rfc,
 				'email'			=> $cliente->email,
 				'tipo'			=> ucfirst($cliente->tipo),
-				'activo'			=> ($cliente->activo) ? TRUE : FALSE
+				'activo'		=> ($cliente->activo) ? TRUE : FALSE
 				//'tipo'			=> ($cliente->tipo == 'normal') ? '<span class="label label-success">Normal</span>' : '<span class="label label-danger">'.ucfirst($cliente->tipo).' </span>'
 			       );
 			array_push($proceso, $p);
