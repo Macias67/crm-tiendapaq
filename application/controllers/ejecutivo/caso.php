@@ -134,15 +134,15 @@ class Caso extends AbstractAccess {
 					// 	//Envio Email
 					// 	$this->email->set_mailtype('html');
 					// 	$this->email->from('notificacion@moz67.com', 'Apertura de Caso - TiendaPAQ');
-					// 	$this->email->to($contacto->email);;
-
+					// 	$this->email->to($contacto->email);
 					// 	//$this->email->cc('another@example.com');
 					// 	//$this->email->bcc('and@another.com');
 					// 	$this->email->subject('Apertura de Caso - TiendaPAQ');
 					// 	//Contenido del correo
 					// 	$this->data['usuario'] 		= $cliente->usuario;
 					// 	$this->data['password'] 	= $cliente->password;
-					// 	$this->data['id_caso'] 		= $caso->id					// 	$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
+					// 	$this->data['id_caso'] 		= $caso->id;
+					// 	$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
 					// 	// $this->data['vigencia'] 		= fecha_completa($cotizacion->vigencia);
 					// 	$this->data['contacto'] 	= $nombre_contacto;
 					// 	$html = $this->load->view('admin/general/full-pages/email/email_inicio_caso.php', $this->data, TRUE);
