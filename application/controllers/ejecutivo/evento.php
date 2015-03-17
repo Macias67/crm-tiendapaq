@@ -11,6 +11,7 @@ class Evento extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('eventoModel');
 	}
 
 	// public function index()
@@ -142,107 +143,53 @@ public function index()
 
 	/**
 	 * Muestra la vista para los
-	 * eventos.
-	 *
+	 * eventos
 	 * @author Julio Trujillo
 	 **/
 	public function revisar()
 	{
-		// Cargo la librería para las fechas con formato
+		// Cargo la librería para las fechas
 		$this->load->helper('formatofechas_helper');
 
-		$this->data['eventos_revision'] = $this->eventoModel // Modelo al cual mandaré mis campos con array siguiente
-								->get_evento_revision( // Función que recibirá el array
-									array(	'eventos.id_evento',
-										'ejecutivos.primer_nombre',
-										'ejecutivos.apellido_paterno',
-										'eventos.titulo',
-										'eventos.fecha_creacion'
-									)
-								);
-		$this->_vista('revisar');
+		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
+			array(
+				'eventos.id_evento',
+				'ejecutivos.primer_nombre',
+				'ejecutivos.apellido_paterno',
+				'eventos.titulo',
+				'eventos.fecha_creacion'
+			));
+		$this->_vista('administrar');
 	}
 
 	/**
-	 * Función para mostrar tabla
-	 * con los datos de los
-	 * participantes al
-	 * evento.
-	 *
+	 * Función para mostrar ventana modal
+	 * con informacion detallada
+	 * sobre un evento.
 	 * @author  Julio Trujillo
 	 **/
-	public function participantes_detalles($id_evento)
+	public function detalles($id_evento)
 	{
-		$this->data['id_evento'] = $id_evento;
-		$this->data['participantes'] = $this->eventoModel->get(array('*'));
-		$this->_vista('participantes');
-	}
+		// Cargo la librería para las fechas
+		$this->load->helper('formatofechas_helper');
 
-	/**
-	 * Metodo consultado para el plugin
-	 * dataTable del archivo
-	 * table-managed-evento.
-	 *
-	 *
-	 * @return json
-	 * @author Julio Trujillo
-	 **/
-	public function table()
-	{
-		$draw		= $this->input->post('draw');
-		$start		= $this->input->post('start');
-		$length	= $this->input->post('length');
-		$order		= $this->input->post('order');
-		$columns	= $this->input->post('columns');
-		$search	= $this->input->post('search');
-		$total		=  $this->eventoModel->count();
+		$this->data['evento'] = $this->eventoModel->get_evento_revision(
+			array(
+				'eventos.id_evento',
+				'ejecutivos.primer_nombre',
+				'ejecutivos.apellido_paterno',
+				'eventos.titulo',
+				'eventos.fecha_evento',
+				'eventos.fecha_creacion',
+				'eventos.descripcion',
+				'eventos.temario',
+				'eventos.sesiones',
+				'eventos.hora',
+				'eventos.duracion',
+				'eventos.costo',
+			));
 
-		if($length == -1)
-		{
-			$length	= null;
-			$start	= null;
-		}
-
-		$contactos	= $this->eventoModel->get_or_like(
-							array('id', 'id_cliente', 'nombre_contacto', 'apellido_paterno', 'apellido_materno', 'email_contacto', 'telefono_contacto'),
-							array(
-								'nombre_contacto'		=> $search['value'],
-								'apellido_paterno'		=> $search['value'],
-								'apellido_materno'		=> $search['value'],
-								'email_contacto'		=> $search['value'],
-								'telefono_contacto'		=> $search['value']
-							),
-							$columns[$order[0]['column']]['data'],
-							$order[0]['dir'],
-							$length,
-							$start
-		                                     );
-		var_dump($contactos);
-		$proceso	= array();
-
-		foreach ($contactos as $index => $contacto) {
-			$p = array(
-				"DT_RowId"		=> $cliente->id,
-				'codigo'		=> $cliente->codigo,
-				'razon_social'		=> $cliente->razon_social,
-				'rfc'			=> $cliente->rfc,
-				'email'			=> $cliente->email,
-				'tipo'			=> ucfirst($cliente->tipo),
-				'activo'		=> ($cliente->activo) ? TRUE : FALSE
-				//'tipo'			=> ($cliente->tipo == 'normal') ? '<span class="label label-success">Normal</span>' : '<span class="label label-danger">'.ucfirst($cliente->tipo).' </span>'
-			       );
-			array_push($proceso, $p);
-		}
-
-		$data = array(
-			'draw'				=> $draw,
-			'recordsTotal'		=> count($clientes),
-			'recordsFiltered'	=> $total,
-			'data'				=> $proceso);
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($data));
+		$this->_vista_completa('evento/modal-detalles-evento');
 	}
 
 	/**
