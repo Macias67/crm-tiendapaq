@@ -273,7 +273,7 @@
 			</div>
 			<div class="col-md-5">
 				<div class="col-md-12">
-					<!-- BEGIN TABLA BÚSQUEDA RÁPIDA-->
+					<!-- BEGIN TABLA MIS PENDIENTES-->
 					<div class="portlet gren">
 						<div class="portlet-title">
 							<div class="caption"><i class="fa fa-search"></i> Búsqueda rápida de clientes.</div>
@@ -292,7 +292,7 @@
 							</table>
 						</div>
 					</div>
-					<!-- END TABLA BÚSQUEDA RÁPIDA-->
+					<!-- END TABLA MIS PENDIENTES-->
 				</div>
 			</div>
 		</div>
