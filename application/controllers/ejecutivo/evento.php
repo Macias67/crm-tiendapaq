@@ -44,7 +44,7 @@ class Evento extends AbstractAccess {
 	 * Función para mostrar ventana modal
 	 * con informacion detallada
 	 * sobre un evento.
-	 * 
+	 *
 	 * @author  Julio Trujillo
 	 **/
 	public function detalles($id_evento)

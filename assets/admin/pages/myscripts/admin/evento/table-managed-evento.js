@@ -50,7 +50,7 @@ var TableManagedEvento = function() {
 		});
 	};
 
-	var revisionEventos = function () {
+	var revisaParticipantes = function () {
 		var table = $('#tabla-ver-participantes');
 		table.dataTable({
 			"lengthMenu": [
@@ -142,7 +142,7 @@ var TableManagedEvento = function() {
 		init: function() {
 			//bootbox.setDefaults({locale: "es"});
 			revisionEventos();
-			// verParticipantes();
+			revisaParticipantes();
 		}
 	};
 }();
