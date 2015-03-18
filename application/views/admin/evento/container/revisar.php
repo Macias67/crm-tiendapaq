@@ -10,6 +10,7 @@
 			</div>
 		</div>
 		<!-- END PAGE HEADER-->
+
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
@@ -45,8 +46,8 @@
 											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
-											<td><a class="btn btn-circle blue btn-xs" href="" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Ver/Editar  </a></td>
-											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>" ><i class="fa fa-search"></i> Participantes  </a></td>
+											<td><a class="btn btn-circle blue btn-xs" href=""><i class="fa fa-search"></i> Ver/editar </a></td>
+											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>"> Participantes </a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
@@ -62,7 +63,7 @@
 </div>
 <!-- END CONTENT -->
 <!-- BEGIN DETALLES MODAL -->
-<!-- <div id="ajax-detalles-evento" class="modal fade" role="basic" aria-hidden="true">
+<div id="ajax-detalles-evento" class="modal fade" role="basic" aria-hidden="true">
 	<div class="page-loading page-loading-boxed">
 		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
 		<span>Cargando... </span>
@@ -71,5 +72,5 @@
 		<div class="modal-content">
 		</div>
 	</div>
-</div> -->
-<!-- END DETALLES MODAL -->
+</div>
+<!-- END DETALLES MODAL

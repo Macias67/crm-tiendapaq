@@ -34,5 +34,7 @@
 			return $query->result();
 		}
 
+}
+
 /* End of file eventoModel.php */
 /* Location: ./application/models/eventoModel.php */

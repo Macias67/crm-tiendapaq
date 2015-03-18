@@ -1,4 +1,4 @@
-	 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Controlador para la seccion
  * de clientes y sus funciones
@@ -966,7 +966,6 @@ class Cliente extends AbstractAccess {
 		$columns		= $this->input->post('columns');
 		$search		= $this->input->post('search');
 		$total			=  $this->clienteModel->count();
-
 		if($length == -1)
 		{
 			$length	= null;
@@ -1001,13 +1000,11 @@ class Cliente extends AbstractAccess {
 			       );
 			array_push($proceso, $p);
 		}
-
 		$data = array(
 			'draw'				=> $draw,
 			'recordsTotal'		=> count($clientes),
 			'recordsFiltered'	=> $total,
 			'data'				=> $proceso);
-
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
