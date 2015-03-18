@@ -87,7 +87,7 @@
 												</div>
 											</div>
 											<!-- numero de sesiones -->
-											<div class="form-group">
+											<!-- <div class="form-group">
 												<label class="col-md-4 control-label">
 													Numero de  Sesiones
 												</label>
@@ -106,17 +106,58 @@
 														</div>
 													</div>
 												</div>
-											</div>
-											
+											</div> -->
+											<!-- numero de sesiones -->
 											<div class="form-group">
 												<label class="col-md-4 control-label">
-													sesiones<span class="required" aria-required="true">*</span>
+													Seiones<span class="required" aria-required="true">*</span>
 												</label>
-												<div id="material_comprado"  > </div>
-												<div id="div_1">
-												    <input  type="date"  name="materiales[]" id="materiales1" style="width:200px;" /> <span style="float:left;padding: 8px 0px 8px 8px;">fecha: </span> <input type="text"   name="cantidadmateriales[]"  style="width:40px;" /><input class="bt_plus" id="1" type="button" value="+" /><div class="error_form"></div>
+												<div class="col-md-8">
+												<a id="agregarCampo" class="btn btn-info" href="#">Agregar Sesion</a>
 												</div>
 											</div>
+
+											<!-- <div class="form-group">
+												<label class="col-md-4 control-label">
+													dia<span class="required" aria-required="true">*</span>
+												</label>
+													<div id="contenedor">
+													    <div class="added">
+													        <input type="date" name="mitexto[]" id="campo_1" placeholder="Sesion 1"/>
+													        <a href="#" class="eliminar">&times;</a>
+													    </div>
+													</div>
+											</div> -->
+
+									<!-- <div class="form-group">
+											<label class="col-md-4 control-label">
+												<span class="required" aria-required="true"></span>
+											</label>
+										<div class="col-md-8">
+											<div id="contenedor">
+												<div class="added">
+													<div class="input-group date form_datetime">
+														<input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/>
+															<span class="input-group-btn">
+																<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+															</span>
+														<a href="#" class="eliminar">&times;</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> -->
+
+
+									<div class="form-group">
+											<label class="col-md-4 control-label">
+												<span class="required" aria-required="true"></span>
+											</label>
+										<div class="col-md-8">
+											<div id="contenedor">
+											</div>
+										</div>
+									</div>
 
 										</div>
 									</div>
