@@ -74,7 +74,7 @@ var FormValidationEvento = function () {
         }
         return false;
     });
-
+	x=5;
     $("body").on("click",".eliminar", function(e){ //click en eliminar campo
         if( x > 1 ) {
             $(this).parent('div').remove(); //eliminar el campo
