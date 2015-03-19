@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title">Evento Nuevo - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
+				<h3 class="page-title">Editar evento - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
 				<!-- END PAGE TITLE & BREADCRUMB-->
 			</div>
 		</div>
@@ -18,7 +18,7 @@
 					<div class="portlet-title">
 						<div class="caption font-green-sharp">
 							<i class="icon-speech font-green-sharp"></i>
-							<span class="caption-subject bold uppercase"> Formulario de Nuevo Evento</span>
+							<span class="caption-subject bold uppercase"> Formulario para editar evento</span>
 							<span class="caption-helper"></span>
 						</div>
 					</div>

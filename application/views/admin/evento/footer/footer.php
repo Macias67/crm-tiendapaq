@@ -32,12 +32,6 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
-	<script src="<?php echo $assets_global_plugins ?>fuelux/js/spinner.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.pack.js"></script>
@@ -48,31 +42,29 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>select2/select2_locale_es.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-	<script src="http://www.crm-tiendapaq.com/assets/admin/pages/myscripts/admin/evento/form-validation-evento.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_admin_pages ?>scripts/components-pickers.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-evento') ?>" type="text/javascript"></script>
-	<script src="../../assets/admin/pages/scripts/components-pickers.js"></script>
-	
-
-
-
-
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-validation-evento') ?>" type="text/javascript"></script>
 	<script>
-
 		jQuery(document).ready(function() {
-			FormValidationEvento.init(); // form-validation-evento
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
-			QuickSidebar.init() // init quick sidebar
+			QuickSidebar.init(); // init quick sidebar
+			ComponentsPickers.init();
 			//MyScripts
-			TableManagedEvento.init(); // Manejador de la tabla de los eventos
-
+			TableManagedEvento.init(); // Maneja y valida las tablas
+			FormValidationEvento.init(); // form-validation-evento
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

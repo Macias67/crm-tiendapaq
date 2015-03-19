@@ -13,6 +13,7 @@ class Evento extends AbstractAccess {
 		parent::__construct();
 		$this->load->model('eventoModel');
 		$this->load->model('participantesModel');
+		$this->load->model('ejecutivoModel');
 	}
 
 	public function index()
@@ -32,6 +33,7 @@ class Evento extends AbstractAccess {
 		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
 			array(
 				'eventos.id_evento',
+				'eventos.id_ejecutivo',
 				'ejecutivos.primer_nombre',
 				'ejecutivos.apellido_paterno',
 				'eventos.titulo',
@@ -55,6 +57,7 @@ class Evento extends AbstractAccess {
 		$this->data['evento'] = $this->eventoModel->get_evento_revision(
 			array(
 				'eventos.id_evento',
+				'eventos.id_ejecutivo',
 				'ejecutivos.primer_nombre',
 				'ejecutivos.apellido_paterno',
 				'eventos.titulo',
@@ -78,7 +81,7 @@ class Evento extends AbstractAccess {
 	 *
 	 * @author  Julio Trujillo
 	 **/
-	public function participantes_detalles($id_evento)
+	public function participantes_detalles($id_evento,$id_ejecutivo)
 	{
 		$this->data['participantes'] = $this->participantesModel->get_participantes(
 			array(
@@ -95,14 +98,13 @@ class Evento extends AbstractAccess {
 	 * funcion para crear
 	 * y gestionar
 	 * eventos
-	 * @author  David
+	 * @author  David | Julio Trujillo
 	 **/
-	public function gestionar($accion=null, $id_cliente=null)
+	public function gestionar($accion=null, $id_evento=null,$id_ejecutivo=null)
 	{
 		switch ($accion)
 		{
 			case 'nuevo':
-				$this->load->model('ejecutivoModel');
 				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
 				array('id','primer_nombre', 'apellido_paterno'),
 				'privilegios',
@@ -112,18 +114,24 @@ class Evento extends AbstractAccess {
 			break;
 
 			case 'editar':
-				$cliente = $this->clienteModel->get_where(array('id' => $id_cliente));
-				if (!empty($cliente))
+				$this->load->helper('formatofechas_helper');
+				$evento = $this->eventoModel->get_where(array('id_evento' => $id_evento));
+				$ejecutivo_actual = $this->ejecutivoModel->get_where(array('id' => $id_ejecutivo));
+
+				if (!empty($evento))
 				{
+					// Busco todos los Ejecutivos para mandarlos en select
+					$ejecutivos = $this->ejecutivoModel->where_in(
+					array('id','primer_nombre', 'apellido_paterno'),
+					'privilegios',
+					array('soporte', 'admin'),
+					'primer_nombre');
+
 					// Datos a enviar a la vista
-					$this->data['cliente']						= $cliente;
-					$this->data['contactos']					= $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
-					$this->data['sistemas_contpaqi']			= $this->sistemasContpaqiModel->get(array('*'));
-					$this->data['sistemas_contpaqi_cliente']	= $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
-					$this->data['equipos']						= $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
-					$this->data['sistemas_operativos']			= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
+					$this->data['cliente']	= $cliente;
+					$this->data['ejecutivos'] 	= $ejecutivos;
 					//Vista de formulario a mostrar
-					$this->_vista('editar-cliente');
+					$this->_vista('editar-evento');
 				} else
 				{
 					show_error('No existe este cliente.', 404);
