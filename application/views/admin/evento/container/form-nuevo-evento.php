@@ -165,47 +165,31 @@
 										<label class="col-md-4 control-label">
 											Sesiones<span class="required" aria-required="true">*</span>
 										</label>
-										<div class="col-md-8">
-											<div class="added">
+										<div class="col-md-6">
+											<div id="contenedor">
 												<div class="input-group date form_datetime">
-													<input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/>
-														<span class="input-group-btn">
-															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-														</span>
-													<a href="#" class="eliminar">&times;</a>
+													<input type="text" name="sesion_1" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesión 1"/>
+													<span class="input-group-btn">
+														<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
 												</div>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="added">
 												<div class="input-group date form_datetime">
-													<input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/>
-														<span class="input-group-btn">
-															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-														</span>
-													<a href="#" class="eliminar">&times;</a>
+													<input type="text" name="sesion_2" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesión 2"/>
+													<span class="input-group-btn">
+														<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
 												</div>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="added">
 												<div class="input-group date form_datetime">
-													<input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/>
-														<span class="input-group-btn">
-															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-														</span>
-													<a href="#" class="eliminar">&times;</a>
+													<input type="text" name="sesion_3" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesión 3"/>
+													<span class="input-group-btn">
+														<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
 												</div>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="added">
 												<div class="input-group date form_datetime">
-													<input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/>
-														<span class="input-group-btn">
-															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-														</span>
-													<a href="#" class="eliminar">&times;</a>
+													<input type="text" name="sesion_4" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesión 4"/>
+													<span class="input-group-btn">
+														<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
 												</div>
 											</div>
 										</div>
