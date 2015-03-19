@@ -4,20 +4,20 @@
  */
 var FormValidationEvento = function () {
 
-	// Spinner para el numero de sesiones
-	var handleSwitch = function () {
-		$('.make-switch').on('switchChange.bootstrapSwitch', function(event, state) {
-			var id = $(this).attr('id-cliente');
-			var selected = (state) ? 'true' : 'false';
-			$.post('/evento/gestionar/activar', {id:id, selected:selected}, function(data, textStatus, xhr) {
-				bootbox.alert(data.mensaje);
-				Metronic.showLoader();
-				if (data.exito) {
-					Metronic.removeLoader();
-				}
-			}, 'json');
-		});
-	}
+	// // Spinner para el numero de sesiones
+	// var handleSwitch = function () {
+	// 	$('.make-switch').on('switchChange.bootstrapSwitch', function(event, state) {
+	// 		var id = $(this).attr('id-cliente');
+	// 		var selected = (state) ? 'true' : 'false';
+	// 		$.post('/evento/gestionar/activar', {id:id, selected:selected}, function(data, textStatus, xhr) {
+	// 			bootbox.alert(data.mensaje);
+	// 			Metronic.showLoader();
+	// 			if (data.exito) {
+	// 				Metronic.removeLoader();
+	// 			}
+	// 		}, 'json');
+	// 	});
+	// }
 
 	// Spinner para el numero de sesiones
 	var handleSpinners = function () {
@@ -50,8 +50,8 @@ var FormValidationEvento = function () {
 	}
 
 // begin test afrefar sesion
-$(document).ready(function() {
-
+	var handleSesiones = function () {
+		// body...
     var MaxInputs       = 4; //Número Maximo de Campos
     var contenedor       = $("#contenedor"); //ID del contenedor
     var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
@@ -67,6 +67,8 @@ $(document).ready(function() {
             //agregar campo
             // $(contenedor).append('<label class="col-md-4 control-label">Seiones<span class="required" aria-required="true">*</span></label>');
             // $(contenedor).append('<div><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" placeholder="Sesion '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
+            // $(contenedor).add('selector/elements/html')('<div class="f.<span class="required" aria-required="true"></span></label><div class="col-md-8"><div id="contenedor"><div class="added"><div class="input-group date form_datetime"><input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/><span class="input-group-btn"><button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button></span><a href="#" class="eliminar">&times;</a></div></div></div></div></div>');
+            $(contenedor).append('<script src="../../assets/admin/pages/scripts/components-pickers.js"></script>')
             $(contenedor).append('<div class="col-md-8"><div class="input-group date form_datetime"><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" size="16" readonly class="form-control"  placeholder="Sesion '+ FieldCount +'"/><span class="input-group-btn"><button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button></span><a href="#" class="eliminar">&times;</a></div></div>');
             x++; //text box increment
         }
@@ -80,16 +82,18 @@ $(document).ready(function() {
         }
         return false;
     });
-});
+	}
+
 // // end test afrefar sesion
 
 	return {
 		//main function to initiate the module
 		init: function () {
 			bootbox.setDefaults({locale: "es"});
-			handleSwitch();
+			// handleSwitch();
 			handleSpinners();
-			handleSelect2RazonSocialEvento();
+			// handleSelect2RazonSocialEvento();
+			handleSesiones();
 		}
 	};
 }();

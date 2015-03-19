@@ -112,9 +112,9 @@
 												<label class="col-md-4 control-label">
 													Seiones<span class="required" aria-required="true">*</span>
 												</label>
-												<div class="col-md-8">
+												<!-- <div class="col-md-8">
 												<a id="agregarCampo" class="btn btn-info" href="#">Agregar Sesion</a>
-												</div>
+												</div> -->
 											</div>
 
 											<!-- <div class="form-group">
@@ -129,12 +129,12 @@
 													</div>
 											</div> -->
 
-									<!-- <div class="form-group">
+									<div class="form-group">
+											<div id="contenedor">
 											<label class="col-md-4 control-label">
 												<span class="required" aria-required="true"></span>
 											</label>
 										<div class="col-md-8">
-											<div id="contenedor">
 												<div class="added">
 													<div class="input-group date form_datetime">
 														<input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/>
@@ -146,10 +146,67 @@
 												</div>
 											</div>
 										</div>
-									</div> -->
-
+									</div>
 
 									<div class="form-group">
+											<div id="contenedor">
+											<label class="col-md-4 control-label">
+												<span class="required" aria-required="true"></span>
+											</label>
+										<div class="col-md-8">
+												<div class="added">
+													<div class="input-group date form_datetime">
+														<input type="text" name="mitexto[]" id="campo_2" size="16" readonly class="form-control"  placeholder="Sesion 2"/>
+															<span class="input-group-btn">
+																<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+															</span>
+														<a href="#" class="eliminar">&times;</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+											<div id="contenedor">
+											<label class="col-md-4 control-label">
+												<span class="required" aria-required="true"></span>
+											</label>
+										<div class="col-md-8">
+												<div class="added">
+													<div class="input-group date form_datetime">
+														<input type="text" name="mitexto[]" id="campo_3" size="16" readonly class="form-control"  placeholder="Sesion 3"/>
+															<span class="input-group-btn">
+																<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+															</span>
+														<a href="#" class="eliminar">&times;</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+											<div id="contenedor">
+											<label class="col-md-4 control-label">
+												<span class="required" aria-required="true"></span>
+											</label>
+										<div class="col-md-8">
+												<div class="added">
+													<div class="input-group date form_datetime">
+														<input type="text" name="mitexto[]" id="campo_4" size="16" readonly class="form-control"  placeholder="Sesion 4"/>
+															<span class="input-group-btn">
+																<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+															</span>
+														<a href="#" class="eliminar">&times;</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<!-- <div class="form-group">
 											<label class="col-md-4 control-label">
 												<span class="required" aria-required="true"></span>
 											</label>
@@ -157,7 +214,7 @@
 											<div id="contenedor">
 											</div>
 										</div>
-									</div>
+									</div> -->
 
 										</div>
 									</div>
