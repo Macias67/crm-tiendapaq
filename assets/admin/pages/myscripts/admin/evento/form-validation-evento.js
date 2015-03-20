@@ -101,259 +101,35 @@ var FormValidationEvento = function () {
 			ignore: "",  // validate all fields including form hidden input
 			rules: {
 				// INFORMACION BASICA
-				razon_social: {
-					maxlength: 80,
+				titulo: {
+					maxlength: 100,
 					required: true
 				},
-				rfc: {
-					maxlength: 13,
-					required: true,
-				},
-				email: {
-					maxlength: 50,
-					required: true,
-					email: true
-				},
-				tipo: {
-					//select
-				},
-				// DOMICILIO
-				calle: {
-					maxlength: 50,
+				descripcion: {
+					maxlength: 65536,
 					required: true
 				},
-				no_exterior: {
-					maxlength: 5,
+				temario: {
+					maxlength: 65536,
 					required: true
 				},
-				no_interior: {
-					maxlength: 5,
-				},
-				colonia: {
-					maxlength: 20,
-					required: true
-				},
-				codigo_postal: {
-					//mascara
-					required: true
-				},
-				ciudad: {
-					required: true,
-					maxlength: 50
-				},
-				municipio: {
-					maxlength: 50
-				},
-				estado: {
-					//select
-				},
-				pais: {
-					//select
-				},
-				// TELEFONOS
-				telefono1: {
-					//mascara
-					required: true
-				},
-				telefono2: {
-					//mascara
-				},
-				// ACCESO AL SISTEMA
-				usuario: {
-					maxlength: 10,
-					required: true
-				},
-				password: {
-					maxlength: 10,
-					required: true
-				},
-				// CONTACTO
-				nombre_contacto: {
-					maxlength: 30,
-					required: true
-				},
-				apellido_paterno: {
-					maxlength: 20,
-					required: true
-				},
-				apellido_materno: {
-					maxlength: 20,
-					required: true
-				},
-				email_contacto: {
-					maxlength: 50,
-					required: true,
-					email: true
-				},
-				telefono_contacto: {
-					//mascara
-					required: true
-				},
-				puesto_contacto: {
-					maxlength: 20
-				},
-				// SISTEMA CONTPAQI
-				sistema: {
-					//select
-				},
-				version: {
-					//select
-				},
-				no_serie: {
-					maxlength: 30
-				},
-				// INFO DEL EQUIPO
-				nombre_equipo: {
-					maxlength: 20
-				},
-				sistema_operativo: {
-					//select
-				},
-				arquitectura: {
-					//radio
-				},
-				maquina_virtual: {
-					//radio
-				},
-				memoria_ram: {
-					maxlength: 3
-				},
-				sql_server: {
-					//select
-				},
-				sql_management: {
-					//select
-				},
-				instancia_sql: {
-					maxlength: 20
-				},
-				password_sql: {
-					maxlength: 20
+				costo: {
 				}
 			},
 			messages: {
-				razon_social: {
-					maxlength: "Razón social debe tener menos de 80 caracteres",
-					required: "Escribe la razón social"
+				titulo: {
+					maxlength: "El titulo debe tener menos de 100 caracteres",
+					required: "Escribe el titulo"
 				},
-				rfc: {
-					maxlength: "El RFC debe tener menos de 13 caracteres",
-					required: "Escribe el RFC"
+				descripcion: {
+					maxlength: "La descripcion debe tener menos de 65536 caracteres",
+					required: "Escribe la descripcion"
 				},
-				email: {
-					maxlength: "El email debe tener menos de 50 caracteres",
-					required:  "Escribe el email",
-					email: "Escribe un email valido"
+				temario: {
+					maxlength: "El temario debe tener menos de 65536 caracteres",
+					required:  "Escribe el temario"
 				},
-				tipo: {
-					//select
-				},
-				calle: {
-					required: "Escribe la calle",
-					maxlength: "La calle debe tener menos de 50 caracteres"
-				},
-				no_exterior: {
-					maxlength: "Debe tener menos de 5 caracteres",
-					required: "Escribe el no. exterior"
-				},
-				no_interior: {
-					maxlength: "Debe tener menos de 5 caracteres",
-				},
-				colonia: {
-					maxlength: "La colonia debe tener menos de 20 caracteres",
-					required: "Escribe la colonia"
-				},
-				codigo_postal: {
-					//mascara
-					required: "Escribe el código postal"
-				},
-				ciudad: {
-					required: "Escribe la ciudad",
-					maxlength: "La ciudad debe tener menos de 50 caracteres"
-				},
-				municipio: {
-					maxlength: "El municipio debe tener menos de 50 caracteres"
-				},
-				estado: {
-					//select
-				},
-				pais: {
-					//select
-				},
-				telefono1: {
-					//mascara
-					required: "Escribe el teléfono"
-				},
-				telefono2: {
-					//mascara
-				},
-				usuario: {
-					maxlength: "El usuario debe tener menos de 10 caracteres",
-					required: "Escribe el usuario"
-				},
-				password: {
-					maxlength: "La contraseña debe tener menos de 10 caracteres",
-					required: "Escribe la contraseña"
-				},
-				nombre_contacto: {
-					maxlength: "El nombre del contacto debe tener menos de 30 caracteres",
-					required: "Escribe nombre del contacto"
-				},
-				apellido_paterno: {
-					maxlength: "El apellido paterno del contacto debe tener menos de 20 caracteres",
-					required: "Escribe apellido paterno"
-				},
-				apellido_materno: {
-					maxlength: "El apellido materno del contacto debe tener menos de 20 caracteres",
-					required: "Escribe apellido materno"
-				},
-				email_contacto: {
-					maxlength: "El email del contacto debe tener menos de 50 caracteres",
-					required: "Escribe el email",
-					email: "Escribe un email valido"
-				},
-				telefono_contacto: {
-					//mascara
-					required: "Escribe el teléfono"
-				},
-				puesto_contacto: {
-					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
-				},
-				sistema: {
-					//select
-				},
-				version: {
-					//select
-				},
-				no_serie: {
-					maxlength: "El no. de serie debe tener menos de 30 caracteres"
-				},
-				nombre_equipo: {
-					maxlength:  "El nombre del equipo debe tener menos de 20 caracteres"
-				},
-				sistema_operativo: {
-					//select
-				},
-				arquitectura: {
-					//radio
-				},
-				maquina_virtual: {
-					//radio
-				},
-				memoria_ram: {
-					maxlength:  "La memoria RAM debe tener menos de 3 digitos"
-				},
-				sql_server: {
-					//select
-				},
-				sql_management: {
-					//select
-				},
-				instancia_sql: {
-					maxlength:  "La instancia SQL debe tener menos de 20 caracteres"
-				},
-				password_sql: {
-					maxlength:  "La contraseña debe tener menos de 20 caracteres"
+				costo: {
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
@@ -376,11 +152,11 @@ var FormValidationEvento = function () {
 			},
 			submitHandler: function (form) {
 				$.ajax({
-					url: $('#form-cliente-completo').attr('action'),
+					url: $('#form-evento-completo').attr('action'),
 					type: 'post',
 					cache: false,
 					dataType: 'json',
-					data: $('#form-cliente-completo').serialize(),
+					data: $('#form-evento-completo').serialize(),
 					beforeSend: function () {
 						Metronic.showLoader();
 					},
@@ -392,7 +168,7 @@ var FormValidationEvento = function () {
 					success: function(data) {
 						if (data.exito) {
 							Metronic.removeLoader();
-							bootbox.alert("<h4>Cliente <b>"+data.razon_social+"</b> añadido con éxito.<h4>", function() {
+							bootbox.alert("<h4>Evento <b>"+data.titulo+"</b> añadido con éxito.<h4>", function() {
 								location.reload();
 							});
 						} else {
@@ -415,6 +191,7 @@ var FormValidationEvento = function () {
 			handleSpinners();
 			// handleSelect2RazonSocialEvento();
 			handleSesiones();
+			formularioClienteCompleto();
 		}
 	};
 }();
