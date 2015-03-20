@@ -71,12 +71,7 @@
 					</li>
 					<li>
 						<a href="<?php echo site_url('#') ?>">
-							<i class="fa fa-video-camera"></i><span class="title"> Videotutoriales</span>
-						</a>
-					</li>
-					<li>
-						<a href="<?php echo site_url('eventos/ver_eventos') ?>">
-							<i class="fa fa-table"></i><span class="title"> Eventos</span>
+							<i class="fa fa-video-camera"></i><span class="title"> Videoturoriales</span>
 						</a>
 					</li>
 				</ul>

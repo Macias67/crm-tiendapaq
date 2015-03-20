@@ -123,7 +123,7 @@ class PDF extends FPDF {
 		$this->Ln(10);
 
 		$this->SetFont('Arial','',9);
-		$this->MultiCell(180, 5, utf8_decode(' Reciba un cordial saludo y nuestro agradecimiento por su confianza e interés en los Productos y Servicios que ofrecemos. Nos es grata enviar la información que solicitó tan amablemente. '),0, 'C');
+		$this->MultiCell(180, 5,'Reciba un cordial saludo y nuestro agradecimiento por su confianza e interes en los Productos y Servicios que ofrecemos. Nos es grata enviar la informacion que solicito tan amablemente.',0, 'C');
 	}
 
 	public function Footer()
@@ -138,7 +138,7 @@ class PDF extends FPDF {
 		$this->SetFillColor(255,255,255);
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',8);
-		$this->Cell(90,5,utf8_decode('MÉTODO DE PAGO'), 'LTR',1,'C', 1);
+		$this->Cell(90,5,'METODO DE PAGO', 'LTR',1,'C', 1);
 
 		$this->SetFont('Arial','',6);
 		//Save the current position
