@@ -14,6 +14,7 @@ class Evento extends AbstractAccess {
 		$this->load->model('eventoModel');
 		$this->load->model('participantesModel');
 		$this->load->model('ejecutivoModel');
+		$this->load->model('clienteModel');
 	}
 
 	public function index()
@@ -144,6 +145,73 @@ class Evento extends AbstractAccess {
 			break;
 		}
 	}
+
+	public function registro_evento()
+	{
+		$this->_vista('registro_evento');
+	}
+
+	/**
+	 * Método consultado para el plugin
+	 * dataTable del archivo table-managed-evento
+	 * que es la tabla vía ajax
+	 *
+	 * @return json
+	 * @author Julio Trujillo
+	 **/
+	// public function table()
+	// {
+	// 	$draw			= $this->input->post('draw');
+	// 	$start			= $this->input->post('start');
+	// 	$length			= $this->input->post('length');
+	// 	$order			= $this->input->post('order');
+	// 	$columns		= $this->input->post('columns');
+	// 	$search			= $this->input->post('search');
+	// 	$total			= $this->participantesModel->count();
+	// 	// var_dump($total);
+	// 	if($length == -1)
+	// 	{
+	// 		$length	= null;
+	// 		$start	= null;
+	// 	}
+	// 	$clientes	= $this->ejecutivoModel->get_or_like(
+	// 						array('id', 'codigo', 'razon_social', 'rfc', 'email', 'tipo', 'activo'),
+	// 						array(
+	// 							'codigo'		=> $search['value'],
+	// 							'razon_social'	=> $search['value'],
+	// 							'rfc'			=> $search['value'],
+	// 							'email'			=> $search['value'],
+	// 							'tipo'			=> $search['value']
+	// 						),
+	// 						$columns[$order[0]['column']]['data'],
+	// 						$order[0]['dir'],
+	// 						$length,
+	// 						$start
+	// 	                                     );
+	// 	$proceso	= array();
+
+	// 	foreach ($clientes as $index => $cliente) {
+	// 		$p = array(
+	// 			"DT_RowId"	=> $cliente->id,
+	// 			'codigo'		=> $cliente->codigo,
+	// 			'razon_social'	=> $cliente->razon_social,
+	// 			'rfc'			=> $cliente->rfc,
+	// 			'email'			=> $cliente->email,
+	// 			'tipo'			=> ucfirst($cliente->tipo),
+	// 			'activo'			=> ($cliente->activo) ? TRUE : FALSE
+	// 			//'tipo'			=> ($cliente->tipo == 'normal') ? '<span class="label label-success">Normal</span>' : '<span class="label label-danger">'.ucfirst($cliente->tipo).' </span>'
+	// 		       );
+	// 		array_push($proceso, $p);
+	// 	}
+	// 	$data = array(
+	// 		'draw'				=> $draw,
+	// 		'recordsTotal'		=> count($clientes),
+	// 		'recordsFiltered'	=> $total,
+	// 		'data'				=> $proceso);
+	// 	$this->output
+	// 		->set_content_type('application/json')
+	// 		->set_output(json_encode($data));
+	// }
 }
 
 /* End of file eventos.php */

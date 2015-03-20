@@ -55,6 +55,7 @@
 						</div>
 					</div>
 				</div>
+				<a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/registro_evento/') ?>"> Boton de prueba </a>
 				<!-- END TABLA EVENTOS-->
 			</div>
 		</div>
