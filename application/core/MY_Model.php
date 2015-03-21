@@ -312,7 +312,6 @@ class TxtManager extends MY_Model {
 				// Ciclo para extraer los codigos de los clientes de la BD
 				for ($i=0; $i < $total_bd; $i++) {
 					// Añado los codigos de la BD al array
-					//array_push($array_codigo_db, $array_bd[$i]->codigo);
 					array_push($array_rfc_db, $array_bd[$i]->rfc);
 				}
 				// Ciclo para añadir o modifiar los clientes en la BD

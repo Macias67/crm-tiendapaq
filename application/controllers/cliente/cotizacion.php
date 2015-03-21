@@ -138,12 +138,17 @@ class Cotizacion extends AbstractAccess {
 
 		$folio = $this->input->post('folio');
 
-		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/');
-
-		//var_dump($archivos);
-		if (count($archivos) <=1 && (!isset($archivos['thumbnail']) || count($archivos['thumbnail']) == 0))
+		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/', 1);
+		// Descarto la carpeta de las thumnail
+		foreach ($archivos as $index => $archivo) {
+			if ($archivos[$index] == 'thumbnail') {
+				unset($archivos[$index]);
+			}
+		}
+		$total = count($archivos);
+		if ($total == 0 && (!isset($archivos['thumbnail']) || count($archivos['thumbnail']) == 0))
 		{
-			$response = array('exito' => FALSE, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
+			$response = array('exito' => FALSE, 'total' => $total, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
 		} else
 		{
 			if ($this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR)) ||
