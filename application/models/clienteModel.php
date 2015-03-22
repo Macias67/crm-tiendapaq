@@ -234,13 +234,14 @@ class ClienteModel extends TxtManager {
 	 **/
 	public function password()
 	{
-		$cadena="[^A-Z0-9]";
-		return substr(
-				preg_replace($cadena, "", md5(rand())) .
-				preg_replace($cadena, "", md5(rand())) .
-				preg_replace($cadena, "", md5(rand())),
-				0, rand(8, 10)
-			);
+		// $cadena="[^A-Z0-9]";
+		// return substr(
+		// 		preg_replace($cadena, "", md5(rand())) .
+		// 		preg_replace($cadena, "", md5(rand())) .
+		// 		preg_replace($cadena, "", md5(rand())),
+		// 		0, rand(8, 10)
+		// 	);
+		return '12345';
 	}
 
 	/**
