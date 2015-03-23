@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title">Gestionar Eventos - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
+				<h3 class="page-title">Eventos del día - <small><?php echo $usuario_activo['razon_social'] ?></small></h3>
 				<!-- END PAGE TITLE & BREADCRUMB-->
 			</div>
 		</div>
@@ -21,21 +21,16 @@
 							<i class="icon-speech"></i>
 							<span class="caption-subject bold uppercase"> Catálogo de eventos</span>
 						</div>
-						<div class="actions">
-							<a href="<?php echo site_url('evento/gestionar/nuevo') ?>" class="btn btn-circle green">
-							<i class="fa fa-plus"></i> Agregar </a>
-						</div>
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">
 							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-eventos">
 								<thead>
 									<tr>
-										<th width="1%">No.</th>
-										<th width="10%">Ejecutivo</th>
-										<th width="10%">Título</th>
-										<th width="15%">Fecha de creación</th>
-										<th width="1%"></th>
+										<th>No.</th>
+										<th>Ejecutivo</th>
+										<th>Título</th>
+										<th>Fecha de creación</th>
 										<th width="1%"></th>
 									</tr>
 								</thead>
@@ -46,8 +41,7 @@
 											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('evento/gestionar/editar/'.$evento->id_evento.'/'.$evento->id_ejecutivo) ?>"><i class="fa fa-search"></i> Ver/editar </a></td>
-											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>"> Participantes </a></td>
+											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('eventos/registro_evento/'.$evento->id_evento) ?>"> Registro </a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
@@ -55,7 +49,6 @@
 						</div>
 					</div>
 				</div>
-				<a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/registro_evento/') ?>"> Boton de prueba </a>
 				<!-- END TABLA EVENTOS-->
 			</div>
 		</div>
@@ -63,15 +56,3 @@
 	</div>
 </div>
 <!-- END CONTENT -->
-<!-- BEGIN DETALLES MODAL -->
-<div id="ajax-detalles-evento" class="modal fade" role="basic" aria-hidden="true">
-	<div class="page-loading page-loading-boxed">
-		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
-		<span>Cargando... </span>
-	</div>
-	<div class="modal-dialog">
-		<div class="modal-content">
-		</div>
-	</div>
-</div>
-<!-- END DETALLES MODAL

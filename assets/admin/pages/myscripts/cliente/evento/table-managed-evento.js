@@ -12,12 +12,12 @@ var TableManagedEvento = function() {
 				[5, 15, 20, -1],
 				[5, 15, 20, "Todos"] // change per page values here
 			],
-			"pageLength": 10, // Número de registros que se mostrarán
+			"pageLength": 15, // Número de registros que se mostrarán
 			"lengthChange": false, // No podrá cambiar el usuario el número de registros que se muestra
+			"paging": false,
 			"columns": [
 				{ "orderable": true },
 				{ "orderable": true },
-				{ "orderable": false },
 				{ "orderable": false },
 				{ "orderable": false },
 				{ "orderable": false }
@@ -50,50 +50,7 @@ var TableManagedEvento = function() {
 		});
 	};
 
-	//Tabla de gestión de eventos
-	var revisaParticipantes = function () {
-		var table = $('#tabla-ver-participantes');
-
-		table.dataTable({
-			"lengthMenu": [
-				[5, 15, 20, -1],
-				[5, 15, 20, "Todos"] // change per page values here
-			],
-			"pageLength": 10, // Número de registros que se mostrarán
-			"columns": [
-				{ "orderable": true },
-				{ "orderable": true },
-				{ "orderable": false }
-			],
-			"language": {
-			        "emptyTable":     "No hay participantes registrados",
-			        "info":           "Mostrando _START_ a _END_ de _TOTAL_ participantes",
-			        "infoEmpty":      "Mostrando 0 a 0 de 0 participantes",
-			        "infoFiltered":   "(de un total de _MAX_ participantes)",
-			        "infoPostFix":    "",
-			        "thousands":      ",",
-			        "lengthMenu":     "Show _MENU_ entries",
-			        "loadingRecords": "Cargando...",
-			        "processing":     "Procesando...",
-			        "search":         "Buscar: ",
-			        "zeroRecords":    "No se encontraron coincidencias",
-			        "lengthMenu": "_MENU_ registros"
-			},
-			"columnDefs": [
-				{ // set default column settings
-				'orderable': true,
-				'targets': [0]
-				},
-				{
-				"searchable": true,
-				"targets": [0]
-				}
-			],
-			"order": [ 0, 'asc' ] // set first column as a default sort by asc
-		});
-	};
-
-	// Gestiona la seccion del cliente y contacto
+// Gestiona la seccion del cliente y contacto
 	var handlerCliente = function() {
 		var select_razon_social	= $('#razon_social');
 		var select_contactos	= $('#contactos');
@@ -110,7 +67,7 @@ var TableManagedEvento = function() {
 			allowClear: true,
 			minimumInputLength: 3,
 			ajax: {
-				url: "../cliente/json",
+				url: "/evento/json",
 				type: 'post',
 				dataType: 'json',
 				quietMillis: 500,
@@ -139,7 +96,7 @@ var TableManagedEvento = function() {
 			var id_cliente = $(this).val();
 			if (id_cliente != "")
 			{
-				$.post('/cliente/json/', {id_cliente: id_cliente}, function(data, textStatus, xhr) {
+				$.post('/evento/json/', {id_cliente: id_cliente}, function(data, textStatus, xhr) {
 					if (data.total_contactos > 0)
 					{
 						contactos = data.contactos;
@@ -185,13 +142,11 @@ var TableManagedEvento = function() {
 				input_email.val('');
 			}
 		});
-	}
+	};
 
 	return {
 		init: function() {
-			//bootbox.setDefaults({locale: "es"});
 			revisionEventos();
-			revisaParticipantes();
 			handlerCliente();
 		}
 	};
