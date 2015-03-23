@@ -59,6 +59,59 @@ class CasoModel extends MY_Model {
 	}
 
 	/**
+	 * funcion para regresar los satos de una cotizacion del cliente
+	 *
+	 * @author Luis Macias | Diego Rodriguez
+	 **/
+	public function get_caso_ejecutivo_table($id_ejecutivo, $campos, $joins, $like = array(), $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	{
+		$this->db->select($campos);
+		$todos = ($joins[0] == '*' && count($joins) == 1) ? TRUE : FALSE ;
+		// Joins de las demas tablas, entre mas mas informacion detallada
+		if (in_array('clientes', $joins) || $todos) {
+			$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		}
+		if (in_array('estatus_general', $joins) || $todos) {
+			$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+		}
+		$where = array($this->table.'.id_lider' => $id_ejecutivo);
+		$this->db->where($where);
+		$this->db->or_like($like);
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		$this->db->order_by('fecha_inicio', 'ASC');
+		if ($limit && !$offset)
+		{
+			$this->db->limit($limit);
+		}
+		elseif ($limit && $offset)
+		{
+			$this->db->limit($limit, $offset);
+		}
+		$query = $this->db->get($this->table);
+		return  $query->result();
+	}
+
+	/**
+	 * funcion para obtener los casos de un ejecutivo en especifico
+	 *
+	 * @author Diego Rodriguez
+	 **/
+	public function get_casos_generales($campos='*')
+	{
+		$this->load->model('estatusGeneralModel');
+
+		$this->db->select($campos);
+		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
+		$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
+		$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
+
+	/**
 	 * funcion para obtener los detalles de un caso para la
 	 * ventana modal detalles de caso, realiza validacion de
 	 * si el caso esta o no asignado a un lider

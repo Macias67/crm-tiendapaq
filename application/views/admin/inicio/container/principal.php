@@ -172,16 +172,16 @@
 					<!-- BEGIN TABLA MIS CASOS-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Mis casos...</div>
+							<div class="caption"><i class="fa fa-user"></i>Casos generales</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_casos">
 								<thead>
 									<tr>
-										<th>No.</th>
+										<th>Folio</th>
 										<th>Cliente</th>
+										<th>Lider</th>
 										<th>Apertura</th>
-										<th>Vigencia (aprox.)</th>
 										<th>Estatus</th>
 										<th></th>
 									</tr>
@@ -189,10 +189,10 @@
 								<tbody>
 								<?php foreach ($casos as $caso): ?>
 									<tr class="odd gradeX">
-										<td><?php echo $caso->id_caso ?></td>
+										<td><?php echo $caso->folio_cotizacion ?></td>
 										<td><?php echo $caso->razon_social ?></td>
+										<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
 										<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-										<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
 										<td>
 											<?php switch ($caso->id_estatus_general) {
 												case 1:

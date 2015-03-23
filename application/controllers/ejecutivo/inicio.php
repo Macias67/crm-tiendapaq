@@ -101,20 +101,28 @@ class Inicio extends AbstractAccess {
 
 			// Cargo los casos para tabla casos
 			$this->data['casos'] = $this->casoModel
-						->get_casos_ejecutivo($this->usuario_activo['id'],
-							array(	'caso.id as id_caso',
-				                                    	'caso.id_estatus_general',
-				                                                'clientes.razon_social',
-				                                                'estatus_general.descripcion',
-				                                                'id_cliente',
-				                                                'folio_cotizacion',
-				                                                'fecha_inicio',
-				                                                'fecha_final'));
-			// DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
+						->get_casos_generales(
+							array(
+								'caso.id as id_caso',
+								'caso.id_estatus_general',
+								'clientes.razon_social',
+								'estatus_general.descripcion',
+								'id_cliente',
+								'folio_cotizacion',
+								'fecha_inicio',
+								'ejecutivos.primer_nombre',
+								'ejecutivos.apellido_paterno'));
 			$this->_vista('principal');
 		}
 	}
 
+	/**
+	 * Metodo para enviar datos de notificaciones
+	 * en los botones de acceso rapido
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function actualiza()
 	{
 		$this->load->model('casoModel');
