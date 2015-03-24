@@ -11,7 +11,9 @@ class Evento extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('form_validation');
 		$this->load->model('eventoModel');
+		$this->load->helper('formatofechas_helper');
 	}
 
 	// public function index()
@@ -269,6 +271,53 @@ public function index()
 				$this->_vista('gestionar');
 			break;
 		}
+	}
+
+	public function nuevo ()
+	{
+		//reglas de evento
+		$this->form_validation->set_rules('ejecutivos', 'Ejecutivo', 'strtolower|xss_clean');
+		$this->form_validation->set_rules('titulo', 'Titulo', 'required|max_length[100]|xss_clean');
+		$this->form_validation->set_rules('descripcion', 'Descripcion', 'required|max_length[65536]|xss_clean');
+		$this->form_validation->set_rules('temario', 'Temario', 'required|max_length[65536]|xss_clean');
+		$this->form_validation->set_rules('costo', 'Costo', 'max_length[6]|xss_clean');
+		// $this->form_validation->set_rules('sesion_1', 'Sesion1', 'xss_clean');
+		// this->form_validation->set_rules('sesion_2', 'Sesion2', 'xss_clean');
+		// this->form_validation->set_rules('sesion_3', 'Sesion3', 'xss_clean');
+		// this->form_validation->set_rules('sesion_4', 'Sesion4', 'xss_clean');
+
+		if($this->form_validation->run() === FALSE)
+		{
+			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
+		} else
+		{
+			//si las reglas son correctas preparo los datos para insertar
+			$evento = array(
+				'id_evento'		=>$this->input->post(''),
+				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
+				'titulo'		=> $this->input->post('titulo'),
+				'descripcion'	=> $this->input->post('descripcion'),
+				'temario'		=> $this->input->post('temario'),
+				'costo'			=> $this->input->post('costo')
+				// 'sesion_1'		=> $this->input->post('sesion1'),
+				// 'sesion_2'		=> $this->input->post('sesion2'),
+				// 'sesion_3'		=> $this->input->post('sesion3'),
+				// 'sesion_4'		=> $this->input->post('sesion4'),
+
+			);
+			//Inserto en la BD el nuevo evento
+			if($this->eventoModel->insert($evento))
+			{
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo equipo añadido con éxito.</h4>.');
+			} else
+			{
+				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+			}
+		}
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
 	}
 }
 

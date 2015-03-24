@@ -42,7 +42,7 @@
 								<div class="form-group">
 									<label class="control-label col-md-4">Ejecutivo</label>
 									<div class="col-md-8">
-										<select class="form-control" name="lider_caso">
+										<select class="form-control" name="ejecutivo">
 											<?php foreach ($ejecutivos as $ejecutivo): ?>
 											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
 											<?php endforeach ?>
@@ -107,6 +107,7 @@
 													</div>
 												</div>
 											</div> -->
+											<!-- ***este*** -->
 											<!-- numero de sesiones -->
 											<!-- <div class="form-group">
 												<label class="col-md-4 control-label">
@@ -146,9 +147,9 @@
 												</div>
 											</div>
 										</div>
-									</div -->>
+									</div> -->
 
-
+								<!-- ***este*** -->
 								<!-- <div class="form-group">
 										<label class="col-md-4 control-label">
 											<span class="required" aria-required="true"></span>
@@ -158,7 +159,20 @@
 											</div>
 										</div>
 									</div> -->
-									<!-- numero de sesiones dinamicas-->
+									<!-- FIN numero de sesiones dinamicas-->
+
+									<!-- INICIO Costo -->
+									<div class="form-group">
+										<label class="col-md-4 control-label">
+											Costo<span class="required" aria-required="true">$</span>
+										</label>
+										<div class="col-md-8">
+											<div class="input-icon">
+												<i class="fa fa-dollar"></i>
+												<input name="costo" class="form-control" class="form-control"></input>
+											</div>
+										</div>
+									</div>
 
 									<!-- numero de sesiones fijas -->
 									<div class="form-group">

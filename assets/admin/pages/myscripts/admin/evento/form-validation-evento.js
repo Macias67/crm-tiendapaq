@@ -74,7 +74,6 @@ var FormValidationEvento = function () {
         }
         return false;
     });
-	x=5;
     $("body").on("click",".eliminar", function(e){ //click en eliminar campo
         if( x > 1 ) {
             $(this).parent('div').remove(); //eliminar el campo
@@ -83,10 +82,10 @@ var FormValidationEvento = function () {
         return false;
     });
 	}
-	// end test afrefar sesion
+	// end test agrefar sesion
 
 	// Validacion para formulario de evento nuevo completo
-	var formularioClienteCompleto = function() {
+	var formularioEventoCompleto = function() {
 		// for more info visit the official plugin documentation:
 		// http://docs.jquery.com/Plugins/Validation
 
@@ -114,6 +113,7 @@ var FormValidationEvento = function () {
 					required: true
 				},
 				costo: {
+					digits: true
 				}
 			},
 			messages: {
@@ -130,6 +130,7 @@ var FormValidationEvento = function () {
 					required:  "Escribe el temario"
 				},
 				costo: {
+					digits: "solo puede contener numeros"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
@@ -191,7 +192,7 @@ var FormValidationEvento = function () {
 			handleSpinners();
 			// handleSelect2RazonSocialEvento();
 			handleSesiones();
-			formularioClienteCompleto();
+			formularioEventoCompleto();
 		}
 	};
 }();
