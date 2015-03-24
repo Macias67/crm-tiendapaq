@@ -11,17 +11,17 @@ class Ejecutivo extends AbstractAccess {
 	{
 		parent::__construct();
 		$this->load->model('ejecutivoModel');
+		$this->load->model('casoModel');
 		$this->load->model('pendienteModel');
 		//Helper
 		$this->load->helper('formatofechas');
-		$this->data['pendientes_usuario'] =
-		$this->pendienteModel->getPendientes(
-		                                     array('id_pendiente',
-		                                     	'actividades_pendiente.actividad',
-		                                     	'clientes.razon_social',
-		                                     	'fecha_origen',
-		                                     	'id_estatus_general'),
-		                                       $this->usuario_activo['id']);
+		$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(
+												array('id_pendiente',
+												'actividades_pendiente.actividad',
+												'clientes.razon_social',
+												'fecha_origen',
+												'id_estatus_general'),
+												$this->usuario_activo['id']);
 	}
 
 	/**
@@ -36,7 +36,6 @@ class Ejecutivo extends AbstractAccess {
 		//cargo los modelos a usar
 		$this->load->model('departamentoModel');
 		$this->load->model('oficinasModel');
-		$this->load->model('casoModel');
 		//cargo los helpers a usar
 		$this->load->helper('formatofechas_helper');
 		//cargamos los datos completos del usuario para mostrarlos en el perfil
@@ -48,31 +47,20 @@ class Ejecutivo extends AbstractAccess {
 		//variables precargadas para mostrar datos el los selects del formulario de edicion
 		$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
 		$this->data['tablaoficinas']			= $this->oficinasModel->get(array('ciudad_estado'));
-		//variable de los casos del ejecutivo
-		$this->data['casos'] = $this->casoModel->get_casos_ejecutivo($this->usuario_activo['id'],
-				                                                         array('caso.id as id_caso',
-												'caso.id_estatus_general',
-												'clientes.razon_social',
-												'estatus_general.descripcion',
-												'id_cliente',
-												'folio_cotizacion',
-												'fecha_inicio',
-												'fecha_final'));
 		//mandamos la vista principal
 		$this->_vista('perfil');
 	}
 
 	public function json_casos()
 	{
-		$this->load->model('casoModel');
-
 		$draw			= $this->input->post('draw');
 		$start			= $this->input->post('start');
 		$length		= $this->input->post('length');
 		$order			= $this->input->post('order');
 		$columns		= $this->input->post('columns');
 		$search		= $this->input->post('search');
-		$total			=  $this->casoModel->count();
+		$total			=  $this->casoModel->get('COUNT(*) as total', array('id_lider' =>$this->usuario_activo['id']), null, 1);
+
 		if($length == -1)
 		{
 			$length	= null;
@@ -87,14 +75,8 @@ class Ejecutivo extends AbstractAccess {
 						'folio_cotizacion',
 						'fecha_inicio',
 						'fecha_final');
-		$joins = array('clientes', 'estatus_general');
-		$like = array(
-				'folio_cotizacion'					=> $search['value'],
-				'clientes.razon_social'				=> $search['value'],
-				'fecha_inicio'						=> $search['value'],
-				'fecha_final'						=> $search['value'],
-				'estatus_general.descripcion' 		=> $search['value']
-		);
+		$joins 			= array('clientes', 'estatus_general');
+		$like 			= $search['value'];
 		$orderBy 		= $columns[$order[0]['column']]['data'];
 		$orderForm 	= $order[0]['dir'];
 		$limit 			= $length;
@@ -130,7 +112,72 @@ class Ejecutivo extends AbstractAccess {
 		$data = array(
 			'draw'				=> $draw,
 			'recordsTotal'		=> count($casos),
-			'recordsFiltered'	=> $total,
+			'recordsFiltered'	=> $total[0]->total,
+			'data'				=> $proceso);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+	}
+
+	public function json_pendientes()
+	{
+		$draw			= $this->input->post('draw');
+		$start			= $this->input->post('start');
+		$length		= $this->input->post('length');
+		$order			= $this->input->post('order');
+		$columns		= $this->input->post('columns');
+		$search		= $this->input->post('search');
+		$total			=  $this->pendienteModel->get('COUNT(*) as total', array('id_ejecutivo' =>$this->usuario_activo['id']), null, 1);
+
+		if($length == -1)
+		{
+			$length	= null;
+			$start		= null;
+		}
+		$campos = array(
+					'id_pendiente',
+					'actividades_pendiente.actividad',
+					'clientes.razon_social',
+					'fecha_origen',
+					'estatus_general.descripcion');
+		$joins 			= array('clientes', 'actividades_pendiente', 'estatus_general');
+		$like 			= $search['value'];
+		$orderBy 		= $columns[$order[0]['column']]['data'];
+		$orderForm 	= $order[0]['dir'];
+		$limit 			= $length;
+		$offset 		= $start;
+		$pendientes	= $this->pendienteModel->get_pendiente_ejecutivo_table(
+		                                                           	   $this->usuario_activo['id'],
+		                                                                     $campos,
+		                                                                     $joins,
+		                                                                     $like,
+		                                                                     $orderBy,
+		                                                                     $orderForm,
+		                                                                     $limit,
+		                                                                     $offset);
+		//var_dump($pendientes);
+
+		$proceso	= array();
+		$this->load->helper('formatofechas');
+		//$this->load->model('comentariosCotizacionModel');
+		foreach ($pendientes as $index => $pendiente) {
+			//$total_comentario 		= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $pendiente->folio), null, 'ASC', 1);
+			//$total_comentario_sinver 	= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $pendiente->folio, 'visto' => 0), null, 'ASC', 1);
+			$p = array(
+				'DT_RowId'					=> $pendiente->id_pendiente,
+				'id_pendiente'				=> $pendiente->id_pendiente,
+				'actividad'					=> $pendiente->actividad,
+				'razon_social'				=> ($pendiente->razon_social) ? $pendiente->razon_social : '---',
+				'fecha_origen'				=> fecha_completa($pendiente->fecha_origen),
+				'descripcion'				=> ucfirst($pendiente->descripcion),
+				'url'							=> site_url('/pendiente/detalles/'.$pendiente->id_pendiente)
+			       );
+			array_push($proceso, $p);
+		}
+		$data = array(
+			'draw'				=> $draw,
+			'recordsTotal'		=> count($pendientes),
+			'recordsFiltered'	=> $total[0]->total,
 			'data'				=> $proceso);
 		$this->output
 			->set_content_type('application/json')
@@ -182,8 +229,6 @@ class Ejecutivo extends AbstractAccess {
 
 				case 'eliminar':
 					$id = $this->input->post('id');
-					$this->load->model('casoModel');
-					$this->load->model('pendienteModel');
 					// Si existe ejecutivo
 					if ($this->ejecutivoModel->exist(array('id' => $id)) ) {
 						//Si no es el mismo quien esta logueado
@@ -239,8 +284,7 @@ class Ejecutivo extends AbstractAccess {
 			$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('*'));
 			$this->_vista('catalogo');
 		}else{
-			$this->load->model('casoModel');
-			$this->load->model('pendienteModel');
+			
 
 			$this->data['ejecutivo'] = $this->ejecutivoModel->get(array('*'),array('id' => $id_ejecutivo),null,'ASC',1);
 			$this->data['ejecutivo']->ruta_img_ejecutivo = site_url('assets/admin/pages/media/profile').'/'.$this->data['ejecutivo']->id.'/';

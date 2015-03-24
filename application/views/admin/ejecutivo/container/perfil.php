@@ -108,7 +108,7 @@
 															<th></th>
 														</tr>
 													</thead>
-													<tbody>
+													<!-- <tbody>
 														<?php foreach ($pendientes_usuario as $pendiente): ?>
 															<tr class="odd gradeX">
 																<td><?php echo $pendiente->id_pendiente ?></td>
@@ -139,7 +139,7 @@
 																</td>
 															</tr>
 														<?php endforeach ?>
-													</tbody>
+													</tbody> -->
 												</table>
 											</div>
 											<!-- INICIO TAB CASOS-->

@@ -59,11 +59,12 @@ class CasoModel extends MY_Model {
 	}
 
 	/**
-	 * funcion para regresar los satos de una cotizacion del cliente
+	 * funcion para regresar los casos de un ejecutico
+	 * en el plugin datatable
 	 *
-	 * @author Luis Macias | Diego Rodriguez
+	 * @author Luis Macias
 	 **/
-	public function get_caso_ejecutivo_table($id_ejecutivo, $campos, $joins, $like = array(), $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	public function get_caso_ejecutivo_table($id_ejecutivo, $campos, $joins, $like, $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
 	{
 		$this->db->select($campos);
 		$todos = ($joins[0] == '*' && count($joins) == 1) ? TRUE : FALSE ;
@@ -74,9 +75,9 @@ class CasoModel extends MY_Model {
 		if (in_array('estatus_general', $joins) || $todos) {
 			$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
 		}
-		$where = array($this->table.'.id_lider' => $id_ejecutivo);
-		$this->db->where($where);
-		$this->db->or_like($like);
+		//$this->db->or_like($like);
+		$this->db->where(array($this->table.'.id_lider' => $id_ejecutivo));
+		$this->db->where("(`folio_cotizacion`  LIKE '%".$like."%' OR  `clientes`.`razon_social`  LIKE '%".$like."%' OR  `fecha_inicio`  LIKE '%".$like."%' OR  `fecha_final`  LIKE '%".$like."%' OR  `estatus_general`.`descripcion`  LIKE '%".$like."%')");
 		if($orderBy)
 		{
 			$this->db->order_by($orderBy, $orderForm);
