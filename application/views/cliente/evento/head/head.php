@@ -24,7 +24,9 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_admin_pages ?>css/portfolio.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>gritter/css/jquery.gritter.css" />
+	
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
 	<!-- END PAGE LEVEL STYLES -->

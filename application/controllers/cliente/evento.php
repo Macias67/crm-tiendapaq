@@ -45,7 +45,6 @@ class Evento extends AbstractAccess {
 	public function json()
 	{
 		$id_cliente = $this->input->post('id_cliente');
-		var_dump($id_cliente);
 		/**
 		 * Si el $id_cliente es vacio, entonces es porque
 		 * sera utilizado en el select de busqueda de clientes
