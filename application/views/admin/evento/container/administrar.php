@@ -36,6 +36,7 @@
 										<th width="10%">Título</th>
 										<th width="15%">Fecha de creación</th>
 										<th width="1%"></th>
+										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -45,7 +46,8 @@
 											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a></td>
+											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Ver/Editar </a></td>
+											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Participantes </a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
