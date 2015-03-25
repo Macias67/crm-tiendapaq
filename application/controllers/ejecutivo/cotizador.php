@@ -329,9 +329,9 @@ class Cotizador extends AbstractAccess {
 			//$this->email->bcc('and@another.com');
 			$this->email->subject('Envío de Cotización TiendaPAQ');
 			// Contenido del correo
-			 $this->data['usuario'] 		= $data_cliente[0]->usuario;
-			 $this->data['password'] 	= $data_cliente[0]->password;
-			 $this->data['folio'] 		= $folio;
+			$this->data['usuario'] 		= $data_cliente[0]->usuario;
+			$this->data['password'] 	= $data_cliente[0]->password;
+			$this->data['folio'] 			= $folio;
 			$this->data['fecha'] 		= fecha_completa(date('Y-m-d H:i:s'));
 			$this->data['vigencia'] 		= fecha_completa($vigencia);
 			$this->data['contacto'] 	= $cliente['contacto'];

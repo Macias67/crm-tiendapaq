@@ -44,13 +44,13 @@ class Pendiente extends AbstractAccess {
 			$razon_social = $this->input->post('razon_social');
 			// Captruo los datos en un array
 			$data = array(
-				'id_creador'	   	 		    => $this->usuario_activo['id'],
-				'id_ejecutivo'						=> $this->input->post('ejecutivo'),
-				'id_cliente'							=> (empty($razon_social)) ? NULL : $razon_social,
+				'id_creador'				=> $this->usuario_activo['id'],
+				'id_ejecutivo'				=> $this->input->post('ejecutivo'),
+				'id_cliente'					=> (empty($razon_social)) ? NULL : $razon_social,
 				'id_actividad_pendiente'	=> $this->input->post('actividad'),
-				'id_estatus_general'			=> $this->estatusGeneralModel->PENDIENTE,
-				'descripcion'							=> $this->input->post('descripcion'),
-				'fecha_origen' 						=> date('Y-m-d H:i:s')
+				'id_estatus_general'		=> $this->estatusGeneralModel->PENDIENTE,
+				'descripcion'				=> $this->input->post('descripcion'),
+				'fecha_origen'				=> date('Y-m-d H:i:s')
 			);
 			// Transfomo arreglo a objeto
 			$objeto_pendiente = $this->pendienteModel->arrayToObject($data);
@@ -163,13 +163,13 @@ class Pendiente extends AbstractAccess {
 	 **/
 	public function actualizar()
 	{
-		$id_pendiente 						= $this->input->post('id_pendiente');
-		$id_estatus 							= $this->input->post('id_estatus');
-		$estatus_text						  = $this->input->post('estatus_text');
-		$id_ejecutivo_destino   	= $this->input->post('id_ejecutivo_destino');
-		$ejecutivo_destino_text 	= $this->input->post('ejecutivo_destino_text');
-		$id_ejecutivo_origen 			= $this->usuario_activo['id'];
-		$motivo										= $this->input->post('motivo');
+		$id_pendiente				= $this->input->post('id_pendiente');
+		$id_estatus				= $this->input->post('id_estatus');
+		$estatus_text				= $this->input->post('estatus_text');
+		$id_ejecutivo_destino		= $this->input->post('id_ejecutivo_destino');
+		$ejecutivo_destino_text	= $this->input->post('ejecutivo_destino_text');
+		$id_ejecutivo_origen		= $this->usuario_activo['id'];
+		$motivo					= $this->input->post('motivo');
 
 		if (empty($id_ejecutivo_destino)) {
 			if(empty($id_estatus)){
@@ -188,15 +188,15 @@ class Pendiente extends AbstractAccess {
 			$this->load->model('reasignarPendienteModel');
 
 			$reasignacion = array(
-				'id_pendiente' => $id_pendiente,
-				'id_ejecutivo_origen' => $id_ejecutivo_origen,
-				'id_ejecutivo_destino' => $id_ejecutivo_destino,
-				'fecha' => date('Y-m-d H:i:s'),
-				'motivo' => $motivo
+				'id_pendiente'			=> $id_pendiente,
+				'id_ejecutivo_origen'	=> $id_ejecutivo_origen,
+				'id_ejecutivo_destino'	=> $id_ejecutivo_destino,
+				'fecha'					=> date('Y-m-d H:i:s'),
+				'motivo'				=> $motivo
 				);
 
 			if($this->reasignarPendienteModel->insert($reasignacion) &&
-				 $this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus_general' => 7), array('id_pendiente' => $id_pendiente)))
+				$this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus_general' => 7), array('id_pendiente' => $id_pendiente)))
 			{
 				$respuesta = array('exito' => TRUE, 'ejecutivo_destino_text' => $ejecutivo_destino_text);
 			}else{
