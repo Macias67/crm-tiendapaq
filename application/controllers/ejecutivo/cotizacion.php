@@ -53,11 +53,11 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 		//codigo para revisar cotizaciones vencidas
 		$campos = array(
-								'cotizacion.folio',
-								'cotizacion.fecha',
-								'cotizacion.vigencia',
-								'cotizacion.id_estatus_cotizacion'
-							);
+					'cotizacion.folio',
+					'cotizacion.fecha',
+					'cotizacion.vigencia',
+					'cotizacion.id_estatus_cotizacion'
+					);
 		$where = array('cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
 		//obtengo las cotizaciones por pagar para revisar si estan vencidas
 		$cotizaciones = $this->cotizacionModel->get_cotizaciones($campos, $where);
@@ -68,7 +68,6 @@ class Cotizacion extends AbstractAccess {
 				$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
 			}
 		}
-
 		//despues de la revision de muestra la vista
 		$this->_vista('cotizaciones-catalogo');
 	}
@@ -362,21 +361,22 @@ class Cotizacion extends AbstractAccess {
 			$email = $this->input->post('email');
 
 			$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-			                                                                          array(
-			                                                                                'cotizacion.id_cliente',
-			                                                                          	'cotizacion.folio',
-			                                                                          	'cotizacion.fecha',
-			                                                                          	'cotizacion.vigencia',
-			                                                                          	'contactos.nombre_contacto',
-			                                                                          	'contactos.apellido_paterno',
-			                                                                          	'contactos.apellido_materno',
-			                                                                          	'clientes.razon_social',
-			                                                                          	'clientes.email',
-			                                                                          	'clientes.usuario',
-			                                                                          	'clientes.password',
-			                                                                          	'estatus_cotizacion.descripcion'),
-			                                                                          array('clientes', 'contactos', 'estatus_cotizacion'),
-			                                                                          $folio);
+							array(
+								'cotizacion.id_cliente',
+								'cotizacion.folio',
+								'cotizacion.fecha',
+								'cotizacion.vigencia',
+								'contactos.nombre_contacto',
+								'contactos.apellido_paterno',
+								'contactos.apellido_materno',
+								'clientes.razon_social',
+								'clientes.email',
+								'clientes.usuario',
+								'clientes.password',
+								'estatus_cotizacion.descripcion'
+							),
+							array('clientes', 'contactos', 'estatus_cotizacion'),
+							$folio);
 
 			$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
 			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
@@ -426,7 +426,7 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 		$folio = $this->input->post('folio');
 
-		if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA),array('folio' => $folio))){
+		if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio))) {
 			$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
 		}else{
 			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );

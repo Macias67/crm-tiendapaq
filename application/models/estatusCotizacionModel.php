@@ -29,7 +29,7 @@ class estatusCotizacionModel extends CI_Model {
 	var $IRREGULAR	= 4;
 	var $VENCIDO		= 5;
 	var $PARCIAL		= 6;
-	var $CANCELADA		= 7	;
+	var $CANCELADA	= 7	;
 
 }
 

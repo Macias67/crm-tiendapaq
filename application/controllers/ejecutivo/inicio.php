@@ -14,7 +14,6 @@ class Inicio extends AbstractAccess {
 
 	public function index()
 	{
-
 		if($this->usuario_activo['privilegios'] == "cliente")
 		{
 			// SECCION PARA CLIENTES

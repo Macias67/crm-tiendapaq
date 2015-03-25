@@ -8,7 +8,11 @@
 | Ya sea local o vía remoto
 |
 */
-define('LOCAL', TRUE);
+if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+	define('LOCAL', TRUE);
+} else {
+	define('LOCAL', FALSE);
+}
 
 /*
 |--------------------------------------------------------------------------
