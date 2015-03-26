@@ -188,7 +188,7 @@ class Cotizacion extends AbstractAccess {
 
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
-	 * para los clientes desde otras secciones ya copn la cotizacion creada
+	 * para los clientes desde otras secciones ya con la cotizacion creada
 	 *
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
@@ -271,7 +271,6 @@ class Cotizacion extends AbstractAccess {
 	 * @return void
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
-
 	public function apertura()
 	{
 		$folio = $this->input->post('folio');
@@ -425,13 +424,11 @@ class Cotizacion extends AbstractAccess {
 	{
 		$this->load->model('estatusCotizacionModel');
 		$folio = $this->input->post('folio');
-
 		if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio))) {
 			$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
 		}else{
 			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );
 		}
-
 		//mando la repuesta
 		$this->output
 			->set_content_type('application/json')

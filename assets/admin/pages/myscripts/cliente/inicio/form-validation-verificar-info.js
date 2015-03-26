@@ -133,21 +133,46 @@ var FormValidation = function () {
 					var param   = $('#form-verificar-datos').serialize();
 
 					Metronic.showLoader();
-					$.post(url, param, function(data, textStatus, xhr) {
-						if (data.exito) {
-							Metronic.removeLoader();
-							verificarInfo.modal('hide');
-							bootbox.alert(data.msg, function() {
-								window.location.replace(data.url);
-							});
-						} else {
-							error.html(data.msg);
-							error.show();
-							$('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
-							Metronic.removeLoader();
-							verificarInfo.modal('show');
+					$.ajax({
+						url: url,
+						type: 'post',
+						dataType: 'json',
+						data: param,
+						error: function(jqXHR, status, error) {
+							console.log("ERROR: "+error);
+							alert('ERROR: revisa la consola del navegador para más detalles.');
+						},
+						success: function(data, textStatus, xhr) {
+							if (data.exito) {
+								Metronic.removeLoader();
+								verificarInfo.modal('hide');
+								bootbox.alert(data.msg, function() {
+									window.location.replace(data.url);
+								});
+							} else {
+								error.html(data.msg);
+								error.show();
+								$('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
+								Metronic.removeLoader();
+								verificarInfo.modal('show');
+							}
 						}
-					}, 'json');
+					});
+					// $.post(url, param, function(data, textStatus, xhr) {
+					// 	if (data.exito) {
+					// 		Metronic.removeLoader();
+					// 		verificarInfo.modal('hide');
+					// 		bootbox.alert(data.msg, function() {
+					// 			window.location.replace(data.url);
+					// 		});
+					// 	} else {
+					// 		error.html(data.msg);
+					// 		error.show();
+					// 		$('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);
+					// 		Metronic.removeLoader();
+					// 		verificarInfo.modal('show');
+					// 	}
+					// }, 'json');
 				}
 			});
 		});

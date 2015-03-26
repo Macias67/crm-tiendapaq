@@ -5,6 +5,7 @@ var TableManaged = function () {
 
 	var tablaPendientes = function () {
 		var table = $('#pendientes-ejecutivo');
+		var id_ejecutivo = $('#tab_pendientes').attr('id-ejecutivo');
 		table.dataTable({
 			"lengthMenu": [
 				[5, 15, 20, -1],
@@ -13,7 +14,7 @@ var TableManaged = function () {
 			"processing": true,
 			"serverSide": true,
 			"ajax": {
-				"url": "./ejecutivo/json_pendientes",
+				"url": "/ejecutivo/json_pendientes/"+id_ejecutivo,
 				"type": "POST"
 			},
 			// set the initial value
@@ -100,6 +101,7 @@ var TableManaged = function () {
 
 	var tablaCasos = function () {
 		var table = $('#casos-ejecutivo');
+		var id_ejecutivo = $('#tab_casos').attr('id-ejecutivo');
 		table.dataTable({
 			"lengthMenu": [
 				[5, 15, 20, -1],
@@ -108,7 +110,7 @@ var TableManaged = function () {
 			"processing": true,
 			"serverSide": true,
 			"ajax": {
-				"url": "./ejecutivo/json_casos",
+				"url": "/ejecutivo/json_casos/"+id_ejecutivo,
 				"type": "POST"
 			},
 			// set the initial value

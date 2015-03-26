@@ -104,7 +104,7 @@
 					<!-- BEGIN TABLA MIS PENDIENTES-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Nuevos pendientes sin atender...</div>
+							<div class="caption"><i class="fa fa-user"></i> Mis nuevos pendientes sin atender...</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">

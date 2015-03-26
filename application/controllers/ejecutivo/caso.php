@@ -202,7 +202,7 @@ class Caso extends AbstractAccess {
 	}
 
 	/**
-	 * funcion pra cerrar un caso
+	 * Funcion pra cerrar un caso
 	 *
 	 * @author Diego Rodriguez
 	 **/

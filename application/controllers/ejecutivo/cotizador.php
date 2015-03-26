@@ -38,6 +38,13 @@ class Cotizador extends AbstractAccess {
 		$this->_vista('index');
 	}
 
+	/**
+	 * Muestro el cotizador con la informacion
+	 * del pendiente que solicita cotizar
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function pendiente($id_pendiente)
 	{
 		// Cargo modelos
@@ -45,22 +52,23 @@ class Cotizador extends AbstractAccess {
 		if ($this->pendienteModel->exist(array('id_pendiente' => $id_pendiente))) {
 			//Helper
 			$this->load->helper('formatofechas');
-
-			$pendiente	= $this->pendienteModel->getPendiente($id_pendiente,
-													array('pendientes.id_pendiente',
-																'clientes.razon_social',
-																'actividades_pendiente.id_actividad as id_actividad_pendiente',
-																'actividades_pendiente.actividad',
-																'pendientes.descripcion',
-																'pendientes.fecha_origen',
-																'creador.primer_nombre as creador_nombre',
-																'creador.apellido_paterno as creador_apellido',
-																'ejecutivo.primer_nombre as ejecutivo_nombre',
-																'ejecutivo.apellido_paterno as ejecutivo_apellido',
-																'creador.oficina as oficina',
-																'pendientes.id_estatus_general'));
-
-			$this->data['pendiente']				= $pendiente;
+			$pendiente	= $this->pendienteModel->getPendiente(
+								$id_pendiente,
+								array(
+									'pendientes.id_pendiente',
+									'clientes.razon_social',
+									'actividades_pendiente.id_actividad as id_actividad_pendiente',
+									'actividades_pendiente.actividad',
+									'pendientes.descripcion',
+									'pendientes.fecha_origen',
+									'creador.primer_nombre as creador_nombre',
+									'creador.apellido_paterno as creador_apellido',
+									'ejecutivo.primer_nombre as ejecutivo_nombre',
+									'ejecutivo.apellido_paterno as ejecutivo_apellido',
+									'creador.oficina as oficina',
+									'pendientes.id_estatus_general'
+								));
+			$this->data['pendiente']			= $pendiente;
 			$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
 			$this->data['nombre_completo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'];
 			$this->data['id_ejecutivo']			= $this->usuario_activo['id'];
@@ -72,6 +80,13 @@ class Cotizador extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * Calcula los dias de la vigencia
+	 * de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function vigencia()
 	{
 		$vigencia	= $this->input->post('fecha');
@@ -237,22 +252,25 @@ class Cotizador extends AbstractAccess {
 			array('id','razon_social', 'rfc', 'usuario', 'password'),
 			array('id' => $cliente['id']));
 		$this->load->model('contactosModel');
-		$campos = array('clientes.id',
+		$campos = array(
+						'clientes.id',
 						'clientes.razon_social',
 						'contactos.id AS id_contacto',
-		               		'contactos.nombre_contacto',
-		               		'contactos.apellido_paterno',
-		               		'contactos.apellido_materno',
-		               		'contactos.email_contacto',
-		               		'contactos.telefono_contacto');
+						'contactos.nombre_contacto',
+						'contactos.apellido_paterno',
+						'contactos.apellido_materno',
+						'contactos.email_contacto',
+						'contactos.telefono_contacto');
 		$cliente = $this->contactosModel->getClientePorContacto($campos, $cliente['contacto']);
 
-		$cliente  = array('id' 			=> $cliente->id,
-						'razon_social' 	=> $cliente->razon_social,
-						'id_contacto' 	=> $cliente->id_contacto,
-		                  		'contacto' 		=>  $cliente->nombre_contacto.' '.$cliente->apellido_paterno.' '.$cliente->apellido_materno,
-		                  		'telefono' 		=> $cliente->telefono_contacto,
-		                  		'email' 			=> $cliente->email_contacto);
+		$cliente  = array(
+					'id' 				=> $cliente->id,
+					'razon_social' 	=> $cliente->razon_social,
+					'id_contacto' 	=> $cliente->id_contacto,
+					'contacto' 		=>  $cliente->nombre_contacto.' '.$cliente->apellido_paterno.' '.$cliente->apellido_materno,
+					'telefono' 		=> $cliente->telefono_contacto,
+					'email' 			=> $cliente->email_contacto
+		                  	);
 
 		// Banco
 		$this->load->model('bancoModel');
@@ -307,7 +325,7 @@ class Cotizador extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 
 		$cotizacion = array(
-			'fecha'      	 	=> date('Y-m-d H:i:s'),
+			'fecha'      	 			=> date('Y-m-d H:i:s'),
 			'vigencia'				=> $vigencia,
 			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
 			'id_cliente'				=> $cliente['id'],
@@ -343,12 +361,17 @@ class Cotizador extends AbstractAccess {
 			$this->email->send();
 		}
 
-
 		if($this->cotizacionModel->insert($cotizacion)) {
 			echo json_encode($cotizacion);
 		}
 	}
 
+	/**
+	 * Crea el PDF
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	private function _pdf($oficina, $cotizacion, $cliente, $productos, $total, $banco, $path)
 	{
 		// Cargo libreria del pdf y numeroaletra
@@ -547,7 +570,6 @@ class Cotizador extends AbstractAccess {
 		$this->pdf->MultiCell(120, 3, utf8_decode('Las promociones, servicios sin costo, descuentos adicionales o cualquier negociación realizada con el ejecutivo de ventas deberá quedar por escrito en un e-mail adicional a este documento de lo contrario no serán validas.'), 'LBR');
 		$this->pdf->Output($path, 'F');
 	}
-
 }
 
 /* End of file cotizador.php */

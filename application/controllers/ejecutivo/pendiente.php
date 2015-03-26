@@ -135,7 +135,9 @@ class Pendiente extends AbstractAccess {
 	}
 
 	/**
-	 * Funcion para mostrar ventana modal con informacion detallada de un pendientes
+	 * Funcion para mostrar ventana modal con informacion
+	 * detallada de un pendientes y su historial
+	 * de reasginaciones
 	 * @author  Diego Rodriguez
 	 **/
 	public function reasignaciones($id_pendiente)
@@ -171,11 +173,15 @@ class Pendiente extends AbstractAccess {
 		$id_ejecutivo_origen		= $this->usuario_activo['id'];
 		$motivo					= $this->input->post('motivo');
 
+		// SI NO recibo un ejecutivo destino
 		if (empty($id_ejecutivo_destino)) {
+			// SI NO recibo el id del estatus
 			if(empty($id_estatus)){
 				$respuesta = array('exito' => TRUE, 'estatus' => 'Sin Cambios');
 			}else{
+				// SI recibo id del estatus cambio el pendiente al nuevo estatus
 				if($this->pendienteModel->update(array('id_estatus_general' => $id_estatus), array('id_pendiente' => $id_pendiente))){
+					// SI el estatus es CERRADO, captura la fecha que se finaliza
 					if($id_estatus==$this->estatusGeneralModel->CERRADO){
 						$this->pendienteModel->update(array('fecha_finaliza' => date('Y-m-d H:i:s')), array('id_pendiente' => $id_pendiente));
 					}
@@ -184,9 +190,9 @@ class Pendiente extends AbstractAccess {
 					$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consla o la base de datos');
 				}
 			}
-		}else{
+		} else {
+			// SI recibo el ID del ejecutivo destino
 			$this->load->model('reasignarPendienteModel');
-
 			$reasignacion = array(
 				'id_pendiente'			=> $id_pendiente,
 				'id_ejecutivo_origen'	=> $id_ejecutivo_origen,
@@ -194,7 +200,6 @@ class Pendiente extends AbstractAccess {
 				'fecha'					=> date('Y-m-d H:i:s'),
 				'motivo'				=> $motivo
 				);
-
 			if($this->reasignarPendienteModel->insert($reasignacion) &&
 				$this->pendienteModel->update(array('id_ejecutivo' => $id_ejecutivo_destino, 'id_estatus_general' => 7), array('id_pendiente' => $id_pendiente)))
 			{

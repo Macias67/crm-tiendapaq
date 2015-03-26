@@ -96,7 +96,7 @@
 										</ul>
 										<div class="tab-content">
 											<!-- TAB PENDIENTES -->
-											<div class="tab-pane active" id="tab_pendientes">
+											<div class="tab-pane active" id="tab_pendientes" id-ejecutivo="<?php echo $id_ejecutivo ?>">
 												<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
 													<thead>
 														<tr>
@@ -143,7 +143,7 @@
 												</table>
 											</div>
 											<!-- INICIO TAB CASOS-->
-											<div class="tab-pane" id="tab_casos">
+											<div class="tab-pane" id="tab_casos" id-ejecutivo="<?php echo $id_ejecutivo ?>">
 												<table class="table table-striped table-bordered table-hover" id="casos-ejecutivo">
 													<thead>
 														<tr>
