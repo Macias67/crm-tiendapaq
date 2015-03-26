@@ -5,7 +5,6 @@
  * @package default
  * @author Diego Rodriguez
  **/
-
 class Caso extends AbstractAccess {
 
 	public function __construct()
@@ -29,7 +28,6 @@ class Caso extends AbstractAccess {
 		$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->data['usuario_activo']['id']));
 		// SI es asignador entonces
 		if($asignador_casos[0]->asignador_casos == "si"){
-			$this->load->model('casoModel');
 			$campos = array(
 						'caso.id as id_caso',
 						'clientes.razon_social',
@@ -86,7 +84,6 @@ class Caso extends AbstractAccess {
 					//SECCION ENVIAR CORREO A CONTACTO DE COTIZACION NOTIFICANDO QUE SU CASO HA SIDO ABIERTO Y ASIGNADO
 					$enviado = TRUE;
 					if (!LOCAL) {
-						$this->load->model('casoModel');
 						$this->load->model('cotizacionModel');
 						$this->load->model('contactosModel');
 						$this->load->model('clienteModel');
@@ -103,7 +100,7 @@ class Caso extends AbstractAccess {
 						//Envio Email
 						$this->email->set_mailtype('html');
 						$this->email->from('notificacion@moz67.com', 'Apertura de Caso - TiendaPAQ');
-						$this->email->to($contacto->email);
+						$this->email->to($contacto->email_contacto);
 						//$this->email->cc('another@example.com');
 						//$this->email->bcc('and@another.com');
 						$this->email->subject('Apertura de Caso - TiendaPAQ');
@@ -114,13 +111,18 @@ class Caso extends AbstractAccess {
 						$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
 						$this->data['folio'] 			= $folio_cotizacion->folio_cotizacion;
 						$this->data['contacto'] 	= $nombre_contacto;
+						//var_dump($this->data);
 						$html = $this->load->view('admin/general/full-pages/email/email_inicio_caso.php', $this->data, TRUE);
 						$this->email->message($html);
 						// Adjunto PDF
 						//$this->email->attach($path);
-						$this->email->send();
+						$exito = $this->email->send();
 					}
-					$respuesta = array('exito' => TRUE);
+					if ($exito) {
+						$respuesta = array('exito' => TRUE);
+					} else {
+						$respuesta = array('exito' => FALSE, 'msg' => '<h4>Nuevo caso asignado, error al enviar el email al cliente</h4>');
+					}
 				}else{
 					$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error, revisa la consola para mas información</h4>');
 				}
@@ -131,8 +133,8 @@ class Caso extends AbstractAccess {
 			// Muestra la vista para asignar el caso a un ejecutivo
 			case 'mostrar':
 				$this->load->model('ejecutivoModel');
-				$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
-				$this->data['id_caso'] = $id_caso;
+				$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'), null, 'primer_nombre');
+				$this->data['id_caso'] 		= $id_caso;
 
 				$this->_vista_completa('caso/modal-asignar-ejecutivo');
 			break;
@@ -161,15 +163,14 @@ class Caso extends AbstractAccess {
 		// Guardo y extraigo el ultimo ID
 		if($id_caso = $this->casoModel->get_last_id_after_insert($caso)) {
 			if (!LOCAL) {
-				$this->load->model('casoModel');
 				$this->load->model('cotizacionModel');
 				$this->load->model('contactosModel');
 				$this->load->model('clienteModel');
 				$this->load->helper('formatofechas');
 				$this->load->library('email');
 
-				$cliente 			= $this->clienteModel->get(array('razon_social','email','usuario','password'), array('id' => $caso['id_cliente']), null, 'ASC', 1);
-				$caso 				= $this->casoModel->get_where(array('id' => $id_caso));
+				$cliente 	= $this->clienteModel->get(array('razon_social','email','usuario','password'), array('id' => $caso['id_cliente']), null, 'ASC', 1);
+				$caso 		= $this->casoModel->get_where(array('id' => $id_caso));
 
 				//Envio Email
 				$this->email->set_mailtype('html');
@@ -195,7 +196,6 @@ class Caso extends AbstractAccess {
 		} else {
 			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
 		}
-
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
