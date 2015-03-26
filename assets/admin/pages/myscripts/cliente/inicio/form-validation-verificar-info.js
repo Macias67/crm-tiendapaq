@@ -19,6 +19,7 @@ var FormValidation = function () {
 		// Validaciones para nuevo cliente
 		var verificarInfo = $('#ajax-verificar-info');
 		verificarInfo.on('shown.bs.modal', function (e) {
+			console.log('activa modal');
 			handleInputMasks();
 			var form = $('#form-verificar-datos');
 			var error = $('.alert-danger', form);
@@ -36,7 +37,7 @@ var FormValidation = function () {
 					},
 					rfc: {
 						maxlength: 13,
-						required: true,
+						required: true
 					},
 					email: {
 						maxlength: 50,
@@ -125,9 +126,10 @@ var FormValidation = function () {
 					.closest('.form-group').removeClass('has-error'); // set success class to the control group
 				},
 				submitHandler: function (form) {
+					console.log('entro');
 					var folio = $('#folio_cotizacion').val();
-					var url_redireccion = "/cotizacion/comprobante/"+folio;
-					var url     = '/gestionar/verificarinfo';
+					// var url_redireccion = "./cotizacion/comprobante/"+folio;
+					var url     = './gestionar/verificarinfo';
 					var param   = $('#form-verificar-datos').serialize();
 
 					Metronic.showLoader();
@@ -136,10 +138,9 @@ var FormValidation = function () {
 							Metronic.removeLoader();
 							verificarInfo.modal('hide');
 							bootbox.alert(data.msg, function() {
-								window.location.href = url_redireccion;
+								window.location.replace(data.url);
 							});
 						} else {
-							Metronic.removeLoader();
 							error.html(data.msg);
 							error.show();
 							$('#div-scroll-verificar-datos').animate({ scrollTop: 0 }, 600);

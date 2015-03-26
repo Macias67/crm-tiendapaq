@@ -577,7 +577,11 @@ class Gestor extends AbstractAccess {
 				$cliente_actualizado['privilegios'] = 'cliente';
 				$this->session->set_userdata('usuario_activo', $cliente_actualizado);
 
-				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Información de <b>'.$cliente['razon_social'].'</b> actualizada.</h4>');
+				$folio = $this->input->post('folio_cotizacion');
+				$respuesta = array(
+				                   'exito' 	=> TRUE,
+				                   'msg' 	=> '<h4>Información de <b>'.$cliente['razon_social'].'</b> actualizada.</h4>',
+				                   'url' 		=> site_url('/cotizacion/comprobante/'.$folio));
 			}
 		}
 
