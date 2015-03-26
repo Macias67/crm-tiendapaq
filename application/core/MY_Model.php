@@ -58,6 +58,21 @@ class MY_Model extends CI_Model
 	}
 
 	/**
+	 * Funcion para obtener el ultimo ID insertado
+	 * despues de una insercion
+	 *
+	 * @return id
+	 **/
+	public function get_last_id_after_insert($data)
+	{
+		$this->db->trans_start();
+		$this->db->insert($this->table, $data);
+		$insert_id = $this->db->insert_id();
+   		$this->db->trans_complete();
+   		return  $insert_id;
+	}
+
+	/**
 	 * Obtiene todos los datos registrados
 	 * en la base de datos
 	 *
