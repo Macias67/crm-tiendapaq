@@ -45,18 +45,107 @@ class Caso extends AbstractAccess {
 		}
 	}
 
+	public function casos_ejecutivos()
+	{
+		$id_ejecutivo = $this->usuario_activo['id'];
+		$this->_vista('listado-casos');
+	}
+
+	/**
+	 * Funcion para obtener los casos de manera de JSON
+	 * con formato para el DataTable
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function json_casos($id_ejecutivo = null)
+	{
+		$id_ejecutivo	= (is_null($id_ejecutivo)) ? $this->usuario_activo['id'] : $id_ejecutivo;
+		$draw			= $this->input->post('draw');
+		$start			= $this->input->post('start');
+		$length		= $this->input->post('length');
+		$order			= $this->input->post('order');
+		$columns		= $this->input->post('columns');
+		$search		= $this->input->post('search');
+		$total			=  $this->casoModel->get('COUNT(*) as total', array('id_lider' =>$id_ejecutivo), null, 1);
+
+		if($length == -1)
+		{
+			$length	= null;
+			$start		= null;
+		}
+		$campos = array(
+	                			'caso.id as id_caso',
+						'caso.id_estatus_general',
+						'clientes.razon_social',
+						'estatus_general.descripcion',
+						'id_cliente',
+						'folio_cotizacion',
+						'fecha_inicio',
+						'fecha_final');
+		$joins 			= array('clientes', 'estatus_general');
+		$like 			= $search['value'];
+		$orderBy 		= $columns[$order[0]['column']]['data'];
+		$orderForm 	= $order[0]['dir'];
+		$limit 			= $length;
+		$offset 		= $start;
+		$casos	= $this->casoModel->get_caso_ejecutivo_table(
+		                                                           	   $id_ejecutivo,
+		                                                                     $campos,
+		                                                                     $joins,
+		                                                                     $like,
+		                                                                     $orderBy,
+		                                                                     $orderForm,
+		                                                                     $limit,
+		                                                                     $offset);
+		//var_dump($casos);
+
+		$proceso	= array();
+		$this->load->helper('formatofechas');
+		//$this->load->model('comentariosCotizacionModel');
+		foreach ($casos as $index => $caso) {
+			//$total_comentario 		= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $caso->folio), null, 'ASC', 1);
+			//$total_comentario_sinver 	= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $caso->folio, 'visto' => 0), null, 'ASC', 1);
+			$p = array(
+				'DT_RowId'					=> $caso->id_caso,
+				'folio_cotizacion'			=> $caso->folio_cotizacion,
+				'razon_social'				=> $caso->razon_social,
+				'fecha_inicio'				=> fecha_completa($caso->fecha_inicio),
+				'fecha_final'				=> ($caso->fecha_final=='1000-01-01 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final),
+				'id_estatus_general'		=> $caso->id_estatus_general,
+				'url'					=> site_url('/caso/detalles/'.$caso->id_caso),
+				'url_modal'					=> site_url('/caso/modal/'.$caso->id_caso)
+			       );
+			array_push($proceso, $p);
+		}
+		$data = array(
+			'draw'				=> $draw,
+			'recordsTotal'		=> count($casos),
+			'recordsFiltered'	=> $total[0]->total,
+			'data'				=> $proceso);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+	}
+
+	public function detalles($id_caso)
+	{
+		$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);
+		var_dump($this->data['caso']);
+	}
+
 	/**
 	 * Funcion para mostrar los detalles de un caso
 	 *
 	 * @author Diego Rodriguez
 	 **/
-	public function detalles($id_caso)
+	public function modal($id_caso)
 	{
 		$this->load->helper('formatofechas_helper');
 		//verificamos si el caso aun no tiene lider para saber como hacer la consulta en el model
 		$lider = $this->casoModel->get(array('id_lider'), array('id' => $id_caso), null, 'ASC', 1);
 		if(empty($lider->id_lider)){
-			$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso, 'vacio');
+			$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);
 			$this->data['caso']->primer_nombre = 'SIN';
 			$this->data['caso']->apellido_paterno = ' LIDER';
 		}else{

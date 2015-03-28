@@ -46,10 +46,15 @@
 							<i class="fa fa-search"></i>
 							<div>&nbsp;&nbsp;Catálogo de clientes&nbsp;&nbsp;</div>
 						</a>
-						<!-- Todos Mis Pendientes -->
+						<!-- Mis Pendientes -->
 						<a href="<?php echo site_url('perfil') ?>" class="icon-btn">
 							<i class="fa fa-list"></i>
-							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
+							<div>&nbsp;&nbsp;Mis pendientes&nbsp;&nbsp;</div>
+						</a>
+						<!-- Mis Casos -->
+						<a href="<?php echo site_url('casos') ?>" class="icon-btn">
+							<i class="fa fa-list"></i>
+							<div>&nbsp;&nbsp;Mis Casos&nbsp;&nbsp;</div>
 						</a>
 						<!-- Gestor de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" id="cotizacion_comentada" class="icon-btn">
@@ -97,7 +102,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- Pendientes -->
+		<!-- Tablas -->
 		<div class="row">
 			<div class="col-md-7">
 				<div class="col-md-12">
@@ -140,6 +145,12 @@
 					<div class="portlet gren">
 						<div class="portlet-title">
 							<div class="caption"><i class="fa fa-user"></i> Pendientes generales sin atender...</div>
+							<div class="tools">
+								<a href="" class="collapse">
+								</a>
+								<a href="" class="reload">
+								</a>
+							</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
@@ -212,7 +223,7 @@
 												break;
 											} ?>
 										</td>
-										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
+										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/modal/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
 									</tr>
 								<?php endforeach ?>
 								</tbody>

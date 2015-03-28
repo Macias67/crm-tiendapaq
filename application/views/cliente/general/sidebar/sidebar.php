@@ -44,7 +44,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo site_url('/casos') ?>">
+						<a href="<?php echo site_url('cliente/casos') ?>">
 							<i class="fa fa-folder-open-o"></i><span class="title"> Mis Casos</span>
 						</a>
 					</li>
