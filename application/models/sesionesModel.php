@@ -4,9 +4,9 @@
 	 * de eventos
 	 *
 	 * @package default
-	 * @author Julio Trujillo
+	 * @author David
 	 **/
-	class EventoModel extends MY_Model {
+	class SesionesModel extends MY_Model {
 
 		/**
 		 * Nombre de la tabla a
@@ -14,15 +14,15 @@
 		 *
 		 * @var string
 		 **/
-		const TABLE = 'eventos';
+		const TABLE = 'sesiones';
 
 		/**
 		 * variable que sera convertida a sdtClass
 		 * y retornada como objeto
 		 *
-		 * @var $ejecutivo
+		 * @var $sesion
 		 **/
-		private $evento;
+		private $sesion;
 
 		/**
 		 * Constructor
@@ -33,7 +33,7 @@
 			$this->table = self::TABLE;
 		}
 
-		public function get_evento_revision($campos)
+		public function get_sesion_revision($campos)
 		{
 			$this->db->select($campos);
 			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
@@ -59,15 +59,12 @@
 	{
 		$this->evento = new stdClass();
 
+		$this->evento->id_sesiones			= $data['id_sesiones'];
 		$this->evento->id_evento			= $data['id_evento'];
-		$this->evento->id_ejecutivo			= $data['id_ejecutivo'];
-		$this->evento->titulo				= $data['titulo'];
-		$this->evento->descripcion			= $data['descripcion'];
-		$this->evento->temario			= $data['temario'];
-		$this->evento->fecha_creacion	= $data['fecha_creacion'];
-		$this->evento->costo				= $data['costo'];
+		$this->evento->fecha				= $data['fecha'];
+		$this->evento->duracion			= $data['duracion'];
 
-		return $this->evento;
+		return $this->sesion;
 	}
 
 

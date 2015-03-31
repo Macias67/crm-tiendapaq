@@ -46,7 +46,8 @@
 											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Ver/Editar </a></td>
+											<td><a href="<?php echo site_url('evento/gestionar/editar').'/'.$evento->id_evento?>" class="btn btn-circle blue btn-xs">
+													<i class="fa fa-search"></i> editar </a></td>
 											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Participantes </a></td>
 										</tr>
 									<?php endforeach ?>

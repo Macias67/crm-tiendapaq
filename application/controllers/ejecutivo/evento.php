@@ -14,6 +14,9 @@ class Evento extends AbstractAccess {
 		$this->load->library('form_validation');
 		$this->load->model('eventoModel');
 		$this->load->helper('formatofechas_helper');
+		$this->load->model('ejecutivoModel');
+		$this->load->model('ejecutivoModel');
+		$this->load->helper('date');
 	}
 
 	// public function index()
@@ -28,120 +31,124 @@ class Evento extends AbstractAccess {
 	
 	// $this->_vista('form-nuevo-evento');
 	// }
-
-public function index()
+	public function crearFecha()
 	{
-		if($this->usuario_activo['privilegios'] == "cliente")
-		{
-			// SECCION PARA CLIENTES
-
-			// Cargo modelos
-			$this->load->model('estatusCotizacionModel');
-			// Cargo helper
-			$this->load->helper('formatofechas');
-
-			//codigo para cambiar cotizaciones a vencidas
-			$campos = array('cotizacion.folio',
-						'cotizacion.fecha',
-						'cotizacion.vigencia',
-						'cotizacion.total_comentarios',
-						'cotizacion.visto',
-						'oficinas.ciudad_estado',
-						'estatus_cotizacion.id_estatus',
-						'estatus_cotizacion.descripcion');
-			$where = array('id_cliente' => $this->usuario_activo['id'],'cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
-
-			//seccion de codigo para revisar cotizaciones vencidas
-			$cotizaciones = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos, $where);
-			$fecha_actual = date('Y-m-d H:i:s');
-			foreach ($cotizaciones as $cotizacion) {
-				if($fecha_actual > $cotizacion->vigencia){
-					$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
-				}
-			}
-
-			//recargo los datos y mando llamar la vista
-			$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
-			$this->_vista('principal');
-		} else
-		{
-			// SECCION PARA GENTE DE TIENDAPAQ
-
-			// Cargo modelos
-			$this->load->model('ejecutivoModel');
-			$this->load->model('actividadPendienteModel');
-			$this->load->model('pendienteModel');
-			$this->load->model('estatusGeneralModel');
-			$this->load->model('casoModel');
-			$this->load->model('clienteModel');
-
-			//Helper
-			$this->load->helper('formatofechas');
-
-			// Nombre de ejecutivos
-			$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-				array('id','primer_nombre', 'apellido_paterno'),
-				'privilegios',
-				array('soporte', 'admin'),
-				'primer_nombre');
-			//variables para registro de un cliente prospecto
-			$this->data['user_pass_prospecto'] =  $this->clienteModel->password();
-			//cantidad de cotizaciones con nuevos comentarios
-			$this->data['cotizaciones_comentarios'] = count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
-			//cantidad de cotizaciones pagadas por revisar
-			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
-			//cantidad de casos por asignar
-			$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
-			//variable para saber si el ejecutivo logeado puede asignar casos
-			$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
-			$this->data['asignador_casos'] = $asignador_casos->asignador_casos;
-			// Listado de actividades para levantar un pendiente
-			$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
-			// Listado de pendientes DEL USUARIO ACTIVO
-			$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(array(	'id_pendiente',
-															'actividades_pendiente.actividad',
-															'clientes.razon_social',
-															'fecha_origen',
-															'id_estatus_general'),
-															$this->usuario_activo['id'],
-															$this->controlador);
-			//los pendientes de los demas usuarios
-			$this->data['pendientes_generales'] = $this->pendienteModel->get_pendientes_generales(array(	'id_pendiente',
-													                                     	'ejecutivos.primer_nombre',
-													                                     	'ejecutivos.apellido_paterno',
-													                                     	'clientes.razon_social',
-													                                     	'id_estatus_general'),
-																							$this->usuario_activo['id']);
-			// Titulo header
-			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-
-			// Cargo los casos para tabla casos
-			$this->data['casos'] = $this->casoModel
-						->get_casos_ejecutivo($this->usuario_activo['id'],
-							array(	'caso.id as id_caso',
-				                                    	'caso.id_estatus_general',
-				                                                'clientes.razon_social',
-				                                                'estatus_general.descripcion',
-				                                                'id_cliente',
-				                                                'folio_cotizacion',
-				                                                'fecha_inicio',
-				                                                'fecha_final'));
-
-			// Cargo todos los casos para tabla casos generales
-			$this->data['casos_generales'] = $this->casoModel->
-				get_casos_generales($this->usuario_activo['id'],
-									 array( 'caso.id as id_caso',
-									 		'ejecutivos.primer_nombre',
-											'ejecutivos.apellido_paterno',
-											'caso.id_estatus_general',
-											'clientes.razon_social',
-				                            'estatus_general.descripcion',
-				                            'folio_cotizacion'));
-
-			//DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
-			$this->_vista('form-nuevo-evento');
-		}
+		
 	}
+
+	public function index()
+		{
+			if($this->usuario_activo['privilegios'] == "cliente")
+			{
+				// SECCION PARA CLIENTES
+
+				// Cargo modelos
+				$this->load->model('estatusCotizacionModel');
+				// Cargo helper
+				$this->load->helper('formatofechas');
+
+				//codigo para cambiar cotizaciones a vencidas
+				$campos = array('cotizacion.folio',
+							'cotizacion.fecha',
+							'cotizacion.vigencia',
+							'cotizacion.total_comentarios',
+							'cotizacion.visto',
+							'oficinas.ciudad_estado',
+							'estatus_cotizacion.id_estatus',
+							'estatus_cotizacion.descripcion');
+				$where = array('id_cliente' => $this->usuario_activo['id'],'cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
+
+				//seccion de codigo para revisar cotizaciones vencidas
+				$cotizaciones = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos, $where);
+				$fecha_actual = date('Y-m-d H:i:s');
+				foreach ($cotizaciones as $cotizacion) {
+					if($fecha_actual > $cotizacion->vigencia){
+						$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
+					}
+				}
+
+				//recargo los datos y mando llamar la vista
+				$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
+				$this->_vista('principal');
+			} else
+			{
+				// SECCION PARA GENTE DE TIENDAPAQ
+
+				// Cargo modelos
+				$this->load->model('ejecutivoModel');
+				$this->load->model('actividadPendienteModel');
+				$this->load->model('pendienteModel');
+				$this->load->model('estatusGeneralModel');
+				$this->load->model('casoModel');
+				$this->load->model('clienteModel');
+
+				//Helper
+				$this->load->helper('formatofechas');
+
+				// Nombre de ejecutivos
+				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
+					array('id','primer_nombre', 'apellido_paterno'),
+					'privilegios',
+					array('soporte', 'admin'),
+					'primer_nombre');
+				//variables para registro de un cliente prospecto
+				$this->data['user_pass_prospecto'] =  $this->clienteModel->password();
+				//cantidad de cotizaciones con nuevos comentarios
+				$this->data['cotizaciones_comentarios'] = count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
+				//cantidad de cotizaciones pagadas por revisar
+				$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
+				//cantidad de casos por asignar
+				$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
+				//variable para saber si el ejecutivo logeado puede asignar casos
+				$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
+				$this->data['asignador_casos'] = $asignador_casos->asignador_casos;
+				// Listado de actividades para levantar un pendiente
+				$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
+				// Listado de pendientes DEL USUARIO ACTIVO
+				$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(array(	'id_pendiente',
+																'actividades_pendiente.actividad',
+																'clientes.razon_social',
+																'fecha_origen',
+																'id_estatus_general'),
+																$this->usuario_activo['id'],
+																$this->controlador);
+				//los pendientes de los demas usuarios
+				$this->data['pendientes_generales'] = $this->pendienteModel->get_pendientes_generales(array(	'id_pendiente',
+														                                     	'ejecutivos.primer_nombre',
+														                                     	'ejecutivos.apellido_paterno',
+														                                     	'clientes.razon_social',
+														                                     	'id_estatus_general'),
+																								$this->usuario_activo['id']);
+				// Titulo header
+				$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+
+				// Cargo los casos para tabla casos
+				$this->data['casos'] = $this->casoModel
+							->get_casos_ejecutivo($this->usuario_activo['id'],
+								array(	'caso.id as id_caso',
+					                                    	'caso.id_estatus_general',
+					                                                'clientes.razon_social',
+					                                                'estatus_general.descripcion',
+					                                                'id_cliente',
+					                                                'folio_cotizacion',
+					                                                'fecha_inicio',
+					                                                'fecha_final'));
+
+				// Cargo todos los casos para tabla casos generales
+				$this->data['casos_generales'] = $this->casoModel->
+					get_casos_generales($this->usuario_activo['id'],
+										 array( 'caso.id as id_caso',
+										 		'ejecutivos.primer_nombre',
+												'ejecutivos.apellido_paterno',
+												'caso.id_estatus_general',
+												'clientes.razon_social',
+					                            'estatus_general.descripcion',
+					                            'folio_cotizacion'));
+
+				//DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
+				$this->_vista('form-nuevo-evento');
+			}
+		}
 
 	/**
 	 * Muestra la vista para los
@@ -200,12 +207,11 @@ public function index()
 	 * eventos
 	 * @author  David
 	 **/
-	public function gestionar($accion=null, $id_cliente=null)
+	public function gestionar($accion=null, $id_evento=null)
 	{
 		switch ($accion)
 		{
 			case 'nuevo':
-				$this->load->model('ejecutivoModel');
 				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
 				array('id','primer_nombre', 'apellido_paterno'),
 				'privilegios',
@@ -215,21 +221,20 @@ public function index()
 			break;
 
 			case 'editar':
-				$cliente = $this->clienteModel->get_where(array('id' => $id_cliente));
-				if (!empty($cliente))
+				$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
+				if (!empty($evento))
 				{
 					// Datos a enviar a la vista
-					$this->data['cliente']						= $cliente;
-					$this->data['contactos']					= $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente));
-					$this->data['sistemas_contpaqi']			= $this->sistemasContpaqiModel->get(array('*'));
-					$this->data['sistemas_contpaqi_cliente']	= $this->sistemasClienteModel->get(array('*'), array('id_cliente' => $id_cliente));
-					$this->data['equipos']						= $this->equiposComputoModel->get(array('*'), array('id_cliente' => $id_cliente));
-					$this->data['sistemas_operativos']			= $this->sistemasOperativosModel->get(array('*'), $where = null, $orderBy = 'id_so', $orderForm = 'ASC');
-					//Vista de formulario a mostrar
-					$this->_vista('editar-cliente');
+					$this->data['evento']				= $evento;
+					$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
+					array('id','primer_nombre', 'apellido_paterno'),
+					'privilegios',
+					array('soporte', 'admin'),
+					'primer_nombre');
+					$this->_vista('editar-evento');
 				} else
 				{
-					show_error('No existe este cliente.', 404);
+					show_error('No existe este evento.', 404);
 				}
 			break;
 
@@ -281,10 +286,10 @@ public function index()
 		$this->form_validation->set_rules('descripcion', 'Descripcion', 'required|max_length[65536]|xss_clean');
 		$this->form_validation->set_rules('temario', 'Temario', 'required|max_length[65536]|xss_clean');
 		$this->form_validation->set_rules('costo', 'Costo', 'max_length[6]|xss_clean');
-		// $this->form_validation->set_rules('sesion_1', 'Sesion1', 'xss_clean');
-		// this->form_validation->set_rules('sesion_2', 'Sesion2', 'xss_clean');
-		// this->form_validation->set_rules('sesion_3', 'Sesion3', 'xss_clean');
-		// this->form_validation->set_rules('sesion_4', 'Sesion4', 'xss_clean');
+		$this->form_validation->set_rules('sesion_1', 'Sesion1', 'xss_clean');
+		$this->form_validation->set_rules('sesion_2', 'Sesion2', 'xss_clean');
+		$this->form_validation->set_rules('sesion_3', 'Sesion3', 'xss_clean');
+		$this->form_validation->set_rules('sesion_4', 'Sesion4', 'xss_clean');
 
 		if($this->form_validation->run() === FALSE)
 		{
@@ -299,25 +304,104 @@ public function index()
 				'descripcion'	=> $this->input->post('descripcion'),
 				'temario'		=> $this->input->post('temario'),
 				'costo'			=> $this->input->post('costo')
-				// 'sesion_1'		=> $this->input->post('sesion1'),
-				// 'sesion_2'		=> $this->input->post('sesion2'),
-				// 'sesion_3'		=> $this->input->post('sesion3'),
-				// 'sesion_4'		=> $this->input->post('sesion4'),
-
 			);
 			//Inserto en la BD el nuevo evento
-			if($this->eventoModel->insert($evento))
-			{
-				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo equipo añadido con éxito.</h4>.');
-			} else
-			{
-				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+			// if($this->eventoModel->insert($evento))
+			// {
+			// 	$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
+			// } else
+			// {
+			// 	$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
+			// }
+			// usare un trigger para obtener el ultimo id
+			// de evento insertado y darselo
+			// como clave
+			// foranea a
+			// sesiones.
+		// 	obtengo el ultimo id_evento insertado
+		// 	comprueba cual es el id_evento mas grande insertado
+		// 	la variable id guarda el id_evento.
+			$rs = mysql_query("SELECT MAX(id_evento) AS id FROM eventos");
+			if ($row = mysql_fetch_row($rs)) {
+			$id = trim($row[0]);
 			}
-		}
+
+			$sesiones1=array(
+				'id_sesiones'	=>$this->input->post(''),
+				'id_evento'		=>$id,
+				'sesion'		=>$this->input->post('sesion_1'),
+				'duracion_1'	=>$this->input->post('duracion_1')
+				);
+			$sesiones2=array(
+				'id_sesiones'	=>$this->input->post(''),
+				'id_evento'		=>$id,
+				'sesion'		=>$this->input->post('sesion_2'),
+				'duracion_2'	=>$this->input->post('duracion')
+				);
+			$sesiones3=array(
+				'id_sesiones'	=>$this->input->post(''),
+				'id_evento'		=>$id,
+				'sesion'		=>$this->input->post('sesion_3'),
+				'duracion_3'	=>$this->input->post('duracion')
+				);
+			$sesiones4=array(
+				'id_sesiones'	=>$this->input->post(''),
+				'id_evento'		=>$id,
+				'sesion'		=>$this->input->post('sesion_4'),
+				'duracion_4'	=>$this->input->post('duracion')
+				);
+
+			// creo la fecha a inserta en la base de datos
+			$mostrar= explode(" ", $fecha_editar[sesion]);
+			switch ($mostrar[1]) {
+					case 'January':
+						$mes="01";
+						break;
+					case 'February':
+						$mes="02";
+						break;
+					case 'March':
+						$mes="03";
+						break;
+					case 'April':
+						$mes="04";
+						break;
+					case 'May':
+						$mes="05";
+						break;
+					case 'June':
+						$mes="06";
+						break;
+					case 'July':
+						$mes="07";
+						break;
+					case 'August':
+						$mes="08";
+						break;
+					case 'September':
+						$mes="09";
+						break;
+					case 'October':
+						$mes="10";
+						break;
+					case 'November':
+						$mes="11";
+						break;
+					case 'December':
+						$mes="12";
+						break;
+					
+					default:
+						# code...
+						break;
+			}
+		$fecha=$mostrar[2]."-".$mes."-".$mostrar[0]." ".$mostrar[4].":00";
 		//mando la repuesta
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
+		}
+
 	}
 }
 

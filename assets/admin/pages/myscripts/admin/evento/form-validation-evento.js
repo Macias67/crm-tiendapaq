@@ -65,9 +65,6 @@ var FormValidationEvento = function () {
         {
             FieldCount++;
             //agregar campo
-            // $(contenedor).append('<label class="col-md-4 control-label">Seiones<span class="required" aria-required="true">*</span></label>');
-            // $(contenedor).append('<div><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" placeholder="Sesion '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
-            // $(contenedor).add('selector/elements/html')('<div class="f.<span class="required" aria-required="true"></span></label><div class="col-md-8"><div id="contenedor"><div class="added"><div class="input-group date form_datetime"><input type="text" name="mitexto[]" id="campo_1" size="16" readonly class="form-control"  placeholder="Sesion 1"/><span class="input-group-btn"><button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button></span><a href="#" class="eliminar">&times;</a></div></div></div></div></div>');
             $(contenedor).append('<script src="../../assets/admin/pages/scripts/components-pickers.js"></script>')
             $(contenedor).append('<div class="col-md-8"><div class="input-group date form_datetime"><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" size="16" readonly class="form-control"  placeholder="Sesion '+ FieldCount +'"/><span class="input-group-btn"><button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button></span><a href="#" class="eliminar">&times;</a></div></div>');
             x++; //text box increment
@@ -114,6 +111,12 @@ var FormValidationEvento = function () {
 				},
 				costo: {
 					digits: true
+				},
+				sesion_1: {
+					required: true
+				},
+				duracion_1: {
+					required: true
 				}
 			},
 			messages: {
@@ -131,6 +134,12 @@ var FormValidationEvento = function () {
 				},
 				costo: {
 					digits: "solo puede contener numeros"
+				},
+				sesion_1: {
+					required: "debes ingresar por lo menos una fecha"
+				},
+				duracion_1: {
+					required: "debes ingresar la duracion del evento"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
