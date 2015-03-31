@@ -22,13 +22,13 @@ class ParticipantesModel extends MY_Model {
 	{
 			$this->db->select($campos);
 			$this->db->join('contactos', $this->table.'.id_contacto = contactos.id', 'inner');
+			$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
 			$this->db->where(array($this->table.'.id_evento' => $id_evento));
 
 			$query = $this->db->get($this->table);
 
 			return $query->result();
 	}
-
 }
 
 /* End of file participantesModel.php */

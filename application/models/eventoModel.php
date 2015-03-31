@@ -27,12 +27,21 @@
 
 		public function get_evento_revision($campos)
 		{
+			// Para seleccionar sólo las fechas del día en adelante
+			// $date = date_create('today');
+			// $dia_actual = date_format($date, 'Y-m-d H:i:s');
+
 			$this->db->select($campos);
 			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+			// $where = array($this->table.'.fecha_creacion >' => $dia_actual);
+			// $this->db->where($where);
+
 			$query = $this->db->get($this->table);
 
 			return $query->result();
 		}
+
+
 
 }
 

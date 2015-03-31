@@ -23,7 +23,7 @@ class Evento extends AbstractAccess {
 	/**
 	 * Muestra la vista para los
 	 * eventos.
-	 * 
+	 *
 	 * @author Julio Trujillo
 	 **/
 	public function revisar()
@@ -35,17 +35,21 @@ class Evento extends AbstractAccess {
 			array(
 				'eventos.id_evento',
 				'eventos.id_ejecutivo',
-				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno',
+				'eventos.costo',
+				'eventos.modalidad',
 				'eventos.titulo',
-				'eventos.fecha_creacion'
+				'eventos.fecha_creacion',
+				'eventos.total_participantes',
+				'ejecutivos.primer_nombre',
+				'ejecutivos.apellido_paterno'
 			));
+
 		$this->_vista('revisar');
 	}
 
 	/**
 	 * Función para mostrar ventana modal
-	 * con informacion detallada
+	 * con información detallada
 	 * sobre un evento.
 	 *
 	 * @author  Julio Trujillo
@@ -82,16 +86,22 @@ class Evento extends AbstractAccess {
 	 *
 	 * @author  Julio Trujillo
 	 **/
-	public function participantes_detalles($id_evento,$id_ejecutivo)
+	public function participantes_detalles($id_evento)
 	{
 		$this->data['participantes'] = $this->participantesModel->get_participantes(
 			array(
 				'contactos.id',
+				'contactos.id_cliente',
 				'contactos.nombre_contacto',
 				'contactos.apellido_paterno',
 				'contactos.apellido_materno',
 				'contactos.email_contacto',
-				'contactos.telefono_contacto'), $id_evento);
+				'contactos.telefono_contacto',
+				'clientes.razon_social'), $id_evento);
+		$id_contactos = array();
+
+		$this->data['clientes'] = $this->clienteModel->get(array('*'));
+
 		$this->_vista('participantes');
 	}
 

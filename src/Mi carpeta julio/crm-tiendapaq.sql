@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11.1
+-- version 4.3.12
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2015 a las 18:17:06
+-- Tiempo de generación: 24-03-2015 a las 20:23:45
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -121,8 +121,8 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `codigo`, `razon_social`, `rfc`, `email`, `tipo`, `calle`, `no_exterior`, `no_interior`, `colonia`, `codigo_postal`, `ciudad`, `municipio`, `estado`, `pais`, `telefono1`, `telefono2`, `activo`, `usuario`, `password`) VALUES
-(1, '1999', 'ALEJANDRO LOPEZ RAMOS', 'LORA830917GX7', '', 'normal', 'ZARAGOZA', '336', '', 'CENTRO', '47900', 'JAMAY', 'JAMAY', 'JALISCO', 'MEXICO', '40360', '', 1, '1999', '770bb6554e'),
-(2, 'C0002', 'MARCELA GUADALUPE GUTIERREZ', 'GUGM741212NC3', 'marcelgutierrez1@hotmail.com', 'normal', 'PARAGUAY', '107', '', 'FLORIDA', '47820', 'OCOTLAN', 'OCOTLAN', 'JALISCO', 'MEXICO', '9255924', '', 1, 'C0002', '1dbcca52'),
+(1, '1999', 'ALEJANDRO LOPEZ RAMOS', 'LORA830917GX7', '', 'normal', 'ZARAGOZA', '336', '', 'CENTRO', '47900', 'JAMAY', 'JAMAY', 'JALISCO', 'MEXICO', '40360', '', 1, '1999', '1999'),
+(2, 'C0002', 'MARCELA GUADALUPE GUTIÉRREZ', 'GUGM741212NC3', 'marcelgutierrez1@hotmail.com', 'normal', 'PARAGUAY', '107', '', 'FLORIDA', '47820', 'OCOTLAN', 'OCOTLAN', 'JALISCO', 'MEXICO', '9255924', '', 1, 'C0002', '1dbcca52'),
 (3, 'C0003', 'ACEROS Y MATERIALES DIAZ SA DE CV', 'AMD860416AZ6', 'anarg1@hotmail.com', 'normal', 'AV FRANCISCO ZARCO', '755', '', 'PRIMAVERA', '47829', 'OCOTLAN', 'OCOTLAN', 'JALISCO', 'MEXICO', '92 2 01 77', '92 2 47 40 FAX', 1, 'C0003', '06ebaf43'),
 (4, 'C0004', 'ACEROS Y PERFILES DE OCCIDENTE SA DE CV', 'APO9812019R9', 'aposa15@hotmail.com', 'normal', 'AV 20 DE NOVIEMBRE', '615', '', 'NUEVO FUERTE', '47899', 'OCOTLAN', 'OCOTLAN', 'JALISCO', 'MEXICO', '92 51435', '92 54983', 1, 'C0004', 'f4d0e2e7f'),
 (5, 'C0005', 'ABEL GUZMAN BARRAGAN', 'GUBA560705133', 'josecamarena01@hotmail.com', 'normal', 'MIGUEL MARTINEZ', '555', '', 'CENTRO', '45900', 'CHAPALA', 'CHAPALA', 'JALISCO', 'MEXICO', '9251949', '', 1, 'C0005', 'd0b4e54dd'),
@@ -1512,7 +1512,7 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   `email_contacto` varchar(50) NOT NULL,
   `telefono_contacto` varchar(14) NOT NULL,
   `puesto_contacto` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Información de los contactos del cliente';
 
 --
 -- Volcado de datos para la tabla `contactos`
@@ -1520,8 +1520,12 @@ CREATE TABLE IF NOT EXISTS `contactos` (
 
 INSERT INTO `contactos` (`id`, `id_cliente`, `nombre_contacto`, `apellido_paterno`, `apellido_materno`, `email_contacto`, `telefono_contacto`, `puesto_contacto`) VALUES
 (1, 5, 'Chetes', 'Lopez', 'Carmona', 'tre@gmail.com', '(123) 121-3412', 'Prog'),
-(2, 9, 'Elias', 'Perez', 'Lopez', 'joue@gmail.com', '(282) 829-3328', 'Desarrollador'),
-(3, 9, 'Billy', 'Torres', 'Rocket', 'billyt@outlook.con', '(928) 392-3822', 'Ventas');
+(2, 9, 'Elías', 'Pérez', 'Lopez', 'joue@gmail.com', '(282) 829-3328', 'Desarrollador'),
+(3, 9, 'Billy', 'Torres', 'Rocket', 'billyt@outlook.con', '(928) 392-3822', 'Ventas'),
+(4, 109, 'Mac', 'Uno', 'Dos', 'sadfsf@outlook.com', '(233) 243-2424', 'Aka'),
+(5, 2, 'Luis', 'Torres', 'P', 'guicho@hotmail.com', '(234) 323-4243', 'Ventas'),
+(6, 1220, 'Juose', 'Lopez', 'Estrada', 'jfor@hotmail.com', '(232) 324-4324', 'Adca'),
+(7, 1, 'Sócrates', 'Tarso', 'López', 'asldfk@hotmail.com', '(123) 121-3422', 'Ingeniero');
 
 -- --------------------------------------------------------
 
@@ -1543,7 +1547,7 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
   `id_estatus_cotizacion` int(11) NOT NULL,
   `total_comentarios` int(11) NOT NULL,
   `visto` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Registro de las cotizaciones';
 
 --
 -- Volcado de datos para la tabla `cotizacion`
@@ -1551,7 +1555,8 @@ CREATE TABLE IF NOT EXISTS `cotizacion` (
 
 INSERT INTO `cotizacion` (`folio`, `fecha`, `vigencia`, `id_ejecutivo`, `id_cliente`, `id_contacto`, `id_oficina`, `cotizacion`, `id_observaciones`, `id_banco`, `id_estatus_cotizacion`, `total_comentarios`, `visto`) VALUES
 (1, '2015-03-04 00:44:19', '2015-05-02 05:00:00', 12, 9, 2, 1, '[{"codigo":"P002","descripcion":"QUESO DE CABRA LA HUERTA NATURAL DE 500GR","cantidad":"2","precio":"100","neto":"200","descuento":"0","total":"200","observacion":""}]', 1, 1, 2, 0, 1),
-(2, '2015-03-04 22:24:07', '2015-05-03 05:00:00', 12, 9, 2, 1, '[{"codigo":"P003","descripcion":"QUESO DE CABRA LA HUERTA NATURAL DE 1KG","cantidad":"3","precio":"200","neto":"600","descuento":"0","total":"600","observacion":""},{"codigo":"P005","descripcion":"QUESO DE CABRA LA HUERTA CON ARANDANOS DE 500GR","cantidad":"4","precio":"100","neto":"400","descuento":"0","total":"400","observacion":""}]', 1, 1, 1, 0, 1);
+(2, '2015-03-04 22:24:07', '2015-05-03 05:00:00', 12, 9, 2, 1, '[{"codigo":"P003","descripcion":"QUESO DE CABRA LA HUERTA NATURAL DE 1KG","cantidad":"3","precio":"200","neto":"600","descuento":"0","total":"600","observacion":""},{"codigo":"P005","descripcion":"QUESO DE CABRA LA HUERTA CON ARANDANOS DE 500GR","cantidad":"4","precio":"100","neto":"400","descuento":"0","total":"400","observacion":""}]', 1, 1, 7, 0, 1),
+(3, '2015-03-18 10:09:13', '2015-05-17 00:00:00', 12, 109, 4, 1, '[{"codigo":"P003","descripcion":"QUESO DE CABRA LA HUERTA NATURAL DE 1KG","cantidad":"2","precio":"200","neto":"400","descuento":"0","total":"400","observacion":""}]', 1, 1, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1595,7 +1600,7 @@ CREATE TABLE IF NOT EXISTS `ejecutivos` (
   `privilegios` varchar(30) NOT NULL,
   `mensaje_personal` text NOT NULL,
   `asignador_casos` varchar(3) DEFAULT 'no'
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Registro de ejecutivos en la empresa';
 
 --
 -- Volcado de datos para la tabla `ejecutivos`
@@ -1613,7 +1618,8 @@ INSERT INTO `ejecutivos` (`id`, `primer_nombre`, `segundo_nombre`, `apellido_pat
 (9, 'Eleazar', '', 'Frias', 'Carrillo', 'Ocotlán, Jalisco', 'efriasc', 'fice710403', 'eleazar.soporte@tiendapaq.com.mx', '(392) 100-3182', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'si'),
 (10, 'Gloria', 'Guadalupe', 'Camarena', 'Flores', 'Ocotlán, Jalisco', 'gloriacam', '711215', 'gloria.ventas@tiendapaq.com.mx', '(392) 104-7077', 'Ventas', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
 (11, 'Maria', 'De Lourdes', 'Rivera', 'Hernandez', 'Ocotlán, Jalisco', 'lourdesrh', 'gtsts1000', 'lourdes.administracion@tiendapaq.com.mx', '(392) 925-3808', 'Soporte Técnico', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
-(12, 'Julio', '', 'Trujillo', 'Alvarado', 'Ocotlán, Jalisco', 'jules', 'julio1231', 'julio.trujillo.alvarado@outlook.com', '(393) 107-5692', 'Desarrollo', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no');
+(12, 'Julio', '', 'Trujillo', 'Alvarado', 'Ocotlán, Jalisco', 'jules', 'julio1231', 'julio.trujillo.alvarado@outlook.com', '(393) 107-5692', 'Desarrollo', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no'),
+(13, 'Evento', '', 'Evento', 'Evento', 'Ocotlán, Jalisco', 'ev', 'ev', 'evento@outlook.com', '(124) 312-4234', 'Administrativo', 'admin', 'Bienvenido a CRM TiendaPAQ', 'no');
 
 -- --------------------------------------------------------
 
@@ -1705,20 +1711,18 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `titulo` varchar(100) NOT NULL,
   `descripcion` text NOT NULL,
   `temario` text NOT NULL,
-  `sesiones` tinyint(1) NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fecha_evento` date NOT NULL,
-  `hora` time NOT NULL,
-  `duracion` varchar(45) NOT NULL,
   `costo` float unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `eventos`
 --
 
-INSERT INTO `eventos` (`id_evento`, `id_ejecutivo`, `titulo`, `descripcion`, `temario`, `sesiones`, `fecha_creacion`, `fecha_evento`, `hora`, `duracion`, `costo`) VALUES
-(1, 2, 'Curso Adminpaq', 'Toda la decripcion irá aqui\r\nToda la decripcion irá aqui\r\nToda la decripcion irá aqui\r\nToda la decripcion irá aqui\r\n', 'Toda el temario ira aqui\r\nToda el temario ira aqui\r\nToda el temario ira aqui\r\nToda el temario ira aqui\r\n', 1, '2015-03-10 15:18:39', '2015-03-11', '08:00:00', '5', 600);
+INSERT INTO `eventos` (`id_evento`, `id_ejecutivo`, `titulo`, `descripcion`, `temario`, `fecha_creacion`, `costo`) VALUES
+(1, 13, 'Curso online Adminpaq', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut luctus urna. Curabitur sagittis bibendum egestas. Phasellus blandit ligula a ligula porta iaculis.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut luctus urna. Curabitur sagittis bibendum egestas. Phasellus blandit ligula a ligula porta iaculis.', '2015-03-17 16:58:24', 600),
+(3, 13, 'Curso CONTPAQI CFDI NOMINAS', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut luctus urna. Curabitur sagittis bibendum egestas. Phasellus blandit ligula a ligula porta iaculis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut luctus urna. Curabitur sagittis bibendum egestas. Phasellus blandit ligula a ligula porta iaculis.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut luctus urna. Curabitur sagittis bibendum egestas. Phasellus blandit ligula a ligula porta iaculis.', '2015-03-18 05:12:34', 600),
+(4, 13, 'sdads', 'assfd', 'asfasd', '2015-03-24 13:11:53', 444);
 
 -- --------------------------------------------------------
 
@@ -1769,6 +1773,27 @@ INSERT INTO `oficinas` (`id_oficina`, `ciudad_estado`, `ciudad`, `estado`, `colo
 (2, 'Morelia, Michoacán', 'Morelia', 'Michoacán', 'Chapultepec Sur', 'Blvd. Garcia De León', '#315', 'ventas.morelia@tiendapaq.com.mx', '(443) 314-7934'),
 (1, 'Ocotlán, Jalisco', 'Ocotlán', 'Jalisco', 'Solidaridad', 'Cuarzo', '#9A', 'ventas@tiendapaq.com.mx', '(392) 925-3808'),
 (3, 'Uruapan, Michoacán', 'Uruapan', 'Michoacán', 'Niño Obrero', 'Costa Rica', '79', 'uruapan@tiendapaq.com.mx', '(452) 148-6464');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `participantes`
+--
+
+CREATE TABLE IF NOT EXISTS `participantes` (
+  `id_evento` int(11) NOT NULL,
+  `id_contacto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `participantes`
+--
+
+INSERT INTO `participantes` (`id_evento`, `id_contacto`) VALUES
+(1, 3),
+(1, 2),
+(3, 2),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -1920,6 +1945,26 @@ CREATE TABLE IF NOT EXISTS `reasignacion_pendiente` (
   `fecha` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `motivo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Guarda historial de reasignaciones';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sesiones`
+--
+
+CREATE TABLE IF NOT EXISTS `sesiones` (
+  `id_sesiones` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `duracion` tinyint(2) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sesiones`
+--
+
+INSERT INTO `sesiones` (`id_sesiones`, `id_evento`, `fecha`, `duracion`) VALUES
+(1, 1, '2015-03-04 09:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -2084,7 +2129,7 @@ ALTER TABLE `estatus_general`
 -- Indices de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  ADD PRIMARY KEY (`id_evento`), ADD UNIQUE KEY `id_ejecutivo_UNIQUE` (`id_ejecutivo`), ADD KEY `ejecutivo_que_imparte_idx` (`id_ejecutivo`);
+  ADD PRIMARY KEY (`id_evento`), ADD KEY `ejecutivo_que_imparte_idx` (`id_ejecutivo`);
 
 --
 -- Indices de la tabla `observaciones`
@@ -2097,6 +2142,12 @@ ALTER TABLE `observaciones`
 --
 ALTER TABLE `oficinas`
   ADD PRIMARY KEY (`ciudad_estado`), ADD UNIQUE KEY `id_oficina` (`id_oficina`);
+
+--
+-- Indices de la tabla `participantes`
+--
+ALTER TABLE `participantes`
+  ADD KEY `id_de_evento_idx` (`id_evento`), ADD KEY `id_de_contacto_idx` (`id_contacto`);
 
 --
 -- Indices de la tabla `pendientes`
@@ -2121,6 +2172,12 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `reasignacion_pendiente`
   ADD PRIMARY KEY (`id`), ADD KEY `reasignacion_pendiente_ibfk_1` (`id_pendiente`), ADD KEY `reasignacion_pendiente_ibfk_2` (`id_ejecutivo_origen`), ADD KEY `reasignacion_pendiente_ibfk_3` (`id_ejecutivo_destino`);
+
+--
+-- Indices de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  ADD PRIMARY KEY (`id_sesiones`), ADD KEY `id_evento_idx` (`id_evento`);
 
 --
 -- Indices de la tabla `sistemas_clientes`
@@ -2173,12 +2230,12 @@ ALTER TABLE `comentarios_cotizacion`
 -- AUTO_INCREMENT de la tabla `contactos`
 --
 ALTER TABLE `contactos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `cotizacion`
 --
 ALTER TABLE `cotizacion`
-  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
@@ -2188,7 +2245,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `ejecutivos`
 --
 ALTER TABLE `ejecutivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `equipos_computo`
 --
@@ -2208,7 +2265,7 @@ ALTER TABLE `estatus_general`
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `observaciones`
 --
@@ -2229,6 +2286,11 @@ ALTER TABLE `pendientes`
 --
 ALTER TABLE `reasignacion_pendiente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  MODIFY `id_sesiones` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `sistemas_clientes`
 --
@@ -2303,6 +2365,13 @@ ALTER TABLE `eventos`
 ADD CONSTRAINT `ejecutivo_que_imparte` FOREIGN KEY (`id_ejecutivo`) REFERENCES `ejecutivos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `participantes`
+--
+ALTER TABLE `participantes`
+ADD CONSTRAINT `id_de_contacto` FOREIGN KEY (`id_contacto`) REFERENCES `contactos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `id_de_evento` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `pendientes`
 --
 ALTER TABLE `pendientes`
@@ -2319,6 +2388,12 @@ ALTER TABLE `reasignacion_pendiente`
 ADD CONSTRAINT `reasignacion_pendiente_ibfk_1` FOREIGN KEY (`id_pendiente`) REFERENCES `pendientes` (`id_pendiente`),
 ADD CONSTRAINT `reasignacion_pendiente_ibfk_2` FOREIGN KEY (`id_ejecutivo_origen`) REFERENCES `ejecutivos` (`id`),
 ADD CONSTRAINT `reasignacion_pendiente_ibfk_3` FOREIGN KEY (`id_ejecutivo_destino`) REFERENCES `ejecutivos` (`id`);
+
+--
+-- Filtros para la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+ADD CONSTRAINT `id_evento` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`);
 
 --
 -- Filtros para la tabla `sistemas_clientes`

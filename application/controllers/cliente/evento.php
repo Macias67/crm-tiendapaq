@@ -10,6 +10,7 @@ class Evento extends AbstractAccess {
 		$this->load->model('eventoModel');
 		$this->load->model('clienteModel');
 		$this->load->model('contactosModel');
+		$this->load->model('participantesModel');
 	}
 
 	public function ver_eventos()
@@ -21,101 +22,39 @@ class Evento extends AbstractAccess {
 			array(
 				'eventos.id_evento',
 				'eventos.id_ejecutivo',
+				'eventos.costo',
 				'ejecutivos.primer_nombre',
 				'ejecutivos.apellido_paterno',
-				'eventos.titulo',
-				'eventos.fecha_creacion'
+				'eventos.titulo'
 			));
 
 		$this->_vista('ver_eventos');
 	}
 
-	public function registro_evento()
+	public function registro_evento($id_evento=null)
 	{
+		$this->data['id_evento'] = $id_evento;
+		$this->data['contactos_cliente']=$this->contactosModel->get(array('*'), array('id_cliente' => $this->data['usuario_activo']['id']));
 		$this->_vista('registro_evento');
 	}
 
-	/**
-	 * Metodo para mostrar las empresas
-	 * de menera de JSON
-	 *
-	 * @return void
-	 * @author Luis Macias
-	 **/
-	public function json()
+	public function registro_participante()
 	{
-		$id_cliente = $this->input->post('id_cliente');
-		/**
-		 * Si el $id_cliente es vacio, entonces es porque
-		 * sera utilizado en el select de busqueda de clientes
-		 * que esta en el cotizador
-		 */
-		if (empty($id_cliente))
-		{
-			$query	= $this->input->post('q');
-			$limit 	= $this->input->post('page_limit');
-
-			if (isset($query) && isset($limit))
-			{
-				$resultados = $this->clienteModel->get_like(
-					array('id','razon_social'),
-					'razon_social',
-					$query,
-					'razon_social',
-					'ASC',
-					$limit);
-
-				$res = array();
-
-				if (!empty($resultados))
-				{
-					foreach ($resultados as $value)
-					{
-						array_push($res, array("id" => (int)$value->id, "text" => $value->razon_social));
-					}
-				} else
-				{
-					$res = array("id"=>"0","text"=>"No se encontraron resultados...");
-				}
-
-				// Muestro la salida
-				$this->output
-					->set_content_type('application/json')
-					->set_output(json_encode($res));
-			}
-		} else
-		{
-			/**
-			 * Si no sera para obtener la info de un
-			 * cliente en especifico y sus contactos
-			 */
-
-			//Obtengo cliente
-			$cliente		= $this->clienteModel->get_like(array('telefono1'), 'id', $id_cliente);
-			//Obtengo contactos
-			$contactos	= $this->contactosModel->get(array('*'), array('id_cliente' => $id_cliente), 'nombre_contacto');
-
-			$total_contactos = count($contactos);
-
-			if ($total_contactos > 0)
-			{
-				$res = array(
-					'total_contactos'	=> $total_contactos,
-					'contactos'			=> $contactos);
-
-			} else
-			{
-				$res = array(
-					'total_contactos'	=> $total_contactos,
-					'msg'				=> 'La empresa no tiene contactos registrados.');
-			}
-			// Muestro salida
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($res));
+		$participante = array(
+								'id' 			=> null,
+								'id_evento' 	=> $this->input->post('idevento'),
+								'id_contacto' 	=> $this->input->post('idcontacto'));
+		// var_dump($participante);
+		if ($this->participantesModel->insert($participante)) {
+			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Participante agregado con éxito.</h4>');
+		}else{
+			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para más detalles.</h4>');
 		}
-	}
 
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
+	}
 }
 
 /* End of file evento.php */

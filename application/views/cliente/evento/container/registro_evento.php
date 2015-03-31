@@ -14,56 +14,45 @@
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
-				<!-- BEGIN REGISTRO A EVENTO -->
-					<div class="row">
-						<!-- Cliente -->
-						<div class="col-md-12">
-							<div class="portlet gren">
-								<div class="portlet-title">
-									<div class="caption"><i class="fa fa-gift"></i> Cliente</div>
-								</div>
-									<div class="portlet-body">
-										<form role="form">
-											<div class="form-body">
-
-												<div class="col-md-12">
-													<div class="form-group">
-														<input type="hidden" id="razon_social" name="razon_social" class="form-control input-inline select2" style="width: 100%">
-													</div>
-												</div>
-
-												<div class="col-md-12">
-
-													<div class="col-md-4">
-														<div class="form-group">
-															<label>Contactos</label>
-															<select class="form-control" id="contactos" name="contactos"></select>
-														</div>
-													</div>
-
-													<div class="col-md-4">
-														<div class="form-group">
-															<label>Teléfono</label>
-															<input class="form-control" id="telefono" type="text">
-														</div>
-													</div>
-
-													<div class="col-md-4">
-														<div class="form-group">
-															<label>Email</label>
-															<input class="form-control" id="email" type="text">
-														</div>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-							</div>
+				<!-- BEGIN TABLA CONTACTOS PARA EVENTOS -->
+				<div class="portlet light">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-puzzle font-red-flamingo"></i>
+							<span class="caption-subject bold font-red-flamingo uppercase">
+							Contáctos </span>
 						</div>
 					</div>
-				<!-- END REGISTRO A EVENTO --><div class="col-md-12">
-												<p>Si no se encuentra en la lista de contactos, te pedimos que tu empresa te registre.</p>
-											</div>
+					<div class="portlet-body">
+						<table class="table table-striped table-hover table-bordered" id="tabla_contactos_eventos">
+							<thead>
+								<tr>
+									<th>Nombre(s)</th>
+									<th>Apellido Paterno</th>
+									<th>Apellido Materno</th>
+									<th>Email</th>
+									<th>Teléfono</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								<?php foreach ($contactos_cliente as $contacto) : ?>
+								<input type="hidden" id="idevento" idevento="<?php echo $this->data['id_evento'] ?>" />
+									<tr class="odd gradeX" id="<?php echo $this->data['id_evento']  ?>">
+										<td><?php echo $contacto->nombre_contacto ?></td>
+										<td><?php echo $contacto->apellido_paterno ?></td>
+										<td><?php echo $contacto->apellido_materno ?></td>
+										<td><?php echo $contacto->email_contacto ?></td>
+										<td><?php echo $contacto->telefono_contacto ?></td>
+										<td width="1%"><button idcontacto="<?php echo $contacto->id ?>" idevento="<?php echo $this->data['id_evento'] ?>" class="btn btn-circle blue btn-xs agregar_participante"><i class="fa fa-search-plus"></i> Registrar</button></td>
+									</tr>
+								<?php endforeach ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- END TABLA CONTACTOS PARA EVENTOS -->
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->
