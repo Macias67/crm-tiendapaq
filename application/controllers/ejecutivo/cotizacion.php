@@ -497,13 +497,16 @@ class Cotizacion extends AbstractAccess {
 		$imagenes 	= array();
 		$pdfs 		= array();
 
-		// Descarto la carpeta de las thumnail
-		foreach ($archivos as $index => $archivo) {
-			$tipo = explode("/", get_mime_by_extension($archivos[$index]));
-			if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
-				array_push($imagenes, $archivos[$index]);
-			} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
-				array_push($pdfs, $archivos[$index]);
+		// SI hay archivos en la variable
+		if($archivos) {
+			// Descarto la carpeta de las thumnail
+			foreach ($archivos as $index => $archivo) {
+				$tipo = explode("/", get_mime_by_extension($archivos[$index]));
+				if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
+					array_push($imagenes, $archivos[$index]);
+				} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
+					array_push($pdfs, $archivos[$index]);
+				}
 			}
 		}
 

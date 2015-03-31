@@ -88,6 +88,94 @@ var TableManaged = function () {
 		});
 	}
 
+	// Vista casos personales de cada quien
+	var tablaCasos = function () {
+		var table = $('#casos-ejecutivo');
+		table.dataTable({
+			"lengthMenu": [
+				[5, 15, 20, -1],
+				[5, 15, 20, "Todos"] // change per page values here
+			],
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "/caso/json_casos/",
+				"type": "POST"
+			},
+			// set the initial value
+			"pageLength": 15,
+			"columns": [
+				{ "data": "folio_cotizacion" },
+				{ "data": "razon_social" },
+				{ "data": "fecha_inicio" },
+				{ "data": "fecha_final" },
+				{
+					"data": "id_estatus_general",
+					"defaultContent": ''
+				}, // estatus
+				{
+					"data": null,
+					"defaultContent": ''
+				}
+			],
+			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				var label = '';
+				var status = parseInt(aData.id_estatus_general);
+				switch (status) {
+					case 1:
+						label = '<p class="btn btn-circle btn-circle btn-xs red"> Cancelado </p>';
+					break;
+					case 2:
+						label = '<p class="btn btn-circle btn-xs default"> Cerrado </p>';
+					break;
+					case 3:
+						label = '<p class="btn btn-circle btn-xs green"> Pendiente </p>';
+					break;
+					case 5:
+						label = '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
+					break;
+					case 7:
+						label = '<p class="btn btn-circle btn-xs green"> Reasignado </p>';
+					break;
+				}
+				$('td:eq(4)', nRow).html(label);
+				// Tipo de Cliente
+				$('td:eq(5)', nRow).html('<a class="btn blue btn-circle btn-xs" href="'+aData.url+'"><i class="fa fa-search"></i> Detalles</a>');
+			},
+			"language": {
+				"emptyTable":     "No hay casos registrados",
+				"info":           "Mostrando _START_ a _END_ de _TOTAL_ casos",
+				"infoEmpty":      "Mostrando 0 a 0 de 0 casos",
+				"infoFiltered":   "(de un total de _MAX_ casos registrados)",
+				"infoPostFix":    "",
+				"thousands":      ",",
+				"lengthMenu":     "Show _MENU_ registros",
+				"loadingRecords": "Cargando...",
+				"processing":     "Procesando...",
+				"zeroRecords": "No se encontraron coincidencias",
+				"lengthMenu": "_MENU_  Registros",
+				"search": "Buscar: ",
+				"paginate": {
+					"previous": "Anterior",
+					"next": "Siguiente"
+				}
+			},
+			"columnDefs": [
+				{ // set default column settings
+					'orderable': false,
+					'targets': [5]
+				},
+				{
+					"searchable": true,
+					"targets": [0]
+				}
+			],
+			"order": [
+				[4, 'desc']
+			] // set first column as a default sort by asc
+		});
+	}
+
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -97,6 +185,7 @@ var TableManaged = function () {
 			bootbox.setDefaults({locale: "es"});
 			CasosAsignar();
 			DetallesCaso();
+			tablaCasos();
 		}
 	};
 }();
