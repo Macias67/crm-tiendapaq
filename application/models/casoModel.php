@@ -119,20 +119,34 @@ class CasoModel extends MY_Model {
 	 *
 	 * @author Diego Rodriguez
 	 **/
-	public function get_caso_detalles($id_caso)
+	public function get_caso_detalles($id_caso, $lider=null)
 	{
-		$this->db->select(array(
-			'caso.id as id_caso',
-			'caso.id_estatus_general',
-			'ejecutivos.primer_nombre',
-			'ejecutivos.apellido_paterno',
-			'estatus_general.descripcion',
-			'clientes.razon_social',
-			'clientes.id as id_cliente',
-			'caso.folio_cotizacion',
-			'caso.fecha_inicio',
-			'caso.fecha_final'));
-		$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'left');
+		//si no hay lider en el caso, no se hacer el inner join con la tabla ejecutivos para no tener error
+		if(empty($lider)){
+			$this->db->select(array(
+				'caso.id as id_caso',
+				'caso.id_estatus_general',
+				'ejecutivos.primer_nombre',
+				'ejecutivos.apellido_paterno',
+				'estatus_general.descripcion',
+				'clientes.razon_social',
+				'clientes.id as id_cliente',
+				'caso.folio_cotizacion',
+				'caso.fecha_inicio',
+				'caso.fecha_final'));
+			$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'inner');
+		} else
+		{
+			$this->db->select(array(
+				'caso.id as id_caso',
+				'caso.id_estatus_general',
+				'estatus_general.descripcion',
+				'clientes.razon_social',
+				'clientes.id as id_cliente',
+				'caso.folio_cotizacion',
+				'caso.fecha_inicio',
+				'caso.fecha_final'));
+		}
 		$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'inner');
 		$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
 		$where = array($this->table.'.id' => $id_caso);

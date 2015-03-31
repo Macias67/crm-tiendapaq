@@ -110,7 +110,7 @@ var TableManaged = function () {
 			"processing": true,
 			"serverSide": true,
 			"ajax": {
-				"url": "/caso/json_casos/"+id_ejecutivo,
+				"url": "/ejecutivo/json_casos/"+id_ejecutivo,
 				"type": "POST"
 			},
 			// set the initial value
@@ -151,7 +151,7 @@ var TableManaged = function () {
 				}
 				$('td:eq(4)', nRow).html(label);
 				// Tipo de Cliente
-				$('td:eq(5)', nRow).html('<a class="btn blue btn-circle btn-xs" href="'+aData.url_modal+'" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>');
+				$('td:eq(5)', nRow).html('<a class="btn blue btn-circle btn-xs" href="'+aData.url+'" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>');
 			},
 			"language": {
 				"emptyTable":     "No hay casos registrados",

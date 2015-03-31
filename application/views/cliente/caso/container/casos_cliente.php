@@ -40,7 +40,7 @@
 													<td><?php echo $caso->razon_social ?></td>
 													<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
 													<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-													<td><?php echo ($caso->fecha_final=='1000-01-01 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
+													<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
 													<td>
 														<?php switch ($caso->id_estatus_general) {
 															case 1:

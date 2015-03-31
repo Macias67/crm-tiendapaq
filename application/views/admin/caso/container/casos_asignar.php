@@ -39,7 +39,7 @@
 											<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 											<td><a class="btn yellow btn-circle btn-xs disabled" href=""><?php echo ucfirst($caso->descripcion) ?></a></td>
 											<td>
-												<a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/modal/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>
+												<a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a>
 												<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/caso/asignar/mostrar/'.$caso->id_caso) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal"><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
 											</td>
 										</tr>
