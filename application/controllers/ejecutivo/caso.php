@@ -128,6 +128,12 @@ class Caso extends AbstractAccess {
 			->set_output(json_encode($data));
 	}
 
+	/**
+	 * Func
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function detalles($id_caso)
 	{
 		$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);

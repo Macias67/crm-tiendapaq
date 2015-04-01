@@ -74,7 +74,7 @@
 					<div class="panel-body">
 						<ul>
 							<li>El tamaño por archivo maximo es de <strong>2 MB</strong>. </li>
-							<li>Unicamente archivos  (<strong>JPG ó PNG</strong>) son permitidos.</li>
+							<li>Unicamente archivos  (<strong>JPG, PNG o PDF</strong>) son permitidos.</li>
 							<li>El tamaño de la imagen debe ser mínimo  <strong>1024px de ancho</strong> y <strong>768px de alto</strong>. <a data-toggle="modal" href="#basic">¿Cómo verifico?</a></li>
 							<li>Puede subir hasta <strong>3 archivos</strong> para combrobar el pago.</li>
 						</ul>
