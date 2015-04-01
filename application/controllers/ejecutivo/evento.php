@@ -15,7 +15,7 @@ class Evento extends AbstractAccess {
 		$this->load->model('eventoModel');
 		$this->load->helper('formatofechas_helper');
 		$this->load->model('ejecutivoModel');
-		$this->load->model('ejecutivoModel');
+		$this->load->model('sesionesModel');
 		$this->load->helper('date');
 	}
 
@@ -31,8 +31,58 @@ class Evento extends AbstractAccess {
 	
 	// $this->_vista('form-nuevo-evento');
 	// }
-	public function crearFecha()
+	private function _crearFecha($fecha_editar)
 	{
+	// creo la fecha a inserta en la base de datos
+		if ($fecha_editar[fecha]!=null) {
+			$mostrar1= explode(" ", $fecha_editar[fecha]);
+			switch ($mostrar1[1]) {
+					case 'January':
+						$mes="01";
+						break;
+					case 'February':
+						$mes="02";
+						break;
+					case 'March':
+						$mes="03";
+						break;
+					case 'April':
+						$mes="04";
+						break;
+					case 'May':
+						$mes="05";
+						break;
+					case 'June':
+						$mes="06";
+						break;
+					case 'July':
+						$mes="07";
+						break;
+					case 'August':
+						$mes="08";
+						break;
+					case 'September':
+						$mes="09";
+						break;
+					case 'October':
+						$mes="10";
+						break;
+					case 'November':
+						$mes="11";
+						break;
+					case 'December':
+						$mes="12";
+						break;
+					
+					default:
+						# code...
+						break;
+			}
+		$fecha1=$mostrar1[2]."-".$mes."-".$mostrar1[0]." ".$mostrar1[4].":00";
+		return $fecha1;
+		}else{
+			# code...
+		}
 		
 	}
 
@@ -306,18 +356,13 @@ class Evento extends AbstractAccess {
 				'costo'			=> $this->input->post('costo')
 			);
 			//Inserto en la BD el nuevo evento
-			// if($this->eventoModel->insert($evento))
-			// {
-			// 	$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
-			// } else
-			// {
-			// 	$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, revisa la consola o la base de datos para detalles');
-			// }
-			// usare un trigger para obtener el ultimo id
-			// de evento insertado y darselo
-			// como clave
-			// foranea a
-			// sesiones.
+			if($this->eventoModel->insert($evento))
+			{
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
+			} else
+			{
+				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
+			}
 		// 	obtengo el ultimo id_evento insertado
 		// 	comprueba cual es el id_evento mas grande insertado
 		// 	la variable id guarda el id_evento.
@@ -329,73 +374,49 @@ class Evento extends AbstractAccess {
 			$sesiones1=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'sesion'		=>$this->input->post('sesion_1'),
-				'duracion_1'	=>$this->input->post('duracion_1')
+				'fecha'		=>$this->input->post('sesion_1'),
+				'duracion'	=>$this->input->post('duracion_1')
 				);
 			$sesiones2=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'sesion'		=>$this->input->post('sesion_2'),
-				'duracion_2'	=>$this->input->post('duracion')
+				'fecha'		=>$this->input->post('sesion_2'),
+				'duracion'	=>$this->input->post('duracion_2')
 				);
 			$sesiones3=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'sesion'		=>$this->input->post('sesion_3'),
-				'duracion_3'	=>$this->input->post('duracion')
+				'fecha'		=>$this->input->post('sesion_3'),
+				'duracion'	=>$this->input->post('duracion_3')
 				);
 			$sesiones4=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'sesion'		=>$this->input->post('sesion_4'),
-				'duracion_4'	=>$this->input->post('duracion')
+				'fecha'		=>$this->input->post('sesion_4'),
+				'duracion'	=>$this->input->post('duracion_4')
 				);
 
-			// creo la fecha a inserta en la base de datos
-			$mostrar= explode(" ", $fecha_editar[sesion]);
-			switch ($mostrar[1]) {
-					case 'January':
-						$mes="01";
-						break;
-					case 'February':
-						$mes="02";
-						break;
-					case 'March':
-						$mes="03";
-						break;
-					case 'April':
-						$mes="04";
-						break;
-					case 'May':
-						$mes="05";
-						break;
-					case 'June':
-						$mes="06";
-						break;
-					case 'July':
-						$mes="07";
-						break;
-					case 'August':
-						$mes="08";
-						break;
-					case 'September':
-						$mes="09";
-						break;
-					case 'October':
-						$mes="10";
-						break;
-					case 'November':
-						$mes="11";
-						break;
-					case 'December':
-						$mes="12";
-						break;
-					
-					default:
-						# code...
-						break;
-			}
-		$fecha=$mostrar[2]."-".$mes."-".$mostrar[0]." ".$mostrar[4].":00";
+			if ($sesiones1[fecha]!=null) 
+				{
+				$sesiones1[fecha]=$this->_crearFecha($sesiones1);
+				$this->sesionesModel->insert($sesiones1);
+				}
+			if ($sesiones2[fecha]!=null)
+				{
+				$sesiones2[fecha]=$this->_crearFecha($sesiones2);
+				$this->sesionesModel->insert($sesiones2);
+				}
+			if ($sesiones3[fecha]!=null) 
+				{
+				$sesiones3[fecha]=$this->_crearFecha($sesiones3);
+				$this->sesionesModel->insert($sesiones3);
+				}
+			if ($sesiones4[fecha]!=null) 
+				{
+				$sesiones4[fecha]=$this->_crearFecha($sesiones4);
+				$this->sesionesModel->insert($sesiones4);
+				}
+
 		//mando la repuesta
 		$this->output
 			->set_content_type('application/json')
