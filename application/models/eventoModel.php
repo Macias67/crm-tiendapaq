@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	/**
 	 * Modelo para la tabla
-	 * de eventos
+	 * de eventos.
 	 *
 	 * @package default
 	 * @author Julio Trujillo
@@ -10,7 +10,7 @@
 
 		/**
 		 * Nombre de la tabla a
-		 * conectarse
+		 * conectarse.
 		 *
 		 * @var string
 		 **/
@@ -25,11 +25,19 @@
 			$this->table = self::TABLE;
 		}
 
+		/**
+		 * Función que devuelve todos los
+		 * eventos a partir de la
+		 * fecha de hoy.
+		 *
+		 * @return array
+		 * @author Julio Trujillo
+		 **/
 		public function get_evento_revision($campos)
 		{
 			// Para seleccionar sólo las fechas del día en adelante
-			// $date = date_create('today');
-			// $dia_actual = date_format($date, 'Y-m-d H:i:s');
+			// $date = date_create('today'); // Devuelve un nuevo objeto DateTime.
+			// $dia_actual = date_format($date, 'Y-m-d H:i:s'); // Formateo la fecha para compararlas
 
 			$this->db->select($campos);
 			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
@@ -40,9 +48,6 @@
 
 			return $query->result();
 		}
-
-
-
 }
 
 /* End of file eventoModel.php */

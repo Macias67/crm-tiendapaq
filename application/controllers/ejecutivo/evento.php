@@ -8,6 +8,11 @@
  **/
 class Evento extends AbstractAccess {
 
+	/**
+	 *
+	 *Constructor de la función.
+	 *
+	 **/
 	public function __construct()
 	{
 		parent::__construct();
@@ -30,6 +35,8 @@ class Evento extends AbstractAccess {
 	{
 		// Cargo la librería para las fechas
 		$this->load->helper('formatofechas_helper');
+		// Cargo el modelo de sesiones para la fecha de inicio de evento
+		$this->load->model('sesionesModel');
 
 		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
 			array(
@@ -41,8 +48,10 @@ class Evento extends AbstractAccess {
 				'eventos.fecha_creacion',
 				'eventos.total_participantes',
 				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno'
+				'ejecutivos.apellido_paterno',
 			));
+
+		$this->data['fechas_inicio'] = $this->sesionesModel->fecha_inicio(array('id_evento'));
 
 		$this->_vista('revisar');
 	}
@@ -155,7 +164,6 @@ class Evento extends AbstractAccess {
 			break;
 		}
 	}
-
 }
 
 /* End of file eventos.php */

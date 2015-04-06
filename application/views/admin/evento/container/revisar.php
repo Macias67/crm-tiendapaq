@@ -31,7 +31,7 @@
 							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-eventos">
 								<thead>
 									<tr>
-										<th width="1%">No.</th>
+										<th width="10%">Fecha de inicio</th>
 										<th width="10%">Nombre</th>
 										<th width="10%">Modalidad</th>
 										<th width="1%">Precio</th>
@@ -43,7 +43,14 @@
 								<tbody>
 									<?php foreach ($eventos_revision as $evento): ?>
 										<tr class="odd gradeX">
-											<td><?php echo $evento->id_evento ?></td>
+											<td>
+											<?php
+												foreach ($fechas_inicio as $fechas) {
+													if ($evento->id_evento===$fechas->id_evento)
+													echo fecha_completa($fechas->fecha_inicio);
+												}
+											?>
+											</td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo $evento->modalidad ?></td>
 											<td>$ <?php echo $evento->costo ?></td>
@@ -51,7 +58,7 @@
 											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>">
 											<?php
 												if ($evento->total_participantes==="0")
-													echo 'Sin registro';
+													echo '0';
 												elseif ($evento->total_participantes!=="0")
 													echo $evento->total_participantes;
 											?>
