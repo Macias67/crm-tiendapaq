@@ -19,7 +19,7 @@
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Estatus: </b></div>
-					<div class="col-md-8"><p><?php echo ucfirst($caso->descripcion)?></p></div>
+					<div class="col-md-8"><p><?php echo ucfirst($caso->estatus)?></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Cliente: </b></div>

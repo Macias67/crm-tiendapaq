@@ -344,6 +344,12 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
+	/**
+	 * Funcion para reenvio de de cotizaciones
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function reenvio($folio)
 	{
 		//si no hay id de contacto lanzo la vista con la lista de contactos
@@ -424,15 +430,17 @@ class Cotizacion extends AbstractAccess {
 	{
 		$this->load->model('estatusCotizacionModel');
 		$folio = $this->input->post('folio');
-		if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio))) {
-			$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
-		}else{
-			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );
+		if($this->input->is_ajax_request()) {
+			if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio))) {
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
+			}else{
+				$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );
+			}
+			//mando la repuesta
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 		}
-		//mando la repuesta
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($respuesta));
 	}
 
  	/**
@@ -517,6 +525,28 @@ class Cotizacion extends AbstractAccess {
 		$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 
 		$this->_vista('detalles');
+	}
+
+	/**
+	 * Modal para mostrar archivos
+	 * de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function archivos($folio)
+	{
+		$campos = array(
+			'cotizacion.id_cliente',
+			'cotizacion.id_estatus_cotizacion',
+			'clientes.razon_social');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
+			$archivos 				= $this->cotizacionModel->get_files_cotizacion($cotizacion->id_cliente, $folio);
+			$this->data['archivos'] 	= $archivos;
+			$this->_vista_completa('cotizacion/modal-archivos-cotizacion');
+		} else {
+			show_404();
+		}
 	}
 }
 

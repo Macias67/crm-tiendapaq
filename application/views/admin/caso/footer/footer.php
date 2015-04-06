@@ -43,6 +43,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-caso') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'detalle-caso') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -50,6 +51,7 @@
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
 			TableManaged.init(); //tabla de casos por asignar
+			DetalleCaso.init(); // detalle de un caso
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

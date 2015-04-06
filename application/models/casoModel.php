@@ -124,9 +124,10 @@ class CasoModel extends MY_Model {
 		$this->db->select(array(
 			'caso.id as id_caso',
 			'caso.id_estatus_general',
+			'caso.descripcion',
 			'ejecutivos.primer_nombre',
 			'ejecutivos.apellido_paterno',
-			'estatus_general.descripcion',
+			'estatus_general.descripcion as estatus',
 			'clientes.razon_social',
 			'clientes.id as id_cliente',
 			'caso.folio_cotizacion',

@@ -20,23 +20,21 @@
 						<div class="caption"><i class="fa fa-user"></i>Cotizaciones</div>
 					</div>
 					<div class="portlet-body">
-						<div class="scroller" style="height:400px">
-							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-cotizaciones">
-								<thead>
-									<tr>
-										<th width="1%">Fo.</th>
-										<th width="20%">Cliente</th>
-										<th width="10%">Ejecutivo</th>
-										<th width="20%">Fecha de creación</th>
-										<th width="20%">Vigencia</th>
-										<th width="1%">Estatus</th>
-										<th width="1%"><i class="fa fa-comment"></i></th>
-										<th width="1%"></th>
-										<th width="1%"></th>
-									</tr>
-								</thead>
-							</table>
-						</div>
+						<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-cotizaciones">
+							<thead>
+								<tr>
+									<th width="1%">Fo.</th>
+									<th width="20%">Cliente</th>
+									<th width="10%">Ejecutivo</th>
+									<th width="20%">Fecha de creación</th>
+									<th width="20%">Vigencia</th>
+									<th width="1%">Estatus</th>
+									<th width="1%"><i class="fa fa-comment"></i></th>
+									<th width="1%"></th>
+									<th width="1%"></th>
+								</tr>
+							</thead>
+						</table>
 					</div>
 				</div>
 				<!-- END TABLA COTIZACIONES-->
