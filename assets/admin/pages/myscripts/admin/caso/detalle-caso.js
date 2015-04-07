@@ -7,6 +7,16 @@ var DetalleCaso = function() {
 		});
 	};
 
+	var progresoTarea = function() {
+		$('.easy-pie-chart .number.transactions').easyPieChart({
+			animate: 1000,
+			size: 78,
+			lineWidth: 5,
+			scaleColor: '#27d9f4',
+			barColor: '#27d9f4'
+		});
+	};
+
 	var verComprobantes = function() {
 
 	};
@@ -15,6 +25,7 @@ var DetalleCaso = function() {
 		init : function() {
 			verComprobantes();
 			verCotizacion();
+			progresoTarea();
 		}
 	}
 }();

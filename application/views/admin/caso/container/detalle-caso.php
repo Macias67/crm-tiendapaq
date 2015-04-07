@@ -93,12 +93,160 @@
 									<i class="icon-puzzle font-grey-gallery"></i>
 									<span class="caption-subject bold font-grey-gallery uppercase">Tareas: </span>
 								</div>
-								<div class="tools">
-									<a class="btn btn-circle green" data-toggle="modal" href="#basic"><i class="fa fa-plus"></i> Nueva Tarea</a>
+								<div class="actions">
+									<a class="btn btn-circle green btn-block" data-toggle="modal" href="#basic"><i class="fa fa-plus"></i> Nueva Tarea</a>
 								</div>
 							</div>
 							<div class="portlet-body">
-								
+								<!-- <table class="table table-bordered table-striped table-condensed flip-content">
+									<thead class="flip-content">
+										<tr>
+											<th width="20%">
+												 Code
+											</th>
+											<th>
+												 Company
+											</th>
+											<th class="numeric">
+												 Price
+											</th>
+											<th class="numeric">
+												 Change
+											</th>
+											<th class="numeric">
+												 Change %
+											</th>
+											<th class="numeric">
+												 Open
+											</th>
+											<th class="numeric">
+												 High
+											</th>
+											<th class="numeric">
+												 Low
+											</th>
+											<th class="numeric">
+												 Volume
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												 AAC
+											</td>
+											<td>
+												 AUSTRALIAN AGRICULTURAL COMPANY LIMITED.
+											</td>
+											<td class="numeric">
+												 &nbsp;
+											</td>
+											<td class="numeric">
+												 -0.01
+											</td>
+											<td class="numeric">
+												 -0.36%
+											</td>
+											<td class="numeric">
+												 $1.39
+											</td>
+											<td class="numeric">
+												 $1.39
+											</td>
+											<td class="numeric">
+												 &nbsp;
+											</td>
+											<td class="numeric">
+												 9,395
+											</td>
+										</tr>
+									</tbody>
+								</table> -->
+								<div class="clearfix">
+									<ul class="media-list">
+										<li class="media">
+											<a class="pull-left" href="#">
+												<img class="media-object" src="<?php echo $assets_admin_pages ?>media/profile/1/block.jpg" alt="" style="height: 64px; width: 64px; display: block;">
+											</a>
+											<div class="media-body">
+												<div class="col-md-10">
+													<b>Luis Macias</b>
+													<hr style="margin: 5px 0">
+													<h4 class="media-heading"><b>Media heading</b></h4>
+													<p>
+														Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+													</p>
+												</div>
+												<div class="col-md-2">
+													<div class="easy-pie-chart">
+														<div class="number transactions" data-percent="55">
+															<span><b>55 %</b></span>
+														</div>
+														<span>Avance</span>
+													</div>
+												</div>
+												<div class="col-md-12">
+												<!-- BEGIN Portlet PORTLET-->
+												<div class="portlet gren">
+													<div class="portlet-title">
+														<div class="caption">
+															<i class="fa fa-gift"></i>Notas
+														</div>
+														<div class="tools">
+															<a href="javascript:;" class="expand"></a>
+														</div>
+													</div>
+													<div class="portlet-body display-hide">
+														<div class="scroller" style="height:200px">
+															<table class="table table-bordered table-striped table-condensed flip-content">
+																<thead class="flip-content">
+																	<tr>
+																		<th width="70%"> Comentario </th>
+																		<th width="10%"> Registro </th>
+																		<th width="10%"> Privacidad </th>
+																		<th width="10%"></th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>
+																			 AUSTRALIAN AGRICULTURAL
+																		</td>
+																		<td class="numeric">
+																			 &nbsp;
+																		</td>
+																		<td class="numeric">
+																			 -0.01
+																		</td>
+																		<td class="numeric">
+																			 -0.36%
+																		</td>
+																	</tr>
+																	<tr>
+																		<td>
+																			 AUSTRALIAN AGRICULTURAL
+																		</td>
+																		<td class="numeric">
+																			 &nbsp;
+																		</td>
+																		<td class="numeric">
+																			 -0.01
+																		</td>
+																		<td class="numeric">
+																			 -0.36%
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+												<!-- END Portlet PORTLET-->
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>

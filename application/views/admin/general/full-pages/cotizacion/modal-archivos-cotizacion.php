@@ -10,7 +10,7 @@
 				<?php foreach ($archivos['thumbnails'] as $key => $imagen): ?>
 				<div class="col-sm-6 col-md-3">
 					<a href="<?php echo $archivos['imagenes'][$key] ?>" class="thumbnail" target="_blank">
-						<img src="<?php echo $imagen ?>" alt="200x150" style="height: 150px; width: 200px; display: block;" data-src="holder.js/200x150">
+						<img src="<?php echo $imagen ?>" alt="" style="height: 150px; width: 200px; display: block;">
 					</a>
 				</div>
 				<?php endforeach ?>
