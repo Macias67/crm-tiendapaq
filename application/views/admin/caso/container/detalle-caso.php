@@ -57,6 +57,9 @@
 									<i class="icon-puzzle font-grey-gallery"></i>
 									<span class="caption-subject bold font-grey-gallery uppercase">Cotización: </span>
 								</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+								</div>
 							</div>
 							<div class="portlet-body">
 								<div class="row">
@@ -64,11 +67,11 @@
 										<h5>Folio: </h5>
 										<h4><b><?php echo $cotizacion->folio ?></b></h4>
 									</div>
-									<div class="col-md-5">
+									<div class="col-md-6">
 										<h5>Ejecutivo: </h5>
 										<h4><b><?php echo $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno ?></b></h4>
 									</div>
-									<div class="col-md-5">
+									<div class="col-md-4">
 										<h5>Estatus: </h5>
 										<span class="badge <?php echo $estatus_cotizacion['class'] ?>"><b><?php echo $estatus_cotizacion['estatus'] ?></b></span>
 									</div>
@@ -81,6 +84,23 @@
 							</div>
 						</div>
 						<?php endif ?>
+					</div>
+					<div class="col-md-6">
+						<!-- DETALLES CASO -->
+						<div class="portlet light">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="icon-puzzle font-grey-gallery"></i>
+									<span class="caption-subject bold font-grey-gallery uppercase">Tareas: </span>
+								</div>
+								<div class="tools">
+									<a class="btn btn-circle green" data-toggle="modal" href="#basic"><i class="fa fa-plus"></i> Nueva Tarea</a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- END PAGE CONTENT-->
@@ -99,4 +119,25 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<!-- MODAL TAREA NUEVA -->
+		<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">Modal Title</h4>
+					</div>
+					<div class="modal-body">
+						 Modal body goes here
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn blue">Save changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
 		</div>
