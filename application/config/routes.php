@@ -87,20 +87,24 @@ $route['gestor/(:any)']		= $DIR_EJECUTIVO."gestor/$1";
 $route['gestionar']			= $DIR_CLIENTE."gestor";
 $route['gestionar/(:any)']	= $DIR_CLIENTE."gestor/$1";
 
-// Funciones para el manejor de cotiazacion del cliente
+// Funciones para el manejo de cotiazacion del cliente
 $route['cotizacion']		= $DIR_CLIENTE."cotizacion";
 $route['cotizacion/(:any)']	= $DIR_CLIENTE."cotizacion/$1";
 
-// Funciones para el manejor de cotiazaciones
+// Funciones para el manejo de cotiazaciones
 $route['cotizaciones']			= $DIR_EJECUTIVO."cotizacion";
 $route['cotizaciones/(:any)']	= $DIR_EJECUTIVO."cotizacion/$1";
 
-// Funciones para el manejor de casos
+// Funciones para el manejo de casos
 $route['caso']			= $DIR_EJECUTIVO."caso";
 $route['casos']			= $DIR_EJECUTIVO."caso/casos_ejecutivos";
 $route['caso/(:any)']	= $DIR_EJECUTIVO."caso/$1";
 
-// Funciones para el manejor de casos del cliente
+// Funciones para el manejo de tareas
+$route['tareas']			= $DIR_EJECUTIVO."tarea";
+$route['tarea/(:any)']			= $DIR_EJECUTIVO."tarea/$1";
+
+// Funciones para el manejo de casos del cliente
 $route['cliente/casos']			= $DIR_CLIENTE."caso";
 $route['cliente/casos/(:any)']	= $DIR_CLIENTE."caso/$1";
 

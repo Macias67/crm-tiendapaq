@@ -129,7 +129,8 @@ class Caso extends AbstractAccess {
 	}
 
 	/**
-	 * Func
+	 * Funcion que muestra a detalle
+	 * un caso asginado
 	 *
 	 * @return void
 	 * @author Luis Macias
@@ -137,10 +138,12 @@ class Caso extends AbstractAccess {
 	public function detalles($id_caso)
 	{
 		$this->load->model('cotizacionModel');
+		$this->load->model('ejecutivoModel');
 		$this->load->helper('formatofechas_helper');
 		$this->load->helper('cotizacion');
 
 		$caso 			=  $this->casoModel->get_caso_detalles($id_caso);
+		// Si el caso tiene cotizacion
 		if (!is_null($caso->folio_cotizacion)) {
 			$cotizacion 	= $this->cotizacionModel->get_cotizacion_cliente(array('*'), array('ejecutivos'), $caso->folio_cotizacion);
 			// Detalles de la cotizacion/caso
@@ -161,6 +164,7 @@ class Caso extends AbstractAccess {
 			$this->data['cotizacion'] 	= $cotizacion;
 			$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
 		}
+		$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 		$this->data['caso'] 			= $caso;
 		$this->_vista('detalle-caso');
 	}
