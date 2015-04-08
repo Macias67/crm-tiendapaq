@@ -36,18 +36,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								
-								<?php foreach ($contactos_cliente as $contacto) : ?>
-								<input type="hidden" id="idevento" idevento="<?php echo $this->data['id_evento'] ?>" />
-									<tr class="odd gradeX" id="<?php echo $this->data['id_evento']  ?>">
-										<td><?php echo $contacto->nombre_contacto ?></td>
-										<td><?php echo $contacto->apellido_paterno ?></td>
-										<td><?php echo $contacto->apellido_materno ?></td>
-										<td><?php echo $contacto->email_contacto ?></td>
-										<td><?php echo $contacto->telefono_contacto ?></td>
-										<td width="1%"><button idcontacto="<?php echo $contacto->id ?>" idevento="<?php echo $this->data['id_evento'] ?>" class="btn btn-circle blue btn-xs agregar_participante"><i class="fa fa-search-plus"></i> Registrar</button></td>
-									</tr>
-								<?php endforeach ?>
+								<form id="form-contacto" method="post" accept-charset="utf-8">
+									<?php foreach ($contactos_cliente as $contacto) : ?>
+									<input type="hidden" id="idevento" idevento="<?php echo $this->data['id_evento'] ?>" />
+										<tr class="odd gradeX" id="<?php echo $this->data['id_evento']  ?>">
+											<td><?php echo $contacto->nombre_contacto ?></td>
+											<td><?php echo $contacto->apellido_paterno ?></td>
+											<td><?php echo $contacto->apellido_materno ?></td>
+											<td><?php echo $contacto->email_contacto ?></td>
+											<td><?php echo $contacto->telefono_contacto ?></td>
+											<td width="1%"><button type="submit" idcontacto="<?php echo $contacto->id ?>" idevento="<?php echo $this->data['id_evento'] ?>" class="btn btn-circle blue btn-xs agregar_participante"><i class="fa fa-search-plus"></i> Registrar</button></td>
+										</tr>
+									<?php endforeach ?>
+								</form>
 							</tbody>
 						</table>
 					</div>

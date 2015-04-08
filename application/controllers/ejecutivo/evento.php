@@ -20,6 +20,7 @@ class Evento extends AbstractAccess {
 		$this->load->model('participantesModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('clienteModel');
+		$this->load->model('sesionesModel');
 	}
 
 	public function index()
@@ -163,6 +164,96 @@ class Evento extends AbstractAccess {
 				$this->_vista('gestionar');
 			break;
 		}
+	}
+
+	/**
+	 * Metodo consultado para el plugin
+	 * dataTable del archivo table-managed-evento
+	 * que es la tabla vía ajax
+	 *
+	 * @return json
+	 * @author Luis Macias
+	 **/
+	public function table()
+	{
+		$draw		= $this->input->post('draw');
+		$search		= $this->input->post('search');
+		$columns	= $this->input->post('columns');
+		$order		= $this->input->post('order');
+		$length		= $this->input->post('length');
+		$start		= $this->input->post('start');
+		$total		= $this->eventoModel->count();
+		// $id_evento	= $this->input->post('id_evento');
+		// var_dump($id_evento);
+		// var_dump($draw);
+		// var_dump($search['value']);
+		// var_dump($columns[$order[0]['column']]['data']);
+		// var_dump($order[0]['dir']);
+		// var_dump($length);
+		// var_dump($start);
+		// var_dump($total);
+		if($length == -1)
+		{
+			$length	= null;
+			$start	= null;
+		}
+		$fechas 	= $this->sesionesModel->fecha_inicio(array('id_evento'));
+		$ejecutivos 	= $this->ejecutivoModel->get(array('*'));
+
+		$eventos	= $this->eventoModel->get_or_like(
+							array(	'id_evento',
+									'id_ejecutivo',
+									'titulo',
+									'costo',
+									'modalidad',
+									'total_participantes'
+							),
+							array(
+								'id_evento'				=> $search['value'],
+								'titulo'				=> $search['value'],
+								'costo'					=> $search['value'],
+								'modalidad'				=> $search['value'],
+								'total_participantes'	=> $search['value']
+							),
+							$columns[$order[0]['column']]['data'],
+							$order[0]['dir'],
+							$length,
+							$start
+	                    );
+
+		$selecciona_ejecutivos = array();
+		$proceso	= array();
+
+		foreach ($ejecutivos as $k1 => $v1) {
+			foreach ($eventos as $k2 => $v2) {
+				if ($v1->id===$v2->id_ejecutivo) {
+					$sel = array('nombre'=>$v1->primer_nombre." ".$v1->segundo_nombre." ".$v1->apellido_paterno);
+					array_push($selecciona_ejecutivos, $sel);
+				}
+			}
+		}
+		// var_dump($selecciona_ejecutivos);
+		for ($i=0; $i < $total; $i++) {
+			$p = array(
+					"DT_RowId"		=> $eventos[$i]->id_evento,
+					'fecha_inicio' 	=> $fechas[$i] ->fecha_inicio,
+					'titulo'		=> $eventos[$i]->titulo,
+					'modalidad'		=> $eventos[$i]->modalidad,
+					'costo'			=> $eventos[$i]->costo,
+					'ejecutivo'		=>$selecciona_ejecutivos[$i]['nombre'],
+					'participantes'	=> $eventos[$i]->total_participantes
+		       );
+			array_push($proceso, $p);
+		};
+		// var_dump($proceso);
+		$data = array(
+			'draw'				=> $draw,
+			'recordsTotal'		=> count($eventos),
+			'recordsFiltered'	=> $total,
+			'data'				=> $proceso);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
 	}
 }
 
