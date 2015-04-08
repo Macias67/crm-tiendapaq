@@ -43,27 +43,13 @@
 								<tbody>
 									<?php foreach ($eventos_revision as $evento): ?>
 										<tr class="odd gradeX">
-											<td>
-											<?php
-												foreach ($fechas_inicio as $fechas) {
-													if ($evento->id_evento===$fechas->id_evento)
-													echo fecha_completa($fechas->fecha_inicio);
-												}
-											?>
-											</td>
+											<td><?php echo fecha_completa($evento->fecha_inicio) ?></td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo $evento->modalidad ?></td>
 											<td>$ <?php echo $evento->costo ?></td>
 											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
-											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>">
-											<?php
-												if ($evento->total_participantes==="0")
-													echo '0';
-												elseif ($evento->total_participantes!=="0")
-													echo $evento->total_participantes;
-											?>
-											</a></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('evento/gestionar/editar/'.$evento->id_evento.'/'.$evento->id_ejecutivo) ?>"><i class="fa fa-search"></i> Ver/editar </a></td>
+											<td><a class="btn btn-circle green-meadow btn-xs" href="<?php echo site_url('evento/participantes_detalles/'.$evento->id_evento) ?>"><?php echo $evento->total_participantes ?></a></td>
+											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('evento/gestionar/editar/'.$evento->id_evento.'/'.$evento->id_ejecutivo) ?>"><i class="fa fa-search"></i> Ver/editar</a></td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

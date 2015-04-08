@@ -5,53 +5,6 @@
  * @author Julio Trujillo
  */
 var TableManagedEvento = function() {
-
-	//Tabla de gestion de eventos
-	var revisionEventos = function () {
-		var table = $('#tabla-catalogo-eventos');
-		table.dataTable({
-			"lengthChange": false, // No podrá cambiar el usuario el número de registros que se muestra
-			"pageLength": 10, // Número de registros que se mostrarán
-			"lengthMenu": [
-					[5, 15, 20, -1],
-					[5, 15, 20, "Todos"] // change per page values here
-				],
-		"columns": [
-				{ "orderable": true },
-				{ "orderable": true },
-				{ "orderable": false },
-				{ "orderable": false },
-				{ "orderable": false },
-				{ "orderable": false },
-				{ "orderable": false }
-			],
-			"language": {
-		        "emptyTable":     "No hay eventos registrados",
-		        "info":           "Mostrando _START_ a _END_ de _TOTAL_ eventos",
-		        "infoEmpty":      "Mostrando 0 a 0 de 0 eventos",
-		        "infoFiltered":   "(de un total de _MAX_ eventos)",
-		        "infoPostFix":    "",
-		        "thousands":      ",",
-		        "lengthMenu":     "Show _MENU_ entries",
-		        "loadingRecords": "Cargando...",
-		        "processing":     "Procesando...",
-		        "search":         "Buscar: ",
-		        "zeroRecords":    "No se encontraron coincidencias",
-		        "lengthMenu": "_MENU_ registros"
-			},
-			"columnDefs": [
-				{ // set default column settings
-				'orderable': true,
-				'targets': [0]
-				},
-				{
-				"searchable": true,
-				"targets": [0]
-				}
-			],
-			"order": [ 0, 'asc' ] // set first column as a default sort by asc
-		});
-	};
 // 	var handleTableEvento = function() {
 // 	// Manejador de tabla eventos vía ajax desde Javascript
 // 	var table = $('#tabla-catalogo-eventos');
@@ -131,6 +84,53 @@ var TableManagedEvento = function() {
 // 	// 	});
 // 	// }
 
+	//Tabla de gestion de eventos
+	var revisionEventos = function () {
+		var table = $('#tabla-catalogo-eventos');
+		table.dataTable({
+			"lengthChange": false, // No podrá cambiar el usuario el número de registros que se muestra
+			"pageLength": 10, // Número de registros que se mostrarán
+			"lengthMenu": [
+					[5, 15, 20, -1],
+					[5, 15, 20, "Todos"] // change per page values here
+				],
+		"columns": [
+				{ "orderable": true },
+				{ "orderable": true },
+				{ "orderable": false },
+				{ "orderable": false },
+				{ "orderable": false },
+				{ "orderable": false },
+				{ "orderable": false }
+			],
+			"language": {
+		        "emptyTable":     "No hay eventos registrados",
+		        "info":           "Mostrando _START_ a _END_ de _TOTAL_ eventos",
+		        "infoEmpty":      "Mostrando 0 a 0 de 0 eventos",
+		        "infoFiltered":   "(de un total de _MAX_ eventos)",
+		        "infoPostFix":    "",
+		        "thousands":      ",",
+		        "lengthMenu":     "Show _MENU_ entries",
+		        "loadingRecords": "Cargando...",
+		        "processing":     "Procesando...",
+		        "search":         "Buscar: ",
+		        "zeroRecords":    "No se encontraron coincidencias",
+		        "lengthMenu": "_MENU_ registros"
+			},
+			"columnDefs": [
+				{ // set default column settings
+				'orderable': true,
+				'targets': [0]
+				},
+				{
+				"searchable": true,
+				"targets": [0]
+				}
+			],
+			"order": [ 0, 'asc' ] // set first column as a default sort by asc
+		});
+	};
+
 	//Tabla de gestión de participantes al evento
 	var revisaParticipantes = function () {
 		var table = $('#tabla-ver-participantes');
@@ -178,8 +178,8 @@ var TableManagedEvento = function() {
 	return {
 		init: function() {
 			//bootbox.setDefaults({locale: "es"});
-			handleTableEvento();
-			//revisionEventos();
+			// handleTableEvento();
+			revisionEventos();
 			revisaParticipantes();
 		}
 	};

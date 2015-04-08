@@ -39,7 +39,7 @@ class Evento extends AbstractAccess {
 		// Cargo el modelo de sesiones para la fecha de inicio de evento
 		$this->load->model('sesionesModel');
 
-		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
+		$eventos = $this->eventoModel->get_evento_revision(
 			array(
 				'eventos.id_evento',
 				'eventos.id_ejecutivo',
@@ -52,8 +52,15 @@ class Evento extends AbstractAccess {
 				'ejecutivos.apellido_paterno',
 			));
 
-		$this->data['fechas_inicio'] = $this->sesionesModel->fecha_inicio(array('id_evento'));
+		$fechas = $this->sesionesModel->fecha_inicio(array('id_evento'));
 
+		foreach ($eventos as $k1 => $v1) {
+			foreach ($fechas as $k2 => $v2) {
+				if ($v1->id_evento===$v2->id_evento)
+					$eventos[$k1]->fecha_inicio = $v2->fecha_inicio;
+			}
+		}
+		$this->data['eventos_revision'] = $eventos;
 		$this->_vista('revisar');
 	}
 
@@ -167,15 +174,20 @@ class Evento extends AbstractAccess {
 	}
 
 	/**
-	 * Metodo consultado para el plugin
-	 * dataTable del archivo table-managed-evento
-	 * que es la tabla vía ajax
+	 * Método consultado para el plugin dataTable
+	 * del archivo table-managed-evento
+	 * que es la tabla vía ajax.
 	 *
 	 * @return json
-	 * @author Luis Macias
+	 * @author Luis Macias | Julio Trujillo
 	 **/
 	public function table()
 	{
+		/**
+		 * Parámetros de DataTables.
+		 *
+		 * http://datatables.net/manual/server-side
+		 **/
 		$draw		= $this->input->post('draw');
 		$search		= $this->input->post('search');
 		$columns	= $this->input->post('columns');
@@ -183,23 +195,16 @@ class Evento extends AbstractAccess {
 		$length		= $this->input->post('length');
 		$start		= $this->input->post('start');
 		$total		= $this->eventoModel->count();
-		// $id_evento	= $this->input->post('id_evento');
-		// var_dump($id_evento);
-		// var_dump($draw);
-		// var_dump($search['value']);
-		// var_dump($columns[$order[0]['column']]['data']);
-		// var_dump($order[0]['dir']);
-		// var_dump($length);
-		// var_dump($start);
-		// var_dump($total);
+
 		if($length == -1)
 		{
 			$length	= null;
 			$start	= null;
 		}
+
+		// Obtenemos los eventos, sesiones y los ejecutivos
 		$fechas 	= $this->sesionesModel->fecha_inicio(array('id_evento'));
 		$ejecutivos 	= $this->ejecutivoModel->get(array('*'));
-
 		$eventos	= $this->eventoModel->get_or_like(
 							array(	'id_evento',
 									'id_ejecutivo',
@@ -224,6 +229,7 @@ class Evento extends AbstractAccess {
 		$selecciona_ejecutivos = array();
 		$proceso	= array();
 
+		// Creamos nuestro array de ejecutivos
 		foreach ($ejecutivos as $k1 => $v1) {
 			foreach ($eventos as $k2 => $v2) {
 				if ($v1->id===$v2->id_ejecutivo) {
@@ -232,7 +238,8 @@ class Evento extends AbstractAccess {
 				}
 			}
 		}
-		// var_dump($selecciona_ejecutivos);
+
+		// Preparamos los datos de la tabla
 		for ($i=0; $i < $total; $i++) {
 			$p = array(
 					"DT_RowId"		=> $eventos[$i]->id_evento,
@@ -240,17 +247,20 @@ class Evento extends AbstractAccess {
 					'titulo'		=> $eventos[$i]->titulo,
 					'modalidad'		=> $eventos[$i]->modalidad,
 					'costo'			=> $eventos[$i]->costo,
-					'ejecutivo'		=>$selecciona_ejecutivos[$i]['nombre'],
+					'ejecutivo'		=> $selecciona_ejecutivos[$i]['nombre'],
 					'participantes'	=> $eventos[$i]->total_participantes
 		       );
 			array_push($proceso, $p);
 		};
-		// var_dump($proceso);
+
+		// Se prepara la devolución de la llamada
 		$data = array(
 			'draw'				=> $draw,
 			'recordsTotal'		=> count($eventos),
 			'recordsFiltered'	=> $total,
 			'data'				=> $proceso);
+
+		// Se envía la respuesta en formato JSON
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($data));

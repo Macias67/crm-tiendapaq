@@ -26,7 +26,7 @@
 						<table class="table table-striped table-hover table-bordered" id="tabla-ver-participantes">
 							<thead>
 								<tr>
-									<th width="30%">Razón Social</th>
+									<th width="30%">Empresa</th>
 									<th width="30%">Contacto</th>
 									<th width="30%">Email</th>
 									<th width="40%">Teléfono</th>
