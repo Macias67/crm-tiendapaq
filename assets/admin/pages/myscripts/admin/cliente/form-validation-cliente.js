@@ -386,7 +386,7 @@ var FormValidationCliente = function () {
 						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
-						bootbox,alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+						bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
 							Metronic.removeLoader();
 						});
 					},

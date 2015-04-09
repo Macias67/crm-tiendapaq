@@ -2,6 +2,12 @@
 
 class Tarea extends AbstractController {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('tareaModel');
+	}
+
 	public function index()
 	{
 		
@@ -16,12 +22,30 @@ class Tarea extends AbstractController {
 	 **/
 	public function nueva()
 	{
-		$ejecutivo = $this->input->post('ejecutivo');
-		$response = array('exito' => TRUE);
+		if($this->input->is_ajax_request()) {
+			$this->load->model('estatusGeneralModel');
 
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($response));
+			$id_caso		= $this->input->post('id_caso');
+			$ejecutivo		= $this->input->post('ejecutivo');
+			$tarea			= $this->input->post('tarea');
+			$descripcion	= $this->input->post('descripcion');
+
+			$tarea = array(
+					'id_caso'		=> $id_caso,
+					'id_ejecutivo'	=> $ejecutivo,
+					'id_estatus'	=> $this->estatusGeneralModel->PENDIENTE,
+					'fecha_inicio'	=> date('Y-m-d H:i:s'),
+					'tarea'			=> ucfirst(strtolower($tarea)),
+					'descripcion'	=> ucfirst(strtolower($descripcion))
+					);
+
+			$msg = (!$this->tareaModel->insert($tarea)) ? 'No se inserto en la base de datos' : '';
+			$response = array('exito' => $exito, 'msg' => $msg);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($response));
+		}
 	}
 
 }

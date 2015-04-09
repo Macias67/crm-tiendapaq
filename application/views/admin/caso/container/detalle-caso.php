@@ -94,74 +94,10 @@
 									<span class="caption-subject bold font-grey-gallery uppercase">Tareas: </span>
 								</div>
 								<div class="actions">
-									<a class="btn btn-circle green btn-block" data-toggle="modal" href="#basic"><i class="fa fa-plus"></i> Nueva Tarea</a>
+									<a class="btn btn-circle green btn-block" data-toggle="modal" href="#tarea"><i class="fa fa-plus"></i> Nueva Tarea</a>
 								</div>
 							</div>
 							<div class="portlet-body">
-								<!-- <table class="table table-bordered table-striped table-condensed flip-content">
-									<thead class="flip-content">
-										<tr>
-											<th width="20%">
-												 Code
-											</th>
-											<th>
-												 Company
-											</th>
-											<th class="numeric">
-												 Price
-											</th>
-											<th class="numeric">
-												 Change
-											</th>
-											<th class="numeric">
-												 Change %
-											</th>
-											<th class="numeric">
-												 Open
-											</th>
-											<th class="numeric">
-												 High
-											</th>
-											<th class="numeric">
-												 Low
-											</th>
-											<th class="numeric">
-												 Volume
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												 AAC
-											</td>
-											<td>
-												 AUSTRALIAN AGRICULTURAL COMPANY LIMITED.
-											</td>
-											<td class="numeric">
-												 &nbsp;
-											</td>
-											<td class="numeric">
-												 -0.01
-											</td>
-											<td class="numeric">
-												 -0.36%
-											</td>
-											<td class="numeric">
-												 $1.39
-											</td>
-											<td class="numeric">
-												 $1.39
-											</td>
-											<td class="numeric">
-												 &nbsp;
-											</td>
-											<td class="numeric">
-												 9,395
-											</td>
-										</tr>
-									</tbody>
-								</table> -->
 								<div class="clearfix">
 									<ul class="media-list">
 										<li class="media">
@@ -270,10 +206,10 @@
 		</div>
 
 		<!-- MODAL TAREA NUEVA -->
-		<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+		<div class="modal fade" id="tarea" tabindex="-1" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form class="form-horizontal" role="form" id="tarea-nueva" action="<?php echo site_url('tarea/nueva') ?>">
+					<form class="form-horizontal" role="form" id="tarea_nueva" method="post" action="<?php echo site_url('tarea/nueva') ?>">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 							<h4 class="modal-title">Nueva Tarea</h4>
@@ -289,120 +225,9 @@
 										<button class="close" data-close="alert"></button>
 										Éxito en el formulario
 									</div>
-									<!-- <div class="form-group">
-										<label class="col-md-3 control-label">Block Help</label>
-										<div class="col-md-9">
-											<input type="text" class="form-control" placeholder="Enter text">
-											<span class="help-block">
-											A block of help text. </span>
-										</div>
-									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Inline Help</label>
-										<div class="col-md-9">
-											<input type="text" class="form-control input-inline input-medium" placeholder="Enter text">
-											<span class="help-inline">
-											Inline help. </span>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Input Group</label>
-										<div class="col-md-9">
-											<div class="input-inline input-medium">
-												<div class="input-group">
-													<span class="input-group-addon">
-													<i class="fa fa-user"></i>
-													</span>
-													<input type="email" class="form-control" placeholder="Email Address">
-												</div>
-											</div>
-											<span class="help-inline">
-											Inline help. </span>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Email Address</label>
-										<div class="col-md-9">
-											<div class="input-group">
-												<span class="input-group-addon">
-												<i class="fa fa-envelope"></i>
-												</span>
-												<input type="email" class="form-control" placeholder="Email Address">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Password</label>
-										<div class="col-md-9">
-											<div class="input-group">
-												<input type="password" class="form-control" placeholder="Password">
-												<span class="input-group-addon">
-												<i class="fa fa-user"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Left Icon</label>
-										<div class="col-md-9">
-											<div class="input-icon">
-												<i class="fa fa-bell-o"></i>
-												<input type="text" class="form-control" placeholder="Left icon">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Right Icon</label>
-										<div class="col-md-9">
-											<div class="input-icon right">
-												<i class="fa fa-microphone"></i>
-												<input type="text" class="form-control" placeholder="Right icon">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Icon Input in Group Input</label>
-										<div class="col-md-9">
-											<div class="input-group">
-												<div class="input-icon">
-													<i class="fa fa-lock fa-fw"></i>
-													<input id="newpassword" class="form-control" type="text" name="password" placeholder="password"/>
-												</div>
-												<span class="input-group-btn">
-												<button id="genpassword" class="btn btn-success" type="button"><i class="fa fa-arrow-left fa-fw"/></i> Random</button>
-												</span>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Input With Spinner</label>
-										<div class="col-md-9">
-											<input type="password" class="form-control spinner" placeholder="Password">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Static Control</label>
-										<div class="col-md-9">
-											<p class="form-control-static">
-												 email@example.com
-											</p>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Disabled</label>
-										<div class="col-md-9">
-											<input type="password" class="form-control" placeholder="Disabled" disabled>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Readonly</label>
-										<div class="col-md-9">
-											<input type="password" class="form-control" placeholder="Readonly" readonly>
-										</div>
-									</div> -->
-									<div class="form-group">
-										<label class="col-md-3 control-label">Ejecutivo </label>
-										<div class="col-md-9">
+										<label class="col-md-3 control-label">Ejecutivo: <span class="required" aria-required="true">*</span></label>
+										<div class="col-md-6">
 											<select class="form-control" name="ejecutivo">
 												<option></option>
 												<?php foreach ($ejecutivos as $key => $ejecutivo):  ?>
@@ -410,86 +235,31 @@
 												<?php endforeach ?>
 											</select>
 										</div>
-									</div>
-									<!-- <div class="form-group">
-										<label class="col-md-3 control-label">Multiple Select</label>
-										<div class="col-md-9">
-											<select multiple class="form-control">
-												<option>Option 1</option>
-												<option>Option 2</option>
-												<option>Option 3</option>
-												<option>Option 4</option>
-												<option>Option 5</option>
-											</select>
+										<div class="col-md-3">
+											<button  type="button" class="btn default">
+												<i class="fa fa-calendar"></i> Agenda
+											</button>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Textarea</label>
+										<label class="col-md-3 control-label">Tarea: <span class="required" aria-required="true">*</span></label>
 										<div class="col-md-9">
-											<textarea class="form-control" rows="3"></textarea>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputFile" class="col-md-3 control-label">File input</label>
-										<div class="col-md-9">
-											<input type="file" id="exampleInputFile">
-											<p class="help-block">
-												 some help text here.
-											</p>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Checkboxes</label>
-										<div class="col-md-9">
-											<div class="checkbox-list">
-												<label>
-												<input type="checkbox"> Checkbox 1 </label>
-												<label>
-												<input type="checkbox"> Checkbox 1 </label>
-												<label>
-												<input type="checkbox" disabled> Disabled </label>
+											<div class="input-icon">
+												<i class="fa fa-bell-o"></i>
+												<input type="text" class="form-control" name="tarea">
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-3 control-label">Inline Checkboxes</label>
+										<label class="col-md-3 control-label">Descripción: </label>
 										<div class="col-md-9">
-											<div class="checkbox-list">
-												<label class="checkbox-inline">
-												<input type="checkbox" id="inlineCheckbox21" value="option1"> Checkbox 1 </label>
-												<label class="checkbox-inline">
-												<input type="checkbox" id="inlineCheckbox22" value="option2"> Checkbox 2 </label>
-												<label class="checkbox-inline">
-												<input type="checkbox" id="inlineCheckbox23" value="option3" disabled> Disabled </label>
+											<div class="input-icon">
+												<i class="fa fa-bell-o"></i>
+												<textarea class="form-control" rows="2" name="descripcion"></textarea>
+												<input type="hidden" name="id_caso" value="<?php echo $caso->id_caso ?>">
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Radio</label>
-										<div class="col-md-9">
-											<div class="radio-list">
-												<label>
-												<input type="radio" name="optionsRadios" id="optionsRadios22" value="option1" checked> Option 1 </label>
-												<label>
-												<input type="radio" name="optionsRadios" id="optionsRadios23" value="option2" checked> Option 2 </label>
-												<label>
-												<input type="radio" name="optionsRadios" id="optionsRadios24" value="option2" disabled> Disabled </label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Inline Radio</label>
-										<div class="col-md-9">
-											<div class="radio-list">
-												<label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios25" value="option1" checked> Option 1 </label>
-												<label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios26" value="option2" checked> Option 2 </label>
-												<label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios27" value="option3" disabled> Disabled </label>
-											</div>
-										</div>
-									</div> -->
 								</div>
 						</div>
 						<div class="modal-footer">
