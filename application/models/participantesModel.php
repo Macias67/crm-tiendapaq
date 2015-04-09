@@ -18,6 +18,24 @@ class ParticipantesModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
+	/**
+	 * funcion para convertir un arreglo asociativo a un objeto
+	 * con sus metodos
+	 *
+	 * @return $basica participantes
+	 * @author Julio Trujillo
+	 **/
+	public function arrayToObject($data)
+	{
+		$this->registro_participantes = new stdClass();
+
+		$this->registro_participantes->id_evento		= $data['id_evento'];
+		$this->registro_participantes->id_contacto		= $data['id_contacto'];
+		$this->registro_participantes->id_cliente		= $data['id_cliente'];
+
+		return $this->registro_participantes;
+	}
+
 	public function get_participantes($campos, $id_evento)
 	{
 			$this->db->select($campos);

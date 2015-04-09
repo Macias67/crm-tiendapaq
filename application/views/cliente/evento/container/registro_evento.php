@@ -32,20 +32,19 @@
 									<th>Apellido Materno</th>
 									<th>Email</th>
 									<th>Teléfono</th>
-									<th></th>
+									<th width="1%"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<form id="form-contacto" method="post" accept-charset="utf-8">
 									<?php foreach ($contactos_cliente as $contacto) : ?>
-									<input type="hidden" id="idevento" idevento="<?php echo $this->data['id_evento'] ?>" />
-										<tr class="odd gradeX" id="<?php echo $this->data['id_evento']  ?>">
+										<tr class="odd gradeX">
 											<td><?php echo $contacto->nombre_contacto ?></td>
 											<td><?php echo $contacto->apellido_paterno ?></td>
 											<td><?php echo $contacto->apellido_materno ?></td>
 											<td><?php echo $contacto->email_contacto ?></td>
 											<td><?php echo $contacto->telefono_contacto ?></td>
-											<td width="1%"><button type="submit" idcontacto="<?php echo $contacto->id ?>" idevento="<?php echo $this->data['id_evento'] ?>" class="btn btn-circle blue btn-xs agregar_participante"><i class="fa fa-search-plus"></i> Registrar</button></td>
+											<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('eventos/detalles/'.$this->data['id_evento']."/".$contacto->id) ?>" data-target="#ajax-registro-participantes" data-toggle="modal">Registrar</a></td>
 										</tr>
 									<?php endforeach ?>
 								</form>
@@ -60,3 +59,16 @@
 	</div>
 </div>
 <!-- END CONTENT -->
+
+<!-- BEGIN DETALLES EVENTO MODAL -->
+<div id="ajax-registro-participantes" class="modal fade" role="basic" aria-hidden="true">
+	<div class="page-loading page-loading-boxed">
+		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+		<span>Cargando... </span>
+	</div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+<!-- END DETALLES EVENTO MODAL -->

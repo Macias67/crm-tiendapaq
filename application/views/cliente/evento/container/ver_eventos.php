@@ -27,20 +27,22 @@
 							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-eventos">
 								<thead>
 									<tr>
-										<th>No.</th>
+										<th>Nombre</th>
+										<th>Modalidad</th>
+										<th>Precio</th>
+										<th>Fecha de inicio</th>
 										<th>Ejecutivo</th>
-										<th>Título</th>
-										<th>Fecha de creación</th>
 										<th width="1%"></th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($eventos_revision as $evento): ?>
 										<tr class="odd gradeX">
-											<td><?php echo $evento->id_evento ?></td>
-											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
 											<td><?php echo $evento->titulo ?></td>
-											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
+											<td><?php echo $evento->modalidad ?></td>
+											<td>$ <?php echo $evento->costo ?></td>
+											<td><?php echo fecha_completa($evento->fecha_inicio) ?></td>
+											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
 											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('eventos/registro_evento/'.$evento->id_evento) ?>"> Registro </a></td>
 										</tr>
 									<?php endforeach ?>

@@ -29,7 +29,7 @@ class SesionesModel extends MY_Model {
 		$this->db->group_by('id_evento');
 
 		$query = $this->db->get($this->table);
-		// var_dump($this->db);
+
 		return $query->result();
 	}
 }

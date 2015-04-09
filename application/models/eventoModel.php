@@ -48,6 +48,26 @@
 
 			return $query->result();
 		}
+
+		/**
+		 * Función que devuelve todos los
+		 * eventos a partir de la
+		 * fecha de hoy.
+		 *
+		 * @return array
+		 * @author Julio Trujillo
+		 **/
+		public function get_eventos($campos,$id_evento)
+		{
+			$this->db->select($campos);
+			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+			$where = array($this->table.'.id_evento' => $id_evento);
+			$this->db->where($where);
+
+			$query = $this->db->get($this->table);
+
+			return $query->result();
+		}
 }
 
 /* End of file eventoModel.php */

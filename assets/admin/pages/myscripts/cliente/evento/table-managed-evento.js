@@ -5,7 +5,7 @@
  */
 var TableManagedEvento = function() {
 
-	//Tabla de gestion de eventos
+	// Tabla de gestion de eventos
 	var revisionEventos = function () {
 		var table = $('#tabla-catalogo-eventos');
 		table.dataTable({
@@ -17,6 +17,7 @@ var TableManagedEvento = function() {
 			"lengthChange": false, // No podrá cambiar el usuario el número de registros que se muestra
 			"paging": false,
 			"columns": [
+				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": false },
@@ -94,44 +95,34 @@ var TableManagedEvento = function() {
 		});
 	};
 
-	var agregarParticipante = function () {
-		$('.agregar_participante').on('click', function() {
+	// Registro para nuevo participante
+	var gestionParticipantes = function(){
+		var modal_nuevo = $('#ajax-registro-participantes');
+		modal_nuevo.on('shown.bs.modal', function (e) {
+			$('#btn_registrar_participante').on('click', function() {
+				var id_evento		= $('#id_evento').val();
+				var id_contacto		= $('#id_contacto').val();
+				var id_cliente		= $('#id_cliente').val();
 
-			var id_evento = $(this).attr('idevento');
-			var id_contacto = $(this).attr('idcontacto');
-			var url = '/evento/registro_participante';
-			var jsonDatos = {
-								idevento: id_evento,
-								idcontacto: id_contacto
-							};
-
-			bootbox.setDefaults({
-				locale: 'es',
-			});
-
-			bootbox.confirm("<h4>¿Seguro que desea agregar al participante?</h4>", function (result) {
-				if(result){
-					$.post(url, jsonDatos, function(data, textStatus, xhr) {
-						if(data.exito){
-							bootbox.alert(data.msg, function () {
-								parent.location.reload();
+				$.post('/evento/registro_participante', {id_evento:id_evento,id_contacto:id_contacto,id_cliente:id_cliente}, function(data, textStatus, xhr) {
+						if (data.exito) {
+							bootbox.alert('<h3>Se ha registrado el contacto con éxito.</h3>', function() {
+								// parent.location.reload();
 							});
 						}else{
+							console.log('en el else');
 							bootbox.alert(data.msg);
 						}
 					}, 'json');
-				}else{
-					return;
-				}
 			});
 		});
-	}
+	};
 
 	return {
 		init: function() {
 			revisionEventos();
 			handleContactos();
-			agregarParticipante();
+			gestionParticipantes();
 		}
 	};
 }();
