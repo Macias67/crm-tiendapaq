@@ -78,15 +78,19 @@
 								</div>
 								<br>
 								<div class="row">
-									<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('cotizaciones/archivos/'.$cotizacion->folio) ?>" data-target="#ajax" data-toggle="modal">Comprobantes de Pago</a>
-									<button class="btn btn-circle green btn-block" id="btn-ver-cotizacion" url="<?php echo $url_cotizacion ?>">Ver cotizacion</button>
+									<div class="col-md-6">
+										<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('cotizaciones/archivos/'.$cotizacion->folio) ?>" data-target="#ajax" data-toggle="modal">Comprobantes de Pago</a>
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-circle green btn-block" id="btn-ver-cotizacion" url="<?php echo $url_cotizacion ?>">Ver cotizacion</button>
+									</div>
 								</div>
 							</div>
 						</div>
 						<?php endif ?>
 					</div>
 					<div class="col-md-8">
-						<!-- DETALLES CASO -->
+						<!-- TAREAS -->
 						<div class="portlet light">
 							<div class="portlet-title">
 								<div class="caption">
@@ -108,76 +112,27 @@
 											</a>
 											<div class="media-body">
 												<div class="col-md-9">
-													<b><?php echo $tarea->primer_nombre.' '.$tarea->apellido_paterno ?></b><br>
-													<h4 class="media-heading"><b><?php echo $tarea->tarea ?></b></h4>
+													<b><i class="fa fa-user"></i> <?php echo $tarea->primer_nombre.' '.$tarea->apellido_paterno ?></b><br>
+													<h4 class="media-heading"><b><?php echo $tarea->tarea ?></b> - <span class="badge <?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['class'] ?>"><b><?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['estatus'] ?></b></span></h4>
 													<p><?php echo $tarea->descripcion ?></p>
 												</div>
 												<div class="col-md-3">
 													<div class="easy-pie-chart">
 														<div class="number transactions" data-percent="<?php echo $tarea->avance ?>">
 															<span><b><?php echo $tarea->avance ?> %</b></span>
-														</div>
+														</div><br>
+														<b>Avance</b>
 													</div>
 												</div>
 												<div class="col-md-12">
-													<span class="badge <?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['class'] ?>"><b><?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['estatus'] ?></b></span>
-													<button type="button" class="btn btn-circle green btn-xs">12 Notas</button>
-												<!-- BEGIN Portlet PORTLET-->
-												<!-- <div class="portlet gren">
-													<div class="portlet-title">
-														<div class="caption">
-															<i class="fa fa-gift"></i>Notas
-														</div>
-														<div class="tools">
-															<a href="javascript:;" class="expand"></a>
-														</div>
+													<div class="clearfix">
+														<a href="<?php echo site_url('tarea/modal/editar/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs red" data-target="#ajax_edita_tarea" data-toggle="modal">
+															<i class="fa fa-edit"></i> Editar
+														</a>
+														<a href="<?php echo site_url('tarea/modal/notas/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs blue" data-target="#ajax_ver_notas" data-toggle="modal">
+															<i class="fa fa-quote-left"></i> Ver Notas (<?php echo $tarea->total_notas ?>)
+														</a>
 													</div>
-													<div class="portlet-body display-hide">
-														<div class="scroller" style="height: 100px">
-															<table class="table table-bordered table-striped table-condensed flip-content">
-																<thead class="flip-content">
-																	<tr>
-																		<th width="70%"> Comentario </th>
-																		<th width="10%"> Registro </th>
-																		<th width="10%"> Privacidad </th>
-																		<th width="10%"></th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr>
-																		<td>
-																			 AUSTRALIAN AGRICULTURAL
-																		</td>
-																		<td class="numeric">
-																			 &nbsp;
-																		</td>
-																		<td class="numeric">
-																			 -0.01
-																		</td>
-																		<td class="numeric">
-																			 -0.36%
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			 AUSTRALIAN AGRICULTURAL
-																		</td>
-																		<td class="numeric">
-																			 &nbsp;
-																		</td>
-																		<td class="numeric">
-																			 -0.01
-																		</td>
-																		<td class="numeric">
-																			 -0.36%
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div> -->
-												<!-- END Portlet PORTLET-->
 												</div>
 											</div>
 										</li>
@@ -194,7 +149,7 @@
 		</div>
 		<!-- END CONTENT -->
 
-		<!--AJAX MODEL para mostrar los archivos de una cotizacion -->
+		<!--AJAX MODAL para mostrar los archivos de una cotizacion -->
 		<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -273,4 +228,30 @@
 				<!-- /.modal-content -->
 			</div>
 			<!-- /.modal-dialog -->
+		</div>
+
+		<!--AJAX MODAL para Editar una tarea -->
+		<div class="modal fade" id="ajax_edita_tarea" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+						<span>
+						&nbsp;&nbsp;Cargando... </span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--AJAX MODAL para ver notas de una tarea -->
+		<div class="modal fade" id="ajax_ver_notas" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+						<span>
+						&nbsp;&nbsp;Cargando... </span>
+					</div>
+				</div>
+			</div>
 		</div>

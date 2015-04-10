@@ -24,9 +24,7 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
-	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
-	<link href="<?php echo $assets_global_plugins ?>jquery-ui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->

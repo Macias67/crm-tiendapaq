@@ -56,6 +56,11 @@
 							<i class="fa fa-list"></i>
 							<div>&nbsp;&nbsp;Mis Casos&nbsp;&nbsp;</div>
 						</a>
+						<!-- Mis Tareas -->
+						<a href="<?php echo site_url('tareas') ?>" class="icon-btn">
+							<i class="fa fa-list"></i>
+							<div>&nbsp;&nbsp;Mis Tareas&nbsp;&nbsp;</div>
+						</a>
 						<!-- Gestor de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" id="cotizacion_comentada" class="icon-btn">
 							<i class="fa fa-file-pdf-o"></i>

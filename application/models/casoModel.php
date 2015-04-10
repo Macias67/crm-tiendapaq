@@ -59,7 +59,7 @@ class CasoModel extends MY_Model {
 	}
 
 	/**
-	 * funcion para regresar los casos de un ejecutico
+	 * funcion para regresar los casos de un ejecutivo
 	 * en el plugin datatable
 	 *
 	 * @author Luis Macias

@@ -36,7 +36,7 @@ function id_estatus_gral_to_class_html($id_estatus)
 			break;
 		case '5': // Proceso
 			$html = array(
-			              'class' 		=> 'bg-blue',
+			              'class' 		=> 'bg-green',
 			              'estatus' 	=> 'Proceso'
 					);
 			break;

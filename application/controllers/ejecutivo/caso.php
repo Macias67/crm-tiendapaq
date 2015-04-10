@@ -139,6 +139,7 @@ class Caso extends AbstractAccess {
 	{
 		$this->load->model('cotizacionModel');
 		$this->load->model('ejecutivoModel');
+		$this->load->model('notastareaModel');
 		$this->load->model('tareaModel');
 		$this->load->helper('formatofechas_helper');
 		$this->load->helper('cotizacion');
@@ -167,7 +168,13 @@ class Caso extends AbstractAccess {
 			$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
 		}
 
-		$this->data['tareas'] 		= $this->tareaModel->get_tareas_caso($id_caso);
+		// Total comentarios por tarea
+		$tareas = $this->tareaModel->get_tareas_caso($id_caso);
+		foreach ($tareas as $index => $tarea) {
+			$tareas[$index]->total_notas = $this->notastareaModel->total_notas($tarea->id_tarea);
+		}
+
+		$this->data['tareas'] 		= $tareas;
 		$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 		$this->data['caso'] 			= $caso;
 		$this->_vista('detalle-caso');
