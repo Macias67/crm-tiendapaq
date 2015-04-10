@@ -39,7 +39,8 @@ class Tarea extends AbstractController {
 					'descripcion'	=> ucfirst(strtolower($descripcion))
 					);
 
-			$msg = (!$this->tareaModel->insert($tarea)) ? 'No se inserto en la base de datos' : '';
+			$exito 	= $this->tareaModel->insert($tarea);
+			$msg 	= (!$exito) ? 'No se inserto en la base de datos' : '';
 			$response = array('exito' => $exito, 'msg' => $msg);
 
 			$this->output

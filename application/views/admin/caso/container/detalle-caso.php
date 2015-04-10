@@ -98,32 +98,32 @@
 								</div>
 							</div>
 							<div class="portlet-body">
+								<!-- <?php var_dump($tareas) ?> -->
 								<div class="clearfix">
 									<ul class="media-list">
+										<?php foreach ($tareas as $key => $tarea): ?>
 										<li class="media">
 											<a class="pull-left" href="#">
-												<img class="media-object" src="<?php echo $assets_admin_pages ?>media/profile/1/block.jpg" alt="" style="height: 64px; width: 64px; display: block;">
+												<img class="media-object" src="<?php echo $assets_admin_pages ?>media/profile/<?php echo $tarea->id_ejecutivo ?>/block.jpg" alt="" style="height: 64px; width: 64px; display: block;">
 											</a>
 											<div class="media-body">
 												<div class="col-md-9">
-													<b>Luis Macias</b>
-													<hr style="margin: 5px 0">
-													<h4 class="media-heading"><b>Media heading</b></h4>
-													<p>
-														Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-													</p>
+													<b><?php echo $tarea->primer_nombre.' '.$tarea->apellido_paterno ?></b><br>
+													<h4 class="media-heading"><b><?php echo $tarea->tarea ?></b></h4>
+													<p><?php echo $tarea->descripcion ?></p>
 												</div>
 												<div class="col-md-3">
 													<div class="easy-pie-chart">
-														<div class="number transactions" data-percent="55">
-															<span><b>55 %</b></span>
+														<div class="number transactions" data-percent="<?php echo $tarea->avance ?>">
+															<span><b><?php echo $tarea->avance ?> %</b></span>
 														</div>
-														<span>Avance</span>
 													</div>
 												</div>
 												<div class="col-md-12">
+													<span class="badge <?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['class'] ?>"><b><?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['estatus'] ?></b></span>
+													<button type="button" class="btn btn-circle green btn-xs">12 Notas</button>
 												<!-- BEGIN Portlet PORTLET-->
-												<div class="portlet gren">
+												<!-- <div class="portlet gren">
 													<div class="portlet-title">
 														<div class="caption">
 															<i class="fa fa-gift"></i>Notas
@@ -133,7 +133,7 @@
 														</div>
 													</div>
 													<div class="portlet-body display-hide">
-														<div class="scroller" style="height:200px">
+														<div class="scroller" style="height: 100px">
 															<table class="table table-bordered table-striped table-condensed flip-content">
 																<thead class="flip-content">
 																	<tr>
@@ -176,11 +176,13 @@
 															</table>
 														</div>
 													</div>
-												</div>
+												</div> -->
 												<!-- END Portlet PORTLET-->
 												</div>
 											</div>
 										</li>
+										<hr>
+										<?php endforeach ?>
 									</ul>
 								</div>
 							</div>

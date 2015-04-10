@@ -18,6 +18,21 @@ class TareaModel extends MY_Model {
 		$this->table = self::TABLE;
 	}
 
+	/**
+	 * Funcion para obtener las tareas de un caso
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function get_tareas_caso($id_caso)
+	{
+		$this->db->select('*');
+		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+		$this->db->where(array($this->table.'.id_caso' => $id_caso));
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
+
 }
 
 /* End of file tareamodel.php */
