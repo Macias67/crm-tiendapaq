@@ -92,7 +92,7 @@ var TableManagedTareas = function () {
 				}
 			],
 			"order": [
-				[4, 'desc']
+				[2, 'desc']
 			] // set first column as a default sort by asc
 		});
 	}

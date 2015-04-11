@@ -75,7 +75,7 @@ var DetalleCaso = function() {
 					.closest('.form-group').removeClass('has-error'); // set success class to the control group
 				},
 				submitHandler: function (form) {
-					var avance = $( "#slider-snap-inc" ).slider( "value" );
+					var avance = $("#slider-snap-inc").slider( "value" );
 					$.ajax({
 						url: $(form).attr('action'),
 						type: 'post',

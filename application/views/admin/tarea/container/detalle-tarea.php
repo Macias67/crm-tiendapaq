@@ -46,6 +46,9 @@
 
 								<h5>Apertura del caso: </h5>
 								<h5><b><?php echo fecha_completa($caso->fecha_inicio) ?></b></h5>
+
+								<h5>Estatus del caso: </h5>
+								<span class="badge <?php echo $estatus_caso['class'] ?>"><b><?php echo $estatus_caso['estatus'] ?></b></span>
 							</div>
 						</div>
 
@@ -98,13 +101,77 @@
 									<span class="caption-subject bold font-grey-gallery uppercase">Tarea asignada: </span>
 								</div>
 							</div>
-							<div class="portlet-body">
-								<!-- <?php var_dump($tarea) ?> -->
-								<h4><b><?php echo $tarea->tarea ?></b></h4>
-								<h5>Descripción: </h5>
-								<p><?php echo $tarea->descripcion ?></p>
-								<h5>Asignado: </h5>
-								<b><span class="fa fa-calendar"></span> <?php echo fecha_completa($tarea->fecha_inicio) ?></b>
+							<div class="portlet-body form">
+								<div class="row">
+									<form role="form">
+										<div class="form-body">
+											<div class="form-group">
+												<div class="col-md-12">
+													<b><span class="fa fa-calendar"></span> <?php echo fecha_completa($tarea->fecha_inicio) ?></b>
+													<h4><b><?php echo $tarea->tarea ?></b></h4>
+													<h5>Descripción: </h5>
+													<p><?php echo $tarea->descripcion ?></p>
+												</div>
+											</div><br>
+											<div class="form-group">
+												<div class="col-md-6">
+													<h5>Progreso de la tarea: </h5>
+													<div id="slider-snap-inc" class="slider bg-green" avance="<?php echo $tarea->avance ?>"></div>
+													<b><span id="slider-snap-inc-amount"><?php echo $tarea->avance ?>%</span></b>
+												</div>
+												<div class="col-md-6">
+													<h5>Estatus: </h5>
+													<?php echo form_dropdown('estatus', $opciones_estatus, $tarea->id_estatus, 'class="form-control"') ?>
+													<input type="hidden" name="id_tarea" value="<?php echo $tarea->id_tarea ?>">
+													<input type="hidden" name="id_caso" value="<?php echo $caso->id_caso ?>">
+												</div>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+										<div class="form-actions">
+											<button type="button" class="btn btn-circle blue" id="btn-guardar">Guardar</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- Notas TAREA -->
+						<div class="portlet light">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="icon-puzzle font-grey-gallery"></i>
+									<span class="caption-subject bold font-grey-gallery uppercase">Notas: </span>
+								</div>
+							</div>
+							<div class="portlet-body flip-scroll">
+								<table class="table table-bordered table-striped table-condensed flip-content">
+									<thead class="flip-content">
+										<tr>
+											<th width="1%"> ID </th>
+											<th width="1%">Privacidad</th>
+											<th width="15%"> Fecha </th>
+											<th width="50%"> Nota </th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($notas as $key => $nota): ?>
+										<tr>
+											<td><?php echo $nota->id_nota ?></td>
+											<td>
+												<?php if ($nota->privacidad == 'publica'): ?>
+												<span class="label label-sm label-danger"> Pública </span>
+												<?php else: ?>
+												<span class="label label-sm label-success">Privada </span>
+												<?php endif ?>
+											</td>
+											<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
+											<td><?php echo $nota->nota ?></td>
+											<td><a href="" class="btn blue btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i> Editar</a></td>
+										</tr>
+										<?php endforeach ?>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -117,8 +184,30 @@
 									<span class="caption-subject bold font-grey-gallery uppercase">Agregar Nota: </span>
 								</div>
 							</div>
-							<div class="portlet-body">
-								<!-- <?php var_dump($tarea) ?> -->
+							<div class="portlet-body form">
+								<form role="form" action="<?php site_url('') ?>">
+									<div class="form-body">
+										<div class="form-group">
+											<label>Nota</label>
+											<textarea class="form-control" name="nota" rows="2"></textarea>
+										</div>
+										<div class="form-group">
+											<input
+												type="checkbox"
+												name="privacidad"
+												checked class="make-switch"
+												data-size="small"
+												data-on-text="&nbsp;Privada&nbsp;"
+												data-off-text="&nbsp;Pública&nbsp;"
+												checked data-on-color="success"
+												data-off-color="danger"
+											>
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="button" class="btn btn-circle blue" id="btn-guardar-nota">Guardar</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -130,100 +219,6 @@
 
 		<!--AJAX MODAL para mostrar los archivos de una cotizacion -->
 		<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
-						<span>
-						&nbsp;&nbsp;Cargando... </span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- MODAL TAREA NUEVA -->
-		<div class="modal fade" id="tarea" tabindex="-1" role="basic" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form class="form-horizontal" role="form" id="tarea_nueva" method="post" action="<?php echo site_url('tarea/nueva') ?>">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-							<h4 class="modal-title">Nueva Tarea</h4>
-						</div>
-						<div class="modal-body">
-								<div class="form-body">
-									<!-- ALERTS -->
-									<div class="alert alert-danger display-hide">
-										<button class="close" data-close="alert"></button>
-										Tienes errores en el formulario
-									</div>
-									<div class="alert alert-success display-hide">
-										<button class="close" data-close="alert"></button>
-										Éxito en el formulario
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Ejecutivo: <span class="required" aria-required="true">*</span></label>
-										<div class="col-md-6">
-											<select class="form-control" name="ejecutivo">
-												<option></option>
-												<?php foreach ($ejecutivos as $key => $ejecutivo):  ?>
-												<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
-												<?php endforeach ?>
-											</select>
-										</div>
-										<div class="col-md-3">
-											<button  type="button" class="btn default">
-												<i class="fa fa-calendar"></i> Agenda
-											</button>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Tarea: <span class="required" aria-required="true">*</span></label>
-										<div class="col-md-9">
-											<div class="input-icon">
-												<i class="fa fa-bell-o"></i>
-												<input type="text" class="form-control" name="tarea">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Descripción: </label>
-										<div class="col-md-9">
-											<div class="input-icon">
-												<i class="fa fa-bell-o"></i>
-												<textarea class="form-control" rows="2" name="descripcion"></textarea>
-												<input type="hidden" name="id_caso" value="<?php echo $caso->id_caso ?>">
-											</div>
-										</div>
-									</div>
-								</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn default" data-dismiss="modal"> Cerrar </button>
-							<button type="submit" class="btn blue"> Agregar</button>
-						</div>
-					</form>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-
-		<!--AJAX MODAL para Editar una tarea -->
-		<div class="modal fade" id="ajax_edita_tarea" role="basic" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
-						<span>
-						&nbsp;&nbsp;Cargando... </span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!--AJAX MODAL para ver notas de una tarea -->
-		<div class="modal fade" id="ajax_ver_notas" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">

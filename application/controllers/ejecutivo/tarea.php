@@ -26,12 +26,14 @@ class Tarea extends AbstractAccess {
 	{
 		if ($tarea = $this->tareaModel->get_where(array('id_tarea' => $id_tarea))) {
 			$this->load->model('cotizacionModel');
+			$this->load->model('estatusGeneralModel');
 			$this->load->model('ejecutivoModel');
 			$this->load->model('casoModel');
 			$this->load->model('notastareaModel');
 			$this->load->helper('formatofechas');
 			$this->load->helper('cotizacion');
 			$this->load->helper('estatus');
+			$this->load->helper('form');
 
 			// Obtengo Caso
 			$caso 	=  $this->casoModel->get_caso_detalles($tarea->id_caso);
@@ -51,13 +53,24 @@ class Tarea extends AbstractAccess {
 					);
 				}
 				// URL para mostrar cotizacion
-				$this->data['url_cotizacion'] = $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
-				$this->data['detalle_caso'] = $detalle_caso;
-				$this->data['cotizacion'] 	= $cotizacion;
-				$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
+				$this->data['url_cotizacion'] 		= $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
+				$this->data['detalle_caso'] 		= $detalle_caso;
+				$this->data['cotizacion'] 			= $cotizacion;
+				$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
+				$this->data['estatus_cotizacion'] 	= id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
+			}
+			// Obtengo estatus grles y armo opciones del select
+			$estatus 		= $this->estatusGeneralModel->get(array('id_estatus', 'descripcion'));
+			$opciones_estatus = array();
+			foreach ($estatus as $index => $valor) {
+				$opciones_estatus[$valor->id_estatus] = ucfirst($valor->descripcion);
 			}
 
+			$notas = $this->notastareaModel->get('*', array('id_tarea' => $tarea->id_tarea), 'fecha_registro');
+
+			$this->data['opciones_estatus'] = $opciones_estatus;
 			$this->data['tarea'] 		= $tarea;
+			$this->data['notas'] 		= $notas;
 			$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 			$this->data['caso'] 			= $caso;
 			$this->_vista('detalle-tarea');
@@ -75,28 +88,36 @@ class Tarea extends AbstractAccess {
 	{
 		if($this->input->is_ajax_request()) {
 			$this->load->model('estatusGeneralModel');
+			$this->load->model('casoModel');
 
 			$id_caso		= $this->input->post('id_caso');
 			$ejecutivo		= $this->input->post('ejecutivo');
 			$tarea			= $this->input->post('tarea');
 			$descripcion	= $this->input->post('descripcion');
 
-			$tarea = array(
-					'id_caso'		=> $id_caso,
-					'id_ejecutivo'	=> $ejecutivo,
-					'id_estatus'	=> $this->estatusGeneralModel->PENDIENTE,
-					'fecha_inicio'	=> date('Y-m-d H:i:s'),
-					'tarea'			=> ucfirst(strtolower($tarea)),
-					'descripcion'	=> ucfirst(strtolower($descripcion))
-					);
+			$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 
-			$exito 	= $this->tareaModel->insert($tarea);
-			$msg 	= (!$exito) ? 'No se inserto en la base de datos' : '';
-			$response = array('exito' => $exito, 'msg' => $msg);
+			if ($caso->id_estatus_general != $this->estatusGeneralModel->CERRADO) {
+				$tarea = array(
+						'id_caso'		=> $id_caso,
+						'id_ejecutivo'	=> $ejecutivo,
+						'id_estatus'	=> $this->estatusGeneralModel->PENDIENTE,
+						'fecha_inicio'	=> date('Y-m-d H:i:s'),
+						'tarea'			=> ucfirst(strtolower($tarea)),
+						'descripcion'	=> ucfirst(strtolower($descripcion))
+						);
 
+				$exito 	= $this->tareaModel->insert($tarea);
+				$msg 	= (!$exito) ? 'No se inserto en la base de datos' : '';
+				$response = array('exito' => $exito, 'msg' => $msg);
+
+			} else {
+				$response = array('exito' => FALSE, 'msg' => 'El caso esta cerrado, no pueden asignarse más tareas.');
+			}
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($response));
+
 		}
 	}
 
@@ -110,24 +131,159 @@ class Tarea extends AbstractAccess {
 	public function edita()
 	{
 		if($this->input->is_ajax_request()) {
+			$this->load->model('estatusGeneralModel');
+			$this->load->model('casoModel');
 
 			$id_tarea		= $this->input->post('id_tarea');
+			$id_caso		= $this->input->post('id_caso');
 			$ejecutivo		= $this->input->post('ejecutivo');
 			$tarea			= $this->input->post('tarea');
 			$descripcion	= $this->input->post('descripcion');
 			$estatus		= $this->input->post('estatus');
 			$avance		= $this->input->post('avance');
 
-			$tarea = array(
+			$update_tarea = array(
 					'id_ejecutivo'	=> $ejecutivo,
 					'id_estatus'	=> $estatus,
 					'tarea'			=> ucfirst(strtolower($tarea)),
 					'descripcion'	=> ucfirst(strtolower($descripcion)),
-					'avance'		=> ucfirst(strtolower($avance))
+					'avance'		=> $avance
+				);
+
+			$exito = FALSE;
+			if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
+				$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
+			} else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
+				$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
+			} else {
+				// Obtengo Caso
+				$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
+
+				if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
+					$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
+				} else {
+					// Verifico tarea a modificar antes sus avances y estatus
+					$tarea = $this->tareaModel->get_tarea($id_tarea);
+					if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
+						$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
+					} else {
+						// Actualizo info de tarea
+						$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
+						$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
+					}
+				}
+
+				// Si la tarea va con estatus DIFERNTE a CERRADO
+				if ($estatus != $this->estatusGeneralModel->CERRADO) {
+					// Cambio status del caso
+					 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
+						$this->casoModel->update(
+												array('id_estatus_general' => $this->estatusGeneralModel->PROCESO),
+												array('id' => $id_caso));
+					}
+					// Si la tarea va para cerrado
+				} else if($estatus == $this->estatusGeneralModel->CERRADO) {
+					// Verifico si todas las tareas ya estan cerradas
+					$tareas = $this->tareaModel->get_tareas_caso($id_caso);
+					$cerrados = TRUE;
+					foreach ($tareas as $index => $tarea) {
+						if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
+							$cerrados = FALSE;
+							break;
+						}
+					}
+
+					// SI TODOS ESTAN CERRADOS, cierro caso
+					if ($cerrados) {
+						$this->casoModel->update(
+												array(
+												      'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
+												      'fecha_final' 			=> date('Y-m-d H:i:s')
+												      ),
+												array('id' => $id_caso));
+					}
+				}
+			}
+
+			$response = array('exito' => $exito, 'msg' => $msg);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($response));
+		}
+	}
+
+	public function avances()
+	{
+		if($this->input->is_ajax_request()) {
+			$this->load->model('estatusGeneralModel');
+			$this->load->model('casoModel');
+
+			$avance 	= $this->input->post('avance');
+			$estatus 	= $this->input->post('estatus'	);
+			$id_tarea 	= $this->input->post('id_tarea'	);
+			$id_caso 	= $this->input->post('id_caso');
+
+			$tarea = array(
+						'id_estatus'	=> $estatus,
+						'avance'		=> $avance
 					);
 
-			$exito 	= $this->tareaModel->update($tarea, array('id_tarea' => $id_tarea));
-			$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
+			$exito = FALSE;
+			if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
+				$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
+			} else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
+				$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
+			} else {
+				// Obtengo Caso
+				$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
+
+				if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
+					$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
+				} else {
+					// Verifico tarea a modificar antes sus avances y estatus
+					$tarea = $this->tareaModel->get_tarea($id_tarea);
+					if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
+						$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
+					} else {
+						// Actualizo info de tarea
+						$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
+						$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
+					}
+				}
+
+				// Si la tarea va con estatus DIFERNTE a CERRADO
+				if ($estatus != $this->estatusGeneralModel->CERRADO) {
+					// Cambio status del caso
+					 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
+						$this->casoModel->update(
+												array('id_estatus_general' => $this->estatusGeneralModel->PROCESO),
+												array('id' => $id_caso));
+					}
+					// Si la tarea va para cerrado
+				} else if($estatus == $this->estatusGeneralModel->CERRADO) {
+					// Verifico si todas las tareas ya estan cerradas
+					$tareas = $this->tareaModel->get_tareas_caso($id_caso);
+					$cerrados = TRUE;
+					foreach ($tareas as $index => $tarea) {
+						if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
+							$cerrados = FALSE;
+							break;
+						}
+					}
+
+					// SI TODOS ESTAN CERRADOS, cierro caso
+					if ($cerrados) {
+						$this->casoModel->update(
+												array(
+												      'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
+												      'fecha_final' 			=> date('Y-m-d H:i:s')
+												      ),
+												array('id' => $id_caso));
+					}
+				}
+			}
+
 			$response = array('exito' => $exito, 'msg' => $msg);
 
 			$this->output
@@ -142,9 +298,13 @@ class Tarea extends AbstractAccess {
 		switch ($accion) {
 			case 'editar':
 				if ($tarea = $this->tareaModel->get_tarea($id_tarea)) {
+					$this->load->model('casoModel');
 					$this->load->model('ejecutivoModel');
 					$this->load->model('estatusGeneralModel');
 					$this->load->helper('form');
+
+					// Obtengo Caso
+					$caso 	=  $this->casoModel->get_caso_detalles($tarea->id_caso);
 					// Obtengo ejecutivos y armo opciones del select
 					$ejecutivos 			= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 					$opciones_ejecutivos 	= array();
@@ -157,7 +317,8 @@ class Tarea extends AbstractAccess {
 					foreach ($estatus as $index => $valor) {
 						$opciones_estatus[$valor->id_estatus] = ucfirst($valor->descripcion);
 					}
-					$this->data['tarea'] = $tarea;
+					$this->data['tarea'] 	= $tarea;
+					$this->data['caso'] 		= $caso;
 					$this->data['opciones_estatus'] = $opciones_estatus;
 					$this->data['opciones_ejecutivo'] = $opciones_ejecutivos;
 					$this->_vista_completa('tarea/edita-tarea');
@@ -167,6 +328,7 @@ class Tarea extends AbstractAccess {
 			break;
 			case 'notas':
 				$this->load->model('notastareaModel');
+				$this->load->helper('formatofechas_helper');
 				$notas = $this->notastareaModel->get('*', array('id_tarea' => $id_tarea));
 				$this->data['notas'] = $notas;
 				$this->_vista_completa('tarea/notas-modal');
@@ -216,6 +378,7 @@ class Tarea extends AbstractAccess {
 		$joins 			= array('caso', 'clientes', 'estatus_general', 'ejecutivos');
 		$like 			= $search['value'];
 		$orderBy 		= $columns[$order[0]['column']]['data'];
+		//$orderBy		= ('lider') ? '`caso`.`id_lider`' : $orderBy;
 		$orderForm 	= $order[0]['dir'];
 		$limit 			= $length;
 		$offset 		= $start;

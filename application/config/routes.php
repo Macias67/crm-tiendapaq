@@ -104,9 +104,12 @@ $route['caso/(:any)']	= $DIR_EJECUTIVO."caso/$1";
 $route['tareas']			= $DIR_EJECUTIVO."tarea";
 $route['tarea/(:any)']			= $DIR_EJECUTIVO."tarea/$1";
 
+// Funciones para el manejo de notas en tareas
+$route['nota/(:any)']			= $DIR_EJECUTIVO."nota/$1";
+
 // Funciones para el manejo de casos del cliente
-$route['cliente/casos']			= $DIR_CLIENTE."caso";
-$route['cliente/casos/(:any)']	= $DIR_CLIENTE."caso/$1";
+$route['client/casos']			= $DIR_CLIENTE."caso";
+$route['client/casos/(:any)']	= $DIR_CLIENTE."caso/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -82,7 +82,7 @@
 								<br>
 								<div class="row">
 									<div class="col-md-6">
-										<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('cotizaciones/archivos/'.$cotizacion->folio) ?>" data-target="#ajax" data-toggle="modal">Comprobantes de Pago</a>
+										<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('cotizacion/archivos/'.$cotizacion->folio) ?>" data-target="#ajax" data-toggle="modal">Comprobantes de Pago</a>
 									</div>
 									<div class="col-md-6">
 										<button class="btn btn-circle green btn-block" id="btn-ver-cotizacion" url="<?php echo $url_cotizacion ?>">Ver cotizacion</button>
@@ -131,10 +131,7 @@
 												</div>
 												<div class="col-md-12">
 													<div class="clearfix">
-														<a href="<?php echo site_url('tarea/modal/editar/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs red" data-target="#ajax_edita_tarea" data-toggle="modal">
-															<i class="fa fa-edit"></i> Editar
-														</a>
-														<a href="<?php echo site_url('tarea/modal/notas/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs blue" data-target="#ajax_ver_notas" data-toggle="modal">
+														<a href="<?php echo site_url('client/casos/notas/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs blue" data-target="#ajax_ver_notas" data-toggle="modal">
 															<i class="fa fa-quote-left"></i> Ver Notas (<?php echo $tarea->total_notas ?>)
 														</a>
 													</div>
@@ -159,7 +156,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
-						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+						<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
 						<span>
 						&nbsp;&nbsp;Cargando... </span>
 					</div>
@@ -235,25 +232,12 @@
 			<!-- /.modal-dialog -->
 		</div>
 
-		<!--AJAX MODAL para Editar una tarea -->
-		<div class="modal fade" id="ajax_edita_tarea" role="basic" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
-						<span>
-						&nbsp;&nbsp;Cargando... </span>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<!--AJAX MODAL para ver notas de una tarea -->
 		<div class="modal fade" id="ajax_ver_notas" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
-						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+						<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
 						<span>
 						&nbsp;&nbsp;Cargando... </span>
 					</div>

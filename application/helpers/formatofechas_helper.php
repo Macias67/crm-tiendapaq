@@ -20,6 +20,24 @@ function fecha_completa($timestamp)
 	return $fecha;
 }
 
+/**
+ * Retorna fecha en formato
+ * condia y mes
+ *
+ * @author Luis Macias
+ **/
+function fecha_corta($timestamp)
+{
+	$fecha 			= date('d/m/y', strtotime($timestamp));
+	$hora 			= date('h:i A', strtotime($timestamp));
+	$array_fecha	= explode('/', $fecha);
+	$dia			= $array_fecha[0];
+	$mes			= $array_fecha[1];
+	$ano			= $array_fecha[2];
+	$fecha			= $dia.'/'.$mes.'/'.$ano;
+	return $fecha;
+}
+
 function fecha_formato($date)
 {
 	$fecha 			= date('d/n/Y', strtotime($date));

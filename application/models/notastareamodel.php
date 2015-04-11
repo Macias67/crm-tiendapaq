@@ -33,6 +33,10 @@ class NotasTareaModel extends MY_Model {
 		return count($query->result());
 	}
 
+	public function get_notas_tarea($value='')
+	{
+		# code...
+	}
 }
 
 /* End of file notasTareaModel.php */

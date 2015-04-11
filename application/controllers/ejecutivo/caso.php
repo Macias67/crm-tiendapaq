@@ -165,6 +165,7 @@ class Caso extends AbstractAccess {
 			$this->data['url_cotizacion'] = $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
 			$this->data['detalle_caso'] = $detalle_caso;
 			$this->data['cotizacion'] 	= $cotizacion;
+			$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
 			$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
 		}
 
@@ -346,7 +347,12 @@ class Caso extends AbstractAccess {
 		$id_caso = $this->input->post('id_caso');
 		$this->load->model('estatusGeneralModel');
 
-		if($this->casoModel->update(array('id_estatus_general' => $this->estatusGeneralModel->CERRADO), array('id' => $id_caso))){
+		$update = array(
+				'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
+				'fecha_final' 			=> date('Y-m-d H:i:s')
+			);
+
+		if($this->casoModel->update($update, array('id' => $id_caso))){
 			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
 		}else{
 			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');

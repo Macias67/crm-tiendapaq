@@ -41,6 +41,7 @@
 							<i class="fa fa-bell-o"></i>
 							<textarea class="form-control" rows="2" name="descripcion"><?php echo $tarea->descripcion ?></textarea>
 							<input type="hidden" name="id_tarea" value="<?php echo $tarea->id_tarea ?>">
+							<input type="hidden" name="id_caso" value="<?php echo $caso->id_caso ?>">
 						</div>
 					</div>
 				</div>
