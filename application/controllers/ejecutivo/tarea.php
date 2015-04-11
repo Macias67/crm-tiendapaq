@@ -15,6 +15,56 @@ class Tarea extends AbstractAccess {
 	}
 
 	/**
+	 * Funcion para mostrar la vista que
+	 * detalla la tarea que tiene
+	 * un ejecutivo
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function detalles($id_tarea)
+	{
+		if ($tarea = $this->tareaModel->get_where(array('id_tarea' => $id_tarea))) {
+			$this->load->model('cotizacionModel');
+			$this->load->model('ejecutivoModel');
+			$this->load->model('casoModel');
+			$this->load->model('notastareaModel');
+			$this->load->helper('formatofechas');
+			$this->load->helper('cotizacion');
+			$this->load->helper('estatus');
+
+			// Obtengo Caso
+			$caso 	=  $this->casoModel->get_caso_detalles($tarea->id_caso);
+			// Si el caso tiene cotizacion
+			if (!is_null($caso->folio_cotizacion)) {
+				$cotizacion 	= $this->cotizacionModel->get_cotizacion_cliente(array('*'), array('ejecutivos'), $caso->folio_cotizacion);
+				// Detalles de la cotizacion/caso
+				$detalles_cotizacion = json_decode($cotizacion->cotizacion);
+				$detalle_caso = array();
+				foreach ($detalles_cotizacion as $key => $listado) {
+					array_push(
+						$detalle_caso,
+						array(
+							'descripcion' => $listado->descripcion,
+							'observacion' => ucfirst(mb_strtolower($listado->observacion, 'UTF-8'))
+						)
+					);
+				}
+				// URL para mostrar cotizacion
+				$this->data['url_cotizacion'] = $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
+				$this->data['detalle_caso'] = $detalle_caso;
+				$this->data['cotizacion'] 	= $cotizacion;
+				$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
+			}
+
+			$this->data['tarea'] 		= $tarea;
+			$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+			$this->data['caso'] 			= $caso;
+			$this->_vista('detalle-tarea');
+		}
+	}
+
+	/**
 	 * Funcion para crear una nueva
 	 * tarea de un caso
 	 *

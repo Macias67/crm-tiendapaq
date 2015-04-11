@@ -42,12 +42,14 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-tareas') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'detalle-tarea') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			QuickSidebar.init() // init quick sidebar
 			TableManagedTareas.init(); // Manejador de la tabla en la gestion de tareas
+			DetalleTarea.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
