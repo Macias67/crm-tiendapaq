@@ -47,14 +47,6 @@
 											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
 											<?php endforeach ?>
 										</select>
-
-									<div class="col-md-8">
-										<select class="form-control" name="oficina">
-											<?php foreach ($oficinas as $oficina): ?>
-											<option value="<?php echo $oficina->ciudad_estado?>"><?php echo $oficina->ciudad_estado?></option>
-											<?php endforeach ?>
-									</select>
-									</div>
 									</div>
 								</div>
 
@@ -95,37 +87,11 @@
 									</div>
 								</div> -->
 								
-								<!--inicio temario imagen -->
-								<!-- <div class="form-group last">
-										<label class="control-label col-md-4">Temario</label>
-										<div class="col-md-8">
-											<?php echo form_open_multipart('upload/do_upload');?>
-											<div class="fileinput fileinput-new" data-provides="fileinput">
-												<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-													<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=sin+imagen" alt=""/>
-												</div>
-												<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
-												</div>
-												<div>
-													<span class="btn default btn-file">
-													<span class="fileinput-new">
-													Seleccionar imagen </span>
-													<span class="fileinput-exists">
-													Cambiar </span>
-													<input type="file" name="userfile">
-													</span>
-													<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">
-													Quitar </a>
-												</div>
-											</div>
-										</form>
-										</div>
-									</div> -->
-									<!--fin temario imagen -->
+								
 
 								<!--incio temario imagen basico -->
 								<!-- Cambiar Imagen -->
-										<div id="cambiar_imagen" class="tab-pane">
+										<!-- <div id="cambiar_imagen" class="tab-pane">
 												<div class="col-md-12">
 													<div class="form-group">
 														<div class="fileinput fileinput-new" data-provides="fileinput">
@@ -140,7 +106,7 @@
 														</div>
 													</div>
 												</div>
-										</div>
+										</div> -->
 								<!-- fin temario imagen basico -->
 
 								<!-- numero de sesiones dinamicas-->

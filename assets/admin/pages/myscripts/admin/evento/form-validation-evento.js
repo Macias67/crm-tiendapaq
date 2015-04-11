@@ -94,19 +94,19 @@ var FormValidationEvento = function () {
 
     $(AddButton1).click(function (e) {
             //agregar campo
-            $(contenedor).html('<div class="col-md-8"><div class="input-icon"><i class="fa fa-asterisk"></i><input type="text" class="form-control" placeholder="URL" name="url"></div></div>');
+            $(contenedor).html('<label class="col-md-4 control-label"></label><div class="col-md-8"><div class="input-icon"><i class="fa fa-asterisk"></i><input type="text" class="form-control" placeholder="URL" name="url"></div></div>');
 
         return false;
     });
     $(AddButton2).click(function (e) {
             //agregar campo
-            $(contenedor).html('<div class="col-md-8"><select class="form-control" name="oficina"><?php foreach ($oficinas as $oficina): ?><option value="<?php echo $oficina->ciudad_estado?>"><?php echo $oficina->ciudad_estado?></option><?php endforeach ?>');
+            $(contenedor).html('<label class="col-md-4 control-label"></label><div class="col-md-8"><select class="form-control" name="oficina2"><option value="2">Morelia,Michoacan</option><option value="1">Ocotlan,Jalisco</option><option value="3">Uruapan,Michoacan</option></select></div>');
 
         return false;
     });
     $(AddButton3).click(function (e) {
             //agregar campo
-            $(contenedor).html('<div class="col-md-8"><div class="input-icon"><i class="fa fa-asterisk"></i><input type="text" class="form-control" placeholder="Otro" name="otro"></div></div>');
+            $(contenedor).html('<label class="col-md-4 control-label"></label><div class="col-md-8"><div class="input-icon"><i class="fa fa-asterisk"></i><textarea name="direccion" class="form-control" placeholder="Descripción" class="form-control"></textarea></div></div>');
 
         return false;
     });
@@ -152,6 +152,10 @@ var FormValidationEvento = function () {
 				},
 				duracion_1: {
 					required: true
+				},
+				max_participantes: {
+					required: true,
+					digits: true
 				}
 			},
 			messages: {
@@ -171,6 +175,9 @@ var FormValidationEvento = function () {
 				},
 				duracion_1: {
 					required: "debes ingresar la duracion del evento"
+				},
+				max_participantes: {
+					required: "debes ingresar el numero maximo de participantes"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit

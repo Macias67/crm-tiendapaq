@@ -160,62 +160,11 @@ class Evento extends AbstractAccess {
 			case 'nuevo':
 				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
 				array('id','primer_nombre', 'apellido_paterno'));
-				
+
 				$this->data['oficinas'] = $this->oficinasModel->where_in(
 				array('id_oficina','ciudad_estado', 'ciudad', 'estado',
 				 'colonia', 'calle', 'numero', 'email', 'telefono'));
 				$this->_vista('form-nuevo-evento');
-			break;
-
-			case 'img':
-				// Cargo libreria manejo de imagen
-				$this->load->library('image_lib');
-				// Reglas de validacion
-				$this->form_validation->set_rules('userfile', 'El archivo',
-					'file_required');
-				// Validacion
-				if ($this->form_validation->run() === FALSE)
-				{
-					// La forma de mostrar los errores
-					var_dump("error");
-					$this->_vista('form-nuevo-evento');
-				}
-				else
-				{
-					// Armo las rutas y nombres de la imagen segun usuario activo
-					$id_activo			= "19";
-					$ruta				= 'C:/wamp/www/crm-tiendapaq/eventos/';
-					$ruta_completa	= $ruta.$id_activo.'/';
-					//Si no existe directorio lo creo
-					if (!is_dir($ruta_completa))
-					{
-						mkdir($ruta_completa, 0777, TRUE);
-					}
-					//Configuracion para la subida del archivo
-					$config_upload['upload_path']		= $ruta_completa;
-					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-					$config_upload['overwrite'] 		= TRUE;
-					$config_upload['file_name']		= 'perfil.jpg';
-					$config_upload['max_size']			= 2048;
-					$config_upload['remove_spaces']	= TRUE;
-					// Cargo la libreria upload y paso configuracion
-					$this->load->library('upload', $config_upload);
-					//SI NO se sube la imagen
-					if (!$this->upload->do_upload())
-					{
-						// Envio a la variable los errores de subida
-						var_dump("error");
-						// Muestro vista con errores de subida
-						$this->_vista('form-nuevo-evento');
-					} else
-					{
-						// Paso datos de la subida del archivo
-						$upload_data = $this->upload->data();
-						
-						//mando a la vista de recorte de imagen
-						$this->_vista('form-nuevo-evento');
-					}
-				}
 			break;
 
 			case 'editar':
@@ -294,79 +243,132 @@ class Evento extends AbstractAccess {
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 		} else
 		{
+
+			if ($this->input->post('url')!=null) {
+				$modalidad="online";
+			}
+			if ($this->input->post('oficina2')!=null) {
+				$modalidad="sucursal";
+			}
+			if ($this->input->post('direccion')!=null) {
+				$modalidad="otro";
+			}
+
+			
+			// if ($this->input->post('url')!=null) {
+			// 	//si las reglas son correctas preparo los datos para insertar
+			// $evento = array(
+			// 	'id_evento'				=>$this->input->post(''),
+			// 	'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+			// 	'titulo'				=> $this->input->post('titulo'),
+			// 	'descripcion'			=> $this->input->post('descripcion'),
+			// 	'costo'					=> $this->input->post('costo'),
+			// 	'max_participantes'		=> $this->input->post('max_participantes'),
+			// 	'url'					=> $this->input->post('url')
+			// );
+			// }
+			// if ($this->input->post('oficina2')!=null) {
+			// 	//si las reglas son correctas preparo los datos para insertar
+			// $evento = array(
+			// 	'id_evento'				=>$this->input->post(''),
+			// 	'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+			// 	'titulo'				=> $this->input->post('titulo'),
+			// 	'descripcion'			=> $this->input->post('descripcion'),
+			// 	'costo'					=> $this->input->post('costo'),
+			// 	'max_participantes'		=> $this->input->post('max_participantes'),
+			// 	'oficina2'				=> $this->input->post('oficina2')
+			// );
+			// }
+			// if ($this->input->post('direccion')!=null) {
+			// 	//si las reglas son correctas preparo los datos para insertar
+			// $evento = array(
+			// 	'id_evento'				=>$this->input->post(''),
+			// 	'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+			// 	'titulo'				=> $this->input->post('titulo'),
+			// 	'descripcion'			=> $this->input->post('descripcion'),
+			// 	'costo'					=> $this->input->post('costo'),
+			// 	'max_participantes'		=> $this->input->post('max_participantes'),
+			// 	'direccion'				=> $this->input->post('direccion')
+			// );
+			// }
 			//si las reglas son correctas preparo los datos para insertar
 			$evento = array(
-				'id_evento'		=>$this->input->post(''),
-				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
-				'titulo'		=> $this->input->post('titulo'),
-				'descripcion'	=> $this->input->post('descripcion'),
-				'costo'			=> $this->input->post('costo')
+				'id_evento'				=>$this->input->post(''),
+				'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+				'titulo'				=> $this->input->post('titulo'),
+				'descripcion'			=> $this->input->post('descripcion'),
+				'costo'					=> $this->input->post('costo'),
+				'max_participantes'		=> $this->input->post('max_participantes'),
+				'modalidad'				=> $modalidad,
+				'link'					=> $this->input->post('url'),
+				'id_oficina'			=> $this->input->post('oficina2'),
+				'direccion'				=> $this->input->post('direccion')
 			);
-			// //Inserto en la BD el nuevo evento
-			// if($this->eventoModel->insert($evento))
-			// {
-			// 	$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
-			// } else
-			// {
-			// 	$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
-			// }
+			//Inserto en la BD el nuevo evento
+			if($this->eventoModel->insert($evento))
+			{
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
+			} else
+			{
+				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
+			}
 		// 	obtengo el ultimo id_evento insertado
 		// 	comprueba cual es el id_evento mas grande insertado
 		// 	la variable id guarda el id_evento.
-			$rs = mysql_query("SELECT MAX(id_evento) AS id FROM eventos");
-			if ($row = mysql_fetch_row($rs)) {
-			$id = trim($row[0]);
-			}
-			// el temario sera una imagen
-			// creare un directorio para guardar
-			// las imagenes, cada
-			// evento (id_evento) tendra su propia carpeta
-			// la ruta sera construida con lo antes mensionado.
-			// if (file_exists("C:/wamp/www/crm-tiendapaq/eventos")) {
-			// 	} else {
-			// 		mkdir("C:/wamp/www/crm-tiendapaq/eventos", 0777, TRUE);
-			// 	}
-			// 	if (file_exists("C:/wamp/www/crm-tiendapaq/eventos/$id")) {
-			// 	} else {
-			// 		mkdir("C:/wamp/www/crm-tiendapaq/eventos/$id", 0777, TRUE);
-			// 	}
-				$id_activo			= $id;
-				$ruta				= 'C:/wamp/www/crm-tiendapaq/eventos/';
-				$ruta_completa	= $ruta.$id_activo.'/';
-				$config_upload['upload_path']		= $ruta_completa;
-				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-				$config_upload['overwrite'] 		= TRUE;
-				$config_upload['file_name']		= $id.'perfil.jpg';
-				$config_upload['max_size']			= 2048;
-				$config_upload['remove_spaces']	= TRUE;
-				// Cargo la libreria upload y paso configuracion
-				$this->load->library('upload', $config_upload);
-				$this->upload->do_upload();
+			// $rs = mysql_query("SELECT MAX(id_evento) AS id FROM eventos");
+			// if ($row = mysql_fetch_row($rs)) {
+			// $id = trim($row[0]);
+			// }
+			// // el temario sera una imagen
+			// // creare un directorio para guardar
+			// // las imagenes, cada
+			// // evento (id_evento) tendra su propia carpeta
+			// // la ruta sera construida con lo antes mensionado.
+			// // if (file_exists("C:/wamp/www/crm-tiendapaq/eventos")) {
+			// // 	} else {
+			// // 		mkdir("C:/wamp/www/crm-tiendapaq/eventos", 0777, TRUE);
+			// // 	}
+			// // 	if (file_exists("C:/wamp/www/crm-tiendapaq/eventos/$id")) {
+			// // 	} else {
+			// // 		mkdir("C:/wamp/www/crm-tiendapaq/eventos/$id", 0777, TRUE);
+			// // 	}
+			// 	// $id_activo			= $id;
+			// 	// $ruta				= 'C:/wamp/www/crm-tiendapaq/eventos/';
+			// 	// $ruta_completa	= $ruta.$id_activo.'/';
+			// 	// $config_upload['upload_path']		= $ruta_completa;
+			// 	// $config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+			// 	// $config_upload['overwrite'] 		= TRUE;
+			// 	// $config_upload['file_name']		= $id.'perfil.jpg';
+			// 	// $config_upload['max_size']			= 2048;
+			// 	// $config_upload['remove_spaces']	= TRUE;
+			// 	// // Cargo la libreria upload y paso configuracion
+			// 	// $this->load->library('upload', $config_upload);
+			// 	// $this->upload->do_upload();
 
-			$sesiones1=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_1'),
-				'duracion'	=>$this->input->post('duracion_1')
-				);
-			$sesiones2=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_2'),
-				'duracion'	=>$this->input->post('duracion_2')
-				);
-			$sesiones3=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_3'),
-				'duracion'	=>$this->input->post('duracion_3')
-				);
-			$sesiones4=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_4'),
-				'duracion'	=>$this->input->post('duracion_4')
-				);
+			// $sesiones1=array(
+			// 	'id_sesiones'	=>$this->input->post(''),
+			// 	'id_evento'		=>$id,
+			// 	'fecha'		=>$this->input->post('sesion_1'),
+			// 	'duracion'	=>$this->input->post('duracion_1')
+			// 	);
+			// $sesiones2=array(
+			// 	'id_sesiones'	=>$this->input->post(''),
+			// 	'id_evento'		=>$id,
+			// 	'fecha'		=>$this->input->post('sesion_2'),
+			// 	'duracion'	=>$this->input->post('duracion_2')
+			// 	);
+			// $sesiones3=array(
+			// 	'id_sesiones'	=>$this->input->post(''),
+			// 	'id_evento'		=>$id,
+			// 	'fecha'		=>$this->input->post('sesion_3'),
+			// 	'duracion'	=>$this->input->post('duracion_3')
+			// 	);
+			// $sesiones4=array(
+			// 	'id_sesiones'	=>$this->input->post(''),
+			// 	'id_evento'		=>$id,
+			// 	'fecha'		=>$this->input->post('sesion_4'),
+			// 	'duracion'	=>$this->input->post('duracion_4')
+			// 	);
 
 			// if ($sesiones1[fecha]!=null) 
 			// 	{
@@ -398,19 +400,6 @@ class Evento extends AbstractAccess {
 
 	}
 
-	public function upload()
-	{
-		$config['upload_path']		= "C:/wamp/www/crm-tiendapaq/eventos/";
-		$config['overwrite'] 		= TRUE;
-		$config['file_name']		= 'perfil.jpg';
-		$config['remove_spaces']	= TRUE;
-		$this->load->library->do_upload('upload',$config);
-		if (!$this->upload->do_upload()) {
-			var_dump("error");
-		} else {
-			var_dump("exito");
-		}
-		
-	}
+	
 }
 ?>
