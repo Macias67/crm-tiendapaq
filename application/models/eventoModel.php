@@ -61,11 +61,18 @@
 
 		$this->evento->id_evento			= $data['id_evento'];
 		$this->evento->id_ejecutivo			= $data['id_ejecutivo'];
+		$this->evento->id_oficina			= $data['oficina2'];
 		$this->evento->titulo				= $data['titulo'];
 		$this->evento->descripcion			= $data['descripcion'];
-		$this->evento->temario			= $data['temario'];
-		$this->evento->fecha_creacion	= $data['fecha_creacion'];
+		$this->evento->fecha_creacion		= $data['fecha_creacion'];
+		$this->evento->fecha_limite			= $data['fecha_limite'];
 		$this->evento->costo				= $data['costo'];
+		$this->evento->max_participante		= $data['max_participante'];
+		$this->evento->sesiones				= $data['sesiones'];
+		$this->evento->modalidad			= $data['modalidad'];
+		$this->evento->link					= $data['url'];
+		$this->evento->total_participantes	= $data['total_participantes'];
+		$this->evento->direccion			= $data['direccion'];
 
 		return $this->evento;
 	}

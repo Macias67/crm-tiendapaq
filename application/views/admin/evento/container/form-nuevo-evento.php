@@ -24,7 +24,7 @@
 							</div>
 							<div class="portlet-body form-horizontal">
 								<!-- BEGIN FORM-->
-								<form action="<?php echo site_url('evento/gestionar/nuevo') ?>" id="form-evento-completo" method="post" accept-charset="utf-8" enctype="multipart/form-data" >
+								<form action="<?php echo site_url('evento/nuevo') ?>" id="form-evento-completo" method="post" accept-charset="utf-8" enctype="multipart/form-data" >
 									<div class="form-body">
 										<!-- ALERTS -->
 										<div class="alert alert-danger display-hide">
