@@ -26,23 +26,16 @@
 		}
 
 		/**
-		 * Función que devuelve todos los
-		 * eventos a partir de la
-		 * fecha de hoy.
+		 * Función que devuelve todos
+		 * los eventos de la tabla.
 		 *
 		 * @return array
 		 * @author Julio Trujillo
 		 **/
 		public function get_evento_revision($campos)
 		{
-			// Para seleccionar sólo las fechas del día en adelante
-			// $date = date_create('today'); // Devuelve un nuevo objeto DateTime.
-			// $dia_actual = date_format($date, 'Y-m-d H:i:s'); // Formateo la fecha para compararlas
-
 			$this->db->select($campos);
 			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
-			// $where = array($this->table.'.fecha_creacion >' => $dia_actual);
-			// $this->db->where($where);
 
 			$query = $this->db->get($this->table);
 
@@ -53,6 +46,31 @@
 		 * Función que devuelve todos los
 		 * eventos a partir de la
 		 * fecha de hoy.
+		 *
+		 * @return array
+		 * @author Julio Trujillo
+		 **/
+		public function get_eventos_hoy($campos)
+		{
+			// Para seleccionar sólo las fechas del día en adelante
+			$date = date_create('today'); // Devuelve un nuevo objeto DateTime.
+			$dia_actual = date_format($date, 'Y-m-d H:i:s'); // Formateo la fecha para compararlas
+
+			$this->db->select($campos);
+			$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
+			$where = array($this->table.'.fecha_creacion <' => $dia_actual);
+			$this->db->where($where);
+
+			$query = $this->db->get($this->table);
+
+			return $query->result();
+		}
+
+		/**
+		 * Función que devuelve sólo un
+		 * evento para mandar datos
+		 * a la ventana
+		 * modal.
 		 *
 		 * @return array
 		 * @author Julio Trujillo

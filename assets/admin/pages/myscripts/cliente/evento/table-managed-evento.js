@@ -8,6 +8,7 @@ var TableManagedEvento = function() {
 	// Tabla de gestion de eventos
 	var revisionEventos = function () {
 		var table = $('#tabla-catalogo-eventos');
+
 		table.dataTable({
 			"lengthMenu": [
 				[5, 15, 20, -1],
@@ -15,8 +16,9 @@ var TableManagedEvento = function() {
 			],
 			"pageLength": 15, // Número de registros que se mostrarán
 			"lengthChange": false, // No podrá cambiar el usuario el número de registros que se muestra
-			"paging": false,
+			"paging": true,
 			"columns": [
+				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
 				{ "orderable": true },
@@ -25,18 +27,18 @@ var TableManagedEvento = function() {
 				{ "orderable": false }
 			],
 			"language": {
-		        "emptyTable":     "No hay eventos registrados",
-		        "info":           "Mostrando _START_ a _END_ de _TOTAL_ eventos",
-		        "infoEmpty":      "Mostrando 0 a 0 de 0 eventos",
-		        "infoFiltered":   "(de un total de _MAX_ eventos)",
-		        "infoPostFix":    "",
-		        "thousands":      ",",
-		        "lengthMenu":     "Show _MENU_ entries",
-		        "loadingRecords": "Cargando...",
-		        "processing":     "Procesando...",
-		        "search":         "Buscar: ",
-		        "zeroRecords":    "No se encontraron coincidencias",
-		        "lengthMenu": "_MENU_ registros"
+		        "emptyTable":		"No hay eventos registrados",
+		        "info":				"Mostrando _START_ a _END_ de _TOTAL_ eventos",
+		        "infoEmpty":		"Mostrando 0 a 0 de 0 eventos",
+		        "infoFiltered":		"(de un total de _MAX_ eventos)",
+		        "infoPostFix":		"",
+		        "thousands":		",",
+		        "lengthMenu":		"Show _MENU_ entries",
+		        "loadingRecords":	"Cargando...",
+		        "processing":		"Procesando...",
+		        "search":			"Buscar: ",
+		        "zeroRecords":		"No se encontraron coincidencias",
+		        "lengthMenu":		"_MENU_ registros"
 			},
 			"columnDefs": [
 				{ // set default column settings
@@ -45,6 +47,7 @@ var TableManagedEvento = function() {
 				},
 				{
 				"searchable": true,
+				"visible": false,
 				"targets": [0]
 				}
 			],
@@ -100,20 +103,38 @@ var TableManagedEvento = function() {
 		var modal_nuevo = $('#ajax-registro-participantes');
 		modal_nuevo.on('shown.bs.modal', function (e) {
 			$('#btn_registrar_participante').on('click', function() {
-				var id_evento		= $('#id_evento').val();
-				var id_contacto		= $('#id_contacto').val();
-				var id_cliente		= $('#id_cliente').val();
 
-				$.post('/evento/registro_participante', {id_evento:id_evento,id_contacto:id_contacto,id_cliente:id_cliente}, function(data, textStatus, xhr) {
-						if (data.exito) {
-							bootbox.alert('<h3>Se ha registrado el contacto con éxito.</h3>', function() {
-								// parent.location.reload();
+				var id_evento		= parseInt($('#id_evento').val());
+				var id_contacto		= parseInt($('#id_contacto').val());
+				var id_cliente		= parseInt($('#id_cliente').val());
+
+				var url				= '/eventos/registro_participante';
+				var datos			= {id_evento:id_evento,id_contacto:id_contacto,id_cliente:id_cliente};
+
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    cache: false,
+                    dataType: 'json',
+                    data: datos,
+                    beforeSend: function () {
+                    	Metronic.showLoader();
+                    },
+                    error: function(jqXHR, status, error) {
+                        console.log("ERROR: "+error);
+                        alert('ERROR: revisa la consola del navegador para más detalles.');
+                        Metronic.removeLoader();
+                    },
+                    success: function(data) {
+                        if (data.exito) {
+							bootbox.alert(data.msg, function() {
+								parent.location.reload();
 							});
-						}else{
-							console.log('en el else');
-							bootbox.alert(data.msg);
-						}
-					}, 'json');
+                        } else {
+	                        bootbox.alert(data.msg);
+                        }
+                    }
+                });
 			});
 		});
 	};

@@ -27,6 +27,7 @@
 							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-eventos">
 								<thead>
 									<tr>
+										<th>ID</th>
 										<th>Nombre</th>
 										<th>Modalidad</th>
 										<th>Precio</th>
@@ -38,6 +39,7 @@
 								<tbody>
 									<?php foreach ($eventos_revision as $evento): ?>
 										<tr class="odd gradeX">
+											<td><?php echo $evento->id_evento ?></td>
 											<td><?php echo $evento->titulo ?></td>
 											<td><?php echo $evento->modalidad ?></td>
 											<td>$ <?php echo $evento->costo ?></td>

@@ -44,7 +44,7 @@
 											<td><?php echo $contacto->apellido_materno ?></td>
 											<td><?php echo $contacto->email_contacto ?></td>
 											<td><?php echo $contacto->telefono_contacto ?></td>
-											<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('eventos/detalles/'.$this->data['id_evento']."/".$contacto->id) ?>" data-target="#ajax-registro-participantes" data-toggle="modal">Registrar</a></td>
+											<td><a class="btn green-seagreen btn-circle btn-xs" href="<?php echo site_url('eventos/detalles/'.$this->data['id_evento']."/".$contacto->id) ?>" data-target="#ajax-registro-participantes" data-toggle="modal">Registrar</a></td>
 										</tr>
 									<?php endforeach ?>
 								</form>

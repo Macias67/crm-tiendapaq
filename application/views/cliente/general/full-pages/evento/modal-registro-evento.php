@@ -33,11 +33,7 @@
 					</div>
 					<!-- Modalidad -->
 					<div class="form-group">
-						<?php if($evento->costo != 0): ?>
-						<label class="col-md-4 control-label">Modalidad*: </label>
-						<?php else: ?>
 						<label class="col-md-4 control-label">Modalidad: </label>
-						<?php endif ?>
 						<div class="col-md-8">
 							<div class="input-icon">
 								<i class="fa fa-edit"></i>
@@ -86,9 +82,6 @@
 						</div>
 					</div>
 				</div>
-				<?php if($evento->costo != 0): ?>
-				<p>*El link se le hará llegar una vez que esté el pago realizado.</p>
-				<?php endif ?>
 			</div>
 			<!-- END FORM BODY -->
 		</div>
@@ -96,10 +89,6 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
-		<?php if($evento->costo == 0): ?>
-		<button type="submit" id="btn_registrar_participante" class="btn btn-circle green">Enviar</button>
-		<?php else: ?>
-		<button type="submit" id="btn_cotizacion" class="btn btn-circle green">Pagar</button>
-		<?php endif ?>
+		<button type="button" id="btn_registrar_participante" class="btn btn-circle purple-studio">Enviar</button>
 	</div>
 </form>
