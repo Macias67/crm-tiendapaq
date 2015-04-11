@@ -44,12 +44,15 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
-	
-	<script type="text/javascript" src="../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery.sparkline.min.js"></script>
+
+
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -59,7 +62,9 @@
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-evento') ?>" type="text/javascript"></script>
 	<script src="http://www.crm-tiendapaq.com/assets/admin/pages/myscripts/admin/evento/form-validation-evento.js" type="text/javascript"></script>
 	<script src="../../assets/admin/pages/scripts/components-pickers.js"></script>
-	
+	<script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+	<script src="../../assets/admin/pages/scripts/profile.js" type="text/javascript"></script>
+
 
 
 

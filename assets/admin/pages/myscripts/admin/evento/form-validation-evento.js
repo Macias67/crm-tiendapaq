@@ -80,6 +80,45 @@ var FormValidationEvento = function () {
     });
 	}
 	// end test agrefar sesion
+	
+	// begin agregar modalidad
+	var handleModalidad = function () {
+		// body...
+    var MaxInputs       = 4; //Número Maximo de Campos
+    var contenedor       = $("#modalidad"); //ID del contenedor
+    var AddButton1       = $("#online"); //ID del Botón Agregar
+    var AddButton2		  = $("#sucursal"); //ID del Botón Agregar
+    var AddButton3		 = $("#otro"); //ID del Botón Agregar
+
+    
+
+    $(AddButton1).click(function (e) {
+            //agregar campo
+            $(contenedor).html('<div class="col-md-8"><div class="input-icon"><i class="fa fa-asterisk"></i><input type="text" class="form-control" placeholder="URL" name="url"></div></div>');
+
+        return false;
+    });
+    $(AddButton2).click(function (e) {
+            //agregar campo
+            $(contenedor).html('<div class="col-md-8"><select class="form-control" name="oficina"><?php foreach ($oficinas as $oficina): ?><option value="<?php echo $oficina->ciudad_estado?>"><?php echo $oficina->ciudad_estado?></option><?php endforeach ?>');
+
+        return false;
+    });
+    $(AddButton3).click(function (e) {
+            //agregar campo
+            $(contenedor).html('<div class="col-md-8"><div class="input-icon"><i class="fa fa-asterisk"></i><input type="text" class="form-control" placeholder="Otro" name="otro"></div></div>');
+
+        return false;
+    });
+    $("body").on("click",".eliminar", function(e){ //click en eliminar campo
+        if( x > 1 ) {
+            $(this).parent('div').remove(); //eliminar el campo
+            x--;
+        }
+        return false;
+    });
+	}
+	// end agregar modalidad
 
 	// Validacion para formulario de evento nuevo completo
 	var formularioEventoCompleto = function() {
@@ -105,10 +144,6 @@ var FormValidationEvento = function () {
 					maxlength: 65536,
 					required: true
 				},
-				temario: {
-					maxlength: 65536,
-					required: true
-				},
 				costo: {
 					digits: true
 				},
@@ -127,10 +162,6 @@ var FormValidationEvento = function () {
 				descripcion: {
 					maxlength: "La descripcion debe tener menos de 65536 caracteres",
 					required: "Escribe la descripcion"
-				},
-				temario: {
-					maxlength: "El temario debe tener menos de 65536 caracteres",
-					required:  "Escribe el temario"
 				},
 				costo: {
 					digits: "solo puede contener numeros"
@@ -161,6 +192,9 @@ var FormValidationEvento = function () {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
+				// $("#form-evento-completo").submit(function() {
+				// 	bootbox.alert("Ohhh");
+				// });
 				$.ajax({
 					url: $('#form-evento-completo').attr('action'),
 					type: 'post',
@@ -178,7 +212,7 @@ var FormValidationEvento = function () {
 					success: function(data) {
 						if (data.exito) {
 							Metronic.removeLoader();
-							bootbox.alert("<h4>Evento <b>"+data.titulo+"</b> añadido con éxito.<h4>", function() {
+							bootbox.alert("<h4>Evento <b>"+"</b> añadido con éxito.<h4>", function() {
 								location.reload();
 							});
 						} else {
@@ -189,6 +223,8 @@ var FormValidationEvento = function () {
 						}
 					}
 				});
+				
+				
 			}
 		});
 	}
@@ -201,6 +237,7 @@ var FormValidationEvento = function () {
 			handleSpinners();
 			// handleSelect2RazonSocialEvento();
 			handleSesiones();
+			handleModalidad();
 			formularioEventoCompleto();
 		}
 	};

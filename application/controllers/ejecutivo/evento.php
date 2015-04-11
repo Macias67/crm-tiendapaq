@@ -11,12 +11,16 @@ class Evento extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('upload');
+		// Cargo libreria manejo de imagen
+		$this->load->library('image_lib');
 		$this->load->library('form_validation');
 		$this->load->model('eventoModel');
 		$this->load->helper('formatofechas_helper');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('sesionesModel');
 		$this->load->helper('date');
+		$this->load->model('oficinasModel');
 	}
 
 	// public function index()
@@ -88,116 +92,8 @@ class Evento extends AbstractAccess {
 
 	public function index()
 		{
-			if($this->usuario_activo['privilegios'] == "cliente")
-			{
-				// SECCION PARA CLIENTES
-
-				// Cargo modelos
-				$this->load->model('estatusCotizacionModel');
-				// Cargo helper
-				$this->load->helper('formatofechas');
-
-				//codigo para cambiar cotizaciones a vencidas
-				$campos = array('cotizacion.folio',
-							'cotizacion.fecha',
-							'cotizacion.vigencia',
-							'cotizacion.total_comentarios',
-							'cotizacion.visto',
-							'oficinas.ciudad_estado',
-							'estatus_cotizacion.id_estatus',
-							'estatus_cotizacion.descripcion');
-				$where = array('id_cliente' => $this->usuario_activo['id'],'cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
-
-				//seccion de codigo para revisar cotizaciones vencidas
-				$cotizaciones = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos, $where);
-				$fecha_actual = date('Y-m-d H:i:s');
-				foreach ($cotizaciones as $cotizacion) {
-					if($fecha_actual > $cotizacion->vigencia){
-						$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
-					}
-				}
-
-				//recargo los datos y mando llamar la vista
-				$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
-				$this->_vista('principal');
-			} else
-			{
-				// SECCION PARA GENTE DE TIENDAPAQ
-
-				// Cargo modelos
-				$this->load->model('ejecutivoModel');
-				$this->load->model('actividadPendienteModel');
-				$this->load->model('pendienteModel');
-				$this->load->model('estatusGeneralModel');
-				$this->load->model('casoModel');
-				$this->load->model('clienteModel');
-
-				//Helper
-				$this->load->helper('formatofechas');
-
-				// Nombre de ejecutivos
-				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-					array('id','primer_nombre', 'apellido_paterno'),
-					'privilegios',
-					array('soporte', 'admin'),
-					'primer_nombre');
-				//variables para registro de un cliente prospecto
-				$this->data['user_pass_prospecto'] =  $this->clienteModel->password();
-				//cantidad de cotizaciones con nuevos comentarios
-				$this->data['cotizaciones_comentarios'] = count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
-				//cantidad de cotizaciones pagadas por revisar
-				$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
-				//cantidad de casos por asignar
-				$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
-				//variable para saber si el ejecutivo logeado puede asignar casos
-				$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
-				$this->data['asignador_casos'] = $asignador_casos->asignador_casos;
-				// Listado de actividades para levantar un pendiente
-				$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');
-				// Listado de pendientes DEL USUARIO ACTIVO
-				$this->data['pendientes_usuario'] = $this->pendienteModel->getPendientes(array(	'id_pendiente',
-																'actividades_pendiente.actividad',
-																'clientes.razon_social',
-																'fecha_origen',
-																'id_estatus_general'),
-																$this->usuario_activo['id'],
-																$this->controlador);
-				//los pendientes de los demas usuarios
-				$this->data['pendientes_generales'] = $this->pendienteModel->get_pendientes_generales(array(	'id_pendiente',
-														                                     	'ejecutivos.primer_nombre',
-														                                     	'ejecutivos.apellido_paterno',
-														                                     	'clientes.razon_social',
-														                                     	'id_estatus_general'),
-																								$this->usuario_activo['id']);
-				// Titulo header
-				$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-
-				// Cargo los casos para tabla casos
-				$this->data['casos'] = $this->casoModel
-							->get_casos_ejecutivo($this->usuario_activo['id'],
-								array(	'caso.id as id_caso',
-					                                    	'caso.id_estatus_general',
-					                                                'clientes.razon_social',
-					                                                'estatus_general.descripcion',
-					                                                'id_cliente',
-					                                                'folio_cotizacion',
-					                                                'fecha_inicio',
-					                                                'fecha_final'));
-
-				// Cargo todos los casos para tabla casos generales
-				$this->data['casos_generales'] = $this->casoModel->
-					get_casos_generales($this->usuario_activo['id'],
-										 array( 'caso.id as id_caso',
-										 		'ejecutivos.primer_nombre',
-												'ejecutivos.apellido_paterno',
-												'caso.id_estatus_general',
-												'clientes.razon_social',
-					                            'estatus_general.descripcion',
-					                            'folio_cotizacion'));
-
-				//DEJAS SOLO LA VISTA KOKIN EN CASO DE CONFLICTO
 				$this->_vista('form-nuevo-evento');
-			}
+			
 		}
 
 	/**
@@ -263,11 +159,63 @@ class Evento extends AbstractAccess {
 		{
 			case 'nuevo':
 				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-				array('id','primer_nombre', 'apellido_paterno'),
-				'privilegios',
-				array('soporte', 'admin'),
-				'primer_nombre');
+				array('id','primer_nombre', 'apellido_paterno'));
+				
+				$this->data['oficinas'] = $this->oficinasModel->where_in(
+				array('id_oficina','ciudad_estado', 'ciudad', 'estado',
+				 'colonia', 'calle', 'numero', 'email', 'telefono'));
 				$this->_vista('form-nuevo-evento');
+			break;
+
+			case 'img':
+				// Cargo libreria manejo de imagen
+				$this->load->library('image_lib');
+				// Reglas de validacion
+				$this->form_validation->set_rules('userfile', 'El archivo',
+					'file_required');
+				// Validacion
+				if ($this->form_validation->run() === FALSE)
+				{
+					// La forma de mostrar los errores
+					var_dump("error");
+					$this->_vista('form-nuevo-evento');
+				}
+				else
+				{
+					// Armo las rutas y nombres de la imagen segun usuario activo
+					$id_activo			= "19";
+					$ruta				= 'C:/wamp/www/crm-tiendapaq/eventos/';
+					$ruta_completa	= $ruta.$id_activo.'/';
+					//Si no existe directorio lo creo
+					if (!is_dir($ruta_completa))
+					{
+						mkdir($ruta_completa, 0777, TRUE);
+					}
+					//Configuracion para la subida del archivo
+					$config_upload['upload_path']		= $ruta_completa;
+					$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+					$config_upload['overwrite'] 		= TRUE;
+					$config_upload['file_name']		= 'perfil.jpg';
+					$config_upload['max_size']			= 2048;
+					$config_upload['remove_spaces']	= TRUE;
+					// Cargo la libreria upload y paso configuracion
+					$this->load->library('upload', $config_upload);
+					//SI NO se sube la imagen
+					if (!$this->upload->do_upload())
+					{
+						// Envio a la variable los errores de subida
+						var_dump("error");
+						// Muestro vista con errores de subida
+						$this->_vista('form-nuevo-evento');
+					} else
+					{
+						// Paso datos de la subida del archivo
+						$upload_data = $this->upload->data();
+						
+						//mando a la vista de recorte de imagen
+						$this->_vista('form-nuevo-evento');
+					}
+				}
 			break;
 
 			case 'editar':
@@ -334,7 +282,7 @@ class Evento extends AbstractAccess {
 		$this->form_validation->set_rules('ejecutivos', 'Ejecutivo', 'strtolower|xss_clean');
 		$this->form_validation->set_rules('titulo', 'Titulo', 'required|max_length[100]|xss_clean');
 		$this->form_validation->set_rules('descripcion', 'Descripcion', 'required|max_length[65536]|xss_clean');
-		$this->form_validation->set_rules('temario', 'Temario', 'required|max_length[65536]|xss_clean');
+		// $this->form_validation->set_rules('temario', 'Temario', 'required|max_length[65536]|xss_clean');
 		$this->form_validation->set_rules('costo', 'Costo', 'max_length[6]|xss_clean');
 		$this->form_validation->set_rules('sesion_1', 'Sesion1', 'xss_clean');
 		$this->form_validation->set_rules('sesion_2', 'Sesion2', 'xss_clean');
@@ -352,17 +300,16 @@ class Evento extends AbstractAccess {
 				'id_ejecutivo'	=> $this->input->post('ejecutivo'),
 				'titulo'		=> $this->input->post('titulo'),
 				'descripcion'	=> $this->input->post('descripcion'),
-				'temario'		=> $this->input->post('temario'),
 				'costo'			=> $this->input->post('costo')
 			);
-			//Inserto en la BD el nuevo evento
-			if($this->eventoModel->insert($evento))
-			{
-				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
-			} else
-			{
-				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
-			}
+			// //Inserto en la BD el nuevo evento
+			// if($this->eventoModel->insert($evento))
+			// {
+			// 	$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
+			// } else
+			// {
+			// 	$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
+			// }
 		// 	obtengo el ultimo id_evento insertado
 		// 	comprueba cual es el id_evento mas grande insertado
 		// 	la variable id guarda el id_evento.
@@ -370,6 +317,31 @@ class Evento extends AbstractAccess {
 			if ($row = mysql_fetch_row($rs)) {
 			$id = trim($row[0]);
 			}
+			// el temario sera una imagen
+			// creare un directorio para guardar
+			// las imagenes, cada
+			// evento (id_evento) tendra su propia carpeta
+			// la ruta sera construida con lo antes mensionado.
+			// if (file_exists("C:/wamp/www/crm-tiendapaq/eventos")) {
+			// 	} else {
+			// 		mkdir("C:/wamp/www/crm-tiendapaq/eventos", 0777, TRUE);
+			// 	}
+			// 	if (file_exists("C:/wamp/www/crm-tiendapaq/eventos/$id")) {
+			// 	} else {
+			// 		mkdir("C:/wamp/www/crm-tiendapaq/eventos/$id", 0777, TRUE);
+			// 	}
+				$id_activo			= $id;
+				$ruta				= 'C:/wamp/www/crm-tiendapaq/eventos/';
+				$ruta_completa	= $ruta.$id_activo.'/';
+				$config_upload['upload_path']		= $ruta_completa;
+				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+				$config_upload['overwrite'] 		= TRUE;
+				$config_upload['file_name']		= $id.'perfil.jpg';
+				$config_upload['max_size']			= 2048;
+				$config_upload['remove_spaces']	= TRUE;
+				// Cargo la libreria upload y paso configuracion
+				$this->load->library('upload', $config_upload);
+				$this->upload->do_upload();
 
 			$sesiones1=array(
 				'id_sesiones'	=>$this->input->post(''),
@@ -396,26 +368,27 @@ class Evento extends AbstractAccess {
 				'duracion'	=>$this->input->post('duracion_4')
 				);
 
-			if ($sesiones1[fecha]!=null) 
-				{
-				$sesiones1[fecha]=$this->_crearFecha($sesiones1);
-				$this->sesionesModel->insert($sesiones1);
-				}
-			if ($sesiones2[fecha]!=null)
-				{
-				$sesiones2[fecha]=$this->_crearFecha($sesiones2);
-				$this->sesionesModel->insert($sesiones2);
-				}
-			if ($sesiones3[fecha]!=null) 
-				{
-				$sesiones3[fecha]=$this->_crearFecha($sesiones3);
-				$this->sesionesModel->insert($sesiones3);
-				}
-			if ($sesiones4[fecha]!=null) 
-				{
-				$sesiones4[fecha]=$this->_crearFecha($sesiones4);
-				$this->sesionesModel->insert($sesiones4);
-				}
+			// if ($sesiones1[fecha]!=null) 
+			// 	{
+			// 	$sesiones1[fecha]=$this->_crearFecha($sesiones1);
+			// 	$this->sesionesModel->insert($sesiones1);
+			// 	}
+			// if ($sesiones2[fecha]!=null)
+			// 	{
+			// 	$sesiones2[fecha]=$this->_crearFecha($sesiones2);
+			// 	$this->sesionesModel->insert($sesiones2);
+			// 	}
+			// if ($sesiones3[fecha]!=null) 
+			// 	{
+			// 	$sesiones3[fecha]=$this->_crearFecha($sesiones3);
+			// 	$this->sesionesModel->insert($sesiones3);
+			// 	}
+			// if ($sesiones4[fecha]!=null) 
+			// 	{
+			// 	$sesiones4[fecha]=$this->_crearFecha($sesiones4);
+			// 	$this->sesionesModel->insert($sesiones4);
+			// 	}
+
 
 		//mando la repuesta
 		$this->output
@@ -424,7 +397,20 @@ class Evento extends AbstractAccess {
 		}
 
 	}
-}
 
-/* End of file eventos.php */
-/* Location: ./application/controllers/ejecutivo/eventos.php */
+	public function upload()
+	{
+		$config['upload_path']		= "C:/wamp/www/crm-tiendapaq/eventos/";
+		$config['overwrite'] 		= TRUE;
+		$config['file_name']		= 'perfil.jpg';
+		$config['remove_spaces']	= TRUE;
+		$this->load->library->do_upload('upload',$config);
+		if (!$this->upload->do_upload()) {
+			var_dump("error");
+		} else {
+			var_dump("exito");
+		}
+		
+	}
+}
+?>
