@@ -102,7 +102,7 @@ var TableManagedEvento = function() {
 	var gestionParticipantes = function(){
 		var modal_nuevo = $('#ajax-registro-participantes');
 		modal_nuevo.on('shown.bs.modal', function (e) {
-			$('#btn_registrar_participante').on('click', function() {
+			$('.btn_registrar_participante').on('click', function() {
 
 				var id_evento		= parseInt($('#id_evento').val());
 				var id_contacto		= parseInt($('#id_contacto').val());
@@ -111,30 +111,30 @@ var TableManagedEvento = function() {
 				var url				= '/eventos/registro_participante';
 				var datos			= {id_evento:id_evento,id_contacto:id_contacto,id_cliente:id_cliente};
 
-                $.ajax({
-                    url: url,
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    data: datos,
-                    beforeSend: function () {
-                    	Metronic.showLoader();
-                    },
-                    error: function(jqXHR, status, error) {
-                        console.log("ERROR: "+error);
-                        alert('ERROR: revisa la consola del navegador para más detalles.');
-                        Metronic.removeLoader();
-                    },
-                    success: function(data) {
-                        if (data.exito) {
-							bootbox.alert(data.msg, function() {
-								parent.location.reload();
-							});
-                        } else {
-	                        bootbox.alert(data.msg);
-                        }
-                    }
-                });
+			                $.ajax({
+			                    url: url,
+			                    type: 'post',
+			                    cache: false,
+			                    dataType: 'json',
+			                    data: datos,
+			                    beforeSend: function () {
+			                    	Metronic.showLoader();
+			                    },
+			                    error: function(jqXHR, status, error) {
+			                        console.log("ERROR: "+error);
+			                        alert('ERROR: revisa la consola del navegador para más detalles.');
+			                        Metronic.removeLoader();
+			                    },
+			                    success: function(data) {
+			                        if (data.exito) {
+						bootbox.alert(data.msg, function() {
+							parent.location.reload();
+						});
+			                        } else {
+				                        bootbox.alert(data.msg);
+			                        }
+			                    }
+			                });
 			});
 		});
 	};

@@ -26,7 +26,7 @@ class Evento extends AbstractAccess {
 		$this->load->helper('formatofechas_helper');
 
 		// Obtengo los eventos de la base de datos
-		$eventos = $this->eventoModel->get_eventos_hoy(
+		$eventos = $this->eventoModel->get_evento_revision(
 			array(
 				'eventos.id_evento',
 				'eventos.id_ejecutivo',
@@ -130,7 +130,10 @@ class Evento extends AbstractAccess {
 		$id_contacto	= $this->input->post('id_contacto');
 		$id_cliente		= $this->input->post('id_cliente');
 
-		// Preparo mi arreglo
+		//Se hace validación para ver si ya está registrado
+		$participante = $this->participantesModel->get(array('id_contacto'), array('id_evento' => $id_evento,'id_cliente'=>$id_cliente,'id_contacto'=>$id_contacto));
+		if (empty($participante)) {
+			// Preparo mi arreglo
 		$data = array(
 					'id_evento' 	=> $id_evento,
 					'id_contacto' 	=> $id_contacto,
@@ -150,9 +153,14 @@ class Evento extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
+		}else{
+			$respuesta = array('exito' => TRUE, 'msg' => '<h4>El contacto ya está registrado a éste evento.</h4>');
+			// Mando la respuesta de la inserción
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
+		}
 	}
-
-	
 }
 
 /* End of file evento.php */

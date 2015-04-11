@@ -89,6 +89,6 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" data-dismiss="modal" class="btn btn-circle btn-default">Cancelar</button>
-		<button type="button" id="btn_registrar_participante" class="btn btn-circle purple-studio">Enviar</button>
+		<button type="button" class="btn btn-circle purple-studio btn_registrar_participante">Enviar</button>
 	</div>
 </form>
