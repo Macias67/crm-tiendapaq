@@ -189,16 +189,16 @@ class Evento extends AbstractAccess {
 		 * http://datatables.net/manual/server-side
 		 **/
 		$draw		= $this->input->post('draw');
-		$search		= $this->input->post('search');
+		$search	= $this->input->post('search');
 		$columns	= $this->input->post('columns');
 		$order		= $this->input->post('order');
-		$length		= $this->input->post('length');
+		$length	= $this->input->post('length');
 		$start		= $this->input->post('start');
 		$total		= $this->eventoModel->count();
 
 		if($length == -1)
 		{
-			$length	= null;
+			$length= null;
 			$start	= null;
 		}
 
@@ -206,16 +206,16 @@ class Evento extends AbstractAccess {
 		$fechas 	= $this->sesionesModel->fecha_inicio(array('id_evento'));
 		$ejecutivos 	= $this->ejecutivoModel->get(array('*'));
 		$eventos	= $this->eventoModel->get_or_like(
-							array(	'id_evento',
-									'id_ejecutivo',
-									'titulo',
-									'costo',
-									'modalidad',
-									'total_participantes'
+							array('id_evento',
+								'id_ejecutivo',
+								'titulo',
+								'costo',
+								'modalidad',
+								'total_participantes'
 							),
 							array(
 								'id_evento'				=> $search['value'],
-								'titulo'				=> $search['value'],
+								'titulo'					=> $search['value'],
 								'costo'					=> $search['value'],
 								'modalidad'				=> $search['value'],
 								'total_participantes'	=> $search['value']
