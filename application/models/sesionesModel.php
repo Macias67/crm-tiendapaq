@@ -49,7 +49,7 @@
 	* @param array $data Datos del evento
 	* @param boolean $editado Esta variable es falsa
 	*  si el ejecutivo es nuevo y es verdadera
-	*  el el ejecutivo se esta editando 
+	*  el el ejecutivo se esta editando
 	*  para que datos
 	*  agregar en el objeto
 	* @return object $basica clientes
@@ -59,7 +59,7 @@
 	{
 		$this->evento = new stdClass();
 
-		$this->evento->id_sesiones			= $data['id_sesiones'];
+		$this->evento->id_sesiones		= $data['id_sesiones'];
 		$this->evento->id_evento			= $data['id_evento'];
 		$this->evento->fecha				= $data['fecha'];
 		$this->evento->duracion			= $data['duracion'];

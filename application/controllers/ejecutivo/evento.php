@@ -32,69 +32,67 @@ class Evento extends AbstractAccess {
 	// 	'privilegios',
 	// 	array('soporte', 'admin'),
 	// 	'primer_nombre');
-	
+
 	// $this->_vista('form-nuevo-evento');
 	// }
+
 	private function _crearFecha($fecha_editar)
 	{
-	// creo la fecha a inserta en la base de datos
+		// creo la fecha a inserta en la base de datos
 		if ($fecha_editar[fecha]!=null) {
 			$mostrar1= explode(" ", $fecha_editar[fecha]);
 			switch ($mostrar1[1]) {
-					case 'January':
-						$mes="01";
-						break;
-					case 'February':
-						$mes="02";
-						break;
-					case 'March':
-						$mes="03";
-						break;
-					case 'April':
-						$mes="04";
-						break;
-					case 'May':
-						$mes="05";
-						break;
-					case 'June':
-						$mes="06";
-						break;
-					case 'July':
-						$mes="07";
-						break;
-					case 'August':
-						$mes="08";
-						break;
-					case 'September':
-						$mes="09";
-						break;
-					case 'October':
-						$mes="10";
-						break;
-					case 'November':
-						$mes="11";
-						break;
-					case 'December':
-						$mes="12";
-						break;
-					
-					default:
-						# code...
-						break;
+				case 'January':
+				$mes="01";
+				break;
+				case 'February':
+				$mes="02";
+				break;
+				case 'March':
+				$mes="03";
+				break;
+				case 'April':
+				$mes="04";
+				break;
+				case 'May':
+				$mes="05";
+				break;
+				case 'June':
+				$mes="06";
+				break;
+				case 'July':
+				$mes="07";
+				break;
+				case 'August':
+				$mes="08";
+				break;
+				case 'September':
+				$mes="09";
+				break;
+				case 'October':
+				$mes="10";
+				break;
+				case 'November':
+				$mes="11";
+				break;
+				case 'December':
+				$mes="12";
+				break;
+				default:
+				# code...
+				break;
 			}
-		$fecha1=$mostrar1[2]."-".$mes."-".$mostrar1[0]." ".$mostrar1[4].":00";
-		return $fecha1;
+			$fecha1=$mostrar1[2]."-".$mes."-".$mostrar1[0]." ".$mostrar1[4].":00";
+			return $fecha1;
 		}else{
 			# code...
 		}
-		
 	}
 
 	public function index()
-		{
-				$this->_vista('form-nuevo-evento');
-			
-		}
+	{
+		$this->_vista('form-nuevo-evento');
+	}
 
 	/**
 	 * Muestra la vista para los
@@ -254,57 +252,54 @@ class Evento extends AbstractAccess {
 			if ($this->input->post('direccion')!=null) {
 				$modalidad="otro";
 			}
-
-			
 			if ($this->input->post('url')!=null) {
-			//si las reglas son correctas preparo los datos para insertar
-			$evento = array(
-				'id_evento'				=>$this->input->post(''),
-				'id_ejecutivo'			=> $this->input->post('ejecutivo'),
-				'titulo'				=> $this->input->post('titulo'),
-				'descripcion'			=> $this->input->post('descripcion'),
-				'fecha_creacion'		=> $hoy,
-				'costo'					=> $this->input->post('costo'),
-				'max_participantes'		=> $this->input->post('max_participantes'),
-				'sesiones'				=> $this->input->post(''),
-				'modalidad'				=> $modalidad,
-				'link'					=> $this->input->post('url'),
-				'total_participantes'	=> $this->input->post('')
-			);
+				//si las reglas son correctas preparo los datos para insertar
+				$evento = array(
+					'id_evento'				=>$this->input->post(''),
+					'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+					'titulo'				=> $this->input->post('titulo'),
+					'descripcion'			=> $this->input->post('descripcion'),
+					'fecha_creacion'		=> $hoy,
+					'costo'					=> $this->input->post('costo'),
+					'max_participantes'		=> $this->input->post('max_participantes'),
+					'sesiones'				=> $this->input->post(''),
+					'modalidad'				=> $modalidad,
+					'link'					=> $this->input->post('url'),
+					'total_participantes'	=> $this->input->post('')
+				);
 			}
 			if ($this->input->post('oficina2')!=null) {
-			//si las reglas son correctas preparo los datos para insertar
-			$evento = array(
-				'id_evento'				=>$this->input->post(''),
-				'id_ejecutivo'			=> $this->input->post('ejecutivo'),
-				'id_oficina'			=> $this->input->post('oficina2'),
-				'titulo'				=> $this->input->post('titulo'),
-				'descripcion'			=> $this->input->post('descripcion'),
-				'fecha_creacion'		=> $hoy,
-				'costo'					=> $this->input->post('costo'),
-				'max_participantes'		=> $this->input->post('max_participantes'),
-				'sesiones'				=> $this->input->post(''),
-				'modalidad'				=> $modalidad,
-				'total_participantes'	=> $this->input->post('')
-			);
+				//si las reglas son correctas preparo los datos para insertar
+				$evento = array(
+					'id_evento'				=>$this->input->post(''),
+					'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+					'id_oficina'			=> $this->input->post('oficina2'),
+					'titulo'				=> $this->input->post('titulo'),
+					'descripcion'			=> $this->input->post('descripcion'),
+					'fecha_creacion'		=> $hoy,
+					'costo'					=> $this->input->post('costo'),
+					'max_participantes'		=> $this->input->post('max_participantes'),
+					'sesiones'				=> $this->input->post(''),
+					'modalidad'				=> $modalidad,
+					'total_participantes'	=> $this->input->post('')
+				);
 			}
 			if ($this->input->post('direccion')!=null) {
-			//si las reglas son correctas preparo los datos para insertar
-			$evento = array(
-				'id_evento'				=>$this->input->post(''),
-				'id_ejecutivo'			=> $this->input->post('ejecutivo'),
-				'titulo'				=> $this->input->post('titulo'),
-				'descripcion'			=> $this->input->post('descripcion'),
-				'fecha_creacion'		=> $hoy,
-				'costo'					=> $this->input->post('costo'),
-				'max_participantes'		=> $this->input->post('max_participantes'),
-				'sesiones'				=> $this->input->post(''),
-				'modalidad'				=> $modalidad,
-				'total_participantes'	=> $this->input->post(''),
-				'direccion'				=> $this->input->post('direccion')
-			);
+				//si las reglas son correctas preparo los datos para insertar
+				$evento = array(
+					'id_evento'				=>$this->input->post(''),
+					'id_ejecutivo'			=> $this->input->post('ejecutivo'),
+					'titulo'				=> $this->input->post('titulo'),
+					'descripcion'			=> $this->input->post('descripcion'),
+					'fecha_creacion'		=> $hoy,
+					'costo'					=> $this->input->post('costo'),
+					'max_participantes'		=> $this->input->post('max_participantes'),
+					'sesiones'				=> $this->input->post(''),
+					'modalidad'				=> $modalidad,
+					'total_participantes'	=> $this->input->post(''),
+					'direccion'				=> $this->input->post('direccion')
+				);
 			}
-			
 			//Inserto en la BD el nuevo evento
 			if($this->eventoModel->insert($evento))
 			{
@@ -313,12 +308,12 @@ class Evento extends AbstractAccess {
 			{
 				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
 			}
-		// 	obtengo el ultimo id_evento insertado
-		// 	comprueba cual es el id_evento mas grande insertado
-		// 	la variable id guarda el id_evento.
+			// 	obtengo el ultimo id_evento insertado
+			// 	comprueba cual es el id_evento mas grande insertado
+			// 	la variable id guarda el id_evento.
 			$rs = mysql_query("SELECT MAX(id_evento) AS id FROM eventos");
 			if ($row = mysql_fetch_row($rs)) {
-			$id = trim($row[0]);
+				$id = trim($row[0]);
 			}
 			// // el temario sera una imagen
 			// // creare un directorio para guardar
@@ -349,58 +344,54 @@ class Evento extends AbstractAccess {
 			$sesiones1=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_1'),
-				'duracion'	=>$this->input->post('duracion_1')
-				);
+				'fecha'			=>$this->input->post('sesion_1'),
+				'duracion'		=>$this->input->post('duracion_1')
+			);
 			$sesiones2=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_2'),
-				'duracion'	=>$this->input->post('duracion_2')
-				);
+				'fecha'			=>$this->input->post('sesion_2'),
+				'duracion'		=>$this->input->post('duracion_2')
+			);
 			$sesiones3=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_3'),
-				'duracion'	=>$this->input->post('duracion_3')
-				);
+				'fecha'			=>$this->input->post('sesion_3'),
+				'duracion'		=>$this->input->post('duracion_3')
+			);
 			$sesiones4=array(
 				'id_sesiones'	=>$this->input->post(''),
 				'id_evento'		=>$id,
-				'fecha'		=>$this->input->post('sesion_4'),
-				'duracion'	=>$this->input->post('duracion_4')
-				);
+				'fecha'			=>$this->input->post('sesion_4'),
+				'duracion'		=>$this->input->post('duracion_4')
+			);
 
-			if ($sesiones1[fecha]!=null) 
-				{
+			if ($sesiones1[fecha]!=null)
+			{
 				$sesiones1[fecha]=$this->_crearFecha($sesiones1);
 				$this->sesionesModel->insert($sesiones1);
-				}
+			}
 			if ($sesiones2[fecha]!=null)
-				{
+			{
 				$sesiones2[fecha]=$this->_crearFecha($sesiones2);
 				$this->sesionesModel->insert($sesiones2);
-				}
-			if ($sesiones3[fecha]!=null) 
-				{
+			}
+			if ($sesiones3[fecha]!=null)
+			{
 				$sesiones3[fecha]=$this->_crearFecha($sesiones3);
 				$this->sesionesModel->insert($sesiones3);
-				}
-			if ($sesiones4[fecha]!=null) 
-				{
+			}
+			if ($sesiones4[fecha]!=null)
+			{
 				$sesiones4[fecha]=$this->_crearFecha($sesiones4);
 				$this->sesionesModel->insert($sesiones4);
-				}
+			}
 
-
-		//mando la repuesta
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($respuesta));
+			//mando la repuesta
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 		}
-
 	}
-
-	
 }
 ?>
