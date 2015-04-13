@@ -67,6 +67,10 @@ $route['pendiente/(:any)']	= $DIR_EJECUTIVO."pendiente/$1";
 $route['perfil']				= $DIR_EJECUTIVO."ejecutivo";
 $route['ejecutivo/(:any)']	= $DIR_EJECUTIVO."ejecutivo/$1";
 
+// Funciones de Eventos
+$route['evento']			= $DIR_EJECUTIVO."evento";
+$route['evento/(:any)']	= $DIR_EJECUTIVO."evento/$1";
+
 // Funciones catalogo
 $route['catalogo/clientes']		= $DIR_EJECUTIVO."catalogo";
 $route['catalogo/productos']	= $DIR_EJECUTIVO."catalogo";
@@ -102,7 +106,7 @@ $route['caso/(:any)']	= $DIR_EJECUTIVO."caso/$1";
 
 // Funciones para el manejo de tareas
 $route['tareas']			= $DIR_EJECUTIVO."tarea";
-$route['tarea/(:any)']			= $DIR_EJECUTIVO."tarea/$1";
+$route['tarea/(:any)']		= $DIR_EJECUTIVO."tarea/$1";
 
 // Funciones para el manejo de notas en tareas
 $route['nota/(:any)']			= $DIR_EJECUTIVO."nota/$1";

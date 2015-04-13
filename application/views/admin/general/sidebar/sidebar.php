@@ -99,6 +99,24 @@
 							<li>
 						</ul>
 					</li>
+					<!-- Eventos -->
+					<li>
+						<a href="javascript:;">
+						<i class="fa fa-calendar"></i>
+						<span class="title"> Eventos</span>
+						<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="<?php echo site_url('evento/nuevo') ?>">
+								<i class="fa fa-plus"></i> Añadir</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('evento/gestionar') ?>">
+								<i class="fa fa-cogs"></i> Gestionar</a>
+							<li>
+						</ul>
+					</li>
 					<!-- Productos -->
 					<li>
 						<a href="<?php echo site_url('producto') ?>">
