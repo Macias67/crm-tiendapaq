@@ -101,13 +101,16 @@ abstract class AbstractController extends CI_Controller {
 		$this->data['assets_global_plugins']	= site_url('assets/global/plugins').'/';
 		$this->data['assets_global_scripts']	= site_url('assets/global/scripts').'/';
 		// admin/layout
-		$this->data['assets_admin_layout']		= site_url('assets/admin/layout').'/';
+		$this->data['assets_admin_layout']			= site_url('assets/admin/layout').'/';
+		$this->data['assets_admin_layout3']		= site_url('assets/admin/layout3').'/';
 		// admin/pages
 		$this->data['assets_admin_pages']		= site_url('assets/admin/pages').'/';
 		// admin/pages
 		$this->data['assets_admin_pages_myscripts']	= site_url('assets/admin/pages/myscripts').'/';
 		// Controlador que estoy usando actualmente
 		$this->controlador = strtolower(get_class($this));
+		$this->data['privilegios'] 		= $this->privilegios; // Paso que privilegios tiene el usuario al array data para la vista
+		$this->data['controlador'] 		= $this->controlador; // Paso que controlador se usa al array data para la vista
 	}
 
 	/**
@@ -148,12 +151,20 @@ abstract class AbstractController extends CI_Controller {
 	 */
 	protected function _vista($vista)
 	{
-		$this->load->view($this->privilegios.'/'.$this->controlador.'/head/head', $this->data);
-		$this->load->view($this->privilegios.'/general/header/header', $this->data);
-		$this->load->view($this->privilegios.'/general/sidebar/sidebar', $this->data);
-		$this->load->view($this->privilegios.'/'.$this->controlador.'/container/'.$vista, $this->data);
-		$this->load->view($this->privilegios.'/general/quick-sidebar/quick-sidebar', $this->data);
-		$this->load->view($this->privilegios.'/'.$this->controlador.'/footer/footer', $this->data);
+		if ($this->privilegios == 'publico') {
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/head/head', $this->data);
+			$this->load->view($this->privilegios.'/general/header', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/container/'.$vista, $this->data);
+			$this->load->view($this->privilegios.'/general/pre-footer', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/footer/footer', $this->data);
+		} else {
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/head/head', $this->data);
+			$this->load->view($this->privilegios.'/general/header/header', $this->data);
+			$this->load->view($this->privilegios.'/general/sidebar/sidebar', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/container/'.$vista, $this->data);
+			$this->load->view($this->privilegios.'/general/quick-sidebar/quick-sidebar', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/footer/footer', $this->data);
+		}
 	}
 
 	abstract function index();
@@ -184,8 +195,6 @@ abstract class AbstractAccess extends AbstractController {
 		$this->usuario_activo = @$this->session->userdata('usuario_activo'); // Asignamos el item 'usuario_activo' a la variable
 		$this->privilegios = $this->usuario_activo['privilegios']; // Privilegios del usuario activo
 		$this->data['usuario_activo'] 	= $this->usuario_activo; // Paso los datos del admin al array data para la vista
-		$this->data['privilegios'] 		= $this->privilegios; // Paso que privilegios tiene el usuario al array data para la vista
-		$this->data['controlador'] 		= $this->controlador; // Paso que controlador se usa al array data para la vista
 	}
 
 	/**

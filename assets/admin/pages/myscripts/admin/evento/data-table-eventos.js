@@ -1,24 +1,11 @@
 var DataTableEventos = function() {
 
-	var ajaxParams = {}; // set filter mode
-
 	var handleDatePickers = function () {
-
 		if (jQuery().datepicker) {
 			$('.date-picker').datepicker({
 				rtl: Metronic.isRTL(),
 				orientation: "left",
 				autoclose: true
-			}).on('hide', function(event) {
-				var id = $(this).attr('id');
-				var valor = $(this).val();
-				ajaxParams[id] = valor;
-				console.log(valor);
-				$('#tabla-catalogo-eventos').dataTable().api().ajax.reload();
-				if (id == 'fini') {
-				} else if(id == 'ffin'){
-
-				}
 			});
 			//$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
 		}
@@ -37,12 +24,7 @@ var DataTableEventos = function() {
 			"serverSide": true,
 			"ajax": {
 				"url": "evento/json_eventos",
-				"type": "POST",
-				"data": function(data) {
-					$.each(ajaxParams, function(key, value) {
-						data[key] = value;
-					});
-				}
+				"type": "POST"
 			},
 			"columns": [
 				{ "data": "id_event" },
@@ -103,7 +85,7 @@ var DataTableEventos = function() {
 	return {
 		init: function() {
 			dataTable();
-			handleDatePickers();
+			//handleDatePickers();
 		}
 	}
 }();

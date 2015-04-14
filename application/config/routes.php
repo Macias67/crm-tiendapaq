@@ -55,7 +55,9 @@ $route['cookiescreen']	= $PUBLICO."login/cookiescreen";
 $route['validation']		= $PUBLICO."login/validation";
 $route['recordar']		= $PUBLICO."login/recordar";
 $route['logout']		= $PUBLICO."login/logout";
-$route['cursos']		= $PUBLICO."eventos";
+// Funciones del eventos
+$route['cursos']		= $PUBLICO."evento";
+$route['cursos/(:any)']	= $PUBLICO."evento/$1";
 
 /*
 | -------------------------------------------------------------------------

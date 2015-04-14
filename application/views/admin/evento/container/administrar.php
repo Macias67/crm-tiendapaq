@@ -28,7 +28,7 @@
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">
-							<div class="row">
+							<!-- <div class="row">
 								<div class="col-md-12">
 									<label class="control-label">Date Range</label>
 									<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
@@ -37,11 +37,10 @@
 										to </span>
 										<input type="text" id="ffin" class="form-control" name="to">
 									</div>
-									<!-- /input-group -->
 									<span class="help-block">Select date range </span>
 								</div>
 							</div>
-							<br>
+							<br> -->
 							<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-eventos">
 								<thead>
 									<tr>
