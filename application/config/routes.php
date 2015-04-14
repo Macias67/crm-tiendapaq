@@ -68,7 +68,7 @@ $route['perfil']				= $DIR_EJECUTIVO."ejecutivo";
 $route['ejecutivo/(:any)']	= $DIR_EJECUTIVO."ejecutivo/$1";
 
 // Funciones de Eventos
-$route['evento']			= $DIR_EJECUTIVO."evento";
+$route['eventos']			= $DIR_EJECUTIVO."evento";
 $route['evento/(:any)']	= $DIR_EJECUTIVO."evento/$1";
 
 // Funciones catalogo

@@ -112,7 +112,7 @@
 								<i class="fa fa-plus"></i> Añadir</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('evento/gestionar') ?>">
+								<a href="<?php echo site_url('eventos') ?>">
 								<i class="fa fa-cogs"></i> Gestionar</a>
 							<li>
 						</ul>

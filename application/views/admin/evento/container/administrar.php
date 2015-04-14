@@ -22,7 +22,7 @@
 							<span class="caption-subject bold uppercase"> Catálogo de eventos</span>
 						</div>
 						<div class="actions">
-							<a href="<?php echo site_url('evento/gestionar/nuevo') ?>" class="btn btn-circle green">
+							<a href="<?php echo site_url('evento/nuevo') ?>" class="btn btn-circle green">
 							<i class="fa fa-plus"></i> Agregar </a>
 						</div>
 					</div>
@@ -32,26 +32,16 @@
 								<thead>
 									<tr>
 										<th width="1%">No.</th>
-										<th width="10%">Ejecutivo</th>
+										<th width="5%">Ejecutivo</th>
+										<th width="5%">Modalidad</th>
 										<th width="10%">Título</th>
-										<th width="15%">Fecha de creación</th>
+										<th width="15%">Sesion Próxima</th>
+										<th width="1%">Participantes</th>
+										<th width="5%">Estatus</th>
 										<th width="1%"></th>
 										<th width="1%"></th>
 									</tr>
 								</thead>
-								<tbody>
-									<?php foreach ($eventos_revision as $evento): ?>
-										<tr class="odd gradeX">
-											<td><?php echo $evento->id_evento ?></td>
-											<td><?php echo $evento->primer_nombre.' '.$evento->apellido_paterno ?></td>
-											<td><?php echo $evento->titulo ?></td>
-											<td><?php echo fecha_completa($evento->fecha_creacion) ?></td>
-											<td><a href="<?php echo site_url('evento/gestionar/editar').'/'.$evento->id_evento?>" class="btn btn-circle blue btn-xs">
-													<i class="fa fa-search"></i> editar </a></td>
-											<td><a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/evento/detalles/'.$evento->id_evento) ?>" data-target="#ajax-detalles-evento" data-toggle="modal"><i class="fa fa-search"></i> Participantes </a></td>
-										</tr>
-									<?php endforeach ?>
-								</tbody>
 							</table>
 						</div>
 					</div>

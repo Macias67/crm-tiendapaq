@@ -133,8 +133,8 @@ class Inicio extends AbstractAccess {
 		$casos_asignar 			= count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 		$tareas_pendiente			=  count($this->tareaModel->get(array('*'),
 		                             							array(
-														'id_ejecutivo' 	=> $this->usuario_activo['id'],
-														'id_estatus' 	=> $this->estatusGeneralModel->PENDIENTE
+													'id_ejecutivo' 	=> $this->usuario_activo['id'],
+													'id_estatus' 	=> $this->estatusGeneralModel->PENDIENTE
 												)));
 		$this->output
 			->set_content_type('application/json')

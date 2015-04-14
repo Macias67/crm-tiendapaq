@@ -23,11 +23,14 @@
 								</div>
 							</div>
 							<div class="portlet-body">
+								<?php echo (isset($upload_error)) ? $upload_error : '' ?>
 								<?php echo validation_errors('<div class="alert alert-danger"><button class="close" data-close="alert"></button>', '</div>'); ?>
-								<div class="alert alert-success display-hide">
+								<?php if (isset($exito) && $exito): ?>
+								<div class="alert alert-success">
 									<button class="close" data-close="alert"></button>
-									Éxito en el formulario
+									Nuevo evento creado.
 								</div>
+								<?php endif ?>
 								<?php echo form_open_multipart('evento/create', array('class' => 'form-horizontal', 'role' => 'form'));?>
 									<div class="form-body">
 										<div class="col-md-6">

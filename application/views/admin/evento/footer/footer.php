@@ -36,6 +36,8 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-touchspin/bootstrap.touchspin.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -43,6 +45,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-nuevo-evento') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'data-table-eventos') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -50,6 +53,7 @@
 			QuickSidebar.init() // init quick sidebar
 			// MyScript
 			NuevoEvento.init();
+			DataTableEventos.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

@@ -21,8 +21,6 @@ class BancoModel extends MY_Model {
 		parent::__construct();
 		$this->table	= self::TABLE;
 	}
-
-
 }
 
 /* End of file bancoModel.php */
