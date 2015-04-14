@@ -30,7 +30,8 @@ var Login = function () {
 					notice.html('<i class="fa fa-unlock"></i> '+response.mensaje);
 					notice.attr('style', 'color: green; text-shadow: 0px 0px 5px rgba(0, 200, 0, 0.4)');
 					setTimeout(function() {
-						window.location = '/';
+						// window.location = '/';
+						window.location.replace(response.url);
 					}, 2500);
 				} else {
 					notice.attr('style', 'color: #d30000; text-shadow: 0px 0px 5px rgba(200, 0, 0, 0.4)')

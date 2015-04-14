@@ -1,6 +1,6 @@
 /**
- * Filter a column on a specific date range. Note that you will likely need 
- * to change the id's on the inputs and the columns in which the start and 
+ * Filter a column on a specific date range. Note that you will likely need
+ * to change the id's on the inputs and the columns in which the start and
  * end date exist.
  *
  *  @name Date range filter
@@ -10,7 +10,7 @@
  *  @example
  *    $(document).ready(function() {
  *        var table = $('#example').DataTable();
- *         
+ *
  *        // Add event listeners to the two range filtering inputs
  *        $('#min').keyup( function() { table.draw(); } );
  *        $('#max').keyup( function() { table.draw(); } );

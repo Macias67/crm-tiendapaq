@@ -35,9 +35,11 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/moment.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-touchspin/bootstrap.touchspin.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<!-- <script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/range_dates.js"></script> -->
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

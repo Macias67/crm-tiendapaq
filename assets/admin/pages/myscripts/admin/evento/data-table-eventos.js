@@ -1,8 +1,33 @@
 var DataTableEventos = function() {
 
+	var ajaxParams = {}; // set filter mode
+
+	var handleDatePickers = function () {
+
+		if (jQuery().datepicker) {
+			$('.date-picker').datepicker({
+				rtl: Metronic.isRTL(),
+				orientation: "left",
+				autoclose: true
+			}).on('hide', function(event) {
+				var id = $(this).attr('id');
+				var valor = $(this).val();
+				ajaxParams[id] = valor;
+				console.log(valor);
+				$('#tabla-catalogo-eventos').dataTable().api().ajax.reload();
+				if (id == 'fini') {
+				} else if(id == 'ffin'){
+
+				}
+			});
+			//$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+		}
+	/* Workaround to restrict daterange past date select: http://stackoverflow.com/questions/11933173/how-to-restrict-the-selectable-date-ranges-in-bootstrap-datepicker */
+	}
+
 	var dataTable = function() {
-		var table = $('#tabla-catalogo-eventos');
-		var oTable = table.dataTable({
+		var table 	= $('#tabla-catalogo-eventos');
+		var oTable 	= table.dataTable({
 			"pageLength": 15,
 			"lengthMenu": [
 				[5, 15, 20, 50, 100],
@@ -12,7 +37,12 @@ var DataTableEventos = function() {
 			"serverSide": true,
 			"ajax": {
 				"url": "evento/json_eventos",
-				"type": "POST"
+				"type": "POST",
+				"data": function(data) {
+					$.each(ajaxParams, function(key, value) {
+						data[key] = value;
+					});
+				}
 			},
 			"columns": [
 				{ "data": "id_event" },
@@ -73,6 +103,7 @@ var DataTableEventos = function() {
 	return {
 		init: function() {
 			dataTable();
+			handleDatePickers();
 		}
 	}
 }();
