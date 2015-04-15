@@ -36,7 +36,7 @@ class PDF extends FPDF {
 		$agente 	= utf8_decode($this->COTIZACION['agente']);
 
 		// CLIENTE
-		$razon_social 	=  utf8_decode($this->CLIENTE['razon_social']);
+		$razon_social 	=  $this->CLIENTE['razon_social'];
 		$contacto 		=  utf8_decode($this->CLIENTE['contacto']);
 		$telefono 		=  $this->CLIENTE['telefono'];
 		$email 			=  $this->CLIENTE['email'];

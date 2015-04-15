@@ -1,18 +1,4 @@
-
-<!-- BEGIN CONTENT -->
-<div class="page-content-wrapper">
-	<div class="page-content">
-		<!-- BEGIN PAGE HEADER-->
-		<div class="row">
-			<div class="col-md-12">
-				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title">Participantes registrados - <small><?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?></small></h3>
-				<!-- END PAGE TITLE & BREADCRUMB-->
-			</div>
-		</div>
-		<!-- END PAGE HEADER-->
-
-		<!-- BEGIN PAGE CONTENT-->
+<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN TABLA CLIENTES -->

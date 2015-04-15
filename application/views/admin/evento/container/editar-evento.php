@@ -52,7 +52,6 @@
 													</select>
 												</div>
 											</div>
-
 									<!-- titulo -->
 									<div class="form-group">
 										<label class="col-md-4 control-label">

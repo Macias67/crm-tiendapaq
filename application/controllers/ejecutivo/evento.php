@@ -250,6 +250,7 @@ class Evento extends AbstractAccess {
 				}
 				redirect('evento/nuevo/exito');
 			}
+
 		}
 	}
 
