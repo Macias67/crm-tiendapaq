@@ -55,15 +55,14 @@
 						<div class="portlet-title">
 							<div class="caption caption-md">
 								<i class="icon-bar-chart theme-font hide"></i>
-								<span class="caption-subject theme-font bold uppercase">Sales Summary</span>
-								<span class="caption-helper hide">weekly stats...</span>
+								<span class="caption-subject theme-font bold uppercase">Datos requeridos de inscripción</span>
 							</div>
 							<div class="actions">
 							</div>
 						</div>
 						<div class="portlet-body form-horizontal">
 							<!-- BEGIN FORM-->
-							<form action="<?php echo site_url('cliente/nuevo/normal') ?>" id="form-cliente-completo" accept-charset="utf-8">
+							<form action="<?php echo site_url('cursos/registro') ?>" id="form-cliente-completo" accept-charset="utf-8">
 								<div class="form-body">
 									<!-- ALERTS -->
 									<div class="alert alert-danger display-hide">
@@ -84,6 +83,8 @@
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-barcode"></i>
+												<input type="hidden" name="id_cliente">
+												<input type="hidden" name="id_evento" value="<?php echo $evento->id_evento ?>">
 												<input type="text" class="form-control" placeholder="R.F.C." name="rfc">
 											</div>
 										</div>
@@ -119,7 +120,7 @@
 										</label>
 										<div class="col-md-8">
 											<select class="form-control" name="tipo">
-												<option value="normal" selected>Normal</option>
+												<option value="normal">Normal</option>
 												<option value="distribuidor">Distribuidor</option>
 											</select>
 										</div>
@@ -211,15 +212,13 @@
 									</div>
 									<!-- Estado -->
 									<div class="form-group" id="div_estado">
-										<label class="col-md-4 control-label">
-											Estado
-										</label>
+										<label class="col-md-4 control-label">Estado</label>
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-map-marker"></i>
 												<select class="form-control" name="estado" id="estado">
 													<?php foreach ($this->estados as $estado): ?>
-														<option value="<?php echo $estado ?>" <?php echo ($estado=='Jalisco')? 'selected':'' ?>><?php echo $estado ?></option>
+														<option value="<?php echo strtoupper($estado) ?>" <?php echo ($estado=='Jalisco')? 'selected':'' ?>><?php echo $estado ?></option>
 													<?php endforeach ?>
 												</select>
 											</div>
@@ -241,8 +240,45 @@
 										</div>
 									</div>
 
+									<hr>
+
+									<!-- TELEFONOS -->
+									<h4><strong>Teléfonos</strong></h4>
+									<!-- Telefono 1 -->
+									<div class="form-group">
+										<label class="col-md-4 control-label">
+											Teléfono 1<span class="required" aria-required="true">*</span>
+										</label>
+										<div class="col-md-8">
+											<div class="input-icon">
+												<i class="fa fa-phone"></i>
+												<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1">
+											</div>
+										</div>
+									</div>
+									<!-- Telefono 2 -->
+									<div class="form-group">
+										<label class="col-md-4 control-label">Teléfono 2</label>
+										<div class="col-md-8">
+											<div class="input-icon">
+												<i class="fa fa-phone"></i>
+												<input type="text" class="form-control" id="telefono2" placeholder="(999) 999-9999" name="telefono2">
+											</div>
+										</div>
+									</div>
+
+									<hr>
+
 									<!-- INFORMACION DE CONTACTO -->
 									<h4><strong>Contácto</strong><small> - Contácto de la empresa.</small></h4>
+									<!-- Pais -->
+									<div class="form-group" id="contactos" style="display: none">
+										<label class="col-md-4 control-label">Contactos Registrados
+										</label>
+										<div class="col-md-8">
+											<div class="input-icon"></div>
+										</div>
+									</div>
 									<!-- Nombre del contacto -->
 									<div class="form-group">
 										<label class="col-md-4 control-label">
@@ -251,6 +287,7 @@
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-user"></i>
+												<input type="hidden" name="id_contacto" value="">
 												<input type="text" class="form-control" placeholder="Nombre" name="nombre_contacto">
 											</div>
 										</div>
@@ -314,33 +351,6 @@
 
 									<hr>
 
-									<!-- TELEFONOS -->
-									<h4><strong>Teléfonos</strong></h4>
-									<!-- Telefono 1 -->
-									<div class="form-group">
-										<label class="col-md-4 control-label">
-											Teléfono 1<span class="required" aria-required="true">*</span>
-										</label>
-										<div class="col-md-8">
-											<div class="input-icon">
-												<i class="fa fa-phone"></i>
-												<input type="text" class="form-control" id="telefono1" placeholder="(999) 999-9999" name="telefono1">
-											</div>
-										</div>
-									</div>
-									<!-- Telefono 2 -->
-									<div class="form-group">
-										<label class="col-md-4 control-label">Teléfono 2</label>
-										<div class="col-md-8">
-											<div class="input-icon">
-												<i class="fa fa-phone"></i>
-												<input type="text" class="form-control" id="telefono2" placeholder="(999) 999-9999" name="telefono2">
-											</div>
-										</div>
-									</div>
-
-									<hr>
-
 									<!-- ACCESO AL SISTEMA -->
 									<h4><strong>Acceso al sistema</strong></h4>
 									<!-- Usuario -->
@@ -383,10 +393,8 @@
 								<div class="form-actions fluid">
 									<div class="row">
 										<div class="col-md-12">
-											<div class="col-md-offset-6 col-md-6">
-												<button type="submit" class="btn btn-circle green"><i class="fa fa-save"></i> Guardar</button>
-												<button type="reset" class="btn btn btn-circle default"><i class="fa fa-eraser"></i> Limpiar</button>
-											</div>
+											<button type="submit" class="btn btn-circle green"><i class="fa fa-save"></i> Inscribirme</button>
+											<button type="reset" class="btn btn btn-circle default"><i class="fa fa-eraser"></i> Limpiar</button>
 										</div>
 									</div>
 								</div>

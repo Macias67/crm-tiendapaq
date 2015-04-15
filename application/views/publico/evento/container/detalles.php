@@ -65,6 +65,12 @@
 									<?php endif ?>
 									<div class="news-item-page">
 										<p><?php echo $evento->descripcion; ?></p>
+										<hr>
+										<h4><?php echo (count($sesiones) == 1) ? 'Una sesión' : count($sesiones).' sesiones' ?></h4>
+										<?php foreach ($sesiones as $index => $sesion): ?>
+											<p><span class="label bg-red-pink"><?php echo fecha_completa($sesion->fecha_inicio) ?></span> al <span class="label bg-red-pink"><?php echo fecha_completa($sesion->fecha_final) ?></span></p>
+										<?php endforeach ?>
+										<hr>
 										<h3>Temario</h3>
 										<a href="<?php echo $temario_url ?>" target="_blank"><img src="<?php echo $temario_url ?>" class="img-responsive" alt=""></a>
 										<!-- <div class="row">
@@ -96,11 +102,6 @@
 												</ul>
 											</div>
 										</div> -->
-										<hr>
-										<h4><?php echo (count($sesiones) == 1) ? 'Una sesión' : count($sesiones).' sesiones' ?></h4>
-										<?php foreach ($sesiones as $index => $sesion): ?>
-											<p><span class="label bg-red-pink"><?php echo fecha_completa($sesion->fecha_inicio) ?></span> al <span class="label bg-red-pink"><?php echo fecha_completa($sesion->fecha_final) ?></span></p>
-										<?php endforeach ?>
 									</div>
 									<hr>
 								</div>

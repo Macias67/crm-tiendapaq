@@ -319,7 +319,8 @@ class Evento extends AbstractAccess {
 				'fecha_inicio'				=> fecha_completa($evento->primera_sesion),
 				'participantes'				=> $evento->participantes,
 				'estatus'					=> id_estatus_gral_to_class_html($evento->estatus),
-				'url_modal'					=> site_url('/evento/modal/'.$evento->id_event)
+				'url_modal_participantes'	=> site_url('/evento/modal/participantes/'.$evento->id_event),
+				'url_editar'					=> site_url('/evento/editar/'.$evento->id_event),
 			       );
 			array_push($proceso, $p);
 		}
@@ -331,6 +332,19 @@ class Evento extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
+	}
+
+	public function modal($accion)
+	{
+		$id_evento = $this->uri->segment(4);
+		switch ($accion) {
+			case 'participantes':
+				$this->load->model('participantesmodel');
+				$participantes 					= $this->participantesmodel->mostrar_participantes($id_evento);
+				$this->data['participantes'] 	= $participantes;
+				$this->_vista_completa('evento/participantes');
+				break;
+		}
 	}
 
 	/**

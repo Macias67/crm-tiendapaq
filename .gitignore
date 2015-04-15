@@ -4,6 +4,6 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
+assets/admin/pages/media/eventos/*
 tmp/*
 clientes/*
-assets/admin/pages/media/eventos/*
