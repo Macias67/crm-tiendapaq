@@ -14,7 +14,7 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<div class="portlet light">
 							<div class="portlet-title">
 								<div class="caption font-green-sharp">

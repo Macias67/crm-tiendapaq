@@ -76,18 +76,6 @@
 									</div>
 									<!-- INFORMACION BASICA -->
 									<h4><strong>Información Básica</strong><small> - Información de la empresa.</small></h4>
-									<!-- Razon Social -->
-									<div class="form-group">
-										<label class="col-md-4 control-label">
-											Razón Social<span class="required" aria-required="true">*</span>
-										</label>
-										<div class="col-md-8">
-											<div class="input-icon">
-												<i class="fa fa-asterisk"></i>
-												<input type="text" class="form-control" placeholder="Razón Social" name="razon_social">
-											</div>
-										</div>
-									</div>
 									<!-- Rfc -->
 									<div class="form-group">
 										<label class="col-md-4 control-label">
@@ -97,6 +85,18 @@
 											<div class="input-icon">
 												<i class="fa fa-barcode"></i>
 												<input type="text" class="form-control" placeholder="R.F.C." name="rfc">
+											</div>
+										</div>
+									</div>
+									<!-- Razon Social -->
+									<div class="form-group">
+										<label class="col-md-4 control-label">
+											Razón Social<span class="required" aria-required="true">*</span>
+										</label>
+										<div class="col-md-8">
+											<div class="input-icon">
+												<i class="fa fa-asterisk"></i>
+												<input type="text" class="form-control" placeholder="Razón Social" name="razon_social">
 											</div>
 										</div>
 									</div>

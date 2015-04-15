@@ -194,6 +194,7 @@ abstract class AbstractAccess extends AbstractController {
 		parent::__construct();
 		$this->usuario_activo = @$this->session->userdata('usuario_activo'); // Asignamos el item 'usuario_activo' a la variable
 		$this->privilegios = $this->usuario_activo['privilegios']; // Privilegios del usuario activo
+		$this->data['privilegios'] 		= $this->privilegios; // Paso que privilegios tiene el usuario al array data para la vista
 		$this->data['usuario_activo'] 	= $this->usuario_activo; // Paso los datos del admin al array data para la vista
 	}
 
