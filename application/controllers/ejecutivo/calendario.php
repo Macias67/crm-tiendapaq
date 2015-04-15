@@ -7,7 +7,6 @@
  **/
 class Calendario extends AbstractAccess {
 
-
 	/*
 	* Vista principal donde muestra
 	* el calendario de todos los ejecutivos

@@ -1,4 +1,4 @@
-<!-- BEGIN CONTENT -->
+<!-- BEGIN CONTENT  -->
 <div class="page-content-wrapper">
 	<div class="page-content">
 		<!-- BEGIN PAGE HEADER-->
@@ -39,16 +39,20 @@
 								<div class="col-md-6">
 									<!-- Ejectuivo -->
 									<div class="form-group">
-										<label class="control-label col-md-4">Ejecutivo</label>
-										<div class="col-md-8">
-											<select class="form-control" name="lider_caso">
-												<option value=""></option>
-												<?php foreach ($ejecutivos as $ejecutivo): ?>
-												<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
-												<?php endforeach ?>
-											</select>
-										</div>
-									</div>
+												<label class="control-label col-md-4">Ejecutivo </label>
+												<div class="col-md-8">
+													<select class="form-control" name="ejecutivo">
+														<?php foreach ($ejecutivos as $ejecutivo): ?>
+															<?php if ($ejecutivo->id == $evento->id_ejecutivo): ?>
+																<option value="<?php echo $ejecutivo->id ?>" selected><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+															<?php else: ?>
+																<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+															<?php endif ?>
+														<?php endforeach ?>
+													</select>
+												</div>
+											</div>
+
 									<!-- titulo -->
 									<div class="form-group">
 										<label class="col-md-4 control-label">
@@ -57,7 +61,7 @@
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-asterisk"></i>
-												<input type="text" class="form-control" placeholder="Título" name="titulo">
+												<input type="text" class="form-control" placeholder="Título" name="titulo" value="<?php echo $evento->titulo?>">
 											</div>
 										</div>
 									</div>
@@ -69,7 +73,7 @@
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-asterisk"></i>
-												<textarea name="descripcion" class="form-control" placeholder="Descripción" class="form-control"></textarea>
+												<textarea name="descripcion" class="form-control" placeholder="Descripción" class="form-control"><?php echo $evento->descripcion ?></textarea>
 											</div>
 										</div>
 									</div>
@@ -81,7 +85,19 @@
 										<div class="col-md-8">
 											<div class="input-icon">
 												<i class="fa fa-asterisk"></i>
-												<textarea name="temario" class="form-control" placeholder="Temario" class="form-control"></textarea>
+												<textarea name="temario" class="form-control" placeholder="Temario" class="form-control"><?php echo $evento->temario ?></textarea>
+											</div>
+										</div>
+									</div>
+									<!-- INICIO Costo -->
+									<div class="form-group">
+										<label class="col-md-4 control-label">
+											Costo<span class="required" aria-required="true">$</span>
+										</label>
+										<div class="col-md-8">
+											<div class="input-icon">
+												<i class="fa fa-dollar"></i>
+												<input name="costo" class="form-control" class="form-control" value="<?php echo $evento->costo ?>"></input>
 											</div>
 										</div>
 									</div>

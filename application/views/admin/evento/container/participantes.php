@@ -1,3 +1,4 @@
+
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
 	<div class="page-content">
@@ -26,8 +27,7 @@
 						<table class="table table-striped table-hover table-bordered" id="tabla-ver-participantes">
 							<thead>
 								<tr>
-									<th width="30%">Empresa</th>
-									<th width="30%">Contacto</th>
+									<th width="30%">Nombre</th>
 									<th width="30%">Email</th>
 									<th width="40%">Teléfono</th>
 								</tr>
@@ -35,7 +35,6 @@
 							<tbody>
 								<?php foreach ($participantes as $participante): ?>
 									<tr class="odd gradeX">
-										<td><?php echo $participante->razon_social ?></td>
 										<td><?php echo $participante->nombre_contacto.' '.$participante->apellido_paterno ?></td>
 										<td><?php echo $participante->email_contacto ?></td>
 										<td><?php echo $participante->telefono_contacto ?></td>

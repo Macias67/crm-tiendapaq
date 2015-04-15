@@ -36,7 +36,7 @@ class Gestor extends AbstractAccess {
 				//Datos basicos
 				$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 				$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
-				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|callback_email_check|xss_clean');
+				$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 				$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 				$this->form_validation->set_rules('telefono2', 'Teléfono 2', 'trim|max_length[14]');
 				$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
@@ -532,7 +532,7 @@ class Gestor extends AbstractAccess {
 	{
 		$this->form_validation->set_rules('razon_social', 'Razón Social', 'trim|required|strtoupper|max_length[80]|xss_clean');
 		$this->form_validation->set_rules('rfc', 'RFC', 'trim|required|strtoupper|max_length[13]|callback_rfc_check|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|callback_email_check|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|strtolower|valid_email|xss_clean');
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
@@ -577,7 +577,11 @@ class Gestor extends AbstractAccess {
 				$cliente_actualizado['privilegios'] = 'cliente';
 				$this->session->set_userdata('usuario_activo', $cliente_actualizado);
 
-				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Información de <b>'.$cliente['razon_social'].'</b> actualizada.</h4>');
+				$folio = $this->input->post('folio_cotizacion');
+				$respuesta = array(
+				                   'exito' 	=> TRUE,
+				                   'msg' 	=> '<h4>Información de <b>'.$cliente['razon_social'].'</b> actualizada.</h4>',
+				                   'url' 		=> site_url('/cotizacion/comprobante/'.$folio));
 			}
 		}
 

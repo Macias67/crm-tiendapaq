@@ -2,13 +2,13 @@
 	<!-- BEGIN FOOTER -->
 	<div class="page-footer">
 		<div class="page-footer-inner">
-			 2014 &copy; TiendaPaq.com
+			<?php echo date('Y') ?>&copy; SycPAQ
 		</div>
-		<div class="page-footer-tools">
+		<!-- <div class="page-footer-tools">
 			<span class="go-top">
 			<i class="fa fa-angle-up"></i>
 			</span>
-		</div>
+		</div> -->
 	</div>
 	<!-- END FOOTER -->
 
@@ -34,7 +34,11 @@
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>jquery-validation/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js"></script>
+	<script src="<?php echo $assets_global_plugins ?>holder.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assets_global_plugins ?>jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>canvasloader-min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
@@ -43,6 +47,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-caso') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'detalle-caso') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
@@ -50,6 +55,7 @@
 			QuickSidebar.init() // init quick sidebar
 			//MyScripts
 			TableManaged.init(); //tabla de casos por asignar
+			DetalleCaso.init(); // detalle de un caso
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

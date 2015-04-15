@@ -90,7 +90,7 @@
 										</ul>
 										<div class="tab-content">
 											<!-- TAB PENDIENTES -->
-											<div class="tab-pane active" id="tab_pendientes">
+											<div class="tab-pane active" id="tab_pendientes" id-ejecutivo="<?php echo $id_ejecutivo ?>">
 												<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
 													<thead>
 														<tr>
@@ -137,11 +137,11 @@
 												</table>
 											</div>
 											<!--TAB CASOS-->
-											<div class="tab-pane" id="tab_casos">
+											<div class="tab-pane" id="tab_casos" id-ejecutivo="<?php echo $id_ejecutivo ?>">
 												<table class="table table-striped table-bordered table-hover" id="casos-ejecutivo">
 													<thead>
 														<tr>
-															<th>No.</th>
+															<th>Folio</th>
 															<th>Cliente</th>
 															<th>Apertura</th>
 															<th>Vigencia (aprox.)</th>
@@ -152,7 +152,7 @@
 													<tbody>
 														<?php foreach ($casos as $caso): ?>
 															<tr class="odd gradeX">
-																<td><?php echo $caso->id_caso ?></td>
+																<td><?php echo $caso->folio_cotizacion ?></td>
 																<td><?php echo $caso->razon_social ?></td>
 																<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 																<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>

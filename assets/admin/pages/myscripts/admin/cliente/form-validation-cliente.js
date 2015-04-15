@@ -386,7 +386,7 @@ var FormValidationCliente = function () {
 						Metronic.showLoader();
 					},
 					error: function(jqXHR, status, error) {
-						bootbox,alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+						bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
 							Metronic.removeLoader();
 						});
 					},
@@ -581,7 +581,7 @@ var FormValidationCliente = function () {
 						if (data.exito) {
 							Metronic.removeLoader();
 							bootbox.alert("<h4>Cliente <b>"+data.razon_social+"</b> editado con éxito.<h4>", function() {
-								location.reload();
+								location.reload(true);
 							});
 						} else {
 							error.html(data.msg);

@@ -93,32 +93,36 @@ class PDF extends FPDF {
 
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',8);
-		$this->Cell(100,4, $razon_social, 0,0,'L');
+		$this->Cell(100,-4, $razon_social, 0,0,'L');
 
 		$this->Ln(5);
 		$this->SetTextColor(0, 0, 0);
 		$this->SetFont('Arial','B',9);
 		$this->Cell(80,1, $telefono_oficina, 0,0,'C');
 
-		$this->Cell(15,4, utf8_decode('Contacto:'), 0,0,'L');
+		$this->Cell(15,-4, utf8_decode('Contacto:'), 0,0,'L');
 		$this->SetFont('Arial','',8);
-		$this->Cell(85,4, $contacto, 0,0,'L');
+		$this->Cell(85,-4, $contacto, 0,0,'L');
 
 		$this->Ln(5);
 		$this->SetFont('Arial','B',9);
 		$this->Cell(80,1, $correo_oficina, 0,0,'C');
 
 		$this->SetFont('Arial','B',8);
-		$this->Cell(10,4,'Tel:', 0,0,'L');
+		$this->Cell(10,-4,'Tel:', 0,0,'L');
 
 		$this->SetFont('Arial','',8);
-		$this->Cell(30,4, $telefono, 0,0,'L');
+		$this->Cell(30,-4, $telefono, 0,0,'L');
+
+		$this->Ln(5);
+		$this->SetFont('Arial','B',9);
+		$this->Cell(80,1, '', 0,0,'C');
 
 		$this->SetFont('Arial','B',8);
-		$this->Cell(10,4,'Email:', 0,0,'L');
+		$this->Cell(10,-4,'Email:', 0,0,'L');
 
 		$this->SetFont('Arial','',8);
-		$this->Cell(50,4, $email, 0,0,'L');
+		$this->Cell(70,-4, $email, 0,0,'L');
 
 		$this->Ln(10);
 

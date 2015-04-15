@@ -51,7 +51,12 @@
 								<table class="twelve columns" style="margin-bottom: 10px">
 									<tr>
 										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-											<b>No. de Caso:</b> <?php echo $folio ?>
+											<b>No. Caso:</b> <?php echo $id_caso ?>
+										</td>
+									</tr>
+									<tr>
+										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
+											<b>Folio:</b> <?php echo $folio ?>
 										</td>
 									</tr>
 									<tr>
@@ -62,11 +67,6 @@
 									<tr>
 										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
 											<b>Se le cotizó a:</b>  <?php echo $contacto ?>
-										</td>
-									</tr>
-									<tr>
-										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-											<b>Estatus de la cotización:</b>  <?php echo $estatus ?>
 										</td>
 									</tr>
 								</table>
@@ -136,7 +136,7 @@
 													</a>
 												</td>
 												<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;">
-													 &copy; TiendaPAQ 2015.
+													 &copy; TiendaPAQ <?php date('Y') ?>.
 												</td>
 											</tr>
 											</table>

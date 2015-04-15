@@ -18,7 +18,6 @@ class Producto extends AbstractAccess {
 
 	public function index()
 	{
-		//var_dump($this->data);
 		$this->_vista('productos');
 	}
 

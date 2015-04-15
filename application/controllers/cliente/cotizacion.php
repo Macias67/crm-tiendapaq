@@ -241,6 +241,28 @@ class Cotizacion extends AbstractAccess {
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
 	}
+
+	/**
+	 * Modal para mostrar archivos
+	 * de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function archivos($folio)
+	{
+		$campos = array(
+			'cotizacion.id_cliente',
+			'cotizacion.id_estatus_cotizacion',
+			'clientes.razon_social');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
+			$archivos 				= $this->cotizacionModel->get_files_cotizacion($cotizacion->id_cliente, $folio);
+			$this->data['archivos'] 	= $archivos;
+			$this->_vista_completa('cotizacion/modal-archivos-cotizacion');
+		} else {
+			show_404();
+		}
+	}
 }
 
 /* End of file cotizacion.php */

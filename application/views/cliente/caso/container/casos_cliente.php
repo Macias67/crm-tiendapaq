@@ -31,6 +31,7 @@
 												<th>Fecha de apertura</th>
 												<th>Fecha de finalizacion (aprox.)</th>
 												<th>Estatus</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -40,7 +41,7 @@
 													<td><?php echo $caso->razon_social ?></td>
 													<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
 													<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-													<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
+													<td><?php echo ($caso->fecha_final=='1000-01-01 00:00:00') ? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
 													<td>
 														<?php switch ($caso->id_estatus_general) {
 															case 1:
@@ -60,6 +61,7 @@
 															break;
 														} ?>
 													</td>
+													<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('client/casos/detalles/'.$caso->id_caso) ?>"><i class="fa fa-search"></i> Detalles</a></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>
