@@ -914,7 +914,7 @@ var Metronic = function() {
 					$('.block-canvas').fadeIn(500);
 				},
 				removeLoader: function(e) {
-					$('.block-canvas').fadeOut(2000, function() {
+					$('.block-canvas').fadeOut(500, function() {
 						cl.kill();
 						if ($.isFunction(e)) {
 							e();

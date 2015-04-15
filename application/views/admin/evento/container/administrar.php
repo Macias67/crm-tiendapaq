@@ -47,9 +47,9 @@
 										<th width="1%">No.</th>
 										<th width="1%">Ejecutivo</th>
 										<th width="1%">Modalidad</th>
-										<th width="10%">Título</th>
-										<th width="10%">Sesion Próxima</th>
-										<th width="1%">Participantes</th>
+										<th width="30%">Título</th>
+										<th width="20%">Sesion Próxima</th>
+										<th width="1%"><i class="fa fa-users"></i></th>
 										<th width="1%">Estatus</th>
 										<th width="1%"></th>
 										<th width="1%"></th>
@@ -66,6 +66,20 @@
 	</div>
 </div>
 <!-- END CONTENT -->
+<!--AJAX MODAL para Editar una tarea -->
+<div class="modal fade bs-modal-lg" id="ajax_participantes" role="basic" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+				<span>
+				&nbsp;&nbsp;Cargando... </span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END DETALLES MODAL -->
+
 <!-- BEGIN DETALLES MODAL -->
 <div id="ajax-detalles-evento" class="modal fade" role="basic" aria-hidden="true">
 	<div class="page-loading page-loading-boxed">

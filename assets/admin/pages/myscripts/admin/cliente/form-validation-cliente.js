@@ -4,7 +4,7 @@
  */
 var FormValidationCliente = function () {
 
-	// Spinner para la memoria ram
+	// Activar/desactivar cliente
 	var handleSwitch = function () {
 		$('.make-switch').on('switchChange.bootstrapSwitch', function(event, state) {
 			var id = $(this).attr('id-cliente');
