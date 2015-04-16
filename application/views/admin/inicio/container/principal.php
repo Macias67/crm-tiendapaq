@@ -46,10 +46,20 @@
 							<i class="fa fa-search"></i>
 							<div>&nbsp;&nbsp;Catálogo de clientes&nbsp;&nbsp;</div>
 						</a>
-						<!-- Todos Mis Pendientes -->
+						<!-- Mis Pendientes -->
 						<a href="<?php echo site_url('perfil') ?>" class="icon-btn">
 							<i class="fa fa-list"></i>
-							<div>&nbsp;&nbsp;Todos mis pendientes&nbsp;&nbsp;</div>
+							<div>&nbsp;&nbsp;Mis pendientes&nbsp;&nbsp;</div>
+						</a>
+						<!-- Mis Casos -->
+						<a href="<?php echo site_url('casos') ?>" class="icon-btn">
+							<i class="fa fa-list"></i>
+							<div>&nbsp;&nbsp;Mis Casos&nbsp;&nbsp;</div>
+						</a>
+						<!-- Mis Tareas -->
+						<a href="<?php echo site_url('tareas') ?>" id="tareas_pendiente" class="icon-btn">
+							<i class="fa fa-list"></i>
+							<div>&nbsp;&nbsp;Mis Tareas&nbsp;&nbsp;</div>
 						</a>
 						<!-- Gestor de cotizaciones -->
 						<a href="<?php echo site_url('cotizaciones/catalogo') ?>" id="cotizacion_comentada" class="icon-btn">
@@ -88,23 +98,23 @@
 							<i class="fa fa-arrow-circle-o-up"></i>
 							<div>Abrir Caso</div>
 						</a>
-						<!-- Revisión eventos -->
-						<a href="<?php echo site_url('evento/revisar') ?>"  class="icon-btn">
-							<i class="fa fa-list-ul"></i>
-							<div>&nbsp;&nbsp;Eventos&nbsp;&nbsp;</div>
-						</a>
+						<!-- Revision de casos -->
+						<!-- <a href="<?php echo site_url('caso/revisar') ?>"  id="casos_revisar" class="icon-btn">
+							<i class="fa  fa-briefcase"></i>
+							<div>&nbsp;&nbsp;Casos&nbsp;&nbsp;</div>
+						</a> -->
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Pendientes -->
+		<!-- Tablas -->
 		<div class="row">
 			<div class="col-md-7">
 				<div class="col-md-12">
 					<!-- BEGIN TABLA MIS PENDIENTES-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Nuevos pendientes sin atender...</div>
+							<div class="caption"><i class="fa fa-user"></i> Mis nuevos pendientes sin atender...</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
@@ -140,6 +150,12 @@
 					<div class="portlet gren">
 						<div class="portlet-title">
 							<div class="caption"><i class="fa fa-user"></i> Pendientes generales sin atender...</div>
+							<div class="tools">
+								<a href="" class="collapse">
+								</a>
+								<a href="" class="reload">
+								</a>
+							</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="pendientes_grales">
@@ -172,16 +188,16 @@
 					<!-- BEGIN TABLA MIS CASOS-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Mis casos...</div>
+							<div class="caption"><i class="fa fa-user"></i>Casos generales</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_casos">
 								<thead>
 									<tr>
-										<th>No.</th>
+										<th>Folio</th>
 										<th>Cliente</th>
+										<th>Lider</th>
 										<th>Apertura</th>
-										<th>Vigencia (aprox.)</th>
 										<th>Estatus</th>
 										<th></th>
 									</tr>
@@ -189,10 +205,10 @@
 								<tbody>
 								<?php foreach ($casos as $caso): ?>
 									<tr class="odd gradeX">
-										<td><?php echo $caso->id_caso ?></td>
+										<td><?php echo $caso->folio_cotizacion ?></td>
 										<td><?php echo $caso->razon_social ?></td>
+										<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
 										<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-										<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
 										<td>
 											<?php switch ($caso->id_estatus_general) {
 												case 1:
@@ -212,7 +228,7 @@
 												break;
 											} ?>
 										</td>
-										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
+										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/modal/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
 									</tr>
 								<?php endforeach ?>
 								</tbody>
@@ -220,55 +236,6 @@
 						</div>
 					</div>
 					<!-- END TABLA MIS CASOS-->
-					<!-- BEGIN TABLA CASOS GENERALES-->
-					<div class="portlet gren">
-						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Casos generales...</div>
-						</div>
-						<div class="portlet-body">
-							<table class="table table-striped table-bordered table-hover" id="mis_casos_generales">
-								<thead>
-									<tr>
-										<th>No.</th>
-										<th>Ejecutivo</th>
-										<th>Cliente</th>
-										<th>Estatus</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php foreach ($casos_generales as $caso): ?>
-									<tr class="odd gradeX">
-										<td><?php echo $caso->id_caso ?></td>
-										<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
-										<td><?php echo $caso->razon_social ?></td>
-										<td>
-											<?php switch ($caso->id_estatus_general) {
-												case 1:
-													echo '<p class="btn btn-circle btn-circle btn-xs red"> Cancelado </p>';
-												break;
-												case 2:
-													echo '<p class="btn btn-circle btn-xs default"> Cerrado </p>';
-												break;
-												case 3:
-													echo '<p class="btn btn-circle btn-xs green"> Pendiente </p>';
-												break;
-												case 5:
-													echo '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
-												break;
-												case 7:
-													echo '<p class="btn btn-circle btn-xs green"> Reasignado </p>';
-												break;
-											} ?>
-										</td>
-										<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles_generales/'.$caso->id_caso) ?>" data-target="#ajax-casos-generales" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
-									</tr>
-								<?php endforeach ?>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- BEGIN TABLA CASOS GENERALES-->
 				</div>
 			</div>
 			<div class="col-md-5">
@@ -645,17 +612,4 @@
 		</div>
 	</div>
 </div>
-<!-- END DETALLES CASO  MODAL -->
-
-<!-- BEGIN CASO GENERAL MODAL -->
-<div id="ajax-casos-generales" class="modal fade" role="basic" aria-hidden="true">
-	<div class="page-loading page-loading-boxed">
-		<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
-		<span>Cargando... </span>
-	</div>
-	<div class="modal-dialog">
-		<div class="modal-content">
-		</div>
-	</div>
-</div>
-<!-- END CASO GENERAL MODAL -->
+<!-- END DETALLES CASO  MODAL

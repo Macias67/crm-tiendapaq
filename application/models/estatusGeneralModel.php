@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *Modelo para estatus de los casos
  * y pendientes.
@@ -25,10 +25,10 @@ class estatusGeneralModel extends MY_Model {
 	}
 
 	var $CANCELADO	= 1;
-	var $CERRADO	= 2;
+	var $CERRADO		= 2;
 	var $PENDIENTE	= 3;
 	var $PRECIERRE	= 4;
-	var $PROCESO	= 5;
+	var $PROCESO		= 5;
 	var $SUSPENDIDO	= 6;
 	var $REASIGNADO	= 7;
 	var $PORASIGNAR	= 8;

@@ -20,6 +20,42 @@ function fecha_completa($timestamp)
 	return $fecha;
 }
 
+/**
+ * Calculo fecha lmite de inscripcion a un evento
+ *
+ * @return void
+ * @author Luis Macias
+ **/
+function limite_inscripcion_evento($fechahora)
+{
+	$inicio 			= explode(' ', $fechahora);
+	$fecha_inicio 	=  explode('/', $inicio[0]);
+	$fecha_inicio 	=  $fecha_inicio[2].'/'.$fecha_inicio[1].'/'.$fecha_inicio[0];
+	$hora_inicio 	=  $inicio[1].':00 '.$inicio[2];
+	$inicio 			= $fecha_inicio.' '.$hora_inicio;
+	$diferencia		= strtotime($inicio) - (60*60);
+	$fecha 			= date('Y-m-d H:i:s', $diferencia);
+	return $fecha;
+}
+
+/**
+ * Retorna fecha en formato
+ * condia y mes
+ *
+ * @author Luis Macias
+ **/
+function fecha_corta($timestamp)
+{
+	$fecha 			= date('d/m/y', strtotime($timestamp));
+	$hora 			= date('h:i A', strtotime($timestamp));
+	$array_fecha	= explode('/', $fecha);
+	$dia			= $array_fecha[0];
+	$mes			= $array_fecha[1];
+	$ano			= $array_fecha[2];
+	$fecha			= $dia.'/'.$mes.'/'.$ano;
+	return $fecha;
+}
+
 function fecha_formato($date)
 {
 	$fecha 			= date('d/n/Y', strtotime($date));

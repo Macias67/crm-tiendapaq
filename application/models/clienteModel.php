@@ -4,7 +4,7 @@
  *
  * @author Diego Rodriguez | Luis Macias
  **/
-class ClienteModel extends TxtManager {
+class Clientemodel extends TxtManager {
 
 	/**
 	 * Nombre de la tabla a conectarse
@@ -50,26 +50,26 @@ class ClienteModel extends TxtManager {
 			$this->basica_cliente->tipo			= 'prospecto';
 		}
 
-		$this->basica_cliente->razon_social	= $data['razon_social'];
-		$this->basica_cliente->email			= $data['email'];
-		$this->basica_cliente->telefono1		= $data['telefono1'];
+		$this->basica_cliente->razon_social	= trim(strtoupper($data['razon_social']));
+		$this->basica_cliente->email			= trim(strtolower($data['email']));
+		$this->basica_cliente->telefono1		= trim($data['telefono1']);
 		$this->basica_cliente->usuario			= $data['usuario'];
 		$this->basica_cliente->password		= $data['password'];
 
 		// Si el cliente es diferente a prospecto, capturo todos los datos
 		if ($tipo != 'prospecto') {
-			$this->basica_cliente->rfc				= $data['rfc'];
+			$this->basica_cliente->rfc				= trim(strtoupper($data['rfc']));
 			$this->basica_cliente->tipo			= $data['tipo'];
-			$this->basica_cliente->calle			= $data['calle'];
-			$this->basica_cliente->no_exterior	= $data['no_exterior'];
-			$this->basica_cliente->no_interior		= $data['no_interior'];
-			$this->basica_cliente->colonia			= $data['colonia'];
-			$this->basica_cliente->codigo_postal	= $data['codigo_postal'];
-			$this->basica_cliente->ciudad			= $data['ciudad'];
-			$this->basica_cliente->municipio		= $data['municipio'];
+			$this->basica_cliente->calle			= trim(ucwords(strtolower($data['calle'])));
+			$this->basica_cliente->no_exterior	= trim(strtoupper($data['no_exterior']));
+			$this->basica_cliente->no_interior		= trim(strtoupper($data['no_interior']));
+			$this->basica_cliente->colonia			= trim(ucwords(strtolower($data['colonia'])));
+			$this->basica_cliente->codigo_postal	= trim($data['codigo_postal']);
+			$this->basica_cliente->ciudad			= trim(ucwords(strtolower($data['ciudad'])));
+			$this->basica_cliente->municipio		= trim(ucwords(strtolower($data['municipio'])));
 			$this->basica_cliente->estado			= $data['estado'];
 			$this->basica_cliente->pais			= $data['pais'];
-			$this->basica_cliente->telefono2		= $data['telefono2'];
+			$this->basica_cliente->telefono2		=  trim($data['telefono2']);
 		}
 
 		return $this->basica_cliente;
@@ -234,13 +234,14 @@ class ClienteModel extends TxtManager {
 	 **/
 	public function password()
 	{
-		$cadena="[^A-Z0-9]";
-		return substr(
-				preg_replace($cadena, "", md5(rand())) .
-				preg_replace($cadena, "", md5(rand())) .
-				preg_replace($cadena, "", md5(rand())),
-				0, rand(8, 10)
-			);
+		// $cadena="[^A-Z0-9]";
+		// return substr(
+		// 		preg_replace($cadena, "", md5(rand())) .
+		// 		preg_replace($cadena, "", md5(rand())) .
+		// 		preg_replace($cadena, "", md5(rand())),
+		// 		0, rand(8, 10)
+		// 	);
+		return '12345';
 	}
 
 	/**

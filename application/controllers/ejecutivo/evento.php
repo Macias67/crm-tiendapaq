@@ -1,397 +1,420 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Controlador para la seccion
- * de eventos y funciones
- * para el mismo.
- *
- * @author Julio Trujillo
- **/
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Evento extends AbstractAccess {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('upload');
-		// Cargo libreria manejo de imagen
-		$this->load->library('image_lib');
-		$this->load->library('form_validation');
-		$this->load->model('eventoModel');
-		$this->load->helper('formatofechas_helper');
-		$this->load->model('ejecutivoModel');
-		$this->load->model('sesionesModel');
-		$this->load->helper('date');
-		$this->load->model('oficinasModel');
-	}
-
-	// public function index()
-	// {
-	// $this->load->model('ejecutivoModel');
-	// // Nombre de ejecutivos
-	// $this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-	// 	array('id','primer_nombre', 'apellido_paterno'),
-	// 	'privilegios',
-	// 	array('soporte', 'admin'),
-	// 	'primer_nombre');
-
-	// $this->_vista('form-nuevo-evento');
-	// }
-
-	private function _crearFecha($fecha_editar)
-	{
-		// creo la fecha a inserta en la base de datos
-		if ($fecha_editar[fecha]!=null) {
-			$mostrar1= explode(" ", $fecha_editar[fecha]);
-			switch ($mostrar1[1]) {
-				case 'January':
-				$mes="01";
-				break;
-				case 'February':
-				$mes="02";
-				break;
-				case 'March':
-				$mes="03";
-				break;
-				case 'April':
-				$mes="04";
-				break;
-				case 'May':
-				$mes="05";
-				break;
-				case 'June':
-				$mes="06";
-				break;
-				case 'July':
-				$mes="07";
-				break;
-				case 'August':
-				$mes="08";
-				break;
-				case 'September':
-				$mes="09";
-				break;
-				case 'October':
-				$mes="10";
-				break;
-				case 'November':
-				$mes="11";
-				break;
-				case 'December':
-				$mes="12";
-				break;
-				default:
-				# code...
-				break;
-			}
-			$fecha1=$mostrar1[2]."-".$mes."-".$mostrar1[0]." ".$mostrar1[4].":00";
-			return $fecha1;
-		}else{
-			# code...
-		}
-	}
-
-	public function index()
-	{
-		$this->_vista('form-nuevo-evento');
+		$this->load->model('eventomodel');
 	}
 
 	/**
-	 * Muestra la vista para los
-	 * eventos
-	 * @author Julio Trujillo
+	 * Funcion para mostrar la vista que
+	 * organiza los eventos por haber
+	 *
+	 * @return void
+	 * @author 
 	 **/
-	public function revisar()
-	{
-		// Cargo la librería para las fechas
-		$this->load->helper('formatofechas_helper');
-
-		$this->data['eventos_revision'] = $this->eventoModel->get_evento_revision(
-			array(
-				'eventos.id_evento',
-				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno',
-				'eventos.titulo',
-				'eventos.fecha_creacion'
-			));
+	public function index() {
 		$this->_vista('administrar');
 	}
 
 	/**
-	 * Función para mostrar ventana modal
-	 * con informacion detallada
-	 * sobre un evento.
-	 * @author  Julio Trujillo
+	 * Funcion que muestra la vista
+	 * del formulario nuevo
+	 *
+	 * @return void
+	 * @author 
 	 **/
-	public function detalles($id_evento)
+	public function nuevo($exito = null)
 	{
-		// Cargo la librería para las fechas
-		$this->load->helper('formatofechas_helper');
+		$this->load->model('ejecutivoModel');
+		$this->load->model('oficinasModel');
+		$this->load->helper('form');
+		// Creo options de ejecutivos
+		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+		$options_ejecutivos = array('' => '');
+		foreach ($ejecutivos as $index => $ejecutivo) {
+			$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
+		}
+		// Creo options de oficinas
+		$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
+		$options_oficinas = array('' => '');
+		foreach ($oficinas as $index => $oficina) {
+			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
+		}
 
-		$this->data['evento'] = $this->eventoModel->get_evento_revision(
-			array(
-				'eventos.id_evento',
-				'ejecutivos.primer_nombre',
-				'ejecutivos.apellido_paterno',
-				'eventos.titulo',
-				'eventos.fecha_evento',
-				'eventos.fecha_creacion',
-				'eventos.descripcion',
-				'eventos.temario',
-				'eventos.sesiones',
-				'eventos.hora',
-				'eventos.duracion',
-				'eventos.costo',
-			));
-
-		$this->_vista_completa('evento/modal-detalles-evento');
+		$this->data['options_ejecutivos'] 	= $options_ejecutivos;
+		$this->data['options_oficinas'] 	= $options_oficinas;
+		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
+		$this->_vista('nuevo-evento');
 	}
 
 	/**
-	 * funcion para crear
-	 * y gestionar
-	 * eventos
-	 * @author  David
+	 * Funcion para agregar a la BD y manipular
+	 * el archivo que se subio
+	 *
+	 * @return void
+	 * @author Luis Macias
 	 **/
-	public function gestionar($accion=null, $id_evento=null)
+	public function create()
 	{
-		switch ($accion)
+		//cargo la libreria de las validaciones
+		$this->load->library('form_validation');
+		//Datos basicos
+		$this->form_validation->set_rules('ejecutivo', 'Ejecutivo', 'trim|required|integer|xss_clean');
+		$this->form_validation->set_rules('titulo', 'Título', 'trim|required|strtolower|ucfirst|max_length[100]|xss_clean');
+		$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('costo', 'Costo', 'trim|required|decimal|xss_clean');
+		$this->form_validation->set_rules('cupo', 'Max. Cupo', 'trim|required|integer|xss_clean');
+		$this->form_validation->set_rules('lugar', 'Lugar', 'trim|required|xss_clean');
+
+		$lugar 	= $this->input->post('lugar');
+
+		if ($lugar == 'online')
 		{
-			case 'nuevo':
-				$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-				array('id','primer_nombre', 'apellido_paterno'));
+			$this->form_validation->set_rules('link', 'Link', 'trim|required|strtolower|valid_url|prep_url|xss_clean');
+		} else if($lugar == 'sucursal')
+		{
+			$this->form_validation->set_rules('sucursal', 'Oficinas', 'trim|required|integer|xss_clean');
+		} else if($lugar == 'otro')
+		{
+			$this->form_validation->set_rules('otro', 'Dirección', 'trim|required|strtolower|ucfirst|xss_clean');
+		}
 
-				$this->data['oficinas'] = $this->oficinasModel->where_in(
-				array('id_oficina','ciudad_estado', 'ciudad', 'estado',
-				 'colonia', 'calle', 'numero', 'email', 'telefono'));
-				$this->_vista('form-nuevo-evento');
-			break;
+		$this->form_validation->set_rules('userfile', 'Temario', 'file_required|file_size_min[10KB]|file_size_max[2MB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1601,1601]');
+		$this->form_validation->set_rules('sesion1', 'Sesión 1', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('dsesion1', 'Duración Sesion 1', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('sesion2', 'Sesión 2', 'trim|xss_clean');
+		$this->form_validation->set_rules('dsesion2', 'Duración Sesion 2', 'trim|xss_clean');
+		$this->form_validation->set_rules('sesion3', 'Sesión 3', 'trim|xss_clean');
+		$this->form_validation->set_rules('dsesion3', 'Duración Sesion 3', 'trim|xss_clean');
+		$this->form_validation->set_rules('sesion4', 'Sesión 4', 'trim|xss_clean');
+		$this->form_validation->set_rules('dsesion4', 'Duración Sesion 1', 'trim|xss_clean');
 
-			case 'editar':
-				$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
-				if (!empty($evento))
+		// Validamos formulario
+		if ($this->form_validation->run() === FALSE)
+		{
+			$this->load->model('ejecutivoModel');
+			$this->load->model('oficinasModel');
+			$this->load->helper('form');
+			// Creo options de ejecutivos
+			$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+			$options_ejecutivos = array('' => '');
+			foreach ($ejecutivos as $index => $ejecutivo) {
+				$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
+			}
+			// Creo options de oficinas
+			$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
+			$options_oficinas = array('' => '');
+			foreach ($oficinas as $index => $oficina) {
+				$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
+			}
+
+			$this->data['options_ejecutivos'] 	= $options_ejecutivos;
+			$this->data['options_oficinas'] 	= $options_oficinas;
+			$this->_vista('nuevo-evento');
+		} else {
+			// Preparo informacion de sesiones
+			$sesion1 = $this->input->post('sesion1');
+			$sesion2 = $this->input->post('sesion2');
+			$sesion3 = $this->input->post('sesion3');
+			$sesion4 = $this->input->post('sesion4');
+			$sesiones = array($sesion1,$sesion2,$sesion3,$sesion4);
+			$total_sesiones = array();
+			for ($i=0; $i < count($sesiones); $i++) {
+				if (!empty($sesiones[$i])) {
+					$sesion = array();
+					$rango 	= explode('-', $sesiones[$i]);
+					$inicio 	= explode(' ', $rango[0]);
+					$fin 	= explode(' ', trim($rango[1]));
+					$fecha_inicio 	=  explode('/', $inicio[0]);
+					$fecha_inicio 	=  $fecha_inicio[2].'/'.$fecha_inicio[1].'/'.$fecha_inicio[0];
+					$hora_inicio 	=  $inicio[1].':00 '.$inicio[2];
+					$inicio 			= $fecha_inicio.' '.$hora_inicio;
+					$inicio		= date('Y-m-d H:i:s',strtotime($inicio));
+
+					$fecha_fin 		=  explode('/', $fin[0]);
+					$fecha_fin 		=  $fecha_fin[2].'/'.$fecha_fin[1].'/'.$fecha_fin[0];
+					$hora_fin 		=  $fin[1].':00 '.$fin[2];
+					$fin 			= $fecha_fin.' '.$hora_fin;
+					$fin			= date('Y-m-d H:i:s',strtotime($fin));
+					$sesion = array(
+									'fecha_inicio' 	=> $inicio,
+									'fecha_final' 	=> $fin,
+									'duracion' 		=> $this->input->post('dsesion'.($i+1)));
+					array_push($total_sesiones, $sesion);
+				}
+			}
+			// Preparo informacion del evento
+			$evento = array(
+			              'id_ejecutivo' 		=> $this->input->post('ejecutivo'),
+			              'titulo' 				=> $this->input->post('titulo'),
+			              'descripcion' 		=> $this->input->post('descripcion'),
+			              'fecha_creacion' 	=> date('Y-m-d H:i:s'),
+			              'fecha_limite' 		=> $this->limite($sesion1),
+			              'costo' 				=> (float)$this->input->post('costo'),
+			              'max_participantes' => (int)$this->input->post('cupo'),
+			              'sesiones' 			=> count($total_sesiones),
+			              'modalidad' 			=> $this->input->post('lugar'),
+			);
+
+			$modalidad = $this->input->post('lugar');
+			if ($modalidad == 'online') {
+				$evento['link'] = $this->input->post('link');
+			} else if($modalidad == 'sucursal') {
+				$evento['id_oficina'] = $this->input->post('sucursal');
+			} else if($modalidad == 'otro') {
+				$evento['direccion'] = $this->input->post('otro');
+			}
+
+			// Armo la ruta donde guardare la imagen a subir
+			$ruta = 'assets/admin/pages/media/eventos/tmp/';
+			$tmp_name = 'evento_'.$this->usuario_activo['id'].'.jpg';
+			//Si no existe directorio lo creo
+			if (!is_dir($ruta))
+			{
+				mkdir($ruta, 0777, TRUE);
+			}
+			//Configuracion para la subida del archivo
+			$config_upload['upload_path']		= $ruta;
+			$config_upload['allowed_types']	= 'jpg|JPG';
+			$config_upload['overwrite'] 		= TRUE;
+			$config_upload['file_name']		= $tmp_name;
+			$config_upload['max_size']			= 2048;
+			$config_upload['remove_spaces']	= TRUE;
+			// Cargo la libreria upload y paso configuracion
+			$this->load->library('upload', $config_upload);
+			//SI NO se sube la imagen
+			if (!$this->upload->do_upload())
+			{
+				$this->load->model('oficinasModel');
+				$this->load->helper('form');
+				// Creo options de ejecutivos
+				$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+				$options_ejecutivos = array('' => '');
+				foreach ($ejecutivos as $index => $ejecutivo) {
+					$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
+				}
+				// Creo options de oficinas
+				$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
+				$options_oficinas = array('' => '');
+				foreach ($oficinas as $index => $oficina) {
+					$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
+				}
+
+				$this->data['options_ejecutivos'] 	= $options_ejecutivos;
+				$this->data['options_oficinas'] 	= $options_oficinas;
+				// Envio a la variable los errores de subida
+				$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error de subida: </strong>
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>','</div>');
+				$this->load->model('ejecutivoModel');
+				$this->_vista('nuevo-evento');
+			} else
+			{
+				// Cargo libreria manejo de imagen
+				$this->load->library('image_lib');
+				// Paso datos de la subida del archivo
+				$upload_data = $this->upload->data();
+				// Si la imagen es mas de 800px se redimenciona
+				if ($upload_data['image_width'] > 800 || $upload_data['image_height'] > 800)
+			  	{
+					// Configuracion para el recorte
+					$config_resize['image_library']		= 'gd2';
+					$config_resize['source_image']	= $upload_data['full_path'];
+					$config_resize['maintain_ratio']	= TRUE;
+					$config_resize['width']				= 800;
+					$config_resize['height']			= 800;
+					$this->image_lib->clear();
+					$this->image_lib->initialize($config_resize);
+					$this->image_lib->resize();
+				}
+				// Empiezo a escribir en la base de datos
+				// Evento
+				$id_evento = $this->eventomodel->get_last_id_after_insert($evento);
+				// Muevo imagen de temario
+				$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/';
+				//Si no existe directorio lo creo
+				if (!is_dir($ruta_nueva))
 				{
-					// Datos a enviar a la vista
-					$this->data['evento']				= $evento;
-					$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(
-					array('id','primer_nombre', 'apellido_paterno'),
-					'privilegios',
-					array('soporte', 'admin'),
-					'primer_nombre');
-					$this->_vista('editar-evento');
-				} else
-				{
-					show_error('No existe este evento.', 404);
+					mkdir($ruta_nueva, 0777, TRUE);
 				}
-			break;
+				rename($ruta.$tmp_name, $ruta_nueva.'temario.jpg');
 
-			case 'eliminar':
-				$id = $this->input->post('id');
-				/**
-				 * Si exsite una cotizacion o pendiente ligada a este ID de cliente entonces
-				 * NO procede a eliminarse, solo a desactivar su identidad
-				 * en la aplicacion y en las busquedas
-				 */
-				$this->load->model('cotizacionModel');
-				$this->load->model('pendienteModel');
-				// Si NO hay cotizacion
-				if (!$this->pendienteModel->exist(array('id_cliente' => $id)) || !$this->cotizacionModel->exist(array('id_cliente' => $id))) {
-					if ($this->clienteModel->delete(array('id' => $id))) {
-						$response = array('exito' => TRUE, 'mensaje' => 'El cliente se ha eliminado de la base de datos.');
-					}
-				} else {
-					$response = array('exito' => FALSE, 'mensaje' => 'El cliente tiene pendientes o cotizaciones ligadas, por lo tanto solo será desactivado.');
+				// Sesiones
+				$this->load->model('sesionmodel');
+				foreach ($total_sesiones as $index => $sesion) {
+					$sesion['id_evento'] = $id_evento;
+					$this->sesionmodel->insert($sesion);
 				}
-				$this->output->set_content_type('application/json')->set_output(json_encode($response));
-				break;
+				redirect('evento/nuevo/exito');
+			}
 
-			case 'activar':
-				$id 			= $this->input->post('id');
-				$selected 	= $this->input->post('selected');
-				$activo 	= ($selected == 'true') ? 1 : 0;
-				$mensaje	= ($selected == 'true') ? '<h4>El cliente podrá acceder al sistema y aparecerá en los buscadores.</h4>' : '<h4>El cliente ya <b>NO</b> podrá acceder al sistema y desaparecerá de los buscadores del sistema.</h4>';
-				if ($this->clienteModel->update(array('activo' => $activo), array('id' => $id))) {
-					$response = array('exito' => TRUE, 'mensaje' => $mensaje);
-				}
-				$this->output
-					->set_content_type('application/json')
-					->set_output(json_encode($response));
-				break;
-
-			default:
-				$this->data['clientes'] = $this->clienteModel->get(array('*'));
-				$this->_vista('gestionar');
-			break;
 		}
 	}
 
-	public function nuevo ()
+	/**
+	 * Funcion para obtener los eventos de manera de JSON
+	 * con formato para el DataTable
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function json_eventos()
 	{
-		//reglas de evento
-		$this->form_validation->set_rules('ejecutivos', 'Ejecutivo', 'strtolower|xss_clean');
-		$this->form_validation->set_rules('titulo', 'Titulo', 'required|max_length[100]|xss_clean');
-		$this->form_validation->set_rules('descripcion', 'Descripcion', 'required|max_length[65536]|xss_clean');
-		// $this->form_validation->set_rules('temario', 'Temario', 'required|max_length[65536]|xss_clean');
-		$this->form_validation->set_rules('costo', 'Costo', 'max_length[6]|xss_clean');
-		$this->form_validation->set_rules('sesion_1', 'Sesion1', 'xss_clean');
-		$this->form_validation->set_rules('sesion_2', 'Sesion2', 'xss_clean');
-		$this->form_validation->set_rules('sesion_3', 'Sesion3', 'xss_clean');
-		$this->form_validation->set_rules('sesion_4', 'Sesion4', 'xss_clean');
+		$draw			= $this->input->post('draw');
+		$start			= $this->input->post('start');
+		$length		= $this->input->post('length');
+		$order			= $this->input->post('order');
+		$columns		= $this->input->post('columns');
+		$search		= $this->input->post('search');
+		$total			=  $this->eventomodel->get('COUNT(*) as total', null, null, 1);
 
-		if($this->form_validation->run() === FALSE)
+		if($length == -1)
 		{
-			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
-		} else
-		{
-			$hoy = getdate();
-			$hoy = date("Y:m:d H:i:s");
-			if ($this->input->post('url')!=null) {
-				$modalidad="online";
-			}
-			if ($this->input->post('oficina2')!=null) {
-				$modalidad="sucursal";
-			}
-			if ($this->input->post('direccion')!=null) {
-				$modalidad="otro";
-			}
-			if ($this->input->post('url')!=null) {
-				//si las reglas son correctas preparo los datos para insertar
-				$evento = array(
-					'id_evento'				=>$this->input->post(''),
-					'id_ejecutivo'			=> $this->input->post('ejecutivo'),
-					'titulo'				=> $this->input->post('titulo'),
-					'descripcion'			=> $this->input->post('descripcion'),
-					'fecha_creacion'		=> $hoy,
-					'costo'					=> $this->input->post('costo'),
-					'max_participantes'		=> $this->input->post('max_participantes'),
-					'sesiones'				=> $this->input->post(''),
-					'modalidad'				=> $modalidad,
-					'link'					=> $this->input->post('url'),
-					'total_participantes'	=> $this->input->post('')
-				);
-			}
-			if ($this->input->post('oficina2')!=null) {
-				//si las reglas son correctas preparo los datos para insertar
-				$evento = array(
-					'id_evento'				=>$this->input->post(''),
-					'id_ejecutivo'			=> $this->input->post('ejecutivo'),
-					'id_oficina'			=> $this->input->post('oficina2'),
-					'titulo'				=> $this->input->post('titulo'),
-					'descripcion'			=> $this->input->post('descripcion'),
-					'fecha_creacion'		=> $hoy,
-					'costo'					=> $this->input->post('costo'),
-					'max_participantes'		=> $this->input->post('max_participantes'),
-					'sesiones'				=> $this->input->post(''),
-					'modalidad'				=> $modalidad,
-					'total_participantes'	=> $this->input->post('')
-				);
-			}
-			if ($this->input->post('direccion')!=null) {
-				//si las reglas son correctas preparo los datos para insertar
-				$evento = array(
-					'id_evento'				=>$this->input->post(''),
-					'id_ejecutivo'			=> $this->input->post('ejecutivo'),
-					'titulo'				=> $this->input->post('titulo'),
-					'descripcion'			=> $this->input->post('descripcion'),
-					'fecha_creacion'		=> $hoy,
-					'costo'					=> $this->input->post('costo'),
-					'max_participantes'		=> $this->input->post('max_participantes'),
-					'sesiones'				=> $this->input->post(''),
-					'modalidad'				=> $modalidad,
-					'total_participantes'	=> $this->input->post(''),
-					'direccion'				=> $this->input->post('direccion')
-				);
-			}
-			//Inserto en la BD el nuevo evento
-			if($this->eventoModel->insert($evento))
-			{
-				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Nuevo evento añadido con éxito.</h4>.');
-			} else
-			{
-				$respuesta = array('exito' => FALSE, 'msg' => 'No se agrego, error en la insercion de evento, revisa la consola o la base de datos para detalles');
-			}
-			// 	obtengo el ultimo id_evento insertado
-			// 	comprueba cual es el id_evento mas grande insertado
-			// 	la variable id guarda el id_evento.
-			$rs = mysql_query("SELECT MAX(id_evento) AS id FROM eventos");
-			if ($row = mysql_fetch_row($rs)) {
-				$id = trim($row[0]);
-			}
-			// // el temario sera una imagen
-			// // creare un directorio para guardar
-			// // las imagenes, cada
-			// // evento (id_evento) tendra su propia carpeta
-			// // la ruta sera construida con lo antes mensionado.
-			// // if (file_exists("C:/wamp/www/crm-tiendapaq/eventos")) {
-			// // 	} else {
-			// // 		mkdir("C:/wamp/www/crm-tiendapaq/eventos", 0777, TRUE);
-			// // 	}
-			// // 	if (file_exists("C:/wamp/www/crm-tiendapaq/eventos/$id")) {
-			// // 	} else {
-			// // 		mkdir("C:/wamp/www/crm-tiendapaq/eventos/$id", 0777, TRUE);
-			// // 	}
-			// 	// $id_activo			= $id;
-			// 	// $ruta				= 'C:/wamp/www/crm-tiendapaq/eventos/';
-			// 	// $ruta_completa	= $ruta.$id_activo.'/';
-			// 	// $config_upload['upload_path']		= $ruta_completa;
-			// 	// $config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-			// 	// $config_upload['overwrite'] 		= TRUE;
-			// 	// $config_upload['file_name']		= $id.'perfil.jpg';
-			// 	// $config_upload['max_size']			= 2048;
-			// 	// $config_upload['remove_spaces']	= TRUE;
-			// 	// // Cargo la libreria upload y paso configuracion
-			// 	// $this->load->library('upload', $config_upload);
-			// 	// $this->upload->do_upload();
+			$length	= null;
+			$start		= null;
+		}
+		$campos = array(
+	                			'distinct(eventos.id_evento) as id_event',
+						'id_ejecutivo',
+						'id_oficina',
+						'titulo',
+						'modalidad',
+						'eventos.id_estatus as estatus',
+						'(SELECT COUNT(`participantes`.`id`) from `participantes`  where `participantes`.`id_evento` = `eventos`.`id_evento`) AS `participantes`',
+						// ejecutivos
+						'ejecutivos.primer_nombre as ejecutivo',
+						'ejecutivos.apellido_paterno',
+						// sesion
+						'(SELECT MIN(`sesiones`.`fecha_inicio`) from `sesiones` where `sesiones`.`id_evento` = `eventos`.`id_evento`) AS `primera_sesion`'
+						);
+		$joins 			= array('ejecutivos', 'sesiones', 'estatus_general');
+		$like 			= $search['value'];
+		$orderBy 		= $columns[$order[0]['column']]['data'];
+		$orderForm 	= $order[0]['dir'];
+		$limit 			= $length;
+		$offset 		= $start;
+		$eventos	= $this->eventomodel->get_eventos_table(
+		                                                                     $campos,
+		                                                                     $joins,
+		                                                                     $like,
+		                                                                     $orderBy,
+		                                                                     $orderForm,
+		                                                                     $limit,
+		                                                                     $offset);
+		// var_dump($eventos);
+		$proceso	= array();
+		$this->load->model('estatusGeneralModel');
+		$this->load->helper('formatofechas');
+		$this->load->helper('estatus');
+		foreach ($eventos as $index => $evento) {
+			$p = array(
+				'DT_RowId'					=> $evento->id_event,
+				'id_event'					=> $evento->id_event,
+				'ejecutivo'					=> $evento->ejecutivo.' '.$evento->apellido_paterno,
+				'modalidad'					=> ucfirst($evento->modalidad),
+				'titulo'						=> $evento->titulo,
+				'fecha_inicio'				=> fecha_completa($evento->primera_sesion),
+				'participantes'				=> $evento->participantes,
+				'estatus'					=> id_estatus_gral_to_class_html($evento->estatus),
+				'url_modal_participantes'	=> site_url('/evento/modal/participantes/'.$evento->id_event),
+				'url_editar'					=> site_url('/evento/editar/'.$evento->id_event),
+			       );
+			array_push($proceso, $p);
+		}
+		$data = array(
+			'draw'				=> $draw,
+			'recordsTotal'		=> count($eventos),
+			'recordsFiltered'	=> $total[0]->total,
+			'data'				=> $proceso);
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+	}
 
-			$sesiones1=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'			=>$this->input->post('sesion_1'),
-				'duracion'		=>$this->input->post('duracion_1')
-			);
-			$sesiones2=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'			=>$this->input->post('sesion_2'),
-				'duracion'		=>$this->input->post('duracion_2')
-			);
-			$sesiones3=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'			=>$this->input->post('sesion_3'),
-				'duracion'		=>$this->input->post('duracion_3')
-			);
-			$sesiones4=array(
-				'id_sesiones'	=>$this->input->post(''),
-				'id_evento'		=>$id,
-				'fecha'			=>$this->input->post('sesion_4'),
-				'duracion'		=>$this->input->post('duracion_4')
-			);
+	public function modal($accion)
+	{
+		$id_evento = $this->uri->segment(4);
+		switch ($accion) {
+			case 'participantes':
+				$this->load->model('participantesmodel');
+				$participantes 					= $this->participantesmodel->mostrar_participantes($id_evento);
+				$this->data['participantes'] 	= $participantes;
+				$this->_vista_completa('evento/participantes');
+				break;
+		}
+	}
 
-			if ($sesiones1[fecha]!=null)
-			{
-				$sesiones1[fecha]=$this->_crearFecha($sesiones1);
-				$this->sesionesModel->insert($sesiones1);
-			}
-			if ($sesiones2[fecha]!=null)
-			{
-				$sesiones2[fecha]=$this->_crearFecha($sesiones2);
-				$this->sesionesModel->insert($sesiones2);
-			}
-			if ($sesiones3[fecha]!=null)
-			{
-				$sesiones3[fecha]=$this->_crearFecha($sesiones3);
-				$this->sesionesModel->insert($sesiones3);
-			}
-			if ($sesiones4[fecha]!=null)
-			{
-				$sesiones4[fecha]=$this->_crearFecha($sesiones4);
-				$this->sesionesModel->insert($sesiones4);
-			}
+	/**
+	 * Calculo la duracion de horas
+	 * en una sesion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function duracion()
+	{
+		if($this->input->is_ajax_request()) {
+			$rango 	= $this->input->post('rango');
+			$rango 	= explode('-', $rango);
+			$inicio 	= explode(' ', $rango[0]);
+			$fin 	= explode(' ', trim($rango[1]));
 
-			//mando la repuesta
+			$fecha_inicio 	=  explode('/', $inicio[0]);
+			$fecha_inicio 	=  $fecha_inicio[2].'/'.$fecha_inicio[1].'/'.$fecha_inicio[0];
+			$hora_inicio 	=  $inicio[1].':00 '.$inicio[2];
+			$inicio 			= $fecha_inicio.' '.$hora_inicio;
+
+			$fecha_fin 		=  explode('/', $fin[0]);
+			$fecha_fin 		=  $fecha_fin[2].'/'.$fecha_fin[1].'/'.$fecha_fin[0];
+			$hora_fin 		=  $fin[1].':00 '.$fin[2];
+			$fin 			= $fecha_fin.' '.$hora_fin;
+
+			$diferencia		= strtotime($fin) - strtotime($inicio);
+			$horas			= floor($diferencia/(60*60)); // horas
+			$minutos		= floor(($diferencia%(60*60))/60); // minutos
+			$minutos		= ($minutos == 0) ? '00': $minutos;
+			$duracion 		= ($horas == 1 && $minutos == '00') ? $horas.':'.$minutos.' hora aprox.' : $horas.':'.$minutos.' horas aprox.';
+
 			$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode($respuesta));
+				->set_output(json_encode(array(
+				             'duracion' 	=> $duracion,
+				              'valor' 		=> $horas.':'.$minutos
+				             )));
+		}
+	}
+
+	/**
+	 * Calcula el limite de inscipcion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function limite($rango = null)
+	{
+		$this->load->helper('formatofechas');
+		if($this->input->is_ajax_request()) {
+			$rango 	= $this->input->post('rango');
+			$rango 	= explode('-', $rango);
+			$fecha = limite_inscripcion_evento($rango[0]);
+			$limite 	= fecha_completa($fecha);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(array('limite' => $limite)));
+		} else {
+			if (!is_null($rango)) {
+				$rango 	= explode('-', $rango);
+				$fecha = limite_inscripcion_evento($rango[0]);
+
+				return $fecha;
+			}
 		}
 	}
 }
-?>
+
+/* End of file evento.php */
+/* Location: ./application/controllers/evento.php */

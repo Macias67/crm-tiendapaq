@@ -38,6 +38,54 @@ class CotizacionModel extends MY_Model {
 	}
 
 	/**
+	 * Funcion para obtener la url de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function get_url_cotizacion($id_cliente, $folio)
+	{
+		$dir_root	= site_url('/clientes/'.$id_cliente.'/cotizacion').'/';
+		$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+		$path		= $dir_root.$name;
+		return $path;
+	}
+
+	/**
+	 * Funcion para obtener los archivos
+	 * de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function get_files_cotizacion($id_cliente, $folio)
+	{
+		$this->load->helper('directory');
+		$this->load->helper('file');
+		$ruta = '/clientes/'.$id_cliente.'/comprobantes/'.$folio.'/';
+		$archivos = directory_map('.'.$ruta, 1);
+
+		if($archivos) {
+			$imagenes 		= array();
+			$thumbnails 	= array();
+			$pdfs 			= array();
+			// Descarto la carpeta de las thumnail
+			foreach ($archivos as $index => $archivo) {
+				$tipo = explode("/", get_mime_by_extension($archivos[$index]));
+				if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
+					array_push($imagenes, site_url('/clientes/'.$id_cliente.'/comprobantes/'.$folio.'/'.$archivos[$index]));
+					array_push($thumbnails, site_url('/clientes/'.$id_cliente.'/comprobantes/'.$folio.'/thumbnail/'.$archivos[$index]));
+				} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
+					array_push($pdfs, site_url('/clientes/'.$id_cliente.'/comprobantes/'.$folio.'/'.$archivos[$index]));
+				}
+			}
+			$archivos = array('imagenes' => $imagenes, 'thumbnails' => $thumbnails, 'pdfs' => $pdfs);
+		}
+
+		return $archivos;
+	}
+
+	/**
 	 * undocumented function
 	 *
 	 * @return Array Object

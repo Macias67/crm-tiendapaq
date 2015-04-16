@@ -28,6 +28,13 @@ var FakeRealTime = function() {
 			} else {
 				$('#casos_asignar span').remove();
 			}
+
+			// Tareas pendiente
+			if (response.tareas_pendiente >= 1) {
+				$('#tareas_pendiente').append('<span class="badge badge-danger">'+response.tareas_pendiente+'</span>');
+			} else {
+				$('#tareas_pendiente span').remove();
+			}
 			setTimeout(actualizaCotizacionesEnviadas, 1000);
 		});
 	};

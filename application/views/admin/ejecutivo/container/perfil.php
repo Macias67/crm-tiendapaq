@@ -96,7 +96,7 @@
 										</ul>
 										<div class="tab-content">
 											<!-- TAB PENDIENTES -->
-											<div class="tab-pane active" id="tab_pendientes">
+											<div class="tab-pane active" id="tab_pendientes" id-ejecutivo="<?php echo $id_ejecutivo ?>">
 												<table class="table table-striped table-bordered table-hover" id="pendientes-ejecutivo">
 													<thead>
 														<tr>
@@ -108,7 +108,7 @@
 															<th></th>
 														</tr>
 													</thead>
-													<tbody>
+													<!-- <tbody>
 														<?php foreach ($pendientes_usuario as $pendiente): ?>
 															<tr class="odd gradeX">
 																<td><?php echo $pendiente->id_pendiente ?></td>
@@ -139,15 +139,15 @@
 																</td>
 															</tr>
 														<?php endforeach ?>
-													</tbody>
+													</tbody> -->
 												</table>
 											</div>
 											<!-- INICIO TAB CASOS-->
-											<div class="tab-pane" id="tab_casos">
+											<div class="tab-pane" id="tab_casos" id-ejecutivo="<?php echo $id_ejecutivo ?>">
 												<table class="table table-striped table-bordered table-hover" id="casos-ejecutivo">
 													<thead>
 														<tr>
-															<th>No.</th>
+															<th width="1%">Folio</th>
 															<th>Cliente</th>
 															<th>Apertura</th>
 															<th>Vigencia (aprox.)</th>
@@ -155,36 +155,6 @@
 															<th></th>
 														</tr>
 													</thead>
-													<tbody>
-														<?php foreach ($casos as $caso): ?>
-															<tr class="odd gradeX">
-																<td><?php echo $caso->id_caso ?></td>
-																<td><?php echo $caso->razon_social ?></td>
-																<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-																<td><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
-																<td>
-																	<?php switch ($caso->id_estatus_general) {
-																		case 1:
-																			echo '<p class="btn btn-circle btn-circle btn-xs red"> Cancelado </p>';
-																		break;
-																		case 2:
-																			echo '<p class="btn btn-circle btn-xs default"> Cerrado </p>';
-																		break;
-																		case 3:
-																			echo '<p class="btn btn-circle btn-xs green"> Pendiente </p>';
-																		break;
-																		case 5:
-																			echo '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
-																		break;
-																		case 7:
-																			echo '<p class="btn btn-circle btn-xs green"> Reasignado </p>';
-																		break;
-																	} ?>
-																</td>
-																<td><a class="btn blue btn-circle btn-xs" href="<?php echo site_url('/caso/detalles/'.$caso->id_caso) ?>" data-target="#ajax-detalles-caso" data-toggle="modal"><i class="fa fa-search"></i> Detalles</a></td>
-															</tr>
-														<?php endforeach ?>
-													</tbody>
 												</table>
 											</div>
 											<!-- FIN TAB CASOS-->

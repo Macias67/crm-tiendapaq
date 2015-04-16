@@ -138,12 +138,17 @@ class Cotizacion extends AbstractAccess {
 
 		$folio = $this->input->post('folio');
 
-		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/');
-
-		//var_dump($archivos);
-		if (count($archivos) <=1 && (!isset($archivos['thumbnail']) || count($archivos['thumbnail']) == 0))
+		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/', 1);
+		// Descarto la carpeta de las thumnail
+		foreach ($archivos as $index => $archivo) {
+			if ($archivos[$index] == 'thumbnail') {
+				unset($archivos[$index]);
+			}
+		}
+		$total = count($archivos);
+		if ($total == 0 && (!isset($archivos['thumbnail']) || count($archivos['thumbnail']) == 0))
 		{
-			$response = array('exito' => FALSE, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
+			$response = array('exito' => FALSE, 'total' => $total, 'msj' => 'Tienes que agregar mínimo un archivo para comprobar tu pago.');
 		} else
 		{
 			if ($this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR)) ||
@@ -235,6 +240,28 @@ class Cotizacion extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($respuesta));
+	}
+
+	/**
+	 * Modal para mostrar archivos
+	 * de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function archivos($folio)
+	{
+		$campos = array(
+			'cotizacion.id_cliente',
+			'cotizacion.id_estatus_cotizacion',
+			'clientes.razon_social');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
+			$archivos 				= $this->cotizacionModel->get_files_cotizacion($cotizacion->id_cliente, $folio);
+			$this->data['archivos'] 	= $archivos;
+			$this->_vista_completa('cotizacion/modal-archivos-cotizacion');
+		} else {
+			show_404();
+		}
 	}
 }
 

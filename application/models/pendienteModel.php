@@ -140,6 +140,45 @@ class PendienteModel extends MY_Model {
 		return $id_pendiente;
 	}
 
+	/**
+	 * funcion para regresar los pendientes de un ejecutico
+	 * en el plugin datatable
+	 *
+	 * @author Luis Macias
+	 **/
+	public function get_pendiente_ejecutivo_table($id_ejecutivo, $campos, $joins, $like, $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	{
+		$this->db->select($campos);
+		$todos = ($joins[0] == '*' && count($joins) == 1) ? TRUE : FALSE ;
+		// Joins de las demas tablas, entre mas mas informacion detallada
+		if (in_array('clientes', $joins) || $todos) {
+			$this->db->join('clientes', $this->table.'.id_cliente = clientes.id', 'left');
+		}
+		if (in_array('actividades_pendiente', $joins) || $todos) {
+			$this->db->join('actividades_pendiente', $this->table.'.id_actividad_pendiente = actividades_pendiente.id_actividad', 'inner');
+		}
+		if (in_array('estatus_general', $joins) || $todos) {
+			$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
+		}
+		$this->db->where(array($this->table.'.id_ejecutivo' => $id_ejecutivo));
+		$this->db->where("(`id_pendiente`  LIKE '%".$like."%' OR  `actividades_pendiente`.`actividad` LIKE '%".$like."%' OR `clientes`.`razon_social`  LIKE '%".$like."%' OR  `estatus_general`.`descripcion`  LIKE '%".$like."%')");
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		$this->db->order_by('fecha_origen', 'ASC');
+		if ($limit && !$offset)
+		{
+			$this->db->limit($limit);
+		}
+		elseif ($limit && $offset)
+		{
+			$this->db->limit($limit, $offset);
+		}
+		$query = $this->db->get($this->table);
+		return  $query->result();
+	}
+
 }
 
 /* End of file pendienteModel.php */

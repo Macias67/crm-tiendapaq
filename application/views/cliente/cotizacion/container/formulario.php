@@ -74,7 +74,7 @@
 					<div class="panel-body">
 						<ul>
 							<li>El tamaño por archivo maximo es de <strong>2 MB</strong>. </li>
-							<li>Unicamente archivos  (<strong>JPG ó PNG</strong>) son permitidos.</li>
+							<li>Unicamente archivos  (<strong>JPG, PNG o PDF</strong>) son permitidos.</li>
 							<li>El tamaño de la imagen debe ser mínimo  <strong>1024px de ancho</strong> y <strong>768px de alto</strong>. <a data-toggle="modal" href="#basic">¿Cómo verifico?</a></li>
 							<li>Puede subir hasta <strong>3 archivos</strong> para combrobar el pago.</li>
 						</ul>
@@ -145,7 +145,7 @@
 						</div>
 					</div>
 					<div class="portlet-body">
-						<iframe width="100%" height="270px" src="//www.youtube.com/embed/FqPPZlVCvOQ" frameborder="0" allowfullscreen></iframe>
+						<iframe width="100%" height="270px" src="//www.youtube.com/embed/pCKrm0ZZE3s" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 				<!-- END VIDEO TUTORIAL PORTLET-->

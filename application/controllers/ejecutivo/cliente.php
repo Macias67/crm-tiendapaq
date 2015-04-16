@@ -39,7 +39,6 @@ class Cliente extends AbstractAccess {
 				//Vista de formulario a mostrar
 				$this->_vista('form-nuevo-cliente');
 			break;
-
 			case 'editar':
 				$cliente = $this->clienteModel->get_where(array('id' => $id_cliente));
 				if (!empty($cliente))
@@ -58,7 +57,6 @@ class Cliente extends AbstractAccess {
 					show_error('No existe este cliente.', 404);
 				}
 			break;
-
 			case 'eliminar':
 				$id = $this->input->post('id');
 				/**
@@ -68,7 +66,7 @@ class Cliente extends AbstractAccess {
 				 */
 				$this->load->model('cotizacionModel');
 				$this->load->model('pendienteModel');
-				// Si NO hay cotizacion
+				// Si NO hay pendiente o cotizacion
 				if (!$this->pendienteModel->exist(array('id_cliente' => $id)) || !$this->cotizacionModel->exist(array('id_cliente' => $id))) {
 					if ($this->clienteModel->delete(array('id' => $id))) {
 						$response = array('exito' => TRUE, 'mensaje' => 'El cliente se ha eliminado de la base de datos.');
@@ -91,7 +89,6 @@ class Cliente extends AbstractAccess {
 					->set_content_type('application/json')
 					->set_output(json_encode($response));
 				break;
-
 			default:
 				$this->data['clientes'] = $this->clienteModel->get(array('*'));
 				$this->_vista('gestionar');
@@ -379,7 +376,6 @@ class Cliente extends AbstractAccess {
 	{
 		$sistema	= $this->input->post('sistema');
 		$versiones	= $this->sistemasContpaqiModel->get(array('versiones'), array('sistema' => $sistema));
-
 		// El string que traje de la bd lo convierto a array
 		$versiones_array	= explode(',',$versiones[0]->versiones);
 		// Cuento total de versiones

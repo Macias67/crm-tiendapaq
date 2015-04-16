@@ -58,6 +58,21 @@ class MY_Model extends CI_Model
 	}
 
 	/**
+	 * Funcion para obtener el ultimo ID insertado
+	 * despues de una insercion
+	 *
+	 * @return id
+	 **/
+	public function get_last_id_after_insert($data)
+	{
+		$this->db->trans_start();
+		$this->db->insert($this->table, $data);
+		$insert_id = $this->db->insert_id();
+   		$this->db->trans_complete();
+   		return  $insert_id;
+	}
+
+	/**
 	 * Obtiene todos los datos registrados
 	 * en la base de datos
 	 *
@@ -289,6 +304,7 @@ class TxtManager extends MY_Model {
 		if ($query->num_rows() > 0) {
 			// Asigno a variable un array de objetos
 			$array_bd				= $query->result();
+
 			// Array para guardar nuevos o modificados
 			$array_modificados	= array();
 			// Ciclo para extraer todos los modificados y nuevos
@@ -303,20 +319,22 @@ class TxtManager extends MY_Model {
 			// Si hay nuevos o modificados
 			if ($total_modificados = count($array_modificados)) {
 				// Variables de apoyo
-				$array_codigos_db	= array();
+				$array_rfc_db	= array();
+				$array_codigo_db	= array();
 				$modificado			= 0;
 				$insertado				= 0;
 				$total_bd 				= count($array_bd);
 				// Ciclo para extraer los codigos de los clientes de la BD
 				for ($i=0; $i < $total_bd; $i++) {
 					// Añado los codigos de la BD al array
-					array_push($array_codigos_db, $array_bd[$i]->codigo);
+					array_push($array_rfc_db, $array_bd[$i]->rfc);
 				}
 				// Ciclo para añadir o modifiar los clientes en la BD
 				for ($i=0; $i < $total_modificados; $i++) {
-					if (in_array($array_modificados[$i]->codigo, $array_codigos_db)) {
+					if (in_array($array_modificados[$i]->rfc, $array_rfc_db)) {
 						// Update
-						$this->db->where('codigo', $array_modificados[$i]->codigo);
+						$where = array('rfc' => $array_modificados[$i]->rfc, 'codigo' =>$array_modificados[$i]->codigo);
+						$this->db->where($where);
 						if($this->db->update($this->table, $array_modificados[$i])) {
 							$modificado++;
 						}

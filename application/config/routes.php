@@ -38,74 +38,91 @@
 |
 */
 
-$DIR_EJECUTIVO	= "ejecutivo/";
-$DIR_CLIENTE		= "cliente/";
+$EJECUTIVO	= "ejecutivo/";
+$CLIENTE		= "cliente/";
+$PUBLICO		= "publica/";
 
-$route['default_controller']	= $DIR_EJECUTIVO."inicio";
+$route['default_controller']	= $EJECUTIVO."inicio";
 $route['404_override']			= '';
 
-// Funciones generales
-$route['login']			= $DIR_EJECUTIVO."inicio/login";
-$route['cookiescreen']	= $DIR_EJECUTIVO."inicio/cookiescreen";
-$route['validation']		= $DIR_EJECUTIVO."inicio/validation";
-$route['recordar']		= $DIR_EJECUTIVO."inicio/recordar";
-$route['logout']		= $DIR_EJECUTIVO."inicio/logout";
-$route['inicio/(:any)']	= $DIR_EJECUTIVO."inicio/$1";
+/*
+| -------------------------------------------------------------------------
+| PUBLICA
+| -------------------------------------------------------------------------
+*/
+$route['login']			= $PUBLICO."login";
+$route['cookiescreen']	= $PUBLICO."login/cookiescreen";
+$route['validation']		= $PUBLICO."login/validation";
+$route['recordar']		= $PUBLICO."login/recordar";
+$route['logout']		= $PUBLICO."login/logout";
+// Funciones del eventos
+$route['cursos']		= $PUBLICO."evento";
+$route['cursos/(:any)']	= $PUBLICO."evento/$1";
 
-// Funciones cliente
-$route['cliente/(:any)']	= $DIR_EJECUTIVO."cliente/$1";
+/*
+| -------------------------------------------------------------------------
+| CLIENTE
+| -------------------------------------------------------------------------
+*/
 
-// Funciones calendario
-$route['calendario']		= $DIR_EJECUTIVO."calendario";
-$route['calendario/(:any)']	= $DIR_EJECUTIVO."calendario/$1";
+$route['usuario']			= $CLIENTE."inicio";
+// Funciones del Gestor
+$route['gestionar']			= $CLIENTE."gestor";
+$route['gestionar/(:any)']	= $CLIENTE."gestor/$1";
+// Funciones para el manejo de cotiazacion del cliente
+$route['cotizacion']		= $CLIENTE."cotizacion";
+$route['cotizacion/(:any)']	= $CLIENTE."cotizacion/$1";
+// Funciones para el manejo de casos del cliente
+$route['client/casos']			= $CLIENTE."caso";
+$route['client/casos/(:any)']	= $CLIENTE."caso/$1";
 
+/*
+| -------------------------------------------------------------------------
+| EJECUTIVO
+| -------------------------------------------------------------------------
+*/
+
+$route['inicio/(:any)']			= $EJECUTIVO."inicio/$1";
+/* Funciones cliente */
+$route['cliente/(:any)']			= $EJECUTIVO."cliente/$1";
+/* Funciones calendario */
+$route['calendario']			= $EJECUTIVO."calendario";
+$route['calendario/(:any)']		= $EJECUTIVO."calendario/$1";
 // Funciones pendiente
-$route['pendiente']		= $DIR_EJECUTIVO."pendiente";
-$route['pendiente/(:any)']	= $DIR_EJECUTIVO."pendiente/$1";
-
+$route['pendiente']			= $EJECUTIVO."pendiente";
+$route['pendiente/(:any)']		= $EJECUTIVO."pendiente/$1";
 // Funciones ejecutivo
-$route['perfil']				= $DIR_EJECUTIVO."ejecutivo";
-$route['ejecutivo/(:any)']	= $DIR_EJECUTIVO."ejecutivo/$1";
-
+$route['perfil']					= $EJECUTIVO."ejecutivo";
+$route['ejecutivo/(:any)']		= $EJECUTIVO."ejecutivo/$1";
+// Funciones de Eventos
+$route['eventos']				= $EJECUTIVO."evento";
+$route['evento/(:any)']			= $EJECUTIVO."evento/$1";
 // Funciones catalogo
-$route['catalogo/clientes']		= $DIR_EJECUTIVO."catalogo";
-$route['catalogo/productos']	= $DIR_EJECUTIVO."catalogo";
-$route['catalogo/(:any)']		= $DIR_EJECUTIVO."catalogo/$1";
-
-// Funciones catalogo de eventos
-$route['evento']			= $DIR_EJECUTIVO."evento";
-$route['evento/(:any)']		= $DIR_EJECUTIVO."evento/$1";
-
+$route['catalogo/clientes']		= $EJECUTIVO."catalogo";
+$route['catalogo/productos']	= $EJECUTIVO."catalogo";
+$route['catalogo/(:any)']		= $EJECUTIVO."catalogo/$1";
 // Funciones cotizador
-$route['cotizador']			= $DIR_EJECUTIVO."cotizador";
-$route['cotizador/(:num)']	= $DIR_EJECUTIVO."cotizador/pendiente/$1";
-$route['cotizador/(:any)']	= $DIR_EJECUTIVO."cotizador/$1";
-
+$route['cotizador']				= $EJECUTIVO."cotizador";
+$route['cotizador/(:num)']		= $EJECUTIVO."cotizador/pendiente/$1";
+$route['cotizador/(:any)']		= $EJECUTIVO."cotizador/$1";
 // Funciones de Productos
-$route['producto']			= $DIR_EJECUTIVO."producto";
-$route['producto/(:any)']	= $DIR_EJECUTIVO."producto/$1";
-
-// // Funciones del Gestor
-$route['gestor']			= $DIR_EJECUTIVO."gestor";
-$route['gestor/(:any)']		= $DIR_EJECUTIVO."gestor/$1";
-$route['gestionar']			= $DIR_CLIENTE."gestor";
-$route['gestionar/(:any)']	= $DIR_CLIENTE."gestor/$1";
-
-// Funciones para el manejor de cotiazacion del cliente
-$route['cotizacion']		= $DIR_CLIENTE."cotizacion";
-$route['cotizacion/(:any)']	= $DIR_CLIENTE."cotizacion/$1";
-
-// Funciones para el manejor de cotiazaciones
-$route['cotizaciones']		= $DIR_EJECUTIVO."cotizacion";
-$route['cotizaciones/(:any)']	= $DIR_EJECUTIVO."cotizacion/$1";
-
-// Funciones para el manejor de casos
-$route['caso']		= $DIR_EJECUTIVO."caso";
-$route['caso/(:any)']	= $DIR_EJECUTIVO."caso/$1";
-
-// Funciones para el manejor de casos del cliente
-$route['casos']		= $DIR_CLIENTE."caso";
-$route['casos/(:any)']	= $DIR_CLIENTE."caso/$1";
+$route['producto']				= $EJECUTIVO."producto";
+$route['producto/(:any)']		= $EJECUTIVO."producto/$1";
+// Funciones del Gestor
+$route['gestor']				= $EJECUTIVO."gestor";
+$route['gestor/(:any)']			= $EJECUTIVO."gestor/$1";
+// Funciones para el manejo de cotiazaciones
+$route['cotizaciones']			= $EJECUTIVO."cotizacion";
+$route['cotizaciones/(:any)']	= $EJECUTIVO."cotizacion/$1";
+// Funciones para el manejo de casos
+$route['caso']					= $EJECUTIVO."caso";
+$route['casos']					= $EJECUTIVO."caso/casos_ejecutivos";
+$route['caso/(:any)']			= $EJECUTIVO."caso/$1";
+// Funciones para el manejo de tareas
+$route['tareas']				= $EJECUTIVO."tarea";
+$route['tarea/(:any)']			= $EJECUTIVO."tarea/$1";
+// Funciones para el manejo de notas en tareas
+$route['nota/(:any)']			= $EJECUTIVO."nota/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

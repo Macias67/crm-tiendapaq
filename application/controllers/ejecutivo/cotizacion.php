@@ -53,11 +53,11 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 		//codigo para revisar cotizaciones vencidas
 		$campos = array(
-								'cotizacion.folio',
-								'cotizacion.fecha',
-								'cotizacion.vigencia',
-								'cotizacion.id_estatus_cotizacion'
-							);
+					'cotizacion.folio',
+					'cotizacion.fecha',
+					'cotizacion.vigencia',
+					'cotizacion.id_estatus_cotizacion'
+					);
 		$where = array('cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
 		//obtengo las cotizaciones por pagar para revisar si estan vencidas
 		$cotizaciones = $this->cotizacionModel->get_cotizaciones($campos, $where);
@@ -68,7 +68,6 @@ class Cotizacion extends AbstractAccess {
 				$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
 			}
 		}
-
 		//despues de la revision de muestra la vista
 		$this->_vista('cotizaciones-catalogo');
 	}
@@ -189,7 +188,7 @@ class Cotizacion extends AbstractAccess {
 
 	/**
 	 * Funcion para previsualizar un pdf con una cotizacion
-	 * para los clientes desde otras secciones ya copn la cotizacion creada
+	 * para los clientes desde otras secciones ya con la cotizacion creada
 	 *
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
@@ -272,7 +271,6 @@ class Cotizacion extends AbstractAccess {
 	 * @return void
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
-
 	public function apertura()
 	{
 		$folio = $this->input->post('folio');
@@ -346,6 +344,12 @@ class Cotizacion extends AbstractAccess {
 			->set_output(json_encode($response));
 	}
 
+	/**
+	 * Funcion para reenvio de de cotizaciones
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
 	public function reenvio($folio)
 	{
 		//si no hay id de contacto lanzo la vista con la lista de contactos
@@ -362,21 +366,22 @@ class Cotizacion extends AbstractAccess {
 			$email = $this->input->post('email');
 
 			$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-			                                                                          array(
-			                                                                                'cotizacion.id_cliente',
-			                                                                          	'cotizacion.folio',
-			                                                                          	'cotizacion.fecha',
-			                                                                          	'cotizacion.vigencia',
-			                                                                          	'contactos.nombre_contacto',
-			                                                                          	'contactos.apellido_paterno',
-			                                                                          	'contactos.apellido_materno',
-			                                                                          	'clientes.razon_social',
-			                                                                          	'clientes.email',
-			                                                                          	'clientes.usuario',
-			                                                                          	'clientes.password',
-			                                                                          	'estatus_cotizacion.descripcion'),
-			                                                                          array('clientes', 'contactos', 'estatus_cotizacion'),
-			                                                                          $folio);
+							array(
+								'cotizacion.id_cliente',
+								'cotizacion.folio',
+								'cotizacion.fecha',
+								'cotizacion.vigencia',
+								'contactos.nombre_contacto',
+								'contactos.apellido_paterno',
+								'contactos.apellido_materno',
+								'clientes.razon_social',
+								'clientes.email',
+								'clientes.usuario',
+								'clientes.password',
+								'estatus_cotizacion.descripcion'
+							),
+							array('clientes', 'contactos', 'estatus_cotizacion'),
+							$folio);
 
 			$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
 			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
@@ -425,17 +430,17 @@ class Cotizacion extends AbstractAccess {
 	{
 		$this->load->model('estatusCotizacionModel');
 		$folio = $this->input->post('folio');
-
-		if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA),array('folio' => $folio))){
-			$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
-		}else{
-			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );
+		if($this->input->is_ajax_request()) {
+			if($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio))) {
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>La cotización fue cancelada.</h4>' );
+			}else{
+				$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! Revisa la consola para más información.</h4>' );
+			}
+			//mando la repuesta
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 		}
-
-		//mando la repuesta
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($respuesta));
 	}
 
  	/**
@@ -500,13 +505,16 @@ class Cotizacion extends AbstractAccess {
 		$imagenes 	= array();
 		$pdfs 		= array();
 
-		// Descarto la carpeta de las thumnail
-		foreach ($archivos as $index => $archivo) {
-			$tipo = explode("/", get_mime_by_extension($archivos[$index]));
-			if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
-				array_push($imagenes, $archivos[$index]);
-			} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
-				array_push($pdfs, $archivos[$index]);
+		// SI hay archivos en la variable
+		if($archivos) {
+			// Descarto la carpeta de las thumnail
+			foreach ($archivos as $index => $archivo) {
+				$tipo = explode("/", get_mime_by_extension($archivos[$index]));
+				if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
+					array_push($imagenes, $archivos[$index]);
+				} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
+					array_push($pdfs, $archivos[$index]);
+				}
 			}
 		}
 
@@ -517,6 +525,28 @@ class Cotizacion extends AbstractAccess {
 		$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 
 		$this->_vista('detalles');
+	}
+
+	/**
+	 * Modal para mostrar archivos
+	 * de una cotizacion
+	 *
+	 * @return void
+	 * @author Luis Macias
+	 **/
+	public function archivos($folio)
+	{
+		$campos = array(
+			'cotizacion.id_cliente',
+			'cotizacion.id_estatus_cotizacion',
+			'clientes.razon_social');
+		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
+			$archivos 				= $this->cotizacionModel->get_files_cotizacion($cotizacion->id_cliente, $folio);
+			$this->data['archivos'] 	= $archivos;
+			$this->_vista_completa('cotizacion/modal-archivos-cotizacion');
+		} else {
+			show_404();
+		}
 	}
 }
 
