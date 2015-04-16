@@ -82,7 +82,7 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-md-3">Lugar: <span class="required" aria-required="true">*</span></label>
+												<label class="control-label col-md-3">Modalidad: <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9 radio-list">
 													<label class="radio-inline">
 													<input type="radio" name="lugar" id="lugar4" value="online" checked> Online </label>

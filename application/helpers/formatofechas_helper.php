@@ -33,7 +33,7 @@ function limite_inscripcion_evento($fechahora)
 	$fecha_inicio 	=  $fecha_inicio[2].'/'.$fecha_inicio[1].'/'.$fecha_inicio[0];
 	$hora_inicio 	=  $inicio[1].':00 '.$inicio[2];
 	$inicio 			= $fecha_inicio.' '.$hora_inicio;
-	$diferencia		= strtotime($inicio) - (60*60);
+	$diferencia		= strtotime($inicio) + (60*60);
 	$fecha 			= date('Y-m-d H:i:s', $diferencia);
 	return $fecha;
 }
