@@ -50,7 +50,6 @@
 						<div class="portlet-body">
 							<div class="row">
 								<div class="col-md-12 news-page">
-									
 									<div class="row">
 										<div class="col-md-4">
 											<div class="top-news">
@@ -123,7 +122,7 @@
 										<div class="col-md-4">
 											<div class="top-news">
 												<a href="javascript:;" class="btn purple">
-												<span>Presenciales </span>
+												<span>Fuera de nuestras sucursales </span>
 												<!-- <em><i class="fa fa-tags"></i>Hi-Tech, Medicine, Space </em> -->
 												<i class="fa fa-calendar top-news-icon"></i>
 												</a>
