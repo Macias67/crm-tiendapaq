@@ -6,7 +6,7 @@
 		<div class="container">
 			<!-- BEGIN PAGE TITLE -->
 			<div class="page-title">
-				<h1>Dashboard <small>statistics & reports</small></h1>
+				<h1>Inscripción <small>cursos</small></h1>
 			</div>
 			<!-- END PAGE TITLE -->
 		</div>
@@ -16,14 +16,14 @@
 	<div class="page-content">
 		<div class="container">
 			<!-- BEGIN PAGE BREADCRUMB -->
-			<ul class="page-breadcrumb breadcrumb">
+<!-- 			<ul class="page-breadcrumb breadcrumb">
 				<li>
 					<a href="#">Home</a><i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
 					 Dashboard
 				</li>
-			</ul>
+			</ul> -->
 			<!-- END PAGE BREADCRUMB -->
 			<!-- BEGIN PAGE CONTENT INNER -->
 			<div class="row margin-top-10">

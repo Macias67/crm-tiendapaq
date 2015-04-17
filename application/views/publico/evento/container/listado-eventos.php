@@ -6,7 +6,7 @@
 		<div class="container">
 			<!-- BEGIN PAGE TITLE -->
 			<div class="page-title">
-				<h1>Dashboard <small>statistics & reports</small></h1>
+				<h1>Panel de cursos <small>registros y detalles</small></h1>
 			</div>
 			<!-- END PAGE TITLE -->
 		</div>
@@ -16,14 +16,14 @@
 	<div class="page-content">
 		<div class="container">
 			<!-- BEGIN PAGE BREADCRUMB -->
-			<ul class="page-breadcrumb breadcrumb">
+<!-- 			<ul class="page-breadcrumb breadcrumb">
 				<li>
 					<a href="#">Home</a><i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
 					 Dashboard
 				</li>
-			</ul>
+			</ul> -->
 			<!-- END PAGE BREADCRUMB -->
 			<!-- BEGIN PAGE CONTENT INNER -->
 			<div class="row margin-top-10">
@@ -77,8 +77,10 @@
 													<!-- <img class="news-block-img pull-right" src="<?php echo $assets_admin_pages ?>media/gallery/image1.jpg" alt=""> -->
 													<?php echo $curso->descripcion ?>
 												</p>
-												<a href="<?php echo site_url('cursos/detalles/'.$curso->id_evento) ?>" class="news-block-btn">
-													Más detalles <i class="m-icon-swapright m-icon-black"></i>
+												<a href="<?php echo site_url('cursos/inscripcion/'.$curso->id_evento) ?>" class="news-block-btn">
+													<button class="btn btn-danger">
+														¡INSCRÍBETE! <i class="m-icon-swapright m-icon-white"></i>
+													</button>
 												</a>
 											</div>
 											<?php endforeach ?>
@@ -112,8 +114,10 @@
 													<!-- <img class="news-block-img pull-right" src="<?php echo $assets_admin_pages ?>media/gallery/image1.jpg" alt=""> -->
 													<?php echo $curso->descripcion ?>
 												</p>
-												<a href="<?php echo site_url('cursos/detalles/'.$curso->id_evento) ?>" class="news-block-btn">
-													Más detalles <i class="m-icon-swapright m-icon-black"></i>
+												<a href="<?php echo site_url('cursos/inscripcion/'.$curso->id_evento) ?>" class="news-block-btn">
+													<button class="btn btn-danger">
+														¡INSCRÍBETE! <i class="m-icon-swapright m-icon-white"></i>
+													</button>
 												</a>
 											</div>
 											<?php endforeach ?>
@@ -146,9 +150,10 @@
 													<!-- <img class="news-block-img pull-right" src="<?php echo $assets_admin_pages ?>media/gallery/image1.jpg" alt=""> -->
 													<?php echo $curso->descripcion ?>
 												</p>
-												<a href="<?php echo site_url('cursos/detalles/'.$curso->id_evento) ?>" class="news-block-btn">
-													Más detalles <i class="m-icon-swapright m-icon-black"></i>
-												</a>
+												<a href="<?php echo site_url('cursos/inscripcion/'.$curso->id_evento) ?>" class="news-block-btn">
+													<button class="btn btn-danger">
+														¡INSCRÍBETE! <i class="m-icon-swapright m-icon-white"></i>
+													</button></a>
 											</div>
 											<?php endforeach ?>
 										</div>
