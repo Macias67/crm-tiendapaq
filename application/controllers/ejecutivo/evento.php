@@ -6,7 +6,11 @@ class Evento extends AbstractAccess {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('eventomodel');
+		$this->load->model('eventoModel');
+		$this->load->library('form_validation');
+		$this->load->model('sesionesModel');
+		$this->load->model('ejecutivoModel');
+		$this->load->model('oficinasModel');
 	}
 
 	/**
@@ -232,7 +236,7 @@ class Evento extends AbstractAccess {
 				}
 				// Empiezo a escribir en la base de datos
 				// Evento
-				$id_evento = $this->eventomodel->get_last_id_after_insert($evento);
+				$id_evento = $this->eventoModel->get_last_id_after_insert($evento);
 				// Muevo imagen de temario
 				$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/';
 				//Si no existe directorio lo creo
@@ -261,13 +265,17 @@ class Evento extends AbstractAccess {
 	 * @return void
 	 * @author 
 	 **/
-	public function editar($id_evento)
+	public function editar($id_evento, $exito=null)
 	{
-		var_dump($id_evento);
-
-		$evento = $this->eventoModel->get_where(array('id_evento' => $id_evento));
+		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
+		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
 		var_dump($evento);
-		$sesiones = $this->sesionesModel->get_where(array('id_evento' => $id_evento));
+		// Creo un arreglo nuevo con los datos de evento y sesiones.
+		// $resultado = array_merge($evento, $sesiones);
+		foreach ($sesiones as $key => $value) {
+			$evento->duracion.$key=$value->duracion;
+		}
+		var_dump($evento);
 		// Creo options de ejecutivos
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 		$options_ejecutivos = array('' => '');
@@ -304,7 +312,7 @@ class Evento extends AbstractAccess {
 		$order			= $this->input->post('order');
 		$columns		= $this->input->post('columns');
 		$search		= $this->input->post('search');
-		$total			=  $this->eventomodel->get('COUNT(*) as total', null, null, 1);
+		$total			=  $this->eventoModel->get('COUNT(*) as total', null, null, 1);
 
 		if($length == -1)
 		{
@@ -331,7 +339,7 @@ class Evento extends AbstractAccess {
 		$orderForm 	= $order[0]['dir'];
 		$limit 			= $length;
 		$offset 		= $start;
-		$eventos	= $this->eventomodel->get_eventos_table(
+		$eventos	= $this->eventoModel->get_eventos_table(
 		                                                                     $campos,
 		                                                                     $joins,
 		                                                                     $like,

@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Evento Nuevo</h3>
+						<h3 class="page-title">Editar Evento</h3>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
 				</div>
@@ -138,9 +138,9 @@
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 1 <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
-													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $sesiones->fecha_inicio ?> - <?php echo $sesiones->fecha_final?>" readonly/>
+													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $sesiones[0]->fecha_inicio ?> - <?php echo $sesiones[0]->fecha_final?>" readonly/>
 													<input type="hidden" name="dsesion1">
-													<span class="help-block">Duración: <b id="sesion1"></b></span>
+													<span class="help-block">Duración: <b id="sesion1"></b><?php echo $sesiones[0]->duracion?></span>
 												</div>
 											</div>
 											<div class="form-group">
