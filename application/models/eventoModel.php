@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Eventomodel extends MY_Model {
+class eventoModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse
@@ -9,14 +9,6 @@ class Eventomodel extends MY_Model {
 	 * @var string
 	 **/
 	const TABLE = 'eventos';
-
-	/**
-	 * variable que sera convertida a sdtClass
-	 * y retornada como objeto
-	 *
-	 * @var $evento
-	 **/
-	private $evento;
 
 	/**
 	 * Constructor
