@@ -11,6 +11,14 @@ class Eventomodel extends MY_Model {
 	const TABLE = 'eventos';
 
 	/**
+	 * variable que sera convertida a sdtClass
+	 * y retornada como objeto
+	 *
+	 * @var $evento
+	 **/
+	private $evento;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
