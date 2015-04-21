@@ -54,7 +54,7 @@ var NuevoEvento = function() {
 					$("textarea[name='otro']").val();
 				});
 				$('#sucursal').fadeIn(500, function() {
-					$("select[name='sucursal']").prop('selectedIndex',0);
+					$(this).prop('selectedIndex',0);
 				});
 			} else if(tipo == 'otro') {
 				$('#sucursal').fadeOut(500, function() {

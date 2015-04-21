@@ -112,7 +112,7 @@
 												<div class="col-md-9">
 													<div class="input-icon">
 														<i class="fa fa-user"></i>
-														<?php echo form_dropdown('sucursal', $options_oficinas, null, 'class="form-control"'); ?>
+														<?php echo form_dropdown('sucursal', $options_oficinas, $evento->id_oficina, 'class="form-control"'); ?>
 														<p class="help-block">Dirección más detellada en el correo del cliente.</p>
 													</div>
 												</div>
