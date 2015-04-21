@@ -286,13 +286,6 @@ class Evento extends AbstractAccess {
 		// Obtengo ejecutivos y separo al seleccionado
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 
-		// Selecciona el ejecutivo actual
-		foreach ($ejecutivos as $k1 => $v1) {
-			if ($evento->id_ejecutivo == $v1->id) {
-				$ejecutivo_seleccionado = $v1->primer_nombre.' '.$v1->apellido_paterno;
-			}
-		}
-
 		// Creo options de ejecutivos
 		$options_ejecutivos = array('' => '');
 		foreach ($ejecutivos as $index => $ejecutivo) {
@@ -306,7 +299,7 @@ class Evento extends AbstractAccess {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
 
-		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $ejecutivo_seleccionado, 'class="form-control"');
+		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
 		$this->data['evento'] 				= $evento;
 		$this->data['sesion'] 			= $sesion;
