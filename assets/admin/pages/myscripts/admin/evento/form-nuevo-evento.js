@@ -35,8 +35,41 @@ var NuevoEvento = function() {
 	}
 
 	var defineLugar = function() {
+		 var tipo = $("input[name=lugar]").filter(":checked").val();
+					if (tipo == 'online') {
+				$('#sucursal').fadeOut(500, function() {
+					$("select[name='sucursal']").prop('selectedIndex',0);
+				});
+				$('#otro').fadeOut(500, function() {
+					$("textarea[name='otro']").val();
+				});
+				$('#online').fadeIn(500, function() {
+					$("input[name='link']").val();
+				});
+			} else if(tipo == 'sucursal') {
+				$('#online').fadeOut(500, function() {
+					$("input[name='link']").val();
+				});
+				$('#otro').fadeOut(500, function() {
+					$("textarea[name='otro']").val();
+				});
+				$('#sucursal').fadeIn(500, function() {
+					$("select[name='sucursal']").prop('selectedIndex',0);
+				});
+			} else if(tipo == 'otro') {
+				$('#sucursal').fadeOut(500, function() {
+					$("select[name='sucursal']").prop('selectedIndex',0);
+				});
+				$('#online').fadeOut(500, function() {
+					$("input[name='link']").val();
+				});
+				$('#otro').fadeIn(500, function() {
+					$("textarea[name='otro']").val();
+				});
+			}
+
 		$("input[name='lugar']").on('change', function() {
-			var tipo = $(this).val();
+			var tipo = $(this).filter(":checked").val();
 			console.log(tipo);
 
 			if (tipo == 'online') {

@@ -86,11 +86,14 @@
 												<label class="control-label col-md-3">Lugar: <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9 radio-list">
 													<label class="radio-inline">
-													<input type="radio" name="lugar" id="lugar4" value="online" checked> Online </label>
+														<?php  $datos=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE); echo form_radio($datos); ?>
+														Online </label>
 													<label class="radio-inline">
-													<input type="radio" name="lugar" id="lugar5" value="sucursal">Pres. Sucursal </label>
+														<?php  $datos=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE); echo form_radio($datos); ?>
+														Pres. Sucursal </label>
 													<label class="radio-inline">
-													<input type="radio" name="lugar" id="lugar6" value="otro">Pres. Otro lugar</label>
+														<?php  $datos=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>TRUE); echo form_radio($datos); ?>
+														Pres. Otro lugar</label>
 												</div>
 											</div>
 											<!-- LINK -->

@@ -302,8 +302,9 @@ class Evento extends AbstractAccess {
 		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
 		$this->data['evento'] 				= $evento;
-		$this->data['sesion'] 			= $sesion;
-		// $this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
+		$this->data['sesion'] 				= $sesion;
+		// $this->data['radio_sucursal']		= 
+		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
 	}
 
