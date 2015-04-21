@@ -267,21 +267,31 @@ class Evento extends AbstractAccess {
 	 **/
 	public function editar($id_evento, $exito=null)
 	{
+		$this->load->helper('form');
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
 		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
-		var_dump($evento);
-		// Creo un arreglo nuevo con los datos de evento y sesiones.
-		// $resultado = array_merge($evento, $sesiones);
-		foreach ($sesiones as $key => $value) {
-			$evento->duracion.$key=$value->duracion;
+
+		// Agrego al objeto evento las sesiones y duración de los cursos
+		foreach ($sesiones as $k1 => $v1) {
+			$evento->$k1 = $v1;
 		}
-		var_dump($evento);
-		// Creo options de ejecutivos
+
+		// Obtengo ejecutivos y separo al seleccionado
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+
+		// Selecciona el ejecutivo actual
+		foreach ($ejecutivos as $k1 => $v1) {
+			if ($evento->id_ejecutivo == $v1->id) {
+				$ejecutivo_seleccionado = $v1->primer_nombre.' '.$v1->apellido_paterno;
+			}
+		}
+
+		// Creo options de ejecutivos
 		$options_ejecutivos = array('' => '');
 		foreach ($ejecutivos as $index => $ejecutivo) {
 			$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
 		}
+
 		// Creo options de oficinas
 		$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
 		$options_oficinas = array('' => '');
@@ -289,16 +299,18 @@ class Evento extends AbstractAccess {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
 
-		$this->data['options_ejecutivos'] 	= $options_ejecutivos;
+		// var_dump($ejecutivo_seleccionado);
+
+		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $ejecutivo_seleccionado, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
 		$this->data['evento'] 				= $evento;
 		$this->data['sesiones'] 			= $sesiones;
-		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
+		// $this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
 	}
 
 	/**
-	 * Funcion para obtener los eventos de manera de JSON
+	 * Función para obtener los eventos de manera de JSON
 	 * con formato para el DataTable
 	 *
 	 * @return void

@@ -35,14 +35,13 @@
 									<div class="form-body">
 										<div class="col-md-6">
 											<h4><strong>Datos del evento</strong></h4>
-											
 											<!-- ejecutivo -->
 											<div class="form-group">
 												<label class="col-md-3 control-label">Ejecutivo <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
 													<div class="input-icon">
 														<i class="fa fa-user"></i>
-														<?php echo form_dropdown('ejecutivo', $options_ejecutivos, null, 'class="form-control"'); ?>
+														<?php echo $options_ejecutivos ?>
 														<span class="help-block">Organizador del evento.</span>
 													</div>
 												</div>
@@ -138,9 +137,9 @@
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 1 <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
-													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $sesiones[0]->fecha_inicio ?> - <?php echo $sesiones[0]->fecha_final?>" readonly/>
+													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $evento->fecha_inicio ?> - <?php echo $evento->fecha_final?>" readonly/>
 													<input type="hidden" name="dsesion1">
-													<span class="help-block">Duración: <b id="sesion1"></b><?php echo $sesiones[0]->duracion?></span>
+													<span class="help-block">Duración: <b id="sesion1"><?php echo $evento->duracion?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
