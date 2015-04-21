@@ -299,10 +299,38 @@ class Evento extends AbstractAccess {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
 
+		// 
+		switch ($evento->modalidad) {
+			case 'sucursal':
+				$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
+				$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>TRUE);
+				$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
+				var_dump("entro");
+				break;
+			case 'online':
+				$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>TRUE);
+				$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
+				$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
+				break;
+			case 'otro':
+				$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
+				$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
+				$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>TRUE);
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+		
+
 		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
 		$this->data['evento'] 				= $evento;
 		$this->data['sesion'] 				= $sesion;
+		$this->data['sucursal']				= $sucursal;
+		$this->data['online']				= $online;
+		$this->data['otro']					= $otro;
 		// $this->data['radio_sucursal']		= 
 		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');

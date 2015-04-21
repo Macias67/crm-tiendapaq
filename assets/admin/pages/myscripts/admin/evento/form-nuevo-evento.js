@@ -36,7 +36,7 @@ var NuevoEvento = function() {
 
 	var defineLugar = function() {
 		 var tipo = $("input[name=lugar]").filter(":checked").val();
-					if (tipo == 'online') {
+				if (tipo == 'online') {
 				$('#sucursal').fadeOut(500, function() {
 					$("select[name='sucursal']").prop('selectedIndex',0);
 				});
