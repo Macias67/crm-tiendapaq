@@ -267,13 +267,20 @@ class Evento extends AbstractAccess {
 	 **/
 	public function editar($id_evento, $exito=null)
 	{
+		// Helper para dropdown menu
 		$this->load->helper('form');
+		 // Helper de fechas
+		$this->load->helper('formatofechas');
+
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
 		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
 
-		// Agrego al objeto evento las sesiones y duración de los cursos
-		foreach ($sesiones as $k1 => $v1) {
-			$evento->$k1 = $v1;
+		$sesion 	= array();
+
+		if(sizeof($sesiones)==1){
+			array_push($sesion, $sesiones);
+		}else{
+			$sesion = (array)$sesiones;
 		}
 
 		// Obtengo ejecutivos y separo al seleccionado
@@ -299,12 +306,10 @@ class Evento extends AbstractAccess {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
 
-		// var_dump($ejecutivo_seleccionado);
-
 		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $ejecutivo_seleccionado, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
 		$this->data['evento'] 				= $evento;
-		$this->data['sesiones'] 			= $sesiones;
+		$this->data['sesion'] 			= $sesion;
 		// $this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
 	}

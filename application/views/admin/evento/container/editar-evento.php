@@ -137,37 +137,37 @@
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 1 <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
-													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $evento->fecha_inicio ?> - <?php echo $evento->fecha_final?>" readonly/>
+													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo (isset($sesion[0])) ? $sesion[0]->fecha_inicio.' - ' : '' ?> <?php echo (isset($sesion[0])) ? $sesion[0]->fecha_final : ''?>" readonly/>
 													<input type="hidden" name="dsesion1">
-													<span class="help-block">Duración: <b id="sesion1"><?php echo $evento->duracion?></b></span>
+													<span class="help-block">Duración: <b id="sesion1"><?php echo (isset($sesion[0])) ? $sesion[0]->duracion : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 2</label>
 												<div class="col-md-9">
-													<input type="text" name="sesion2" class="form-control daterange" readonly/>
+													<input type="text" name="sesion2" class="form-control daterange" value="<?php echo (isset($sesion[1])) ? $sesion[1]->fecha_inicio.' - ' : '' ?> <?php echo (isset($sesion[1])) ? $sesion[1]->fecha_final : ''?>" readonly/>
 													<input type="hidden" name="dsesion2">
-													<span class="help-block">Duración: <b id="sesion2"></b></span>
+													<span class="help-block">Duración: <b id="sesion2"><?php echo (isset($sesion[1])) ? $sesion[1]->duracion : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 3</label>
 												<div class="col-md-9">
-													<input type="text" name="sesion3" class="form-control daterange" readonly/>
+													<input type="text" name="sesion3" class="form-control daterange" value="<?php echo (isset($sesion[2])) ? $sesion[2]->fecha_inicio.' - ' : '' ?> <?php echo (isset($sesion[2])) ? $sesion[2]->fecha_final : ''?>" readonly/>
 													<input type="hidden" name="dsesion3">
-													<span class="help-block">Duración: <b id="sesion3"></b></span>
+													<span class="help-block">Duración: <b id="sesion3"><?php echo (isset($sesion[2])) ? $sesion[2]->duracion : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 4</label>
 												<div class="col-md-9">
-													<input type="text" name="sesion4" class="form-control daterange" readonly/>
+													<input type="text" name="sesion4" class="form-control daterange" value="<?php echo (isset($sesion[3])) ? $sesion[3]->fecha_inicio.' - ' : '' ?> <?php echo (isset($sesion[3])) ? $sesion[3]->fecha_final : ''?>" readonly/>
 													<input type="hidden" name="dsesion4">
-													<span class="help-block">Duración: <b id="sesion4"></b></span>
+													<span class="help-block">Duración: <b id="sesion4"><?php echo (isset($sesion[3])) ? $sesion[3]->duracion : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-6 control-label">Fecha límite de inscripción: </label>
+												<label class="col-md-6 control-label">Fecha límite de inscripción: <b><?php echo fecha_completa($evento->fecha_limite) ?></b></label>
 												<div class="col-md-6">
 													<p class="form-control-static">
 														<b id="limite"></b>
