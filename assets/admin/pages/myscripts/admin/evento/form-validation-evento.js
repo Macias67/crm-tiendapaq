@@ -2,22 +2,6 @@
  * Validaciones y captura de datos del formulario
  * de eventos  nuevos y editados
  */
-var FormValidationEvento = function () {
-
-	// // Spinner para el numero de sesiones
-	// var handleSwitch = function () {
-	// 	$('.make-switch').on('switchChange.bootstrapSwitch', function(event, state) {
-	// 		var id = $(this).attr('id-cliente');
-	// 		var selected = (state) ? 'true' : 'false';
-	// 		$.post('/evento/gestionar/activar', {id:id, selected:selected}, function(data, textStatus, xhr) {
-	// 			bootbox.alert(data.mensaje);
-	// 			Metronic.showLoader();
-	// 			if (data.exito) {
-	// 				Metronic.removeLoader();
-	// 			}
-	// 		}, 'json');
-	// 	});
-	// }
 
 	// Spinner para el numero de sesiones
 	var handleSpinners = function () {

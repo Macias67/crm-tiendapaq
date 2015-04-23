@@ -408,9 +408,8 @@ class Evento extends AbstractAccess {
 
 			$this->data['options_ejecutivos'] 	= $options_ejecutivos;
 			$this->data['options_oficinas'] 	= $options_oficinas;
-			$this->_vista('nuevo-evento');
+			$this->_vista('editar-evento');
 		} else {
-			var_dump('Entro aquiksjdhakjsdh');
 			// Preparo informacion de sesiones
 			$sesion1 = $this->input->post('sesion1');
 			$sesion2 = $this->input->post('sesion2');
@@ -477,32 +476,7 @@ class Evento extends AbstractAccess {
 			// Cargo la libreria upload y paso configuracion
 			$this->load->library('upload', $config_upload);
 			//SI NO se sube la imagen
-			if (!$this->upload->do_upload())
-			{
-				$this->load->model('oficinasModel');
-				$this->load->helper('form');
-				// Creo options de ejecutivos
-				$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-				$options_ejecutivos = array('' => '');
-				foreach ($ejecutivos as $index => $ejecutivo) {
-					$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
-				}
-				// Creo options de oficinas
-				$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
-				$options_oficinas = array('' => '');
-				foreach ($oficinas as $index => $oficina) {
-					$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
-				}
-
-				$this->data['options_ejecutivos'] 	= $options_ejecutivos;
-				$this->data['options_oficinas'] 	= $options_oficinas;
-				// Envio a la variable los errores de subida
-				$this->data['upload_error'] = $this->upload->display_errors('<div class="alert alert-danger"><strong>Error de subida: </strong>
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>','</div>');
-				$this->load->model('ejecutivoModel');
-				$this->_vista('editar-evento');
-			} else
-			{
+			$this->upload->do_upload();
 				// Cargo libreria manejo de imagen
 				$this->load->library('image_lib');
 				// Paso datos de la subida del archivo
@@ -524,7 +498,7 @@ class Evento extends AbstractAccess {
 				// Evento
 				// $id_evento = $this->eventoModel->get_last_id_after_insert($evento);
 				$this->eventoModel->update($evento,array('id_evento' => $id_evento));
-				var_dump($id_evento);
+				$respuesta = array('exito' => TRUE, 'msg' => validation_errors());
 				// Muevo imagen de temario
 				$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/';
 				//Si no existe directorio lo creo
@@ -540,8 +514,9 @@ class Evento extends AbstractAccess {
 					$sesion['id_evento'] = $id_evento;
 					$this->sesionmodel->insert($sesion);
 				}
-				redirect('evento/editar/exito');
-			}
+				$this->output
+				 ->set_content_type('application/json')
+				 ->set_output(json_encode($respuesta));
 
 		}
 	}
