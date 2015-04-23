@@ -324,10 +324,15 @@ class Evento extends AbstractAccess {
 		
 		// creo arreglo para manejo de sesiones
 		$sesiones_str = array();
-		foreach ($sesiones as $key) {
+		if (count($sesiones)>1) {
+			foreach ($sesiones as $key) {
 			array_push($sesiones_str,date('d/m/Y h:i A', strtotime($key->fecha_inicio))." - ".date('d/m/Y h:i A', strtotime($key->fecha_final)));
 			// array_push($sesiones_str,);
 		}
+		}else{
+			array_push($sesiones_str,date('d/m/Y h:i A', strtotime($sesiones->fecha_inicio))." - ".date('d/m/Y h:i A', strtotime($sesiones->fecha_final)));
+		}
+		
 
 		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
@@ -435,6 +440,8 @@ class Evento extends AbstractAccess {
 					$fin 			= $fecha_fin.' '.$hora_fin;
 					$fin			= date('Y-m-d H:i:s',strtotime($fin));
 					$sesion = array(
+									'id_evento'		=> $id_evento,
+									'id_sesion'		=> $i+1,
 									'fecha_inicio' 	=> $inicio,
 									'fecha_final' 	=> $fin,
 									'duracion' 		=> $this->input->post('dsesion'.($i+1)));
@@ -510,9 +517,14 @@ class Evento extends AbstractAccess {
 
 				// Sesiones
 				$this->load->model('sesionmodel');
+
 				foreach ($total_sesiones as $index => $sesion) {
-					$sesion['id_evento'] = $id_evento;
-					$this->sesionmodel->insert($sesion);
+					if (empty($this->sesionmodel->get_where(array('id_sesion'=>$sesion['id_sesion'])))) {
+						$this->sesionmodel->insert($sesion);
+					}else{
+						$sesion['id_evento'] = $id_evento;
+						$this->sesionmodel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
+					}
 				}
 				$this->output
 				 ->set_content_type('application/json')
