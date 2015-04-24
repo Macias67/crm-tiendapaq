@@ -274,6 +274,7 @@ class Evento extends AbstractAccess {
 
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
 		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
+		$ruta_nueva = 'assets/admin/pages/media/eventos/'.$evento->id_evento.'/temario.jpg';
 
 		$sesion 	= array();
 
@@ -339,6 +340,7 @@ class Evento extends AbstractAccess {
 		$this->data['online']				= $online;
 		$this->data['otro']					= $otro;
 		$this->data['sesiones_str']			= $sesiones_str;
+		$this->data['ruta_nueva']			= $ruta_nueva;
 		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
 	}
@@ -365,7 +367,6 @@ class Evento extends AbstractAccess {
 		$this->form_validation->set_rules('cupo', 'Max. Cupo', 'trim|required|integer|xss_clean');
 		$this->form_validation->set_rules('lugar', 'Lugar', 'trim|required|xss_clean');
 
-		// var_dump($this->form_validation);
 		$lugar 	= $this->input->post('lugar');
 
 		if ($lugar == 'online')
@@ -459,11 +460,17 @@ class Evento extends AbstractAccess {
 
 			$modalidad = $this->input->post('lugar');
 			if ($modalidad == 'online') {
-				$evento['link'] = $this->input->post('link');
+				$evento['link'] 		= $this->input->post('link');
+				$evento['id_oficina']	= null;
+				$evento['direccion']	= null;
 			} else if($modalidad == 'sucursal') {
-				$evento['id_oficina'] = $this->input->post('sucursal');
+				$evento['link']			= null;
+				$evento['id_oficina']	= $this->input->post('sucursal');
+				$evento['direccion']	= null;
 			} else if($modalidad == 'otro') {
-				$evento['direccion'] = $this->input->post('otro');
+				$evento['link']			= null;
+				$evento['id_oficina']	= null;
+				$evento['direccion']	= $this->input->post('otro');
 			}
 
 			// Armo la ruta donde guardare la imagen a subir
@@ -504,6 +511,7 @@ class Evento extends AbstractAccess {
 				$respuesta = array('exito' => TRUE, 'msg' => validation_errors());
 				// Muevo imagen de temario
 				$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/';
+
 				//Si no existe directorio lo creo
 				if (!is_dir($ruta_nueva))
 				{

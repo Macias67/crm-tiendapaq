@@ -133,6 +133,10 @@
 												<div class="col-md-9">
 													<input type="file" name="userfile" id="exampleInputFile">
 													<p class="help-block">Imagen con información del temario.</p>
+
+													<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+													<img src="<?php echo site_url($ruta_nueva) ?>" alt=""/>
+													</div>
 												</div>
 											</div>
 										</div>
