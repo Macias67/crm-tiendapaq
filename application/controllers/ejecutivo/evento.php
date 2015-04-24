@@ -263,7 +263,7 @@ class Evento extends AbstractAccess {
 	 * del formulario editar
 	 *
 	 * @return void
-	 * @author 
+	 * @author
 	 **/
 	public function editar($id_evento=null, $exito=null)
 	{
@@ -283,7 +283,7 @@ class Evento extends AbstractAccess {
 			$sesion = (array)$sesiones;
 		}
 
-		// Obtengo ejecutivos y separo al seleccionado
+		// Obtengo ejecutivos
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 
 		// Creo options de ejecutivos
@@ -299,7 +299,6 @@ class Evento extends AbstractAccess {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
 
-		// 
 		switch ($evento->modalidad) {
 			case 'sucursal':
 				$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
@@ -316,12 +315,11 @@ class Evento extends AbstractAccess {
 				$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
 				$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>TRUE);
 				break;
-			
 			default:
 				# code...
 				break;
 		}
-		
+
 		// creo arreglo para manejo de sesiones
 		$sesiones_str = array();
 		if (count($sesiones)>1) {
@@ -332,7 +330,6 @@ class Evento extends AbstractAccess {
 		}else{
 			array_push($sesiones_str,date('d/m/Y h:i A', strtotime($sesiones->fecha_inicio))." - ".date('d/m/Y h:i A', strtotime($sesiones->fecha_final)));
 		}
-		
 
 		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
@@ -342,7 +339,6 @@ class Evento extends AbstractAccess {
 		$this->data['online']				= $online;
 		$this->data['otro']					= $otro;
 		$this->data['sesiones_str']			= $sesiones_str;
-		// $this->data['radio_sucursal']		= 
 		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
 	}

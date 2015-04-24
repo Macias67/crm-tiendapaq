@@ -143,7 +143,7 @@
 												<div class="col-md-9">
 													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $sesiones_str[0]?>" readonly/>
 													<input type="hidden" name="dsesion1" value="<?php echo (isset($sesion[0])) ? $sesion[0]->duracion : ''; ?>">
-													<span class="help-block">Duración: <b id="sesion1"><?php echo (isset($sesion[0])) ? $sesion[0]->duracion : ''; ?></b></span>
+													<span class="help-block">Duración: <b id="sesion1"><?php echo (isset($sesion[0])) ? $sesion[0]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -151,7 +151,7 @@
 												<div class="col-md-9">
 													<input type="text" name="sesion2" class="form-control daterange" value="<?php echo (isset($sesiones_str[1])) ? $sesiones_str[1] : ''?>" readonly/>
 													<input type="hidden" name="dsesion2" value="<?php echo (isset($sesion[1])) ? $sesion[1]->duracion : ''; ?>">
-													<span class="help-block">Duración: <b id="sesion2"><?php echo (isset($sesion[1])) ? $sesion[1]->duracion : ''; ?></b></span>
+													<span class="help-block">Duración: <b id="sesion2"><?php echo (isset($sesion[1])) ? $sesion[1]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -159,7 +159,7 @@
 												<div class="col-md-9">
 													<input type="text" name="sesion3" class="form-control daterange" value="<?php echo (isset($sesiones_str[2])) ? $sesiones_str[2] : ''?>" readonly/>
 													<input type="hidden" name="dsesion3" value="<?php echo (isset($sesion[2])) ? $sesion[2]->duracion : ''; ?>">
-													<span class="help-block">Duración: <b id="sesion3"><?php echo (isset($sesion[2])) ? $sesion[2]->duracion : ''; ?></b></span>
+													<span class="help-block">Duración: <b id="sesion3"><?php echo (isset($sesion[2])) ? $sesion[2]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -167,7 +167,7 @@
 												<div class="col-md-9">
 													<input type="text" name="sesion4" class="form-control daterange" value="<?php echo (isset($sesiones_str[3])) ? $sesiones_str[3] : ''?>" readonly/>
 													<input type="hidden" name="dsesion4" value="<?php echo (isset($sesion[3])) ? $sesion[3]->duracion : ''; ?>">
-													<span class="help-block">Duración: <b id="sesion4"><?php echo (isset($sesion[3])) ? $sesion[3]->duracion : ''; ?></b></span>
+													<span class="help-block">Duración: <b id="sesion4"><?php echo (isset($sesion[3])) ? $sesion[3]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
