@@ -31,7 +31,7 @@
 									Evento editado.
 								</div>
 								<?php endif ?>
-								<?php echo form_open_multipart('evento/edit', array('class' => 'form-horizontal', 'role' => 'form'));?>
+								<?php echo form_open_multipart('evento/edit', array('class' => 'form-horizontal', 'role' => 'form', 'id'=>'form-evento-completo'));?>
 									<div class="form-body">
 										<div class="col-md-6">
 											<h4><strong>Datos del evento</strong></h4>

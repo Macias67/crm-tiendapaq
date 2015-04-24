@@ -64,7 +64,7 @@
     });
 	}
 	// end test agrefar sesion
-	
+
 	// begin agregar modalidad
 	var handleModalidad = function () {
 		// body...
@@ -73,8 +73,6 @@
     var AddButton1       = $("#online"); //ID del Botón Agregar
     var AddButton2		  = $("#sucursal"); //ID del Botón Agregar
     var AddButton3		 = $("#otro"); //ID del Botón Agregar
-
-    
 
     $(AddButton1).click(function (e) {
             //agregar campo
@@ -214,8 +212,6 @@
 						}
 					}
 				});
-				
-				
 			}
 		});
 	}

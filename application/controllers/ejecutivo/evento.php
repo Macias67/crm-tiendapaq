@@ -265,7 +265,7 @@ class Evento extends AbstractAccess {
 	 * @return void
 	 * @author 
 	 **/
-	public function editar($id_evento, $exito=null)
+	public function editar($id_evento=null, $exito=null)
 	{
 		// Helper para dropdown menu
 		$this->load->helper('form');
@@ -526,11 +526,8 @@ class Evento extends AbstractAccess {
 						$this->sesionmodel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
 					}
 				}
-				$this->output
-				 ->set_content_type('application/json')
-				 ->set_output(json_encode($respuesta));
-
-		}
+				redirect('evento/editar/'.$id_evento.'/exito');
+			}
 	}
 
 	/**
