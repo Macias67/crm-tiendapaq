@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8">
-	<title>Metronic | Metronic | Admin Dashboard Template</title>
+	<title>Cursos | Tiendapaq</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<meta content="" name="description">

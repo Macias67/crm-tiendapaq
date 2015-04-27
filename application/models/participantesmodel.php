@@ -33,6 +33,7 @@ class Participantesmodel extends MY_Model {
 		$this->db->join('contactos', $this->table.'.id_contacto = contactos.id', 'inner');
 		$this->db->join('clientes', 'contactos.id_cliente = clientes.id', 'inner');
 		$where = array($this->table.'.id_evento' => $id_evento);
+		$this->db->where($where);
 		$query = $this->db->get($this->table);
 		return $query->result();
 	}

@@ -224,7 +224,7 @@ class Tarea extends AbstractAccess {
 			$id_tarea 	= $this->input->post('id_tarea'	);
 			$id_caso 	= $this->input->post('id_caso');
 
-			$tarea = array(
+			$update_tarea = array(
 						'id_estatus'	=> $estatus,
 						'avance'		=> $avance
 					);

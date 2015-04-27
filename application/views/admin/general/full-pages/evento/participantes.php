@@ -11,9 +11,8 @@
 					<tr>
 						<th width="20%"> Contacto</th>
 						<th width="10%"> Email </th>
-						<th width="20%"> Teléofono </th>
-						<th width="30%">Cliente</th>
-						<th width="1%"></th>
+						<th width="20%"> Teléfono </th>
+						<th width="30%"> Cliente</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -23,7 +22,6 @@
 							<td><?php echo $participante->email_contacto ?></td>
 							<td><?php echo $participante->telefono_contacto ?></td>
 							<td><?php echo $participante->razon_social ?></td>
-							<td><button type="button" class="btn blue btn-sm">Recordar</button></td>
 						</tr>
 					<?php endforeach ?>
 				</tbody>
@@ -33,5 +31,6 @@
 	<!-- </div> -->
 </div>
 <div class="modal-footer">
+	<button type="button" class="btn blue default">Recordar</button>
 	<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
 </div>

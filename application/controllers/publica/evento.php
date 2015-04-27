@@ -100,6 +100,7 @@ class Evento extends AbstractController {
 
 				$this->data['sesiones'] 	= $sesiones;
 				$this->data['evento'] = $evento;
+				$this->data['temario_url'] 	= site_url('assets/admin/pages/media/eventos/'.$id_evento.'/temario.jpg');
 				$this->_vista('form-inscripcion');
 			} else {
 				var_dump($participantes);
@@ -246,7 +247,8 @@ class Evento extends AbstractController {
 									/*CODIGO PARA ENVIO DE CORREOS CON INFO DEL EVENTO*/
 								} else {
 									$registrado = TRUE;
-									$mensaje 		= 'Te enviamos a tu email la cotización del curso, puedes utilizar nuestra aplicación para llevar acabo el proceso de la compra. Te agradecemos tu interés.';
+									$nota = '<b>Nota: tu registro se hará una vez el pago sea validado y está sujeto a disponibilidad.</b>';
+									$mensaje 		= 'Te enviamos a tu email la cotización del curso, puedes utilizar nuestra aplicación para llevar acabo el proceso de la compra. Te agradecemos tu interés. '.$nota;
 									/*CODIGO PARA ENVIO DE CORREO COTIZACION*/
 								}
 							} else {
