@@ -40,6 +40,8 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<!-- <script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/range_dates.js"></script> -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.js"></script>
+
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

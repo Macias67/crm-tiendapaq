@@ -32,6 +32,9 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-switch/css/bootstrap-switch.min.css"/>
+
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->
