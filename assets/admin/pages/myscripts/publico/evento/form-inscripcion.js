@@ -286,8 +286,7 @@ var FormInscripcion = function() {
 				},
 				telefono_contacto: {
 					//mascara
-					required: "Escribe el teléfono",
-					phoneUS: true
+					required: "Escribe el teléfono"
 				},
 				puesto_contacto: {
 					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
