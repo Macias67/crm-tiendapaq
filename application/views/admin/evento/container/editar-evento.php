@@ -47,6 +47,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- Titulo -->
 											<div class="form-group">
 												<label class="col-md-3 control-label">Título <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
@@ -56,6 +57,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- Descripcion -->
 											<div class="form-group">
 												<label class="col-md-3 control-label">Descripción <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
@@ -65,6 +67,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- costo -->
 											<div class="form-group">
 												<label class="control-label col-md-3">Costo <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
@@ -74,6 +77,7 @@
 													<span class="help-block">$0.00 se considera sin costo.</span>
 												</div>
 											</div>
+											<!-- Cupo -->
 											<div class="form-group">
 												<label class="control-label col-md-3">Max. Cupo <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
@@ -83,6 +87,7 @@
 													<span class="help-block">0 se considera sin límite de cupo.</span>
 												</div>
 											</div>
+											<!-- lugar -->
 											<div class="form-group">
 												<label class="control-label col-md-3">Lugar: <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9 radio-list">
@@ -128,18 +133,32 @@
 													</div>
 												</div>
 											</div>
+											<!-- TEMARIO -->
 											<div class="form-group">
 												<label for="exampleInputFile" class="col-md-3 control-label">Temario <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
-													<input type="file" name="userfile" id="exampleInputFile">
-													<p class="help-block">Imagen con información del temario.</p>
-
-													<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-													<img src="<?php echo site_url($ruta_nueva) ?>" alt=""/>
+													<div class="fileinput fileinput-new" data-provides="fileinput">
+														<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+															<img src="<?php echo site_url($ruta_nueva) ?>" alt=""/>
+														</div>
+														<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+														</div>
+														<div class="col-md-12">
+															<span class="btn default btn-file">
+																<span class="fileinput-new">
+																Selecionar imagen </span>
+																<span class="fileinput-exists">
+																Cambiar </span>
+																<input type="file" name="userfile" id="exampleInputFile">
+															</span>
+															<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">
+															Quitar </a>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
+
 										<div class="col-md-6">
 											<h4><strong>Sesiones</strong></h4>
 											<div class="form-group">
