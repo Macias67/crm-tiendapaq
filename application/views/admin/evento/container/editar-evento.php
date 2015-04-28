@@ -19,7 +19,7 @@
 							<div class="portlet-title">
 								<div class="caption font-green-sharp">
 									<i class="icon-speech font-green-sharp"></i>
-									<span class="caption-subject bold uppercase"> Formulario Para Edicion de Evento</span>
+									<span class="caption-subject bold uppercase"> Formulario Para Edición de Evento</span>
 								</div>
 							</div>
 							<div class="portlet-body">

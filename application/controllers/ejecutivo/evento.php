@@ -268,7 +268,7 @@ class Evento extends AbstractAccess {
 	{
 		// Helper para dropdown menu
 		$this->load->helper('form');
-		 // Helper de fechas
+		// Helper de fechas
 		$this->load->helper('formatofechas');
 
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
@@ -334,12 +334,13 @@ class Evento extends AbstractAccess {
 		$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
 		$this->data['options_oficinas'] 	= $options_oficinas;
 		$this->data['evento'] 				= $evento;
-		$this->data['sesion'] 				= $sesion;
+		// $this->data['sesion'] 				= $sesion;
 		$this->data['sucursal']				= $sucursal;
 		$this->data['online']				= $online;
 		$this->data['otro']					= $otro;
 		$this->data['sesiones_str']			= $sesiones_str;
 		$this->data['ruta_nueva']			= $ruta_nueva;
+		$this->data['sesion'] 				= $sesion;
 		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
 	}
@@ -353,10 +354,15 @@ class Evento extends AbstractAccess {
 	 **/
 	public function edit()
 	{
+		// Helper para dropdown menu
+		$this->load->helper('form');
+		//Obtenemos el id del evento a modificar
 		$id_evento = $this->input->post('id_evento');
 
 		//cargo la libreria de las validaciones
 		$this->load->library('form_validation');
+		// Helper de fechas
+		$this->load->helper('formatofechas');
 
 		//Datos basicos
 		$this->form_validation->set_rules('ejecutivo', 'Ejecutivo', 'trim|required|integer|xss_clean');
@@ -391,15 +397,49 @@ class Evento extends AbstractAccess {
 		// Validamos formulario
 		if ($this->form_validation->run() === FALSE)
 		{
+			$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
+			$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
+			$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/temario.jpg';
 			$this->load->model('ejecutivoModel');
 			$this->load->model('oficinasModel');
 			$this->load->helper('form');
+
+			$sesion 	= array();
+
+			if(sizeof($sesiones)==1){
+				array_push($sesion, $sesiones);
+			}else{
+				$sesion = (array)$sesiones;
+			}
+
+			switch ($evento->modalidad) {
+				case 'sucursal':
+					$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
+					$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>TRUE);
+					$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
+					break;
+				case 'online':
+					$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>TRUE);
+					$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
+					$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
+					break;
+				case 'otro':
+					$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
+					$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
+					$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>TRUE);
+					break;
+				default:
+					# code...
+					break;
+			}
+
 			// Creo options de ejecutivos
 			$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 			$options_ejecutivos = array('' => '');
 			foreach ($ejecutivos as $index => $ejecutivo) {
 				$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
 			}
+
 			// Creo options de oficinas
 			$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
 			$options_oficinas = array('' => '');
@@ -407,7 +447,25 @@ class Evento extends AbstractAccess {
 				$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 			}
 
-			$this->data['options_ejecutivos'] 	= $options_ejecutivos;
+			// creo arreglo para manejo de sesiones
+			$sesiones_str = array();
+			if (count($sesiones)>1) {
+				foreach ($sesiones as $key) {
+				array_push($sesiones_str,date('d/m/Y h:i A', strtotime($key->fecha_inicio))." - ".date('d/m/Y h:i A', strtotime($key->fecha_final)));
+				// array_push($sesiones_str,);
+			}
+			}else{
+				array_push($sesiones_str,date('d/m/Y h:i A', strtotime($sesiones->fecha_inicio))." - ".date('d/m/Y h:i A', strtotime($sesiones->fecha_final)));
+			}
+
+			$this->data['options_ejecutivos'] 	= form_dropdown('ejecutivo', $options_ejecutivos, $evento->id_ejecutivo, 'class="form-control"');
+			$this->data['evento'] 				= $evento;
+			$this->data['sucursal']				= $sucursal;
+			$this->data['online']				= $online;
+			$this->data['otro']					= $otro;
+			$this->data['ruta_nueva']			= $ruta_nueva;
+			$this->data['sesiones_str']			= $sesiones_str;
+			$this->data['sesion'] 				= $sesion;
 			$this->data['options_oficinas'] 	= $options_oficinas;
 			$this->_vista('editar-evento');
 		} else {
@@ -507,7 +565,7 @@ class Evento extends AbstractAccess {
 				// Evento
 				// $id_evento = $this->eventoModel->get_last_id_after_insert($evento);
 				$this->eventoModel->update($evento,array('id_evento' => $id_evento));
-				$respuesta = array('exito' => TRUE, 'msg' => validation_errors());
+				// $respuesta = array('exito' => TRUE, 'msg' => validation_errors());
 				// Muevo imagen de temario
 				$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/';
 
