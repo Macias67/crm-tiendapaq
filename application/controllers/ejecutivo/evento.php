@@ -529,7 +529,7 @@ class Evento extends AbstractAccess {
 						$this->sesionmodel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
 					}
 				}
-				redirect('evento/editar/'.$id_evento.'/exito');
+				redirect('evento/editar/'.$id_evento.'/exito','refresh');
 			}
 	}
 

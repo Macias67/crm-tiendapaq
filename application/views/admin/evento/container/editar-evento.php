@@ -135,7 +135,7 @@
 											</div>
 											<!-- TEMARIO -->
 											<div class="form-group">
-												<label for="exampleInputFile" class="col-md-3 control-label">Temario <span class="required" aria-required="true">*</span></label>
+												<label class="col-md-3 control-label">Temario <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
 													<div class="fileinput fileinput-new" data-provides="fileinput">
 														<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
@@ -143,17 +143,14 @@
 														</div>
 														<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 														</div>
-														<div class="col-md-12">
-															<span class="btn default btn-file">
-																<span class="fileinput-new">
-																Selecionar imagen </span>
-																<span class="fileinput-exists">
-																Cambiar </span>
-																<input type="file" name="userfile" id="exampleInputFile">
-															</span>
-															<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">
-															Quitar </a>
-														</div>
+														<br/>
+														<span class="btn default btn-file">
+															<span class="fileinput-new">Selecionar imagen </span>
+															<span class="fileinput-exists">
+															Cambiar </span>
+															<input type="file" name="userfile" id="exampleInputFile">
+														</span>
+														<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">Quitar </a>
 													</div>
 												</div>
 											</div>
