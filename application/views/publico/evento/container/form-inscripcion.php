@@ -6,7 +6,7 @@
 		<div class="container">
 			<!-- BEGIN PAGE TITLE -->
 			<div class="page-title">
-				<h1>Dashboard <small>statistics & reports</small></h1>
+				<h1>Inscripción <small>cursos</small></h1>
 			</div>
 			<!-- END PAGE TITLE -->
 		</div>
@@ -16,14 +16,14 @@
 	<div class="page-content">
 		<div class="container">
 			<!-- BEGIN PAGE BREADCRUMB -->
-			<ul class="page-breadcrumb breadcrumb">
+<!-- 			<ul class="page-breadcrumb breadcrumb">
 				<li>
 					<a href="#">Home</a><i class="fa fa-circle"></i>
 				</li>
 				<li class="active">
 					 Dashboard
 				</li>
-			</ul>
+			</ul> -->
 			<!-- END PAGE BREADCRUMB -->
 			<!-- BEGIN PAGE CONTENT INNER -->
 			<div class="row margin-top-10">
@@ -45,6 +45,12 @@
 							<p><?php echo ($evento->costo == 0) ? 'Sin Costo' : '$ '.number_format($evento->costo, 2, '.', ',').' MN'  ?></p>
 							<h5>Descripción: </h5>
 							<p><?php echo $evento->descripcion; ?></p>
+							<h5>Modalidad: </h5>
+							<p><?php echo ucwords($evento->modalidad); ?></p>
+							<h5>Cupo: </h5>
+							<p><?php echo ($evento->max_participantes == 0) ? 'Sin límite' : $evento->max_participantes.' personas' ?></p>
+							<h5>Temario:</h5>
+							<a href="<?php echo $temario_url ?>" target="_blank"><img src="<?php echo $temario_url ?>" class="img-responsive" alt=""></a>
 						</div>
 					</div>
 					<!-- END PORTLET-->

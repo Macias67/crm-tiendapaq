@@ -6,7 +6,7 @@
 		<div class="container">
 			<!-- BEGIN PAGE TITLE -->
 			<div class="page-title">
-				<h1>News View <small>news view samples</small></h1>
+				<h1>Detalles <small>cursos</small></h1>
 			</div>
 			<!-- END PAGE TITLE -->
 		</div>
@@ -38,7 +38,7 @@
 			<!-- /.modal -->
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN PAGE BREADCRUMB -->
-			<ul class="page-breadcrumb breadcrumb">
+<!-- 			<ul class="page-breadcrumb breadcrumb">
 				<li>
 					<a href="#">Home</a><i class="fa fa-circle"></i>
 				</li>
@@ -49,7 +49,7 @@
 				<li class="active">
 					 News View
 				</li>
-			</ul>
+			</ul> -->
 			<!-- END PAGE BREADCRUMB -->
 			<!-- BEGIN PAGE CONTENT INNER -->
 			<div class="portlet light">
