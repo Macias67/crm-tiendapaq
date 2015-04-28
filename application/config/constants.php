@@ -8,7 +8,7 @@
 | Ya sea local o vía remoto
 |
 */
-if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+if ($_SERVER['SERVER_ADDR'] == '127.0.0.2') {
 	define('LOCAL', TRUE);
 } else {
 	define('LOCAL', FALSE);
