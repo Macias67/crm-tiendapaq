@@ -1,6 +1,6 @@
 var FakeRealTime = function() {
 
-	var actualizaCotizacionesEnviadas = function() {
+	var fakeRealTime = function() {
 		$.getJSON('/inicio/actualiza', function(response, textStatus) {
 			// Comentarios cotizacion
 			if (response.comentarios_cotizacion == 1) {
@@ -29,19 +29,26 @@ var FakeRealTime = function() {
 				$('#casos_asignar span').remove();
 			}
 
+			// Casos pendiente
+			if (response.lider_casos_pediente >= 1) {
+				$('#casos_pendiente').append('<span class="badge badge-danger">'+response.lider_casos_pediente+'</span>');
+			} else {
+				$('#casos_pendiente span').remove();
+			}
+
 			// Tareas pendiente
 			if (response.tareas_pendiente >= 1) {
 				$('#tareas_pendiente').append('<span class="badge badge-danger">'+response.tareas_pendiente+'</span>');
 			} else {
 				$('#tareas_pendiente span').remove();
 			}
-			setTimeout(actualizaCotizacionesEnviadas, 1000);
+			setTimeout(fakeRealTime, 1000);
 		});
 	};
 
 	return {
 		init: function() {
-			actualizaCotizacionesEnviadas();
+			fakeRealTime();
 		}
 	};
 }();

@@ -77,13 +77,15 @@ class Inicio extends AbstractAccess {
 		$comentarios_cotizacion 	= count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
 		$cotizaciones_revision 		= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
 		$casos_asignar 			= count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
-		$tareas_pendiente			=  count($this->tareaModel->get(array('*'), array('id_ejecutivo' 	=> $this->usuario_activo['id'],'id_estatus' 	=> $this->estatusGeneralModel->PENDIENTE)));
+		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 3, 'id_lider' => $this->usuario_activo['id'])));
+		$tareas_pendiente			= count($this->tareaModel->get(array('*'), array('id_ejecutivo' => $this->usuario_activo['id'],'id_estatus'  => $this->estatusGeneralModel->PENDIENTE)));
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode(array(
 			             'comentarios_cotizacion' 	=> $comentarios_cotizacion,
 			             'cotizaciones_revision' 		=> $cotizaciones_revision,
 			             'casos_asignar'				=> $casos_asignar,
+			             'lider_casos_pediente'		=> $lider_casos_pediente,
 			             'tareas_pendiente'			=> $tareas_pendiente
 			             )));
 	}
