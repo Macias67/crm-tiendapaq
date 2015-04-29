@@ -450,7 +450,14 @@ class Evento extends AbstractAccess {
 			$sesion2 = $this->input->post('sesion2');
 			$sesion3 = $this->input->post('sesion3');
 			$sesion4 = $this->input->post('sesion4');
+
+			$id_sesion1 = $this->input->post('idsesion1');
+			$id_sesion2 = $this->input->post('idsesion2');
+			$id_sesion3 = $this->input->post('idsesion3');
+			$id_sesion4 = $this->input->post('idsesion4');
+
 			$sesiones = array($sesion1,$sesion2,$sesion3,$sesion4);
+			$id_sesiones = array($id_sesion1,$id_sesion2,$id_sesion3,$id_sesion4);
 			$total_sesiones = array();
 			for ($i=0; $i < count($sesiones); $i++) {
 				if (!empty($sesiones[$i])) {
@@ -471,14 +478,15 @@ class Evento extends AbstractAccess {
 					$fin			= date('Y-m-d H:i:s',strtotime($fin));
 					$sesion = array(
 									'id_evento'		=> $id_evento,
-									'id_sesion'		=> $i+1,
+									'id_sesion'		=> $id_sesiones[$i],
 									'fecha_inicio' 	=> $inicio,
 									'fecha_final' 	=> $fin,
 									'duracion' 		=> $this->input->post('dsesion'.($i+1)));
 					array_push($total_sesiones, $sesion);
 				}
 			}
-			// Preparo informacion del evento
+
+			// Preparo la información del evento
 			$evento = array(
 			              'id_ejecutivo' 		=> $this->input->post('ejecutivo'),
 			              'titulo' 				=> $this->input->post('titulo'),
@@ -506,7 +514,8 @@ class Evento extends AbstractAccess {
 				$evento['direccion']	= $this->input->post('otro');
 			}
 
-			// Armo la ruta donde guardare la imagen a subir
+
+			// Armo la ruta donde guardaré la imagen a subir
 			$ruta = 'assets/admin/pages/media/eventos/tmp/';
 			$tmp_name = 'evento_'.$this->usuario_activo['id'].'.jpg';
 			//Configuracion para la subida del archivo
@@ -551,16 +560,15 @@ class Evento extends AbstractAccess {
 			rename($ruta.$tmp_name, $ruta_nueva.'temario.jpg');
 
 			// Sesiones
-			// var_dump($total_sesiones);
 			foreach ($total_sesiones as $index => $sesion) {
 				if (empty($this->sesionesModel->get_where(array('id_sesion'=>$sesion['id_sesion'])))) {
 					$sesion['id_evento'] = $id_evento;
-					// $this->sesionesModel->insert($sesion);
+					$this->sesionesModel->insert($sesion);
 				}else{
-					// $this->sesionesModel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
+					$this->sesionesModel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
 				}
 			}
-			// redirect('evento/editar/'.$id_evento.'/exito');
+			redirect('evento/editar/'.$id_evento.'/exito');
 		}
 	}
 

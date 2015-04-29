@@ -161,6 +161,7 @@
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 1 <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
+													<input type="hidden" name="idsesion1" value="<?php echo (isset($sesion[0]->id_sesion)) ? $sesion[0]->id_sesion : ''; ?>">
 													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $sesiones_str[0]?>" readonly/>
 													<input type="hidden" name="dsesion1" value="<?php echo (isset($sesion[0])) ? $sesion[0]->duracion : ''; ?>">
 													<span class="help-block">Duración: <b id="sesion1"><?php echo (isset($sesion[0])) ? $sesion[0]->duracion.' horas aprox.' : ''; ?></b></span>
@@ -170,6 +171,7 @@
 												<label class="control-label col-md-3">Sesión 2</label>
 												<div class="col-md-9">
 													<div class="input-group" style="text-align:left">
+														<input type="hidden" name="idsesion2" value="<?php echo (isset($sesion[1]->id_sesion)) ? $sesion[1]->id_sesion : ''; ?>">
 														<input type="text" name="sesion2" class="form-control daterange" value="<?php echo (isset($sesiones_str[1])) ? $sesiones_str[1] : ''?>" readonly/>
 														<span class="input-group-btn">
 														<a href="javascript:;" class="btn red" id="username1_checker">
@@ -184,6 +186,7 @@
 												<label class="control-label col-md-3">Sesión 3</label>
 												<div class="col-md-9">
 													<div class="input-group" style="text-align:left">
+														<input type="hidden" name="idsesion3" value="<?php echo (isset($sesion[2]->id_sesion)) ? $sesion[2]->id_sesion : ''; ?>">
 														<input type="text" name="sesion3" class="form-control daterange" value="<?php echo (isset($sesiones_str[2])) ? $sesiones_str[2] : ''?>" readonly/>
 														<span class="input-group-btn">
 														<a href="javascript:;" class="btn red" id="username1_checker">
@@ -198,6 +201,7 @@
 												<label class="control-label col-md-3">Sesión 4</label>
 												<div class="col-md-9">
 													<div class="input-group" style="text-align:left">
+														<input type="hidden" name="idsesion4" value="<?php echo (isset($sesion[3]->id_sesion)) ? $sesion[3]->id_sesion : ''; ?>">
 														<input type="text" name="sesion4" class="form-control daterange" value="<?php echo (isset($sesiones_str[3])) ? $sesiones_str[3] : ''?>" readonly/>
 														<span class="input-group-btn">
 															<a href="javascript:;" class="btn red" id="username1_checker">
