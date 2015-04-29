@@ -38,7 +38,7 @@ class Evento extends AbstractAccess {
 		$this->load->helper('form');
 		// Creo options de ejecutivos
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-		$options_ejecutivos = array('' => '');
+		// $options_ejecutivos = array('' => '');
 		foreach ($ejecutivos as $index => $ejecutivo) {
 			$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
 		}
@@ -288,7 +288,7 @@ class Evento extends AbstractAccess {
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 
 		// Creo options de ejecutivos
-		$options_ejecutivos = array('' => '');
+		// $options_ejecutivos = array('' => '');
 		foreach ($ejecutivos as $index => $ejecutivo) {
 			$options_ejecutivos[$ejecutivo->id] = $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno;
 		}

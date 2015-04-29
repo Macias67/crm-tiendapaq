@@ -172,24 +172,42 @@
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 2</label>
 												<div class="col-md-9">
-													<input type="text" name="sesion2" class="form-control daterange" value="<?php echo (isset($sesiones_str[1])) ? $sesiones_str[1] : ''?>" readonly/>
-													<input type="hidden" name="dsesion2" value="<?php echo (isset($sesion[1])) ? $sesion[1]->duracion : ''; ?>">
-													<span class="help-block">Duración: <b id="sesion2"><?php echo (isset($sesion[1])) ? $sesion[1]->duracion.' horas aprox.' : ''; ?></b></span>
+													<div class="input-group" style="text-align:left">
+														<input type="text" name="sesion2" class="form-control daterange" value="<?php echo (isset($sesiones_str[1])) ? $sesiones_str[1] : ''?>" readonly/>
+														<span class="input-group-btn">
+														<a href="javascript:;" class="btn red" id="username1_checker">
+														<i class="fa fa-times"></i></a>
+														</span>
+														<input type="hidden" name="dsesion2" value="<?php echo (isset($sesion[1])) ? $sesion[1]->duracion : ''; ?>">
+													</div>
+														<span class="help-block">Duración: <b id="sesion2"><?php echo (isset($sesion[1])) ? $sesion[1]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 3</label>
 												<div class="col-md-9">
-													<input type="text" name="sesion3" class="form-control daterange" value="<?php echo (isset($sesiones_str[2])) ? $sesiones_str[2] : ''?>" readonly/>
-													<input type="hidden" name="dsesion3" value="<?php echo (isset($sesion[2])) ? $sesion[2]->duracion : ''; ?>">
+													<div class="input-group" style="text-align:left">
+														<input type="text" name="sesion3" class="form-control daterange" value="<?php echo (isset($sesiones_str[2])) ? $sesiones_str[2] : ''?>" readonly/>
+														<span class="input-group-btn">
+														<a href="javascript:;" class="btn red" id="username1_checker">
+														<i class="fa fa-times"></i></a>
+														</span>
+														<input type="hidden" name="dsesion3" value="<?php echo (isset($sesion[2])) ? $sesion[2]->duracion : ''; ?>">
+													</div>
 													<span class="help-block">Duración: <b id="sesion3"><?php echo (isset($sesion[2])) ? $sesion[2]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3">Sesión 4</label>
 												<div class="col-md-9">
-													<input type="text" name="sesion4" class="form-control daterange" value="<?php echo (isset($sesiones_str[3])) ? $sesiones_str[3] : ''?>" readonly/>
-													<input type="hidden" name="dsesion4" value="<?php echo (isset($sesion[3])) ? $sesion[3]->duracion : ''; ?>">
+													<div class="input-group" style="text-align:left">
+														<input type="text" name="sesion4" class="form-control daterange" value="<?php echo (isset($sesiones_str[3])) ? $sesiones_str[3] : ''?>" readonly/>
+														<span class="input-group-btn">
+															<a href="javascript:;" class="btn red" id="username1_checker">
+															<i class="fa fa-times"></i></a>
+															</span>
+														<input type="hidden" name="dsesion4" value="<?php echo (isset($sesion[3])) ? $sesion[3]->duracion : ''; ?>">
+													</div>
 													<span class="help-block">Duración: <b id="sesion4"><?php echo (isset($sesion[3])) ? $sesion[3]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
 											</div>
