@@ -35,6 +35,7 @@
 									<div class="form-body">
 										<div class="col-md-6">
 											<h4><strong>Datos del evento</strong></h4>
+											<!-- ejecutivo -->
 											<div class="form-group">
 												<label class="col-md-3 control-label">Ejecutivo <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
