@@ -18,7 +18,7 @@ class Evento extends AbstractAccess {
 	 * organiza los eventos por haber
 	 *
 	 * @return void
-	 * @author 
+	 * @author Luis Macias
 	 **/
 	public function index() {
 		$this->_vista('administrar');
@@ -29,7 +29,7 @@ class Evento extends AbstractAccess {
 	 * del formulario nuevo
 	 *
 	 * @return void
-	 * @author 
+	 * @author Luis Macias
 	 **/
 	public function nuevo($exito = null)
 	{

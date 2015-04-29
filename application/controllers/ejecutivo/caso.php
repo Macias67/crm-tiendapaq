@@ -218,7 +218,7 @@ class Caso extends AbstractAccess {
 
 				if($this->casoModel->update(array('id_lider' => $id_ejecutivo, 'id_estatus_general' => $this->estatusGeneralModel->PENDIENTE), array('id' => $id_caso))) {
 					//SECCION ENVIAR CORREO A CONTACTO DE COTIZACION NOTIFICANDO QUE SU CASO HA SIDO ABIERTO Y ASIGNADO
-					$enviado = TRUE;
+					$exito = TRUE;
 					if (!LOCAL) {
 						$this->load->model('cotizacionModel');
 						$this->load->model('contactosModel');

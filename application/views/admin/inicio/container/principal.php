@@ -52,7 +52,7 @@
 							<div>&nbsp;&nbsp;Mis pendientes&nbsp;&nbsp;</div>
 						</a>
 						<!-- Mis Casos -->
-						<a href="<?php echo site_url('casos') ?>" class="icon-btn">
+						<a href="<?php echo site_url('casos') ?>" id="casos_pendiente" class="icon-btn">
 							<i class="fa fa-list"></i>
 							<div>&nbsp;&nbsp;Mis Casos&nbsp;&nbsp;</div>
 						</a>
