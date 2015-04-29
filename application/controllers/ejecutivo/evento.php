@@ -273,7 +273,7 @@ class Evento extends AbstractAccess {
 
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
 		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
-		$duracion 	= $this->sesionesModel->get(array('duracion'),array('id_evento' => $id_evento));
+		$duracion 	= $this->sesionesModel->get(array('duracion','id_sesion'),array('id_evento' => $id_evento));
 		$ruta_nueva = 'assets/admin/pages/media/eventos/'.$evento->id_evento.'/temario.jpg';
 
 		// Creo options de ejecutivos
@@ -342,6 +342,7 @@ class Evento extends AbstractAccess {
 	{
 		// Helper para dropdown menu
 		$this->load->helper('form');
+		$this->load->helper('formatofechas');
 		// Cargo la librería de las validaciones
 		$this->load->library('form_validation');
 		// Obtenemos el id del evento a modificar
@@ -444,9 +445,6 @@ class Evento extends AbstractAccess {
 			$this->_vista('editar-evento');
 		} else
 		{
-			$_sesiones = $this->sesionesModel->get("*");
-			$cuenta_sesiones = count($_sesiones);
-
 			// Preparo informacion de sesiones
 			$sesion1 = $this->input->post('sesion1');
 			$sesion2 = $this->input->post('sesion2');
@@ -473,7 +471,7 @@ class Evento extends AbstractAccess {
 					$fin			= date('Y-m-d H:i:s',strtotime($fin));
 					$sesion = array(
 									'id_evento'		=> $id_evento,
-									'id_sesion'		=> $cuenta_sesiones+1,
+									'id_sesion'		=> $i+1,
 									'fecha_inicio' 	=> $inicio,
 									'fecha_final' 	=> $fin,
 									'duracion' 		=> $this->input->post('dsesion'.($i+1)));
@@ -553,16 +551,16 @@ class Evento extends AbstractAccess {
 			rename($ruta.$tmp_name, $ruta_nueva.'temario.jpg');
 
 			// Sesiones
-			var_dump($total_sesiones);
+			// var_dump($total_sesiones);
 			foreach ($total_sesiones as $index => $sesion) {
 				if (empty($this->sesionesModel->get_where(array('id_sesion'=>$sesion['id_sesion'])))) {
 					$sesion['id_evento'] = $id_evento;
-					$this->sesionesModel->insert($sesion);
+					// $this->sesionesModel->insert($sesion);
 				}else{
-					$this->sesionesModel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
+					// $this->sesionesModel->update($sesion,array('id_evento'=>$sesion['id_evento'],'id_sesion'=>$sesion['id_sesion']));
 				}
 			}
-			redirect('evento/editar/'.$id_evento.'/exito');
+			// redirect('evento/editar/'.$id_evento.'/exito');
 		}
 	}
 
