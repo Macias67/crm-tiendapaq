@@ -1,4 +1,4 @@
-var NuevoEvento = function() {
+var EditarEvento = function() {
 
 	var handleDatePickers = function () {
 		moment.locale("es");
@@ -70,6 +70,8 @@ var NuevoEvento = function() {
 
 		$("input[name='lugar']").on('change', function() {
 			var tipo = $(this).filter(":checked").val();
+			console.log(tipo);
+
 			if (tipo == 'online') {
 				$('#sucursal').fadeOut(500, function() {
 					$("select[name='sucursal']").prop('selectedIndex',0);
@@ -98,7 +100,7 @@ var NuevoEvento = function() {
 					$("input[name='link']").val();
 				});
 				$('#otro').fadeIn(500, function() {
-					$("textarea[name='otro']").val(); 
+					$("textarea[name='otro']").val();
 				});
 			}
 		});

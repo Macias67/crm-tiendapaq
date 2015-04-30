@@ -24,17 +24,7 @@
 	<!-- END GLOBAL MANDATORY STYLES -->
 
 	<!-- BEGIN PAGE LEVEL STYLES -->
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>clockface/css/clockface.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datepicker/css/datepicker3.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-colorpicker/css/colorpicker.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker-bs3.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-switch/css/bootstrap-switch.min.css"/>
-
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->

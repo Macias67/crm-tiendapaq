@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Eventomodel extends MY_Model {
+class eventoModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse
