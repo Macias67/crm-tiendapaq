@@ -23,16 +23,39 @@ class Nota extends AbstractAccess {
 			$nota			= $this->input->post('nota');
 			$privacidad		= $this->input->post('privacidad');
 
-			$tarea = array(
-					'id_tarea'		=> $id_tarea,
-					'privacidad'		=> $privacidad,
-					'fecha_registro'=> date('Y-m-d H:i:s'),
-					'nota'			=> ucfirst(strtolower($nota))
-					);
+			$nueva_nota = array(
+				'id_tarea'		=> $id_tarea,
+				'privacidad'		=> $privacidad,
+				'fecha_registro'=> date('Y-m-d H:i:s'),
+				'nota'			=> ucfirst(strtolower($nota))
+			);
 
-			$exito 	= $this->notastareaModel->insert($tarea);
-			$msg 	= (!$exito) ? 'No se inserto en la base de datos' : '';
-			$response = array('exito' => $exito, 'msg' => $msg);
+			$id_nota 	= $this->notastareaModel->get_last_id_after_insert($nueva_nota);
+			$msg 		= (!$id_nota) ? 'No se inserto en la base de datos' : '';
+			$response 	= array('exito' => TRUE, 'errores' => $msg);
+
+			if (!empty($_FILES)) {
+				// Armo las rutas y nombres de la imagen segun usuario activo
+				$ruta	= 'assets/admin/pages/media/tareas/'.$id_tarea.'/'.$id_nota;
+				//Si no existe directorio lo creo
+				if (!is_dir($ruta))
+				{
+					mkdir($ruta, 0777, TRUE);
+				}
+
+				//Configuracion para la subida del archivo
+				$config_upload['upload_path']		= $ruta;
+				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+				$config_upload['overwrite'] 		= TRUE;
+				$config_upload['max_size']			= 2048;
+				$config_upload['remove_spaces']	= TRUE;
+				$this->load->library('upload', $config_upload);
+
+				if (!$this->upload->do_upload('archivo')) {
+					$response['errores']	= $this->upload->display_errors('', '<br>');
+					$response['exito'] 		= FALSE;
+				}
+			}
 
 			$this->output
 				->set_content_type('application/json')

@@ -35,24 +35,38 @@ var DetalleTarea = function() {
 	};
 
 	var guardarNota = function() {
-		$('#btn-guardar-nota').on('click', function() {
-			var id_tarea = $("input[name='id_tarea']").val();
-			var nota 		= $("textarea[name='nota']").val();
+		$('#nueva_nota').on('submit', function(e) {
+			e.preventDefault();
+			var data = new FormData();
+			var id_tarea 	= $("input[name='id_tarea']").val();
 			var privacidad 	= $("input[name='privacidad']").is(':checked');
-			var privacidad = (privacidad) ? 'privada' : 'publica';
+			var privacidad 	= (privacidad) ? 'privada' : 'publica';
+			var nota 		= $("textarea[name='nota']").val();
+			var archivo 		= $('input[name="archivo"]')[0].files[0];
 
-			var data = {nota:nota, privacidad:privacidad, id_tarea:id_tarea};
-			$.post('/nota/nueva', data, function(data, textStatus, xhr) {
-				if (data.exito) {
-					bootbox.alert('Nueva nota agregada con éxito', function() {
-						location.reload(true);
-					});
-				} else {
-					bootbox.alert(data.msg, function() {
-						location.reload(true);
-					});
+			data.append('id_tarea', id_tarea);
+			data.append('privacidad', privacidad);
+			data.append('nota', nota);
+			data.append('archivo', archivo);
+
+			$.ajax({
+				url: '/nota/nueva',
+				type: 'post',
+				dataType: 'json',
+				data: data,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data){
+					if (data.exito) {
+						bootbox.alert('Nueva nota agregada con éxito', function() {
+							location.reload(true);
+						});
+					} else {
+						bootbox.alert(data.errores);
+					}
 				}
-			}, 'json');
+			});
 		});
 	};
 

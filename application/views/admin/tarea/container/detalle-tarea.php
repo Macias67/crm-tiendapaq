@@ -16,7 +16,6 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-4">
-						<!-- <?php var_dump($cotizacion) ?> -->
 						<!-- DETALLES CASO -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -92,7 +91,7 @@
 						</div>
 						<?php endif ?>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-5">
 						<!-- DETALLES TAREA -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -167,7 +166,10 @@
 											</td>
 											<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
 											<td><?php echo $nota->nota ?></td>
-											<td><a href="" class="btn blue btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i> Editar</a></td>
+											<td>
+												<a href="" class="btn red btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-edit"></i> Editar</a>
+												<a href="" class="btn blue btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i> Editar</a>
+											</td>
 										</tr>
 										<?php endforeach ?>
 									</tbody>
@@ -175,7 +177,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<!-- DETALLES TAREA -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -185,12 +187,8 @@
 								</div>
 							</div>
 							<div class="portlet-body form">
-								<form role="form" action="<?php site_url('') ?>">
+								<form enctype="multipart/form-data"  id="nueva_nota" role="form">
 									<div class="form-body">
-										<div class="form-group">
-											<label>Nota</label>
-											<textarea class="form-control" name="nota" rows="2"></textarea>
-										</div>
 										<div class="form-group">
 											<input
 												type="checkbox"
@@ -203,9 +201,20 @@
 												data-off-color="danger"
 											>
 										</div>
+										<div class="form-group">
+											<label>Nota</label>
+											<textarea class="form-control" name="nota" rows="2" required></textarea>
+										</div>
+										<div class="form-group">
+											<div class="col-md-9">
+												<input type="file" name="archivo" id="archivo">
+												<p class="help-block"> Ligar archivo.</p>
+											</div>
+										</div>
+										<div class="clearfix"></div>
 									</div>
 									<div class="form-actions">
-										<button type="button" class="btn btn-circle blue" id="btn-guardar-nota">Guardar</button>
+										<button type="submit" class="btn btn-circle blue" id="btn-guardar-nota">Guardar</button>
 									</div>
 								</form>
 							</div>
@@ -218,6 +227,19 @@
 		<!-- END CONTENT -->
 
 		<!--AJAX MODAL para mostrar los archivos de una cotizacion -->
+		<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<img src="../../assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
+						<span>
+						&nbsp;&nbsp;Cargando... </span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--AJAX MODAL para mostrar datos de una nota -->
 		<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
