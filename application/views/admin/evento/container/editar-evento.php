@@ -72,7 +72,7 @@
 												<label class="control-label col-md-3">Costo <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
 													<div class="input-inline input-medium">
-														<input id="costo" type="text" name="costo" value="<?php echo $evento->costo?>" class="form-control">
+														<input id="costo_editar" type="text" name="costo" value="<?php echo $evento->costo?>" class="form-control">
 													</div>
 													<span class="help-block">$0.00 se considera sin costo.</span>
 												</div>
@@ -82,7 +82,7 @@
 												<label class="control-label col-md-3">Max. Cupo <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
 													<div class="input-inline input-medium">
-														<input id="cupo" type="text" name="cupo" value="<?php echo $evento->max_participantes ?>" class="form-control">
+														<input id="cupo_editar" type="text" name="cupo" value="<?php echo $evento->max_participantes ?>" class="form-control">
 													</div>
 													<span class="help-block">0 se considera sin límite de cupo.</span>
 												</div>
@@ -162,7 +162,7 @@
 												<label class="control-label col-md-3">Sesión 1 <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
 													<input type="hidden" name="idsesion1" value="<?php echo (isset($sesion[0]->id_sesion)) ? $sesion[0]->id_sesion : ''; ?>">
-													<input type="text" name="sesion1" class="form-control daterange" value="<?php echo $sesiones_str[0]?>" readonly/>
+													<input type="text" name="sesion1" class="form-control daterange_editar" value="<?php echo $sesiones_str[0]?>" title="Editar" readonly/>
 													<input type="hidden" name="dsesion1" value="<?php echo (isset($sesion[0])) ? $sesion[0]->duracion : ''; ?>">
 													<span class="help-block">Duración: <b id="sesion1"><?php echo (isset($sesion[0])) ? $sesion[0]->duracion.' horas aprox.' : ''; ?></b></span>
 												</div>
@@ -172,10 +172,10 @@
 												<div class="col-md-9">
 													<div class="input-group" style="text-align:left">
 														<input type="hidden" name="idsesion2" value="<?php echo (isset($sesion[1]->id_sesion)) ? $sesion[1]->id_sesion : ''; ?>">
-														<input type="text" name="sesion2" class="form-control daterange" value="<?php echo (isset($sesiones_str[1])) ? $sesiones_str[1] : ''?>" readonly/>
+														<input type="text" name="sesion2" class="form-control daterange_editar" value="<?php echo (isset($sesiones_str[1])) ? $sesiones_str[1] : ''?>" title="Editar" readonly/>
 														<span class="input-group-btn">
-														<a href="javascript:;" class="btn red" id="username1_checker">
-														<i class="fa fa-times"></i></a>
+															<a href="javascript:;" class="btn red eliminar-sesion" idsesion="<?php echo (isset($sesion[1]->id_sesion)) ? $sesion[1]->id_sesion : ''; ?>" title="Eliminar">
+															<i class="fa fa-times"></i></a>
 														</span>
 														<input type="hidden" name="dsesion2" value="<?php echo (isset($sesion[1])) ? $sesion[1]->duracion : ''; ?>">
 													</div>
@@ -187,9 +187,9 @@
 												<div class="col-md-9">
 													<div class="input-group" style="text-align:left">
 														<input type="hidden" name="idsesion3" value="<?php echo (isset($sesion[2]->id_sesion)) ? $sesion[2]->id_sesion : ''; ?>">
-														<input type="text" name="sesion3" class="form-control daterange" value="<?php echo (isset($sesiones_str[2])) ? $sesiones_str[2] : ''?>" readonly/>
+														<input type="text" name="sesion3" class="form-control daterange_editar" value="<?php echo (isset($sesiones_str[2])) ? $sesiones_str[2] : ''?>" title="Editar" readonly/>
 														<span class="input-group-btn">
-														<a href="javascript:;" class="btn red" id="username1_checker">
+														<a href="javascript:;" class="btn red eliminar-sesion" idsesion="<?php echo (isset($sesion[2]->id_sesion)) ? $sesion[2]->id_sesion : ''; ?>" title="Eliminar">
 														<i class="fa fa-times"></i></a>
 														</span>
 														<input type="hidden" name="dsesion3" value="<?php echo (isset($sesion[2])) ? $sesion[2]->duracion : ''; ?>">
@@ -202,9 +202,9 @@
 												<div class="col-md-9">
 													<div class="input-group" style="text-align:left">
 														<input type="hidden" name="idsesion4" value="<?php echo (isset($sesion[3]->id_sesion)) ? $sesion[3]->id_sesion : ''; ?>">
-														<input type="text" name="sesion4" class="form-control daterange" value="<?php echo (isset($sesiones_str[3])) ? $sesiones_str[3] : ''?>" readonly/>
-														<span class="input-group-btn">
-															<a href="javascript:;" class="btn red" id="username1_checker">
+														<input type="text" name="sesion4" class="form-control daterange_editar" value="<?php echo (isset($sesiones_str[3])) ? $sesiones_str[3] : ''?>" title="Editar" readonly/>
+														<span class="input-group-btn">title="Eliminar"
+															<a href="javascript:;" class="btn red eliminar-sesion" idsesion="<?php echo (isset($sesion[3]->id_sesion)) ? $sesion[3]->id_sesion : ''; ?>" title="Eliminar" >
 															<i class="fa fa-times"></i></a>
 															</span>
 														<input type="hidden" name="dsesion4" value="<?php echo (isset($sesion[3])) ? $sesion[3]->duracion : ''; ?>">

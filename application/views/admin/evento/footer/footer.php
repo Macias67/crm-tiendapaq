@@ -39,6 +39,8 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-touchspin/bootstrap.touchspin.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<script src="<?php echo $assets_global_plugins ?>bootbox/bootbox.min.js" type="text/javascript" ></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>canvasloader-min.js"></script>
 	<!-- <script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/range_dates.js"></script> -->
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-fileinput/bootstrap-fileinput.js"></script>
 
@@ -49,6 +51,7 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-nuevo-evento') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'form-editar-evento') ?>" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'data-table-eventos') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
@@ -57,6 +60,7 @@
 			QuickSidebar.init() // init quick sidebar
 			// MyScript
 			NuevoEvento.init();
+			EditarEvento.init();
 			DataTableEventos.init();
 		});
 	</script>
