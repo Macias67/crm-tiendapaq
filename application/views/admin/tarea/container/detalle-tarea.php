@@ -15,7 +15,7 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<!-- DETALLES CASO -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -81,7 +81,7 @@
 								<br>
 								<div class="row">
 									<div class="col-md-6">
-										<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('cotizaciones/archivos/'.$cotizacion->folio) ?>" data-target="#ajax" data-toggle="modal">Comprobantes de Pago</a>
+										<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('cotizaciones/archivos/'.$cotizacion->folio) ?>" data-target="#ajax" data-toggle="modal">Pagos</a>
 									</div>
 									<div class="col-md-6">
 										<button class="btn btn-circle green btn-block" id="btn-ver-cotizacion" url="<?php echo $url_cotizacion ?>">Ver cotizacion</button>
@@ -147,10 +147,10 @@
 									<thead class="flip-content">
 										<tr>
 											<th width="1%"> ID </th>
-											<th width="1%">Privacidad</th>
-											<th width="15%"> Fecha </th>
-											<th width="50%"> Nota </th>
-											<th></th>
+											<th width="1%"></th>
+											<th width="20%"></th>
+											<th width="40%"></th>
+											<th width="20%"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -167,8 +167,9 @@
 											<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
 											<td><?php echo $nota->nota ?></td>
 											<td>
-												<a href="" class="btn red btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-edit"></i> Editar</a>
-												<a href="" class="btn blue btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i> Editar</a>
+												<a href="" class="btn blue btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i></a>
+												<a href="" class="btn green btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-edit"></i></a>
+												<a href="" class="btn red btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></a>
 											</td>
 										</tr>
 										<?php endforeach ?>
@@ -177,7 +178,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<!-- DETALLES TAREA -->
 						<div class="portlet light">
 							<div class="portlet-title">
