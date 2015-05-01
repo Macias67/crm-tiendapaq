@@ -1,9 +1,9 @@
 var EditarEvento = function() {
 
-	var handleDatePickers = function () {
+	var handleDatePickersEditar = function () {
 		moment.locale("es");
 		if (jQuery().datetimepicker) {
-			$('.daterange').daterangepicker({
+			$('.daterange_editar').daterangepicker({
 				timePicker: true,
 				format: 'DD/MM/YYYY h:mm A',
 				timePickerIncrement: 10,
@@ -14,7 +14,7 @@ var EditarEvento = function() {
 			//$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
 		}
 		// Calcular horas de duracion
-		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+		$('.daterange_editar').on('apply.daterangepicker', function(ev, picker) {
 			//do something, like clearing an input
 			var rango 	= $(this).val();
 			var div 		= $(this).attr('name');
@@ -34,7 +34,7 @@ var EditarEvento = function() {
 		});
 	}
 
-	var defineLugar = function() {
+	var defineLugarEditar = function() {
 		 var tipo = $("input[name=lugar]").filter(":checked").val();
 				if (tipo == 'online') {
 				$('#sucursal').fadeOut(500, function() {
@@ -70,8 +70,6 @@ var EditarEvento = function() {
 
 		$("input[name='lugar']").on('change', function() {
 			var tipo = $(this).filter(":checked").val();
-			console.log(tipo);
-
 			if (tipo == 'online') {
 				$('#sucursal').fadeOut(500, function() {
 					$("select[name='sucursal']").prop('selectedIndex',0);
@@ -100,15 +98,15 @@ var EditarEvento = function() {
 					$("input[name='link']").val();
 				});
 				$('#otro').fadeIn(500, function() {
-					$("textarea[name='otro']").val();
+					$("textarea[name='otro']").val(); 
 				});
 			}
 		});
 	};
 
-	var handleBootstrapTouchSpin = function() {
+	var handleBootstrapTouchSpinEditar = function() {
 
-		$("#costo").TouchSpin({
+		$("#costo_editar").TouchSpin({
 			buttondown_class: 'btn green',
 			buttonup_class: 'btn green',
 			min: 0,
@@ -120,7 +118,7 @@ var EditarEvento = function() {
 			prefix: '$'
 		});
 
-		$("#cupo").TouchSpin({
+		$("#cupo_editar").TouchSpin({
 			buttondown_class: 'btn green',
 			buttonup_class: 'btn green',
 			min: 0,
@@ -131,11 +129,34 @@ var EditarEvento = function() {
 		});
 	}
 
+	var EliminarSesion = function() {
+		$('.eliminar-sesion').on('click', function (e) {
+			// Valor del id de la sesión para poder eliminar
+			var id_sesion = $(this).attr('idsesion');
+				bootbox.confirm('<h4>¿Seguro que deseas eliminar la sesión?</h4>', function(response) {
+					console.log(response);
+					if (response) {
+						Metronic.showLoader();
+						$.post('/evento/eliminaSesion', {id_sesion:id_sesion}, function(data, textStatus, xhr) {
+							if(data.exito){
+								bootbox.alert(data.msg, function () {
+									parent.location.reload();
+								});
+							}else{
+									bootbox.alert(data.msg);
+							}
+						}, 'json');
+					}
+				});
+		});
+	};
+
 	return {
 		init: function() {
-			handleDatePickers();
-			defineLugar();
-			handleBootstrapTouchSpin();
+			handleDatePickersEditar();
+			defineLugarEditar();
+			handleBootstrapTouchSpinEditar();
+			EliminarSesion();
 		}
 	}
 }();

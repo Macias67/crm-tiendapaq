@@ -572,6 +572,23 @@ class Evento extends AbstractAccess {
 		}
 	}
 
+	public function eliminaSesion()
+	{
+		$id_sesion = $this->input->post('id_sesion');
+
+		if ($this->input->is_ajax_request()) {
+			if($this->sesionesModel->delete(array('id_sesion'=>$id_sesion))) {
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>La sesión fue borrada.</h4>' );
+			}else{
+				$respuesta = array('exito' => FALSE, 'msg' => '<h4>¡Error! Revisa la consola para más información.</h4>' );
+			}
+			//mando la repuesta
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
+		}
+	}
+
 	/**
 	 * Función para obtener los eventos de manera de JSON
 	 * con formato para el DataTable
