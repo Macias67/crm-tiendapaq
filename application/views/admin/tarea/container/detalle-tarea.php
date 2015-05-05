@@ -169,7 +169,7 @@
 											<td>
 												<a href="" class="btn blue btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i></a>
 												<a href="" class="btn green btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-edit"></i></a>
-												<a href="" class="btn red btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></a>
+												<button href="" class="btn red btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></button>
 											</td>
 										</tr>
 										<?php endforeach ?>
@@ -241,7 +241,7 @@
 		</div>
 
 		<!--AJAX MODAL para mostrar datos de una nota -->
-		<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+		<div class="modal fade" id="ajax_nota" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
