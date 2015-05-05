@@ -134,17 +134,16 @@
 														</div>
 														<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 														</div>
-														<div class="col-md-12">
+														<br/>
 															<span class="btn default btn-file">
 																<span class="fileinput-new">
-																Selecionar imagen </span>
+																Seleccionar imagen </span>
 																<span class="fileinput-exists">
 																Cambiar </span>
 																<input type="file" name="userfile" id="exampleInputFile">
 															</span>
 															<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">
 															Quitar </a>
-														</div>
 													</div>
 												</div>
 											</div>
