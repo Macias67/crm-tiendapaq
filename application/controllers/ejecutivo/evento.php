@@ -44,7 +44,7 @@ class Evento extends AbstractAccess {
 		}
 		// Creo options de oficinas
 		$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
-		$options_oficinas = array('' => '');
+		// $options_oficinas = array('' => '');
 		foreach ($oficinas as $index => $oficina) {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
@@ -111,7 +111,7 @@ class Evento extends AbstractAccess {
 			}
 			// Creo options de oficinas
 			$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
-			$options_oficinas = array('' => '');
+			// $options_oficinas = array('' => '');
 			foreach ($oficinas as $index => $oficina) {
 				$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 			}
@@ -203,7 +203,7 @@ class Evento extends AbstractAccess {
 				}
 				// Creo options de oficinas
 				$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
-				$options_oficinas = array('' => '');
+				// $options_oficinas = array('' => '');
 				foreach ($oficinas as $index => $oficina) {
 					$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 				}
@@ -285,7 +285,7 @@ class Evento extends AbstractAccess {
 
 		// Creo options de oficinas
 		$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
-		$options_oficinas = array('' => '');
+		// $options_oficinas = array('' => '');
 		foreach ($oficinas as $index => $oficina) {
 			$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 		}
@@ -416,7 +416,7 @@ class Evento extends AbstractAccess {
 
 			// Creo options de oficinas
 			$oficinas 	= $this->oficinasModel->get(array('id_oficina', 'ciudad_estado', 'calle', 'numero'), null, 'calle', 'ASC');
-			$options_oficinas = array('' => '');
+			// $options_oficinas = array('' => '');
 			foreach ($oficinas as $index => $oficina) {
 				$options_oficinas[$oficina->id_oficina] = $oficina->calle.' '.$oficina->numero.', '.$oficina->ciudad_estado;
 			}
