@@ -100,11 +100,6 @@
 									<i class="icon-puzzle font-grey-gallery"></i>
 									<span class="caption-subject bold font-grey-gallery uppercase">Tareas: </span>
 								</div>
-								<div class="actions">
-									<?php if ($caso->id_estatus_general != 2): ?>
-									<a class="btn btn-circle green btn-block" data-toggle="modal" href="#tarea"><i class="fa fa-plus"></i> Nueva Tarea</a>
-									<?php endif ?>
-								</div>
 							</div>
 							<div class="portlet-body">
 								<!-- <?php var_dump($tareas) ?> -->
@@ -162,74 +157,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- MODAL TAREA NUEVA -->
-		<div class="modal fade" id="tarea" tabindex="-1" role="basic" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form class="form-horizontal" role="form" id="tarea_nueva" method="post" action="<?php echo site_url('tarea/nueva') ?>">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-							<h4 class="modal-title">Nueva Tarea</h4>
-						</div>
-						<div class="modal-body">
-								<div class="form-body">
-									<!-- ALERTS -->
-									<div class="alert alert-danger display-hide">
-										<button class="close" data-close="alert"></button>
-										Tienes errores en el formulario
-									</div>
-									<div class="alert alert-success display-hide">
-										<button class="close" data-close="alert"></button>
-										Éxito en el formulario
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Ejecutivo: <span class="required" aria-required="true">*</span></label>
-										<div class="col-md-6">
-											<select class="form-control" name="ejecutivo">
-												<option></option>
-												<?php foreach ($ejecutivos as $key => $ejecutivo):  ?>
-												<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
-												<?php endforeach ?>
-											</select>
-										</div>
-										<div class="col-md-3">
-											<button  type="button" class="btn default">
-												<i class="fa fa-calendar"></i> Agenda
-											</button>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Tarea: <span class="required" aria-required="true">*</span></label>
-										<div class="col-md-9">
-											<div class="input-icon">
-												<i class="fa fa-bell-o"></i>
-												<input type="text" class="form-control" name="tarea">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-md-3 control-label">Descripción: </label>
-										<div class="col-md-9">
-											<div class="input-icon">
-												<i class="fa fa-bell-o"></i>
-												<textarea class="form-control" rows="2" name="descripcion"></textarea>
-												<input type="hidden" name="id_caso" value="<?php echo $caso->id_caso ?>">
-											</div>
-										</div>
-									</div>
-								</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn default" data-dismiss="modal"> Cerrar </button>
-							<button type="submit" class="btn blue"> Agregar</button>
-						</div>
-					</form>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
 		</div>
 
 		<!--AJAX MODAL para ver notas de una tarea -->

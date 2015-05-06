@@ -2,6 +2,12 @@
 
 class Nota extends AbstractAccess {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('notastareaModel');
+	}
+
 	public function index()
 	{
 		
@@ -17,8 +23,6 @@ class Nota extends AbstractAccess {
 	public function nueva()
 	{
 		if($this->input->is_ajax_request()) {
-			$this->load->model('notastareaModel');
-
 			$id_tarea		= $this->input->post('id_tarea');
 			$nota			= $this->input->post('nota');
 			$privacidad		= $this->input->post('privacidad');
@@ -46,6 +50,7 @@ class Nota extends AbstractAccess {
 				//Configuracion para la subida del archivo
 				$config_upload['upload_path']		= $ruta;
 				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+				$config_upload['file_name'] 		= 'nota';
 				$config_upload['overwrite'] 		= TRUE;
 				$config_upload['max_size']			= 2048;
 				$config_upload['remove_spaces']	= TRUE;
@@ -60,6 +65,52 @@ class Nota extends AbstractAccess {
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($response));
+		}
+	}
+
+	public function elimina()
+	{
+		$id_nota = $this->input->post('id');
+		if ($nota = $this->notastareaModel->get_where(array('id_nota' => $id_nota))) {
+
+			$exito = $this->notastareaModel->delete(array('id_nota' => $id_nota));
+			if ($exito) {
+				$this->load->helper('file');
+				$dir = 'assets/admin/pages/media/tareas/'.$nota->id_tarea.'/'.$nota->id_nota;
+				if (is_dir($dir)) {
+					$exito = delete_files($dir, TRUE);
+					rmdir($dir);
+				}
+			}
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(array('exito' => $exito)));
+		}
+	}
+
+	public function modal($accion)
+	{
+		$id_nota = $this->uri->segment(4);
+		if ($nota = $this->notastareaModel->get_where(array('id_nota' => $id_nota))) {
+			switch ($accion) {
+				case 'editar':
+					$this->load->helper('formatofechas');
+
+					$dir = 'assets/admin/pages/media/tareas/'.$nota->id_tarea.'/'.$nota->id_nota;
+					if (is_dir($dir)) {
+						$this->load->helper('directory');
+						$map = directory_map($dir, 1);
+						$this->data['imagen'] = site_url($dir).'/'.$map[0];
+					}
+
+					$this->data['nota'] = $nota;
+					$this->_vista_completa('nota/modal-edita-nota');
+					break;
+				default:
+					# code...
+					break;
+			}
 		}
 	}
 }

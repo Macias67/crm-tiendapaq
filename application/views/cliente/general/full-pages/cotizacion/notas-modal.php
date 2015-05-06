@@ -10,14 +10,20 @@
 					<thead class="flip-content">
 						<tr>
 							<th width="15%"> Fecha </th>
-							<th width="50%"> Nota </th>
+							<th width="80%"> Nota </th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($notas as $key => $nota): ?>
 						<tr>
 							<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
-							<td><?php echo $nota->nota ?></td><td><a href="" class="btn blue btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i> Editar</a></td>
+							<td><?php echo $nota->nota ?></td>
+							<td>
+							<?php if (isset($nota->imagen)): ?>
+								<a href="<?php echo $nota->imagen ?>" class="btn blue btn-circle btn-xs fancybox" title="<?php echo $nota->nota ?>"><i class="fa fa-file-image-o"></i> Ver imagen</a>
+							<?php endif ?>
+							</td>
 						</tr>
 						<?php endforeach ?>
 					</tbody>

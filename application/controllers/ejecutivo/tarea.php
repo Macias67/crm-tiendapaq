@@ -68,6 +68,17 @@ class Tarea extends AbstractAccess {
 
 			$notas = $this->notastareaModel->get('*', array('id_tarea' => $tarea->id_tarea), 'fecha_registro');
 
+			if (count($notas) > 0) {
+				foreach ($notas as $index => $nota) {
+					$dir = 'assets/admin/pages/media/tareas/'.$nota->id_tarea.'/'.$nota->id_nota;
+					if (is_dir($dir)) {
+						$this->load->helper('directory');
+						$map = directory_map($dir, 1);
+						$notas[$index]->imagen = site_url($dir).'/'.$map[0];
+					}
+				}
+			}
+
 			$this->data['opciones_estatus'] = $opciones_estatus;
 			$this->data['tarea'] 		= $tarea;
 			$this->data['notas'] 		= $notas;
@@ -326,13 +337,6 @@ class Tarea extends AbstractAccess {
 					echo '<h1>No existe esta tarea.</h1>';
 				}
 			break;
-			case 'notas':
-				$this->load->model('notastareaModel');
-				$this->load->helper('formatofechas_helper');
-				$notas = $this->notastareaModel->get('*', array('id_tarea' => $id_tarea));
-				$this->data['notas'] = $notas;
-				$this->_vista_completa('tarea/notas-modal');
-				break;
 		}
 	}
 

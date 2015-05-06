@@ -37,7 +37,7 @@ var DetalleTarea = function() {
 	var guardarNota = function() {
 		$('#nueva_nota').on('submit', function(e) {
 			e.preventDefault();
-			var data = new FormData();
+			var data 		= new FormData();
 			var id_tarea 	= $("input[name='id_tarea']").val();
 			var privacidad 	= $("input[name='privacidad']").is(':checked');
 			var privacidad 	= (privacidad) ? 'privada' : 'publica';
@@ -84,12 +84,42 @@ var DetalleTarea = function() {
 		});
 	};
 
+	var eliminaNota = function() {
+		$('.eliminar').on('click', function() {
+			var id = $(this).attr('id');
+			bootbox.confirm('<h4>¿Seguro de eliminar esta nota?</h4>', function(result) {
+				if (result) {
+					$.post('/nota/elimina', {id:id}, function(data, textStatus, xhr) {
+						if (data.exito) {
+							bootbox.alert('<h4>Se eliminó nota</h4>', function() {
+								location.reload(true);
+							});
+						};
+					});
+				};
+			});
+		});
+	};
+
+	var fancyBox = function() {
+		$(".fancybox").fancybox();
+	};
+
+	var modalEditarNota = function() {
+		$('#ajax_edita_nota').on('shown.bs.modal', function() {
+			Metronic.initComponents();
+		});
+	};
+
 	return {
 		init: function() {
 			verCotizacion();
 			guardarAvances();
 			guardarNota();
 			progresoTarea();
+			eliminaNota();
+			fancyBox();
+			modalEditarNota();
 		}
 	}
 }();

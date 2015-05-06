@@ -7,7 +7,7 @@ EJECUTIVO
 *Estatus de tareas ejecutivo, no se mostro el estatos de la tarea.
 *Vista rapida para ver estatus de casos y tareas de OTROS ejecutivos
 *Boton de cerrar casos en listado de casos, no funciona
-*Anexar imagenes y pruebas para el avance de notas
+LISTO*Anexar imagenes y pruebas para el avance de notas
 *Reasignar tarea lo puede hacer tanto el lider del caso como la persona asignada.
 *Reasignar caso si y solo si no hay ninguna tarea creada.
 *Eliminar tareas si y solo si no hay notas y el estatus este en "pendiente".

@@ -100,6 +100,16 @@ class Caso extends AbstractAccess {
 		$this->load->helper('formatofechas_helper');
 
 		$notas = $this->notastareaModel->get('*', array('id_tarea' => $id_tarea, 'privacidad' => 'publica'));
+		if (count($notas) > 0) {
+			foreach ($notas as $index => $nota) {
+				$dir = 'assets/admin/pages/media/tareas/'.$nota->id_tarea.'/'.$nota->id_nota;
+				if (is_dir($dir)) {
+					$this->load->helper('directory');
+					$map = directory_map($dir, 1);
+					$notas[$index]->imagen = site_url($dir).'/'.$map[0];
+				}
+			}
+		}
 		$this->data['notas'] = $notas;
 		$this->_vista_completa('cotizacion/notas-modal');
 	}

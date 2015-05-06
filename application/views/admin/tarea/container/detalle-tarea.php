@@ -167,9 +167,11 @@
 											<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
 											<td><?php echo $nota->nota ?></td>
 											<td>
-												<a href="" class="btn blue btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i></a>
-												<a href="" class="btn green btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-edit"></i></a>
-												<button href="" class="btn red btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></button>
+												<?php if (isset($nota->imagen)): ?>
+												<a href="<?php echo $nota->imagen ?>" class="btn blue btn-xs ver fancybox"><i class="fa fa-file-image-o"></i></a>
+												<?php endif ?>
+												<a href="<?php echo site_url('nota/modal/editar/'.$nota->id_nota) ?>" class="btn green btn-xs editar" data-target="#ajax_edita_nota" data-toggle="modal"><i class="fa fa-edit"></i></a>
+												<button class="btn red btn-xs eliminar" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></button>
 											</td>
 										</tr>
 										<?php endforeach ?>
@@ -198,7 +200,7 @@
 												data-size="small"
 												data-on-text="&nbsp;Privada&nbsp;"
 												data-off-text="&nbsp;Pública&nbsp;"
-												checked data-on-color="success"
+												data-on-color="success"
 												data-off-color="danger"
 											>
 										</div>
@@ -241,7 +243,7 @@
 		</div>
 
 		<!--AJAX MODAL para mostrar datos de una nota -->
-		<div class="modal fade" id="ajax_nota" role="basic" aria-hidden="true">
+		<div class="modal fade" id="ajax_edita_nota" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
