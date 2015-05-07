@@ -68,6 +68,54 @@ class Nota extends AbstractAccess {
 		}
 	}
 
+	public function edita()
+	{
+		if($this->input->is_ajax_request()) {
+			$id_tarea		= $this->input->post('id_tarea');
+			$id_nota		= $this->input->post('id_nota');
+			$nota			= $this->input->post('nota');
+			$privacidad		= $this->input->post('privacidad');
+
+			$edita_nota = array(
+				'id_nota'		=> $id_nota,
+				'privacidad'		=> $privacidad,
+				'nota'			=> ucfirst(strtolower($nota))
+			);
+
+			$update 	= $this->notastareaModel->update($edita_nota, array('id_nota' => $id_nota));
+			$msg 		= (!$update) ? 'No se inserto en la base de datos' : '';
+			$response 	= array('exito' => TRUE, 'errores' => $msg);
+
+			if (!empty($_FILES)) {
+				// Armo las rutas y nombres de la imagen segun usuario activo
+				$ruta	= 'assets/admin/pages/media/tareas/'.$id_tarea.'/'.$id_nota;
+				//Si no existe directorio lo creo
+				if (!is_dir($ruta))
+				{
+					mkdir($ruta, 0777, TRUE);
+				}
+
+				//Configuracion para la subida del archivo
+				$config_upload['upload_path']		= $ruta;
+				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+				$config_upload['file_name'] 		= 'nota';
+				$config_upload['overwrite'] 		= TRUE;
+				$config_upload['max_size']			= 2048;
+				$config_upload['remove_spaces']	= TRUE;
+				$this->load->library('upload', $config_upload);
+
+				if (!$this->upload->do_upload('archivo')) {
+					$response['errores']	= $this->upload->display_errors('', '<br>');
+					$response['exito'] 		= FALSE;
+				}
+			}
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($response));
+		}
+	}
+
 	public function elimina()
 	{
 		$id_nota = $this->input->post('id');
@@ -89,6 +137,21 @@ class Nota extends AbstractAccess {
 		}
 	}
 
+	public function dropimagen()
+	{
+		$url = $this->input->post('url');
+		$exito = FALSE;
+		if (file_exists($url)) {
+			$bye_file = unlink($url);
+			$dir = pathinfo($url);
+			$bye_dir = rmdir($dir['dirname']);
+			$exito = $bye_file && $bye_dir;
+		}
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode(array('exito' => $exito)));
+	}
+
 	public function modal($accion)
 	{
 		$id_nota = $this->uri->segment(4);
@@ -101,9 +164,9 @@ class Nota extends AbstractAccess {
 					if (is_dir($dir)) {
 						$this->load->helper('directory');
 						$map = directory_map($dir, 1);
-						$this->data['imagen'] = site_url($dir).'/'.$map[0];
+						$this->data['imagen'] = $dir.'/'.$map[0];
 					}
-
+					$nota->privacidad = ($nota->privacidad == 'privada') ? 'checked' : '';
 					$this->data['nota'] = $nota;
 					$this->_vista_completa('nota/modal-edita-nota');
 					break;

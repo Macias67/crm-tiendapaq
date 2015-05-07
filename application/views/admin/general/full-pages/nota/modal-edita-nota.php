@@ -1,4 +1,4 @@
-<form enctype="multipart/form-data"  id="nueva_nota" role="form">
+<form enctype="multipart/form-data"  id="edita_nota" role="form">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		<h4 class="modal-title">Edita nota:</h4>
@@ -9,10 +9,13 @@
 				<div class="col-md-12">
 					<div class="form-body">
 						<div class="form-group">
+							<input type="hidden" name="id_tarea" value="<?php echo $nota->id_tarea ?>">
+							<input type="hidden" name="id_nota" value="<?php echo $nota->id_nota ?>">
 							<input
 								type="checkbox"
 								name="privacidad"
-								checked class="make-switch"
+								<?php echo $nota->privacidad ?>
+								class="make-switch"
 								data-size="small"
 								data-on-text="&nbsp;Privada&nbsp;"
 								data-off-text="&nbsp;Pública&nbsp;"
@@ -22,12 +25,18 @@
 						</div>
 						<div class="form-group">
 							<label>Nota</label>
-							<textarea class="form-control" name="nota" rows="2" required></textarea>
+							<textarea class="form-control" name="edita_nota" rows="2" required><?php echo $nota->nota ?></textarea>
 						</div>
 						<div class="form-group">
+							<?php if (isset($imagen)): ?>
+								<div class="col-md-2">
+									<input type="hidden" name="url-imagen" value="<?php echo $imagen ?>">
+									<button type="button" class="btn btn-circle btn-danger btn-sm borrar">Borrar foto</button>
+								</div>
+							<?php endif ?>
 							<div class="col-md-9">
-								<input type="file" name="archivo" id="archivo">
-								<p class="help-block"> Ligar archivo.</p>
+								<input type="file" name="edita_archivo" id="archivo">
+								<p class="help-block"> Ligar archivo. (En caso de ya tener foto se sobrescribirá)</p>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -37,7 +46,7 @@
 		<!-- </div> -->
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn blue">Guardar</button>
+		<button type="submit" class="btn blue" >Guardar</button>
 		<button type="button" class="btn default" data-dismiss="modal">Cancelar</button>
 	</div>
 </form>

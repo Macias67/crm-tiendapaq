@@ -108,6 +108,53 @@ var DetalleTarea = function() {
 	var modalEditarNota = function() {
 		$('#ajax_edita_nota').on('shown.bs.modal', function() {
 			Metronic.initComponents();
+
+			$('form#edita_nota .borrar').on('click', function() {
+				var url = $('input[name="url-imagen"]').val();
+				$.post('/nota/dropimagen', {url:url}, function(data, textStatus, xhr) {
+					if (data.exito) {
+						bootbox.alert('Se eliminó la imagen ligada a la nota.', function() {
+							location.reload(true);
+						});
+					};
+				}, 'json');
+			});
+
+			$('#edita_nota').on('submit', function(e) {
+				e.preventDefault();
+				var data 		= new FormData();
+				var id_tarea 	= $("input[name='id_tarea']").val();
+				var id_nota 		= $("input[name='id_nota']").val();
+				var privacidad 	= $("input[name='privacidad']").is(':checked');
+				var privacidad 	= (privacidad) ? 'privada' : 'publica';
+				var nota 		= $("textarea[name='edita_nota']").val();
+				var archivo 		= $('input[name="edita_archivo"]')[0].files[0];
+
+				data.append('id_tarea', id_tarea);
+				data.append('id_nota', id_nota);
+				data.append('privacidad', privacidad);
+				data.append('nota', nota);
+				data.append('archivo', archivo);
+
+				$.ajax({
+					url: '/nota/edita',
+					type: 'post',
+					dataType: 'json',
+					data: data,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data){
+						if (data.exito) {
+							bootbox.alert('La nota ha sido editada con éxito', function() {
+								location.reload(true);
+							});
+						} else {
+							bootbox.alert(data.errores);
+						}
+					}
+				});
+			});
 		});
 	};
 
