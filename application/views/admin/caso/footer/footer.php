@@ -39,6 +39,7 @@
 	<script src="<?php echo $assets_global_plugins ?>holder.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_global_plugins ?>jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_global_plugins ?>jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.pack.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>canvasloader-min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 

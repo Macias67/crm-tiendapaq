@@ -123,9 +123,9 @@ var DetalleTarea = function() {
 			$('#edita_nota').on('submit', function(e) {
 				e.preventDefault();
 				var data 		= new FormData();
-				var id_tarea 	= $("input[name='id_tarea']").val();
-				var id_nota 		= $("input[name='id_nota']").val();
-				var privacidad 	= $("input[name='privacidad']").is(':checked');
+				var id_tarea 	= $("input[name='edita_id_tarea']").val();
+				var id_nota 		= $("input[name='edita_id_nota']").val();
+				var privacidad 	= $("input[name='edita_privacidad']").is(':checked');
 				var privacidad 	= (privacidad) ? 'privada' : 'publica';
 				var nota 		= $("textarea[name='edita_nota']").val();
 				var archivo 		= $('input[name="edita_archivo"]')[0].files[0];

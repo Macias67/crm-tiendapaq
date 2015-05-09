@@ -10,10 +10,10 @@
 					<thead class="flip-content">
 						<tr>
 							<th width="1%"> ID </th>
-							<th width="1%">Privacidad</th>
-							<th width="15%"> Fecha </th>
-							<th width="50%"> Nota </th>
-							<th></th>
+							<th width="1%"></th>
+							<th width="20%"></th>
+							<th width="40%"></th>
+							<th width="15%"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -29,7 +29,13 @@
 							</td>
 							<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
 							<td><?php echo $nota->nota ?></td>
-							<td><a href="" class="btn blue btn-circle btn-xs" id="<?php echo $nota->id_nota ?>"><i class="fa fa-search"></i> Editar</a></td>
+							<td>
+								<?php if (isset($nota->imagen)): ?>
+								<a href="<?php echo $nota->imagen ?>" class="btn blue btn-xs ver fancybox"><i class="fa fa-file-image-o"></i></a>
+								<?php endif ?>
+								<a href="<?php echo site_url('nota/modal/editar/'.$nota->id_nota) ?>" class="btn green btn-xs editar" data-target="#ajax_edita_nota" data-toggle="modal"><i class="fa fa-edit"></i></a>
+								<button class="btn red btn-xs eliminar" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></button>
+							</td>
 						</tr>
 						<?php endforeach ?>
 					</tbody>
@@ -39,5 +45,5 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn default" data-dismiss="modal">Close</button>
+	<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
 </div>

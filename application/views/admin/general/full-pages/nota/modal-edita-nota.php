@@ -9,11 +9,11 @@
 				<div class="col-md-12">
 					<div class="form-body">
 						<div class="form-group">
-							<input type="hidden" name="id_tarea" value="<?php echo $nota->id_tarea ?>">
-							<input type="hidden" name="id_nota" value="<?php echo $nota->id_nota ?>">
+							<input type="hidden" name="edita_id_tarea" value="<?php echo $nota->id_tarea ?>">
+							<input type="hidden" name="edita_id_nota" value="<?php echo $nota->id_nota ?>">
 							<input
 								type="checkbox"
-								name="privacidad"
+								name="edita_privacidad"
 								<?php echo $nota->privacidad ?>
 								class="make-switch"
 								data-size="small"
