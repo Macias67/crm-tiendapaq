@@ -55,6 +55,9 @@ var TableManagedTareas = function () {
 					case 5:
 						label = '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
 					break;
+					case 6:
+						label = '<p class="btn btn-circle btn-xs bg-grey-gallery"> Suspendido</p>';
+					break;
 					case 7:
 						label = '<p class="btn btn-circle btn-xs green"> Reasignado </p>';
 					break;

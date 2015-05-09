@@ -64,7 +64,7 @@ class CasoModel extends MY_Model {
 	 *
 	 * @author Luis Macias
 	 **/
-	public function get_caso_ejecutivo_table($id_ejecutivo, $campos, $joins, $like, $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	public function get_caso_ejecutivo_table($id_ejecutivo = null, $campos, $joins, $like, $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
 	{
 		$this->db->select($campos);
 		$todos = ($joins[0] == '*' && count($joins) == 1) ? TRUE : FALSE ;
@@ -75,9 +75,20 @@ class CasoModel extends MY_Model {
 		if (in_array('estatus_general', $joins) || $todos) {
 			$this->db->join('estatus_general', $this->table.'.id_estatus_general = estatus_general.id_estatus', 'inner');
 		}
+		if (in_array('ejecutivos', $joins) || $todos) {
+			$this->db->join('ejecutivos', $this->table.'.id_lider = ejecutivos.id', 'left');
+		}
 		//$this->db->or_like($like);
-		$this->db->where(array($this->table.'.id_lider' => $id_ejecutivo));
-		$this->db->where("(`folio_cotizacion`  LIKE '%".$like."%' OR  `clientes`.`razon_social`  LIKE '%".$like."%' OR  `fecha_inicio`  LIKE '%".$like."%' OR  `fecha_final`  LIKE '%".$like."%' OR  `estatus_general`.`descripcion`  LIKE '%".$like."%')");
+		if ($id_ejecutivo) {
+			$this->db->where(array($this->table.'.id_lider' => $id_ejecutivo));
+		}
+		$this->db->where("(".
+		                 "`folio_cotizacion`  LIKE '%".$like."%' ".
+		                 "OR  `clientes`.`razon_social`  LIKE '%".$like."%' ".
+		                 "OR  `ejecutivos`.`primer_nombre`  LIKE '%".$like."%' ".
+		                 "OR  `fecha_inicio`  LIKE '%".$like."%' ".
+		                 "OR  `fecha_final`  LIKE '%".$like."%' ".
+		                 "OR  `estatus_general`.`descripcion`  LIKE '%".$like."%')");
 		if($orderBy)
 		{
 			$this->db->order_by($orderBy, $orderForm);
@@ -125,6 +136,7 @@ class CasoModel extends MY_Model {
 			'caso.id as id_caso',
 			'caso.id_estatus_general',
 			'caso.descripcion',
+			'caso.id_lider',
 			'ejecutivos.primer_nombre',
 			'ejecutivos.apellido_paterno',
 			'estatus_general.descripcion as estatus',

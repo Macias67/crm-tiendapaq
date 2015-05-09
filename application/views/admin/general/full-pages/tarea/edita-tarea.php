@@ -19,11 +19,6 @@
 					<div class="col-md-6">
 						<?php echo form_dropdown('ejecutivo', $opciones_ejecutivo, $tarea->id_ejecutivo, 'class="form-control"') ?>
 					</div>
-					<div class="col-md-3">
-						<button  type="button" class="btn default">
-							<i class="fa fa-calendar"></i> Agenda
-						</button>
-					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-3 control-label">Tarea: <span class="required" aria-required="true">*</span></label>

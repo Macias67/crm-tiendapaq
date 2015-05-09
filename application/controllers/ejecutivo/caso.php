@@ -47,7 +47,7 @@ class Caso extends AbstractAccess {
 
 	public function casos_ejecutivos()
 	{
-		$id_ejecutivo = $this->usuario_activo['id'];
+		$this->data['id_ejecutivo'] = $this->usuario_activo['id'];
 		$this->_vista('listado-casos');
 	}
 
@@ -60,14 +60,18 @@ class Caso extends AbstractAccess {
 	 **/
 	public function json_casos($id_ejecutivo = null)
 	{
-		$id_ejecutivo	= (is_null($id_ejecutivo)) ? $this->usuario_activo['id'] : $id_ejecutivo;
+
 		$draw			= $this->input->post('draw');
 		$start			= $this->input->post('start');
 		$length		= $this->input->post('length');
 		$order			= $this->input->post('order');
 		$columns		= $this->input->post('columns');
 		$search		= $this->input->post('search');
-		$total			=  $this->casoModel->get('COUNT(*) as total', array('id_lider' =>$id_ejecutivo), null, 1);
+		if ($id_ejecutivo) {
+			$total			=  $this->casoModel->get('COUNT(*) as total', array('id_lider' =>$id_ejecutivo), null, 1);
+		} else {
+			$total			=  $this->casoModel->get('COUNT(*) as total', null, null, 1);
+		}
 
 		if($length == -1)
 		{
@@ -79,11 +83,13 @@ class Caso extends AbstractAccess {
 						'caso.id_estatus_general',
 						'clientes.razon_social',
 						'estatus_general.descripcion',
+						'ejecutivos.primer_nombre',
+						'ejecutivos.apellido_paterno',
 						'id_cliente',
 						'folio_cotizacion',
 						'fecha_inicio',
 						'fecha_final');
-		$joins 			= array('clientes', 'estatus_general');
+		$joins 			= array('clientes', 'estatus_general', 'ejecutivos');
 		$like 			= $search['value'];
 		$orderBy 		= $columns[$order[0]['column']]['data'];
 		$orderForm 	= $order[0]['dir'];
@@ -110,6 +116,7 @@ class Caso extends AbstractAccess {
 				'DT_RowId'					=> $caso->id_caso,
 				'folio_cotizacion'			=> $caso->folio_cotizacion,
 				'razon_social'				=> $caso->razon_social,
+				'id_lider'					=> $caso->primer_nombre.' '.$caso->apellido_paterno,
 				'fecha_inicio'				=> fecha_completa($caso->fecha_inicio),
 				'fecha_final'				=> ($caso->fecha_final=='1000-01-01 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final),
 				'id_estatus_general'		=> $caso->id_estatus_general,
@@ -140,6 +147,7 @@ class Caso extends AbstractAccess {
 		$this->load->model('cotizacionModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('notastareaModel');
+		$this->load->model('estatusgeneralmodel');
 		$this->load->model('tareaModel');
 		$this->load->helper('formatofechas_helper');
 		$this->load->helper('cotizacion');
@@ -162,11 +170,36 @@ class Caso extends AbstractAccess {
 				);
 			}
 			// URL para mostrar cotizacion
-			$this->data['url_cotizacion'] = $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
-			$this->data['detalle_caso'] = $detalle_caso;
-			$this->data['cotizacion'] 	= $cotizacion;
-			$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
-			$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
+			$this->data['url_cotizacion'] 		= $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
+			$this->data['detalle_caso'] 		= $detalle_caso;
+			$this->data['cotizacion'] 			= $cotizacion;
+			$this->data['estatus_cotizacion'] 	= id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
+		}
+
+		// Muestra boton tareas
+		if ($caso->id_lider != $this->usuario_activo['id'] ||
+		    	($caso->id_estatus_general == $this->estatusgeneralmodel->CERRADO ||
+		    	$caso->id_estatus_general == $this->estatusgeneralmodel->PORASIGNAR ||
+		     	$caso->id_estatus_general == $this->estatusgeneralmodel->PRECIERRE ||
+		     	$caso->id_estatus_general == $this->estatusgeneralmodel->CANCELADO)
+		) {
+			$this->data['boton_tareas'] 		= FALSE;
+		} else {
+			$this->data['boton_tareas'] 		= TRUE;
+		}
+
+		// Muestra boton reasignar
+		if ($caso->id_lider != $this->usuario_activo['id'] ||
+		    	($caso->id_estatus_general == $this->estatusgeneralmodel->CERRADO ||
+		    	$caso->id_estatus_general == $this->estatusgeneralmodel->PORASIGNAR ||
+		     	$caso->id_estatus_general == $this->estatusgeneralmodel->PRECIERRE ||
+		     	$caso->id_estatus_general == $this->estatusgeneralmodel->CANCELADO ||
+		     	$caso->id_estatus_general == $this->estatusgeneralmodel->PROCESO ||
+		     	$caso->id_estatus_general == $this->estatusgeneralmodel->SUSPENDIDO)
+		    ) {
+			$this->data['boton_reasignar'] 		= FALSE;
+		} else {
+			$this->data['boton_reasignar'] 		= TRUE;
 		}
 
 		// Total comentarios por tarea
@@ -175,9 +208,10 @@ class Caso extends AbstractAccess {
 			$tareas[$index]->total_notas = $this->notastareaModel->total_notas($tarea->id_tarea);
 		}
 
-		$this->data['tareas'] 		= $tareas;
-		$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-		$this->data['caso'] 			= $caso;
+		$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
+		$this->data['tareas'] 				= $tareas;
+		$this->data['ejecutivos'] 			= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+		$this->data['caso'] 					= $caso;
 		$this->_vista('detalle-caso');
 	}
 
@@ -277,6 +311,22 @@ class Caso extends AbstractAccess {
 		}
 	}
 
+	public function reasignar()
+	{
+		if ($this->input->is_ajax_request()) {
+			$this->load->model('reasignarcasomodel');
+
+			$id_caso 	= $this->input->post('id_caso');
+			$destino 	= $this->input->post('reasignar');
+			$motivo 	= $this->input->post('motivo');
+
+			if ($this->casomodel->exist(array('id' => $id_caso))) {
+				$this->load->model('reasignarcasomodel');
+				var_dump('hola');
+			}
+		}
+	}
+
 	/**
 	 * funcion para abrir un caso de manera directa
 	 *
@@ -344,23 +394,26 @@ class Caso extends AbstractAccess {
 	 **/
 	public function cerrar()
 	{
-		$id_caso = $this->input->post('id_caso');
-		$this->load->model('estatusGeneralModel');
+		if ($this->input->is_ajax_request()) {
+			$id_caso = $this->input->post('id_caso');
+			var_dump($id_caso);
+			// $this->load->model('estatusGeneralModel');
 
-		$update = array(
-				'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
-				'fecha_final' 			=> date('Y-m-d H:i:s')
-			);
+			// $update = array(
+			// 		'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
+			// 		'fecha_final' 			=> date('Y-m-d H:i:s')
+			// 	);
 
-		if($this->casoModel->update($update, array('id' => $id_caso))){
-			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
-		}else{
-			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+			// if($this->casoModel->update($update, array('id' => $id_caso))){
+			// 	$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
+			// }else{
+			// 	$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+			// }
+
+			// $this->output
+			// 	->set_content_type('application/json')
+			// 	->set_output(json_encode($respuesta));
 		}
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($respuesta));
 	}
 }
 

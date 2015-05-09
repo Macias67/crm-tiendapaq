@@ -7,6 +7,39 @@ var DetalleCaso = function() {
 		});
 	};
 
+	var reasignarCaso = function() {
+		$('#modal-reasignar').on('shown.bs.modal', function() {
+			$('#reasignar-caso').on('submit', function(e) {
+				var data = $(this).serialize();
+				// $.post('/caso/reasignar', {data:data}, function(data, textStatus, xhr) {
+				// 	if (data.exito) {
+				// 		bootbox.alert('Se ha reasignado el caso correctamente.', function() {
+				// 			location.reload(true);
+				// 		});
+				// 	};
+				// }, 'json');
+				// $.ajax({
+				// 	url: '/caso/reasignar',
+				// 	type: 'post',
+				// 	dataType: 'json',
+				// 	data: data,
+				// 	cache: false,
+				// 	contentType: false,
+				// 	processData: false,
+				// 	success: function(data){
+				// 		if (data.exito) {
+				// 			bootbox.alert('Se ha reasignado el caso correctamente.', function() {
+				// 				location.reload(true);
+				// 			});
+				// 		} else {
+				// 			bootbox.alert(data.errores);
+				// 		}
+				// 	}
+				// });
+			});
+		});
+	};
+
 	var progresoTarea = function() {
 		$('.easy-pie-chart .number.transactions').easyPieChart({
 			animate: 1000,
@@ -284,6 +317,7 @@ var DetalleCaso = function() {
 		init : function() {
 			FormValidacionTarea();
 			verCotizacion();
+			reasignarCaso();
 			progresoTarea();
 			modalEditarTarea();
 

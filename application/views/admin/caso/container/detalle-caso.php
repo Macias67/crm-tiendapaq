@@ -7,7 +7,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title"><b>Folio # <?php echo $caso->folio_cotizacion ?></b> <small>Caso no. <?php echo $caso->id_caso ?></small></h3>
+						<h3 class="page-title"><b><?php echo ($caso->folio_cotizacion) ? 'Folio #'.$caso->folio_cotizacion : 'Sin Folio' ?></b> <small>Caso no. <?php echo $caso->id_caso ?></small></h3>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
 				</div>
@@ -16,7 +16,6 @@
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-4">
-						<!-- <?php var_dump($cotizacion) ?> -->
 						<!-- DETALLES CASO -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -26,33 +25,44 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<h5>Cliente: </h5>
-								<h4><b><?php echo $caso->razon_social ?></b></h4>
+								<div class="row">
+									<div class="col-md-12">
+										<h5>Cliente: </h5>
+										<h4><b><?php echo $caso->razon_social ?></b></h4>
 
-								<h5>Líder: </h5>
-								<h4><b><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></b></h4>
+										<h5>Líder: </h5>
+										<h4><b><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></b></h4>
 
-								<h5>Descripción del caso: </h5>
-								<dl>
-								<?php if (empty($caso->descripcion)): ?>
-								<?php foreach ($detalle_caso as $key => $lista): ?>
-									<dt><?php echo ++$key.'. '.$lista['descripcion'] ?></dt>
-									<dd><?php echo $lista['observacion'] ?></dd>
-								<?php endforeach ?>
-								<?php else: ?>
-								<dt><?php echo $caso->descripcion ?></dt>
+										<h5>Descripción del caso: </h5>
+										<dl>
+										<?php if (empty($caso->descripcion)): ?>
+										<?php foreach ($detalle_caso as $key => $lista): ?>
+											<dt><?php echo ++$key.'. '.$lista['descripcion'] ?></dt>
+											<dd><?php echo $lista['observacion'] ?></dd>
+										<?php endforeach ?>
+										<?php else: ?>
+										<dt><?php echo $caso->descripcion ?></dt>
+										<?php endif ?>
+										</dl>
+
+										<h5>Apertura del caso: </h5>
+										<h5><b><?php echo fecha_completa($caso->fecha_inicio) ?></b></h5>
+
+										<h5>Estatus del caso: </h5>
+										<span class="badge <?php echo $estatus_caso['class'] ?>"><b><?php echo $estatus_caso['estatus'] ?></b></span>
+									</div>
+								</div>
+								<br>
+								<?php if ($boton_reasignar): ?>
+								<div class="row">
+									<div class="col-md-12">
+										<a class="btn btn-circle red btn-block" data-target="#modal-reasignar" data-toggle="modal">Reasignar</a>
+									</div>
+								</div>
 								<?php endif ?>
-								</dl>
-
-								<h5>Apertura del caso: </h5>
-								<h5><b><?php echo fecha_completa($caso->fecha_inicio) ?></b></h5>
-
-								<h5>Estatus del caso: </h5>
-								<span class="badge <?php echo $estatus_caso['class'] ?>"><b><?php echo $estatus_caso['estatus'] ?></b></span>
 							</div>
 						</div>
 
-						<?php if(!is_null($caso->folio_cotizacion)): ?>
 						<!-- DETALLES COTIZACION -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -60,11 +70,9 @@
 									<i class="icon-puzzle font-grey-gallery"></i>
 									<span class="caption-subject bold font-grey-gallery uppercase">Cotización: </span>
 								</div>
-								<div class="tools">
-									<a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-								</div>
 							</div>
 							<div class="portlet-body">
+								<?php if(!is_null($caso->folio_cotizacion)): ?>
 								<div class="row">
 									<div class="col-md-2">
 										<h5>Folio: </h5>
@@ -88,9 +96,11 @@
 										<button class="btn btn-circle green btn-block" id="btn-ver-cotizacion" url="<?php echo $url_cotizacion ?>">Ver cotizacion</button>
 									</div>
 								</div>
+								<?php else: ?>
+									<h3>Sin Cotización</h3>
+								<?php endif; ?>
 							</div>
 						</div>
-						<?php endif ?>
 					</div>
 					<div class="col-md-8">
 						<!-- TAREAS -->
@@ -101,7 +111,7 @@
 									<span class="caption-subject bold font-grey-gallery uppercase">Tareas: </span>
 								</div>
 								<div class="actions">
-									<?php if ($caso->id_estatus_general != 2): ?>
+									<?php if ($boton_tareas): ?>
 									<a class="btn btn-circle green btn-block" data-toggle="modal" href="#tarea"><i class="fa fa-plus"></i> Nueva Tarea</a>
 									<?php endif ?>
 								</div>
@@ -154,6 +164,60 @@
 		</div>
 		<!-- END CONTENT -->
 
+		<!-- MODAL Reasignar -->
+		<div class="modal fade" id="modal-reasignar" tabindex="-1" role="basic" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form class="form-horizontal" role="form" id="reasignar-caso" method="post">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title">Reasignar Caso</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-body">
+								<!-- ALERTS -->
+								<div class="alert alert-danger display-hide">
+									<button class="close" data-close="alert"></button>
+									Tienes errores en el formulario
+								</div>
+								<div class="alert alert-success display-hide">
+									<button class="close" data-close="alert"></button>
+									Éxito en el formulario
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Ejecutivo: <span class="required" aria-required="true">*</span></label>
+									<div class="col-md-6">
+										<select class="form-control" name="reasignar">
+											<?php foreach ($ejecutivos as $key => $ejecutivo):  ?>
+											<option value="<?php echo $ejecutivo->id ?>"><?php echo $ejecutivo->primer_nombre.' '.$ejecutivo->apellido_paterno ?></option>
+											<?php endforeach ?>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Motivo: </label>
+									<div class="col-md-9">
+										<div class="input-icon">
+											<i class="fa fa-bell-o"></i>
+											<textarea class="form-control" rows="2" name="motivo" required></textarea>
+											<input type="hidden" name="id_caso" value="<?php echo $caso->id_caso ?>">
+											<input type="hidden" name="id_lider" value="<?php echo $caso->id_lider ?>">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn default" data-dismiss="modal"> Cerrar </button>
+							<button type="submit" class="btn blue"> Reasignar</button>
+						</div>
+					</form>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+
 		<!--AJAX MODAL para mostrar los archivos de una cotizacion -->
 		<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
 			<div class="modal-dialog">
@@ -197,11 +261,11 @@
 												<?php endforeach ?>
 											</select>
 										</div>
-										<div class="col-md-3">
+										<!-- <div class="col-md-3">
 											<button  type="button" class="btn default">
 												<i class="fa fa-calendar"></i> Agenda
 											</button>
-										</div>
+										</div> -->
 									</div>
 									<div class="form-group">
 										<label class="col-md-3 control-label">Tarea: <span class="required" aria-required="true">*</span></label>

@@ -24,17 +24,17 @@
 							<table class="table table-striped table-bordered table-hover" id="tabla-casos-asignar">
 								<thead>
 									<tr>
-										<th>No. Caso</th>
-										<th>Cliente</th>
-										<th>Fecha de apertura</th>
+										<th width="3%">Folio</th>
+										<th width="60%">Cliente</th>
+										<th width="20%">Fecha de apertura</th>
 										<th>Estatus</th>
-										<th></th>
+										<th ></th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($casos_asignacion as $caso ): ?>
 										<tr>
-											<td><?php echo $caso->id_caso ?></td>
+											<td><?php echo $caso->folio_cotizacion ?></td>
 											<td><?php echo $caso->razon_social ?></td>
 											<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
 											<td><a class="btn yellow btn-circle btn-xs disabled" href=""><?php echo ucfirst($caso->descripcion) ?></a></td>
