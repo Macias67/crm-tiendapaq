@@ -32,6 +32,7 @@ var DataTableEventos = function() {
 				{ "data": "modalidad" },
 				{ "data": "titulo" },
 				{ "data": "fecha_inicio" },
+				{ "data": "url" },
 				{ "data": "participantes" },
 				{
 					"data": null,
@@ -52,11 +53,13 @@ var DataTableEventos = function() {
 				// if (aData.row_estatus == 3) {
 				// 	$(nRow).addClass('success');
 				// }
+				$('td:eq(5)', nRow).html('<a href="'+aData.url+'" target="_blank">'+aData.url+'</a>');
 				$('td:eq(6)', nRow).html('<span class="badge '+aData.estatus['class']+'"><b>'+aData.estatus['estatus']+'</b></span>');
 				// Modal
 				$('td:eq(7)', nRow).html('<a href="'+aData.url_modal_participantes+'" class="btn btn-circle blue btn-xs modal-participantes" data-target="#ajax_participantes" data-toggle="modal"><i class="fa fa-users"></i></a>');
 				// Editar
 				$('td:eq(8)', nRow).html('<a href="'+aData.url_editar+'" class="btn btn-circle blue btn-xs"><i class="fa  fa-edit"></i></a>');
+				$('td:eq(9)', nRow).html('<button type="button" class="btn btn-circle red btn-xs eliminar"><i class="fa fa-trash-o"></i></button>');
 			},
 			"language": {
 				"emptyTable": 		"No hay eventos registrados",
@@ -82,7 +85,7 @@ var DataTableEventos = function() {
 					// "targets": [0]
 				}
 			],
-			"order": [4, 'asc' ] // Ordenados por Razón Social
+			"order": [4, 'asc' ] // Ordenados por fecha
 		});
 	};
 

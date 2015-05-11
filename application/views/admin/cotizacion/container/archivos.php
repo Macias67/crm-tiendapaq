@@ -14,6 +14,9 @@
 		<!-- BEGIN PAGE CONTENT-->
 		<div class="row">
 			<div class="col-md-5">
+				<?php if ($cotizacion->tipo == 'evento'): ?>
+					<h2>Cotización de Evento</h2>
+				<?php endif ?>
 				<!-- BEGIN COMENTARIOS COTIZACION-->
 				<div class="portlet">
 					<div class="portlet-title line">
@@ -59,6 +62,7 @@
 								<input class="form-control" type="text" placeholder="Escribe un comentario..."/>
 								<input type="hidden" id="id_ejecutivo" value="<?php echo $usuario_activo['id'] ?>">
 								<input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>">
+								<input type="hidden" id="tipo" value="<?php echo $cotizacion->tipo ?>">
 								<input type="hidden" id="nombre_ejecutivo" value="<?php echo $usuario_activo['primer_nombre'].' '.$usuario_activo['apellido_paterno'] ?>">
 								<input type="hidden" id="ruta_imagen" value="<?php echo $usuario_activo['ruta_imagenes'].'chat.jpg' ?>">
 							</div>
@@ -84,7 +88,6 @@
 						<form role="form">
 							<div class="form-body">
 								<div class="form-group">
-									<!-- <input type="hidden" id="folio" value="<?php echo $cotizacion->folio ?>"> -->
 									<label>Valoración: </label>
 									<div class="radio-list">
 										<label class="radio-inline">

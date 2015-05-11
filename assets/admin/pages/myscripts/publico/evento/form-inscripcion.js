@@ -157,10 +157,10 @@ var FormInscripcion = function() {
 				telefono1: {
 					//mascara
 					required: true,
-					phoneUS: true
+					// phoneUS: true
 				},
 				telefono2: {
-					phoneUS: true
+					// phoneUS: true
 					//mascara
 				},
 				// ACCESO AL SISTEMA
@@ -197,7 +197,7 @@ var FormInscripcion = function() {
 				telefono_contacto: {
 					//mascara
 					required: true,
-					phoneUS: true
+					// phoneUS: true
 				},
 				puesto_contacto: {
 					maxlength: 20

@@ -231,11 +231,6 @@ class Cotizador extends AbstractAccess {
 		$oficina_ejecutivo = $this->ejecutivoModel->get('oficina', array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
 		$oficina = $this->oficinasModel->get_where(array('ciudad_estado' => $oficina_ejecutivo->oficina));
 
-		// Seccion cotizacion
-
-		// Folio de la cotizacion
-		$cotizacion['folio'] = $this->cotizacionModel->getSiguienteFolio();
-		$folio = $cotizacion['folio'];
 		// Datos ejecutivo
 		$data_ejecutivo = $this->ejecutivoModel->get(
 			array('primer_nombre', 'segundo_nombre', 'apellido_paterno', 'apellido_materno'),
@@ -264,17 +259,36 @@ class Cotizador extends AbstractAccess {
 		$cliente = $this->contactosModel->getClientePorContacto($campos, $cliente['contacto']);
 
 		$cliente  = array(
-					'id' 				=> $cliente->id,
-					'razon_social' 	=> $cliente->razon_social,
-					'id_contacto' 	=> $cliente->id_contacto,
-					'contacto' 		=>  $cliente->nombre_contacto.' '.$cliente->apellido_paterno.' '.$cliente->apellido_materno,
-					'telefono' 		=> $cliente->telefono_contacto,
-					'email' 			=> $cliente->email_contacto
-		                  	);
+			'id' 				=> $cliente->id,
+			'razon_social' 	=> $cliente->razon_social,
+			'id_contacto' 	=> $cliente->id_contacto,
+			'contacto' 		=>  $cliente->nombre_contacto.' '.$cliente->apellido_paterno.' '.$cliente->apellido_materno,
+			'telefono' 		=> $cliente->telefono_contacto,
+			'email' 			=> $cliente->email_contacto
+		);
 
 		// Banco
 		$this->load->model('bancoModel');
 		$banco = $this->bancoModel->get_where(array('id_banco' => $cotizacion['banco']));
+
+		// PREPARO INFO PARA BD
+		$array_fecha	= explode('/', $cotizacion['vigencia']);
+		$vigencia		= $array_fecha[2].'-'.$array_fecha[1].'-'.$array_fecha[0];
+		$this->load->model('estatusCotizacionModel');
+		$nueva_cot = array(
+			'fecha'      	 			=> date('Y-m-d H:i:s'),
+			'vigencia'				=> $vigencia,
+			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
+			'id_cliente'				=> $cliente['id'],
+			'id_contacto'			=> $cliente['id_contacto'],
+			'id_oficina'				=> $oficina->id_oficina,
+			'cotizacion'				=> json_encode($productos),
+			'id_observaciones'		=> 1,
+			'id_banco'				=> 1,
+			'id_estatus_cotizacion'	=> $this->estatusCotizacionModel->PORPAGAR);
+
+		// Establezco FOLIO REAL y guardo en LA BD
+		$cotizacion['folio'] = $this->cotizacionModel->get_last_id_after_insert($nueva_cot);
 
 		// Si no existe la carpeta cotizacion del cliente la creo
 		$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cliente['id'].'/cotizacion/';
@@ -298,18 +312,6 @@ class Cotizador extends AbstractAccess {
 		if (is_file($file)) {
 			unlink($file);
 		}
-		// Guardo PDF finals
-		$this->_pdf($oficina, $cotizacion, $cliente, $productos, $total, $banco, $path);
-
-		// Guardo en la base de datos
-		$this->load->model('oficinasModel');
-		$oficina = $this->oficinasModel->get(
-			array('id_oficina'),
-			array('ciudad_estado' => $oficina_ejecutivo->oficina),
-			null,
-			'ASC',
-			1
-		);
 
 		// Quito pendiente si es que es pendiente
 		if (!empty($pendiente)) {
@@ -319,23 +321,10 @@ class Cotizador extends AbstractAccess {
 			$this->pendienteModel->update(array('id_estatus_general' => $this->estatusGeneralModel->CERRADO), array('id_pendiente' => $pendiente));
 		}
 
-		$array_fecha	= explode('/', $cotizacion['vigencia']);
-		$vigencia		= $array_fecha[2].'-'.$array_fecha[1].'-'.$array_fecha[0];
+		// Guardo PDF finals
+		$this->_pdf($oficina, $cotizacion, $cliente, $productos, $total, $banco, $path);
 
-		$this->load->model('estatusCotizacionModel');
-
-		$cotizacion = array(
-			'fecha'      	 			=> date('Y-m-d H:i:s'),
-			'vigencia'				=> $vigencia,
-			'id_ejecutivo'			=> $cotizacion['ejecutivo'],
-			'id_cliente'				=> $cliente['id'],
-			'id_contacto'			=> $cliente['id_contacto'],
-			'id_oficina'				=> $oficina->id_oficina,
-			'cotizacion'				=> json_encode($productos),
-			'id_observaciones'		=> 1,
-			'id_banco'				=> 1,
-			'id_estatus_cotizacion'	=> $this->estatusCotizacionModel->PORPAGAR);
-
+		$exito = TRUE;
 		if (!LOCAL) {
 			//Envio Email con el PDF
 			$this->load->library('email');
@@ -358,10 +347,10 @@ class Cotizador extends AbstractAccess {
 			$this->email->message($html);
 			// Adjunto PDF
 			$this->email->attach($path);
-			$this->email->send();
+			$exito = $this->email->send();
 		}
 
-		if($this->cotizacionModel->insert($cotizacion)) {
+		if($exito) {
 			echo json_encode($cotizacion);
 		}
 	}

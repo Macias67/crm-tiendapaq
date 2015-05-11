@@ -45,12 +45,13 @@
 								<thead>
 									<tr>
 										<th width="1%">No.</th>
-										<th width="1%">Ejecutivo</th>
+										<th width="10%">Ejecutivo</th>
 										<th width="1%">Modalidad</th>
-										<th width="30%">Título</th>
+										<th width="20%">Título</th>
 										<th width="20%">Sesion Próxima</th>
-										<th width="1%"><i class="fa fa-users"></i></th>
+										<th width="20%">URL evento</th>
 										<th width="1%">Estatus</th>
+										<th width="1%"><i class="fa fa-users"></i></th>
 										<th width="1%"></th>
 										<th width="1%"></th>
 									</tr>

@@ -468,9 +468,9 @@
 
 						// Datos del cliente
 						var cliente = {
-							id: 				$('#razon_social').val(),
-							contacto: 		$('#contactos option:selected').val(),
-							email: 			$('#email').val()
+							id: 			$('#razon_social').val(),
+							contacto: 	$('#contactos option:selected').val(),
+							email: 		$('#email').val()
 						}
 
 						// Info de producto de la cotizacion

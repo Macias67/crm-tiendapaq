@@ -134,25 +134,25 @@ class Evento extends AbstractAccess {
 		$participante = $this->participantesModel->get(array('id_contacto'), array('id_evento' => $id_evento,'id_cliente'=>$id_cliente,'id_contacto'=>$id_contacto));
 		if (empty($participante)) {
 			// Preparo mi arreglo
-		$data = array(
-					'id_evento' 	=> $id_evento,
-					'id_contacto' 	=> $id_contacto,
-					'id_cliente'	=> $id_cliente);
+			$data = array(
+						'id_evento' 	=> $id_evento,
+						'id_contacto' 	=> $id_contacto,
+						'id_cliente'	=> $id_cliente);
 
-		// Se convierte el arreglo a objeto para insertar
-		$participante = $this->participantesModel->arrayToObject($data);
+			// Se convierte el arreglo a objeto para insertar
+			$participante = $this->participantesModel->arrayToObject($data);
 
-		// Hago la inserción a la BD
-		if ($this->participantesModel->insert($participante)) {
-			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Participante agregado con éxito.</h4>');
-		}else{
-			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para más detalles.</h4>');
-		}
+			// Hago la inserción a la BD
+			if ($this->participantesModel->insert($participante)) {
+				$respuesta = array('exito' => TRUE, 'msg' => '<h4>Participante agregado con éxito.</h4>');
+			}else{
+				$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para más detalles.</h4>');
+			}
 
-		// Mando la respuesta de la inserción
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($respuesta));
+			// Mando la respuesta de la inserción
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
 		}else{
 			$respuesta = array('exito' => TRUE, 'msg' => '<h4>El contacto ya está registrado a éste evento.</h4>');
 			// Mando la respuesta de la inserción

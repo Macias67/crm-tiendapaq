@@ -57,7 +57,7 @@ var FormFileUpload = function () {
 						if(data.exito)
 						{
 							bootbox.alert('<h3>Archivos enviados con éxito.</h3>', function() {
-								window.location = '/';
+								window.location = '/usuario';
 							});
 						} else
 						{

@@ -29,13 +29,14 @@ var Portfolio = function () {
 	var validacion = function() {
 		$('#validar').on('click', function() {
 			var folio = $('#folio').val();
+			var tipo = $('#tipo').val();
 			var valoracion = $('input[name="valoracion"]:checked').val();
 
 			if(valoracion==undefined){
 				bootbox.alert('<h4>Selecciona una valoración.</h4>');
 			}else{
 
-				$.post('/cotizaciones/apertura', {folio:folio, valoracion:valoracion}, function(data, textStatus, xhr) {
+				$.post('/cotizaciones/apertura', {folio:folio, tipo:tipo, valoracion:valoracion}, function(data, textStatus, xhr) {
 					if (data.exito) {
 						bootbox.alert(data.msg, function() {
 							window.location = '/';

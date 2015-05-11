@@ -183,7 +183,7 @@ class Evento extends AbstractAccess {
 			}
 			//Configuracion para la subida del archivo
 			$config_upload['upload_path']		= $ruta;
-			$config_upload['allowed_types']	= 'jpg|JPG';
+			$config_upload['allowed_types']	= 'jpg|JPG|png|PNG|jpeg|JPEG';
 			$config_upload['overwrite'] 		= TRUE;
 			$config_upload['file_name']		= $tmp_name;
 			$config_upload['max_size']			= 2048;
@@ -561,7 +561,8 @@ class Evento extends AbstractAccess {
 
 			// Sesiones
 			foreach ($total_sesiones as $index => $sesion) {
-				if (empty($this->sesionesModel->get_where(array('id_sesion'=>$sesion['id_sesion'])))) {
+				$existe = $this->sesionesModel->get_where(array('id_sesion'=>$sesion['id_sesion']));
+				if (empty($existe)) {
 					$sesion['id_evento'] = $id_evento;
 					$this->sesionesModel->insert($sesion);
 				}else{
@@ -652,6 +653,7 @@ class Evento extends AbstractAccess {
 				'modalidad'					=> ucfirst($evento->modalidad),
 				'titulo'						=> $evento->titulo,
 				'fecha_inicio'				=> fecha_completa($evento->primera_sesion),
+				'url'							=> site_url('cursos/inscripcion/'.$evento->id_event),
 				'participantes'				=> $evento->participantes,
 				'estatus'					=> id_estatus_gral_to_class_html($evento->estatus),
 				'url_modal_participantes'	=> site_url('/evento/modal/participantes/'.$evento->id_event),
