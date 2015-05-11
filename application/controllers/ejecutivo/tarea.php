@@ -187,27 +187,28 @@ class Tarea extends AbstractAccess {
 				// Si la tarea va con estatus DIFERNTE a CERRADO
 				if ($estatus != $this->estatusGeneralModel->CERRADO) {
 					// Cambio status del caso
-					 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
+					 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE || $caso->id_estatus_general == $this->estatusGeneralModel->SUSPENDIDO) {
 						$this->casoModel->update(array('id_estatus_general' => $this->estatusGeneralModel->PROCESO), array('id' => $id_caso));
 					}
 
-					// if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
-					// 	// Verifico si todas las tareas ya estan cerradas
-					// 	$tareas = $this->tareaModel->get_tareas_caso($id_caso);
-					// 	$suspendidos = TRUE;
-					// 	foreach ($tareas as $index => $tarea) {
-					// 		if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
-					// 			$suspendidos = FALSE;
-					// 			break;
-					// 		}
-					// 	}
-					// 	// SI TODOS ESTAN SUSPENDIDOS, supendo caso
-					// 	if ($suspendidos) {
-					// 		$this->casoModel->update(
-					// 								array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
-					// 								array('id' => $id_caso));
-					// 	}
-					// }
+					// Revision de tareas suspendidos
+					if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
+						// Verifico si todas las tareas ya estan cerradas
+						$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
+						$suspendidos 	= TRUE;
+						foreach ($tareas as $index => $tarea) {
+							if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
+								$suspendidos = FALSE;
+								break;
+							}
+						}
+						// SI TODOS ESTAN SUSPENDIDOS, supendo caso
+						if ($suspendidos) {
+							$this->casoModel->update(
+									array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
+									array('id' => $id_caso));
+						}
+					}
 				// Si la tarea va para cerrado
 				} else if($estatus == $this->estatusGeneralModel->CERRADO) {
 					// Verifico si todas las tareas ya estan cerradas
@@ -281,12 +282,30 @@ class Tarea extends AbstractAccess {
 				// Si la tarea va con estatus DIFERNTE a CERRADO
 				if ($estatus != $this->estatusGeneralModel->CERRADO) {
 					// Cambio status del caso
-					 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
+					if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
 						$this->casoModel->update(
 												array('id_estatus_general' => $this->estatusGeneralModel->PROCESO),
 												array('id' => $id_caso));
 					}
-					// Si la tarea va para cerrado
+					// Revsion de tareas suspendido
+					if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
+						// Verifico si todas las tareas ya estan cerradas
+						$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
+						$suspendidos 	= TRUE;
+						foreach ($tareas as $index => $tarea) {
+							if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
+								$suspendidos = FALSE;
+								break;
+							}
+						}
+						// SI TODOS ESTAN SUSPENDIDOS, supendo caso
+						if ($suspendidos) {
+							$this->casoModel->update(
+									array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
+									array('id' => $id_caso));
+						}
+					}
+				// Si la tarea va para cerrado
 				} else if($estatus == $this->estatusGeneralModel->CERRADO) {
 					// Verifico si todas las tareas ya estan cerradas
 					$tareas = $this->tareaModel->get_tareas_caso($id_caso);

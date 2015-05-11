@@ -6,8 +6,8 @@ class Inicio extends AbstractAccess {
 	public function index()
 	{
 		// Cargo modelos
-		$this->load->model('cotizacionModel');
-		$this->load->model('estatusCotizacionModel');
+		$this->load->model('cotizacionmodel');
+		$this->load->model('estatuscotizacionmodel');
 		// Cargo helper
 		$this->load->helper('formatofechas');
 
@@ -24,19 +24,19 @@ class Inicio extends AbstractAccess {
 				);
 		$where = array(
 					'id_cliente' => $this->usuario_activo['id'],
-					'cotizacion.id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR);
+					'cotizacion.id_estatus_cotizacion' => $this->estatuscotizacionmodel->PORPAGAR);
 
 		//seccion de codigo para revisar cotizaciones vencidas
-		$cotizaciones = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos, $where);
+		$cotizaciones = $this->cotizacionmodel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos, $where);
 		$fecha_actual = date('Y-m-d H:i:s');
 		// Recorro cotizacion por cotizacion
 		foreach ($cotizaciones as $cotizacion) {
 			if($fecha_actual > $cotizacion->vigencia){
-				$this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->VENCIDO), array('folio' => $cotizacion->folio));
+				$this->cotizacionmodel->update(array('id_estatus_cotizacion' => $this->estatuscotizacionmodel->VENCIDO), array('folio' => $cotizacion->folio));
 			}
 		}
 		//recargo los datos y mando llamar la vista
-		$this->data['cotizaciones'] = $this->cotizacionModel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
+		$this->data['cotizaciones'] = $this->cotizacionmodel->get_cotizaciones_cliente($this->usuario_activo['id'], $campos);
 		$this->_vista('principal');
 	}
 }

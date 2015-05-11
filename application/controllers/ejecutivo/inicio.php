@@ -14,7 +14,7 @@ class Inicio extends AbstractAccess {
 	public function index()
 	{
 		// Cargo modelos
-		$this->load->model('ejecutivoModel');
+		$this->load->model('ejecutivomodel');
 		$this->load->model('actividadPendienteModel');
 		$this->load->model('pendienteModel');
 		$this->load->model('estatusGeneralModel');
@@ -25,7 +25,7 @@ class Inicio extends AbstractAccess {
 		$this->load->helper('formatofechas');
 
 		// Nombre de ejecutivos
-		$this->data['ejecutivos'] = $this->ejecutivoModel->where_in(array('id','primer_nombre', 'apellido_paterno'),'privilegios',array('soporte', 'admin'),'primer_nombre');
+		$this->data['ejecutivos'] = $this->ejecutivomodel->where_in(array('id','primer_nombre', 'apellido_paterno'),'privilegios',array('soporte', 'admin'),'primer_nombre');
 		//variables para registro de un cliente prospecto
 		$this->data['user_pass_prospecto'] =  $this->clienteModel->password();
 		//cantidad de cotizaciones con nuevos comentarios
@@ -35,7 +35,7 @@ class Inicio extends AbstractAccess {
 		//cantidad de casos por asignar
 		$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 		//variable para saber si el ejecutivo logeado puede asignar casos
-		$asignador_casos = $this->ejecutivoModel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
+		$asignador_casos = $this->ejecutivomodel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
 		$this->data['asignador_casos'] = $asignador_casos->asignador_casos;
 		// Listado de actividades para levantar un pendiente
 		$this->data['actividades_pendientes'] = $this->actividadPendienteModel->get('*');

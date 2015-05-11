@@ -183,7 +183,7 @@ class Evento extends AbstractAccess {
 			}
 			//Configuracion para la subida del archivo
 			$config_upload['upload_path']		= $ruta;
-			$config_upload['allowed_types']	= 'jpg|JPG';
+			$config_upload['allowed_types']	= 'jpg|JPG|png|PNG';
 			$config_upload['overwrite'] 		= TRUE;
 			$config_upload['file_name']		= $tmp_name;
 			$config_upload['max_size']			= 2048;
@@ -561,7 +561,8 @@ class Evento extends AbstractAccess {
 
 			// Sesiones
 			foreach ($total_sesiones as $index => $sesion) {
-				if (empty($this->sesionesModel->get_where(array('id_sesion'=>$sesion['id_sesion'])))) {
+				$var = $this->sesionesModel->get_where(array('id_sesion'=>$sesion['id_sesion']));
+				if (empty($var)) {
 					$sesion['id_evento'] = $id_evento;
 					$this->sesionesModel->insert($sesion);
 				}else{

@@ -39,75 +39,77 @@
 								</tr>
 							</thead>
 							<tbody>
-							<?php foreach ($cotizaciones as $cotizacion): ?>
-								<tr>
-									<td><?php echo $cotizacion->folio ?></td>
-									<td><?php echo fecha_formato($cotizacion->fecha) ?></td>
-									<td><?php echo fecha_formato($cotizacion->vigencia) ?></td>
-									<td><?php echo $cotizacion->ciudad_estado ?></td>
-									<td><span class="badge badge-<?php echo ($cotizacion->visto) ? 'default' : 'danger' ?>"><b> <?php echo $cotizacion->total_comentarios ?> </b></span></td>
-									<?php switch ($cotizacion->id_estatus) {
-										// por pagar
-										case 1:
-											echo '
-												<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-												<td>
-													<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
-													<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
-													<a class="btn red default btn-circle btn-xs cancelar-cotizacion" folio="'.$cotizacion->folio.'"><i class="fa fa-ban"></i> Cancelar</a>
-												</td>';
-										break;
-										// en revision
-										case 2:
-											echo '<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-														<td>
-															<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
-															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver Pago</a>
-														</td>';
-										break;
-										//correcta
-										case 3:
-											echo '<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-														<td>
-															<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
-															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver Pago</a>
-														</td>';
-										break;
-										//irregular
-										case 4:
-											echo '<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-														<td>
-															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
-															<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"><i class="fa fa-dollar"></i> Cambiar Comprobante</a>
-														</td>';
-										break;
-										//vencida
-										case 5:
-											echo '<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-														<td>
-															<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
-														</td>';
-										break;
-										//pago parcial
-										case 6:
-											echo '
-												<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-												<td>
-													<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
-													<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
-												</td>';
-										break;
-										//cancelada
-										case 7:
-											echo '
-												<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
-												<td>
-													<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista</button>
-												</td>';
-										break;
-									} ?>
-								</tr>
-							<?php endforeach ?>
+							<?php if ($cotizaciones): ?>
+								<?php foreach ($cotizaciones as $cotizacion): ?>
+									<tr>
+										<td><?php echo $cotizacion->folio ?></td>
+										<td><?php echo fecha_formato($cotizacion->fecha) ?></td>
+										<td><?php echo fecha_formato($cotizacion->vigencia) ?></td>
+										<td><?php echo $cotizacion->ciudad_estado ?></td>
+										<td><span class="badge badge-<?php echo ($cotizacion->visto) ? 'default' : 'danger' ?>"><b> <?php echo $cotizacion->total_comentarios ?> </b></span></td>
+										<?php switch ($cotizacion->id_estatus) {
+											// por pagar
+											case 1:
+												echo '
+													<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+													<td>
+														<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
+														<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
+														<a class="btn red default btn-circle btn-xs cancelar-cotizacion" folio="'.$cotizacion->folio.'"><i class="fa fa-ban"></i> Cancelar</a>
+													</td>';
+											break;
+											// en revision
+											case 2:
+												echo '<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+															<td>
+																<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
+																<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver Pago</a>
+															</td>';
+											break;
+											//correcta
+											case 3:
+												echo '<td><span class="btn btn-circle btn-xs green disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+															<td>
+																<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
+																<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"> Ver Pago</a>
+															</td>';
+											break;
+											//irregular
+											case 4:
+												echo '<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+															<td>
+																<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
+																<a href="'.site_url("cotizacion/comprobante/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs"><i class="fa fa-dollar"></i> Cambiar Comprobante</a>
+															</td>';
+											break;
+											//vencida
+											case 5:
+												echo '<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+															<td>
+																<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista Previa</button>
+															</td>';
+											break;
+											//pago parcial
+											case 6:
+												echo '
+													<td><span class="btn btn-circle btn-xs yellow disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+													<td>
+														<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
+														<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
+													</td>';
+											break;
+											//cancelada
+											case 7:
+												echo '
+													<td><span class="btn btn-circle btn-xs red disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+													<td>
+														<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista</button>
+													</td>';
+											break;
+										} ?>
+									</tr>
+								<?php endforeach ?>
+							<?php endif ?>
 							</tbody>
 						</table>
 					</div>
