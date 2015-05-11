@@ -183,7 +183,7 @@ class Evento extends AbstractAccess {
 			}
 			//Configuracion para la subida del archivo
 			$config_upload['upload_path']		= $ruta;
-			$config_upload['allowed_types']	= 'jpg|JPG|png|PNG|jpeg|JPEG';
+			$config_upload['allowed_types']	= 'jpg|JPG';
 			$config_upload['overwrite'] 		= TRUE;
 			$config_upload['file_name']		= $tmp_name;
 			$config_upload['max_size']			= 2048;
