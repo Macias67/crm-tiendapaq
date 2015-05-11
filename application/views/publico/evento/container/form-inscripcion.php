@@ -41,8 +41,8 @@
 						<div class="portlet-body">
 							<h4><i class="fa fa-calendar"></i> <?php echo fecha_completa($sesiones[0]->fecha_inicio) ?></h4>
 							<h4><?php echo (count($sesiones) == 1) ? 'Una sesión' : count($sesiones).' sesiones' ?></h4>
-							<h5>Costo: </h5>
-							<p><?php echo ($evento->costo == 0) ? 'Sin Costo' : '$ '.number_format($evento->costo, 2, '.', ',').' MN'  ?></p>
+							<h5>Precio: </h5>
+							<p><?php echo ($evento->costo == 0) ? 'Sin Precio' : '$ '.number_format($evento->costo, 2, '.', ',').' MN'  ?></p>
 							<h5>Descripción: </h5>
 							<p><?php echo $evento->descripcion; ?></p>
 							<h5>Modalidad: </h5>
