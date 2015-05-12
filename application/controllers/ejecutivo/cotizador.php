@@ -49,6 +49,7 @@ class Cotizador extends AbstractAccess {
 	{
 		// Cargo modelos
 		$this->load->model('pendienteModel');
+		$this->load->model('bancomodel');
 		if ($this->pendienteModel->exist(array('id_pendiente' => $id_pendiente))) {
 			//Helper
 			$this->load->helper('formatofechas');
@@ -68,6 +69,7 @@ class Cotizador extends AbstractAccess {
 									'creador.oficina as oficina',
 									'pendientes.id_estatus_general'
 								));
+			$this->data['bancos']				= $this->bancomodel->get(array('id_banco', 'banco'));
 			$this->data['pendiente']			= $pendiente;
 			$this->data['sig_folio']				= $this->cotizacionModel->getSiguienteFolio();
 			$this->data['nombre_completo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'];

@@ -303,7 +303,7 @@ class Evento extends AbstractController {
 									// Info de la oficina
 									//$oficina = $this->oficinasModel->get_where();
 
-									// Cotizacion
+									//Evento cotizado
 									$info_cot = array(
 										array(
 										      'codigo' 			=> '',
@@ -327,6 +327,7 @@ class Evento extends AbstractController {
 										'cotizacion'				=> json_encode($info_cot),
 										'id_observaciones'		=> 1,
 										'id_banco'				=> 1,
+										'id_evento'				=> $evento->id_evento,
 										'id_estatus_cotizacion'	=> $this->estatuscotizacionmodel->PORPAGAR,
 										'tipo'					=> 'evento'
 										);
