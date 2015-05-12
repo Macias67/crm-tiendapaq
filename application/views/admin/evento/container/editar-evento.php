@@ -69,12 +69,12 @@
 											</div>
 											<!-- costo -->
 											<div class="form-group">
-												<label class="control-label col-md-3">Costo <span class="required" aria-required="true">*</span></label>
+												<label class="control-label col-md-3">Precio <span class="required" aria-required="true">*</span></label>
 												<div class="col-md-9">
 													<div class="input-inline input-medium">
 														<input id="costo_editar" type="text" name="costo" value="<?php echo $evento->costo?>" class="form-control">
 													</div>
-													<span class="help-block">$0.00 se considera sin costo.</span>
+													<span class="help-block">$0.00 se considera sin precio.</span>
 												</div>
 											</div>
 											<!-- Cupo -->
