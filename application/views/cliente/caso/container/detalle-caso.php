@@ -124,13 +124,53 @@
 														<b>Avance</b>
 													</div>
 												</div>
-												<div class="col-md-12">
+												<div class="col-md-9">
+													<?php if ($tarea->total_notas != 0): ?>
+														<div class="portlet gren">
+															<div class="portlet-title">
+																<div class="caption"><i class="fa fa-warning"></i>Notas</div>
+															</div>
+															<div class="portlet-body">
+																<table class="table table-striped table-bordered table-hover" id="notas-tarea">
+																	<thead class="flip-content">
+																		<tr>
+																			<th width="15%"> Fecha </th>
+																			<th width="80%"> Nota </th>
+																			<th></th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<?php foreach ($notas as $key => $nota): ?>
+																		<?php if ($nota->privacidad != 'privada'): ?>
+																				<?php if ($tarea->id_tarea == $nota->id_tarea): ?>
+																					<?php if ($nota->visto == 0): ?>
+																					<tr class="danger">
+																						<?php endif ?>
+																						<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
+																						<td><?php echo $nota->nota ?></td>
+																						<td>
+																							<?php if (isset($nota->imagen)): ?>
+																								<a href="<?php echo $nota->imagen ?>" class="btn blue btn-circle btn-xs fancybox" title="<?php echo $nota->nota ?>"><i class="fa fa-file-image-o"></i> Ver imagen</a>
+																							<?php endif ?>
+																						</td>
+																					</tr>
+																				<?php endif ?>
+																			<?php endif ?>
+																		<?php endforeach ?>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													<?php endif ?>
+												</div>
+
+												<!-- <div class="col-md-12">
 													<div class="clearfix">
-														<a href="<?php echo site_url('client/casos/notas/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs blue" data-target="#ajax_ver_notas" data-toggle="modal">
-															<i class="fa fa-quote-left"></i> Ver Notas (<?php echo $tarea->total_notas ?>)
+														<a href="<?php //echo site_url('client/casos/notas/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs blue" data-target="#ajax_ver_notas" data-toggle="modal">
+															<i class="fa fa-quote-left"></i> Ver Notas (<?php //echo $tarea->total_notas ?>)
 														</a>
 													</div>
-												</div>
+												</div> -->
 											</div>
 										</li>
 										<hr>

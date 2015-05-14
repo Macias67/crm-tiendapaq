@@ -1,3 +1,4 @@
+<!-- esta pagina ya no se usa, se modificó por la tabla -->
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 	<h3 class="modal-title"><b>Notas</b></h3>
@@ -20,9 +21,9 @@
 							<td><?php echo fecha_corta($nota->fecha_registro) ?></td>
 							<td><?php echo $nota->nota ?></td>
 							<td>
-							<?php if (isset($nota->imagen)): ?>
-								<a href="<?php echo $nota->imagen ?>" class="btn blue btn-circle btn-xs fancybox" title="<?php echo $nota->nota ?>"><i class="fa fa-file-image-o"></i> Ver imagen</a>
-							<?php endif ?>
+								<?php if (isset($nota->imagen)): ?>
+									<a href="<?php echo $nota->imagen ?>" class="btn blue btn-circle btn-xs fancybox" title="<?php echo $nota->nota ?>"><i class="fa fa-file-image-o"></i> Ver imagen</a>
+								<?php endif ?>
 							</td>
 						</tr>
 						<?php endforeach ?>
