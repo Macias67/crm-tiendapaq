@@ -274,8 +274,8 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function apertura()
 	{
-		$folio 	= $this->input->post('folio');
-		$tipo 	= $this->input->post('tipo');
+		$folio 		= $this->input->post('folio');
+		$tipo 		= $this->input->post('tipo');
 		$valoracion = $this->input->post('valoracion');
 
 		$this->load->model('estatusCotizacionModel');
@@ -287,6 +287,13 @@ class Cotizacion extends AbstractAccess {
 			if ($valoracion == "aceptado") {
 				// ANALISAR RELACION COTIZACION EVENTO
 				$response = array('exito' => FALSE, 'msg' => 'ANALISAR RELACION COTIZACION EVENTO.');
+				// Cambie estatus de la cotizacion a PAGADO
+				if ($this->cotizacionModel->update(
+					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+					array('folio' => $folio)))
+				{
+					$cotizacion = $this->cotizacionModel->get_where(array('folio' => $folio));
+				}
 			}
 		} elseif ($tipo == 'normal') {
 			if ($valoracion == "aceptado") {
