@@ -295,7 +295,7 @@ class Evento extends AbstractController {
 									}
 								} else {
 									$registrado 	= TRUE;
-									$nota 			= '<b>Nota: tu registro se hará una vez el pago sea validado, está sujeto a disponibilidad y a rembolso en caso de llegar al cupo permitido en el curso.</b>';
+									$nota 			= '<b>Nota: tu registro se hará una vez el pago sea validado, está sujeto a disponibilidad y a reembolso en caso de llegar al límite de cupo en el curso.</b>';
 									$mensaje 		= 'Te enviamos a tu email la cotización del curso, puedes utilizar nuestra aplicación para llevar acabo el proceso de la compra. Te agradecemos tu interés. '.$nota;
 
 									/*INSERTO COTIZACION EN LA TABLA*/

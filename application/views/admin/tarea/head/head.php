@@ -28,6 +28,10 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-switch/css/bootstrap-switch.min.css"/>
 	<link href="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datepicker/css/datepicker3.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker-bs3.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->

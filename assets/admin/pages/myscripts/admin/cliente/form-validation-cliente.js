@@ -131,7 +131,7 @@ var FormValidationCliente = function () {
 					maxlength: 5,
 				},
 				colonia: {
-					maxlength: 20,
+					maxlength: 50,
 					required: true
 				},
 				codigo_postal: {
@@ -261,7 +261,7 @@ var FormValidationCliente = function () {
 					maxlength: "Debe tener menos de 5 caracteres",
 				},
 				colonia: {
-					maxlength: "La colonia debe tener menos de 20 caracteres",
+					maxlength: "La colonia debe tener menos de 50 caracteres",
 					required: "Escribe la colonia"
 				},
 				codigo_postal: {
@@ -445,7 +445,7 @@ var FormValidationCliente = function () {
 					maxlength: 5
 				},
 				colonia: {
-					maxlength: 20,
+					maxlength: 50,
 					required: true
 				},
 				codigo_postal: {
@@ -509,7 +509,7 @@ var FormValidationCliente = function () {
 				},
 				colonia: {
 					required: "Escribe la colonia",
-					maxlength: "La colonia debe tener menos de 20 caracteres"
+					maxlength: "La colonia debe tener menos de 50 caracteres"
 				},
 				codigo_postal: {
 					required: "Escribe el código postal",

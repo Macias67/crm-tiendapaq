@@ -1,5 +1,18 @@
 var DetalleTarea = function() {
 
+	var handleDatePickers = function () {
+		if (jQuery().datetimepicker) {
+			$('.datepicker').datepicker({
+				timePicker: true,
+				format: 'dd/mm/yyyy',
+				locale: 'es'
+			});
+			// $.post('/nota/elimina', {fechacierre:fechacierre}, function(data, textStatus, xhr) {
+		
+			// 		});
+		}
+	}
+
 	var verCotizacion = function() {
 		$("#btn-ver-cotizacion").on('click', function() {
 			var url = $(this).attr('url');
@@ -158,6 +171,17 @@ var DetalleTarea = function() {
 		});
 	};
 
+	var fechaCierre = function(){
+		$('#btn_establecer').on('click', function() {
+			var id_caso = $("input[name='id_caso']").val();
+			var id_tarea = $("input[name='id_tarea']").val();
+			var fecha_cierre = $("input[name='fecha_cierre']").val();
+			console.log("id_caso"+id_caso);
+			console.log("id_tarea"+id_tarea);
+			console.log(fecha_cierre);
+		});
+	};
+
 	return {
 		init: function() {
 			verCotizacion();
@@ -167,6 +191,8 @@ var DetalleTarea = function() {
 			eliminaNota();
 			fancyBox();
 			modalEditarNota();
+			handleDatePickers();
+			fechaCierre();
 		}
 	}
 }();

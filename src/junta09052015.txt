@@ -1,4 +1,4 @@
-*Apertura del caso. Correo electrónico. Modificar no de caso y ejecutivo asignado.
+*Apertura del caso. Correo electrónico. Modificar no# de caso y ejecutivo asignado.
 *Checar reasignación de casos.
 *Boton cuadno ya hay tareas registradas
 *En gregar nota, en gestion de caso ... que tambien pueda agregar pdfs
@@ -7,7 +7,7 @@
 *En gestion de casos, gestion de notas Cambiar nombre a las imagenes.
 *Enviar e-mail al cliente cuando una tarea sea terminada.
 *Enviar el formulario al terminar el caso.
-*Cuando sea creado un caso, asignar una fecha tentativa de cierre a cada tarea
+**Cuando sea creado un caso, asignar una fecha tentativa de cierre a cada tarea
 	(la fecha tetativa de cierre no puede ser editable).
 	(lider de caso, asigna tarea, persona asignada al caso
 	asigna fecha tentativa de cierre de tarea.)
@@ -15,9 +15,11 @@
 *En la gestion de caso, creacion de tareas, al momento de robar una tarea enviar un e-mail
 	al antiguo ejecutivo para informarle que le robaron la tarea, (con copia al lider).
 *Generar un reporte del caso, con toda la informcion (comentarios . . . etc)
+*Depurar Abrir caso rapido.
 
 EVENTO
 *cambiar costo por precio.
 *Agregar campo para que pueda copiar el link para invitacion del evento.
 *poner un botno que muestre un listado de eventos en la pagina principal,
 	del lado del cliente.
+*Validar formatos de imagen que se puede subir (png).

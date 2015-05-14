@@ -92,6 +92,39 @@
 						<?php endif ?>
 					</div>
 					<div class="col-md-5">
+							<!-- fechatentativa de cierre -->
+						<div class="portlet light">
+								<div class="portlet-title">
+									<div class="caption">
+										<i class="icon-puzzle font-grey-gallery"></i>
+										<span class="caption-subject bold font-grey-gallery uppercase">Establecer fecha tentativa de cierre: </span>
+									</div>
+									<div class="tools">
+										<a href="javascript:;" class="expand"></a>
+									</div>
+								</div>
+								<div class="portlet-body display-hide">
+									<div class="portlet-body form">
+										<form role="form">
+											<div class="form-body">
+												<div class="form-group">
+													<div class="col-md-12">
+														<label class="control-label col-md-4">Tentativa de cierre <span class="required" aria-required="true">*</span></label>
+														<div class="col-md-8">
+															<input type="text" name="fecha_cierre" class="form-control datepicker" readonly/>
+															<input type="hidden" name="fechacierre">
+														</div>
+													</div>
+												</div><br>
+												<div class="clearfix"></div>
+											</div>
+											<div class="form-actions">
+												<button type="button" class="btn btn-circle blue" id="btn_establecer">Establecer</button>
+											</div>
+										</form>
+								</div>
+							</div>
+						</div>
 						<!-- DETALLES TAREA -->
 						<div class="portlet light">
 							<div class="portlet-title">
@@ -100,8 +133,7 @@
 									<span class="caption-subject bold font-grey-gallery uppercase">Tarea asignada: </span>
 								</div>
 							</div>
-							<div class="portlet-body form">
-								<div class="row">
+								<div class="portlet-body form">
 									<form role="form">
 										<div class="form-body">
 											<div class="form-group">
@@ -131,7 +163,6 @@
 											<button type="button" class="btn btn-circle blue" id="btn-guardar">Guardar</button>
 										</div>
 									</form>
-								</div>
 							</div>
 						</div>
 						<!-- Notas TAREA -->
@@ -155,7 +186,9 @@
 									</thead>
 									<tbody>
 										<?php foreach ($notas as $key => $nota): ?>
-										<tr>
+										<?php if ($nota->visto == 0): ?>
+											<tr class="danger">
+										<?php endif ?>
 											<td><?php echo $nota->id_nota ?></td>
 											<td>
 												<?php if ($nota->privacidad == 'publica'): ?>
