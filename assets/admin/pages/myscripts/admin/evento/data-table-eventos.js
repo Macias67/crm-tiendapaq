@@ -33,7 +33,7 @@ var DataTableEventos = function() {
 				{ "data": "titulo" },
 				{ "data": "fecha_inicio" },
 				{ "data": "url" },
-				{ "data": "participantes" },
+				{ "data": "estatus" },
 				{
 					"data": null,
 					"defaultContent": ''
@@ -85,7 +85,7 @@ var DataTableEventos = function() {
 					// "targets": [0]
 				}
 			],
-			"order": [4, 'asc' ] // Ordenados por fecha
+			"order": [6, 'desc' ] // Ordenados por fecha
 		});
 	};
 

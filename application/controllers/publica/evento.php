@@ -96,11 +96,15 @@ class Evento extends AbstractController {
 			if (($evento->max_participantes == 0) || ($evento->max_participantes >= $participantes))  {
 				$this->load->model('sesionmodel');
 				$this->load->helper('formatofechas');
+				$this->load->helper('directory');
 				$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
 
+				// Foto
+				$archivo = directory_map('assets/admin/pages/media/eventos/'.$id_evento.'/');
+
 				$this->data['sesiones'] 	= $sesiones;
-				$this->data['evento'] = $evento;
-				$this->data['temario_url'] 	= site_url('assets/admin/pages/media/eventos/'.$id_evento.'/temario.jpg');
+				$this->data['evento'] 		= $evento;
+				$this->data['temario_url'] 	= site_url('assets/admin/pages/media/eventos/'.$id_evento.'/'.$archivo[0]);
 				$this->_vista('form-inscripcion');
 			} else {
 				show_error('El evento esta a tope');

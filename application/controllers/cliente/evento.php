@@ -103,16 +103,16 @@ class Evento extends AbstractAccess {
 		// Agrego la fecha de inicio a cada evento
 		foreach ($eventos as $k1 => $v1) {
 			foreach ($fechas as $k2 => $v2) {
-				if ($v1->id_evento===$v2->id_evento)
+				if ($v1->id_evento === $v2->id_evento)
 					$eventos[$k1]->fecha_inicio = $v2->fecha_inicio;
 			}
 		}
 
 		// Mando la vista modal con los datos
-		$this->data['id_evento'] = $id_evento;
+		$this->data['id_evento'] 	= $id_evento;
 		$this->data['id_contacto'] = $id_contacto;
-		$this->data['contacto'] = $contacto[0];
-		$this->data['evento'] = $evento[0];
+		$this->data['contacto'] 	= $contacto[0];
+		$this->data['evento'] 		= $evento[0];
 		$this->_vista_completa('evento/modal-registro-evento');
 	}
 
@@ -135,9 +135,9 @@ class Evento extends AbstractAccess {
 		if (empty($participante)) {
 			// Preparo mi arreglo
 			$data = array(
-						'id_evento' 	=> $id_evento,
-						'id_contacto' 	=> $id_contacto,
-						'id_cliente'	=> $id_cliente);
+				'id_evento' 	=> $id_evento,
+				'id_contacto' 	=> $id_contacto,
+				'id_cliente'	=> $id_cliente);
 
 			// Se convierte el arreglo a objeto para insertar
 			$participante = $this->participantesModel->arrayToObject($data);

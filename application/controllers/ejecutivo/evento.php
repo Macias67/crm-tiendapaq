@@ -175,7 +175,7 @@ class Evento extends AbstractAccess {
 
 			// Armo la ruta donde guardare la imagen a subir
 			$ruta = 'assets/admin/pages/media/eventos/tmp/';
-			$tmp_name = 'evento_'.$this->usuario_activo['id'].'.jpg';
+			$tmp_name = 'evento_'.$this->usuario_activo['id'];
 			//Si no existe directorio lo creo
 			if (!is_dir($ruta))
 			{
@@ -183,9 +183,9 @@ class Evento extends AbstractAccess {
 			}
 			//Configuracion para la subida del archivo
 			$config_upload['upload_path']		= $ruta;
-			$config_upload['allowed_types']	= 'jpg|JPG';
+			$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
 			$config_upload['overwrite'] 		= TRUE;
-			$config_upload['file_name']		= $tmp_name;
+			// $config_upload['file_name']		= $tmp_name;
 			$config_upload['max_size']			= 2048;
 			$config_upload['remove_spaces']	= TRUE;
 			// Cargo la libreria upload y paso configuracion
@@ -244,7 +244,7 @@ class Evento extends AbstractAccess {
 				{
 					mkdir($ruta_nueva, 0777, TRUE);
 				}
-				rename($ruta.$tmp_name, $ruta_nueva.'temario.jpg');
+				rename($ruta.$upload_data['orig_name'], $ruta_nueva.$upload_data['client_name']);
 
 				// Sesiones
 				$this->load->model('sesionmodel');
@@ -632,14 +632,14 @@ class Evento extends AbstractAccess {
 		$orderForm 	= $order[0]['dir'];
 		$limit 			= $length;
 		$offset 		= $start;
-		$eventos	= $this->eventoModel->get_eventos_table(
-		                                                                     $campos,
-		                                                                     $joins,
-		                                                                     $like,
-		                                                                     $orderBy,
-		                                                                     $orderForm,
-		                                                                     $limit,
-		                                                                     $offset);
+		$eventos		= $this->eventoModel->get_eventos_table(
+							$campos,
+							$joins,
+							$like,
+							$orderBy,
+							$orderForm,
+							$limit,
+							$offset);
 		// var_dump($eventos);
 		$proceso	= array();
 		$this->load->model('estatusGeneralModel');
@@ -748,27 +748,6 @@ class Evento extends AbstractAccess {
 				$fecha = limite_inscripcion_evento($rango[0]);
 
 				return $fecha;
-			}
-		}
-	}
-
-	public function caducidad()
-	{
-		$this->load->model('estatusgeneralmodel');
-		$eventos_pendientes = $this->eventoModel->get_where(array('id_estatus' => $this->estatusgeneralmodel->PENDIENTE));
-		// Si hay eventos
-		if (is_array($eventos_pendientes)) {
-			foreach ($eventos_pendientes as $index => $evento) {
-				// Comparo
-				if($evento->fecha_limite <= date('Y-m-d H:i:s', time())) {
-					printf('Caducó');
-				}
-			}
-		} else {
-			// Comparo
-			if($eventos_pendientes->fecha_limite <= date('Y-m-d H:i:s', time())) {
-				$update = array('id_estatus' => $this->estatusgeneralmodel->CERRADO);
-				$exito = $this->eventoModel->update($update, array('id_evento' => $eventos_pendientes->id_evento));
 			}
 		}
 	}

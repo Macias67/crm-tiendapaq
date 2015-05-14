@@ -51,7 +51,6 @@ class eventoModel extends MY_Model {
 			$this->db->order_by($orderBy, $orderForm);
 		}
 		$this->db->order_by('sesiones.fecha_inicio', 'ASC');
-		$this->db->order_by('estatus_general.id_estatus', 'ASC');
 		if ($limit && !$offset)
 		{
 			$this->db->limit($limit);
