@@ -208,10 +208,30 @@ class Caso extends AbstractAccess {
 			$tareas[$index]->total_notas = $this->notastareaModel->total_notas($tarea->id_tarea);
 		}
 
+		// Notas de las tareas
+		$notas = $this->notastareaModel->get_notas_tarea();
+		if (count($notas) > 0) {
+			foreach ($notas as $index => $nota) {
+				$dir = 'assets/admin/pages/media/tareas/'.$nota->id_tarea.'/'.$nota->id_nota;
+				if (is_dir($dir)) {
+					$this->load->helper('directory');
+					$map = directory_map($dir, 1);
+					$notas[$index]->imagen = site_url($dir).'/'.$map[0];
+				}
+			}
+		}
+
+		//Cambiar estatus a visto de notas
+		// foreach ($notas as $index => $nota) {
+		// 	$this->notastareaModel->update(array('visto'=>1),array('visto'=>0));
+		// }
+
+
 		$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
 		$this->data['tareas'] 				= $tareas;
 		$this->data['ejecutivos'] 			= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-		$this->data['caso'] 					= $caso;
+		$this->data['caso'] 				= $caso;
+		$this->data['notas'] 				= $notas;
 		$this->_vista('detalle-caso');
 	}
 
