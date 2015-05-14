@@ -18,6 +18,7 @@ class Inicio extends AbstractAccess {
 					'cotizacion.vigencia',
 					'cotizacion.total_comentarios',
 					'cotizacion.visto',
+					'cotizacion.tipo',
 					'oficinas.ciudad_estado',
 					'estatus_cotizacion.id_estatus',
 					'estatus_cotizacion.descripcion'
