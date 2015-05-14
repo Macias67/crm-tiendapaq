@@ -1,5 +1,18 @@
 var DetalleTarea = function() {
 
+	var handleDatePickers = function () {
+		if (jQuery().datetimepicker) {
+			$('.datepicker').datepicker({
+				timePicker: true,
+				format: 'dd/mm/yyyy',
+				locale: 'es'
+			});
+			// $.post('/nota/elimina', {fechacierre:fechacierre}, function(data, textStatus, xhr) {
+		
+			// 		});
+		}
+	}
+
 	var verCotizacion = function() {
 		$("#btn-ver-cotizacion").on('click', function() {
 			var url = $(this).attr('url');
@@ -167,6 +180,7 @@ var DetalleTarea = function() {
 			eliminaNota();
 			fancyBox();
 			modalEditarNota();
+			handleDatePickers();
 		}
 	}
 }();
