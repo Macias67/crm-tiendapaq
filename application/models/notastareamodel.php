@@ -33,9 +33,13 @@ class NotasTareaModel extends MY_Model {
 		return count($query->result());
 	}
 
-	public function get_notas_tarea($value='')
+	public function get_notas_tarea()
 	{
-		# code...
+		$this->db->select('*');
+		// $this->db->where(array($this->table.'.id_tarea' => $id_tarea));
+		$this->db->order_by('id_nota','desc');
+		$query = $this->db->get($this->table);
+		return $query->result();
 	}
 }
 

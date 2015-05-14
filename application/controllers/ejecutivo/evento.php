@@ -751,6 +751,27 @@ class Evento extends AbstractAccess {
 			}
 		}
 	}
+
+	public function caducidad()
+	{
+		$this->load->model('estatusgeneralmodel');
+		$eventos_pendientes = $this->eventoModel->get_where(array('id_estatus' => $this->estatusgeneralmodel->PENDIENTE));
+		// Si hay eventos
+		if (is_array($eventos_pendientes)) {
+			foreach ($eventos_pendientes as $index => $evento) {
+				// Comparo
+				if($evento->fecha_limite <= date('Y-m-d H:i:s', time())) {
+					printf('Caducó');
+				}
+			}
+		} else {
+			// Comparo
+			if($eventos_pendientes->fecha_limite <= date('Y-m-d H:i:s', time())) {
+				$update = array('id_estatus' => $this->estatusgeneralmodel->CERRADO);
+				$exito = $this->eventoModel->update($update, array('id_evento' => $eventos_pendientes->id_evento));
+			}
+		}
+	}
 }
 
 /* End of file evento.php */
