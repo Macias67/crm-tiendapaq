@@ -119,7 +119,7 @@ class Tarea extends AbstractAccess {
 						);
 
 				$exito 	= $this->tareaModel->insert($tarea);
-				$msg 	= (!$exito) ? 'No se inserto en la base de datos' : '';
+				$msg 	= (!$exito) ? 'No se inserto en la base de datos' : 'ola k ase';
 				$response = array('exito' => $exito, 'msg' => $msg);
 
 			} else {
@@ -479,6 +479,11 @@ class Tarea extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
+	}
+
+	public function fecha_cierre(){
+		var_dump("expression");
+		var_dump("estoy entrando  fecha_cierre");
 	}
 
 }

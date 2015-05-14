@@ -111,7 +111,7 @@
 													<div class="col-md-12">
 														<label class="control-label col-md-4">Tentativa de cierre <span class="required" aria-required="true">*</span></label>
 														<div class="col-md-8">
-															<input type="text" name="cosa1" class="form-control datepicker" readonly/>
+															<input type="text" name="fecha_cierre" class="form-control datepicker" readonly/>
 															<input type="hidden" name="fechacierre">
 														</div>
 													</div>
@@ -119,7 +119,7 @@
 												<div class="clearfix"></div>
 											</div>
 											<div class="form-actions">
-												<button type="button" class="btn btn-circle blue" id="btn-establecer">Establecer</button>
+												<button type="button" class="btn btn-circle blue" id="btn_establecer">Establecer</button>
 											</div>
 										</form>
 								</div>

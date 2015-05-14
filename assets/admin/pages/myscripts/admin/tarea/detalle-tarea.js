@@ -171,6 +171,17 @@ var DetalleTarea = function() {
 		});
 	};
 
+	var fechaCierre = function(){
+		$('#btn_establecer').on('click', function() {
+			var id_caso = $("input[name='id_caso']").val();
+			var id_tarea = $("input[name='id_tarea']").val();
+			var fecha_cierre = $("input[name='fecha_cierre']").val();
+			console.log("id_caso"+id_caso);
+			console.log("id_tarea"+id_tarea);
+			console.log(fecha_cierre);
+		});
+	};
+
 	return {
 		init: function() {
 			verCotizacion();
@@ -181,6 +192,7 @@ var DetalleTarea = function() {
 			fancyBox();
 			modalEditarNota();
 			handleDatePickers();
+			fechaCierre();
 		}
 	}
 }();
