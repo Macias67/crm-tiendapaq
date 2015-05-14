@@ -186,7 +186,9 @@
 									</thead>
 									<tbody>
 										<?php foreach ($notas as $key => $nota): ?>
-										<tr>
+										<?php if ($nota->visto == 0): ?>
+											<tr class="danger">
+										<?php endif ?>
 											<td><?php echo $nota->id_nota ?></td>
 											<td>
 												<?php if ($nota->privacidad == 'publica'): ?>
