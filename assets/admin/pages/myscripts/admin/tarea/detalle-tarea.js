@@ -7,9 +7,6 @@ var DetalleTarea = function() {
 				format: 'dd/mm/yyyy',
 				locale: 'es'
 			});
-			// $.post('/nota/elimina', {fechacierre:fechacierre}, function(data, textStatus, xhr) {
-		
-			// 		});
 		}
 	}
 
@@ -181,13 +178,10 @@ var DetalleTarea = function() {
 				id_tarea:id_tarea,
 				fecha_cierre:fecha_cierre
 			};
-			console.log("id_caso"+id_caso);
-			console.log("id_tarea"+id_tarea);
-			console.log(fecha_cierre);
 
 			$.post('/tarea/fecha_cierre',data,  function(data, textStatus, xhr) {
 						if (data.exito) {
-							bootbox.alert('<h4>Se asigno una fecha tentativa de cierre</h4>', function() {
+							bootbox.alert('<h4>Se asignó una fecha tentativa de cierre.</h4>', function() {
 								location.reload(true);
 							});
 						};

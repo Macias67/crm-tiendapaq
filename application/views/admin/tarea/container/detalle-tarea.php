@@ -92,44 +92,45 @@
 						<?php endif ?>
 					</div>
 					<div class="col-md-5">
-							<!-- fechatentativa de cierre -->
-						<div class="portlet light">
-								<div class="portlet-title">
-									<div class="caption">
-										<i class="icon-puzzle font-grey-gallery"></i>
-										<span class="caption-subject bold font-grey-gallery uppercase">Establecer fecha tentativa de cierre: </span>
-									</div>
-									<div class="tools">
-										<a href="javascript:;" class="expand"></a>
-									</div>
-								</div>
-								<div class="portlet-body display-hide">
-									<div class="portlet-body form">
-										<form role="form">
-											<div class="form-body">
-												<div class="form-group">
-													<div class="col-md-12">
-														<label class="control-label col-md-4">Tentativa de cierre <span class="required" aria-required="true">*</span></label>
-														<div class="col-md-8">
-															<input type="text" name="fecha_cierre" class="form-control datepicker" value="<?php echo (isset($tarea->fecha_cierre)) ? $tarea->fecha_cierre : ''?>" readonly/>
-															<input type="hidden" name="fechacierre">
-														</div>
-													</div>
-												</div><br>
-												<div class="clearfix"></div>
-											</div>
-											<div class="form-actions">
-												<?php if ($tarea->fecha_cierre!=="000-01-01 00:00:00"): ?>
-													<button type="button" class="btn btn-circle blue" id="btn_establecer">Establecer</button>
-												<?php else: ?>
-													<!-- <button type="button" class="btn btn-circle blue" id="btn_establecer">Establecer</button> -->
-												<?php endif ?>
-												
-											</div>
-										</form>
-								</div>
+					<!-- fechatentativa de cierre -->
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="icon-puzzle font-grey-gallery"></i>
+								<span class="caption-subject bold font-grey-gallery uppercase">Fecha tentativa de cierre: </span>
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="expand"></a>
 							</div>
 						</div>
+						<div class="portlet-body display-hide">
+							<div class="portlet-body form">
+								<form role="form">
+									<div class="form-body">
+										<div class="form-group">
+											<div class="col-md-12">
+													<?php if ($tarea->fecha_cierre != '1000-01-01 00:00:00'): ?>
+														<label class="control-label col-md-4">Tentativa de cierre:</label>
+														<label type="text" name="fecha_de_cierre" /><b><?php echo fecha_formato($tarea->fecha_cierre) ?></b></label>
+													<?php else: ?>
+														<label class="control-label col-md-4">Tentativa de cierre <span class="required" aria-required="true">*</span></label>
+														<div class="col-md-8">
+															<input type="text" name="fecha_cierre" class="form-control datepicker" value="" readonly/>
+														</div>
+													<?php endif ?>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="form-actions">
+										<?php if ($tarea->fecha_cierre == '1000-01-01 00:00:00'): ?>
+											<button type="button" class="btn btn-circle blue" id="btn_establecer">Establecer</button>
+										<?php endif ?>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 						<!-- DETALLES TAREA -->
 						<div class="portlet light">
 							<div class="portlet-title">

@@ -6,6 +6,7 @@ class Tarea extends AbstractAccess {
 	{
 		parent::__construct();
 		$this->load->model('tareaModel');
+		$this->load->helper('formatofechas');
 	}
 
 	public function index()
@@ -492,7 +493,16 @@ class Tarea extends AbstractAccess {
 								'id_tarea'		=>$id_tarea,
 								'fecha_cierre'	=>$fecha_insert
 			);
-		$this->tareaModel->update($tarea,array('id_tarea'=>$id_tarea));
+
+		if($this->tareaModel->update($tarea,array('id_tarea'=>$id_tarea))){
+			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso abierto con éxito.</h4>');
+		} else {
+			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
 	}
 
 }
