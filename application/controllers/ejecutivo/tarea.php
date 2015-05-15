@@ -482,8 +482,17 @@ class Tarea extends AbstractAccess {
 	}
 
 	public function fecha_cierre(){
-		var_dump("expression");
-		var_dump("estoy entrando  fecha_cierre");
+		$id_tarea 		= $this->input->post('id_tarea');
+		$fecha_cierre	= $this->input->post('fecha_cierre');
+		$fecha_manejo	= array();
+		$fecha_manejo	= explode('/', $fecha_cierre);
+		$fecha_db		= $fecha_manejo[2].'-'.$fecha_manejo[1].'-'.$fecha_manejo[0];
+		$fecha_insert	= date('Y-m-d H:i:s',strtotime($fecha_db));
+		$tarea 			= array(
+								'id_tarea'		=>$id_tarea,
+								'fecha_cierre'	=>$fecha_insert
+			);
+		$this->tareaModel->update($tarea,array('id_tarea'=>$id_tarea));
 	}
 
 }
