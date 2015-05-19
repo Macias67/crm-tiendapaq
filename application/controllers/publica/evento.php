@@ -420,7 +420,12 @@ class Evento extends AbstractController {
 										$this->load->model('sesionmodel');
 
 										//Extracción de la BD de las sesiones
-										$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
+										if ($this->sesionmodel->get('*', array('id_evento' => $id_evento)) > 1) {
+											$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
+										}else
+										{
+											$sesiones = $this->sesionmodel->get_where(array('id_evento' => $id_evento));
+										}
 
 										$this->email->set_mailtype('html');
 										$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
