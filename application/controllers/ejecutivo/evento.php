@@ -87,7 +87,7 @@ class Evento extends AbstractAccess {
 			$this->form_validation->set_rules('otro', 'Dirección', 'trim|required|strtolower|ucfirst|xss_clean');
 		}
 
-		$this->form_validation->set_rules('userfile', 'Temario', 'file_required|file_size_min[10KB]|file_size_max[2MB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1601,1601]');
+		$this->form_validation->set_rules('userfile', 'Temario', 'file_required|file_size_min[10KB]|file_size_max[2048KB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1921,1201]');
 		$this->form_validation->set_rules('sesion1', 'Sesión 1', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dsesion1', 'Duración Sesion 1', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('sesion2', 'Sesión 2', 'trim|xss_clean');
@@ -187,6 +187,8 @@ class Evento extends AbstractAccess {
 			$config_upload['overwrite'] 		= TRUE;
 			// $config_upload['file_name']		= $tmp_name;
 			$config_upload['max_size']			= 2048;
+			$config_upload['max_width']		= 0;
+			$config_upload['max_height']		= 0;
 			$config_upload['remove_spaces']	= TRUE;
 			// Cargo la libreria upload y paso configuracion
 			$this->load->library('upload', $config_upload);
@@ -221,15 +223,15 @@ class Evento extends AbstractAccess {
 				$this->load->library('image_lib');
 				// Paso datos de la subida del archivo
 				$upload_data = $this->upload->data();
-				// Si la imagen es mas de 800px se redimenciona
-				if ($upload_data['image_width'] > 800 || $upload_data['image_height'] > 800)
+				// Si la imagen es mas de 1000px se redimenciona
+				if ($upload_data['image_width'] > 1000 || $upload_data['image_height'] > 1000)
 			  	{
 					// Configuracion para el recorte
 					$config_resize['image_library']		= 'gd2';
 					$config_resize['source_image']	= $upload_data['full_path'];
 					$config_resize['maintain_ratio']	= TRUE;
-					$config_resize['width']				= 800;
-					$config_resize['height']			= 800;
+					$config_resize['width']				= 1000;
+					$config_resize['height']			= 1000;
 					$this->image_lib->clear();
 					$this->image_lib->initialize($config_resize);
 					$this->image_lib->resize();
@@ -244,7 +246,8 @@ class Evento extends AbstractAccess {
 				{
 					mkdir($ruta_nueva, 0777, TRUE);
 				}
-				rename($ruta.$upload_data['orig_name'], $ruta_nueva.$upload_data['client_name']);
+				$this->load->helper('string');
+				rename($ruta.$upload_data['orig_name'], $ruta_nueva.strip_accents($upload_data['client_name']));
 
 				// Sesiones
 				$this->load->model('sesionmodel');
@@ -264,17 +267,22 @@ class Evento extends AbstractAccess {
 	 * @return void
 	 * @author
 	 **/
-	public function editar($id_evento=null, $exito=null)
+	public function editar($id_evento, $exito=null)
 	{
 		// Helper para dropdown menu
 		$this->load->helper('form');
+		$this->load->helper('directory');
 		// Helper de fechas
 		$this->load->helper('formatofechas');
 
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
 		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
 		$duracion 	= $this->sesionesModel->get(array('duracion','id_sesion'),array('id_evento' => $id_evento));
-		$ruta_nueva = 'assets/admin/pages/media/eventos/'.$evento->id_evento.'/temario.jpg';
+		$archivo = directory_map('assets/admin/pages/media/eventos/'.$id_evento);
+		if (count($archivo) == 1) {
+			$ruta_temario 					= 'assets/admin/pages/media/eventos/'.$id_evento.'/'.$archivo[0];
+			$this->data['ruta_temario']	= $ruta_temario;
+		}
 
 		// Creo options de ejecutivos
 		$ejecutivos = $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
@@ -325,7 +333,6 @@ class Evento extends AbstractAccess {
 		$this->data['online']				= $online;
 		$this->data['otro']					= $otro;
 		$this->data['sesiones_str']			= $sesiones_str;
-		$this->data['ruta_nueva']			= $ruta_nueva;
 		$this->data['sesion'] 				= $duracion;
 		$this->data['exito'] 				= (!is_null($exito) && $exito == 'exito') ? TRUE : FALSE;
 		$this->_vista('editar-evento');
@@ -343,6 +350,7 @@ class Evento extends AbstractAccess {
 		// Helper para dropdown menu
 		$this->load->helper('form');
 		$this->load->helper('formatofechas');
+		$this->load->helper('directory');
 		// Cargo la librería de las validaciones
 		$this->load->library('form_validation');
 		// Obtenemos el id del evento a modificar
@@ -369,6 +377,9 @@ class Evento extends AbstractAccess {
 			$this->form_validation->set_rules('otro', 'Dirección', 'trim|required|strtolower|ucfirst|xss_clean');
 		}
 
+		if ($_FILES['userfile']['name'] != '') {
+			$this->form_validation->set_rules('userfile', 'Temario', 'file_required|file_size_min[10KB]|file_size_max[2048KB]|file_allowed_type[imagen]|file_image_mindim[299,299]|file_image_maxdim[1921,1201]');
+		}
 		$this->form_validation->set_rules('sesion1', 'Sesión 1', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('dsesion1', 'Duración Sesion 1', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('sesion2', 'Sesión 2', 'trim|xss_clean');
@@ -387,23 +398,24 @@ class Evento extends AbstractAccess {
 			// Obtenemos la duración por id de evento
 			$duracion 	= $this->sesionesModel->get(array('duracion'),array('id_evento' => $id_evento));
 			// Creamos la ruta de la imagen a mostrar
-			$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/temario.jpg';
+			$archivo = directory_map('assets/admin/pages/media/eventos/'.$id_evento);
+			$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/'.$archivo[0];
 
 			switch ($evento->modalidad) {
 				case 'sucursal':
-					$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
-					$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>TRUE);
-					$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
+					$online		=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
+					$sucursal	=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>TRUE);
+					$otro		=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
 					break;
 				case 'online':
-					$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>TRUE);
-					$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
-					$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
+					$online		=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>TRUE);
+					$sucursal	=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
+					$otro		=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>FALSE);
 					break;
 				case 'otro':
-					$online=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
-					$sucursal=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
-					$otro=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>TRUE);
+					$online		=array('name'=>'lugar','value'=>'online','id'=>'lugar4','checked'=>FALSE);
+					$sucursal	=array('name'=>'lugar','value'=>'sucursal','id'=>'lugar5','checked'=>FALSE);
+					$otro		=array('name'=>'lugar','value'=>'otro','id'=>'lugar6','checked'=>TRUE);
 					break;
 			}
 
@@ -456,9 +468,9 @@ class Evento extends AbstractAccess {
 			$id_sesion3 = $this->input->post('idsesion3');
 			$id_sesion4 = $this->input->post('idsesion4');
 
-			$sesiones = array($sesion1,$sesion2,$sesion3,$sesion4);
-			$id_sesiones = array($id_sesion1,$id_sesion2,$id_sesion3,$id_sesion4);
-			$total_sesiones = array();
+			$sesiones 			= array($sesion1,$sesion2,$sesion3,$sesion4);
+			$id_sesiones 		= array($id_sesion1,$id_sesion2,$id_sesion3,$id_sesion4);
+			$total_sesiones 	= array();
 			for ($i=0; $i < count($sesiones); $i++) {
 				if (!empty($sesiones[$i])) {
 					$sesion = array();
@@ -514,50 +526,47 @@ class Evento extends AbstractAccess {
 				$evento['direccion']	= $this->input->post('otro');
 			}
 
-
-			// Armo la ruta donde guardaré la imagen a subir
-			$ruta = 'assets/admin/pages/media/eventos/tmp/';
-			$tmp_name = 'evento_'.$this->usuario_activo['id'].'.jpg';
-			//Configuracion para la subida del archivo
-			$config_upload['upload_path']		= $ruta;
-			$config_upload['allowed_types']	= 'jpg|JPG';
-			$config_upload['overwrite'] 		= TRUE;
-			$config_upload['file_name']		= $tmp_name;
-			$config_upload['max_size']			= 2048;
-			$config_upload['remove_spaces']	= TRUE;
-			// Cargo la libreria upload y paso configuracion
-			$this->load->library('upload', $config_upload);
-			//SI NO se sube la imagen
-			$this->upload->do_upload();
-			// Cargo libreria manejo de imagen
-			$this->load->library('image_lib');
-			// Paso datos de la subida del archivo
-			$upload_data = $this->upload->data();
-			// Si la imagen es mas de 800px se redimenciona
-			if ($upload_data['image_width'] > 800 || $upload_data['image_height'] > 800)
-		  	{
-				// Configuracion para el recorte
-				$config_resize['image_library']		= 'gd2';
-				$config_resize['source_image']	= $upload_data['full_path'];
-				$config_resize['maintain_ratio']	= TRUE;
-				$config_resize['width']				= 800;
-				$config_resize['height']			= 800;
-				$this->image_lib->clear();
-				$this->image_lib->initialize($config_resize);
-				$this->image_lib->resize();
+			if ($_FILES['userfile']['name'] != '') {
+				$this->load->helper('file');
+				// Armo la ruta donde guardaré la imagen a subir
+				$ruta = 'assets/admin/pages/media/eventos/'.$id_evento;
+				// Borro todo antes
+				delete_files($ruta);
+				//Configuracion para la subida del archivo
+				$config_upload['upload_path']		= $ruta;
+				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
+				$config_upload['overwrite'] 		= TRUE;
+				// $config_upload['file_name']		= $tmp_name;
+				$config_upload['max_size']			= 2048;
+				$config_upload['max_width']		= 0;
+				$config_upload['max_height']		= 0;
+				$config_upload['remove_spaces']	= TRUE;
+				// Cargo la libreria upload y paso configuracion
+				$this->load->library('upload', $config_upload);
+				//SI NO se sube la imagen
+				$this->upload->do_upload();
+				// Cargo libreria manejo de imagen
+				$this->load->library('image_lib');
+				// Paso datos de la subida del archivo
+				$upload_data = $this->upload->data();
+				// Si la imagen es mas de 1000px se redimenciona
+				if ($upload_data['image_width'] > 1000 || $upload_data['image_height'] > 1000)
+			  	{
+					// Configuracion para el recorte
+					$config_resize['image_library']		= 'gd2';
+					$config_resize['source_image']	= $upload_data['full_path'];
+					$config_resize['maintain_ratio']	= TRUE;
+					$config_resize['width']				= 1000;
+					$config_resize['height']			= 1000;
+					$this->image_lib->clear();
+					$this->image_lib->initialize($config_resize);
+					$this->image_lib->resize();
+				}
 			}
+
 			// Empiezo a escribir en la base de datos
 			// Evento
 			$this->eventoModel->update($evento,array('id_evento' => $id_evento));
-			// Muevo imagen de temario
-			$ruta_nueva = 'assets/admin/pages/media/eventos/'.$id_evento.'/';
-
-			//Si no existe directorio lo creo
-			if (!is_dir($ruta_nueva))
-			{
-				mkdir($ruta_nueva, 0777, TRUE);
-			}
-			rename($ruta.$tmp_name, $ruta_nueva.'temario.jpg');
 
 			// Sesiones
 			foreach ($total_sesiones as $index => $sesion) {

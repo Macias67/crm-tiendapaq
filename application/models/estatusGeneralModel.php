@@ -1,4 +1,4 @@
- <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *Modelo para estatus de los casos
  * y pendientes.
@@ -6,7 +6,7 @@
  * @package default
  * @author Luis Macias | Diego Rodriguez
  **/
-class estatusGeneralModel extends MY_Model {
+class EstatusGeneralModel extends MY_Model {
 
 	/**
 	 * Nombre de la tabla a conectarse

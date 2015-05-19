@@ -467,10 +467,26 @@ class Evento extends AbstractController {
 
 			$rfc = $this->input->post('rfc');
 			if ($cliente = $this->clientemodel->get_where(array('rfc' => $rfc))) {
-				if(is_array($cliente)) {
-					$cliente = $cliente[0];
-				}
 				$this->load->model('contactosmodel');
+				if(is_array($cliente)) {
+					$this->load->model('cotizacionmodel');
+					$this->load->model('casomodel');
+					$this->load->model('pendientemodel');
+					$pos = 0;
+
+					while (count($cliente) != 1) {
+						$cliente 		= $cliente[$pos];
+						$cotizacones 	= $this->cotizacionmodel->get_cotizaciones_cliente($cliente->id);
+						$casos 			= $this->casomodel->get_casos_cliente('*', $cliente->id);
+						$pendientes 	= $this->pendientemodel->get_where(array('id_cliente' => $cliente->id));
+
+						if (empty($pendientes) && empty($cotizaciones) && empty($casos)) {
+							$this->clientemodel->delete(array('id' => $cliente->id));
+							unset($cliente[$pos]);
+						}
+						$pos++;
+					}
+				}
 				$contactos = $this->contactosmodel->get('*', array('id_cliente' => $cliente->id));
 
 
