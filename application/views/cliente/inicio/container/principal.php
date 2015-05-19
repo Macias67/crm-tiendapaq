@@ -118,6 +118,8 @@
 					</div>
 				</div>
 				<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
+
+				<a href="<?php echo site_url('cursos') ?>" class="btn default btn-block red" target="_blank"><b>¡Revisa nuestros próximos cursos!</b> </a>
 			</div>
 			<div class="col-md-4 col-sm-4">
 				<!-- BEGIN VIDEO TUTORIAL PORTLET-->

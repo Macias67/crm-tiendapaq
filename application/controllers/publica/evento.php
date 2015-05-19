@@ -268,10 +268,11 @@ class Evento extends AbstractController {
 										$this->load->helper('formatofechas');
 										$this->load->helper('directory');
 
+										$this->email->set_mailtype('html');
 										$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
 										$this->email->to($contacto->email_contacto);
 
-										$this->email->subject('Inscripción a evento TiendaPAQ');
+										$this->email->subject('Inscripción a evento: '.$evento->titulo);
 										// Contenido del correo
 										$this->data['titulo'] 		= $evento->titulo;
 										$this->data['descripcion'] 	= $evento->descripcion;
@@ -295,8 +296,8 @@ class Evento extends AbstractController {
 									}
 								} else {
 									$registrado 	= TRUE;
-									$nota 			= '<b>Nota: tu registro se hará una vez el pago sea validado, está sujeto a disponibilidad y a reembolso en caso de llegar al límite de cupo en el curso.</b>';
-									$mensaje 		= 'Te enviamos a tu email la cotización del curso, puedes utilizar nuestra aplicación para llevar acabo el proceso de la compra. Te agradecemos tu interés. '.$nota;
+									$nota 			= '<b>Nota: Tu inscripción quedará confirmada hasta que sea validado tu pago y estará sujeto a disponibilidad. Se hará reembolso en caso de que el curso llegue al límite del curso y no alcances lugar. </b>';
+									$mensaje 		= 'Enviamos a tu email la cotización de este curso. Una vez efectuado el pago  envía el comprobante desde la sección de Cotizaciones Pendientes de esta aplicación. <br> <br>'.$nota;
 
 									/*INSERTO COTIZACION EN LA TABLA*/
 									$this->load->model('cotizacionmodel');
@@ -417,6 +418,7 @@ class Evento extends AbstractController {
 										$this->load->helper('formatofechas');
 										$this->load->helper('directory');
 
+										$this->email->set_mailtype('html');
 										$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
 										$this->email->to($contacto->email_contacto);
 
