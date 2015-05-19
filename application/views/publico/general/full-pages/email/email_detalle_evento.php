@@ -34,7 +34,7 @@
 												<!-- Validar si es online o presencial -->
 												<tr>
 													<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-														<b><?php echo ($modalidad == 'online') ? 'Link del curso' : 'Dirección'?></b> <?php echo $ubicacion ?>
+														<b><?php echo ($modalidad == 'online') ? 'Link del curso:' : 'Dirección:'?></b> <?php echo $ubicacion ?>
 													</td>
 												</tr>
 												<tr>

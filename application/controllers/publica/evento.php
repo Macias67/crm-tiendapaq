@@ -417,6 +417,10 @@ class Evento extends AbstractController {
 										$this->load->library('email');
 										$this->load->helper('formatofechas');
 										$this->load->helper('directory');
+										$this->load->model('sesionmodel');
+
+										//Extracción de la BD de las sesiones
+										$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
 
 										$this->email->set_mailtype('html');
 										$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
@@ -428,7 +432,16 @@ class Evento extends AbstractController {
 										$this->data['descripcion'] 	= $evento->descripcion;
 										$this->data['modalidad'] 	= $evento->modalidad;
 										// Modalidad
-										$this->data['ubicacion'] 	= ($evento->modalidad == 'online') ? $evento->link : $evento->direccion;
+										if ($evento->modalidad == 'online') {
+											$this->data['ubicacion'] = $evento->link;
+										}else{
+											if ($evento->modalidad == 'otro') {
+												$this->data['ubicacion'] = $evento->direccion;
+											}else{
+												$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
+												$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+											}
+										}
 										$this->data['sesiones'] 	= $sesiones;
 										//Datos de logueo
 										$this->data['usuario'] 		= $data['usuario'];
