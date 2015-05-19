@@ -442,6 +442,9 @@ class Evento extends AbstractController {
 												$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
 											}
 										}
+										// link
+										$this->data['costo'] = $evento->costo;
+
 										$this->data['sesiones'] 	= $sesiones;
 										//Datos de logueo
 										$this->data['usuario'] 		= $data['usuario'];

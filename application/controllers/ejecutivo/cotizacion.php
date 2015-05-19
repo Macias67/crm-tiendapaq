@@ -285,8 +285,6 @@ class Cotizacion extends AbstractAccess {
 
 		if ($tipo == 'evento') {
 			if ($valoracion == "aceptado") {
-				// ANALISAR RELACION COTIZACION EVENTO
-				$response = array('exito' => FALSE, 'msg' => 'ANALISAR RELACION COTIZACION EVENTO.');
 				// Cambie estatus de la cotizacion a PAGADO
 				if ($this->cotizacionModel->update(
 					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
@@ -294,7 +292,32 @@ class Cotizacion extends AbstractAccess {
 				{
 					$cotizacion = $this->cotizacionModel->get_where(array('folio' => $folio));
 					// INSERTAR CONTACTO A TABLA DE PARTICIPANTES
-					// 
+					$this->load->model('participantesmodel');
+					$this->load->model('eventomodel');
+
+					$evento 		= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
+					$particpantes 	= $this->participantesmodel->get_where(array('id_evento' => $cotizacion->id_evento));
+
+					if (count($particpantes) < $evento->max_participantes) {
+						$participante = array(
+								'id_evento' 		=> $cotizacion->id_evento,
+								'id_contacto' 	=> $cotizacion->id_contacto);
+
+						if ($exito = $this->participantesmodel->insert($participante)) {
+							$msj = 'Se ha registrado el contacto a la lista de particpantes de este curso.';
+							// ENVIO DE EMAIL
+							
+						} else {
+							$msj = 'No se pudo registra en la BD.';
+						}
+					} else {
+						// COTIAZION CANCELADA
+						$exito = $this->cotizacionModel->update(
+							array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio));
+						$msj 	= 'Se llegó al cupo máximo de participantes, este cliente ya no estará registrado. Se cancelará la cotización.';
+					}
+
+					$response = array('exito' => $exito, 'msg' => $msj);
 				}
 			}
 		} elseif ($tipo == 'normal') {
