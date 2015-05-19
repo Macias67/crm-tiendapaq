@@ -54,7 +54,7 @@ if (LOCAL) {
 	$db['default']['username']	= 'root';
 	$db['default']['password']	= '';
 } else {
-	$db['default']['database']	= 'moz_tiendapaq';
+	$db['default']['database']	= 'moz_desarrollo';
 	$db['default']['hostname']	= 'localhost';
 	$db['default']['username']	= 'moz_admin';
 	$db['default']['password']	= 'gtsts1000';

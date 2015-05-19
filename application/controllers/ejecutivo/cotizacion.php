@@ -293,6 +293,8 @@ class Cotizacion extends AbstractAccess {
 					array('folio' => $folio)))
 				{
 					$cotizacion = $this->cotizacionModel->get_where(array('folio' => $folio));
+					// INSERTAR CONTACTO A TABLA DE PARTICIPANTES
+					// 
 				}
 			}
 		} elseif ($tipo == 'normal') {
