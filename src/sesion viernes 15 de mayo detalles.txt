@@ -8,6 +8,9 @@
 EMAIL
 - aviso de pago irregular
 
+CASOS SE DUPLICAN
+- al asignar caso se duplican (caso ale)
+
 
 ESTATUS DEL CASO
 - mostrar aviso de calificacion en detalle de caso

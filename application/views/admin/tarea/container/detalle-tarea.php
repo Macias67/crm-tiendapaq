@@ -99,11 +99,13 @@
 								<i class="icon-puzzle font-grey-gallery"></i>
 								<span class="caption-subject bold font-grey-gallery uppercase">Fecha tentativa de cierre: </span>
 							</div>
+							<?php if ($tarea->fecha_cierre == '1000-01-01 00:00:00'): ?>
 							<div class="tools">
 								<a href="javascript:;" class="expand"></a>
 							</div>
+							<?php endif ?>
 						</div>
-						<div class="portlet-body display-hide">
+						<div class="portlet-body <?php echo ($tarea->fecha_cierre != '1000-01-01 00:00:00') ? '' : 'display-hide' ?>">
 							<div class="portlet-body form">
 								<form role="form">
 									<div class="form-body">

@@ -241,6 +241,58 @@ class Tarea extends AbstractAccess {
 		}
 	}
 
+	public function fecha_cierre() {
+		if ($this->input->is_ajax_request()) {
+			$id_tarea 		= $this->input->post('id_tarea');
+			$id_caso 		= $this->input->post('id_caso');
+			$fecha_cierre	= $this->input->post('fecha_cierre');
+
+			// modelo caso
+			$this->load->model('casomodel');
+			$caso 		= $this->casomodel->get_where(array('id' => $id_caso));
+			$tareas 	= $this->tareaModel->get_where(array('id_caso' => $id_caso));
+
+			// Fecha a insertar
+			$fecha_manejo	= array();
+			$fecha_manejo	= explode('/', $fecha_cierre);
+			$fecha_db		= $fecha_manejo[2].'-'.$fecha_manejo[1].'-'.$fecha_manejo[0];
+			$fecha			= date('Y-m-d H:i:s',strtotime($fecha_db));
+			$tarea_update 	= array(
+								'id_tarea'		=> $id_tarea,
+								'fecha_cierre'	=> $fecha);
+
+			// Inserto las fechas que ya se han definido
+			$fechas = array();
+			foreach ($tareas as $index => $tarea) {
+				if ($tarea->fecha_cierre != '1000-01-01 00:00:00' && $tarea->fecha_cierre != '0000-00-00 00:00:00') {
+					$fechas[$index] = $tarea->fecha_cierre;
+				} else {
+					break;
+				}
+			}
+
+			// Valido que el array este completo respecto a tareas, y ordeno de mayor a menor
+			$cierre_caso = FALSE;
+			if (count($tareas) == count($fechas)) {
+				rsort($fechas);
+				// Inserto fecha de tentativa de caso
+				$cierre_caso = $this->casomodel->update(array('fecha_tentativa_cierre' => $fechas[0]), array('id' =>$id_caso));
+			}
+
+			// Inserto fecha tentativa de tarea
+			if($this->tareaModel->update($tarea_update, array('id_tarea'=>$id_tarea))){
+				$msg = ($cierre_caso) ? '<h4>Se detectó tu fecha como la última en el caso, será la fecha tentativa de cierrre en el caso.</h4>' : '<h4>Se asignó una fecha tentativa de cierre.</h4>';
+				$respuesta = array('exito' => TRUE, 'msg' => $msg);
+			} else {
+				$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se insertó en la base de datos.</h4>');
+			}
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($respuesta));
+		}
+	}
+
 	public function avances()
 	{
 		if($this->input->is_ajax_request()) {
@@ -480,30 +532,6 @@ class Tarea extends AbstractAccess {
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
 	}
-
-	public function fecha_cierre(){
-		$id_tarea 		= $this->input->post('id_tarea');
-		$fecha_cierre	= $this->input->post('fecha_cierre');
-		$fecha_manejo	= array();
-		$fecha_manejo	= explode('/', $fecha_cierre);
-		$fecha_db		= $fecha_manejo[2].'-'.$fecha_manejo[1].'-'.$fecha_manejo[0];
-		$fecha_insert	= date('Y-m-d H:i:s',strtotime($fecha_db));
-		$tarea 			= array(
-								'id_tarea'		=>$id_tarea,
-								'fecha_cierre'	=>$fecha_insert
-			);
-
-		if($this->tareaModel->update($tarea,array('id_tarea'=>$id_tarea))){
-			$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso abierto con éxito.</h4>');
-		} else {
-			$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
-		}
-
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($respuesta));
-	}
-
 }
 
 /* End of file tarea.php */

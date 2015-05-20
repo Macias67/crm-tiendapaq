@@ -170,22 +170,22 @@ var DetalleTarea = function() {
 
 	var fechaCierre = function(){
 		$('#btn_establecer').on('click', function() {
-			var id_caso = $("input[name='id_caso']").val();
-			var id_tarea = $("input[name='id_tarea']").val();
-			var fecha_cierre = $("input[name='fecha_cierre']").val();
+			var id_caso			= $("input[name='id_caso']").val();
+			var id_tarea 		= $("input[name='id_tarea']").val();
+			var fecha_cierre 	= $("input[name='fecha_cierre']").val();
 			var data = {
-				id_caso:id_caso,
-				id_tarea:id_tarea,
-				fecha_cierre:fecha_cierre
+				id_caso: 		id_caso,
+				id_tarea: 		id_tarea,
+				fecha_cierre: 	fecha_cierre
 			};
 
 			$.post('/tarea/fecha_cierre',data,  function(data, textStatus, xhr) {
-						if (data.exito) {
-							bootbox.alert('<h4>Se asignó una fecha tentativa de cierre.</h4>', function() {
-								location.reload(true);
-							});
-						};
+				if (data.exito) {
+					bootbox.alert(data.msg, function() {
+						location.reload(true);
 					});
+				};
+			});
 		});
 	};
 
