@@ -207,7 +207,7 @@
 											<td><?php echo $nota->nota ?></td>
 											<td>
 												<?php if (isset($nota->imagen)): ?>
-												<a href="<?php echo $nota->imagen ?>" class="btn blue btn-xs ver fancybox"><i class="fa fa-file-image-o"></i></a>
+												<a href="<?php echo $nota->imagen ?>" class="btn blue btn-xs ver fancybox" target="_blank"><i class="fa fa-file-image-o"></i></a>
 												<?php endif ?>
 												<a href="<?php echo site_url('nota/modal/editar/'.$nota->id_nota) ?>" class="btn green btn-xs editar" data-target="#ajax_edita_nota" data-toggle="modal"><i class="fa fa-edit"></i></a>
 												<button class="btn red btn-xs eliminar" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></button>
@@ -250,7 +250,7 @@
 										<div class="form-group">
 											<div class="col-md-9">
 												<input type="file" name="archivo" id="archivo">
-												<p class="help-block"> Ligar archivo.</p>
+												<p class="help-block"> Ligar archivo. (JPG, PNG o PDF)</p>
 											</div>
 										</div>
 										<div class="clearfix"></div>

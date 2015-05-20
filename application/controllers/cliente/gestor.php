@@ -548,13 +548,14 @@ class Gestor extends AbstractAccess {
 			$respuesta = array('exito' => FALSE, 'msg' => validation_errors());
 		} else
 		{
+			$id = $this->data['usuario_activo']['id'];
+			$old_cliente = $this->clienteModel->get(array('tipo'), array('id' =>$id), null, 'ASC', 1);
 			//si las reglas son correctas preparo los datos para insertar
 			$cliente = array(
 				//Datos basicos
 				'razon_social'	=> $this->input->post('razon_social'),
 				'rfc'			=> $this->input->post('rfc'),
 				'email'			=> $this->input->post('email'),
-				'tipo'                    => 'normal',
 				'telefono1'		=> $this->input->post('telefono1'),
 				'calle'			=> $this->input->post('calle'),
 				'no_exterior'	=> $this->input->post('no_exterior'),
@@ -564,7 +565,10 @@ class Gestor extends AbstractAccess {
 				'estado'		=> $this->input->post('estado')
 			);
 
-			$id = $this->data['usuario_activo']['id'];
+			if ($old_cliente->tipo == 'prospecto') {
+				$cliente['tipo'] = 'normal';
+			}
+
 			//inserto en la bd
 			if(!$this->clienteModel->update($cliente, array('id' => $id))) {
 				$respuesta = array('exito' => FALSE, 'msg' => 'No se actualizo, revisa la consola o la base de datos para detalles');

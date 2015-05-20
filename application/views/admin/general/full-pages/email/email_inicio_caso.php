@@ -45,7 +45,7 @@
 								</table>
 								<!-- END: Note Panel -->
 								<p>
-									Información de la caso.
+									Información del caso:
 								</p>
 								<!-- BEGIN: Note Panel -->
 								<table class="twelve columns" style="margin-bottom: 10px">
@@ -66,7 +66,7 @@
 									</tr>
 									<tr>
 										<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-											<b>Se le cotizó a:</b>  <?php echo $contacto ?>
+											<b>Ejecutivo de su caso:</b>  <?php echo $lider ?>
 										</td>
 									</tr>
 								</table>
@@ -86,8 +86,10 @@
 								<table class="twelve columns">
 								<tr>
 									<td>
-										<img src="<?php echo $assets_admin_pages.'media/email/LogoTiendaPAQ.gif' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
+										<img src="<?php echo $assets_admin_pages.'media/email/logoTP.png' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
 									</td>
+									<td class="expander"></td>
+									<td class="expander"></td>
 									<td>
 										<h4 style="font-size: 18px;display: block;margin: 5px 0 15px 0;"> Soporte técnico y capacitación. </h4>
 										<p>

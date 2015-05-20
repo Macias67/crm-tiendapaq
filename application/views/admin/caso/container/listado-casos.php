@@ -21,7 +21,7 @@
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="icon-speech"></i>
-									<span class="caption-subject bold uppercase"> Mis casos asginados</span>
+									<span class="caption-subject bold uppercase"> Mis casos asignados</span>
 									<!-- <span class="caption-helper">weekly stats...</span> -->
 								</div>
 								<!-- <div class="tools">

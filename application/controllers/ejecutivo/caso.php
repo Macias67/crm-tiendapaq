@@ -68,9 +68,9 @@ class Caso extends AbstractAccess {
 		$columns		= $this->input->post('columns');
 		$search		= $this->input->post('search');
 		if ($id_ejecutivo) {
-			$total			=  $this->casoModel->get('COUNT(*) as total', array('id_lider' =>$id_ejecutivo), null, 1);
+			$total	=  $this->casoModel->get('COUNT(*) as total', array('id_lider' =>$id_ejecutivo), null, 1);
 		} else {
-			$total			=  $this->casoModel->get('COUNT(*) as total', null, null, 1);
+			$total	=  $this->casoModel->get('COUNT(*) as total', null, null, 1);
 		}
 
 		if($length == -1)
@@ -118,9 +118,9 @@ class Caso extends AbstractAccess {
 				'razon_social'				=> $caso->razon_social,
 				'id_lider'					=> $caso->primer_nombre.' '.$caso->apellido_paterno,
 				'fecha_inicio'				=> fecha_completa($caso->fecha_inicio),
-				'fecha_final'				=> ($caso->fecha_final=='1000-01-01 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final),
+				'fecha_final'				=> ($caso->fecha_final=='1000-01-01 00:00:00' || $caso->fecha_final=='0000-00-00 00:00:00')? 'Sin registro de cierre' : fecha_completa($caso->fecha_final),
 				'id_estatus_general'		=> $caso->id_estatus_general,
-				'url'					=> site_url('/caso/detalles/'.$caso->id_caso),
+				'url'							=> site_url('/caso/detalles/'.$caso->id_caso),
 				'url_modal'					=> site_url('/caso/modal/'.$caso->id_caso)
 			       );
 			array_push($proceso, $p);
@@ -153,7 +153,7 @@ class Caso extends AbstractAccess {
 		$this->load->helper('cotizacion');
 		$this->load->helper('estatus');
 
-		$caso 			=  $this->casoModel->get_caso_detalles($id_caso);
+		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 		// Si el caso tiene cotizacion
 		if (!is_null($caso->folio_cotizacion)) {
 			$cotizacion 	= $this->cotizacionModel->get_cotizacion_cliente(array('*'), array('ejecutivos'), $caso->folio_cotizacion);
@@ -227,11 +227,11 @@ class Caso extends AbstractAccess {
 		// }
 
 
-		$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
-		$this->data['tareas'] 				= $tareas;
-		$this->data['ejecutivos'] 			= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+		$this->data['estatus_caso'] 	= id_estatus_gral_to_class_html($caso->id_estatus_general);
+		$this->data['tareas'] 			= $tareas;
+		$this->data['ejecutivos'] 		= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 		$this->data['caso'] 				= $caso;
-		$this->data['notas'] 				= $notas;
+		$this->data['notas'] 			= $notas;
 		$this->_vista('detalle-caso');
 	}
 
@@ -243,15 +243,19 @@ class Caso extends AbstractAccess {
 	public function modal($id_caso)
 	{
 		$this->load->helper('formatofechas_helper');
+		$this->load->model('clientemodel');
+		$this->load->model('estatusgeneralmodel');
 		//verificamos si el caso aun no tiene lider para saber como hacer la consulta en el model
-		$lider = $this->casoModel->get(array('id_lider'), array('id' => $id_caso), null, 'ASC', 1);
+		$lider 			= $this->casoModel->get(array('id_lider'), array('id' => $id_caso), null, 'ASC', 1);
+		$caso 			= $this->casoModel->get_caso_detalles($id_caso);
+		$cliente 		= $this->clientemodel->get(array('tipo'), array('id' => $caso->id_cliente), null, 'ASC', 1);
+		$caso->tipo	= $cliente->tipo;
 		if(empty($lider->id_lider)){
-			$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);
-			$this->data['caso']->primer_nombre = 'SIN';
-			$this->data['caso']->apellido_paterno = ' LIDER';
-		}else{
-			$this->data['caso'] = $this->casoModel->get_caso_detalles($id_caso);
+			$caso->primer_nombre 	= 'SIN';
+			$caso->apellido_paterno 	= ' LIDER';
 		}
+		$this->data['caso'] 	= $caso;
+		$this->data['boton_cerrar_caso'] = ($caso->id_estatus_general != $this->estatusgeneralmodel->CERRADO && $cliente->tipo == 'distribuidor');
 		$this->_vista_completa('caso/modal-detalles-caso');
 	}
 
@@ -280,27 +284,27 @@ class Caso extends AbstractAccess {
 						$this->load->helper('formatofechas');
 						$this->load->library('email');
 
-						$caso 				= $this->casoModel->get_where(array('id' => $id_caso));
+						$caso 				= $this->casoModel->get_caso_detalles($id_caso);
 						$folio_cotizacion 	= $this->casoModel->get(array('folio_cotizacion'), array('id' => $id_caso), null, 'ASC', 1);
 						$id_contacto 		= $this->cotizacionModel->get(array('id_contacto'), array('folio' => $folio_cotizacion->folio_cotizacion), null, 'ASC', 1);
 						$contacto 			= $this->contactosModel->get('*', array('id' => $id_contacto->id_contacto), null, 'ASC', 1);
 						$cliente 			= $this->clienteModel->get(array('usuario','password'),array('id' => $contacto->id_cliente), null, 'ASC', 1);
 
-						$nombre_contacto = $contacto->nombre_contacto.' '.$contacto->apellido_paterno.' '.$contacto->apellido_materno;
+						$lider = $caso->primer_nombre.' '.$caso->apellido_paterno;
 						//Envio Email
 						$this->email->set_mailtype('html');
-						$this->email->from('notificacion@moz67.com', 'Apertura de Caso - TiendaPAQ');
+						$this->email->from('notificacion@moz67.com', 'Soporte Técnico - TiendaPAQ');
 						$this->email->to($contacto->email_contacto);
 						//$this->email->cc('another@example.com');
 						//$this->email->bcc('and@another.com');
-						$this->email->subject('Apertura de Caso - TiendaPAQ');
+						$this->email->subject('Apertura de Caso - Folio: '.$folio_cotizacion->folio_cotizacion.' | TiendaPAQ');
 						//Contenido del correo
 						$this->data['usuario'] 		= $cliente->usuario;
 						$this->data['password'] 	= $cliente->password;
-						$this->data['id_caso'] 		= $caso->id;
+						$this->data['id_caso'] 		= $caso->id_caso;
 						$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
 						$this->data['folio'] 			= $folio_cotizacion->folio_cotizacion;
-						$this->data['contacto'] 	= $nombre_contacto;
+						$this->data['lider']			= $lider;
 						//var_dump($this->data);
 						$html = $this->load->view('admin/general/full-pages/email/email_inicio_caso.php', $this->data, TRUE);
 						$this->email->message($html);
@@ -443,23 +447,22 @@ class Caso extends AbstractAccess {
 	{
 		if ($this->input->is_ajax_request()) {
 			$id_caso = $this->input->post('id_caso');
-			var_dump($id_caso);
-			// $this->load->model('estatusGeneralModel');
+			if ($caso = $this->casoModel->get_where(array('id' => $id_caso))) {
+				$this->load->model('estatusGeneralModel');
 
-			// $update = array(
-			// 		'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
-			// 		'fecha_final' 			=> date('Y-m-d H:i:s')
-			// 	);
+				$update = array(
+						'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
+						'fecha_final' 			=> date('Y-m-d H:i:s'));
 
-			// if($this->casoModel->update($update, array('id' => $id_caso))){
-			// 	$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
-			// }else{
-			// 	$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
-			// }
-
-			// $this->output
-			// 	->set_content_type('application/json')
-			// 	->set_output(json_encode($respuesta));
+				if($this->casoModel->update($update, array('id' => $id_caso))){
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
+				}else{
+					$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+				}
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($respuesta));
+			}
 		}
 	}
 }

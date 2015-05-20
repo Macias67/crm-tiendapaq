@@ -272,7 +272,9 @@ var TableManaged = function () {
 			$('.cerrar-caso').on('click', function() {
 				var id_caso = $('input#id_caso').val();
 				$.post('/caso/cerrar', {id_caso:id_caso},function(data, textStatus, xhr) {
-					/*optional stuff to do after success */
+					bootbox.alert(data.msg, function() {
+						location.reload(true);
+					});
 				}, 'json');
 			});
 		});

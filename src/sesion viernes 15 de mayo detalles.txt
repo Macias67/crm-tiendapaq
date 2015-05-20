@@ -1,11 +1,4 @@
 - 2 telefonos para la cotizacion
-- boton en modal de asignacio nde caso cerrar si es distribuidor
-- validar formato de fecha en panel de 'MIs casos' cuando no tiene fecha fianlizada
-- volver a revisar reasginacion de caso*****
-- 'ASGINADOS' en panel de mis casos
-- acepta PDFS en notas de tareas
-- REVISAR EMAIL APERTURA CASO quien es el lider 'Ejecutivo asignado a su caso:'
-- logo email cambiarlo a la imagen chica
 - fecha tentativa en panel de casos del cliente y acomodar casos por estatus
 - Revisar notas marcadas como nuevas en seccion de cliente
 - revisar fecha tentativa de cierre*****************
@@ -14,7 +7,7 @@
 
 EMAIL
 - aviso de pago irregular
--email con costo pate de sesiones revsiar
+- email con costo pate de sesiones revsiar
 - revisar NO ENVIO DE LINK en correo de eventos con costo
 - revisar fecha en correo de eventos con costo
 

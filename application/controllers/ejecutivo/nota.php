@@ -49,8 +49,7 @@ class Nota extends AbstractAccess {
 
 				//Configuracion para la subida del archivo
 				$config_upload['upload_path']		= $ruta;
-				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-				$config_upload['file_name'] 		= 'nota';
+				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG|pdf';
 				$config_upload['overwrite'] 		= TRUE;
 				$config_upload['max_size']			= 2048;
 				$config_upload['remove_spaces']	= TRUE;
@@ -94,11 +93,14 @@ class Nota extends AbstractAccess {
 				{
 					mkdir($ruta, 0777, TRUE);
 				}
+				// Borro todo lo que haya
+				$this->load->helper('file');
+				delete_files($ruta);
 
 				//Configuracion para la subida del archivo
 				$config_upload['upload_path']		= $ruta;
-				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG';
-				$config_upload['file_name'] 		= 'nota';
+				$config_upload['allowed_types']	= 'jpg|JPG|jpeg|JPEG|png|PNG|pdf';
+				// $config_upload['file_name'] 		= 'nota';
 				$config_upload['overwrite'] 		= TRUE;
 				$config_upload['max_size']			= 2048;
 				$config_upload['remove_spaces']	= TRUE;

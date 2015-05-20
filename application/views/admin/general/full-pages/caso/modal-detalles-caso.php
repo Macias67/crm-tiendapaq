@@ -26,12 +26,16 @@
 					<div class="col-md-8"><p><?php echo $caso->razon_social ?></p></div>
 				</div>
 				<div class="col-md-12">
+					<div class="col-md-4 text-right"><b>Tipo de cliente: </b></div>
+					<div class="col-md-8"><p><?php echo ucfirst($caso->tipo) ?></p></div>
+				</div>
+				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Fecha de inicio: </b></div>
 					<div class="col-md-8"><p><?php echo fecha_completa($caso->fecha_inicio); ?></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Fecha de fin (aprox.): </b></div>
-					<div class="col-md-8"><p><?php echo ($caso->fecha_final=='0000-00-00 00:00:00')? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></p></div>
+					<div class="col-md-8"><p><?php echo ($caso->fecha_final == '1000-01-01 00:00:00')? 'Sin cerrar caso' : fecha_completa($caso->fecha_final) ?></p></div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-4 text-right"><b>Cotización: </b></div>
@@ -43,7 +47,7 @@
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn green btn-circle" data-dismiss="modal">Aceptar</button>
-	<?php if($caso->id_estatus_general!=2): ?>
-		<!-- <button type="button" class="btn red btn-circle cerrar-caso" >Cerrar caso</button> -->
+	<?php if($boton_cerrar_caso): ?>
+	<button type="button" class="btn red btn-circle cerrar-caso" >Cerrar caso</button>
 	<?php endif ?>
 </div>

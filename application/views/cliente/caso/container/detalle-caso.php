@@ -124,14 +124,14 @@
 														<b>Avance</b>
 													</div>
 												</div>
-												<div class="col-md-9">
+												<div class="col-md-12">
 													<?php if ($tarea->total_notas != 0): ?>
 														<div class="portlet gren">
 															<div class="portlet-title">
 																<div class="caption"><i class="fa fa-warning"></i>Notas</div>
 															</div>
 															<div class="portlet-body">
-																<table class="table table-striped table-bordered table-hover" id="notas-tarea">
+																<table class="table table-hover" id="notas-tarea">
 																	<thead class="flip-content">
 																		<tr>
 																			<th width="15%"> Fecha </th>
@@ -150,7 +150,7 @@
 																						<td><?php echo $nota->nota ?></td>
 																						<td>
 																							<?php if (isset($nota->imagen)): ?>
-																								<a href="<?php echo $nota->imagen ?>" class="btn blue btn-circle btn-xs fancybox" title="<?php echo $nota->nota ?>"><i class="fa fa-file-image-o"></i> Ver imagen</a>
+																								<a href="<?php echo $nota->imagen ?>" class="btn blue btn-circle btn-xs fancybox" title="<?php echo $nota->nota ?>" target="_blank"><i class="fa fa-file-image-o"></i> Ver archivo</a>
 																							<?php endif ?>
 																						</td>
 																					</tr>
