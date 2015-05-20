@@ -17,6 +17,9 @@
 						<tr>
 							<td class="wrapper last">
 								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> TiendaPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
+								<?php if (isset($irregular)): ?>
+									<h3 style="font-size: 20px;display: block;margin: 5px 0 15px 0;color:#EE0014"><b>Notamos que hay irregularidades en su pago. Por favor revise sus comprobantes de pago enviados.</b></h3>
+								<?php endif ?>
 								<p>
 									 Adjuntamos a la cotización sus datos de inicio de sesión en nuestro sistema, aquí podrá verificar sus pagos de la cotización.
 								</p>
