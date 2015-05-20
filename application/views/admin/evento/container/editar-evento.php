@@ -139,7 +139,11 @@
 												<div class="col-md-9">
 													<div class="fileinput fileinput-new" data-provides="fileinput">
 														<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-															<img src="<?php echo site_url($ruta_nueva) ?>" alt=""/>
+														<?php if (isset($ruta_temario)): ?>
+															<img src="<?php echo site_url($ruta_temario) ?>" alt=""/>
+														<?php else: ?>
+															<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+														<?php endif ?>
 														</div>
 														<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 														</div>
