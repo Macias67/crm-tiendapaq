@@ -336,13 +336,40 @@ class Caso extends AbstractAccess {
 		if ($this->input->is_ajax_request()) {
 			$this->load->model('reasignarcasomodel');
 
-			$id_caso 	= $this->input->post('id_caso');
-			$destino 	= $this->input->post('reasignar');
-			$motivo 	= $this->input->post('motivo');
+			$data 		= $this->input->post('data');
+			$parametros = array();
+			parse_str($data, $parametros);
+			$id_caso 	= $parametros['id_caso'];
+			$destino 	= $parametros['reasignar'];
+			$motivo 	= $parametros['motivo'];
+			$id_lider	= $parametros['id_lider'];
 
-			if ($this->casomodel->exist(array('id' => $id_caso))) {
+			if ($caso=$this->casoModel->get_where(array('id' => $id_caso))) {
 				$this->load->model('reasignarcasomodel');
-				var_dump('hola');
+
+				$reasignar = array(
+					'id_caso' 				=> $id_caso,
+					'id_ejecutivo_origen'	=> $id_lider,
+					'id_ejecutivo_destino'	=> $destino,
+					'fecha'					=> date('Y-m-d H:i:s'),
+					'motivo'				=> $motivo);
+
+				$exito_r=$this->reasignarcasomodel->insert($reasignar);
+				$exito_c=$this->casoModel->update(array('id_lider'=>$destino),
+												array('id'=>$id_caso));
+
+				$response = array();
+				if ($exito_r && $exito_c) {
+					$response['msj']="Se ha reasignado el caso con éxito.";
+					$response['exito']=TRUE;
+				} else {
+					$response['msj']="No se guardo en la BD.";
+					$response['exito']=FALSE;
+				}
+
+				$this->output->
+				set_content_type('application/json')->
+				set_output(json_encode($response));
 			}
 		}
 	}

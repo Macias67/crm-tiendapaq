@@ -306,7 +306,59 @@ class Cotizacion extends AbstractAccess {
 						if ($exito = $this->participantesmodel->insert($participante)) {
 							$msj = '<h3>Se ha registrado el contacto a la lista de particpantes de este curso.</h3> (Desarrollo: pendiente envio de email al cliente ya una vez aceptado el pago)';
 							// ENVIO DE EMAIL
-							
+							/*CODIGO PARA ENVIO DE CORREO COTIZACION*/ //(***PENDIENTE***)
+							if (!LOCAL) {
+								$this->load->library('email');
+								$this->load->helper('formatofechas');
+								$this->load->helper('directory');
+								$this->load->model('sesionmodel');
+								$this->load->model('oficinasmodel');
+								$this->load->model('contactosModel');
+
+								// Datos del contacto
+								// Extraigo info del participante (contacto)
+									$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
+
+								//Extracción de la BD de las sesiones
+								if ($this->sesionmodel->get('*', array('id_evento' => $id_evento)) > 1) {
+									$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
+								}else
+								{
+									$sesiones = $this->sesionmodel->get_where(array('id_evento' => $id_evento));
+								}
+
+								$this->email->set_mailtype('html');
+								$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+								$this->email->to($contacto->email_contacto);
+
+								$this->email->subject('Inscripción a evento TiendaPAQ');
+								// Contenido del correo
+								$this->data['titulo'] 		= $evento->titulo;
+								$this->data['descripcion'] 	= $evento->descripcion;
+								$this->data['modalidad'] 	= $evento->modalidad;
+								// Modalidad
+								if ($evento->modalidad == 'online') {
+								}else{
+									if ($evento->modalidad == 'otro') {
+										$this->data['ubicacion'] = $evento->direccion;
+									}else{
+										$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
+										$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+									}
+								}
+								// link
+								$this->data['costo']		= $evento->costo;
+
+								$this->data['sesiones'] 	= $sesiones;
+								//Datos de logueo
+								$this->data['usuario'] 		= $data['usuario'];
+								$this->data['password'] 	= $data['password'];
+								$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
+								$this->email->message($html);
+								$this->email->attach($path);
+
+								$registrado = $this->email->send();
+							}
 						} else {
 							$msj = 'No se pudo registra en la BD.';
 						}
