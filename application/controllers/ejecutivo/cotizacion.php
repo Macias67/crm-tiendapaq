@@ -287,57 +287,60 @@ class Cotizacion extends AbstractAccess {
 			if ($valoracion == "aceptado") {
 				// Cambie estatus de la cotizacion a PAGADO
 				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
-					array('folio' => $folio)))
+					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO), array('folio' => $folio)))
 				{
-					$cotizacion = $this->cotizacionModel->get_where(array('folio' => $folio));
-					// INSERTAR CONTACTO A TABLA DE PARTICIPANTES
 					$this->load->model('participantesmodel');
 					$this->load->model('eventomodel');
 
+					// INSERTAR CONTACTO A TABLA DE PARTICIPANTES
+					$cotizacion 	= $this->cotizacionModel->get_where(array('folio' => $folio));
 					$evento 		= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
 					$particpantes 	= $this->participantesmodel->get_where(array('id_evento' => $cotizacion->id_evento));
 
+					// Validar si el total de participantes no ha llegado al límite
 					if (count($particpantes) < $evento->max_participantes) {
 						$participante = array(
 								'id_evento' 		=> $cotizacion->id_evento,
 								'id_contacto' 	=> $cotizacion->id_contacto);
-
+						// Inserto participante en la tabla
 						if ($exito = $this->participantesmodel->insert($participante)) {
-							$msj = '<h3>Se ha registrado el contacto a la lista de particpantes de este curso.</h3> (Desarrollo: pendiente envio de email al cliente ya una vez aceptado el pago)';
+							$msj = '<h3>Se ha registrado el contacto a la lista de particpantes de este curso.</h3>';
 							// ENVIO DE EMAIL
-							/*CODIGO PARA ENVIO DE CORREO COTIZACION*/ //(***PENDIENTE***)
+							/*CODIGO PARA ENVIO DE CORREO COTIZACION*/
 							if (!LOCAL) {
 								$this->load->library('email');
 								$this->load->helper('formatofechas');
-								$this->load->helper('directory');
 								$this->load->model('sesionmodel');
 								$this->load->model('oficinasmodel');
 								$this->load->model('contactosModel');
+								$this->load->model('clienteModel');
 
 								// Datos del contacto
 								// Extraigo info del participante (contacto)
-									$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
+								$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
+								// Extraigo usuario y contraseña del cliente
+								$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
 
 								//Extracción de la BD de las sesiones
-								if ($this->sesionmodel->get('*', array('id_evento' => $id_evento)) > 1) {
-									$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
+								if ($this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento)) > 1) {
+									$sesiones = $this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento));
 								}else
 								{
-									$sesiones = $this->sesionmodel->get_where(array('id_evento' => $id_evento));
+									$sesiones = $this->sesionmodel->get_where(array('id_evento' => $cotizacion->id_evento));
 								}
 
 								$this->email->set_mailtype('html');
 								$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
 								$this->email->to($contacto->email_contacto);
 
-								$this->email->subject('Inscripción a evento TiendaPAQ');
+								$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
 								// Contenido del correo
 								$this->data['titulo'] 		= $evento->titulo;
 								$this->data['descripcion'] 	= $evento->descripcion;
 								$this->data['modalidad'] 	= $evento->modalidad;
 								// Modalidad
 								if ($evento->modalidad == 'online') {
+									$this->data['ubicacion'] = $evento->link;
 								}else{
 									if ($evento->modalidad == 'otro') {
 										$this->data['ubicacion'] = $evento->direccion;
@@ -346,26 +349,22 @@ class Cotizacion extends AbstractAccess {
 										$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
 									}
 								}
-								// link
-								$this->data['costo']		= $evento->costo;
-
+								// Costo
+								$this->data['costo']		= 0; // Para que mueste el link
 								$this->data['sesiones'] 	= $sesiones;
 								//Datos de logueo
-								$this->data['usuario'] 		= $data['usuario'];
-								$this->data['password'] 	= $data['password'];
+								$this->data['usuario'] 		=$cliente->usuario;
+								$this->data['password'] 	= $cliente->password;
 								$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
 								$this->email->message($html);
-								$this->email->attach($path);
-
-								$registrado = $this->email->send();
+								$this->email->send();
 							}
 						} else {
 							$msj = 'No se pudo registra en la BD.';
 						}
 					} else {
 						// COTIAZION CANCELADA
-						$exito = $this->cotizacionModel->update(
-							array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio));
+						$exito = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio));
 						$msj 	= '<h3>Se llegó al cupo máximo de participantes, este cliente ya no estará registrado. Se cancelará la cotización.</h3>';
 					}
 

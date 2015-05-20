@@ -7,9 +7,6 @@
 
 EMAIL
 - aviso de pago irregular
-- email con costo pate de sesiones revsiar
-- revisar NO ENVIO DE LINK en correo de eventos con costo
-- revisar fecha en correo de eventos con costo
 
 
 ESTATUS DEL CASO
