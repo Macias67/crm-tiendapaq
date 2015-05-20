@@ -304,7 +304,7 @@ class Cotizacion extends AbstractAccess {
 								'id_contacto' 	=> $cotizacion->id_contacto);
 
 						if ($exito = $this->participantesmodel->insert($participante)) {
-							$msj = 'Se ha registrado el contacto a la lista de particpantes de este curso.';
+							$msj = '<h3>Se ha registrado el contacto a la lista de particpantes de este curso.</h3> (Desarrollo: pendiente envio de email al cliente ya una vez aceptado el pago)';
 							// ENVIO DE EMAIL
 							
 						} else {
@@ -314,7 +314,7 @@ class Cotizacion extends AbstractAccess {
 						// COTIAZION CANCELADA
 						$exito = $this->cotizacionModel->update(
 							array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio));
-						$msj 	= 'Se llegó al cupo máximo de participantes, este cliente ya no estará registrado. Se cancelará la cotización.';
+						$msj 	= '<h3>Se llegó al cupo máximo de participantes, este cliente ya no estará registrado. Se cancelará la cotización.</h3>';
 					}
 
 					$response = array('exito' => $exito, 'msg' => $msj);
