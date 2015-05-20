@@ -371,6 +371,67 @@ class Cotizacion extends AbstractAccess {
 					$response = array('exito' => $exito, 'msg' => $msj);
 				}
 			}
+			if ($valoracion == "irregular") {
+				$cotizacion 	= $this->cotizacionModel->get_where(array('folio' => $folio));
+					$evento 		= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
+				if ($this->cotizacionModel->update(
+					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),	array('folio' => $folio)))
+				{
+					if (!LOCAL) {
+						$this->load->model('sesionmodel');
+						$this->load->model('oficinasmodel');
+						$this->load->model('contactosModel');
+						$this->load->model('clienteModel');
+						$this->load->helper('formatofechas');
+						$this->load->library('email');
+
+						// Datos del contacto
+						$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
+						// Extraigo usuario y contraseña del cliente
+						$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
+
+						//Extracción de la BD de las sesiones
+						if ($this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento)) > 1) {
+							$sesiones = $this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento));
+						}else
+						{
+							$sesiones = $this->sesionmodel->get_where(array('id_evento' => $cotizacion->id_evento));
+						}
+
+						$this->email->set_mailtype('html');
+						$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+						$this->email->to($contacto->email_contacto);
+
+						$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
+						// Contenido del correo
+						$this->data['titulo'] 		= $evento->titulo;
+						$this->data['descripcion'] 	= $evento->descripcion;
+						$this->data['modalidad'] 	= $evento->modalidad;
+						// Modalidad
+						if ($evento->modalidad == 'online') {
+							$this->data['ubicacion'] = $evento->link;
+						}else{
+							if ($evento->modalidad == 'otro') {
+								$this->data['ubicacion'] = $evento->direccion;
+							}else{
+								$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
+								$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+							}
+						}
+						// Costo
+						$this->data['costo']		= 0; // Para que mueste el link
+						$this->data['sesiones'] 	= $sesiones;
+						//Datos de logueo
+						$this->data['usuario'] 		=$cliente->usuario;
+						$this->data['password'] 	= $cliente->password;
+						$this->data['irregular']	= 1;
+						$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
+						$this->email->message($html);
+						$this->email->send();
+						$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+					}
+				}
+			}
 		} elseif ($tipo == 'normal') {
 			if ($valoracion == "aceptado") {
 				// Cambie estatus de la cotizacion a PAGADO
@@ -399,7 +460,57 @@ class Cotizacion extends AbstractAccess {
 				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
 					array('folio' => $folio)))
 				{
-					$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+					//ENVÍO DE PDF PARA SITUACIÓN IRREGULAR
+					$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
+							array(
+								'cotizacion.id_cliente',
+								'cotizacion.folio',
+								'cotizacion.fecha',
+								'cotizacion.vigencia',
+								'contactos.nombre_contacto',
+								'contactos.apellido_paterno',
+								'contactos.apellido_materno',
+								'contactos.email_contacto',
+								'clientes.razon_social',
+								'clientes.email',
+								'clientes.usuario',
+								'clientes.password',
+								'estatus_cotizacion.descripcion'
+							),
+							array('clientes', 'contactos', 'estatus_cotizacion'),
+							$folio);
+
+					$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
+					$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+					$path 		= $dir_root.$name;
+
+					if (!LOCAL) {
+						$this->load->helper('formatofechas');
+						$this->load->library('email');
+
+						$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
+						//Envio Email con el PDF
+						$this->email->set_mailtype('html');
+						$this->email->from('cotizacion@moz67.com', 'Ventas - TiendaPAQ');
+						$this->email->to($cotizacion->email_contacto);
+
+						$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
+						// Contenido del correo
+						$this->data['usuario'] 		= $cotizacion->usuario;
+						$this->data['password'] 	= $cotizacion->password;
+						$this->data['folio'] 		= $cotizacion->folio;
+						$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
+						$this->data['vigencia'] 	= fecha_completa($cotizacion->vigencia);
+						$this->data['contacto'] 	= $contacto;
+						$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
+						$this->data['irregular']	= 1;
+						$html = $this->load->view('./admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
+						$this->email->message($html);
+						// Adjunto PDF
+						$this->email->attach($path);
+						$this->email->send();
+						$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+					}
 				}
 			}
 

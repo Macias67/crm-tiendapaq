@@ -31,7 +31,7 @@ var TableManaged = function() {
 			},
 			"columnDefs": [{  // set default column settings
 				'orderable': false,
-				'targets': [6,7]
+				'targets': [7]
 			}, {
 				"searchable": false,
 				"targets": [5]

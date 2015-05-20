@@ -7,7 +7,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Mis tareas asignadas <small>blank page</small></h3>
+						<h3 class="page-title">Mis tareas asignadas </h3>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
 				</div>
@@ -21,8 +21,7 @@
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="icon-speech"></i>
-									<span class="caption-subject bold uppercase"> Portlet</span>
-									<span class="caption-helper">weekly stats...</span>
+									<span class="caption-subject bold uppercase"> Tareas</span>
 								</div>
 								<div class="tools">
 									<a href="" class="collapse"></a>
