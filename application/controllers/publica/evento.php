@@ -7,6 +7,7 @@ class Evento extends AbstractController {
 	{
 		parent::__construct();
 		$this->load->model('eventomodel');
+		$this->load->helper('directory');
 	}
 
 	public function index($filtro = null)
@@ -65,9 +66,9 @@ class Evento extends AbstractController {
 			} else if ($evento->modalidad != 'online' && !is_null($evento->direccion)) {
 				$lugar = $evento->direccion;
 			}
-
+			$archivo	= directory_map('assets/admin/pages/media/eventos/'.$id_evento);
 			$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
-			$this->data['temario_url'] 	= site_url('assets/admin/pages/media/eventos/'.$id_evento.'/temario.jpg');
+			$this->data['temario_url'] 	= site_url('assets/admin/pages/media/eventos/'.$id_evento.'/'.$archivo[0]);
 			$this->data['sesiones'] 	= $sesiones;
 			$this->data['evento'] 		= $evento;
 			$this->data['lugar'] 		= $lugar;
@@ -96,7 +97,6 @@ class Evento extends AbstractController {
 			if (($evento->max_participantes == 0) || ($evento->max_participantes >= $participantes))  {
 				$this->load->model('sesionmodel');
 				$this->load->helper('formatofechas');
-				$this->load->helper('directory');
 				$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
 
 				// Foto
@@ -187,7 +187,11 @@ class Evento extends AbstractController {
 				//armo objeto de CONTACTO NUEVO e inserto a la BD
 				$contacto		= $this->contactosmodel->arrayToObject($id_cliente, $data);
 				$id_contacto 	= $this->contactosmodel->get_last_id_after_insert($contacto);
-			} else {
+			} elseif (!empty($id_cliente) && empty($id_contacto)) {
+				$contacto		= $this->contactosmodel->arrayToObject($id_cliente, $data);
+				$id_contacto 	= $this->contactosmodel->get_last_id_after_insert($contacto);
+			}
+			else {
 				// se crea un objeto con la informacion basica de CLIENTE Y CONTACTO para insertarlo en la tabla clientes
 				$cliente 	= $this->clientemodel->array_to_object($data, $tipo);
 				$contacto = array(
@@ -266,7 +270,6 @@ class Evento extends AbstractController {
 									if (!LOCAL) {
 										$this->load->library('email');
 										$this->load->helper('formatofechas');
-										$this->load->helper('directory');
 
 										$this->email->set_mailtype('html');
 										$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
@@ -416,7 +419,6 @@ class Evento extends AbstractController {
 									if (!LOCAL) {
 										$this->load->library('email');
 										$this->load->helper('formatofechas');
-										$this->load->helper('directory');
 										$this->load->model('sesionmodel');
 
 										//Extracción de la BD de las sesiones

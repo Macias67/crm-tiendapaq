@@ -126,7 +126,7 @@
 										<div class="col-md-4">
 											<div class="top-news">
 												<a href="javascript:;" class="btn purple">
-												<span>Fuera de nuestras sucursales </span>
+												<span>En otros sitios </span>
 												<!-- <em><i class="fa fa-tags"></i>Hi-Tech, Medicine, Space </em> -->
 												<i class="fa fa-calendar top-news-icon"></i>
 												</a>

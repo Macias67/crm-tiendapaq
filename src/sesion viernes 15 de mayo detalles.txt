@@ -19,9 +19,7 @@ habilitar boton de cierre manual
 
 
 EVENTOS
-- panel de cursos en vez de fuera de sucursales - en otros sitios
-- mostrar temario en detallaes del evento
-- referencia de la imafen en seccion de editar evento
+- referencia de la imagen en seccion de editar evento
 - revisar al registrar contactos nuevos en registro de eventos
 
 AVISOS DE CURSOS

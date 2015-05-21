@@ -175,7 +175,6 @@ class Evento extends AbstractAccess {
 
 			// Armo la ruta donde guardare la imagen a subir
 			$ruta = 'assets/admin/pages/media/eventos/tmp/';
-			$tmp_name = 'evento_'.$this->usuario_activo['id'];
 			//Si no existe directorio lo creo
 			if (!is_dir($ruta))
 			{
@@ -278,7 +277,7 @@ class Evento extends AbstractAccess {
 		$evento 	= $this->eventoModel->get_where(array('id_evento' => $id_evento));
 		$sesiones 	= $this->sesionesModel->get_where(array('id_evento' => $id_evento));
 		$duracion 	= $this->sesionesModel->get(array('duracion','id_sesion'),array('id_evento' => $id_evento));
-		$archivo = directory_map('assets/admin/pages/media/eventos/'.$id_evento);
+		$archivo	= directory_map('assets/admin/pages/media/eventos/'.$id_evento);
 		if (count($archivo) == 1) {
 			$ruta_temario 					= 'assets/admin/pages/media/eventos/'.$id_evento.'/'.$archivo[0];
 			$this->data['ruta_temario']	= $ruta_temario;
