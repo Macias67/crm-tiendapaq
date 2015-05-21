@@ -202,10 +202,14 @@ class Caso extends AbstractAccess {
 			$this->data['boton_reasignar'] 		= TRUE;
 		}
 
+		// Fecha tentatica caso
+		$caso->fecha_tentativa_cierre = ($caso->fecha_tentativa_cierre) ? fecha_completa($caso->fecha_tentativa_cierre) : 'Sin establecer ';
+
 		// Total comentarios por tarea
 		$tareas = $this->tareaModel->get_tareas_caso($id_caso);
 		foreach ($tareas as $index => $tarea) {
 			$tareas[$index]->total_notas = $this->notastareaModel->total_notas($tarea->id_tarea);
+			$tareas[$index]->fecha_cierre = ($tareas[$index]->fecha_cierre == '1000-01-01 00:00:00') ? 'Sin definir fecha' :  fecha_corta($tarea->fecha_cierre);
 		}
 
 		// Notas de las tareas
@@ -220,12 +224,6 @@ class Caso extends AbstractAccess {
 				}
 			}
 		}
-
-		//Cambiar estatus a visto de notas
-		// foreach ($notas as $index => $nota) {
-		// 	$this->notastareaModel->update(array('visto'=>1),array('visto'=>0));
-		// }
-
 
 		$this->data['estatus_caso'] 	= id_estatus_gral_to_class_html($caso->id_estatus_general);
 		$this->data['tareas'] 			= $tareas;

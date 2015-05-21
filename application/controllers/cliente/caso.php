@@ -86,6 +86,7 @@ class Caso extends AbstractAccess {
 		$tareas = $this->tareaModel->get_tareas_caso($id_caso);
 		foreach ($tareas as $index => $tarea) {
 			$tareas[$index]->total_notas = count($this->notastareaModel->get('*', array('id_tarea' => $tarea->id_tarea, 'privacidad' => 'publica')));
+			$tareas[$index]->fecha_cierre = ($tareas[$index]->fecha_cierre == '1000-01-01 00:00:00') ? 'Sin definir fecha' :  fecha_corta($tarea->fecha_cierre);
 		}
 
 		// Notas de las tareas

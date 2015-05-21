@@ -113,6 +113,7 @@
 											<div class="media-body">
 												<div class="col-md-9">
 													<b><i class="fa fa-user"></i> <?php echo $tarea->primer_nombre.' '.$tarea->apellido_paterno ?></b><br>
+													<p><i class="fa fa-calendar"></i> Cierre tentativo: <b><?php echo $tarea->fecha_cierre ?></b></p>
 													<h4 class="media-heading"><b><?php echo $tarea->tarea ?></b> - <span class="badge <?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['class'] ?>"><b><?php echo id_estatus_gral_to_class_html($tarea->id_estatus)['estatus'] ?></b></span></h4>
 													<p><?php echo $tarea->descripcion ?></p>
 												</div>
