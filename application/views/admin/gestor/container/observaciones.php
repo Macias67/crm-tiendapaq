@@ -19,7 +19,7 @@
 				<div class="portlet light">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="icon-speech"></i>
+							<i class="fa fa-eye"></i>
 							<span class="caption-subject bold uppercase"> Observaciones</span>
 						</div>
 						<div class="actions">

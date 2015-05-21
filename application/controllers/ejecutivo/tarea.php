@@ -83,7 +83,7 @@ class Tarea extends AbstractAccess {
 			$this->data['opciones_estatus'] = $opciones_estatus;
 			$this->data['tarea'] 		= $tarea;
 			$this->data['notas'] 		= $notas;
-			$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
+			$this->data['estatus_caso'] = id_estatus_gral_to_class_html($caso->id_estatus_general);
 			$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 			$this->data['caso'] 			= $caso;
 			$this->_vista('detalle-tarea');

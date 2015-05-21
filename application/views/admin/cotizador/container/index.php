@@ -22,7 +22,7 @@
 								<div class="portlet gren">
 
 									<div class="portlet-title">
-										<div class="caption"><i class="fa fa-gift"></i> Cotización</div>
+										<div class="caption"><i class="fa fa-file-text-o"></i> Cotización</div>
 									</div>
 									<div class="portlet-body">
 										<div class="col-md-4">
@@ -54,7 +54,7 @@
 								<div class="portlet gren">
 
 									<div class="portlet-title">
-										<div class="caption"><i class="fa fa-gift"></i> Bancos</div>
+										<div class="caption"><i class="fa fa-bank"></i> Bancos</div>
 									</div>
 									<div class="portlet-body">
 										<div class="form-group">
@@ -78,7 +78,7 @@
 								<div class="portlet gren">
 
 									<div class="portlet-title">
-										<div class="caption"><i class="fa fa-gift"></i> Cliente</div>
+										<div class="caption"><i class="fa fa-user"></i> Cliente</div>
 									</div>
 
 									<div class="portlet-body">
@@ -226,7 +226,7 @@
 									<br>
 									<div class="portlet gren">
 										<div class="portlet-title">
-											<div class="caption"><i class="fa fa-gift"></i> Total</div>
+											<div class="caption"><i class="fa fa-money"></i> Total</div>
 										</div>
 										<div class="portlet-body">
 											<table class="table table-hover">

@@ -20,7 +20,7 @@
 						<div class="portlet light">
 							<div class="portlet-title">
 								<div class="caption">
-									<i class="icon-speech"></i>
+									<i class="fa fa-tasks"></i>
 									<span class="caption-subject bold uppercase"> Tareas</span>
 								</div>
 								<div class="tools">
