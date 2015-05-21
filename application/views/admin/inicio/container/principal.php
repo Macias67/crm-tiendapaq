@@ -114,7 +114,7 @@
 					<!-- BEGIN TABLA MIS PENDIENTES-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Mis nuevos pendientes sin atender...</div>
+							<div class="caption"><i class="fa fa-check-square"></i> Mis nuevos pendientes sin atender...</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_pendientes">
@@ -149,7 +149,7 @@
 					<!-- BEGIN TABLA PENDIENTES GENERALES-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i> Pendientes generales sin atender...</div>
+							<div class="caption"><i class="fa fa-check-circle"></i> Pendientes generales sin atender...</div>
 							<div class="tools">
 								<a href="" class="collapse">
 								</a>
@@ -188,7 +188,7 @@
 					<!-- BEGIN TABLA MIS CASOS-->
 					<div class="portlet gren">
 						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-user"></i>Casos generales</div>
+							<div class="caption"><i class="fa fa-coffee"></i>Casos generales</div>
 						</div>
 						<div class="portlet-body">
 							<table class="table table-striped table-bordered table-hover" id="mis_casos">

@@ -17,7 +17,7 @@
 				<!-- BEGIN TABLA MIS PENDIENTES-->
 				<div class="portlet gren">
 					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Cotizaciones en revisión</div>
+						<div class="caption"><i class="fa fa-usd"></i>Cotizaciones en revisión</div>
 					</div>
 					<div class="portlet-body">
 						<div class="scroller" style="height:400px">

@@ -17,7 +17,7 @@
 				<!-- BEGIN TABLA COTIZACIONES-->
 				<div class="portlet gren">
 					<div class="portlet-title">
-						<div class="caption"><i class="fa fa-user"></i>Cotizaciones</div>
+						<div class="caption"><i class="fa fa-file-o"></i>Cotizaciones</div>
 					</div>
 					<div class="portlet-body">
 						<table class="table table-striped table-bordered table-hover" id="tabla-catalogo-cotizaciones">

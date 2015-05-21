@@ -143,7 +143,7 @@
 							</li>
 
 							<li>
-								<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-usd"></i> Cuentas Bancarias</a>
+								<a href="<?php echo site_url('gestor/bancos'); ?>"><i class="fa fa-bank"></i> Cuentas Bancarias</a>
 							</li>
 
 							<li>

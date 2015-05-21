@@ -17,7 +17,7 @@
 				<div class="portlet light">
 					<div class="portlet-title">
 						<div class="caption">
-							<span class="caption-subject bold uppercase"><i class="fa fa-usd"></i> Bancos</span>
+							<span class="caption-subject bold uppercase"><i class="fa fa-bank"></i> Bancos</span>
 						</div>
 						<div class="actions">
 							<div class="btn-group pull-right">
