@@ -18,6 +18,9 @@
 										<td class="wrapper last">
 											<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> TiendaPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
 											<span class="devider" style="border-bottom: 1px solid #eee;margin: 15px -15px;display: block;"></span>
+											<?php if (isset($irregular)): ?>
+												<h3 style="font-size: 20px;display: block;margin: 5px 0 15px 0;color:#EE0014"><b>Notamos que hay irregularidades en su pago. Por favor revise sus comprobantes de pago enviados.</b></h3>
+											<?php endif ?>
 											<p> Le agradecemos que se haya inscrito a nuestros cursos, le enviamos los detalles del curso y adjuntamos la imagen del temario: </p>
 											<!-- BEGIN: Note Panel -->
 											<table class="twelve columns" style="margin-bottom: 10px">

@@ -18,7 +18,7 @@
 				<div class="portlet light">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="icon-speech"></i>
+							<i class="icon-calendar"></i>
 							<span class="caption-subject bold uppercase"> Catálogo de eventos</span>
 						</div>
 						<div class="actions">

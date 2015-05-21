@@ -137,6 +137,7 @@ class CasoModel extends MY_Model {
 			'caso.id_estatus_general',
 			'caso.descripcion',
 			'caso.id_lider',
+			'caso.fecha_tentativa_cierre',
 			'ejecutivos.primer_nombre',
 			'ejecutivos.apellido_paterno',
 			'estatus_general.descripcion as estatus',

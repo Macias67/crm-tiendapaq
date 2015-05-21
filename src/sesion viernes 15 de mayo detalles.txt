@@ -1,12 +1,11 @@
 - 2 telefonos para la cotizacion
 - fecha tentativa en panel de casos del cliente y acomodar casos por estatus
-- Revisar notas marcadas como nuevas en seccion de cliente
 - revisar fecha tentativa de cierre*****************
 - trabajar en la parte de la encuesta
 
 
-EMAIL
-- aviso de pago irregular
+CASOS SE DUPLICAN
+- al asignar caso se duplican (caso ale)
 
 
 ESTATUS DEL CASO
@@ -21,9 +20,7 @@ habilitar boton de cierre manual
 EVENTOS
 - referencia de la imagen en seccion de editar evento
 - revisar al registrar contactos nuevos en registro de eventos
-
-AVISOS DE CURSOS
-- en detalles e inscripcion, cuando es sin precio mostrar: 'Evento sin costo'
+- revisar en vista de participantes boton recordar
 
 COMPROBAR PAGO
 - estado de mexico en 0
@@ -42,3 +39,4 @@ COTIZACION COSTO POR PAGAR
 - agregar boton c/c
 - agrgegar caso automaticamente al cotizar
 - al asignar caso pide constraseña
+

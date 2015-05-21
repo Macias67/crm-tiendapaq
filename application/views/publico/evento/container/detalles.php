@@ -123,7 +123,7 @@
 											<i class="fa fa-briefcase top-news-icon"></i>
 										</a>
 										<a class="btn blue">
-											<span><?php echo ($evento->costo == 0) ? 'Sin Precio' : 'Precio: $ '.number_format($evento->costo, 2, '.', ',').' MN'  ?></span>
+											<span><?php echo ($evento->costo == 0) ? 'Evento sin costo' : 'Precio: $ '.number_format($evento->costo, 2, '.', ',').' MN'  ?></span>
 											<?php if ($evento->costo != 0): ?>
 												<em><b>Previa cotización.</b></em>
 											<?php endif ?>
