@@ -248,19 +248,27 @@ class Tarea extends AbstractAccess {
 			$id_caso 		= $this->input->post('id_caso');
 			$fecha_cierre	= $this->input->post('fecha_cierre');
 
-			// modelo caso
-			$this->load->model('casomodel');
-			$caso 		= $this->casomodel->get_where(array('id' => $id_caso));
-			$tareas 	= $this->tareaModel->get_where(array('id_caso' => $id_caso));
-
-			// Fecha a insertar
+			// Formato de fecha a datetime
 			$fecha_manejo	= array();
 			$fecha_manejo	= explode('/', $fecha_cierre);
-			$fecha_db		= $fecha_manejo[2].'-'.$fecha_manejo[1].'-'.$fecha_manejo[0];
+			$fecha_db		= $fecha_manejo[2].'-'.$fecha_manejo[1].'-'.$fecha_manejo[0].' 23:59:59';
 			$fecha			= date('Y-m-d H:i:s',strtotime($fecha_db));
 			$tarea_update 	= array(
 								'id_tarea'		=> $id_tarea,
 								'fecha_cierre'	=> $fecha);
+
+			// Inserto fecha tentativa de tarea
+			if($this->tareaModel->update($tarea_update, array('id_tarea'=>$id_tarea))){
+				$msg = '<h4>Se asignó una fecha tentativa de cierre.</h4>';
+				$respuesta = array('exito' => TRUE, 'msg' => $msg);
+			} else {
+				$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se insertó en la base de datos.</h4>');
+			}
+
+			//Extraigo tareas
+			$this->load->model('casomodel');
+			$caso 		= $this->casomodel->get_where(array('id' => $id_caso));
+			$tareas 	= $this->tareaModel->get_where(array('id_caso' => $id_caso));
 
 			// Inserto las fechas que ya se han definido
 			$fechas = array();
@@ -277,15 +285,8 @@ class Tarea extends AbstractAccess {
 			if (count($tareas) == count($fechas)) {
 				rsort($fechas);
 				// Inserto fecha de tentativa de caso
-				$cierre_caso = $this->casomodel->update(array('fecha_tentativa_cierre' => $fechas[0]), array('id' =>$id_caso));
-			}
-
-			// Inserto fecha tentativa de tarea
-			if($this->tareaModel->update($tarea_update, array('id_tarea'=>$id_tarea))){
-				$msg = ($cierre_caso) ? '<h4>Se detectó tu fecha como la última en el caso, será la fecha tentativa de cierrre en el caso.</h4>' : '<h4>Se asignó una fecha tentativa de cierre.</h4>';
-				$respuesta = array('exito' => TRUE, 'msg' => $msg);
-			} else {
-				$respuesta = array('exito' => FALSE, 'msg' => '<h4>No se insertó en la base de datos.</h4>');
+				$cierre_caso 		= $this->casomodel->update(array('fecha_tentativa_cierre' => $fechas[0]), array('id' =>$id_caso));
+				$respuesta['msg'] 	= '<h4>Se detectó tu fecha como la última en el caso, será la fecha tentativa de cierre en el caso.</h4>';
 			}
 
 			$this->output

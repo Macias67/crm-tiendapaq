@@ -32,6 +32,9 @@
 								<h5>Líder: </h5>
 								<h4><b><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></b></h4>
 
+								<h5>Fecha tentativa de cierre: </h5>
+								<h4><b><?php echo $caso->fecha_tentativa_cierre ?></b></h4>
+
 								<h5>Descripción del caso: </h5>
 								<dl>
 								<?php if (empty($caso->descripcion)): ?>

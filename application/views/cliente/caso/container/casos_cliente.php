@@ -29,7 +29,7 @@
 												<th>Cliente</th>
 												<th>Lider</th>
 												<th>Fecha de apertura</th>
-												<th>Fecha de finalizacion (aprox.)</th>
+												<th>Fecha tentativa de cierre</th>
 												<th>Estatus</th>
 												<th></th>
 											</tr>
@@ -41,7 +41,7 @@
 													<td><?php echo $caso->razon_social ?></td>
 													<td><?php echo $caso->primer_nombre.' '.$caso->apellido_paterno ?></td>
 													<td><?php echo fecha_completa($caso->fecha_inicio) ?></td>
-													<td><?php echo ($caso->fecha_final=='1000-01-01 00:00:00') ? 'Sin fecha de fin':fecha_completa($caso->fecha_final) ?></td>
+													<td><?php echo ($caso->fecha_tentativa_cierre== NULL) ? 'Sin fecha de fin':fecha_completa($caso->fecha_tentativa_cierre) ?></td>
 													<td>
 														<?php switch ($caso->id_estatus_general) {
 															case 1:

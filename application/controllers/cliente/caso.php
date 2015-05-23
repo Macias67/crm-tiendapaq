@@ -34,7 +34,8 @@ class Caso extends AbstractAccess {
 				'ejecutivos.apellido_paterno',
 				'estatus_general.descripcion',
 				'caso.id_cliente','caso.folio_cotizacion',
-				'caso.fecha_inicio','caso.fecha_final'
+				'caso.fecha_inicio',
+				'caso.fecha_tentativa_cierre'
 			);
 
 		$this->data['casos_cliente'] = $this->casoModel->get_casos_cliente($campos,$id_cliente);
@@ -82,11 +83,14 @@ class Caso extends AbstractAccess {
 			$this->data['estatus_cotizacion'] = id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
 		}
 
+		// Fecha tentatica caso
+		$caso->fecha_tentativa_cierre = ($caso->fecha_tentativa_cierre) ? fecha_completa($caso->fecha_tentativa_cierre) : 'Sin establecer ';
+
 		// Total comentarios por tarea
 		$tareas = $this->tareaModel->get_tareas_caso($id_caso);
 		foreach ($tareas as $index => $tarea) {
 			$tareas[$index]->total_notas = count($this->notastareaModel->get('*', array('id_tarea' => $tarea->id_tarea, 'privacidad' => 'publica')));
-			$tareas[$index]->fecha_cierre = ($tareas[$index]->fecha_cierre == '1000-01-01 00:00:00') ? 'Sin definir fecha' :  fecha_corta($tarea->fecha_cierre);
+			$tareas[$index]->fecha_cierre = ($tareas[$index]->fecha_cierre == '1000-01-01 00:00:00') ? 'Sin definir fecha' :  fecha_completa($tarea->fecha_cierre);
 		}
 
 		// Notas de las tareas

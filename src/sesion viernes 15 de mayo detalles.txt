@@ -1,6 +1,5 @@
 - 2 telefonos para la cotizacion
-- fecha tentativa en panel de casos del cliente y acomodar casos por estatus
-- revisar fecha tentativa de cierre*****************
+- acomodar casos por estatus
 - trabajar en la parte de la encuesta
 
 
@@ -16,10 +15,7 @@ habilitar boton de cierre manual
 - si se cierra tarea una vez en precierre se vuelve a enviar encuesta
 - el cierre automatico sin contestar encuesta 15 dias
 
-
 EVENTOS
-- referencia de la imagen en seccion de editar evento
-- revisar al registrar contactos nuevos en registro de eventos
 - revisar en vista de participantes boton recordar
 
 COMPROBAR PAGO
@@ -27,9 +23,6 @@ COMPROBAR PAGO
 
 COTIZACION
 -prepagados
-
-CASO SIN COTIZACION
--depurar
 
 -PANEL DEL CLIENTE
 - añadir panel de cotizaciones
