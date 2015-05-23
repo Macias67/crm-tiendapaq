@@ -89,10 +89,41 @@ var DataTableEventos = function() {
 		});
 	};
 
+	var handleRecordar = function () {
+		// Botón recordar evento a participantes
+	var modal = $('#ajax_participantes');
+	modal.on('shown.bs.modal', function(e) {
+		$('#btn_recordar').on('click', function() {
+			var id_evento = $('#id_evento').val();
+
+			$.ajax({
+				url: '/evento/modal_recordar/'+id_evento,
+				type: 'post',
+				cache: false,
+				beforeSend: function () {
+					Metronic.showLoader();
+				},
+				error: function(jqXHR, status, error) {
+					Metronic.removeLoader();
+					console.log("ERROR: "+error);
+					alert('ERROR: revisa la consola del navegador para más detalles.');
+				},
+				success: function(data) {
+					if (data.exito) {
+						bootbox.alert('<h3>Se han reeviado los correos a los participantes.</h3>', function() {
+							parent.location.reload();
+						});
+					};
+				}
+			});
+		});
+	});
+
+	}
 	return {
 		init: function() {
 			dataTable();
-			//handleDatePickers();
+			handleRecordar();
 		}
 	}
 }();
