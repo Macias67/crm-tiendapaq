@@ -6,6 +6,7 @@
 	<!-- <div class="scroller"> -->
 		<div class="row">
 			<div class="col-md-12">
+			<input type="hidden" id="id_evento" value="<?php echo $id_evento ?>">
 			<table class="table table-bordered table-striped table-condensed flip-content">
 				<thead class="flip-content">
 					<tr>
@@ -31,6 +32,8 @@
 	<!-- </div> -->
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn blue default">Recordar</button>
+	<?php if(count($participantes)>0): ?>
+		<button type="submit" class="btn blue default" id="btn_recordar">Recordar</button>
+	<?php endif; ?>
 	<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
 </div>

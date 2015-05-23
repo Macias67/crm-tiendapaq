@@ -133,7 +133,7 @@ var FormInscripcion = function() {
 					maxlength: 5,
 				},
 				colonia: {
-					maxlength: 20,
+					maxlength: 50,
 					required: true
 				},
 				codigo_postal: {
@@ -232,7 +232,7 @@ var FormInscripcion = function() {
 					maxlength: "Debe tener menos de 5 caracteres",
 				},
 				colonia: {
-					maxlength: "La colonia debe tener menos de 20 caracteres",
+					maxlength: "La colonia debe tener menos de 50 caracteres",
 					required: "Escribe la colonia"
 				},
 				codigo_postal: {

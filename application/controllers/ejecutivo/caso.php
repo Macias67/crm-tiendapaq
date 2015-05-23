@@ -348,6 +348,7 @@ class Caso extends AbstractAccess {
 
 			if ($caso=$this->casoModel->get_where(array('id' => $id_caso))) {
 				$this->load->model('reasignarcasomodel');
+				$this->load->model('estatusGeneralModel');
 
 				$reasignar = array(
 					'id_caso' 				=> $id_caso,
@@ -356,9 +357,14 @@ class Caso extends AbstractAccess {
 					'fecha'					=> date('Y-m-d H:i:s'),
 					'motivo'				=> $motivo);
 
+				$updatereasiganr = array(
+					'id_lider'				=> $destino,
+					'id_estatus_general'	=> $this->estatusGeneralModel->REASIGNADO);
+
 				$exito_r=$this->reasignarcasomodel->insert($reasignar);
-				$exito_c=$this->casoModel->update(array('id_lider'=>$destino),
-												array('id'=>$id_caso));
+				// $exito_c=$this->casoModel->update(array('id_lider'=>$destino),
+				// 								array('id'=>$id_caso));
+				$exito_c=$this->casoModel->update($updatereasiganr, array('id' => $id_caso));
 
 				$response = array();
 				if ($exito_r && $exito_c) {
