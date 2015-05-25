@@ -90,7 +90,7 @@ var DataTableEventos = function() {
 	};
 
 	var handleRecordar = function () {
-		// Botón recordar evento a participantes
+	// Botón recordar evento a participantes
 	var modal = $('#ajax_participantes');
 	modal.on('shown.bs.modal', function(e) {
 		$('#btn_recordar').on('click', function() {
@@ -110,7 +110,7 @@ var DataTableEventos = function() {
 				},
 				success: function(data) {
 					if (data.exito) {
-						bootbox.alert('<h3>Se han reeviado los correos a los participantes.</h3>', function() {
+						bootbox.alert(data.msg, function() {
 							parent.location.reload();
 						});
 					};

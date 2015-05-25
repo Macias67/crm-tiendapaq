@@ -44,7 +44,7 @@ class Gestor extends AbstractAccess {
 				$this->form_validation->set_rules('password', 'contraseña', 'trim|max_length[10]');
 				$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
 				$this->form_validation->set_rules('no_interior', 'No. Interior', 'trim|strtoupper|xss_clean');
-				$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+				$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
 				$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 				$this->form_validation->set_rules('municipio', 'Municipio', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
@@ -536,7 +536,7 @@ class Gestor extends AbstractAccess {
 		$this->form_validation->set_rules('telefono1', 'Teléfono 1', 'trim|max_length[14]|xss_clean');
 		$this->form_validation->set_rules('calle', 'Calle', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('no_exterior', 'No. Exterior', 'trim|required|strtoupper|xss_clean');
-		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[20]|xss_clean');
+		$this->form_validation->set_rules('colonia', 'Colonia', 'trim|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('codigo_postal', 'Código Postal', 'trim|max_length[7]|xss_clean');
 		$this->form_validation->set_rules('ciudad', 'Ciudad', 'trim|required|strtolower|ucwords|max_length[50]|xss_clean');
 		$this->form_validation->set_rules('estado', 'Estado', 'trim|xss_clean');

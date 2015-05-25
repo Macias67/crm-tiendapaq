@@ -53,7 +53,7 @@ var FormValidation = function () {
 						required: true
 					},
 					colonia: {
-						maxlength: 20,
+						maxlength: 50,
 						required: true
 					},
 					codigo_postal: {
@@ -94,7 +94,7 @@ var FormValidation = function () {
 					},
 					colonia: {
 						required: "Escribe la colonia",
-						maxlength: "La colonia debe tener menos de 20 caracteres"
+						maxlength: "La colonia debe tener menos de 50 caracteres"
 					},
 					codigo_postal: {
 						required: "Escribe el código postal"
