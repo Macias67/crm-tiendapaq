@@ -27,7 +27,8 @@ class Participantesmodel extends MY_Model {
 					'apellido_paterno',
 					'email_contacto',
 					'telefono_contacto',
-					'clientes.razon_social'
+					'clientes.razon_social',
+					'clientes.id as id_cliente'
 					);
 		$this->db->select($campos);
 		$this->db->join('contactos', $this->table.'.id_contacto = contactos.id', 'inner');

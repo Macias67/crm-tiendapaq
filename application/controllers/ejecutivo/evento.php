@@ -693,78 +693,98 @@ class Evento extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * Función que se encarga de enviar los emails
+	 * a todos los participantes de algún
+	 * evento.
+	 **/
 	public function modal_recordar($id_evento='')
 	{
-		//Enviar email a todos los participantes del evento
+		// Enviar email recordatorio a todos los participantes del evento
 		if ($this->input->is_ajax_request()) {
 			$this->load->model('participantesmodel');
-			if($participantes 	= $this->participantesmodel->mostrar_participantes($id_evento)) {
-				//REENVIAR CORREOS COMO RECORDATORIO
+			if($participantes = $this->participantesmodel->mostrar_participantes($id_evento)) {
+				$bandera=TRUE;
 				if (!LOCAL) {
+					// Librerías y helpers a utilizar para envío de email
 					$this->load->library('email');
+					$this->load->helper('directory');
 					$this->load->helper('formatofechas');
+
+					// Modelos a utilizar
 					$this->load->model('sesionmodel');
 					$this->load->model('clienteModel');
 					$this->load->model('eventomodel');
 					$this->load->model('contactosmodel');
-					$contacto = $this->contactosmodel->get_where(array('id' => $id_contacto));
-					$evento = $this->eventomodel->get_where(array('id_evento' => $id_evento));
-					// Extraigo usuario y contraseña del cliente
-					$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
+					foreach ($participantes as $key => $participante) {
+						// Limpiar las variables y los adjuntos con TRUE
+						$this->email->clear(TRUE);
+						// Extraigo evento
+						$evento = $this->eventomodel->get_where(array('id_evento' => $id_evento));
+						// Extraigo usuario y contraseña del cliente
+						$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $participante->id_cliente), null, 'ASC', 1);
 
-					//Extracción de la BD de las sesiones
-					if ($this->sesionmodel->get('*', array('id_evento' => $id_evento)) > 1) {
-						$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
-					}else
-					{
-						$sesiones = $this->sesionmodel->get_where(array('id_evento' => $id_evento));
-					}
-
-					$this->email->set_mailtype('html');
-					$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
-					$this->email->to($contacto->email_contacto);
-
-					$this->email->subject('Recordatorio del evento: "'.$evento->titulo.'"');
-					// Contenido del correo
-					$this->data['titulo'] 		= $evento->titulo;
-					$this->data['descripcion'] 	= $evento->descripcion;
-					$this->data['modalidad'] 	= $evento->modalidad;
-					// Modalidad
-					if ($evento->modalidad == 'online') {
-						$this->data['ubicacion'] = $evento->link;
-					}else{
-						if ($evento->modalidad == 'otro') {
-							$this->data['ubicacion'] = $evento->direccion;
+						// Extracción de la BD de las sesiones
+						if ($this->sesionmodel->get('*', array('id_evento' => $id_evento)) > 1) {
+							$sesiones = $this->sesionmodel->get('*', array('id_evento' => $id_evento));
 						}else{
-							$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
-							$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+							$sesiones = $this->sesionmodel->get_where(array('id_evento' => $id_evento));
 						}
-					}
-					$this->data['sesiones'] 	= $sesiones;
-					//Datos de logueo
-					$this->data['recordar'] 		= 1;
-					$this->data['usuario'] 		=$cliente->usuario;
-					$this->data['password'] 	= $cliente->password;
-					$html = $this->load->view('admin/general/full-pages/email/email_recordar_evento.php', $this->data, TRUE);
-					$this->email->message($html);
 
-					$path 		= 'assets/admin/pages/media/eventos/'.$evento->id_evento.'/';
-					$file 		= directory_map($path);
-					$imagen 	= $path.$file[0];
-					if (count($file) == 1 && is_file($imagen)) {
-						$this->email->attach($imagen);
+						// Configuración del email
+						$this->email->set_mailtype('html');
+						$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+						$this->email->to($participante->email_contacto);
+						$this->email->subject('Recordatorio del evento: "'.$evento->titulo.'"');
+
+						// Contenido del correo
+						$this->data['titulo'] 		= $evento->titulo;
+						$this->data['descripcion'] 	= $evento->descripcion;
+						$this->data['modalidad'] 	= $evento->modalidad;
+
+						// Modalidad
+						if ($evento->modalidad == 'online') {
+							$this->data['ubicacion'] = $evento->link;
+						}else{
+							if ($evento->modalidad == 'otro') {
+								$this->data['ubicacion'] = $evento->direccion;
+							}else{
+								$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
+								$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+							}
+						}
+
+						// Sesiones y variable para recordatorio en rojo
+						$this->data['sesiones'] 	= $sesiones;
+						$this->data['recordar'] 	= 1;
+
+						// Datos de logueo
+						$this->data['usuario'] 		=$cliente->usuario;
+						$this->data['password'] 	= $cliente->password;
+						$html = $this->load->view('admin/general/full-pages/email/email_recordar_evento.php', $this->data, TRUE);
+						$this->email->message($html);
+
+						// Imagen a enviar adjunta
+						$path 		= 'assets/admin/pages/media/eventos/'.$evento->id_evento.'/';
+						$file 		= directory_map($path);
+						$imagen 	= $path.$file[0];
+						if (count($file) == 1 && is_file($imagen)) {
+							$this->email->attach($imagen);
+						}
+
+						// Enviamos el email
+						$this->email->send();
 					}
-					$this->email->send();
-					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se han reeviado los correos a los participantes.</h4>' );
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Se han reenviado los correos a los participantes.</h4>');
 				}
 			}else{
 				$respuesta = array('exito' => FALSE, 'msg' => '<h4>¡Error! Revisa la consola para más información.</h4>' );
 			}
 
-			//mando la repuesta
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($respuesta));
+		// Mando la repuesta al JS
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($respuesta));
 		}
 	}
 

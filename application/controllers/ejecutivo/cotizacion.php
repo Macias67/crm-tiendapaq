@@ -304,7 +304,7 @@ class Cotizacion extends AbstractAccess {
 								'id_contacto' 	=> $cotizacion->id_contacto);
 						// Inserto participante en la tabla
 						if ($exito = $this->participantesmodel->insert($participante)) {
-							$msj = '<h3>Se ha registrado el contacto a la lista de particpantes de este curso.</h3>';
+							$msj = '<h3>Se ha registrado el contacto a la lista de participantes de este curso.</h3>';
 							// ENVIO DE EMAIL
 							/*CODIGO PARA ENVIO DE CORREO COTIZACION*/
 							if (!LOCAL) {
