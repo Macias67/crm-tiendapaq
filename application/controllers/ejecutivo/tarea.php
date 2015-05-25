@@ -222,11 +222,10 @@ class Tarea extends AbstractAccess {
 							break;
 						}
 					}
-					// SI TODOS ESTAN CERRADOS, cierro caso
+					// SI TODOS ESTAN CERRADOS, PRECIERRO caso
 					if ($cerrados) {
 						$this->casoModel->update(
-								array('id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
-									'fecha_final' 			=> date('Y-m-d H:i:s')),
+								array('id_estatus_general' 	=> $this->estatusGeneralModel->PRECIERRE, 'fecha_final' => date('Y-m-d H:i:s')),
 								array('id' => $id_caso));
 
 						// SE ENVIA CORREO CON LINK DE LA ENCUESTA

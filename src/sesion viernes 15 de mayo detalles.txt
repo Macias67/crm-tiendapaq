@@ -15,9 +15,6 @@ habilitar boton de cierre manual
 - si se cierra tarea una vez en precierre se vuelve a enviar encuesta
 - el cierre automatico sin contestar encuesta 15 dias
 
-EVENTOS
-- revisar en vista de participantes boton recordar
-
 COMPROBAR PAGO
 - estado de mexico en 0
 
