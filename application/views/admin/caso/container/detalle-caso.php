@@ -24,6 +24,10 @@
 									<span class="caption-subject bold font-grey-gallery uppercase">Detalles: </span>
 								</div>
 							</div>
+							<!-- BOTON PARA MOSTRAR LAS REASIGNASIONES -->
+							<div class="col-md-12">
+								<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/caso/detallesreasignar/'.$caso->id_caso) ?>" data-target="#ajax-detalles-reasignacion" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+							</div>
 							<div class="portlet-body">
 								<div class="row">
 									<div class="col-md-12">
@@ -386,3 +390,16 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- BEGIN AJAX DETALLE REASIGNACION -->
+		<div id="ajax-detalles-reasignacion" class="modal fade" role="basic" aria-hidden="true">
+			<div class="page-loading page-loading-boxed">
+				<img src="<?php echo $assets_global_img ?>loading-spinner-grey.gif" alt="" class="loading">
+				<span>Cargando... </span>
+			</div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+				</div>
+			</div>
+		</div>
+		<!-- END AJAX DETALLE REASIGNACION -->

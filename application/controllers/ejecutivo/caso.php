@@ -469,6 +469,28 @@ class Caso extends AbstractAccess {
 			}
 		}
 	}
+
+	/**
+	 * Funcion para mostrar ventana modal con informacion detallada de reasignacion
+	 * @author  Luis Macias | Diego Rodriguez
+	 **/
+	public function detallesreasignar($id_caso)
+	{
+		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
+		// Cargo modelos
+		$this->load->model('casoModel');
+		$this->load->model('reasignarcasomodel');
+		$this->load->model('ejecutivoModel');
+		$casoreasignado	= $this->reasignarcasomodel->get_where(array('id_caso' => $id_caso));
+		$ejecutivos = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
+		//Helper
+		$this->data['ejecutivos']		= $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
+		$this->data['caso'] 			= $caso;
+		$this->data['casoreasignado'] 	= $casoreasignado;
+		
+
+		$this->_vista_completa('caso/modal-detalles-asignacion');
+	}
 }
 
 /* End of file controllername.php */
