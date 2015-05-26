@@ -144,6 +144,7 @@ class Caso extends AbstractAccess {
 	 **/
 	public function detalles($id_caso)
 	{
+		$this->load->model('reasignarcasomodel');
 		$this->load->model('cotizacionModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('notastareaModel');
@@ -153,6 +154,7 @@ class Caso extends AbstractAccess {
 		$this->load->helper('cotizacion');
 		$this->load->helper('estatus');
 
+		$casoreasignado	= $this->reasignarcasomodel->get_where(array('id_caso' => $id_caso));
 		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 		// Si el caso tiene cotizacion
 		if (!is_null($caso->folio_cotizacion)) {
@@ -228,8 +230,9 @@ class Caso extends AbstractAccess {
 		$this->data['estatus_caso'] 	= id_estatus_gral_to_class_html($caso->id_estatus_general);
 		$this->data['tareas'] 			= $tareas;
 		$this->data['ejecutivos'] 		= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-		$this->data['caso'] 				= $caso;
+		$this->data['caso'] 			= $caso;
 		$this->data['notas'] 			= $notas;
+		$this->data['casoreasignado'] 	= $casoreasignado;
 		$this->_vista('detalle-caso');
 	}
 
@@ -476,18 +479,18 @@ class Caso extends AbstractAccess {
 	 **/
 	public function detallesreasignar($id_caso)
 	{
-		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 		// Cargo modelos
 		$this->load->model('casoModel');
 		$this->load->model('reasignarcasomodel');
 		$this->load->model('ejecutivoModel');
+		//Helper
+		$this->load->helper('formatofechas');
+		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 		$casoreasignado	= $this->reasignarcasomodel->get_where(array('id_caso' => $id_caso));
 		$ejecutivos = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
-		//Helper
 		$this->data['ejecutivos']		= $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
 		$this->data['caso'] 			= $caso;
 		$this->data['casoreasignado'] 	= $casoreasignado;
-		
 
 		$this->_vista_completa('caso/modal-detalles-reasignacion');
 	}
