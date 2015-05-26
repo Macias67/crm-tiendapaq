@@ -489,7 +489,7 @@ class Caso extends AbstractAccess {
 		$this->data['casoreasignado'] 	= $casoreasignado;
 		
 
-		$this->_vista_completa('caso/modal-detalles-asignacion');
+		$this->_vista_completa('caso/modal-detalles-reasignacion');
 	}
 }
 

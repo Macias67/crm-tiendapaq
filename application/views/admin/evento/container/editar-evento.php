@@ -149,7 +149,7 @@
 														</div>
 														<br/>
 														<span class="btn default btn-file">
-															<span class="fileinput-new">Selecionar imagen </span>
+															<span class="fileinput-new">Seleccionar imagen </span>
 															<span class="fileinput-exists">
 															Cambiar </span>
 															<input type="file" name="userfile" id="exampleInputFile">
