@@ -25,9 +25,11 @@
 								</div>
 							</div>
 							<!-- BOTON PARA MOSTRAR LAS REASIGNASIONES -->
+							<?php if (count($casoreasignado)): ?>
 							<div class="col-md-12">
-								<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/caso/detallesreasignar/'.$caso->id_caso) ?>" data-target="#ajax-detalles-reasignacion" data-toggle="modal"><i class="fa fa-search"></i> Detalles </a>
+								<a class="btn btn-circle blue btn-xs" href="<?php echo site_url('/caso/detallesreasignar/'.$caso->id_caso) ?>" data-target="#ajax-detalles-reasignacion" data-toggle="modal"><i class="fa fa-search"></i> Historial de reasignaciones </a>
 							</div>
+							<?php endif ?>
 							<div class="portlet-body">
 								<div class="row">
 									<div class="col-md-12">

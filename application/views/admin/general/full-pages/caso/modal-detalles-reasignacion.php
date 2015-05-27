@@ -3,10 +3,8 @@
 	<h4 class="modal-title"><b>Reasignacones del caso: </b></h4>
 </div>
 <div class="modal-body">
-	<!-- <div class="scroller"> -->
 		<div class="row">
 			<div class="col-md-12">
-			<!-- <input type="hidden" id="id_evento" value="<?php echo $id_evento ?>"> -->
 			<table class="table table-bordered table-striped table-condensed flip-content">
 				<thead class="flip-content">
 					<tr>
@@ -23,7 +21,7 @@
 							<td><?php echo $reasignacion->id_caso ?></td>
 							<td><?php echo $ejecutivos[$reasignacion->id_ejecutivo_origen-1]->primer_nombre.' '.$ejecutivos[$reasignacion->id_ejecutivo_origen-1]->apellido_paterno?></td>
 							<td><?php echo $ejecutivos[$reasignacion->id_ejecutivo_destino-1]->primer_nombre.' '.$ejecutivos[$reasignacion->id_ejecutivo_destino-1]->apellido_paterno?></td>
-							<td><?php echo $reasignacion->fecha ?></td>
+							<td><?php echo fecha_corta($reasignacion->fecha) ?></td>
 							<td><?php echo $reasignacion->motivo ?></td>
 						</tr>
 					<?php endforeach ?>
