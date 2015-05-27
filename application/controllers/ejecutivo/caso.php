@@ -416,6 +416,8 @@ class Caso extends AbstractAccess {
 				$cliente 	= $this->clienteModel->get(array('razon_social','email','usuario','password'), array('id' => $caso['id_cliente']), null, 'ASC', 1);
 				$caso 		= $this->casoModel->get_where(array('id' => $id_caso));
 
+				$caso 				= $this->casoModel->get_caso_detalles($id_caso);
+				$lider = $caso->primer_nombre.' '.$caso->apellido_paterno;
 				//Envio Email
 				$this->email->set_mailtype('html');
 				$this->email->from('notificacion@moz67.com', 'Apertura de Caso - TiendaPAQ');
@@ -428,7 +430,8 @@ class Caso extends AbstractAccess {
 				$this->data['password'] 	= $cliente->password;
 				$this->data['id_caso'] 		= $caso->id;
 				$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
-				$this->data['folio'] 			= 'Caso Directo';
+				$this->data['lider']		= $lider;
+				$this->data['folio'] 		= 'Caso Directo';
 				$this->data['contacto'] 	= $cliente->razon_social;
 				$html = $this->load->view('admin/general/full-pages/email/email_inicio_caso.php', $this->data, TRUE);
 				$this->email->message($html);

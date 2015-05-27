@@ -5,7 +5,7 @@ class Encuesta extends AbstractController {
 
 	public function encuesta($id)
 	{
-		# code...
+		
 	}
 }
 
