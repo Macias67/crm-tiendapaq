@@ -16,6 +16,15 @@
 					</tr>
 				</thead>
 				<tbody>
+					<?php if (count($casoreasignado)==1): ?>
+						<tr>
+							<td><?php echo $casoreasignado->id_caso ?></td>
+							<td><?php echo $ejecutivos[$casoreasignado->id_ejecutivo_origen-1]->primer_nombre.' '.$ejecutivos[$casoreasignado->id_ejecutivo_origen-1]->apellido_paterno?></td>
+							<td><?php echo $ejecutivos[$casoreasignado->id_ejecutivo_destino-1]->primer_nombre.' '.$ejecutivos[$casoreasignado->id_ejecutivo_destino-1]->apellido_paterno?></td>
+							<td><?php echo fecha_corta($casoreasignado->fecha) ?></td>
+							<td><?php echo $casoreasignado->motivo ?></td>
+						</tr>
+					<?php else: ?>
 					<?php foreach ($casoreasignado as $index => $reasignacion): ?>
 						<tr>
 							<td><?php echo $reasignacion->id_caso ?></td>
@@ -25,6 +34,7 @@
 							<td><?php echo $reasignacion->motivo ?></td>
 						</tr>
 					<?php endforeach ?>
+					<?php endif ?>
 				</tbody>
 			</table>
 			</div>
