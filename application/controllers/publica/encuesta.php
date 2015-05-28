@@ -1,11 +1,18 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Encuesta extends AbstractController {
 
-	public function encuesta($id)
+	public function __construct()
 	{
-		
+		parent::__construct();
+	}
+
+	public function index()
+	{}
+
+	public function form($id)
+	{
+		$this->_vista('encuesta');
 	}
 }
 
