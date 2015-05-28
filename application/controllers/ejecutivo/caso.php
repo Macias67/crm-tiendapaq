@@ -428,7 +428,7 @@ class Caso extends AbstractAccess {
 				//Contenido del correo
 				$this->data['usuario'] 		= $cliente->usuario;
 				$this->data['password'] 	= $cliente->password;
-				$this->data['id_caso'] 		= $caso->id;
+				$this->data['id_caso'] 		= $caso->id_caso;
 				$this->data['fecha'] 		= fecha_completa($caso->fecha_inicio);
 				$this->data['lider']		= $lider;
 				$this->data['folio'] 		= 'Caso Directo';
