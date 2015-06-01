@@ -1,0 +1,19 @@
+cXc cuenta por cobrar.
+
+Crear un checkbox que diga "cXc" y si este esta seleccionado aparcesca un
+	campo para camturar una contraseña para poder seguir con el cXc.
+
+Ci el caso es cXc, no necesitara validar e pago, directa e inmediatamente
+	se abrira el caso.
+
+Que el caso no pueda cerrarce asta que que se verifique el pago.
+
+Habra un estatus nuevo para las cotisaciones de cotisacion que sera: "cXc".
+
+Identificar de manera visual si el pago a sido pagado(rojo),
+	si a sido facturdo mas no pagado(amarillo).
+
+Si es del tipo "cXc" crear una modal con un boton que diga agregar factura,
+	y resivira un pdf.
+
+Que eleazar pueda modificar la contraseña para modificar la contraseña.
