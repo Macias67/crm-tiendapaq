@@ -443,7 +443,7 @@
 		});
 	}
 
-	// Envia datos para mostar un pdf de prueba
+	// Envia datos para mostar un pdf 
 	var enviaPDFCliente = function() {
 		var enviar = $('#enviar');
 
@@ -454,9 +454,13 @@
 			if(select_razon_social!="" && select_razon_social!= null){
 				if(select_contactos!="" && select_contactos!=null){
 					if (totalProductos > 0) {
-						var columnas = $('#lista > tr');
+						var columnas 	= $('#lista > tr');
 
-						var pendiente = $('#pendiente').attr('id-pendiente');
+						var pendiente 	= $('#pendiente').attr('id-pendiente');
+
+						var cxc			= $('#ceporc').attr('checked');
+
+						var pass		= $('#password').val();
 
 						// Datos cotizacion
 						var cotizacion = {
@@ -500,9 +504,9 @@
 						var info;
 						// Si es pendiente
 						if (pendiente != undefined) {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, pendiente: pendiente}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc, pendiente: pendiente}
 						} else {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc}
 						}
 						// Envio de datos por AJAX
 						$.ajax({

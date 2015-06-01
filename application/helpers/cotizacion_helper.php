@@ -52,6 +52,12 @@ function id_estatus_to_class_html($id_estatus)
 			              'estatus'	 => 'Cancelada'
 					);
 			break;
+		case '8': // cancelada
+			$html = array(
+			              'class' 		=> 'bg-grey-gallery',
+			              'estatus'	 => 'Cuenta por cobrar'
+					);
+			break;
 	}
 
 	return $html;

@@ -227,6 +227,7 @@ class Cotizador extends AbstractAccess {
 		$productos 	= $this->input->post('productos');
 		$total 			= $this->input->post('total');
 		$pendiente 	= $this->input->post('pendiente');
+		$cxc		= $this->input->post('cxc');
 
 		//Oficina de expedicion
 		$this->load->model('oficinasModel');
@@ -276,7 +277,17 @@ class Cotizador extends AbstractAccess {
 		// PREPARO INFO PARA BD
 		$array_fecha	= explode('/', $cotizacion['vigencia']);
 		$vigencia		= $array_fecha[2].'-'.$array_fecha[1].'-'.$array_fecha[0];
+
 		$this->load->model('estatusCotizacionModel');
+
+		// Verifico si la cotización es por caso por pagar (CXC)
+		if (isset($cxc)) {
+			$id_estatusCotizacion = 8;
+
+		}else{
+			$id_estatusCotizacion = $this->estatusCotizacionModel->PORPAGAR;
+		}
+
 		$nueva_cot = array(
 			'fecha'      	 			=> date('Y-m-d H:i:s'),
 			'vigencia'				=> $vigencia,
@@ -287,7 +298,7 @@ class Cotizador extends AbstractAccess {
 			'cotizacion'				=> json_encode($productos),
 			'id_observaciones'		=> 1,
 			'id_banco'				=> 1,
-			'id_estatus_cotizacion'	=> $this->estatusCotizacionModel->PORPAGAR);
+			'id_estatus_cotizacion'	=> $id_estatusCotizacion);
 
 		// Establezco FOLIO REAL y guardo en LA BD
 		$cotizacion['folio'] = $this->cotizacionModel->get_last_id_after_insert($nueva_cot);
