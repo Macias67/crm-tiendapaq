@@ -50,7 +50,7 @@
 								</div>
 							</div>
 							<!-- Banco -->
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<div class="portlet gren">
 
 									<div class="portlet-title">
@@ -64,6 +64,27 @@
 												<option value="<?php echo $banco->id_banco ?>"><?php echo $banco->banco ?></option>
 												<?php endforeach ?>
 											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- cxc -->
+							<div class="col-md-3">
+								<div class="portlet gren">
+
+									<div class="portlet-title">
+										<div class="caption"><i class="fa fa-dollar"></i> Cuenta por cobrar</div>
+									</div>
+									<div class="portlet-body">
+										<div class="form-group">
+											<input type="checkbox" class="make-switch" value="cxc" data-on-color="primary" data-off-color="info" id="ceporc">
+										</div>
+											<label >Contraseña <span class="required" aria-required="true">*</span></label>
+										<div class="form-group">
+												<div class="input-icon">
+													<i class="fa fa-asterisk"></i>
+													<input type="password" class="form-control" id="password" placeholder="Contraseña">
+											</div>
 										</div>
 									</div>
 								</div>
