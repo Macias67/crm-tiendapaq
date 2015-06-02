@@ -458,8 +458,9 @@
 
 						var pendiente 	= $('#pendiente').attr('id-pendiente');
 
-						var cxc			= $('#ceporc').attr('checked');
-
+						if ($('#ceporc').is(':checked')) {
+							var cxc			= $('#ceporc').attr('checked');
+						}
 						var pass		= $('#password').val();
 
 						// Datos cotizacion
