@@ -35,6 +35,10 @@ class Cotizador extends AbstractAccess {
 		$this->data['id_ejecutivo']			= $this->usuario_activo['id'];
 		$this->data['vigencia']				= $this->DIAS_VIGENCIA.' días de vigencia.';
 		$this->data['fecha_vigencia']		= date('d/m/Y', strtotime('+'.$this->DIAS_VIGENCIA.' day'));
+		// creo la contraseña para cxc.
+		$fechapsw     	= date('mYd');
+		$fechapsw = $fechapsw.$this->cotizacionModel->getSiguienteFolio();
+		$this->data['fechapsw']				= $fechapsw;
 		$this->_vista('index');
 	}
 
@@ -228,6 +232,8 @@ class Cotizador extends AbstractAccess {
 		$total 			= $this->input->post('total');
 		$pendiente 	= $this->input->post('pendiente');
 		$cxc		= $this->input->post('cxc');
+		$psw		= $this->input->post('pass');
+		$folio		= $this->input->post('folio');
 
 		//Oficina de expedicion
 		$this->load->model('oficinasModel');
@@ -280,8 +286,10 @@ class Cotizador extends AbstractAccess {
 
 		$this->load->model('estatusCotizacionModel');
 
+		
+
 		// Verifico si la cotización es por caso por pagar (CXC)
-		if (isset($cxc)) {
+		if ($cxc) {
 			$id_estatusCotizacion = 8;
 
 		}else{

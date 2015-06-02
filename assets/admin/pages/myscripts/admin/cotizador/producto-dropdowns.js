@@ -450,18 +450,19 @@
 		enviar.on('click', function() {
 			var select_razon_social	= $('#razon_social').val();
 			var select_contactos	= $('#contactos').val();
+			var cxc			= $('#ceporc').attr('checked');
+			var pass		= $('#password').val();
+			var fechapsw			= $('#fechapsw').val();
 
-			if(select_razon_social!="" && select_razon_social!= null){
+			if (cxc) {
+				if (cxc&&(pass==fechapsw)) {
+					if(select_razon_social!="" && select_razon_social!= null){
 				if(select_contactos!="" && select_contactos!=null){
 					if (totalProductos > 0) {
 						var columnas 	= $('#lista > tr');
 
 						var pendiente 	= $('#pendiente').attr('id-pendiente');
 
-						if ($('#ceporc').is(':checked')) {
-							var cxc			= $('#ceporc').attr('checked');
-						}
-						var pass		= $('#password').val();
 
 						// Datos cotizacion
 						var cotizacion = {
@@ -542,6 +543,99 @@
 			}else{
 				bootbox.alert('<h3> No hay cliente seleccionado.</h3>');
 			}
+			} else{
+				bootbox.alert('<h3> Contraseña erronea.</h3>');
+			};
+
+			} else{
+				if(select_razon_social!="" && select_razon_social!= null){
+				if(select_contactos!="" && select_contactos!=null){
+					if (totalProductos > 0) {
+						var columnas 	= $('#lista > tr');
+
+						var pendiente 	= $('#pendiente').attr('id-pendiente');
+
+
+						// Datos cotizacion
+						var cotizacion = {
+							folio: 		$('#folio').html(),
+							ejecutivo: 	$('.ejecutivo').attr('id'),
+							vigencia: 	$('#vigencia').val(),
+							banco: 		$('#banco option:selected').val()
+						}
+
+						// Datos del cliente
+						var cliente = {
+							id: 			$('#razon_social').val(),
+							contacto: 	$('#contactos option:selected').val(),
+							email: 		$('#email').val()
+						}
+
+						// Info de producto de la cotizacion
+						var productos = [];
+						columnas.each(function(index, element) {
+							var tr = $(element).children();
+							var producto = {
+								codigo : 		$(tr[1]).html(),
+								descripcion : 	$(tr[2]).html(),
+								cantidad : 		parseFloat($(tr[3]).html()),
+								precio : 		parseFloat($(tr[4]).html().split(' ')[1]),
+								neto : 			parseFloat($(tr[5]).html().split(' ')[1]),
+								descuento : 	parseFloat($(tr[6]).html().split(' ')[1]),
+								total : 			parseFloat($(tr[7]).html().split(' ')[1]),
+								observacion : 	observaciones[parseInt($(element).attr('class'))].observacion
+							}
+							productos.push(producto);
+						});
+
+						// Total
+						var total = {
+							subtotal: 	$('#subtotal').html(),
+							iva: 			$('#iva').html(),
+							total: 		$('#total').html()
+						}
+
+						var info;
+						// Si es pendiente
+						if (pendiente != undefined) {
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc, pendiente: pendiente}
+						} else {
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc}
+						}
+						// Envio de datos por AJAX
+						$.ajax({
+							url: '/cotizador/enviapdf',
+							type: 'post',
+							cache: false,
+							dataType: 'json',
+							data: info,
+							beforeSend: function () {
+								Metronic.showLoader();
+							},
+							error: function(jqXHR, status, error) {
+								Metronic.removeLoader();
+								console.log("ERROR: "+error);
+								alert('ERROR: revisa la consola del navegador para más detalles.');
+							},
+							success: function(data) {
+								console.log(data);
+								bootbox.alert('<h3> Se ha enviado cotización al cliente. </h3>', function() {
+									Metronic.removeLoader(function() {
+										window.location = '/';
+									});
+								});
+							}
+						});
+					} else {
+						bootbox.alert('<h3> No hay ningún producto en la lista. </h3>');
+					}
+				}else{
+					bootbox.alert('<h3> No hay contacto seleccionado.</h3>');
+				}
+			}else{
+				bootbox.alert('<h3> No hay cliente seleccionado.</h3>');
+			}
+			};
 
 		});
 	}
