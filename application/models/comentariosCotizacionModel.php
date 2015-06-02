@@ -38,7 +38,7 @@ class ComentariosCotizacionModel extends MY_Model {
 			                      'ejecutivos.primer_nombre as nombre_ejecutivo',
 			                      'ejecutivos.apellido_paterno as apellido_ejecutivo'));
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
-		$where = array('folio' => $folio));
+		$where = array('folio' => $folio);
 		$this->db->where($where);
 		$this->db->order_by("fecha ASC");
 		$query = $this->db->get($this->table);
