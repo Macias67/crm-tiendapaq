@@ -46,7 +46,7 @@ var TableManagedCotizaciones = function () {
 			],
 			"order": [ 0, 'asc' ] // set first column as a default sort by asc
 		});
-	}
+	};
 
 	var gestionCotizaciones = function() {
 		var table = $('#tabla-catalogo-cotizaciones');
@@ -85,6 +85,7 @@ var TableManagedCotizaciones = function () {
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				// Tipo de Cliente
 				var color = '';
+				// console.log(aData);
 				if (aData.id_estatus_cotizacion == "Por Pagar") {
 					color = 'bg-green-turquoise';
 				} else if(aData.id_estatus_cotizacion == "Pagada") {
@@ -97,9 +98,24 @@ var TableManagedCotizaciones = function () {
 					color = 'badge-danger';
 				} else if(aData.id_estatus_cotizacion == "Cancelada") {
 					color = 'bg-grey-gallery';
+				}else if (aData.id_estatus_cotizacion == "Cxc") {
+					color = 'bg-red-gallery';
 				}
-				$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
-
+				if (aData.id_estatus_cotizacion == "Cxc") {
+					$('td',nRow).addClass('bg-red');
+					function changeColor(){
+					        if ($('td',nRow).hasClass('bg-red')) {
+					            $('td',nRow).removeClass('bg-red');
+					        }
+					        else {
+					            $('td',nRow).addClass('bg-red');
+					        }
+					    }
+					    setInterval(changeColor, 3000);
+					$('td:eq(5)', nRow).html('<span class="badge '+color+' pulsate-regular">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+				}else{
+					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+				}
 				if (aData.visto == false && aData.total_comentarios > 0) {
 					color = 'danger';
 				} else {
@@ -186,6 +202,7 @@ var TableManagedCotizaciones = function () {
 			});
 		});//modal
 
+
 		//Click para cancelar cotizacion
 		table.on('click', '.cancelar-cotizacion', function(e) {
 			var folio = $(this).attr('folio');
@@ -208,6 +225,23 @@ var TableManagedCotizaciones = function () {
 
 	};
 
+	 var handlePulsate = function () {
+	        if (!jQuery().pulsate) {
+	            return;
+	        }
+
+	        if (Metronic.isIE8() == true) {
+	            return; // pulsate plugin does not support IE8 and below
+	        }
+
+	        if (jQuery().pulsate) {
+	            jQuery('.pulsate-regular').pulsate({
+	                color: "#bf1c56"
+	            });
+
+	        }
+	};
+
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -216,6 +250,7 @@ var TableManagedCotizaciones = function () {
 			}
 			revisionCotizaciones();
 			gestionCotizaciones();
+			handlePulsate();
 		}
 	};
 }();

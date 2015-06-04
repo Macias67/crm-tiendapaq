@@ -109,6 +109,13 @@
 															<button type="button" class="btn green default cotizacion-previa btn-circle btn-xs" id="'.$cotizacion->folio.'"><i class="fa fa-file-o"></i> Vista</button>
 														</td>';
 											break;
+											case 8:
+												echo '<td><span class="btn btn-circle btn-xs blue-ebonyclay disabled">'.ucfirst($cotizacion->descripcion).'</span></td>
+														<td>
+															<a class="btn red default btn-circle btn-xs" href="'.site_url("cotizacion/descarga/".$cotizacion->folio).'"><i class="fa fa-file-o"></i> Descargar</a>
+															<a href="'.site_url("gestionar/basica/verificar/".$cotizacion->folio).'" class="btn blue btn-circle btn-xs" data-target="#ajax-verificar-info" data-toggle="modal"><i class="fa fa-dollar"></i> Comprobar Pago</a>
+														</td>';
+											break;
 										} ?>
 									</tr>
 								<?php endforeach ?>

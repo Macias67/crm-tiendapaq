@@ -45,6 +45,7 @@ class Cotizacion extends AbstractAccess {
 
 	/**
 	 * muestra la vista del catalogo de cotizaciones
+	 * Este método talvez no se usa ya***?
 	 *
 	 * @author Diego Rodriguez
 	 **/
