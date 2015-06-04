@@ -77,7 +77,7 @@
 									</div>
 									<div class="portlet-body">
 										<div class="form-group">
-											<input type="checkbox" class="make-switch" value="cxc" data-on-color="primary" data-off-color="info" id="ceporc">
+											<input type="checkbox" class="make-switch" value="cxc" data-on-color="primary" data-off-color="info" id="ceporc" name="ceporc">
 										</div>
 											<label >Contraseña <span class="required" aria-required="true">*</span></label>
 										<div class="form-group">
@@ -85,8 +85,7 @@
 											<?php var_dump($fechapsw) ?>
 												<div class="input-icon">
 													<i class="fa fa-asterisk"></i>
-													<input type="password" class="form-control" id="password" placeholder="Contraseña">
-											</div>
+													<input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
 										</div>
 									</div>
 								</div>

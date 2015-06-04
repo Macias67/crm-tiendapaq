@@ -161,6 +161,13 @@ class Cotizador extends AbstractAccess {
 		$cliente		= $this->input->post('cliente');
 		$productos 	= $this->input->post('productos');
 		$total 			= $this->input->post('total');
+		$cxc		= $this->input->post('cxc');
+		$psw		= $this->input->post('fechapsw');
+		$pass 		= $this->input->post('pass');
+		var_dump("expression");
+		var_dump($cxc);
+		var_dump($psw);
+		var_dump($pass);
 
 		//Oficina de expedicion
 		$this->load->model('oficinasModel');
@@ -232,9 +239,8 @@ class Cotizador extends AbstractAccess {
 		$total 			= $this->input->post('total');
 		$pendiente 	= $this->input->post('pendiente');
 		$cxc		= $this->input->post('cxc');
-		$psw		= $this->input->post('pass');
-		$folio		= $this->input->post('folio');
-
+		$psw		= $this->input->post('fechapsw');
+		$pass 		= $this->input->post('pass');
 		//Oficina de expedicion
 		$this->load->model('oficinasModel');
 		$oficina_ejecutivo = $this->ejecutivoModel->get('oficina', array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
@@ -289,7 +295,7 @@ class Cotizador extends AbstractAccess {
 		
 
 		// Verifico si la cotización es por caso por pagar (CXC)
-		if ($cxc) {
+		if ($cxc&&($psw==$pass)) {
 			$id_estatusCotizacion = 8;
 
 		}else{
@@ -370,6 +376,20 @@ class Cotizador extends AbstractAccess {
 			$this->email->attach($path);
 			$exito = $this->email->send();
 		}
+
+		if ($cxc&&($psw==$pass)) {
+					$this->load->model('casoModel');
+					$this->load->model('estatusGeneralModel');
+
+					$caso = array(
+					    'id_lider' 				=> NULL,
+						'id_estatus_general' 	=> $this->estatusGeneralModel->PORASIGNAR,
+						'id_cliente' 			=> $cliente['id'],
+						'folio_cotizacion'		=> $cotizacion['folio'],
+						'fecha_inicio' 			=> date('Y-m-d H:i:s'));
+					// Abro un nuevo CASO
+					$this->casoModel->insert($caso);
+			}
 
 		if($exito) {
 			echo json_encode($cotizacion);

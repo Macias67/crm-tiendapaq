@@ -444,9 +444,9 @@ class Cotizacion extends AbstractAccess {
 
 					$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
 					$caso = array(
-					       	'id_lider' 				=> NULL,
+					    'id_lider' 				=> NULL,
 						'id_estatus_general' 	=> $this->estatusGeneralModel->PORASIGNAR,
-						'id_cliente' 				=> $cotizacion->id_cliente,
+						'id_cliente' 			=> $cotizacion->id_cliente,
 						'folio_cotizacion'		=> $folio,
 						'fecha_inicio' 			=> date('Y-m-d H:i:s'));
 					// Abro un nuevo CASO

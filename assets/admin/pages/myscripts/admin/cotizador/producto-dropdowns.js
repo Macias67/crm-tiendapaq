@@ -367,6 +367,12 @@
 		enviar.on('click', function() {
 			var select_razon_social	= $('#razon_social').val();
 			var select_contactos	= $('#contactos').val();
+			var cxc				= $('#ceporc').is(':checked'); //Arroja un booleano en lugar de "undefined"
+			var pass			= $('#password').val();
+			var fechapsw			= $('#fechapsw').val();
+			console.log(cxc);
+			console.log(pass);
+			console.log(fechapsw);
 
 			if(select_razon_social!="" && select_razon_social!=null){
 				if(select_contactos!="" && select_contactos!=null){
@@ -416,7 +422,7 @@
 							url: '/cotizador/previapdf',
 							type: 'post',
 							cache: false,
-							data: {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total},
+							data: {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc:cxc, pass:pass, fechapsw:fechapsw},
 							beforeSend: function () {
 								Metronic.showLoader();
 							},
@@ -507,9 +513,9 @@
 								var info;
 								// Si es pendiente
 								if (pendiente != undefined) {
-									info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc, pendiente: pendiente}
+									info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, pendiente: pendiente,  cxc:cxc, pass:pass, fechapsw:fechapsw}
 								} else {
-									info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc}
+									info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total,  cxc:cxc, pass:pass, fechapsw:fechapsw}
 								}
 
 								// Envio de datos por AJAX
@@ -600,9 +606,9 @@
 						var info;
 						// Si es pendiente
 						if (pendiente != undefined) {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc, pendiente: pendiente}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, pendiente: pendiente, cxc:cxc, pass:pass, fechapsw:fechapsw}
 						} else {
-							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc}
+							info = {cotizacion:cotizacion, cliente:cliente, productos:productos, total:total, cxc:cxc, pass:pass, fechapsw:fechapsw}
 						}
 						// Envio de datos por AJAX
 						$.ajax({
