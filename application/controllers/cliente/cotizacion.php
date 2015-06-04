@@ -154,14 +154,15 @@ class Cotizacion extends AbstractAccess {
 		{
 			if ($this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR)) ||
 				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR)) ||
-				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL)))
+				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL)) ||
+				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC)))
 			{
 				$exito = $this->cotizacionModel->update(
 					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
 					array('folio' => $folio));
 				$response = array('exito' => $exito);
 			}else{
-				$response = array('exito' => FALSE, 'msj' => 'Que pena, esto no deberia estar pasando.');
+				$response = array('exito' => FALSE, 'msj' => 'Qué pena, esto no debería estar pasando.');
 			}
 		}
 
