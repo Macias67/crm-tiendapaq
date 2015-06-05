@@ -17,6 +17,7 @@
 				<?php if ($cotizacion->tipo == 'evento'): ?>
 					<h2>Cotización de Evento</h2>
 				<?php endif ?>
+				<?php echo form_open_multipart('cotizaciones/factura/'.$cotizacion->folio, array('class' => 'form-horizontal', 'role' => 'form'));?>
 				<!-- BEGIN COMENTARIOS COTIZACION-->
 				<div class="portlet">
 					<div class="portlet-title line">
@@ -77,7 +78,7 @@
 					</div>
 				</div>
 				<!-- END COMENTARIOS COTIZACION-->
-				<?php //if( ?>
+
 				<!-- BEGIN Portlet INGRESAR FACTURA CXC-->
 					<div class="portlet gren">
 						<div class="portlet-title">
@@ -85,9 +86,24 @@
 								<i class="fa fa-file-text"></i>Subir factura
 							</div>
 						</div>
-						<div class="portlet-body">
+						<div class="portlet-body form">
 							<div class="form-group">
-								<input type="file" id="factura">
+								<div class="col-md-9">
+									<div class="fileinput fileinput-new" data-provides="fileinput">
+											<span class="btn default btn-file">
+												<span class="fileinput-new">Seleccionar factura </span>
+												<span class="fileinput-exists">Cambiar </span>
+												<input type="file" name="userfile" id="exampleInputFile">
+											</span>
+											<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">Quitar </a>&nbsp;
+											<button id="envia-factura" type="submit" class="btn blue btn-bg">Enviar factura</button><br/><br/>
+											<?php if (!isset($factura)): ?>
+											<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+											<?php else: ?>
+											<?php echo $factura[0] ?>
+											<?php endif ?>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -101,29 +117,27 @@
 						</div>
 					</div>
 					<div class="portlet-body form">
-						<form role="form">
-							<div class="form-body">
-								<div class="form-group">
-									<input type="hidden" id="folio" value="<?php $cotizacion->folio ?>">
-									<input type="hidden" id="cliente" value="<?php $cotizacion->id_cliente ?>">
-									<label>Valoración: </label>
-									<div class="radio-list">
-										<label class="radio-inline">
-										<input type="radio" name="valoracion" id="valoracion1" value="aceptado"> Pagado </label>
-										<label class="radio-inline">
-										<input type="radio" name="valoracion" id="valoracion2" value="irregular"> Irregular </label>
-										<label class="radio-inline">
-										<input type="radio" name="valoracion" id="valoracion3" value="parcial"> Parcial </label>
-									</div>
-								</div>
-								<div class="form-group">
-									<button type="button" id="validar" cxc="<?php echo $cotizacion->id_estatus_cotizacion ?>" class="btn btn-circle red btn-block">VALIDAR</button>
-								</div>
-								<div class="form-group">
-									<button type="button" class="btn green default cotizacion-previa btn-circle btn-block" id="<?php echo $cotizacion->folio ?>" id-cliente="<?php echo $cotizacion->id_cliente ?>">Ver Cotización</button>
+						<div class="form-body">
+							<div class="form-group">
+								<input type="hidden" id="folio" value="<?php $cotizacion->folio ?>">
+								<input type="hidden" id="cliente" value="<?php $cotizacion->id_cliente ?>">
+								<label>Valoración: </label>
+								<div class="radio-list">
+									<label class="radio-inline">
+									<input type="radio" name="valoracion" id="valoracion1" value="aceptado"> Pagado </label>
+									<label class="radio-inline">
+									<input type="radio" name="valoracion" id="valoracion2" value="irregular"> Irregular </label>
+									<label class="radio-inline">
+									<input type="radio" name="valoracion" id="valoracion3" value="parcial"> Parcial </label>
 								</div>
 							</div>
-						</form>
+							<div class="form-group">
+								<button type="button" id="validar" cxc="<?php echo $cotizacion->id_estatus_cotizacion ?>" class="btn btn-circle red btn-block">VALIDAR</button>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn green default cotizacion-previa btn-circle btn-block" id="<?php echo $cotizacion->folio ?>" id-cliente="<?php echo $cotizacion->id_cliente ?>">Ver Cotización</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- END Portlet FORMULARIO-->
@@ -160,6 +174,7 @@
 				</div>
 			</div>
 		</div>
+	</form>
 		<!-- END PAGE CONTENT-->
 	</div>
 </div>

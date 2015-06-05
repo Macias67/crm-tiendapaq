@@ -231,12 +231,15 @@ class Cotizacion extends AbstractAccess {
 			// Marco como VISTO el campo de la tabla en cotizaciones y
 			// los comentarios respectivos
 			$this->load->model('comentariosCotizacionModel');
+			$this->load->helper('form');
 			$this->comentariosCotizacionModel->marcar_comentarios_visto($folio, 'c');
 			$this->cotizacionModel->update(array('visto' => 1), array('folio' => $folio));
 
 			$this->load->model('estatusCotizacionModel');
 			$this->load->helper('directory');
 			$this->load->helper('file');
+			$ruta_factura = 'assets/admin/pages/media/factura/'.$folio;
+			$facturas = directory_map($ruta_factura);
 			$ruta = '/clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/';
 			$archivos = directory_map('.'.$ruta, 1);
 
@@ -258,6 +261,7 @@ class Cotizacion extends AbstractAccess {
 			$this->data['imagenes'] 	= $imagenes;
 			$this->data['pdfs'] 			= $pdfs;
 			$this->data['ruta_pdf']		= $ruta;
+			$this->data['factura']			=$facturas;
 			$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
 			$this->_vista('archivos');
 		} else {
@@ -626,6 +630,37 @@ class Cotizacion extends AbstractAccess {
 				->set_content_type('application/json')
 				->set_output(json_encode(array('exito' => $enviado)));
 		}
+	}
+
+	public function factura($folio)
+	{
+		$this->load->helper('file');
+
+		// Armo la ruta donde guardare la imagen a subir
+		$ruta = 'assets/admin/pages/media/factura/'.$folio.'/';
+		delete_files($ruta);
+		//Si el directorio de $ruta no existe es creado
+		if (!is_dir($ruta))
+		{
+			mkdir($ruta, 0777, TRUE);
+		}
+		//Configuración para la subida del archivo
+		$config_upload['upload_path']		= $ruta;
+		$config_upload['allowed_types']		= 'pdf|PDF';
+		$config_upload['overwrite'] 		= TRUE;
+		$config_upload['remove_spaces']		= TRUE;
+
+		// Cargo la librería upload y paso la configuración
+		$this->load->library('upload', $config_upload);
+
+		if ($this->upload->do_upload()) {
+			redirect('cotizaciones/revision/'.$folio);
+		}else
+		{
+			var_dump($this->upload->display_errors());
+			var_dump($this->upload->data());
+		}
+
 	}
 
 	/**
