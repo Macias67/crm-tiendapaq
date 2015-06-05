@@ -184,6 +184,7 @@ class CotizacionModel extends MY_Model {
 		$this->db->join('ejecutivos', $this->table.'.id_ejecutivo = ejecutivos.id', 'inner');
 		//$this->db->join('estatus as estado', $this->table.'.id_estatus = estado.estatus', 'inner');
 		$this->db->where(array($this->table.'.id_estatus_cotizacion' => 2));
+		$this->db->or_where(array($this->table.'.id_estatus_cotizacion' => 8));
 
 		$query = $this->db->get($this->table);
 

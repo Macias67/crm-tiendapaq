@@ -51,9 +51,11 @@ var FormFileUpload = function () {
 		$('#confirmar').on('click', function() {
 			var mensaje = "<h2>¿Seguro de enviar estos archivos a revisión?</h2><br/><p>Una vez enviados los archivos ya no podrás cambiarlos.</p>";
 			var folio = $(this).attr('folio');
+			var cxc = $(this).attr('cxc');
+			console.log(cxc);
 			bootbox.confirm(mensaje, function(response) {
 				if (response) {
-					$.post('/cotizacion/estado', {folio: folio}, function(data, textStatus, xhr) {
+					$.post('/cotizacion/estado', {folio: folio,cxc: cxc}, function(data, textStatus, xhr) {
 						if(data.exito)
 						{
 							bootbox.alert('<h3>Archivos enviados con éxito.</h3>', function() {

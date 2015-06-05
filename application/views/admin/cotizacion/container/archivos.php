@@ -77,17 +77,35 @@
 					</div>
 				</div>
 				<!-- END COMENTARIOS COTIZACION-->
+				<?php //if( ?>
+				<!-- BEGIN Portlet INGRESAR FACTURA CXC-->
+					<div class="portlet gren">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-file-text"></i>Subir factura
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="form-group">
+								<input type="file" id="factura">
+							</div>
+						</div>
+					</div>
+				<!-- END Portlet INGRESAR FACTURA CXC-->
+
 				<!-- BEGIN Portlet FORMULARIO-->
 				<div class="portlet gren">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i> Validación de documentos
+							<i class="fa fa-thumbs-o-up"></i> Validación de documentos
 						</div>
 					</div>
 					<div class="portlet-body form">
 						<form role="form">
 							<div class="form-body">
 								<div class="form-group">
+									<input type="hidden" id="folio" value="<?php $cotizacion->folio ?>">
+									<input type="hidden" id="cliente" value="<?php $cotizacion->id_cliente ?>">
 									<label>Valoración: </label>
 									<div class="radio-list">
 										<label class="radio-inline">
@@ -99,7 +117,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<button type="button" id="validar" class="btn btn-circle red btn-block">VALIDAR</button>
+									<button type="button" id="validar" cxc="<?php echo $cotizacion->id_estatus_cotizacion ?>" class="btn btn-circle red btn-block">VALIDAR</button>
 								</div>
 								<div class="form-group">
 									<button type="button" class="btn green default cotizacion-previa btn-circle btn-block" id="<?php echo $cotizacion->folio ?>" id-cliente="<?php echo $cotizacion->id_cliente ?>">Ver Cotización</button>

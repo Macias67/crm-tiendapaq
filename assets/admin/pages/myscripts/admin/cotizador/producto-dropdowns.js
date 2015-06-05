@@ -463,7 +463,8 @@
 			console.log(pass);
 			console.log(fechapsw);
 
-			if (cxc) {
+			if (cxc)
+			{
 				if (cxc&&(pass==fechapsw)) {
 					if(select_razon_social!="" && select_razon_social!= null){
 						if(select_contactos!="" && select_contactos!=null){
@@ -553,9 +554,9 @@
 					}
 				} else{
 					bootbox.alert('<h3> Contraseña errónea.</h3>');
-				};
-
-			} else{
+				}
+			}
+			else{
 				if(select_razon_social!="" && select_razon_social!= null){
 				if(select_contactos!="" && select_contactos!=null){
 					if (totalProductos > 0) {

@@ -137,7 +137,8 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('estatusCotizacionModel');
 		$this->load->helper('directory');
 
-		$folio = $this->input->post('folio');
+		$folio 	= $this->input->post('folio');
+		$cxc 	= $this->input->post('cxc');
 
 		$archivos = directory_map('./clientes/'.$this->usuario_activo['id'].'/comprobantes/'.$folio.'/', 1);
 		// Descarto la carpeta de las thumnail
@@ -153,14 +154,21 @@ class Cotizacion extends AbstractAccess {
 		} else
 		{
 			if ($this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PORPAGAR)) ||
-				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR)) ||
-				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL)) ||
-				 	$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC)))
+				$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR)) ||
+				$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL)) ||
+				$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC)))
 			{
-				$exito = $this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
-					array('folio' => $folio));
-				$response = array('exito' => $exito);
+				if (!(isset($cxc))) {
+					$exito = $this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
+						array('folio' => $folio));
+					$response = array('exito' => $exito);
+				}else{
+					$exito = $this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC),
+						array('folio' => $folio));
+					$response = array('exito' => $exito);
+				}
 			}else{
 				$response = array('exito' => FALSE, 'msj' => 'Qué pena, esto no debería estar pasando.');
 			}

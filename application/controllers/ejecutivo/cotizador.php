@@ -291,15 +291,12 @@ class Cotizador extends AbstractAccess {
 		$vigencia		= $array_fecha[2].'-'.$array_fecha[1].'-'.$array_fecha[0];
 
 		$this->load->model('estatusCotizacionModel');
-
-		
-
+		$id_estatusCotizacion = $this->estatusCotizacionModel->PORPAGAR;
 		// Verifico si la cotización es por caso por pagar (CXC)
-		if ($cxc&&($psw==$pass)) {
-			$id_estatusCotizacion = 8;
-
-		}else{
-			$id_estatusCotizacion = $this->estatusCotizacionModel->PORPAGAR;
+		if($cxc){ //faltó esta línea
+			if ($cxc&&($psw==$pass)) {
+				$id_estatusCotizacion = 8;
+			}
 		}
 
 		$nueva_cot = array(

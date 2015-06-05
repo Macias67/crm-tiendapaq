@@ -225,23 +225,6 @@ var TableManagedCotizaciones = function () {
 
 	};
 
-	 var handlePulsate = function () {
-	        if (!jQuery().pulsate) {
-	            return;
-	        }
-
-	        if (Metronic.isIE8() == true) {
-	            return; // pulsate plugin does not support IE8 and below
-	        }
-
-	        if (jQuery().pulsate) {
-	            jQuery('.pulsate-regular').pulsate({
-	                color: "#bf1c56"
-	            });
-
-	        }
-	};
-
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -250,7 +233,6 @@ var TableManagedCotizaciones = function () {
 			}
 			revisionCotizaciones();
 			gestionCotizaciones();
-			handlePulsate();
 		}
 	};
 }();

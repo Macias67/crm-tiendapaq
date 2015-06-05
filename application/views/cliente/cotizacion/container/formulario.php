@@ -63,7 +63,7 @@
 						</tbody>
 					</table>
 				</form>
-				<button class="btn green btn-lg btn-circle btn-block" id="confirmar" folio="<?php echo $cotizacion->folio ?>">Confirmar archivos</button>
+				<button class="btn green btn-lg btn-circle btn-block" cxc="<?php echo $cotizacion->id_estatus_cotizacion ?>" id="confirmar" folio="<?php echo $cotizacion->folio ?>">Confirmar archivos</button>
 			</div>
 			<div class="col-md-5">
 				<!-- BEGIN ESPECIFICACIONES -->

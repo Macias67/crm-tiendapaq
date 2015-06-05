@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>fancybox/source/jquery.fancybox.css" type="text/css"/>
 	<link rel="stylesheet" href="<?php echo $assets_admin_pages ?>css/portfolio.css" type="text/css"/>
 	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $assets_global_plugins ?>select2/select2.css" />
+	<link rel="stylesheet" href="<?php echo $assets_global_plugins ?>select2/select2.css" type="text/css" />
 	<!-- END PAGE LEVEL STYLES -->
 
 	<!-- BEGIN THEME STYLES -->

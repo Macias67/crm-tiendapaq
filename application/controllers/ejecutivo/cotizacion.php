@@ -277,6 +277,7 @@ class Cotizacion extends AbstractAccess {
 	{
 		$folio 		= $this->input->post('folio');
 		$tipo 		= $this->input->post('tipo');
+		$cxc 		= $this->input->post('cxc');
 		$valoracion = $this->input->post('valoracion');
 
 		$this->load->model('estatusCotizacionModel');
@@ -458,8 +459,15 @@ class Cotizacion extends AbstractAccess {
 			}
 
 			if ($valoracion == "irregular") {
-				if ($this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
-					array('folio' => $folio)))
+				if ($cxc) {
+					$res = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC),
+					array('folio' => $folio));
+				}else
+				{
+					$res = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
+					array('folio' => $folio));
+				}
+				if ($res)
 				{
 					//ENVÍO DE PDF PARA SITUACIÓN IRREGULAR
 					$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
@@ -537,10 +545,6 @@ class Cotizacion extends AbstractAccess {
 				}
 			}
 		}
-
-		/**
-		 * BLOQUE DE ENVIO DE CORREO
-		 */
 
 		$this->output
 			->set_content_type('application/json')

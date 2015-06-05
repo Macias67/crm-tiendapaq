@@ -22,6 +22,7 @@ var Portfolio = function () {
 			/* Act on the event */
 			var file = $(this).attr('file');
 			var ruta = $(this).attr('ruta');
+			var cxc =  $(this).attr('cxc');
 			window.open(ruta+file,'','height=600,width=500');
 		});
 	}
