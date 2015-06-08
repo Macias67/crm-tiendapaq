@@ -36,12 +36,14 @@
 	<script src="<?php echo $assets_global_scripts ?>metronic.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/demo.js" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'encuesta') ?>" type="text/javascript"></script>
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<script>
 	jQuery(document).ready(function() {
 		Metronic.init(); // init metronic core componets
 		Layout.init(); // init layout
 		Demo.init(); // init demo(theme settings page)
+		Encuesta.init();
 	});
 	</script>
 <!-- END JAVASCRIPTS -->
