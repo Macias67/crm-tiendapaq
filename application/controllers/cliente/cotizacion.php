@@ -45,7 +45,7 @@ class Cotizacion extends AbstractAccess {
 	}
 
 	/**
-	 * Funcion 
+	 * Funcion
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
 	public function comprobante($folio)
@@ -80,6 +80,7 @@ class Cotizacion extends AbstractAccess {
 					}
 				}
 				$this->data['archivos'] = $archivos;
+				var_dump($this->data);
 				$this->_vista('archivos');
 			}
 		} else {

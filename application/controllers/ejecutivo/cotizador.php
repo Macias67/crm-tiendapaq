@@ -164,10 +164,6 @@ class Cotizador extends AbstractAccess {
 		$cxc		= $this->input->post('cxc');
 		$psw		= $this->input->post('fechapsw');
 		$pass 		= $this->input->post('pass');
-		var_dump("expression");
-		var_dump($cxc);
-		var_dump($psw);
-		var_dump($pass);
 
 		//Oficina de expedicion
 		$this->load->model('oficinasModel');

@@ -85,7 +85,7 @@ var TableManagedCotizaciones = function () {
 			"rowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				// Tipo de Cliente
 				var color = '';
-				// console.log(aData);
+				 console.log(aData);
 				if (aData.id_estatus_cotizacion == "Por Pagar") {
 					color = 'bg-green-turquoise';
 				} else if(aData.id_estatus_cotizacion == "Pagada") {
@@ -101,7 +101,11 @@ var TableManagedCotizaciones = function () {
 				}else if (aData.id_estatus_cotizacion == "Cxc") {
 					color = 'bg-red-gallery';
 				}
-				if (aData.id_estatus_cotizacion == "Cxc") {
+
+				// console.log();
+
+				if (aData.id_estatus_cotizacion == "Cxc" && aData.facturado==false) {
+					console.log("Entró!!!ENTRo1");
 					$('td',nRow).addClass('bg-red');
 					function changeColor(){
 					        if ($('td',nRow).hasClass('bg-red')) {
@@ -111,11 +115,29 @@ var TableManagedCotizaciones = function () {
 					            $('td',nRow).addClass('bg-red');
 					        }
 					    }
-					    setInterval(changeColor, 3000);
-					$('td:eq(5)', nRow).html('<span class="badge '+color+' pulsate-regular">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+
+    					 setInterval(changeColor, 3000);
+					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+				}
+				else if(aData.id_estatus_cotizacion == "Cxc" && aData.facturado==true){
+					console.log("Entró!!!");
+					$('td',nRow).addClass('bg-yellow');
+
+					function changeColor(){
+					        if ($('td',nRow).hasClass('bg-yellow')) {
+					            $('td',nRow).removeClass('bg-yellow');
+					        }
+					        else {
+					            $('td',nRow).addClass('bg-yellow');
+					        }
+					    }
+
+					setInterval(changeColor, 3000);
+					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
 				}else{
 					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
 				}
+
 				if (aData.visto == false && aData.total_comentarios > 0) {
 					color = 'danger';
 				} else {
@@ -225,6 +247,22 @@ var TableManagedCotizaciones = function () {
 
 	};
 
+	// Muestra visualizacvion previa del pdf de la
+	// cotizacion al cliente
+	var previaPDFFactura = function() {
+		$('.factura-previa').on('click', function() {
+			// Datos factura
+			var folio = $(this).attr('id');
+			var name =$(this).attr('name');
+
+			$.post('/cotizaciones/previapdffactura', {folio:folio, name:name}, function(data) {
+				if (data.existe) {
+					window.open(data.ruta,'','height=800,width=800');
+				}
+			}, 'json');
+		});
+	};
+
 	return {
 		//main function to initiate the module
 		init: function () {
@@ -233,6 +271,7 @@ var TableManagedCotizaciones = function () {
 			}
 			revisionCotizaciones();
 			gestionCotizaciones();
+			previaPDFFactura();
 		}
 	};
 }();
