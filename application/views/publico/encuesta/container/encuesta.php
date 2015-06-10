@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<div class="portlet-body form">
-							<form class="form-horizontal" role="form">
+							<form class="form-horizontal" role="form" id="encuesta">
 								<div class="form-body">
 
 									<!-- Pregunta 1 -->
@@ -84,7 +84,7 @@
 									<div class="form-group">
 										<label class="col-md-3 control-label">¿Por qué?</label>
 										<div class="col-md-9">
-											<input type="text" name="p1_porque" class="form-control input-inline input-xlarge" disabled placeholder="Escriba el motivo por el cual seleccionó NO">
+											<input type="text" name="p2_porque" class="form-control input-inline input-xlarge" disabled placeholder="Escriba el motivo por el cual seleccionó NO">
 										</div>
 									</div>
 
@@ -144,20 +144,30 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
+									<!-- Datos recomendacion -->
+									<div class="form-group" id="data-recomendar">
 										<label class="col-md-6 control-label">Nombre</label>
 										<div class="col-md-6">
-											<input type="text" name="p1_porque" class="form-control input-inline input-medium" disabled>
+											<input type="text" name="p5_nombre" class="form-control input-inline input-medium">
 										</div>
 										<label class="col-md-6 control-label margin-top-10">Email</label>
 										<div class="col-md-6 margin-top-10">
-											<input type="text" name="p1_porque" class="form-control input-inline input-medium" disabled>
+											<input type="text" name="p5_email" class="form-control input-inline input-medium">
 										</div>
 										<label class="col-md-6 control-label margin-top-10">Teléfono</label>
 										<div class="col-md-6 margin-top-10">
-											<input type="text" name="p1_porque" class="form-control input-inline input-medium" disabled>
+											<input type="text" name="p5_telefono" class="form-control input-inline input-medium">
 										</div>
 									</div>
+
+									<!-- Porque? -->
+									<div class="form-group display-hide" id="data-porque">
+										<label class="col-md-6 control-label">¿Por qué?</label>
+										<div class="col-md-6">
+											<textarea class="form-control" rows="3" name="p5_porque"></textarea>
+										</div>
+									</div>
+
 
 									<!-- Pregunta 6 -->
 									<div class="form-group">
