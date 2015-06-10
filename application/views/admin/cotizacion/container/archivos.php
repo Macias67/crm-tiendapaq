@@ -80,9 +80,7 @@
 				<!-- END COMENTARIOS COTIZACION-->
 
 				<!-- BEGIN Portlet INGRESAR FACTURA CXC-->
-				<?php if(isset($error)): ?>
-				<?php echo $error  ?>
-				<?php endif ?>
+				<?php if($cotizacion->id_estatus_cotizacion=='8'): ?>
 					<div class="portlet gren">
 						<div class="portlet-title">
 							<div class="caption">
@@ -114,6 +112,7 @@
 							</div>
 						</div>
 					</div>
+				<?php endif ?>
 				<!-- END Portlet INGRESAR FACTURA CXC-->
 
 				<!-- BEGIN Portlet FORMULARIO-->

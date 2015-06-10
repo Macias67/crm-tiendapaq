@@ -53,6 +53,7 @@ var FormFileUpload = function () {
 			var folio = $(this).attr('folio');
 			var cxc = $(this).attr('cxc');
 			console.log(cxc);
+
 			bootbox.confirm(mensaje, function(response) {
 				if (response) {
 					$.post('/cotizacion/estado', {folio: folio,cxc: cxc}, function(data, textStatus, xhr) {

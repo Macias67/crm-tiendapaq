@@ -102,38 +102,35 @@ var TableManagedCotizaciones = function () {
 					color = 'bg-red-gallery';
 				}
 
-				// console.log();
+				if (aData.id_estatus_cotizacion == "Cxc"){
+					if (aData.facturado==true) {
+						$('td',nRow).addClass('bg-yellow');
+						function changeColorYellow(){
+						        if ($('td',nRow).hasClass('bg-yellow')) {
+						            $('td',nRow).removeClass('bg-yellow');
+						        }
+						        else {
+						            $('td',nRow).addClass('bg-yellow');
+						        }
+						}
+						setInterval(changeColorYellow, 3000);
+						$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+					}
 
-				if (aData.id_estatus_cotizacion == "Cxc" && aData.facturado==false) {
-					console.log("Entró!!!ENTRo1");
-					$('td',nRow).addClass('bg-red');
-					function changeColor(){
-					        if ($('td',nRow).hasClass('bg-red')) {
-					            $('td',nRow).removeClass('bg-red');
-					        }
-					        else {
-					            $('td',nRow).addClass('bg-red');
-					        }
-					    }
+					if(aData.facturado==false){
+						$('td',nRow).addClass('bg-red');
+						function changeColor(){
+						        if ($('td',nRow).hasClass('bg-red')) {
+						            $('td',nRow).removeClass('bg-red');
+						        }
+						        else {
+						            $('td',nRow).addClass('bg-red');
+						        }
+						    }
+	    					 setInterval(changeColor, 3000);
+						$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
+					}
 
-    					 setInterval(changeColor, 3000);
-					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
-				}
-				else if(aData.id_estatus_cotizacion == "Cxc" && aData.facturado==true){
-					console.log("Entró!!!");
-					$('td',nRow).addClass('bg-yellow');
-
-					function changeColor(){
-					        if ($('td',nRow).hasClass('bg-yellow')) {
-					            $('td',nRow).removeClass('bg-yellow');
-					        }
-					        else {
-					            $('td',nRow).addClass('bg-yellow');
-					        }
-					    }
-
-					setInterval(changeColor, 3000);
-					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
 				}else{
 					$('td:eq(5)', nRow).html('<span class="badge '+color+'">&nbsp;<b>'+aData.id_estatus_cotizacion+'</b>&nbsp;</span>');
 				}
