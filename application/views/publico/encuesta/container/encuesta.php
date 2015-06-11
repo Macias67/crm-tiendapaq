@@ -45,6 +45,15 @@
 						<div class="portlet-body form">
 							<form class="form-horizontal" role="form" id="encuesta">
 								<div class="form-body">
+									<!-- ALERTS -->
+									<div class="alert alert-danger display-hide">
+										<button class="close" data-close="alert"></button>
+										Tienes errores en el formulario
+									</div>
+									<div class="alert alert-success display-hide">
+										<button class="close" data-close="alert"></button>
+										Éxito en el formulario
+									</div>
 
 									<!-- Pregunta 1 -->
 									<div class="form-group">
@@ -92,7 +101,7 @@
 									<div class="form-group">
 										<label class="col-md-7 control-label">¿Cómo calificaría nuestro tiempo de respuesta y solución a este caso?</label>
 										<div class="col-md-5">
-											<select class="form-control">
+											<select class="form-control" name="pregunta3">
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -112,7 +121,7 @@
 									<div class="form-group">
 										<label class="col-md-7 control-label">¿Cómo calificaría el conocimiento o experiencia del asesor asignado?</label>
 										<div class="col-md-5">
-											<select class="form-control">
+											<select class="form-control" name="pregunta4">
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -173,7 +182,7 @@
 									<div class="form-group">
 										<label class="col-md-7 control-label">¿Hay algo en lo que usted considera que tenemos que mejorar?</label>
 										<div class="col-md-5">
-											<textarea class="form-control" rows="3"></textarea>
+											<textarea class="form-control" rows="3" name="pregunta6"></textarea>
 										</div>
 									</div>
 
@@ -181,8 +190,8 @@
 								<div class="form-actions">
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn green">Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="submit" class="btn green">Enviar Respuestas</button>
+											<button type="button" class="btn default">Cancelar</button>
 										</div>
 									</div>
 								</div>
