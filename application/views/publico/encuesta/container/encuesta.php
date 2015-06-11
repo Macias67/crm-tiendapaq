@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<div class="portlet-body form">
-							<form class="form-horizontal" role="form" id="encuesta">
+							<?php echo form_open(site_url('encuesta/validar'), $form) ?>
 								<div class="form-body">
 									<!-- ALERTS -->
 									<div class="alert alert-danger display-hide">
@@ -185,7 +185,6 @@
 											<textarea class="form-control" rows="3" name="pregunta6"></textarea>
 										</div>
 									</div>
-
 								</div>
 								<div class="form-actions">
 									<div class="row">

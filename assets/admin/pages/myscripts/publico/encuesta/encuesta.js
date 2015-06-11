@@ -186,35 +186,38 @@ var Encuesta = function() {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				alert('a oc');
-				// $.ajax({
-				// 	url: $('#form-cliente-completo').attr('action'),
-				// 	type: 'post',
-				// 	cache: false,
-				// 	dataType: 'json',
-				// 	data: $('#form-cliente-completo').serialize(),
-				// 	beforeSend: function () {
-				// 		Metronic.showLoader();
-				// 	},
-				// 	error: function(jqXHR, status, error) {
-				// 		bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
-				// 			Metronic.removeLoader();
-				// 		});
-				// 	},
-				// 	success: function(data) {
-				// 		if (data.registrado) {
-				// 			Metronic.removeLoader();
-				// 			bootbox.alert("<h3>"+data.mensaje+"<h3>", function() {
-				// 				window.location.replace("/cursos");
-				// 			});
-				// 		} else {
-				// 			bootbox.alert("<h3>"+data.msgerror+"<h3>", function() {
-				// 				$('body').animate({ scrollTop: 0 }, 600);
-				// 				Metronic.removeLoader();
-				// 			});
-				// 		}
-				// 	}
-				// });
+				var url 		= $(form).attr('action');
+				var data 	= $(form).serialize();
+
+				$.ajax({
+					url: url,
+					type: 'post',
+					cache: false,
+					dataType: 'json',
+					data: data,
+					beforeSend: function () {
+						Metronic.showLoader();
+					},
+					error: function(jqXHR, status, error) {
+						bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+							Metronic.removeLoader();
+						});
+					},
+					success: function(data) {
+						console.log(data);
+						// if (data.registrado) {
+						// 	Metronic.removeLoader();
+						// 	bootbox.alert("<h3>"+data.mensaje+"<h3>", function() {
+						// 		window.location.replace("/cursos");
+						// 	});
+						// } else {
+						// 	bootbox.alert("<h3>"+data.msgerror+"<h3>", function() {
+						// 		$('body').animate({ scrollTop: 0 }, 600);
+						// 		Metronic.removeLoader();
+						// 	});
+						// }
+					}
+				});
 			}
 		});
 	}
@@ -224,6 +227,7 @@ var Encuesta = function() {
 			pregunta1();
 			pregunta2();
 			pregunta5();
+			formEncuesta();
 		}
 	}
 }();
