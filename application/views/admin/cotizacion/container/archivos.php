@@ -80,6 +80,7 @@
 				<!-- END COMENTARIOS COTIZACION-->
 
 				<!-- BEGIN Portlet INGRESAR FACTURA CXC-->
+				<?php if($cotizacion->id_estatus_cotizacion=='8'): ?>
 					<div class="portlet gren">
 						<div class="portlet-title">
 							<div class="caption">
@@ -96,17 +97,22 @@
 												<input type="file" name="userfile" id="exampleInputFile">
 											</span>
 											<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">Quitar </a>&nbsp;
-											<button id="envia-factura" type="submit" class="btn blue btn-bg">Enviar factura</button><br/><br/>
-											<?php if (!isset($factura)): ?>
-											<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+											<button id="envia-factura" type="submit" class="btn blue btn-bg">Enviar factura</button>
+											<?php if($factura): ?>
+											<button type="button" class="btn green factura-previa btn-bg" name="<?php echo $factura[0]  ?>" id="<?php echo $cotizacion->folio ?>">Ver factura</button><br/><br/>
+											<?php endif ?>
+											<?php if(!$factura): ?>
+											<br/><br/><div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
 											<?php else: ?>
 											<?php echo $factura[0] ?>
 											<?php endif ?>
 									</div>
+
 								</div>
 							</div>
 						</div>
 					</div>
+				<?php endif ?>
 				<!-- END Portlet INGRESAR FACTURA CXC-->
 
 				<!-- BEGIN Portlet FORMULARIO-->

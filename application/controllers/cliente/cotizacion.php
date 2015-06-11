@@ -45,7 +45,7 @@ class Cotizacion extends AbstractAccess {
 	}
 
 	/**
-	 * Funcion 
+	 * Funcion
 	 * @author Luis Macias | Diego Rodriguez
 	 **/
 	public function comprobante($folio)
@@ -158,14 +158,14 @@ class Cotizacion extends AbstractAccess {
 				$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL)) ||
 				$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC)))
 			{
-				if (!(isset($cxc))) {
+				if ($cxc == $this->estatusCotizacionModel->CXC) {
 					$exito = $this->cotizacionModel->update(
-						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC),
 						array('folio' => $folio));
 					$response = array('exito' => $exito);
 				}else{
 					$exito = $this->cotizacionModel->update(
-						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC),
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
 						array('folio' => $folio));
 					$response = array('exito' => $exito);
 				}

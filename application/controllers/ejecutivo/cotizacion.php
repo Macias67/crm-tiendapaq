@@ -109,18 +109,18 @@ class Cotizacion extends AbstractAccess {
 		              'estatus_cotizacion.descripcion');
 		$joins = array('clientes', 'ejecutivos', 'estatus_cotizacion');
 		$like = array(
-			'folio'								=> $search['value'],
-			'clientes.razon_social'				=> $search['value'],
+			'folio'					=> $search['value'],
+			'clientes.razon_social'		=> $search['value'],
 			'ejecutivos.primer_nombre'		=> $search['value'],
 		       'ejecutivos.segundo_nombre' 		=> $search['value'],
-			'ejecutivos.apellido_paterno' 		=> $search['value'],
-			'ejecutivos.apellido_materno' 		=> $search['value'],
-			'fecha'								=> $search['value'],
-			'vigencia'							=> $search['value'],
+			'ejecutivos.apellido_paterno' 	=> $search['value'],
+			'ejecutivos.apellido_materno' 	=> $search['value'],
+			'fecha'					=> $search['value'],
+			'vigencia'				=> $search['value'],
 			'estatus_cotizacion.descripcion' 	=> $search['value']
 		);
 		$orderBy 		= $columns[$order[0]['column']]['data'];
-		$orderForm 	= $order[0]['dir'];
+		$orderForm 		= $order[0]['dir'];
 		$limit 			= $length;
 		$offset 		= $start;
 		$cotizaciones	= $this->cotizacionModel->get_cotizacion_cliente_table(
@@ -134,27 +134,33 @@ class Cotizacion extends AbstractAccess {
 		$proceso	= array();
 
 		$this->load->helper('formatofechas');
+		// // Si existe la carpeta factura del cliente
+		// $dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cliente['id'].'/cotizacion/';
+		// if (!is_dir($dir_root)) {
+
+		// }
 		//$this->load->model('comentariosCotizacionModel');
 		foreach ($cotizaciones as $index => $cotizacion) {
 			//$total_comentario 		= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $cotizacion->folio), null, 'ASC', 1);
 			//$total_comentario_sinver 	= $this->comentariosCotizacionModel->get(array('COUNT(*) AS total_coment'), array('folio' => $cotizacion->folio, 'visto' => 0), null, 'ASC', 1);
 			$p = array(
-				'DT_RowId'					=> $cotizacion->folio,
-				'folio'						=> $cotizacion->folio,
-				'id_cliente'					=> $cotizacion->razon_social,
+				'DT_RowId'				=> $cotizacion->folio,
+				'folio'					=> $cotizacion->folio,
+				'id_cliente'				=> $cotizacion->razon_social,
 				'id_ejecutivo'				=> $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno,
-				'fecha'						=> fecha_completa($cotizacion->fecha),
-				'vigencia'					=> fecha_completa($cotizacion->vigencia),
+				'fecha'					=> fecha_completa($cotizacion->fecha),
+				'vigencia'				=> fecha_completa($cotizacion->vigencia),
 				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion),
-				'total_comentarios'		=> $cotizacion->total_comentarios,
-				'visto'						=> ($cotizacion->visto) ? TRUE : FALSE
+				'total_comentarios'			=> $cotizacion->total_comentarios,
+				'visto'					=> ($cotizacion->visto) ? TRUE : FALSE,
+				'facturado'				=> is_dir('assets/admin/pages/media/factura/'.$cotizacion->folio.'/') ? TRUE : FALSE
 			       );
 			array_push($proceso, $p);
 		}
 		$data = array(
 			'draw'				=> $draw,
 			'recordsTotal'		=> count($cotizaciones),
-			'recordsFiltered'	=> $total,
+			'recordsFiltered'		=> $total,
 			'data'				=> $proceso);
 		$this->output
 			->set_content_type('application/json')
@@ -176,6 +182,31 @@ class Cotizacion extends AbstractAccess {
 		{
 			$dir_root	= site_url('/clientes/'.$idcliente.'/cotizacion').'/';
 			$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+			$path		= $dir_root.$name;
+			$response 	= array('existe' => $existe, 'ruta' => $path);
+		} else {
+			$response 	= array('existe' => $existe);
+		}
+		//mando la repuesta
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($response));
+	}
+
+		/**
+	 * Funcion para previsualizar un pdf con una factura
+	 * para los clientes desde el cotizador
+	 *
+	 * @author Luis Macias | Diego Rodriguez | Julio Trujillo
+	 **/
+	public function previapdffactura()
+	{
+		$folio =$this->input->post('folio');
+		$name =$this->input->post('name');
+
+		if ($existe = $this->cotizacionModel->exist(array('folio' => $folio)))
+		{
+			$dir_root	= site_url('assets/admin/pages/media/factura/'.$folio).'/';
 			$path		= $dir_root.$name;
 			$response 	= array('existe' => $existe, 'ruta' => $path);
 		} else {
@@ -657,8 +688,8 @@ class Cotizacion extends AbstractAccess {
 			redirect('cotizaciones/revision/'.$folio);
 		}else
 		{
-			var_dump($this->upload->display_errors());
-			var_dump($this->upload->data());
+			echo $this->upload->display_errors();
+			show_404();
 		}
 
 	}
