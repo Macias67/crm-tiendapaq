@@ -114,6 +114,7 @@ class Caso extends AbstractAccess {
 		$this->data['tareas'] 		= $tareas;
 		$this->data['ejecutivos'] 	= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
 		$this->data['caso'] 		= $caso;
+		$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
 		$this->data['notas'] 		= $notas;
 		$this->_vista('detalle-caso');
 	}

@@ -9,9 +9,7 @@ class Nota extends AbstractAccess {
 	}
 
 	public function index()
-	{
-		
-	}
+	{}
 
 	/**
 	 * Funcion para crear una nueva
@@ -35,7 +33,7 @@ class Nota extends AbstractAccess {
 			);
 
 			$id_nota 	= $this->notastareaModel->get_last_id_after_insert($nueva_nota);
-			$msg 		= (!$id_nota) ? 'No se inserto en la base de datos' : '';
+			$msg 		= (!$id_nota) ? 'No se insertó en la base de datos.' : '';
 			$response 	= array('exito' => TRUE, 'errores' => $msg);
 
 			if (!empty($_FILES)) {
@@ -82,7 +80,7 @@ class Nota extends AbstractAccess {
 			);
 
 			$update 	= $this->notastareaModel->update($edita_nota, array('id_nota' => $id_nota));
-			$msg 		= (!$update) ? 'No se inserto en la base de datos' : '';
+			$msg 		= (!$update) ? 'No se insertó en la base de datos.' : '';
 			$response 	= array('exito' => TRUE, 'errores' => $msg);
 
 			if (!empty($_FILES)) {

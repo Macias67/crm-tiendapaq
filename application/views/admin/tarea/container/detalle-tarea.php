@@ -194,7 +194,7 @@
 									</thead>
 									<tbody>
 										<?php foreach ($notas as $key => $nota): ?>
-										<?php if ($nota->visto == 0): ?>
+										<?php if ($nota->visto == '0'): ?>
 											<tr class="danger">
 										<?php endif ?>
 											<td><?php echo $nota->id_nota ?></td>
@@ -214,10 +214,11 @@
 												<a href="<?php echo site_url('nota/modal/editar/'.$nota->id_nota) ?>" class="btn green btn-xs editar" data-target="#ajax_edita_nota" data-toggle="modal"><i class="fa fa-edit"></i></a>
 												<button class="btn red btn-xs eliminar" id="<?php echo $nota->id_nota ?>"><i class="fa fa-trash-o"></i></button>
 											</td>
+
 										</tr>
 										<?php endforeach ?>
 									</tbody>
-								</table>
+								</table><br/><br/>
 							</div>
 						</div>
 					</div>

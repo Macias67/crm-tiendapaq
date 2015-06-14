@@ -135,7 +135,7 @@
 																<div class="caption"><i class="fa fa-warning"></i>Notas</div>
 															</div>
 															<div class="portlet-body">
-																<table class="table table-hover" id="notas-tarea">
+																<table class="table table-bordered table-striped" id="notas-tarea">
 																	<thead class="flip-content">
 																		<tr>
 																			<th width="15%"> Fecha </th>

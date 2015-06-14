@@ -82,10 +82,10 @@
 											<label >Contraseña <span class="required" aria-required="true">*</span></label>
 										<div class="form-group">
 											<input type="hidden"  id="fechapsw" name="fechapsw" value="<?php echo $fechapsw ?>">
-											<?php var_dump($fechapsw) ?>
-												<div class="input-icon">
-													<i class="fa fa-asterisk"></i>
-													<input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+											<div class="input-icon">
+												<i class="fa fa-asterisk"></i>
+												<input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+											</div>
 										</div>
 									</div>
 								</div>

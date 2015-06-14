@@ -30,7 +30,7 @@ var DetalleCaso = function() {
 			"scrollY": "100px",
 			"scrollCollapse": false,
 			"lengthChange": false,
-			"searching": false,
+			"searching": true,
 			"lengthMenu": [
 				[5, 15, 20, -1],
 				[5, 15, 20, "Todos"] // change per page values here
