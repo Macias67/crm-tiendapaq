@@ -44,6 +44,8 @@
 						</div>
 						<div class="portlet-body form">
 							<?php echo form_open(site_url('encuesta/validar'), $form) ?>
+								<input type="hidden" name="id_caso" value="<?php echo $id_caso ?>">
+								<input type="hidden" name="token" value="<?php echo $token ?>">
 								<div class="form-body">
 									<!-- ALERTS -->
 									<div class="alert alert-danger display-hide">

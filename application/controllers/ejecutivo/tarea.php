@@ -156,84 +156,85 @@ class Tarea extends AbstractAccess {
 			$avance		= $this->input->post('avance');
 
 			$update_tarea = array(
-					'id_ejecutivo'	=> $ejecutivo,
-					'id_estatus'	=> $estatus,
-					'tarea'			=> ucfirst(strtolower($tarea)),
-					'descripcion'	=> ucfirst(strtolower($descripcion)),
-					'avance'		=> $avance
-				);
+				'id_ejecutivo'	=> $ejecutivo,
+				'id_estatus'	=> $estatus,
+				'tarea'			=> ucfirst(strtolower($tarea)),
+				'descripcion'	=> ucfirst(strtolower($descripcion)),
+				'avance'		=> $avance
+			);
 
-			$exito = FALSE;
-			if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
-				$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
-			} else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
-				$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
-			} else {
-				// Obtengo Caso
-				$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
+			$response = $this->_avance_tarea($estatus, $avance, $id_caso, $id_tarea, $update_tarea);
 
-				if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
-					$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
-				} else {
-					// Verifico tarea a modificar antes sus avances y estatus
-					$tarea = $this->tareaModel->get_tarea($id_tarea);
-					if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
-						$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
-					} else {
-						// Actualizo info de tarea
-						$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
-						$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
-					}
-				}
+			// $exito = FALSE;
+			// if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
+			// 	$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
+			// } else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
+			// 	$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
+			// } else {
+			// 	// Obtengo Caso
+			// 	$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 
-				// Si la tarea va con estatus DIFERNTE a CERRADO
-				if ($estatus != $this->estatusGeneralModel->CERRADO) {
-					// Cambio status del caso
-					 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE || $caso->id_estatus_general == $this->estatusGeneralModel->SUSPENDIDO) {
-						$this->casoModel->update(array('id_estatus_general' => $this->estatusGeneralModel->PROCESO), array('id' => $id_caso));
-					}
+			// 	if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
+			// 		$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
+			// 	} else {
+			// 		// Verifico tarea a modificar antes sus avances y estatus
+			// 		$tarea = $this->tareaModel->get_tarea($id_tarea);
+			// 		if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
+			// 			$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
+			// 		} else {
+			// 			// Actualizo info de tarea
+			// 			$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
+			// 			$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
+			// 		}
+			// 	}
 
-					// Revision de tareas suspendidos
-					if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
-						// Verifico si todas las tareas ya estan cerradas
-						$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
-						$suspendidos 	= TRUE;
-						foreach ($tareas as $index => $tarea) {
-							if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
-								$suspendidos = FALSE;
-								break;
-							}
-						}
-						// SI TODOS ESTAN SUSPENDIDOS, supendo caso
-						if ($suspendidos) {
-							$this->casoModel->update(
-									array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
-									array('id' => $id_caso));
-						}
-					}
-				// Si la tarea va para cerrado
-				} else if($estatus == $this->estatusGeneralModel->CERRADO) {
-					// Verifico si todas las tareas ya estan cerradas
-					$tareas = $this->tareaModel->get_tareas_caso($id_caso);
-					$cerrados = TRUE;
-					foreach ($tareas as $index => $tarea) {
-						if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
-							$cerrados = FALSE;
-							break;
-						}
-					}
-					// SI TODOS ESTAN CERRADOS, PRECIERRO caso
-					if ($cerrados) {
-						$this->casoModel->update(
-								array('id_estatus_general' 	=> $this->estatusGeneralModel->PRECIERRE, 'fecha_final' => date('Y-m-d H:i:s')),
-								array('id' => $id_caso));
+			// 	// Si la tarea va con estatus DIFERNTE a CERRADO
+			// 	if ($estatus != $this->estatusGeneralModel->CERRADO) {
+			// 		// Cambio status del caso
+			// 		 if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE || $caso->id_estatus_general == $this->estatusGeneralModel->SUSPENDIDO) {
+			// 			$this->casoModel->update(array('id_estatus_general' => $this->estatusGeneralModel->PROCESO), array('id' => $id_caso));
+			// 		}
+			// 		// Revision de tareas suspendidos
+			// 		if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
+			// 			// Verifico si todas las tareas ya estan cerradas
+			// 			$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
+			// 			$suspendidos 	= TRUE;
+			// 			foreach ($tareas as $index => $tarea) {
+			// 				if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
+			// 					$suspendidos = FALSE;
+			// 					break;
+			// 				}
+			// 			}
+			// 			// SI TODOS ESTAN SUSPENDIDOS, supendo caso
+			// 			if ($suspendidos) {
+			// 				$this->casoModel->update(
+			// 						array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
+			// 						array('id' => $id_caso));
+			// 			}
+			// 		}
+			// 	// Si la tarea va para cerrado
+			// 	} else if($estatus == $this->estatusGeneralModel->CERRADO) {
+			// 		// Verifico si todas las tareas ya estan cerradas
+			// 		$tareas = $this->tareaModel->get_tareas_caso($id_caso);
+			// 		$cerrados = TRUE;
+			// 		foreach ($tareas as $index => $tarea) {
+			// 			if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
+			// 				$cerrados = FALSE;
+			// 				break;
+			// 			}
+			// 		}
+			// 		// SI TODOS ESTAN CERRADOS, PRECIERRO caso
+			// 		if ($cerrados) {
+			// 			$this->casoModel->update(
+			// 					array('id_estatus_general' 	=> $this->estatusGeneralModel->PRECIERRE, 'fecha_final' => date('Y-m-d H:i:s')),
+			// 					array('id' => $id_caso));
 
-						// SE ENVIA CORREO CON LINK DE LA ENCUESTA
-					}
-				}
-			}
+			// 			// SE ENVIA CORREO CON LINK DE LA ENCUESTA
+			// 		}
+			// 	}
+			// }
 
-			$response = array('exito' => $exito, 'msg' => $msg);
+			// $response = array('exito' => $exito, 'msg' => $msg);
 
 			$this->output
 				->set_content_type('application/json')
@@ -241,6 +242,12 @@ class Tarea extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * Funcion para establecer fecha tentativa de cierre,
+	 * al igual que fecha tentativa del cierre del caso
+	 *
+	 * @author Luis Macias
+	 **/
 	public function fecha_cierre() {
 		if ($this->input->is_ajax_request()) {
 			$id_tarea 		= $this->input->post('id_tarea');
@@ -306,83 +313,83 @@ class Tarea extends AbstractAccess {
 			$id_caso 	= $this->input->post('id_caso');
 
 			$update_tarea = array(
-						'id_estatus'	=> $estatus,
-						'avance'		=> $avance
-					);
+				'id_estatus'	=> $estatus,
+				'avance'		=> $avance
+			);
 
-			$exito = FALSE;
-			if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
-				$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
-			} else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
-				$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
-			} else {
-				// Obtengo Caso
-				$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
+			$response = $this->_avance_tarea($estatus, $avance, $id_caso, $id_tarea, $update_tarea);
 
-				if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
-					$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
-				} else {
-					// Verifico tarea a modificar antes sus avances y estatus
-					$tarea = $this->tareaModel->get_tarea($id_tarea);
-					if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
-						$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
-					} else {
-						// Actualizo info de tarea
-						$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
-						$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
-					}
-				}
+			// $exito = FALSE;
+			// if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
+			// 	$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
+			// } else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
+			// 	$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
+			// } else {
+			// 	// Obtengo Caso
+			// 	$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 
-				// Si la tarea va con estatus DIFERNTE a CERRADO
-				if ($estatus != $this->estatusGeneralModel->CERRADO) {
-					// Cambio status del caso
-					if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
-						$this->casoModel->update(
-												array('id_estatus_general' => $this->estatusGeneralModel->PROCESO),
-												array('id' => $id_caso));
-					}
-					// Revsion de tareas suspendido
-					if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
-						// Verifico si todas las tareas ya estan cerradas
-						$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
-						$suspendidos 	= TRUE;
-						foreach ($tareas as $index => $tarea) {
-							if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
-								$suspendidos = FALSE;
-								break;
-							}
-						}
-						// SI TODOS ESTAN SUSPENDIDOS, supendo caso
-						if ($suspendidos) {
-							$this->casoModel->update(
-									array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
-									array('id' => $id_caso));
-						}
-					}
-				// Si la tarea va para cerrado
-				} else if($estatus == $this->estatusGeneralModel->CERRADO) {
-					// Verifico si todas las tareas ya estan cerradas
-					$tareas = $this->tareaModel->get_tareas_caso($id_caso);
-					$cerrados = TRUE;
-					foreach ($tareas as $index => $tarea) {
-						if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
-							$cerrados = FALSE;
-							break;
-						}
-					}
+			// 	if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
+			// 		$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
+			// 	} else {
+			// 		// Verifico tarea a modificar antes sus avances y estatus
+			// 		$tarea = $this->tareaModel->get_tarea($id_tarea);
+			// 		if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
+			// 			$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
+			// 		} else {
+			// 			// Actualizo info de tarea
+			// 			$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
+			// 			$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
+			// 		}
+			// 	}
 
-					// SI TODOS ESTAN CERRADOS, cierro caso
-					if ($cerrados) {
-						$this->casoModel->update(
-						                       // Cambiara a precierre
-									array('id_estatus_general'  => $this->estatusGeneralModel->CERRADO, 'fecha_final'  => date('Y-m-d H:i:s')),
-									array('id' => $id_caso));
-						// SE ENVIA CORREO CON LINK DE LA ENCUESTA
-					}
-				}
-			}
+			// 	// Si la tarea va con estatus DIFERNTE a CERRADO
+			// 	if ($estatus != $this->estatusGeneralModel->CERRADO) {
+			// 		// Cambio status del caso
+			// 		if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE) {
+			// 			$this->casoModel->update(array('id_estatus_general' => $this->estatusGeneralModel->PROCESO), array('id' => $id_caso));
+			// 		}
+			// 		// Revsion de tareas suspendido
+			// 		if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
+			// 			// Verifico si todas las tareas ya estan cerradas
+			// 			$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
+			// 			$suspendidos 	= TRUE;
+			// 			foreach ($tareas as $index => $tarea) {
+			// 				if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
+			// 					$suspendidos = FALSE;
+			// 					break;
+			// 				}
+			// 			}
+			// 			// SI TODOS ESTAN SUSPENDIDOS, supendo caso
+			// 			if ($suspendidos) {
+			// 				$this->casoModel->update(
+			// 						array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
+			// 						array('id' => $id_caso));
+			// 			}
+			// 		}
+			// 	// Si la tarea va para cerrado
+			// 	} else if($estatus == $this->estatusGeneralModel->CERRADO) {
+			// 		// Verifico si todas las tareas ya estan cerradas
+			// 		$tareas = $this->tareaModel->get_tareas_caso($id_caso);
+			// 		$cerrados = TRUE;
+			// 		foreach ($tareas as $index => $tarea) {
+			// 			if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
+			// 				$cerrados = FALSE;
+			// 				break;
+			// 			}
+			// 		}
 
-			$response = array('exito' => $exito, 'msg' => $msg);
+			// 		// SI TODOS ESTAN CERRADOS, PRECIERRO caso
+			// 		if ($cerrados) {
+			// 			$this->casoModel->update(
+			// 			                       // Cambiara a precierre
+			// 						array('id_estatus_general'  => $this->estatusGeneralModel->PRECIERRE, 'fecha_final'  => date('Y-m-d H:i:s')),
+			// 						array('id' => $id_caso));
+			// 			// SE ENVIA CORREO CON LINK DE LA ENCUESTA
+			// 		}
+			// 	}
+			// }
+
+			// $response = array('exito' => $exito, 'msg' => $msg);
 
 			$this->output
 				->set_content_type('application/json')
@@ -532,6 +539,132 @@ class Tarea extends AbstractAccess {
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
+	}
+
+
+	private function _avance_tarea($estatus, $avance, $id_caso, $id_tarea, $update_tarea)
+	{
+		$exito = FALSE;
+		if ($estatus == $this->estatusGeneralModel->CERRADO && $avance != 100) {
+			$msg 	='No puedes cerrar la tarea hasta marcar el avance al 100%.';
+		} else if($estatus != $this->estatusGeneralModel->CERRADO && $avance == 100) {
+			$msg 	='No puedes marcar al 100% si la tarea no esta CERRADO.';
+		} else {
+			// Obtengo Caso
+			$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
+
+			if ($caso->id_estatus_general == $this->estatusGeneralModel->CERRADO) {
+				$msg 	='No puedes cambiar el estatus de una tarea si el caso esta cerrado.';
+			} else {
+				// Verifico tarea a modificar antes sus avances y estatus
+				$tarea = $this->tareaModel->get_tarea($id_tarea);
+				if ( ($tarea->avance == 100 && $avance < 100) || ($tarea->id_estatus == $this->estatusGeneralModel->CERRADO && $estatus != $this->estatusGeneralModel->CERRADO) ) {
+					$msg 	='No puedes cambiar el estatus  o disminuir avance de una tarea que ya está cerrada.';
+				} else {
+					// Actualizo info de tarea
+					$exito 	= $this->tareaModel->update($update_tarea, array('id_tarea' => $id_tarea));
+					$msg 	= (!$exito) ? 'No se actualizo en la base de datos' : '';
+				}
+			}
+
+			// Si la tarea va con estatus DIFERNTE a CERRADO
+			if ($estatus != $this->estatusGeneralModel->CERRADO) {
+				// Cambio status del caso
+				if ($caso->id_estatus_general == $this->estatusGeneralModel->PENDIENTE ||
+				    $caso->id_estatus_general == $this->estatusGeneralModel->REASIGNADO ||
+				    $caso->id_estatus_general == $this->estatusGeneralModel->SUSPENDIDO) {
+					$this->casoModel->update(array('id_estatus_general' => $this->estatusGeneralModel->PROCESO), array('id' => $id_caso));
+				}
+				// Revsion de tareas suspendido
+				if($estatus == $this->estatusGeneralModel->SUSPENDIDO) {
+					// Verifico si todas las tareas ya estan suspendidas
+					$tareas 		= $this->tareaModel->get_tareas_caso($id_caso);
+					$suspendidos 	= TRUE;
+					foreach ($tareas as $index => $tarea) {
+						if ($tarea->id_estatus != $this->estatusGeneralModel->SUSPENDIDO) {
+							$suspendidos = FALSE;
+							break;
+						}
+					}
+					// SI TODOS ESTAN SUSPENDIDOS, supendo caso
+					if ($suspendidos) {
+						$this->casoModel->update(
+								array('id_estatus_general' 	=> $this->estatusGeneralModel->SUSPENDIDO),
+								array('id' => $id_caso));
+					}
+				}
+			// Si la tarea va para cerrado
+			} else if($estatus == $this->estatusGeneralModel->CERRADO) {
+				// Verifico si todas las tareas ya estan cerradas
+				$tareas = $this->tareaModel->get_tareas_caso($id_caso);
+				$cerrados = TRUE;
+				foreach ($tareas as $index => $tarea) {
+					if ($tarea->id_estatus != $this->estatusGeneralModel->CERRADO) {
+						$cerrados = FALSE;
+						break;
+					}
+				}
+
+				// SI TODOS ESTAN CERRADOS, PRECIERRO caso
+				if ($cerrados) {
+					$this->casoModel->update(
+			               	 // Cambiara a precierre
+						array('id_estatus_general'  => $this->estatusGeneralModel->PRECIERRE, 'fecha_final'  => date('Y-m-d H:i:s')),
+						array('id' => $id_caso)
+					);
+
+					// Registro en la bd y envio de correo
+					$this->load->model('encuestamodel');
+
+					// Genero token unico
+					$token = sha1($id_tarea);
+
+					$encuesta = array(
+						'id_caso' 			=> $id_caso,
+						'token'				=> $token,
+						'fecha_enviado'		=> date('Y-m-d H:i:s')
+					);
+					// Inserto en la BD
+					if($this->encuestamodel->insert($encuesta))
+					{
+						$this->load->model('cotizacionmodel');
+						$this->load->model('contactosmodel');
+
+						// SI el caso es sin  cotiazion
+						if ($caso->folio_cotizacion == NULL) {
+							$this->load->model('clientemodel');
+							$cliente = $this->clientemodel->get(array('email'), array('id' => $caso->id_cliente), null, 'ASC', 1);
+							$email = $cliente->email;
+							$asunto = 'Caso terminado - Encuesta de evaluación';
+						} else {
+							$cotizacion 	= $this->cotizacionmodel->get(array('id_contacto'), array('folio' => $caso->folio_cotizacion), null, 'ASC', 1);
+							$contacto 		= $this->contactosmodel->get(array('email_contacto'), array('id' => $cotizacion->id_contacto), null, 'ASC', 1);
+							$email 			= $contacto->email_contacto;
+							$asunto 		= 'Caso no. '.$caso->folio_cotizacion.' terminado - Encuesta de evaluación';
+						}
+						// SE ENVIA CORREO CON LINK DE LA ENCUESTA
+						$this->load->library('email');
+
+						$this->email->set_mailtype('html');
+						$this->email->from('encuestas@moz67.com', 'Encuesta TiendaPaq - Caso Terminado');
+						$this->email->to($email);
+
+						$this->email->subject($asunto);
+
+						$this->data['url_encuesta'] 	= site_url('encuesta/'.$token);
+						$this->data['folio'] 				= ($caso->folio_cotizacion == NULL) ? 'Caso sin cotización' : $caso->folio_cotizacion;
+						$mensaje =  $this->load->view('admin/general/full-pages/email/email_url_encuesta', $this->data, TRUE);
+
+						$this->email->message($mensaje);
+
+						$exito 	= $this->email->send();
+						$msg 	= $this->email->print_debugger();
+					}
+				}
+			}
+		}
+
+		return array('exito' => $exito, 'msg' => $msg);
 	}
 }
 
