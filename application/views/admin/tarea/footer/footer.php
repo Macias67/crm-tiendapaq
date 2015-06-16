@@ -32,6 +32,7 @@
 	<!-- END CORE PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/moment.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 	<script src="<?php echo $assets_global_plugins ?>jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
@@ -41,6 +42,7 @@
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="<?php echo $assets_global_plugins ?>bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->

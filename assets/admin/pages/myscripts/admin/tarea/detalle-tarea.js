@@ -1,13 +1,12 @@
 var DetalleTarea = function() {
 
 	var handleDatePickers = function () {
-		if (jQuery().datetimepicker) {
 			$('.datepicker').datepicker({
-				timePicker: true,
 				format: 'dd/mm/yyyy',
-				locale: 'es'
+				startDate: 'd',
+        		todayHighlight: true,
+				language: 'es'
 			});
-		}
 	}
 
 	var verCotizacion = function() {
