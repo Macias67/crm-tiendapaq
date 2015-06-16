@@ -5,6 +5,7 @@ var DetalleTarea = function() {
 				format: 'dd/mm/yyyy',
 				startDate: 'd',
         		todayHighlight: true,
+				autoclose: true,
 				language: 'es'
 			});
 	}
