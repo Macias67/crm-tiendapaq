@@ -180,11 +180,18 @@ class Encuesta extends AbstractController {
 			$mensaje = $this->_vista_completa('email/email_respuestas_cuestionario', TRUE);
 			$this->email->message($mensaje);
 
-			$this->email->send();
+			$envio = $this->email->send();
+
+			$exito = ($update_caso && $update_encuesta && $envio);
+			if ($exito) {
+				$msg = 'Gracias por su tiempo, sus respuestas nos ayudarán a mejorar el servicio';
+			} else {
+				$msg = 'No se pudo registar en la BD o enviar correo de respuesta';
+			}
 
 			$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode(array('puntaje' => $puntaje)));
+				->set_output(json_encode(array('msg' => $msg)));
 		}
 	}
 
