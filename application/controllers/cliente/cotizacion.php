@@ -64,8 +64,8 @@ class Cotizacion extends AbstractAccess {
 			$this->load->model('estatusCotizacionModel');
 			$this->data['cotizacion'] = $cotizacion;
 			if ($cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PORPAGAR ||
-					$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->IRREGULAR ||
-					$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PARCIAL ||
+				$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->IRREGULAR ||
+				$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->PARCIAL ||
 				$cotizacion->id_estatus_cotizacion == $this->estatusCotizacionModel->CXC)
 			{
 				$this->_vista('formulario');

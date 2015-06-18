@@ -449,15 +449,15 @@
 		});
 	}
 
-	// Envia datos para mostar un pdf 
+	// Envia datos para mostar un pdf
 	var enviaPDFCliente = function() {
 		var enviar = $('#enviar');
 
 		enviar.on('click', function() {
 			var select_razon_social	= $('#razon_social').val();
-			var select_contactos		= $('#contactos').val();
-			var cxc				= $('#ceporc').is(':checked'); //Arroja un booleano en lugar de "undefined"
-			var pass			= $('#password').val();
+			var select_contactos	= $('#contactos').val();
+			var cxc					= $('#ceporc').is(':checked'); //Arroja un booleano en lugar de "undefined"
+			var pass				= $('#password').val();
 			var fechapsw			= $('#fechapsw').val();
 			console.log(cxc);
 			console.log(pass);

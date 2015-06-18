@@ -69,7 +69,7 @@
 												</tr>
 												<tr>
 													<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-														¿Cómo calificaría el conocimiento o experiencia del asesor asignado? <b>(<?php echo $puntos4 ?>/20 pts)</b> <br />
+														¿Cómo calificaría el conocimiento o experiencia del asesor asignado? <b>(<?php echo $puntos4 ?>/30 pts)</b> <br />
 														<b><?php echo $respuesta4 ?></b>
 													</td>
 												</tr>
@@ -94,7 +94,7 @@
 												</tr>
 												<tr>
 													<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
-														Calificación final (Minimo 80% para cerrar caso) <br />
+														Calificación final (Mínimo 80% para cerrar caso) <br />
 														<b><?php echo $puntaje ?></b>
 													</td>
 												</tr>

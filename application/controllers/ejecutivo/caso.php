@@ -153,6 +153,7 @@ class Caso extends AbstractAccess {
 		$this->load->helper('formatofechas_helper');
 		$this->load->helper('cotizacion');
 		$this->load->helper('estatus');
+		$this->load->model('encuestamodel');
 
 		$casoreasignado	= $this->reasignarcasomodel->get_where(array('id_caso' => $id_caso));
 		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
@@ -204,7 +205,21 @@ class Caso extends AbstractAccess {
 			$this->data['boton_reasignar'] 		= TRUE;
 		}
 
-		// Fecha tentatica caso
+		// Muestra el boton Cerrar caso
+		$encuesta = $this->encuestamodel->get_where(array('id_caso' => $id_caso));
+		if ($encuesta != NULL &&
+		    	$encuesta->calificacion !="0" &&
+		    	$encuesta->fecha_respuesta != "1000-01-01" &&
+		    	$caso->id_estatus_general == $this->estatusgeneralmodel->PRECIERRE &&
+		    	$caso->id_lider == $this->usuario_activo['id'])
+		{
+			$this->data['boton_cerrar_caso'] 	= TRUE;
+		} else
+		{
+			$this->data['boton_cerrar_caso'] 	= FALSE;
+		}
+
+		// Fecha tentativa caso
 		$caso->fecha_tentativa_cierre = ($caso->fecha_tentativa_cierre) ? fecha_completa($caso->fecha_tentativa_cierre) : 'Sin establecer ';
 
 		// Total comentarios por tarea
@@ -230,7 +245,8 @@ class Caso extends AbstractAccess {
 		$this->data['estatus_caso'] 	= id_estatus_gral_to_class_html($caso->id_estatus_general);
 		$this->data['tareas'] 			= $tareas;
 		$this->data['ejecutivos'] 		= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-		$this->data['caso'] 			= $caso;
+		$this->data['encuesta'] 		= $encuesta;
+		$this->data['caso'] 				= $caso;
 		$this->data['notas'] 			= $notas;
 		$this->data['casoreasignado'] 	= $casoreasignado;
 		$this->_vista('detalle-caso');
@@ -459,16 +475,27 @@ class Caso extends AbstractAccess {
 			$id_caso = $this->input->post('id_caso');
 			if ($caso = $this->casoModel->get_where(array('id' => $id_caso))) {
 				$this->load->model('estatusGeneralModel');
+				$this->load->model('cotizacionmodel');
+				$this->load->model('estatuscotizacionmodel');
 
-				$update = array(
-						'id_estatus_general' 	=> $this->estatusGeneralModel->CERRADO,
-						'fecha_final' 			=> date('Y-m-d H:i:s'));
+				// Si la cotizacion esta pagada
+				$cotizacion = $this->cotizacionmodel->get_where(array('folio' => $caso->folio_cotizacion));
+				if ($cotizacion->id_estatus_cotizacion == $this->estatuscotizacionmodel->PAGADO) {
 
-				if($this->casoModel->update($update, array('id' => $id_caso))){
-					$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
-				}else{
-					$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+					$update = array('id_estatus_general' => $this->estatusGeneralModel->CERRADO);
+					if (empty($caso->fecha_final) || $caso->fecha_final == NULL) {
+						$update['fecha_final'] = date('Y-m-d H:i:s');
+					}
+
+					if($this->casoModel->update($update, array('id' => $id_caso))){
+						$respuesta = array('exito' => TRUE, 'msg' => '<h4>Caso cerrado con éxito.</h4>');
+					}else{
+						$respuesta = array('exito' => FALSE, 'msg' => '<h4>Error! revisa la consola para mas detalles.</h4>');
+					}
+				} else {
+					$respuesta = array('exito' => TRUE, 'msg' => '<h4>El caso no se puede cerrar hasta que la cotización este pagada.</h4>');
 				}
+
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($respuesta));

@@ -86,7 +86,7 @@ class Encuesta extends AbstractController {
 			$puntos4 	= ($pregunta4*30)/10;
 			$puntaje 	+= $puntos4;
 
-			// Pregunta 5
+			// Pregunta 5 - 10,5,0
 			if ($pregunta5 == 'si') {
 				$puntos5 = 10;
 			} elseif ($pregunta5 == 'no') {
@@ -178,7 +178,7 @@ class Encuesta extends AbstractController {
 			$this->email->subject($asunto);
 
 			// Descripcion
-			$this->data['folio'] 		= ($caso->folio_cotizacion) ? 'Folio: '.$caso->folio_cotizacion : 'Sin Cotización';
+			$this->data['folio'] 		= ($caso->folio_cotizacion) ? $caso->folio_cotizacion : 'Sin Cotización';
 			$this->data['id_caso'] 	= $caso->id;
 			$this->data['lider'] 		= $lider->primer_nombre.' '.$lider->apellido_paterno;
 			$this->data['cliente']	= $cliente->razon_social;

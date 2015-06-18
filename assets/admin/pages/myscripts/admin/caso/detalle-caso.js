@@ -344,6 +344,25 @@ var DetalleCaso = function() {
 		});
 	}
 
+	var cierraCasoManual = function() {
+		$('#cierra_caso').on('click', function() {
+			var id_caso = $('input[name="id_caso"]').val();
+			bootbox.confirm('<h3>¿Seguro que desea cerrar el caso por completo?</h3>', function(confirm) {
+				if (confirm) {
+					$.post('/caso/cerrar', {id_caso:id_caso}, function(data, textStatus, xhr) {
+						if (data.exito) {
+							bootbox.alert(data.msg, function() {
+								location.reload(true);
+							});
+						} else{
+							bootbox.alert(data.msg);
+						};
+					});
+				};
+			});
+		});
+	};
+
 	return {
 		init : function() {
 			FormValidacionTarea();
@@ -355,6 +374,7 @@ var DetalleCaso = function() {
 			fancyBox();
 			modalEditarNota();
 			tablaNotasTareas();
+			cierraCasoManual();
 		}
 	}
 }();

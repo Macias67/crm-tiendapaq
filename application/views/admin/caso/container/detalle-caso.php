@@ -33,8 +33,13 @@
 							<div class="portlet-body">
 								<div class="row">
 									<div class="col-md-12">
+									<?php if ($encuesta->calificacion != "0"): ?>
 										<h5>Evaluación: </h5>
-										<h4><b>89 puntos</b></h4>
+										<h4><b><?php echo $encuesta->calificacion ?> puntos</b></h4>
+									<?php elseif($encuesta->fecha_respuesta != "1000-01-01"): ?>
+										<h5><b>En espera de contestar encuesta.</b></h5>
+										<h5>Enviado: <b><?php echo fecha_completa($encuesta->fecha_enviado) ?></b></h5>
+									<?php endif ?>
 
 										<h5>Cliente: </h5>
 										<h4><b><?php echo $caso->razon_social ?></b></h4>
@@ -73,11 +78,13 @@
 								</div>
 								<?php endif ?>
 								<br>
+								<?php if ($boton_cerrar_caso): ?>
 								<div class="row">
 									<div class="col-md-12">
-										<button class="btn btn-circle red btn-block">Cerrar Caso - Evaluación: <b>50%</b></button>
+										<button class="btn btn-circle red btn-block" id="cierra_caso">Cerrar Caso - Evaluación: <b><?php echo $encuesta->calificacion ?>%</b></button>
 									</div>
 								</div>
+								<?php endif ?>
 							</div>
 						</div>
 
