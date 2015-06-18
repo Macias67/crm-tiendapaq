@@ -132,6 +132,9 @@ var TableManaged = function () {
 					case 3:
 						label = '<p class="btn btn-circle btn-xs green"> Pendiente </p>';
 					break;
+					case 4:
+						label = '<p class="btn btn-circle btn-xs bg-green-turquoise"> Precierre </p>';
+					break;
 					case 5:
 						label = '<p class="btn btn-circle btn-xs yellow"> En Proceso</p>';
 					break;

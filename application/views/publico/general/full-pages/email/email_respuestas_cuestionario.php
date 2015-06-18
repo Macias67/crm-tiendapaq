@@ -95,7 +95,7 @@
 												<tr>
 													<td class="panel" style="background: #ECF8FF;border: 0;padding: 10px !important;">
 														Calificación final (Minimo 80% para cerrar caso) <br />
-														<b><?php echo $puntaje ?>% - Cierra Caso</b>
+														<b><?php echo $puntaje ?></b>
 													</td>
 												</tr>
 											</table>

@@ -23,14 +23,14 @@ class estatusCotizacionModel extends CI_Model {
 		$this->table	= self::TABLE;
 	}
 
-	var $PORPAGAR	= 1;
-	var $REVISION	= 2;
+	var $PORPAGAR		= 1;
+	var $REVISION		= 2;
 	var $PAGADO		= 3;
 	var $IRREGULAR	= 4;
-	var $VENCIDO	= 5;
-	var $PARCIAL	= 6;
+	var $VENCIDO		= 5;
+	var $PARCIAL		= 6;
 	var $CANCELADA	= 7;
-	var $CXC		= 8;
+	var $CXC			= 8;
 
 }
 

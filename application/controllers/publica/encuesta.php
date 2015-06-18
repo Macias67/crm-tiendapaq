@@ -24,7 +24,7 @@ class Encuesta extends AbstractController {
 			$this->data['token'] 	= $encuesta->token;
 			$this->_vista('encuesta');
 		} else {
-			show_404();
+			redirect('/');
 		}
 	}
 
@@ -98,7 +98,7 @@ class Encuesta extends AbstractController {
 
 			$this->load->model('casomodel');
 			$this->load->model('ejecutivomodel');
-			$this->load->model('clietemodel');
+			$this->load->model('clientemodel');
 
 			$caso 		= $this->casomodel->get_where(array('id' => $id_caso));
 			$lider		= $this->ejecutivomodel->get_where(array('id' => $caso->id_lider));
@@ -110,13 +110,35 @@ class Encuesta extends AbstractController {
 			 */
 			$update_caso = TRUE;
 			if ($puntaje >= 80) {
+
+				// Compruebo que la cotizacion este pagada,
+				// asi compruebo que las cotizaciones parciales o CxC
+				// estan pagadas
 				$this->load->model('estatusgeneralmodel');
 
-				// Cierro el caso
-				$update_caso = $this->casomodel->update(
-					array('id_estatus_general' => $this->estatusgeneralmodel->CERRADO),
-					array('id' => $id_caso)
-				);
+				$cotizacion_pagada = TRUE;
+				// Si tiene cotizacion ligada
+				if ($caso->folio_cotizacion != NULL) {
+					$this->load->model('cotizacionmodel');
+					$this->load->model('estatuscotizacionmodel');
+					$cotizacion = $this->cotizacionmodel->get_where(array('folio' => $caso->folio_cotizacion));
+
+					if ($cotizacion->id_estatus_cotizacion == $this->estatuscotizacionmodel->PAGADO) {
+						// Cierro el caso
+						$update_caso = $this->casomodel->update(
+							array('id_estatus_general' => $this->estatusgeneralmodel->CERRADO),
+							array('id' => $id_caso)
+						);
+					} else {
+						$cotizacion_pagada = FALSE;
+					}
+				} else {
+					// Cierro el caso
+					$update_caso = $this->casomodel->update(
+						array('id_estatus_general' => $this->estatusgeneralmodel->CERRADO),
+						array('id' => $id_caso)
+					);
+				}
 			}
 
 			// Guardo respuestas encuesta
@@ -146,7 +168,7 @@ class Encuesta extends AbstractController {
 			$this->email->set_mailtype('html');
 
 			$asunto = $puntaje.'% - ';
-			$asunto .= ($caso->folio_cotizacion) ? 'Folio: '.$caso->folio_cotizacion.' - ' : 'Sin Cotización';
+			$asunto .= ($caso->folio_cotizacion) ? 'Folio: '.$caso->folio_cotizacion.' - ' : 'Sin Cotización - ';
 			$asunto .= $cliente->razon_social;
 
 			$this->email->from('encuestas@moz67.com',  'Encuestas TiendaPAQ');
@@ -156,7 +178,7 @@ class Encuesta extends AbstractController {
 			$this->email->subject($asunto);
 
 			// Descripcion
-			$this->data['folio'] 		= ($caso->folio_cotizacion) ? 'Folio: '$caso->folio_cotizacion : 'Sin Cotización';
+			$this->data['folio'] 		= ($caso->folio_cotizacion) ? 'Folio: '.$caso->folio_cotizacion : 'Sin Cotización';
 			$this->data['id_caso'] 	= $caso->id;
 			$this->data['lider'] 		= $lider->primer_nombre.' '.$lider->apellido_paterno;
 			$this->data['cliente']	= $cliente->razon_social;
@@ -184,20 +206,17 @@ class Encuesta extends AbstractController {
 
 			$exito = ($update_caso && $update_encuesta && $envio);
 			if ($exito) {
-				$msg = 'Gracias por su tiempo, sus respuestas nos ayudarán a mejorar el servicio';
+				$msg = ($cotizacion_pagada) ?
+					'Gracias por su tiempo, sus respuestas nos ayudarán a mejorar el servicio.' :
+					'Parece ser que la cotización aún no esta pagada, por lo tanto el caso seguirá sin cerrar.';
 			} else {
 				$msg = 'No se pudo registar en la BD o enviar correo de respuesta';
 			}
 
 			$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode(array('msg' => $msg)));
+				->set_output(json_encode(array('msg' => $msg, 'url' => base_url())));
 		}
-	}
-
-	public function correo()
-	{
-		$this->_vista_completa('email/email_respuestas_cuestionario');
 	}
 }
 

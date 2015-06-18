@@ -119,7 +119,7 @@ var Encuesta = function() {
 					email: true
 				},
 				p5_telefono: {
-					minlength: 14
+					minlength: 10
 				},
 				p5_porque: {
 					minlength: 10
@@ -151,14 +151,14 @@ var Encuesta = function() {
 					required: "Selecciona una opción"
 				},
 				p5_nombre: {
-					minlength: "Escribe  mínimo 10 caracteres"
+					minlength: "Escribe mínimo 10 caracteres"
 				},
 				p5_email: {
-					minlength: "Escribe  mínimo 10 caracteres",
+					minlength: "Escribe mínimo 10 caracteres",
 					email: "Escribe un email válido"
 				},
 				p5_telefono: {
-					minlength: "Escribe  mínimo 14 caracteres"
+					minlength: "Escribe mínimo 10 caracteres"
 				},
 				p5_porque: {
 					minlength: "El municipio debe tener menos de 50 caracteres"
@@ -204,18 +204,10 @@ var Encuesta = function() {
 						});
 					},
 					success: function(data) {
-						console.log(data);
-						// if (data.registrado) {
-						// 	Metronic.removeLoader();
-						// 	bootbox.alert("<h3>"+data.mensaje+"<h3>", function() {
-						// 		window.location.replace("/cursos");
-						// 	});
-						// } else {
-						// 	bootbox.alert("<h3>"+data.msgerror+"<h3>", function() {
-						// 		$('body').animate({ scrollTop: 0 }, 600);
-						// 		Metronic.removeLoader();
-						// 	});
-						// }
+						Metronic.removeLoader();
+						bootbox.alert("<h3>"+data.msg+"<h3>", function() {
+							window.location.replace(data.url);
+						});
 					}
 				});
 			}

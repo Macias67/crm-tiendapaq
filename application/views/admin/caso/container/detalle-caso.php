@@ -33,6 +33,9 @@
 							<div class="portlet-body">
 								<div class="row">
 									<div class="col-md-12">
+										<h5>Evaluación: </h5>
+										<h4><b>89 puntos</b></h4>
+
 										<h5>Cliente: </h5>
 										<h4><b><?php echo $caso->razon_social ?></b></h4>
 
@@ -69,6 +72,12 @@
 									</div>
 								</div>
 								<?php endif ?>
+								<br>
+								<div class="row">
+									<div class="col-md-12">
+										<button class="btn btn-circle red btn-block">Cerrar Caso - Evaluación: <b>50%</b></button>
+									</div>
+								</div>
 							</div>
 						</div>
 
