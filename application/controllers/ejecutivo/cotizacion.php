@@ -203,10 +203,11 @@ class Cotizacion extends AbstractAccess {
 	{
 		$folio =$this->input->post('folio');
 		$name =$this->input->post('name');
+		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(array('id_cliente'), array(''), $folio);
 
 		if ($existe = $this->cotizacionModel->exist(array('folio' => $folio)))
 		{
-			$dir_root	= site_url('assets/admin/pages/media/factura/'.$folio).'/';
+			$dir_root	= site_url('clientes/'.$cotizacion->id_cliente.'/factura/'.$folio).'/';
 			$path		= $dir_root.$name;
 			$response 	= array('existe' => $existe, 'ruta' => $path);
 		} else {
@@ -269,7 +270,7 @@ class Cotizacion extends AbstractAccess {
 			$this->load->model('estatusCotizacionModel');
 			$this->load->helper('directory');
 			$this->load->helper('file');
-			$ruta_factura = 'assets/admin/pages/media/factura/'.$folio;
+			$ruta_factura = 'clientes/'.$cotizacion->id_cliente.'/factura/'.$folio.'/';
 			$facturas = directory_map($ruta_factura);
 			$ruta = '/clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/';
 			$archivos = directory_map('.'.$ruta, 1);
@@ -313,10 +314,15 @@ class Cotizacion extends AbstractAccess {
 		$folio 		= $this->input->post('folio');
 		$tipo 		= $this->input->post('tipo');
 		$cxc 		= $this->input->post('cxc');
-		$valoracion = $this->input->post('valoracion');
+		$valoracion	 = $this->input->post('valoracion');
 
 		$this->load->model('estatusCotizacionModel');
 		$this->load->model('estatusGeneralModel');
+		$this->load->model('encuestamodel');
+		$this->load->model('casomodel');
+
+		$caso = $this->casomodel->get_where(array('folio_cotizacion'=>$folio));
+		$encuesta = $this->encuestamodel->get_where(array('id_caso' =>$caso->id));
 
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
 
@@ -471,24 +477,32 @@ class Cotizacion extends AbstractAccess {
 			}
 		} elseif ($tipo == 'normal') {
 			if ($valoracion == "aceptado") {
+				$this->load->model('casoModel');
 				// Cambie estatus de la cotizacion a PAGADO
 				if ($this->cotizacionModel->update(
 					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
 					array('folio' => $folio)))
 				{
-					$this->load->model('casoModel');
-
-					$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
-					$caso = array(
-					    'id_lider' 				=> NULL,
-						'id_estatus_general' 	=> $this->estatusGeneralModel->PORASIGNAR,
-						'id_cliente' 			=> $cotizacion->id_cliente,
-						'folio_cotizacion'		=> $folio,
-						'fecha_inicio' 			=> date('Y-m-d H:i:s'));
-					// Abro un nuevo CASO
-					if ($this->casoModel->insert($caso))
-					{
-						$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, nuevo caso abierto en espera de asignación.</h3>');
+					if (($encuesta->fecha_respuesta != null) && ($encuesta->calificacion >= 80)) {
+						if($this->casoModel->update(
+							array('id_estatus_general' => $this->estatusGeneralModel->CERRADO),
+							array('id'=>$caso->id)))
+						{
+							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, caso cerrado.</h3>');
+						}
+					}else{
+						$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
+						$caso = array(
+						    	'id_lider' 			=> NULL,
+							'id_estatus_general' 		=> $this->estatusGeneralModel->PORASIGNAR,
+							'id_cliente' 			=> $cotizacion->id_cliente,
+							'folio_cotizacion'		=> $folio,
+							'fecha_inicio' 			=> date('Y-m-d H:i:s'));
+						// Abro un nuevo CASO
+						if ($this->casoModel->insert($caso))
+						{
+							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, nuevo caso abierto en espera de asignación.</h3>');
+						}
 					}
 				}
 			}
@@ -580,7 +594,6 @@ class Cotizacion extends AbstractAccess {
 				}
 			}
 		}
-
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));
@@ -666,9 +679,9 @@ class Cotizacion extends AbstractAccess {
 	public function factura($folio)
 	{
 		$this->load->helper('file');
-
+		$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(array('id_cliente'), array(''), $folio);
 		// Armo la ruta donde guardare la imagen a subir
-		$ruta = 'assets/admin/pages/media/factura/'.$folio.'/';
+		$ruta = 'clientes/'.$cotizacion->id_cliente.'/factura/'.$folio.'/';
 		delete_files($ruta);
 		//Si el directorio de $ruta no existe es creado
 		if (!is_dir($ruta))
@@ -685,7 +698,7 @@ class Cotizacion extends AbstractAccess {
 		$this->load->library('upload', $config_upload);
 
 		if ($this->upload->do_upload()) {
-			redirect('cotizaciones/revision/'.$folio);
+			 redirect('cotizaciones/revision/'.$folio);
 		}else
 		{
 			echo $this->upload->display_errors();
