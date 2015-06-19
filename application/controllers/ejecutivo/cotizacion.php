@@ -329,7 +329,7 @@ class Cotizacion extends AbstractAccess {
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
 
 		// Verificamos que la cotización sea cuenta por cobrar (CXC), si no es una cotización "NORMAL".
-		if ($cuentaporcobrar == '8')
+		if ($cuentaporcobrar == $this->estatusCotizacionModel->CXC)
 		{
 			if ($valoracion == "aceptado") // Verifica que la cotización CXC sea aceptada.
 			{
@@ -337,8 +337,7 @@ class Cotizacion extends AbstractAccess {
 				{
 					if (($encuesta->fecha_respuesta != null) && ($encuesta->calificacion >= 80))
 					{
-						//La encuesta fue contestada y tiene una calificación mayor a 80 pts. se cierra el caso y se valida el pago.
-						if(
+						if(//La encuesta fue contestada y tiene una calificación mayor a 80 pts. se cierra el caso y se valida el pago.
 							($this->casomodel->update(		array('id_estatus_general' => $this->estatusGeneralModel->CERRADO),
 												array('id'=>$caso->id))) &&
 							($this->cotizacionModel->update(	array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
@@ -346,16 +345,20 @@ class Cotizacion extends AbstractAccess {
 						{
 							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada.</h3>');
 						}
-					}
-					 else
-					{
-						//Si la encuesta existe pero no ha sido contestada, simplemente se valida el pago y se espera que el caso sea cerrado por encuesta o manualmente.
-						if ($this->cotizacionModel->update(
-							array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
-							array('folio' => $folio)))
+					}else{	//La encuesta fue contestada y tiene una calificación menor a 80 pts. se valida el pago, y modificamos estatus de cotizacion.
+						if(($this->cotizacionModel->update(	array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+											array('folio' => $folio))))
 						{
 							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada.</h3>');
 						}
+					}
+				}else{ //Si no existe la encuesta
+					//Si la encuesta no existe , simplemente se valida el pago y se espera que el caso sea cerrado por encuesta o manualmente.
+					if ($this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+						array('folio' => $folio)))
+					{
+						$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada.</h3>');
 					}
 				}
 			}
