@@ -127,6 +127,7 @@
 							<div class="form-group">
 								<input type="hidden" id="folio" value="<?php $cotizacion->folio ?>">
 								<input type="hidden" id="cliente" value="<?php $cotizacion->id_cliente ?>">
+								<input type="hidden" id="cuentaporcobrar" value="<?php ($cotizacion->id_estatus_cotizacion==8) ? print_r($cotizacion->id_estatus_cotizacion) : false ?>">
 								<label>Valoración: </label>
 								<div class="radio-list">
 									<label class="radio-inline">

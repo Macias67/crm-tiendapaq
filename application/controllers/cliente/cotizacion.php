@@ -159,10 +159,7 @@ class Cotizacion extends AbstractAccess {
 				$this->cotizacionModel->exist(array('folio' => $folio, 'id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC)))
 			{
 				if ($cxc == $this->estatusCotizacionModel->CXC) {
-					$exito = $this->cotizacionModel->update(
-						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC),
-						array('folio' => $folio));
-					$response = array('exito' => $exito);
+					$response = array('exito' => TRUE);
 				}else{
 					$exito = $this->cotizacionModel->update(
 						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->REVISION),
