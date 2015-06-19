@@ -56,7 +56,7 @@ var FormFileUpload = function () {
 
 			bootbox.confirm(mensaje, function(response) {
 				if (response) {
-					$.post('/cotizacion/estado', {folio: folio,cxc: cxc}, function(data, textStatus, xhr) {
+					$.post('/cotizacion/estado', {folio: folio, cxc:cxc}, function(data, textStatus, xhr) {
 						if(data.exito)
 						{
 							bootbox.alert('<h3>Archivos enviados con éxito.</h3>', function() {

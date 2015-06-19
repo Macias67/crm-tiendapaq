@@ -12,6 +12,7 @@ class Cotizacion extends AbstractAccess {
 		parent::__construct();
 		$this->load->model('cotizacionModel');
 		$this->load->helper('formatofechas_helper');
+		$this->load->model('casomodel');
 	}
 
 	/**
@@ -102,6 +103,7 @@ class Cotizacion extends AbstractAccess {
 				'cotizacion.total_comentarios',
 				'cotizacion.visto',
 		              'clientes.razon_social',
+		              'clientes.id as id_cliente',
 		              'ejecutivos.primer_nombre',
 		              'ejecutivos.segundo_nombre',
 		              'ejecutivos.apellido_paterno',
@@ -153,7 +155,7 @@ class Cotizacion extends AbstractAccess {
 				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion),
 				'total_comentarios'			=> $cotizacion->total_comentarios,
 				'visto'					=> ($cotizacion->visto) ? TRUE : FALSE,
-				'facturado'				=> is_dir('assets/admin/pages/media/factura/'.$cotizacion->folio.'/') ? TRUE : FALSE
+				'facturado'				=> is_dir('clientes/'.$cotizacion->id_cliente.'/factura/'.$cotizacion->folio.'/')
 			       );
 			array_push($proceso, $p);
 		}
@@ -259,7 +261,6 @@ class Cotizacion extends AbstractAccess {
 			'cotizacion.tipo',
 			'clientes.razon_social');
 		if ($cotizacion = $this->cotizacionModel->get_cotizacion_cliente($campos, array('clientes'), $folio)) {
-
 			// Marco como VISTO el campo de la tabla en cotizaciones y
 			// los comentarios respectivos
 			$this->load->model('comentariosCotizacionModel');
@@ -290,6 +291,7 @@ class Cotizacion extends AbstractAccess {
 			$this->load->helper('formatofechas_helper');
 
 			$this->data['cotizacion'] 	= $cotizacion;
+
 			$this->data['imagenes'] 	= $imagenes;
 			$this->data['pdfs'] 			= $pdfs;
 			$this->data['ruta_pdf']		= $ruta;
@@ -311,186 +313,271 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function apertura()
 	{
-		$folio 		= $this->input->post('folio');
-		$tipo 		= $this->input->post('tipo');
-		$cxc 		= $this->input->post('cxc');
-		$valoracion	 = $this->input->post('valoracion');
+		$folio 			= $this->input->post('folio');
+		$tipo 			= $this->input->post('tipo');
+		$cxc 			= $this->input->post('cxc');
+		$cuentaporcobrar 	= $this->input->post('cuentaporcobrar');
+		$valoracion	 	= $this->input->post('valoracion');
 
 		$this->load->model('estatusCotizacionModel');
 		$this->load->model('estatusGeneralModel');
 		$this->load->model('encuestamodel');
-		$this->load->model('casomodel');
 
 		$caso = $this->casomodel->get_where(array('folio_cotizacion'=>$folio));
 		$encuesta = $this->encuestamodel->get_where(array('id_caso' =>$caso->id));
 
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
 
-		if ($tipo == 'evento') {
-			if ($valoracion == "aceptado") {
-				// Cambie estatus de la cotizacion a PAGADO
-				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO), array('folio' => $folio)))
+		// Verificamos que la cotización sea cuenta por cobrar (CXC), si no es una cotización "NORMAL".
+		if ($cuentaporcobrar == '8')
+		{
+			if ($valoracion == "aceptado") // Verifica que la cotización CXC sea aceptada.
+			{
+				if ($encuesta->id_caso != null) // Si la encuesta existe
 				{
-					$this->load->model('participantesmodel');
-					$this->load->model('eventomodel');
+					if (($encuesta->fecha_respuesta != null) && ($encuesta->calificacion >= 80))
+					{
+						//La encuesta fue contestada y tiene una calificación mayor a 80 pts. se cierra el caso y se valida el pago.
+						if(
+							($this->casomodel->update(		array('id_estatus_general' => $this->estatusGeneralModel->CERRADO),
+												array('id'=>$caso->id))) &&
+							($this->cotizacionModel->update(	array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+												array('folio' => $folio))))
+						{
+							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada.</h3>');
+						}
+					}
+					 else
+					{
+						//Si la encuesta existe pero no ha sido contestada, simplemente se valida el pago y se espera que el caso sea cerrado por encuesta o manualmente.
+						if ($this->cotizacionModel->update(
+							array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+							array('folio' => $folio)))
+						{
+							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada.</h3>');
+						}
+					}
+				}
+			}
 
-					// INSERTAR CONTACTO A TABLA DE PARTICIPANTES
-					$cotizacion 	= $this->cotizacionModel->get_where(array('folio' => $folio));
-					$evento 		= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
-					$particpantes 	= $this->participantesmodel->get_where(array('id_evento' => $cotizacion->id_evento));
+			if ($valoracion == "irregular")
+			{
+				//ENVÍO DE PDF PARA SITUACIÓN IRREGULAR
+				$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
+						array(
+							'cotizacion.id_cliente',
+							'cotizacion.folio',
+							'cotizacion.fecha',
+							'cotizacion.vigencia',
+							'contactos.nombre_contacto',
+							'contactos.apellido_paterno',
+							'contactos.apellido_materno',
+							'contactos.email_contacto',
+							'clientes.razon_social',
+							'clientes.email',
+							'clientes.usuario',
+							'clientes.password',
+							'estatus_cotizacion.descripcion'
+						),
+						array('clientes', 'contactos', 'estatus_cotizacion'),
+						$folio);
 
-					// Validar si el total de participantes no ha llegado al límite
-					if (count($particpantes) < $evento->max_participantes) {
-						$participante = array(
-								'id_evento' 		=> $cotizacion->id_evento,
-								'id_contacto' 	=> $cotizacion->id_contacto);
-						// Inserto participante en la tabla
-						if ($exito = $this->participantesmodel->insert($participante)) {
-							$msj = '<h3>Se ha registrado el contacto a la lista de participantes de este curso.</h3>';
-							// ENVIO DE EMAIL
-							/*CODIGO PARA ENVIO DE CORREO COTIZACION*/
-							if (!LOCAL) {
-								$this->load->library('email');
-								$this->load->helper('formatofechas');
-								$this->load->model('sesionmodel');
-								$this->load->model('oficinasmodel');
-								$this->load->model('contactosModel');
-								$this->load->model('clienteModel');
+				$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
+				$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+				$path 		= $dir_root.$name;
 
-								// Datos del contacto
-								// Extraigo info del participante (contacto)
-								$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
-								// Extraigo usuario y contraseña del cliente
-								$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
+				if (!LOCAL)
+				{
+					$this->load->helper('formatofechas');
+					$this->load->library('email');
 
-								//Extracción de la BD de las sesiones
-								if ($this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento)) > 1) {
-									$sesiones = $this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento));
-								}else
-								{
-									$sesiones = $this->sesionmodel->get_where(array('id_evento' => $cotizacion->id_evento));
-								}
+					$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
 
-								$this->email->set_mailtype('html');
-								$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
-								$this->email->to($contacto->email_contacto);
+					//Envio Email con el PDF
+					$this->email->set_mailtype('html');
+					$this->email->from('cotizacion@moz67.com', 'Ventas - TiendaPAQ');
+					$this->email->to($cotizacion->email_contacto);
+					$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
 
-								$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
-								// Contenido del correo
-								$this->data['titulo'] 		= $evento->titulo;
-								$this->data['descripcion'] 	= $evento->descripcion;
-								$this->data['modalidad'] 	= $evento->modalidad;
-								// Modalidad
-								if ($evento->modalidad == 'online') {
-									$this->data['ubicacion'] = $evento->link;
-								}else{
-									if ($evento->modalidad == 'otro') {
-										$this->data['ubicacion'] = $evento->direccion;
-									}else{
-										$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
-										$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+					// Contenido del correo
+					$this->data['usuario'] 		= $cotizacion->usuario;
+					$this->data['password'] 	= $cotizacion->password;
+					$this->data['folio'] 		= $cotizacion->folio;
+					$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
+					$this->data['vigencia'] 		= fecha_completa($cotizacion->vigencia);
+					$this->data['contacto'] 		= $contacto;
+					$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
+					$this->data['irregular']		= 1;
+					$html = $this->load->view('./admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
+					$this->email->message($html);
+
+					// Adjunto PDF
+					$this->email->attach($path);
+					$this->email->send();
+					$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+				}
+			}
+		}
+		else
+		{
+			if ($tipo == 'evento') {
+				if ($valoracion == "aceptado") {
+					// Cambio estatus de la cotización a PAGADO
+					if ($this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+						array('folio' => $folio)))
+					{
+						$this->load->model('participantesmodel');
+						$this->load->model('eventomodel');
+
+						// INSERTAR CONTACTO A TABLA DE PARTICIPANTES
+						$cotizacion 	= $this->cotizacionModel->get_where(array('folio' => $folio));
+						$evento 	= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
+						$particpantes 	= $this->participantesmodel->get_where(array('id_evento' => $cotizacion->id_evento));
+
+						// Validar si el total de participantes no ha llegado al límite
+						if (count($particpantes) < $evento->max_participantes) {
+							$participante = array(
+									'id_evento' 	=> $cotizacion->id_evento,
+									'id_contacto' 	=> $cotizacion->id_contacto);
+							// Inserto participante en la tabla
+							if ($exito = $this->participantesmodel->insert($participante)) {
+								$msj = '<h3>Se ha registrado el contacto a la lista de participantes de este curso.</h3>';
+								// ENVIO DE EMAIL
+								/*CODIGO PARA ENVIO DE CORREO COTIZACIÓN*/
+								if (!LOCAL) {
+									$this->load->library('email');
+									$this->load->helper('formatofechas');
+									$this->load->model('sesionmodel');
+									$this->load->model('oficinasmodel');
+									$this->load->model('contactosModel');
+									$this->load->model('clienteModel');
+
+									// Datos del contacto
+									// Extraigo info del participante (contacto)
+									$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
+									// Extraigo usuario y contraseña del cliente
+									$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
+
+									//Extracción de la BD de las sesiones
+									if ($this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento)) > 1) {
+										$sesiones = $this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento));
+									}else
+									{
+										$sesiones = $this->sesionmodel->get_where(array('id_evento' => $cotizacion->id_evento));
 									}
+
+									$this->email->set_mailtype('html');
+									$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+									$this->email->to($contacto->email_contacto);
+
+									$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
+									// Contenido del correo
+									$this->data['titulo'] 		= $evento->titulo;
+									$this->data['descripcion'] 	= $evento->descripcion;
+									$this->data['modalidad'] 	= $evento->modalidad;
+									// Modalidad
+									if ($evento->modalidad == 'online') {
+										$this->data['ubicacion'] = $evento->link;
+									}else{
+										if ($evento->modalidad == 'otro') {
+											$this->data['ubicacion'] = $evento->direccion;
+										}else{
+											$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
+											$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+										}
+									}
+									// Costo
+									$this->data['costo']		= 0; // Para que mueste el link
+									$this->data['sesiones'] 	= $sesiones;
+									//Datos de logueo
+									$this->data['usuario'] 		=$cliente->usuario;
+									$this->data['password'] 	= $cliente->password;
+									$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
+									$this->email->message($html);
+									$this->email->send();
 								}
-								// Costo
-								$this->data['costo']		= 0; // Para que mueste el link
-								$this->data['sesiones'] 	= $sesiones;
-								//Datos de logueo
-								$this->data['usuario'] 		=$cliente->usuario;
-								$this->data['password'] 	= $cliente->password;
-								$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
-								$this->email->message($html);
-								$this->email->send();
+							} else {
+								$msj = 'No se pudo registra en la BD.';
 							}
 						} else {
-							$msj = 'No se pudo registra en la BD.';
+							// COTIZACIÓN CANCELADA
+							$exito = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio));
+							$msj 	= '<h3>Se llegó al cupo máximo de participantes, este cliente ya no estará registrado. Se cancelará la cotización.</h3>';
 						}
-					} else {
-						// COTIAZION CANCELADA
-						$exito = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CANCELADA), array('folio' => $folio));
-						$msj 	= '<h3>Se llegó al cupo máximo de participantes, este cliente ya no estará registrado. Se cancelará la cotización.</h3>';
+
+						$response = array('exito' => $exito, 'msg' => $msj);
 					}
-
-					$response = array('exito' => $exito, 'msg' => $msj);
 				}
-			}
-			if ($valoracion == "irregular") {
-				$cotizacion 	= $this->cotizacionModel->get_where(array('folio' => $folio));
-					$evento 		= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
-				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),	array('folio' => $folio)))
-				{
-					if (!LOCAL) {
-						$this->load->model('sesionmodel');
-						$this->load->model('oficinasmodel');
-						$this->load->model('contactosModel');
-						$this->load->model('clienteModel');
-						$this->load->helper('formatofechas');
-						$this->load->library('email');
 
-						// Datos del contacto
-						$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
-						// Extraigo usuario y contraseña del cliente
-						$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
+				if ($valoracion == "irregular") {
+					$cotizacion 	= $this->cotizacionModel->get_where(array('folio' => $folio));
+					$evento 	= $this->eventomodel->get_where(array('id_evento' => $cotizacion->id_evento));
+					if ($this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
+						array('folio' => $folio)))
+					{
+						if (!LOCAL) {
+							$this->load->model('sesionmodel');
+							$this->load->model('oficinasmodel');
+							$this->load->model('contactosModel');
+							$this->load->model('clienteModel');
+							$this->load->library('email');
 
-						//Extracción de la BD de las sesiones
-						if ($this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento)) > 1) {
-							$sesiones = $this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento));
-						}else
-						{
-							$sesiones = $this->sesionmodel->get_where(array('id_evento' => $cotizacion->id_evento));
-						}
-
-						$this->email->set_mailtype('html');
-						$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
-						$this->email->to($contacto->email_contacto);
-
-						$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
-						// Contenido del correo
-						$this->data['titulo'] 		= $evento->titulo;
-						$this->data['descripcion'] 	= $evento->descripcion;
-						$this->data['modalidad'] 	= $evento->modalidad;
-						// Modalidad
-						if ($evento->modalidad == 'online') {
-							$this->data['ubicacion'] = $evento->link;
-						}else{
-							if ($evento->modalidad == 'otro') {
-								$this->data['ubicacion'] = $evento->direccion;
-							}else{
-								$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
-								$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+							// Datos del contacto
+							$contacto = $this->contactosModel->get_where(array('id' => $cotizacion->id_contacto));
+							// Extraigo usuario y contraseña del cliente
+							$cliente = $this->clienteModel->get(array('usuario', 'password'), array('id' => $contacto->id_cliente), null, 'ASC', 1);
+							//Extracción de la BD de las sesiones
+							if ($this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento)) > 1) {
+								$sesiones = $this->sesionmodel->get('*', array('id_evento' => $cotizacion->id_evento));
+							}else
+							{
+								$sesiones = $this->sesionmodel->get_where(array('id_evento' => $cotizacion->id_evento));
 							}
+
+							$this->email->set_mailtype('html');
+							$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+							$this->email->to($contacto->email_contacto);
+
+							$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
+							// Contenido del correo
+							$this->data['titulo'] 		= $evento->titulo;
+							$this->data['descripcion'] 	= $evento->descripcion;
+							$this->data['modalidad'] 	= $evento->modalidad;
+							// Modalidad
+							if ($evento->modalidad == 'online') {
+								$this->data['ubicacion'] = $evento->link;
+							}else{
+								if ($evento->modalidad == 'otro') {
+									$this->data['ubicacion'] = $evento->direccion;
+								}else{
+									$oficina = $this->oficinasmodel->get_where(array('id_oficina'=>$evento->id_oficina));
+									$this->data['ubicacion'] = $oficina->calle.' '.$oficina->numero.', Col.'.$oficina->colonia.', '.$oficina->ciudad_estado;
+								}
+							}
+							// Costo
+							$this->data['costo']		= 0; // Para que muestre el link
+							$this->data['sesiones'] 		= $sesiones;
+							//Datos de logueo
+							$this->data['usuario'] 		=$cliente->usuario;
+							$this->data['password'] 	= $cliente->password;
+							$this->data['irregular']		= 1;
+							$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
+							$this->email->message($html);
+							$this->email->send();
+							$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
 						}
-						// Costo
-						$this->data['costo']		= 0; // Para que mueste el link
-						$this->data['sesiones'] 	= $sesiones;
-						//Datos de logueo
-						$this->data['usuario'] 		=$cliente->usuario;
-						$this->data['password'] 	= $cliente->password;
-						$this->data['irregular']	= 1;
-						$html = $this->load->view('./publico/general/full-pages/email/email_detalle_evento.php', $this->data, TRUE);
-						$this->email->message($html);
-						$this->email->send();
-						$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
 					}
 				}
 			}
-		} elseif ($tipo == 'normal') {
-			if ($valoracion == "aceptado") {
-				$this->load->model('casoModel');
-				// Cambie estatus de la cotizacion a PAGADO
-				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
-					array('folio' => $folio)))
-				{
-					if (($encuesta->fecha_respuesta != null) && ($encuesta->calificacion >= 80)) {
-						if($this->casoModel->update(
-							array('id_estatus_general' => $this->estatusGeneralModel->CERRADO),
-							array('id'=>$caso->id)))
-						{
-							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, caso cerrado.</h3>');
-						}
-					}else{
+			elseif ($tipo == 'normal') {
+				if ($valoracion == "aceptado"){
+					// Cambio estatus de la cotización a PAGADO
+					if ($this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PAGADO),
+						array('folio' => $folio)))
+					{
 						$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
 						$caso = array(
 						    	'id_lider' 			=> NULL,
@@ -498,102 +585,99 @@ class Cotizacion extends AbstractAccess {
 							'id_cliente' 			=> $cotizacion->id_cliente,
 							'folio_cotizacion'		=> $folio,
 							'fecha_inicio' 			=> date('Y-m-d H:i:s'));
+
 						// Abro un nuevo CASO
-						if ($this->casoModel->insert($caso))
+						if ($this->casomodel->insert($caso))
 						{
 							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización pagada, nuevo caso abierto en espera de asignación.</h3>');
 						}
 					}
 				}
-			}
 
-			if ($valoracion == "irregular") {
-				if ($cxc) {
-					$res = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->CXC),
-					array('folio' => $folio));
-				}else
-				{
+				if ($valoracion == "irregular") {
+					//Cambio estatus de cotización a irregular.
 					$res = $this->cotizacionModel->update(array('id_estatus_cotizacion' => $this->estatusCotizacionModel->IRREGULAR),
-					array('folio' => $folio));
-				}
-				if ($res)
-				{
-					//ENVÍO DE PDF PARA SITUACIÓN IRREGULAR
-					$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
-							array(
-								'cotizacion.id_cliente',
-								'cotizacion.folio',
-								'cotizacion.fecha',
-								'cotizacion.vigencia',
-								'contactos.nombre_contacto',
-								'contactos.apellido_paterno',
-								'contactos.apellido_materno',
-								'contactos.email_contacto',
-								'clientes.razon_social',
-								'clientes.email',
-								'clientes.usuario',
-								'clientes.password',
-								'estatus_cotizacion.descripcion'
-							),
-							array('clientes', 'contactos', 'estatus_cotizacion'),
-							$folio);
+										array('folio' => $folio));
+					if ($res)
+					{
+						//ENVÍO DE PDF PARA SITUACIÓN IRREGULAR
+						$cotizacion = $this->cotizacionModel->get_cotizacion_cliente(
+								array(
+									'cotizacion.id_cliente',
+									'cotizacion.folio',
+									'cotizacion.fecha',
+									'cotizacion.vigencia',
+									'contactos.nombre_contacto',
+									'contactos.apellido_paterno',
+									'contactos.apellido_materno',
+									'contactos.email_contacto',
+									'clientes.razon_social',
+									'clientes.email',
+									'clientes.usuario',
+									'clientes.password',
+									'estatus_cotizacion.descripcion'
+								),
+								array('clientes', 'contactos', 'estatus_cotizacion'),
+								$folio);
 
-					$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
-					$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
-					$path 		= $dir_root.$name;
+						$dir_root	= $this->input->server('DOCUMENT_ROOT').'/clientes/'.$cotizacion->id_cliente.'/cotizacion/';
+						$name		= 'tiendapaq-cotizacion_'.$folio.'.pdf';
+						$path 		= $dir_root.$name;
 
-					if (!LOCAL) {
-						$this->load->helper('formatofechas');
-						$this->load->library('email');
+						if (!LOCAL) {
+							$this->load->helper('formatofechas');
+							$this->load->library('email');
 
-						$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
-						//Envio Email con el PDF
-						$this->email->set_mailtype('html');
-						$this->email->from('cotizacion@moz67.com', 'Ventas - TiendaPAQ');
-						$this->email->to($cotizacion->email_contacto);
+							$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
+							//Envio Email con el PDF
+							$this->email->set_mailtype('html');
+							$this->email->from('cotizacion@moz67.com', 'Ventas - TiendaPAQ');
+							$this->email->to($cotizacion->email_contacto);
 
-						$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
-						// Contenido del correo
-						$this->data['usuario'] 		= $cotizacion->usuario;
-						$this->data['password'] 	= $cotizacion->password;
-						$this->data['folio'] 		= $cotizacion->folio;
-						$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
-						$this->data['vigencia'] 	= fecha_completa($cotizacion->vigencia);
-						$this->data['contacto'] 	= $contacto;
-						$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
-						$this->data['irregular']	= 1;
-						$html = $this->load->view('./admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
-						$this->email->message($html);
-						// Adjunto PDF
-						$this->email->attach($path);
-						$this->email->send();
-						$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+							$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
+							// Contenido del correo
+							$this->data['usuario'] 		= $cotizacion->usuario;
+							$this->data['password'] 	= $cotizacion->password;
+							$this->data['folio'] 		= $cotizacion->folio;
+							$this->data['fecha'] 		= fecha_completa($cotizacion->fecha);
+							$this->data['vigencia'] 	= fecha_completa($cotizacion->vigencia);
+							$this->data['contacto'] 	= $contacto;
+							$this->data['estatus'] 		= ucwords($cotizacion->descripcion);
+							$this->data['irregular']	= 1;
+							$html = $this->load->view('./admin/general/full-pages/email/email_envio_cotizacion.php', $this->data,TRUE);
+							$this->email->message($html);
+							// Adjunto PDF
+							$this->email->attach($path);
+							$this->email->send();
+							$response = array('exito' => TRUE, 'msg' => '<h3>Se le ha notificado al cliente de su irregularidad en el pago.</h3>');
+						}
 					}
 				}
-			}
 
-			if ($valoracion == "parcial"){
-				// Cambie estatus de la cotizacion a PARCIAL
-				if ($this->cotizacionModel->update(
-					array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
-					array('folio' => $folio)))
-				{
-					$this->load->model('casoModel');
-
-					$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
-					$caso = array(
-						'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
-						'id_cliente' => $cotizacion->id_cliente,
-						'folio_cotizacion' => $folio,
-						'fecha_inicio' => date('Y-m-d H:i:s'));
-					// Abro un nuevo CASO
-					if ($this->casoModel->insert($caso))
+				if ($valoracion == "parcial"){
+					// Cambie estatus de la cotizacion a PARCIAL
+					if ($this->cotizacionModel->update(
+						array('id_estatus_cotizacion' => $this->estatusCotizacionModel->PARCIAL),
+						array('folio' => $folio)))
 					{
-						$response = array('exito' => TRUE, 'msg' => '<h3>Cotización con pago parcial, nuevo caso abierto en espera de asignación.</h3>');
+						$this->load->model('casomodel');
+
+						$cotizacion = $this->cotizacionModel->get(array('id_cliente'), array('folio' => $folio), null, 'ASC', 1);
+						$caso = array(
+							'id_estatus_general' => $this->estatusGeneralModel->PORASIGNAR,
+							'id_cliente' => $cotizacion->id_cliente,
+							'folio_cotizacion' => $folio,
+							'fecha_inicio' => date('Y-m-d H:i:s'));
+						// Abro un nuevo CASO
+						if ($this->casomodel->insert($caso))
+						{
+							$response = array('exito' => TRUE, 'msg' => '<h3>Cotización con pago parcial, nuevo caso abierto en espera de asignación.</h3>');
+						}
 					}
 				}
 			}
 		}
+
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($response));

@@ -291,7 +291,7 @@ class Ejecutivo extends AbstractAccess {
 				'password'			=> $this->input->post('password')
 			);
 			//convierto array a objeto e inserto en la bd
-			$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data, FALSE);
+			$ejecutivo_nuevo	= $this->ejecutivoModel->arrayToObject($data);
 			$exito_ejecutivo	= $this->ejecutivoModel->insert($ejecutivo_nuevo);
 			//armo la respuesta
 			$respuesta = array(
@@ -797,7 +797,7 @@ class Ejecutivo extends AbstractAccess {
 	 */
 	public function email_check($email)
 	{
-		if ($this->ejecutivoModel->exist(array('email' => $email))) 
+		if ($this->ejecutivoModel->exist(array('email' => $email)))
 		{
 			$this->form_validation->set_message('email_check', 'El email ya está registrado.');
 			return FALSE;
@@ -834,7 +834,7 @@ class Ejecutivo extends AbstractAccess {
 	public function confirmacion_check($password1)
 	{
 		$password2 = $this->input->post('password_nuevo_2');
-		if ($password1 != $password2) 
+		if ($password1 != $password2)
 		{
 			$this->form_validation->set_message('confirmacion_check', 'La contraseña nueva no coincide!');
 			return FALSE;
