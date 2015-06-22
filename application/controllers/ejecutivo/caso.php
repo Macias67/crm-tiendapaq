@@ -414,12 +414,12 @@ class Caso extends AbstractAccess {
 
 		// Campos a guardar en la Base de datos
 		$caso = array(
-				'id_lider'				=> $this->input->post('lider_caso'),
-				'id_estatus_general'	=> $this->estatusGeneralModel->PENDIENTE,
-				'id_cliente'				=> $this->input->post('razon_social_caso'),
-				'fecha_inicio'			=> date('Y-m-d H:i:s'),
-				'descripcion'			=> $this->input->post('descripcion_caso')
-		 	);
+			'id_lider'				=> $this->input->post('lider_caso'),
+			'id_estatus_general'	=> $this->estatusGeneralModel->PENDIENTE,
+			'id_cliente'				=> $this->input->post('razon_social_caso'),
+			'fecha_inicio'			=> date('Y-m-d H:i:s'),
+			'descripcion'			=> $this->input->post('descripcion_caso')
+	 	);
 
 		// Guardo y extraigo el ultimo ID
 		if($id_caso = $this->casoModel->get_last_id_after_insert($caso)) {

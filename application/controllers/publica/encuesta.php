@@ -208,7 +208,7 @@ class Encuesta extends AbstractController {
 			if ($exito) {
 				$msg = ($cotizacion_pagada) ?
 					'Gracias por su tiempo, sus respuestas nos ayudarán a mejorar el servicio.' :
-					'Parece ser que la cotización aún no esta pagada, por lo tanto el caso seguirá sin cerrar.';
+					'Parece ser que la cotización aún no esta pagada, por lo tanto el caso seguirá sin cerrar.'.($cotizacion_pagada);
 			} else {
 				$msg = 'No se pudo registar en la BD o enviar correo de respuesta';
 			}

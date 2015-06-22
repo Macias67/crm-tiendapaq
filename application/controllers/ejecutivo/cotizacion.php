@@ -149,14 +149,14 @@ class Cotizacion extends AbstractAccess {
 				'DT_RowId'				=> $cotizacion->folio,
 				'folio'					=> $cotizacion->folio,
 				'id_cliente'				=> $cotizacion->razon_social,
-				'id_ejecutivo'				=> $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno,
+				'id_ejecutivo'			=> $cotizacion->primer_nombre.' '.$cotizacion->apellido_paterno,
 				'fecha'					=> fecha_completa($cotizacion->fecha),
 				'vigencia'				=> fecha_completa($cotizacion->vigencia),
-				'id_estatus_cotizacion'		=> ucwords($cotizacion->descripcion),
-				'total_comentarios'			=> $cotizacion->total_comentarios,
+				'id_estatus_cotizacion'	=> ucwords($cotizacion->descripcion),
+				'total_comentarios'	=> $cotizacion->total_comentarios,
 				'visto'					=> ($cotizacion->visto) ? TRUE : FALSE,
 				'facturado'				=> is_dir('clientes/'.$cotizacion->id_cliente.'/factura/'.$cotizacion->folio.'/')
-			       );
+			);
 			array_push($proceso, $p);
 		}
 		$data = array(
