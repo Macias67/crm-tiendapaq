@@ -44,7 +44,7 @@ var Portfolio = function () {
 							window.location = '/';
 						});
 					} else {
-						bootbox.alert('<h3>Error, revisa la consola para mas información.</h3>');
+						bootbox.alert('<h3>'+data.msg+'</h3>');
 					}
 				}, 'json');
 

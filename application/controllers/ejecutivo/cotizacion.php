@@ -313,11 +313,11 @@ class Cotizacion extends AbstractAccess {
 	 **/
 	public function apertura()
 	{
-		$folio 			= $this->input->post('folio');
-		$tipo 			= $this->input->post('tipo');
-		$cxc 			= $this->input->post('cxc');
+		$folio 				= $this->input->post('folio');
+		$tipo 				= $this->input->post('tipo');
+		$cxc 				= $this->input->post('cxc');
 		$cuentaporcobrar 	= $this->input->post('cuentaporcobrar');
-		$valoracion	 	= $this->input->post('valoracion');
+		$valoracion	 		= $this->input->post('valoracion');
 
 		$this->load->model('estatusCotizacionModel');
 		$this->load->model('estatusGeneralModel');
@@ -333,7 +333,7 @@ class Cotizacion extends AbstractAccess {
 		{
 			if ($valoracion == "aceptado") // Verifica que la cotización CXC sea aceptada.
 			{
-				if ($encuesta->id_caso != null) // Si la encuesta existe
+				if ($encuesta->id_caso != NULL) // Si la encuesta existe
 				{
 					if (($encuesta->fecha_respuesta != null) && ($encuesta->calificacion >= 80))
 					{

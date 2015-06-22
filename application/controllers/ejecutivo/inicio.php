@@ -21,6 +21,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('actividadPendienteModel');
 			$this->load->model('pendienteModel');
 			$this->load->model('estatusGeneralModel');
+			$this->load->model('estatuscotizacionmodel');
 			$this->load->model('casoModel');
 			$this->load->model('clienteModel');
 
@@ -34,7 +35,9 @@ class Inicio extends AbstractAccess {
 			//cantidad de cotizaciones con nuevos comentarios
 			$this->data['cotizaciones_comentarios'] = count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
 			//cantidad de cotizaciones pagadas por revisar
-			$this->data['cotizaciones_revision'] = count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
+			$cotizaciones_revision 		= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => $this->estatuscotizacionmodel->REVISION)));
+			$cotizaciones_cxc 			= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => $this->estatuscotizacionmodel->CXC)));
+			$this->data['cotizaciones_revision'] = ($cotizaciones_revision + $cotizaciones_cxc);
 			//cantidad de casos por asignar
 			$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 			//variable para saber si el ejecutivo logeado puede asignar casos
@@ -77,9 +80,11 @@ class Inicio extends AbstractAccess {
 		$this->load->model('casoModel');
 		$this->load->model('tareaModel');
 		$this->load->model('estatusGeneralModel');
+		$this->load->model('estatuscotizacionmodel');
 
 		$comentarios_cotizacion 	= count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
-		$cotizaciones_revision 		= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => 2)));
+		$cotizaciones_revision 		= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => $this->estatuscotizacionmodel->REVISION)));
+		$cotizaciones_cxc 			= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => $this->estatuscotizacionmodel->CXC)));
 		$casos_asignar 			= count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 3, 'id_lider' => $this->usuario_activo['id'])));
 		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 7, 'id_lider' => $this->usuario_activo['id'])));
@@ -88,7 +93,7 @@ class Inicio extends AbstractAccess {
 			->set_content_type('application/json')
 			->set_output(json_encode(array(
 			             'comentarios_cotizacion' 	=> $comentarios_cotizacion,
-			             'cotizaciones_revision' 		=> $cotizaciones_revision,
+			             'cotizaciones_revision' 		=> ($cotizaciones_revision + $cotizaciones_cxc),
 			             'casos_asignar'				=> $casos_asignar,
 			             'lider_casos_pediente'		=> $lider_casos_pediente,
 			             'tareas_pendiente'			=> $tareas_pendiente
