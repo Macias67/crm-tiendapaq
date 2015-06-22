@@ -11,6 +11,7 @@ class Evento extends AbstractAccess {
 		$this->load->model('sesionesModel');
 		$this->load->model('ejecutivoModel');
 		$this->load->model('oficinasModel');
+		$this->load->model('oficinasmodel');
 	}
 
 	/**

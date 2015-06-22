@@ -543,7 +543,7 @@ class Cotizacion extends AbstractAccess {
 							$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
 							$this->email->to($contacto->email_contacto);
 
-							$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
+							$this->email->subject('Pago irregular de evento - TiendaPAQ');
 							// Contenido del correo
 							$this->data['titulo'] 		= $evento->titulo;
 							$this->data['descripcion'] 	= $evento->descripcion;
