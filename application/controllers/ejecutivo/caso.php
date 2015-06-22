@@ -242,13 +242,14 @@ class Caso extends AbstractAccess {
 			}
 		}
 
-		$this->data['estatus_caso'] 	= id_estatus_gral_to_class_html($caso->id_estatus_general);
-		$this->data['tareas'] 			= $tareas;
-		$this->data['ejecutivos'] 		= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
-		$this->data['encuesta'] 		= $encuesta;
+		$this->data['estatus_caso'] 		= id_estatus_gral_to_class_html($caso->id_estatus_general);
+		$this->data['tareas'] 				= $tareas;
+		$this->data['ejecutivos'] 			= $this->ejecutivoModel->get(array('id', 'primer_nombre', 'apellido_paterno'), null, 'primer_nombre', 'ASC');
+		$this->data['encuesta'] 			= $encuesta;
 		$this->data['caso'] 				= $caso;
-		$this->data['notas'] 			= $notas;
-		$this->data['casoreasignado'] 	= $casoreasignado;
+		$this->data['notas'] 				= $notas;
+		$this->data['casoreasignado'] 		= $casoreasignado;
+		$this->data['id_estatus_cotizacion'] 	= $cotizacion->id_estatus_cotizacion;
 		$this->_vista('detalle-caso');
 	}
 
