@@ -70,7 +70,7 @@
 									</div>
 								</div>
 								<br>
-								<?php if ($boton_reasignar): ?>
+								<?php if ($tareas==null): ?>
 								<div class="row">
 									<div class="col-md-12">
 										<a class="btn btn-circle red btn-block" data-target="#modal-reasignar" data-toggle="modal">Reasignar</a>
@@ -78,7 +78,7 @@
 								</div>
 								<?php endif ?>
 								<br>
-								<?php if ($boton_cerrar_caso): ?>
+								<?php if ($boton_cerrar_caso&&$id_estatus_cotizacion==3): ?>
 								<div class="row">
 									<div class="col-md-12">
 										<button class="btn btn-circle red btn-block" id="cierra_caso">Cerrar Caso - Evaluación: <b><?php echo $encuesta->calificacion ?>%</b></button>
