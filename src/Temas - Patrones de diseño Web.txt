@@ -5,29 +5,34 @@ Descargar las hojas en pdf guardarlo en una carpeta enumerada y con el titulo
 del tema y dentro los pdfs solo enumaerados 01,02, etc..
 
 
-Introducción a los patrones de construcción
-(1)El patrón Abstract Factory
-(2)El patrón Builder
-(3)El patrón Factory Method
-(1)El patrón Prototype
-(2)El patrón Singleton
-Introducción a los patrones de estructuración
-(3)El patrón Adapter 
-(1)El patrón Bridge
-(2)El patrón Composite
-(3)El patrón Decorator
-(1)El patrón Facade
-(2)El patrón Flyweight
-(3)El patrón Proxy
-Introducción a los patrones de comportamiento
-(1)El patrón Chain of Responsibility
-(2)El patrón Command
-(3)El patrón Interpreter
-(1)El patrón Iterator
-(2)El patrón Mediator
-(3)El patrón Memento
-(1)El patrón Observer
-(2)El patrón State
-(3)El patrón Strategy
-(1)El patrón Template Method
-(2)El patrón Visitor
+Introducción a los patrones de diseño			[01]
+Caso de estudio: venta online de vehículos		[02]
+Introducción a los patrones de construcción		[03]
+(1)El patrón Abstract Factory				[04]
+(2)El patrón Builder					[05]
+(3)El patrón Factory Method				[06]
+(1)El patrón Prototype					[07]
+(2)El patrón Singleton					[08]
+Introducción a los patrones de estructuración		[09]
+(3)El patrón Adapter					[10]
+(1)El patrón Bridge					[11]
+(2)El patrón Composite					[12]
+(3)El patrón Decorator					[13]
+(1)El patrón Facade					[14]
+(2)El patrón Flyweight					[15]
+(3)El patrón Proxy					[16]
+Introducción a los patrones de comportamiento		[17]
+(1)El patrón Chain of Responsibility			[18]
+(2)El patrón Command					[19]
+(3)El patrón Interpreter				[20]
+(1)El patrón Iterator					[21]
+(2)El patrón Mediator					[22]
+(3)El patrón Memento					[23]
+(1)El patrón Observer					[24]
+(2)El patrón State 					[25]
+(3)El patrón Strategy					[26]
+(1)El patrón Template Method				[27]
+(2)El patrón Visitor					[28]
+Composición y variación de patrones			[29]
+Los patrones en el diseño de aplicaciones		[30]
+Ejercicios						[31]
