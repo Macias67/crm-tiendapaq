@@ -518,10 +518,46 @@ class Caso extends AbstractAccess {
 		$this->load->helper('formatofechas');
 		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 		$casoreasignado	= $this->reasignarcasomodel->get_where(array('id_caso' => $id_caso));
-		$ejecutivos = $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
-		$this->data['ejecutivos']		= $this->ejecutivoModel->get(array('id','primer_nombre','apellido_paterno'));
-		$this->data['caso'] 			= $caso;
-		$this->data['casoreasignado'] 	= $casoreasignado;
+		$ejecutivo_origen = $this->ejecutivoModel->get_where(array('id'=>$casoreasignado->id_ejecutivo_origen));
+		$ejecutivo_destino = $this->ejecutivoModel->get_where(array('id'=>$casoreasignado->id_ejecutivo_destino));
+		$ejecutivos = $this->ejecutivoModel->get(array('id'=>'*'));
+		foreach ($casoreasignado as $key => $value) {
+			// $ejecutivos_origen_destino[]=>$value->id_caso;
+			// $ejecutivos_origen_destino[]=$this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_origen));
+			// $ejecutivos_origen_destino[]=$this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_destino));
+			// $ejecutivos_origen_destino[]=$value->fecha;
+			// $ejecutivos_origen_destino[]=$value->motivo;
+			$ejecutivos_origen_destino=array(
+					"id" => $value->id_caso,
+					"origen" => $this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_origen)),
+					"destino" => $this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_destino)),
+					"fecha" => $value->fecha,
+					"motivo" => $value->motivo,
+				);
+		}
+
+		foreach ($ejecutivos as $key => $value) {
+		$data = array(
+				//Datos Personales
+				'primer_nombre'		=> $value->primer_nombre,
+				'apellido_paterno'	=> $value->apellido_paterno
+			);
+		}
+
+
+
+			// var_dump($data);
+			// var_dump("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+			// var_dump($casoreasignado);
+			// var_dump("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+			// var_dump($ejecutivos);
+
+		$this->data['caso'] 						= $caso;
+		$this->data['casoreasignado'] 				= $casoreasignado;
+		$this->data['ejecutivo_origen'] 			= $ejecutivo_origen;
+		$this->data['ejecutivo_destino'] 			= $ejecutivo_destino;
+		$this->data['ejecutivos_origen_destino'] 	= $ejecutivos_origen_destino;
+		$this->data['ejecutivos'] 					= $ejecutivos;
 
 		$this->_vista_completa('caso/modal-detalles-reasignacion');
 	}
