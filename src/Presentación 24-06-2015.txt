@@ -1,0 +1,30 @@
+			Presentación del día 24 de Junio del 2015
+
+	-Hacer cotización a cliente "normal"
+		---Se envía cotización al correo del cliente
+		---Rol del cliente
+			---Comprobar pago
+			----Detalle en comprobar pago, no envía a subir pagos.*
+		---Validar pago
+		---Asignar caso, después de validar.
+		---En detalles, para reasignar caso: debe estar en pendiente y no puede haber tareas.
+		---Al cliente le llega correo con apertura de caso.
+		---Reasignar a Julio. No aparece el origen y el destino cuando se reasigna caso.
+		---Nueva tarea. Reasignar tarea, 2 formas de manejar las tareas. Detalle en proceso.
+		---Tareas cerradas, el caso en precierre.
+		---Correo con encuesta a contestar.
+		---Cliente contesta encuesta si >=80, cierrra caso, manda correo de evaluación a ejecutivo.
+		---La respuesta no solo llega al ejecutivo, también a encuestas tiendaPaq. En honor a la verdad, apretar las tuercas.
+		---Al pasar 15 días, la encuesta se cierra automáticamente.
+		---En caso de que sea < 80: el lider del caso se comunica con el cliente. Se agregan notas...
+
+	-Hacer cotización "CXC"
+		---Se envía cotización al correo del cliente.
+		---Se abre caso directamente.
+		---Se va a pagos por revisar.
+		---Detalle en asignación de casos.
+		---Cotización no pagada y encuesta contestada. Guarda la factura. *Cargar o subir factura. Botón de factura en detalles. Valida pago y cierra caso.
+		---Cotización pagada y encuesta no contestada, en proceso. Después contesta la encuesta <80 y cierra caso manual.
+			---NO aparece botón cerrar caso manual, convencer al cliente de pagar, el cliente paga y cierra caso manual.
+		
+

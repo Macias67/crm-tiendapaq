@@ -11,7 +11,14 @@
 */
 $hook['post_controller_constructor'] = array(
 	'class'		=> 'Hook',
-	'function' 	=> 'caducidad',
+	'function' 	=> 'caducidadEvento',
+	'filename' 	=> 'Hook.php',
+	'filepath' 	=> 'hooks'
+);
+
+$hook['post_controller_constructor'] = array(
+	'class'		=> 'Hook',
+	'function' 	=> 'caducidadEncuesta',
 	'filename' 	=> 'Hook.php',
 	'filepath' 	=> 'hooks'
 );

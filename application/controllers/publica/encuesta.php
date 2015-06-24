@@ -139,6 +139,25 @@ class Encuesta extends AbstractController {
 						array('id' => $id_caso)
 					);
 				}
+			} else {
+				// Compruebo que la cotizacion este pagada,
+				// asi compruebo que las cotizaciones parciales o CxC
+				// estan pagadas
+				$this->load->model('estatusgeneralmodel');
+
+				$cotizacion_pagada = TRUE;
+				// Si tiene cotizacion ligada
+				if ($caso->folio_cotizacion != NULL) {
+					$this->load->model('cotizacionmodel');
+					$this->load->model('estatuscotizacionmodel');
+					$cotizacion = $this->cotizacionmodel->get_where(array('folio' => $caso->folio_cotizacion));
+
+					if ($cotizacion->id_estatus_cotizacion == $this->estatuscotizacionmodel->PAGADO) {
+						$cotizacion_pagada = TRUE;
+					} else {
+						$cotizacion_pagada = FALSE;
+					}
+				}
 			}
 
 			// Guardo respuestas encuesta
