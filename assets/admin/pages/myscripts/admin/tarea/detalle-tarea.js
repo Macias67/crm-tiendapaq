@@ -177,15 +177,19 @@ var DetalleTarea = function() {
 				id_caso: 		id_caso,
 				id_tarea: 		id_tarea,
 				fecha_cierre: 	fecha_cierre
-			};
-
-			$.post('/tarea/fecha_cierre',data,  function(data, textStatus, xhr) {
-				if (data.exito) {
-					bootbox.alert(data.msg, function() {
-						location.reload(true);
-					});
 				};
-			});
+				if(fecha_cierre){
+					$.post('/tarea/fecha_cierre',data,  function(data, textStatus, xhr) {
+						if (data.exito) {
+							bootbox.alert(data.msg, function() {
+								location.reload(true);
+							});
+						};
+					});
+
+				}else{
+					bootbox.alert('<h3> No hay ningúna fecha seleccionada. </h3>');
+				};
 		});
 	};
 
