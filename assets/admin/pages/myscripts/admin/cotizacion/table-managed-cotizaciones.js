@@ -244,8 +244,7 @@ var TableManagedCotizaciones = function () {
 
 	};
 
-	// Muestra visualizacvion previa del pdf de la
-	// cotizacion al cliente
+	// Muestra visualización previa del pdf de la factura del cliente
 	var previaPDFFactura = function() {
 		$('.factura-previa').on('click', function() {
 			// Datos factura

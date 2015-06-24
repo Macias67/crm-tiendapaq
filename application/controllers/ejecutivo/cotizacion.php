@@ -763,6 +763,11 @@ class Cotizacion extends AbstractAccess {
 		}
 	}
 
+	/**
+	 * funcion para ligar la factura al cliente
+	 *
+	 * @author Julio Trujillo
+	 **/
 	public function factura($folio)
 	{
 		$this->load->helper('file');
@@ -874,6 +879,8 @@ class Cotizacion extends AbstractAccess {
 		$this->load->helper('file');
 		$ruta = '/clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$folio.'/';
 		$archivos = directory_map('.'.$ruta, 1);
+		$ruta_factura = 'clientes/'.$cotizacion->id_cliente.'/factura/'.$folio.'/';
+		$facturas = directory_map($ruta_factura);
 
 		$imagenes 	= array();
 		$pdfs 		= array();
@@ -893,6 +900,7 @@ class Cotizacion extends AbstractAccess {
 
 		$this->data['cotizacion'] 	= $cotizacion;
 		$this->data['imagenes'] 	= $imagenes;
+		$this->data['factura']			=$facturas;
 		$this->data['pdfs'] 			= $pdfs;
 		$this->data['ruta_pdf']		= $ruta;
 		$this->data['comentarios'] = $this->comentariosCotizacionModel->get_comentarios($folio);
