@@ -1,3 +1,10 @@
+correo: efriasc@prodigy.net.mx
+contra: desarrollo
+
+Descargar las hojas en pdf guardarlo en una carpeta enumerada y con el titulo
+del tema y dentro los pdfs solo enumaerados 01,02, etc..
+
+
 Introducción a los patrones de construcción
 (1)El patrón Abstract Factory
 (2)El patrón Builder
