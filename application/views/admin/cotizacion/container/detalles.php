@@ -103,6 +103,7 @@
 							</div>
 						</div>
 						<button type="button" class="btn green default cotizacion-previa btn-circle btn-block" id="<?php echo $cotizacion->folio ?>" id-cliente="<?php echo $cotizacion->id_cliente ?>">Ver Cotización</button>
+						<button type="button" class="btn blue-steel default cotizacion-previa btn-circle btn-block factura-previa" name="<?php echo $factura[0]  ?>" id="<?php echo $cotizacion->folio ?>">Ver Factura</button>
 						<!-- END COMENTARIOS COTIZACION-->
 					</div>
 				</div>

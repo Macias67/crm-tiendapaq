@@ -97,7 +97,7 @@
 												<input type="file" name="userfile" id="exampleInputFile">
 											</span>
 											<a href="#" class="btn red fileinput-exists" data-dismiss="fileinput">Quitar </a>&nbsp;
-											<button id="envia-factura" type="submit" class="btn blue btn-bg">Enviar factura</button>
+											<button id="envia-factura" type="submit" class="btn blue btn-bg fileinput-exists" >Cargar factura</button>
 											<?php if($factura): ?>
 											<button type="button" class="btn green factura-previa btn-bg" name="<?php echo $factura[0]  ?>" id="<?php echo $cotizacion->folio ?>">Ver factura</button><br/><br/>
 											<?php endif ?>

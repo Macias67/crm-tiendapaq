@@ -1,0 +1,26 @@
+Introducción a los patrones de construcción
+(1)El patrón Abstract Factory
+(2)El patrón Builder
+(3)El patrón Factory Method
+(1)El patrón Prototype
+(2)El patrón Singleton
+Introducción a los patrones de estructuración
+(3)El patrón Adapter 
+(1)El patrón Bridge
+(2)El patrón Composite
+(3)El patrón Decorator
+(1)El patrón Facade
+(2)El patrón Flyweight
+(3)El patrón Proxy
+Introducción a los patrones de comportamiento
+(1)El patrón Chain of Responsibility
+(2)El patrón Command
+(3)El patrón Interpreter
+(1)El patrón Iterator
+(2)El patrón Mediator
+(3)El patrón Memento
+(1)El patrón Observer
+(2)El patrón State
+(3)El patrón Strategy
+(1)El patrón Template Method
+(2)El patrón Visitor
