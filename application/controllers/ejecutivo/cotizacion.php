@@ -766,7 +766,7 @@ class Cotizacion extends AbstractAccess {
 	/**
 	 * funcion para ligar la factura al cliente
 	 *
-	 * @author Julio Trujillo
+	 * @author Julio Trujillo | Diego Rodriguez
 	 **/
 	public function factura($folio)
 	{
