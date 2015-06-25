@@ -518,44 +518,22 @@ class Caso extends AbstractAccess {
 		$this->load->helper('formatofechas');
 		$caso 	=  $this->casoModel->get_caso_detalles($id_caso);
 		$casoreasignado	= $this->reasignarcasomodel->get_where(array('id_caso' => $id_caso));
-		$ejecutivo_origen = $this->ejecutivoModel->get_where(array('id'=>$casoreasignado->id_ejecutivo_origen));
-		$ejecutivo_destino = $this->ejecutivoModel->get_where(array('id'=>$casoreasignado->id_ejecutivo_destino));
+		// obtengo todos los ejecutivos de la base de datos
 		$ejecutivos = $this->ejecutivoModel->get(array('id'=>'*'));
-		foreach ($casoreasignado as $key => $value) {
-			// $ejecutivos_origen_destino[]=>$value->id_caso;
-			// $ejecutivos_origen_destino[]=$this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_origen));
-			// $ejecutivos_origen_destino[]=$this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_destino));
-			// $ejecutivos_origen_destino[]=$value->fecha;
-			// $ejecutivos_origen_destino[]=$value->motivo;
-			$ejecutivos_origen_destino=array(
-					"id" => $value->id_caso,
-					"origen" => $this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_origen)),
-					"destino" => $this->ejecutivoModel->get_where(array('id'=>$value->id_ejecutivo_destino)),
-					"fecha" => $value->fecha,
-					"motivo" => $value->motivo,
-				);
-		}
 
+		// creo un objeto donde almacenare el id el nombre y el apellido de los ejecutivos
+		$ejecutivos_origen_destino = new stdClass();
+		
+		// lleno mi objeto con los datos deseados del ejecutivo
 		foreach ($ejecutivos as $key => $value) {
-		$data = array(
-				//Datos Personales
-				'primer_nombre'		=> $value->primer_nombre,
-				'apellido_paterno'	=> $value->apellido_paterno
-			);
+
+			$ref=(int)$value->id;
+			$ejecutivos_origen_destino->$ref		=$value->primer_nombre.' '.$value->apellido_paterno;
 		}
 
-
-
-			// var_dump($data);
-			// var_dump("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-			// var_dump($casoreasignado);
-			// var_dump("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-			// var_dump($ejecutivos);
-
+		// mando los datos
 		$this->data['caso'] 						= $caso;
 		$this->data['casoreasignado'] 				= $casoreasignado;
-		$this->data['ejecutivo_origen'] 			= $ejecutivo_origen;
-		$this->data['ejecutivo_destino'] 			= $ejecutivo_destino;
 		$this->data['ejecutivos_origen_destino'] 	= $ejecutivos_origen_destino;
 		$this->data['ejecutivos'] 					= $ejecutivos;
 

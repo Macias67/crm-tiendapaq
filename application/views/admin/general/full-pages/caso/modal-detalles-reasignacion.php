@@ -16,20 +16,26 @@
 					</tr>
 				</thead>
 				<tbody>
+					<!-- compruebo que el objeto solo contenga uno -->
 					<?php if (count($casoreasignado)==1): ?>
+					<!-- hago la referencia del id del ejecutivo origen y destino -->
+					<?php $ref=(int)$casoreasignado->id_ejecutivo_origen; ?>
+					<?php $ref2=(int)$casoreasignado->id_ejecutivo_destino; ?>
 						<tr>
 							<td><?php echo $casoreasignado->id_caso ?></td>
-							<td><?php echo $ejecutivo_origen->primer_nombre.' '.$ejecutivo_origen->apellido_paterno;?></td>
-							<td><?php echo $ejecutivo_destino->primer_nombre.' '.$ejecutivo_destino->apellido_paterno?></td>
+							<td><?php echo $ejecutivos_origen_destino->$ref?></td>
+							<td><?php echo $ejecutivos_origen_destino->$ref2?></td>
 							<td><?php echo fecha_corta($casoreasignado->fecha) ?></td>
 							<td><?php echo $casoreasignado->motivo ?></td>
 						</tr>
 					<?php else: ?>
 					<?php foreach ($casoreasignado as $index => $reasignacion): ?>
+					<?php $ref=(int)$reasignacion->id_ejecutivo_origen; ?>
+					<?php $ref2=(int)$reasignacion->id_ejecutivo_destino; ?>
 						<tr>
 							<td><?php echo $reasignacion->id_caso ?></td>
-							<td><?php echo $reasignacion->id_ejecutivo_oringen?></td>
-							<td><?php echo $reasignacion->id_ejecutivo_destino?></td>
+							<td><?php echo $ejecutivos_origen_destino->$ref?></td>
+							<td><?php echo $ejecutivos_origen_destino->$ref2?></td>
 							<td><?php echo fecha_corta($reasignacion->fecha) ?></td>
 							<td><?php echo $reasignacion->motivo ?></td>
 						</tr>
