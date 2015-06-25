@@ -81,7 +81,6 @@
 										</div>
 											<label >Contraseña <span class="required" aria-required="true">*</span></label>
 										<div class="form-group">
-											<?php echo $fechapsw ?>
 											<input type="hidden"  id="fechapsw" name="fechapsw" value="<?php echo $fechapsw ?>">
 											<div class="input-icon">
 												<i class="fa fa-asterisk"></i>
