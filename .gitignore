@@ -4,3 +4,7 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
+assets/admin/pages/media/eventos/*
+assets/admin/pages/media/tareas/*
+tmp/*
+clientes/*

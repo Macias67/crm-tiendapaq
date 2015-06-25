@@ -7,9 +7,9 @@ var QuickSidebar = function () {
     var handleQuickSidebarToggler = function () {
         // quick sidebar toggler
         $('.top-menu .dropdown-quick-sidebar-toggler a, .page-quick-sidebar-toggler').click(function (e) {
-            $('body').toggleClass('page-quick-sidebar-open');
+            $('body').toggleClass('page-quick-sidebar-open'); 
         });
-    }
+    };
 
     // Handles quick sidebar chats
     var handleQuickSidebarChat = function () {
@@ -22,7 +22,7 @@ var QuickSidebar = function () {
 
             chatUsersHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
 
-            // chat user list
+            // chat user list 
             Metronic.destroySlimScroll(chatUsers);
             chatUsers.attr("data-height", chatUsersHeight);
             Metronic.initSlimScroll(chatUsers);
@@ -30,11 +30,11 @@ var QuickSidebar = function () {
             var chatMessages = wrapperChat.find('.page-quick-sidebar-chat-user-messages');
             var chatMessagesHeight = chatUsersHeight - wrapperChat.find('.page-quick-sidebar-chat-user-form').outerHeight() - wrapperChat.find('.page-quick-sidebar-nav').outerHeight();
 
-            // user chat messages
+            // user chat messages 
             Metronic.destroySlimScroll(chatMessages);
             chatMessages.attr("data-height", chatMessagesHeight);
             Metronic.initSlimScroll(chatMessages);
-        }
+        };
 
         initChatSlimScroll();
         Metronic.addResizeHandler(initChatSlimScroll); // reinitialize on window resize
@@ -54,7 +54,7 @@ var QuickSidebar = function () {
             var input = wrapperChat.find('.page-quick-sidebar-chat-user-form .form-control');
 
             var text = input.val();
-            if (text.length == 0) {
+            if (text.length === 0) {
                 return;
             }
 
@@ -73,7 +73,7 @@ var QuickSidebar = function () {
                 tpl += '</div>';
 
                 return tpl;
-            }
+            };
 
             // handle post
             var time = new Date();
@@ -88,7 +88,7 @@ var QuickSidebar = function () {
                 });
 
                 return height;
-            }
+            };           
 
             chatContainer.slimScroll({
                 scrollTo: getLastPostPos()
@@ -107,7 +107,7 @@ var QuickSidebar = function () {
                     scrollTo: getLastPostPos()
                 });
             }, 3000);
-        }
+        };
 
         wrapperChat.find('.page-quick-sidebar-chat-user-form .btn').click(handleChatMessagePost);
         wrapperChat.find('.page-quick-sidebar-chat-user-form .form-control').keypress(function (e) {
@@ -116,7 +116,7 @@ var QuickSidebar = function () {
                 return false;
             }
         });
-    }
+    };
 
     // Handles quick sidebar tasks
     var handleQuickSidebarAlerts = function () {
@@ -129,15 +129,15 @@ var QuickSidebar = function () {
 
             alertListHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
 
-            // alerts list
+            // alerts list 
             Metronic.destroySlimScroll(alertList);
             alertList.attr("data-height", alertListHeight);
             Metronic.initSlimScroll(alertList);
-        }
+        };
 
         initAlertsSlimScroll();
         Metronic.addResizeHandler(initAlertsSlimScroll); // reinitialize on window resize
-    }
+    };
 
     // Handles quick sidebar settings
     var handleQuickSidebarSettings = function () {
@@ -150,15 +150,15 @@ var QuickSidebar = function () {
 
             settingsListHeight = wrapper.height() - wrapper.find('.nav-justified > .nav-tabs').outerHeight();
 
-            // alerts list
+            // alerts list 
             Metronic.destroySlimScroll(settingsList);
             settingsList.attr("data-height", settingsListHeight);
             Metronic.initSlimScroll(settingsList);
-        }
+        };
 
         initSettingsSlimScroll();
         Metronic.addResizeHandler(initSettingsSlimScroll); // reinitialize on window resize
-    }
+    };
 
     return {
 

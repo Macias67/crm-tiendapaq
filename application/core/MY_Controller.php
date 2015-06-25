@@ -12,14 +12,80 @@ abstract class AbstractController extends CI_Controller {
 	 *
 	 * @var array
 	 **/
-	protected $data = array();
+	public $data = array();
+
+	/**
+	 * Variable para saber que privilegios
+	 * tiene el usuario activo
+	 *
+	 * @var string
+	 **/
+	protected $privilegios = 'publico';
+
+	/**
+	 * Variable para saber que controlador
+	 * estoy utilizando, me sirve para dirigir
+	 * a la ruta de la vista correspondiente
+	 *
+	 * @var string
+	 **/
+	protected $controlador;
+
+	/**
+	 * Variable con los nombre de los estados
+	 * de México
+	 *
+	 * @var array
+	 **/
+
+	public $estados = array(
+			"Aguascalientes",
+			"Baja California",
+			"Baja California Sur",
+			"Campeche",
+			"Chiapas",
+			"Chihuahua",
+			"Coahuila",
+			"Colima",
+			"Distrito Federal",
+			"Durango",
+			"Estado de México",
+			"Guanajuato",
+			"Guerrero",
+			"Hidalgo",
+			"Jalisco",
+			"Michoacán",
+			"Morelos",
+			"Nayarit",
+			"Nuevo León",
+			"Oaxaca",
+			"Puebla",
+			"Querétaro",
+			"Quintana Roo",
+			"San Luis Potosí",
+			"Sinaloa",
+			"Sonora",
+			"Tabasco",
+			"Tamaulipas",
+			"Tlaxcala",
+			"Veracruz",
+			"Yucatán",
+			"Zacatecas"
+	);
 
 	/**
 	 * Patron para el titulo en las vistas
 	 *
 	 * @var string
 	 **/
-	const TITULO_PATRON = ' | Metronic v 3.1.0';
+	const TITULO_PATRON = ' | TiendaPAQ';
+
+	/**
+	 * Ruta avatar
+	 *
+	 * @var string
+	 **/
+	//const RUTA_AVATAR = 'assets/admin/pages/media/profile/';
 
 	/**
 	 * Constructor
@@ -27,17 +93,24 @@ abstract class AbstractController extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		//Fijar zona horaria para el momento de obtener fechas y horas
+		date_default_timezone_set('America/Mexico_City');
 		// global
 		$this->data['assets_global_css']		= site_url('assets/global/css').'/';
 		$this->data['assets_global_img']		= site_url('assets/global/img').'/';
 		$this->data['assets_global_plugins']	= site_url('assets/global/plugins').'/';
 		$this->data['assets_global_scripts']	= site_url('assets/global/scripts').'/';
 		// admin/layout
-		$this->data['assets_admin_layout']		= site_url('assets/admin/layout').'/';
+		$this->data['assets_admin_layout']			= site_url('assets/admin/layout').'/';
+		$this->data['assets_admin_layout3']		= site_url('assets/admin/layout3').'/';
 		// admin/pages
 		$this->data['assets_admin_pages']		= site_url('assets/admin/pages').'/';
 		// admin/pages
-		$this->data['assets_admin_pages_myscripts']		= site_url('assets/admin/pages/myscripts').'/';
+		$this->data['assets_admin_pages_myscripts']	= site_url('assets/admin/pages/myscripts').'/';
+		// Controlador que estoy usando actualmente
+		$this->controlador = strtolower(get_class($this));
+		$this->data['privilegios'] 		= $this->privilegios; // Paso que privilegios tiene el usuario al array data para la vista
+		$this->data['controlador'] 		= $this->controlador; // Paso que controlador se usa al array data para la vista
 	}
 
 	/**
@@ -45,12 +118,53 @@ abstract class AbstractController extends CI_Controller {
 	 **/
 	public function cookiescreen()
 	{
-		$alto		= $this->input->post('alto');
-		$ancho		= $this->input->post('ancho');
-		$domain	= substr($this->input->server('SERVER_NAME'), 4);
-		// Cargo libreria cookie
-		$this->load->helper('cookie');
-		$this->input->set_cookie('screen_size', $alto.'-'.$ancho, 0, $domain, '/');
+		if ($this->input->is_ajax_request()) {
+			$alto		= $this->input->post('alto');
+			$ancho		= $this->input->post('ancho');
+			$domain	= substr($this->input->server('SERVER_NAME'), 4);
+			// Cargo libreria cookie
+			$this->load->helper('cookie');
+			$this->input->set_cookie('screen_size', $alto.'-'.$ancho, 0, $domain, '/');
+		}
+	}
+
+	/**
+	 * Funcion para mostrar alguna vista completa
+	 * @param  string $vista Nombre de la vista
+	 * @param  string $html Si  retorna el html stng
+	 */
+	protected function _vista_completa($vista, $html = FALSE)
+	{
+		if ($html) {
+			$vista = $this->load->view($this->privilegios.'/general/full-pages/'.$vista, $this->data, TRUE);
+			return $vista;
+		} else {
+			$this->load->view($this->privilegios.'/general/full-pages/'.$vista, $this->data);
+		}
+	}
+
+	/**
+	 * Funcion para mostrar alguna vista
+	 * @param  string $privilegios Nombre del los privilegios que tenie el usuario
+	 * @param  string $controlador El controlador que se esta utilizando
+	 * @param  string $vista Nombre de la vista
+	 */
+	protected function _vista($vista)
+	{
+		if ($this->privilegios == 'publico') {
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/head/head', $this->data);
+			$this->load->view($this->privilegios.'/general/header', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/container/'.$vista, $this->data);
+			$this->load->view($this->privilegios.'/general/pre-footer', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/footer/footer', $this->data);
+		} else {
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/head/head', $this->data);
+			$this->load->view($this->privilegios.'/general/header/header', $this->data);
+			$this->load->view($this->privilegios.'/general/sidebar/sidebar', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/container/'.$vista, $this->data);
+			$this->load->view($this->privilegios.'/general/quick-sidebar/quick-sidebar', $this->data);
+			$this->load->view($this->privilegios.'/'.$this->controlador.'/footer/footer', $this->data);
+		}
 	}
 
 	abstract function index();
@@ -73,43 +187,15 @@ abstract class AbstractAccess extends AbstractController {
 	protected $usuario_activo;
 
 	/**
-	 * Nombre del controlador, lo uso
-	 * para la redireccion
-	 *
-	 * @var string
-	 **/
-	protected $controller;
-
-	/**
-	 * Nombre de usuario con
-	 * el que se identifica el admin.
-	 *
-	 * @var string
-	 **/
-	const USUARIO = 'tiendapaq';
-
-	/**
-	 * Password de usuario con
-	 * el que se identifica el admin.
-	 *
-	 * @var string
-	 **/
-	const PASSWORD = 'gtsts1000';
-
-	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		// Consigo nombre de la clase
-		$this->controller = strtolower(get_class($this));
-		// Asignamos el item 'usuario_activo' a la variable
-		$this->usuario_activo = @$this->session->userdata('usuario_activo');
-		// Paso los datos del admin al array data para la vista
-		$this->data['usuario_activo'] = $this->usuario_activo;
-		// Nombre del controlador
-		$this->data['controlador'] = $this->controller;
+		$this->usuario_activo = @$this->session->userdata('usuario_activo'); // Asignamos el item 'usuario_activo' a la variable
+		$this->privilegios = $this->usuario_activo['privilegios']; // Privilegios del usuario activo
+		$this->data['privilegios'] 		= $this->privilegios; // Paso que privilegios tiene el usuario al array data para la vista
+		$this->data['usuario_activo'] 	= $this->usuario_activo; // Paso los datos del admin al array data para la vista
 	}
 
 	/**
@@ -126,147 +212,13 @@ abstract class AbstractAccess extends AbstractController {
 	public function _remap($method, $params = array())
 	{
 		if (method_exists($this, $method)) {
-			if ($method != 'login' && $method != 'validation' && $method != 'cookiescreen') {
-				$this->_admin();
-			}
-			// Si es cliente y esta iniciada la sesion
-			if ($this->controller == 'cliente' && isset($this->usuario_activo['codigo']) && !$this->usuario_activo['activo']) {
-				if ($method != 'offline' && $method != 'logout') {
-					redirect($this->controller.'/offline', 'refresh');
-				}
-			}
+			// SI el metodo ($method) que llamo son difrentes a cualquiera de estos
+			// entonces llamos a _admin() para validar que haya una sesion activa
+			$this->_admin();
 			return call_user_func_array(array($this, $method), $params);
 		} else {
-			redirect('/login',  'refresh');
+			redirect('/login');
 		}
-	}
-
-	/**
-	 * Vista del formulario del logueo
-	 * @param string $supervisor	Si el login es para cliente, aqui se inica de que supervisor viene.
-	 **/
-	protected function login($supervisor = null)
-	{
-		switch ($this->controller) {
-			case 'admin':
-				$titulo			= 'Bienvenido'.self::TITULO_PATRON;
-				$encabezado	= 'Bienvenido al Sistema';
-				$descripcion	= 'Administración de Relación con los Clientes.';
-				break;
-			case 'supervisor':
-				$titulo 		= 'Supervisor'.self::TITULO_PATRON;
-				$encabezado	= 'Supervisión del Sistema';
-				$descripcion	= '<i class="icon-warning-sign"></i> Solo acceso a personal <b>autorizado</b>.';
-				break;
-			case 'cliente':
-				$titulo 		= 'Bienvenido'.self::TITULO_PATRON;
-				$encabezado	= 'Bienvenido al Sistema';
-				$descripcion	= 'Aplicación web para la elaboración de pedidos en línea.';
-				$this->load->model('supervisormodel');
-				// Si no existe tabla supervisores la creo
-				if(!$this->supervisormodel->supervisorTableExists()) {
-					$this->supervisormodel->createTableSupervisores();
-				}
-				// Si el paramatro $supervisor es NULL
-				if (is_null($supervisor)) {
-					// Obtengo empresas
-					$empresas = $this->supervisormodel->get('empresa');
-					// SI el array es vacio
-					if(empty($empresas)) {
-						// Redirecciona a admin login
-						redirect('admin/login?i=1', 'refresh');
-					} else {
-						// Muestro empresas
-						$this->data['empresas'] = $empresas;
-					}
-				} else {
-					if($empresa = $this->supervisormodel->get('empresa', array('url_name' => $supervisor), null, null, 1)) {
-						$this->data['empresa'] = $empresa->empresa;
-					} else {
-						show_404();
-					}
-				}
-				break;
-		}
-		// Datos para la vista de logueo
-		$this->data['titulo'] 		= $titulo;
-		$this->data['encabezado']	=  $encabezado;
-		$this->data['descripcion'] 	= $descripcion;
-		$this->_vista_completa('login');
-	}
-
-	/**
-	 * Funcion para cerra la sesion
-	 * y redirecciona a login
-	 **/
-	protected function logout()
-	{
-		$this->session->unset_userdata('usuario_activo');
-		$this->session->sess_destroy();
-		redirect($this->controller.'/login',  'refresh');
-	}
-
-	/**
-	 * Funcion para mostrar alguna vista
-	 * @param  string $vista Nombre de la vista
-	 * @param  string $html Si  retorna el html stng
-	 */
-	protected function _vista_completa($vista, $html = FALSE)
-	{
-		if ($html) {
-			$vista = $this->load->view('admin/full-pages/'.$vista, $this->data, $html);
-			return $vista;
-		} else {
-			$this->load->view('admin/full-pages/'.$vista, $this->data);
-		}
-	}
-
-	/**
-	 * Funcion para mostrar alguna vista
-	 * @param  string $vista Nombre de la vista
-	 * @param  string $folder Nombre del directorio de la vista
-	 */
-	protected function _vista($vista, $folder = '')
-	{
-		$this->load->view('admin/head/'.$folder.'/head', $this->data);
-		$this->load->view('admin/header/header', $this->data);
-		$this->load->view('admin/container/sidebar/'.$folder.'/sidebar', $this->data);
-		$this->load->view('admin/container/content/'.$folder.'/'.$vista, $this->data);
-		$this->load->view('admin/footer/'.$folder.'/footer', $this->data);
-	}
-
-	/**
-	 * Funcion que recibe los valores desde AJAX (metodo POST)
-	 * y hace la funcion de validación y logeo
-	 *
-	 **/
-	protected function validation()
-	{
-		// Recibo varibles desde el AJAX
-		$usuario	= $this->input->post('usuario');
-		$password	= $this->input->post('password');
-		$remember= $this->input->post('remember');
-		// Si existe el admin
-		if ($usuario == self::USUARIO && $password == self::PASSWORD) {
-			// Si selecciona recordar, agrego cookie para recordar el usuario
-			if ($remember == 'true') {
-				/*
-				* APRUEBA PARA LA COOKIE DE RECUERDAME
-				 */
-				// $tiempo	= time()+60*60*24*30*6; // 6 Meses de duracion de la cookie
-				// $this->session->sess_expiration = $tiempo;
-				// $this->session->sess_expire_on_close = FALSE;
-			}
-			// Añadimos los datos del Admin a 'usuario_activo' y los pasamos a la sesión
-			$this->session->set_userdata('usuario_activo', array('tipo' => $this->controller));
-			$respuesta	= TRUE;
-			$mensaje	= 'Bienvenido, espera unos segundos...';
-		} else {
-			$respuesta = FALSE;
-			$mensaje 	= 'Usuario o contraseña inválidos.';
-		}
-		// Imprimo la respuesta
-		echo json_encode(array('respuesta' => $respuesta, 'mensaje' => $mensaje));
 	}
 
 	/**
@@ -277,8 +229,8 @@ abstract class AbstractAccess extends AbstractController {
 	 **/
 	private function _isLogin()
 	{
-		if (!@$this->usuario_activo || $this->usuario_activo['tipo'] != $this->controller) {
-			redirect('/login',  'refresh');
+		if (!@$this->usuario_activo || $this->usuario_activo['privilegios'] != $this->privilegios) {
+			redirect('/login');
 		}
 	}
 

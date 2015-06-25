@@ -1,0 +1,7 @@
+BD: crm-tiendapaq
+User: tiendapaq
+Pass: 43gzh%0Bgtsts1000
+
+Panel :8443
+User: sycpaqco
+Pass: n*G3_8nsET

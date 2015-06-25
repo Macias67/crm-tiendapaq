@@ -1,0 +1,29 @@
+TAREAS
+
+------------------------------------------------------------------------------------------
+EJECUTIVO
+*Agregar caso, problemas con el .js
+*Modal de tareas
+*Estatus de tareas ejecutivo, no se mostro el estatos de la tarea.
+*Vista rapida para ver estatus de casos y tareas de OTROS ejecutivos
+*Boton de cerrar casos en listado de casos, no funciona
+LISTO*Anexar imagenes y pruebas para el avance de notas
+*Reasignar tarea lo puede hacer tanto el lider del caso como la persona asignada.
+*Reasignar caso si y solo si no hay ninguna tarea creada.
+*Eliminar tareas si y solo si no hay notas y el estatus este en "pendiente".
+*Si el caso tiene todas las tareas en "suspendido" el caso 
+tomara ese estatus, de lo contrario seguir en proceso.
+
+Estatus:	     caso|Tarea
+cerrado			1|1
+pendiete		1|1
+precierre		1|0
+proceso			1|1
+suspendido		1|1
+reasignar		1|1
+porasignar		1|0
+
+-----------------------------------------------------------------------------------------
+cliente
+*Quitar nueva tarea en vista de cliente
+*Quitar editar notas en vista de cliente

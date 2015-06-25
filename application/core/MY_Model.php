@@ -1,6 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class MY_Model extends CI_Model {
+/**
+ * Modelo abstracto
+ */
+class MY_Model extends CI_Model
+{
 
 	/**
 	 * Nombre de la tabla a usar
@@ -16,34 +19,61 @@ class MY_Model extends CI_Model {
 	 **/
 	private $query;
 
+	/**
+	 * Prefijo de la tabla a usar
+	 *
+	 * @var string
+	 **/
 	private $prefijo;
 
-	/**
-	 * Constructor
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function setPrefijo($prefijo)
+	/**
+	 * Establezco prefijo de tabla
+	 * @param string $prefijo El prefijo de la tabla
+	 */
+	public function set_prefijo($prefijo)
 	{
 		$this->prefijo = $prefijo;
 		$this->table = $this->prefijo.'_'.$this->table;
 	}
 
-	/**
-	 * Inserta un nuevo registro
-	 * @param  object $object El objeto a insertar
-	 * @return boolean         TRUE si es exitoso
-	 */
-	public function insert($object)
+	public function get_table_name()
 	{
-		return $this->db->insert($this->table, $object);
+		return $this->table;
 	}
 
 	/**
-	 * Obtiene todos los lugares registrados
+	 * Inserta un nuevo registro
+	 * @param  string|object $data El objeto a insertar
+	 * @return boolean         TRUE si es exitoso
+	 *
+	 */
+	public function insert($data)
+	{
+		return $this->db->insert($this->table, $data);
+	}
+
+	/**
+	 * Funcion para obtener el ultimo ID insertado
+	 * despues de una insercion
+	 *
+	 * @return id
+	 **/
+	public function get_last_id_after_insert($data)
+	{
+		$this->db->trans_start();
+		$this->db->insert($this->table, $data);
+		$insert_id = $this->db->insert_id();
+   		$this->db->trans_complete();
+   		return  $insert_id;
+	}
+
+	/**
+	 * Obtiene todos los datos registrados
 	 * en la base de datos
 	 *
 	 * @param array $campos Los campos que se desean extraer
@@ -52,41 +82,159 @@ class MY_Model extends CI_Model {
 	 * @param string $orderForm La forma en ordenar
 	 * @param int $limit El limite del resultado
 	 * @param int $offset El limite del resultado
-	 * @return int|array Devuelve un array de objetos o vacio
+	 * @return object|array Devuelve un array de objetos o vacio
+	 *
 	 **/
 	public function get($campos = array('*'), $where = null, $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
 	{
 		$this->db->select($campos);
-		if ($where) { $this->db->where($where); }
-		if($orderBy) { $this->db->order_by($orderBy, $orderForm); }
-		if ($limit && !$offset) { $this->db->limit($limit); }
-		elseif ($limit && $offset) { $this->db->limit($limit, $offset); }
+		if ($where)
+		{
+			$this->db->where($where);
+		}
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit && !$offset)
+		{
+			$this->db->limit($limit);
+		}
+		elseif ($limit && $offset)
+		{
+			$this->db->limit($limit, $offset);
+		}
 		$query = $this->db->get($this->table);
-		return ($limit == 1) ? $query->row() : $query->result();
+		return ($limit === 1) ? $query->row() : $query->result();
 	}
 
-	public function getWhere($where)
+	/**
+	 * Obtener datos segun parametros
+	 * @param array $campos Los campos que se desean extraer
+	 * @param  [string] $campo [nombre del campo de la tabla]
+	 * @param  [string] $array [valores a encontrar]
+	 * @return [object|array]        [Datos devueltos]
+	 */
+	public function where_in($campos = array('*'), $campo, $array, $orderBy = null)
+	{
+		$this->db->select($campos);
+		$this->db->where_in($campo, $array);
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy);
+		}
+		$this->query = $this->db->get($this->table);
+		return ($this->query->num_rows() === 1) ? $this->query->row() : $this->query->result();
+	}
+
+	/**
+	 * Obtener datos segun parametros
+	 * @param  [array] $where [Array con los datos]
+	 * @return [object|array]        [Datos devueltos]
+	 */
+	public function get_where($where)
 	{
 		$this->query = $this->db->get_where($this->table, $where);
-		return ($this->query->num_rows() == 1) ? $this->query->row() : $this->query->result();
+		return ($this->query->num_rows() === 1) ? $this->query->row() : $this->query->result();
 	}
 
+	/**
+	 * Obtener datos segun parametros
+	 * @param array $campos Array con los campos a extraer
+	 * @param string $where String con el campo a hacer where
+	 * @param string $like String con el valor o patron a extraer
+	 * @return [object|array]        [Datos devueltos]
+	 */
+	public function get_like($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC', $limit = null)
+	{
+		$this->db->select($campos);
+		$this->db->like($where, $like);
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit)
+		{
+			$this->db->limit($limit);
+		}
+		$this->query = $this->db->get($this->table);
+		return $this->query->result();
+	}
+
+	/**
+	 * Funcion para obtener datos con un arreglo en la
+	 * seccion de like para buscar en todos los campos
+	 * @param  array  $campos    Array de los campos a buscar
+	 * @param  array  $like      Array con todos los vampos a hace like con or
+	 * @param  string $orderBy   Ordenar por
+	 * @param  string $orderForm Ordenar manera
+	 * @param  int $limit     Limite
+	 * @param  int $offset    Recorete
+	 * @return [Array Object]            [Retorna un arreglo de objetos]
+	 */
+	public function get_or_like($campos = array('*'), $like = array(), $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	{
+		$this->db->select($campos);
+		$this->db->or_like($like);
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit && !$offset)
+		{
+			$this->db->limit($limit);
+		}
+		elseif ($limit && $offset)
+		{
+			$this->db->limit($limit, $offset);
+		}
+		$this->query = $this->db->get($this->table);
+		return $this->query->result();
+	}
+
+	/**
+	 * Obtener datos segun parametros
+	 * @param  [array] $like [Array con los datos]
+	 * @return [object|array]        [Datos devueltos]
+	 */
+	public function get_like_offset($campos = array('*'), $where, $like, $orderBy = null, $orderForm = 'ASC', $limit = null, $offset = null)
+	{
+		$this->db->select($campos);
+		if ($where && $like)
+		{
+			$this->db->like($where, $like);
+		}
+		if($orderBy)
+		{
+			$this->db->order_by($orderBy, $orderForm);
+		}
+		if ($limit && !$offset)
+		{
+			$this->db->limit($limit);
+		}
+		elseif ($limit && $offset)
+		{
+			$this->db->limit($limit, $offset);
+		}
+		$query = $this->db->get($this->table);
+		return ($limit === 1) ? $query->row() : $query->result();
+	}
+
+	/**
+	 * Verfica si un registro existe segun parametros
+	 * @param  [array] $where [Array con los datos]
+	 * @return [object|array]        [Datos devueltos]
+	 */
 	public function exist($where)
 	{
-		$result = $this->getWhere($where);
+		$result = $this->get_where($where);
 		return ($result) ? TRUE : FALSE;
 	}
 
-	public function update($array_campos, $array_where)
+	public function update($array_campos, $array_where, $scape = TRUE)
 	{
 		$this->db->where($array_where);
-		return $this->db->update($this->table, $array_campos);
-	}
-
-	public function updateScape($array_campos, $array_where)
-	{
-		$this->db->where($array_where);
-		$this->db->set($array_campos, null, FALSE);
+		$this->db->set($array_campos, null, $scape);
 		return $this->db->update($this->table);
 	}
 
@@ -101,6 +249,9 @@ class MY_Model extends CI_Model {
 	}
 }
 
+/**
+*
+*/
 class TxtManager extends MY_Model {
 
 	/**
@@ -153,6 +304,7 @@ class TxtManager extends MY_Model {
 		if ($query->num_rows() > 0) {
 			// Asigno a variable un array de objetos
 			$array_bd				= $query->result();
+
 			// Array para guardar nuevos o modificados
 			$array_modificados	= array();
 			// Ciclo para extraer todos los modificados y nuevos
@@ -167,20 +319,22 @@ class TxtManager extends MY_Model {
 			// Si hay nuevos o modificados
 			if ($total_modificados = count($array_modificados)) {
 				// Variables de apoyo
-				$array_codigos_db	= array();
+				$array_rfc_db	= array();
+				$array_codigo_db	= array();
 				$modificado			= 0;
 				$insertado				= 0;
 				$total_bd 				= count($array_bd);
 				// Ciclo para extraer los codigos de los clientes de la BD
 				for ($i=0; $i < $total_bd; $i++) {
 					// Añado los codigos de la BD al array
-					array_push($array_codigos_db, $array_bd[$i]->codigo);
+					array_push($array_rfc_db, $array_bd[$i]->rfc);
 				}
 				// Ciclo para añadir o modifiar los clientes en la BD
 				for ($i=0; $i < $total_modificados; $i++) {
-					if (in_array($array_modificados[$i]->codigo, $array_codigos_db)) {
+					if (in_array($array_modificados[$i]->rfc, $array_rfc_db)) {
 						// Update
-						$this->db->where('codigo', $array_modificados[$i]->codigo);
+						$where = array('rfc' => $array_modificados[$i]->rfc, 'codigo' =>$array_modificados[$i]->codigo);
+						$this->db->where($where);
 						if($this->db->update($this->table, $array_modificados[$i])) {
 							$modificado++;
 						}
@@ -287,15 +441,18 @@ class TxtManager extends MY_Model {
 		$this->load->helper('file');
 		// Leo el archivo y almaceno en variable
 		$data_file			= read_file($file_txt['tmp_name']);
-		$data_pattern	= read_file('assets/patterns/'.$this->file_txt.'.txt');
+		$data_pattern		= read_file('assets/patterns/'.$this->file_txt.'.txt');
 		// Convierte en array linea por linea del texto
 		$lines_file			= explode("\n", $data_file);
-		$lines_pattern	= explode("\n", $data_pattern);
+		$lines_pattern		= explode("\n", $data_pattern);
 		// Extraigo las 3 primeras lineas del archivo a comprobar
 		$lines_file			= array_slice($lines_file, 0, 3);
 		// Convierte a strings los arreglos
 		$str_file			= implode($lines_file);
 		$str_pattern		= implode($lines_pattern);
+		log_message('error', $str_file);
+		log_message('error', $str_pattern);
+		log_message('error', strlen($str_file).' - '.strlen($str_pattern));
 		// Comparo strings
 		return ($str_file == $str_pattern) ? TRUE : FALSE;
 	}

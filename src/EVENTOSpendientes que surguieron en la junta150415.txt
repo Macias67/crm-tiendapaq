@@ -1,0 +1,11 @@
+EVENTOS
+
+------------------------------------------------------------------------------------------
+EJECUTIVO
+
+LISTO*Cambiar etiqueta de lugar a modalidad.
+LISTO*Cambiar a fecha limite de inscripcion de una hora antes a una hora despues.
+LISTO*Cambiar e la vista publica de "precencilaes" a "fuera de nuestras sucursales""
+*Aumentar el tamaño de "inscribete" en los detalles del evento en la vista publica
+LISTO*Agregar "inscribete" en la vista rapida de la vista publica, ejemplo: donde esta el boton de detalles.
+LISTO*Modificar leyenda de la inscripsion para aclarar que se tomara en cuenta, su cupo cuando el pago se haya validado.

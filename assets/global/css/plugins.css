@@ -40,6 +40,14 @@ Bootstrap Datepaginator
   right: 4px !important;
 }
 
+.datepaginator .fa-angle-right:before {
+  content: "\f105";
+}
+
+.datepaginator .fa-angle-left:before {
+  content: "\f104";
+}
+
 /***
 Bootstrap Datepicker
 ***/
@@ -75,11 +83,13 @@ Bootstrap Datepicker
 }
 
 .datepicker table td {
+  color: #000;
   font-weight: 300  !important;
   font-family: 'Open Sans' !important;
 }
 
 .datepicker table th {
+  color: #333;
   font-family: 'Open Sans' !important;
   font-weight: 400  !important;
 }
@@ -94,6 +104,10 @@ Bootstrap Daterangepicker
 ***/
 .modal-open .daterangepicker {
   z-index: 10055 !important;
+}
+
+.daterangepicker {
+  margin-top: 4px;
 }
 
 .daterangepicker td {
@@ -157,6 +171,7 @@ Bootstrap Daterangepicker
 Bootstrap  Datetimepicker
 ***/
 .datetimepicker table td {
+  color: #000;
   font-weight: 300  !important;
   font-family: 'Open Sans' !important;
 }
@@ -218,6 +233,10 @@ Jansy File Input plugin css changes
 .fileinput .close {
   float: none;
 }
+.fileinput .input-group {
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 /***
 Bootstrap Markdown
@@ -229,6 +248,13 @@ Bootstrap Markdown
 
 .md-editor .btn-toolbar {
   margin-left: 0px;
+}
+.md-editor .btn-toolbar .btn-group .btn-sm.btn {
+  padding-bottom: 3px;
+}
+.md-editor .btn-toolbar .btn-group .btn-primary {
+  padding-top: 5px;
+  padding-bottom: 7px;
 }
 
 .md-editor.active {
@@ -242,15 +268,15 @@ Bootstrap Markdown
 Error state for WYSIWYG Editors
 ***/
 .has-error .md-editor {
-  border: 1px solid #f3565d !important;
+  border: 1px solid #ebccd1 !important;
 }
 
 .has-success .md-editor {
-  border: 1px solid #45b6af !important;
+  border: 1px solid #d6e9c6 !important;
 }
 
 .has-warning .md-editor {
-  border: 1px solid #ecbc29 !important;
+  border: 1px solid #faebcc !important;
 }
 
 /***
@@ -276,15 +302,15 @@ Bootstrap Select
 }
 
 .has-error .bootstrap-select .btn {
-  border-color: #f3565d;
+  border-color: #ebccd1;
 }
 
 .has-success .bootstrap-select .btn {
-  border-color: #45b6af;
+  border-color: #d6e9c6;
 }
 
 .has-warning .bootstrap-select .btn {
-  border-color: #ecbc29;
+  border-color: #faebcc;
 }
 
 .bootstrap-select.open .btn {
@@ -373,7 +399,7 @@ Color variants
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
   color: white;
-  background: #ecbc29;
+  background: #dfba49;
 }
 
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger,
@@ -391,7 +417,7 @@ Color variants
 /* Bootstrap switch on portlet headers */
 .portlet > .portlet-title > .actions > .bootstrap-switch {
   border-color: transparent;
-  margin-top: -13px;
+  margin-top: 0px;
 }
 
 /***
@@ -525,7 +551,7 @@ Bootstrap Wizard
   color: #333;
 }
 .form-wizard .steps > li.done > a.step .number {
-  background-color: #ecbc29;
+  background-color: #dfba49;
   color: #fff;
 }
 .form-wizard .steps > li.done > a.step .desc {
@@ -571,15 +597,15 @@ wysihtml5
 Error state for WYSIWYG Editors
 ***/
 .has-error .wysihtml5-sandbox {
-  border: 1px solid #f3565d !important;
+  border: 1px solid #ebccd1 !important;
 }
 
 .has-success .wysihtml5-sandbox {
-  border: 1px solid #45b6af !important;
+  border: 1px solid #d6e9c6 !important;
 }
 
 .has-warning .wysihtml5-sandbox {
-  border: 1px solid #ecbc29 !important;
+  border: 1px solid #faebcc !important;
 }
 
 /***
@@ -598,21 +624,36 @@ Error state for WYSIWYG Editors
   z-index: 11000;
   width: 100% !important;
 }
+.note-editor .dropdown-menu:before {
+  left: 9px;
+  right: auto;
+}
+.note-editor .dropdown-menu:after {
+  left: 10px;
+  right: auto;
+}
 
 .note-link-dialog .checkbox {
   margin-left: 20px;
 }
 
 .has-error .note-editor {
-  border: 1px solid #f3565d !important;
+  border: 1px solid #ebccd1 !important;
 }
 
 .has-success .note-editor {
-  border: 1px solid #45b6af !important;
+  border: 1px solid #d6e9c6 !important;
 }
 
 .has-warning .note-editor {
-  border: 1px solid #ecbc29 !important;
+  border: 1px solid #faebcc !important;
+}
+
+/***
+Bootbox
+***/
+.bootbox .bootbox-close-button {
+  margin-top: 0px !important;
 }
 
 /***
@@ -709,6 +750,10 @@ Error state for WYSIWYG Editors
 
 .has-success .cke {
   border: 1px solid #d6e9c6 !important;
+}
+
+.has-warning .cke {
+  border: 1px solid #faebcc !important;
 }
 
 /***
@@ -943,7 +988,7 @@ Extended pagination
 .dataTables_extended_wrapper div.dataTables_paginate,
 .dataTables_extended_wrapper div.dataTables_length,
 .dataTables_extended_wrapper div.dataTables_info {
-  display: inline-block !important;
+  display: inline-block;
   float: none !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -954,7 +999,7 @@ Extended pagination
   .dataTables_extended_wrapper div.dataTables_paginate,
   .dataTables_extended_wrapper div.dataTables_length,
   .dataTables_extended_wrapper div.dataTables_info {
-    display: block !important;
+    display: block;
     margin-bottom: 10px !important;
   }
 
@@ -1002,10 +1047,14 @@ Dropzone css changes(new in v1.1.1)
 }
 
 /***
-Fancy box fix overlay fix(in v1.2.4)
+Fancy box fix overlay fix
 ***/
 .fancybox-overlay {
-  z-index: 10000;
+  z-index: 100000;
+}
+
+.fancybox-opened {
+  z-index: 100001;
 }
 
 /***
@@ -1032,6 +1081,15 @@ Fullcalendar
   margin-left: 5px;
 }
 
+.fc-scroller {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.fc-month-view .fc-scroller {
+  height: auto !important;
+}
+
 .portlet .event-form-title {
   font-size: 14px;
   margin-top: 4px;
@@ -1044,7 +1102,8 @@ Fullcalendar
   box-shadow: none;
   text-shadow: none;
   border: 0;
-  padding: 5px 8px 33px 8px;
+  height: 35px;
+  padding: 6px 8px 7px 8px;
   margin-left: 2px;
   border-top-style: none;
   border-bottom-style: none;
@@ -1053,7 +1112,15 @@ Fullcalendar
   border-color: #ddd;
   background: transparent;
   color: #fff;
-  top: -48px;
+  top: -45px;
+  outline: none !important;
+}
+.portlet.calendar .fc-toolbar {
+  margin-bottom: 0px;
+}
+.portlet.calendar .fc-toolbar h2 {
+  margin-top: 3px;
+  font-size: 17px;
 }
 .portlet.calendar .fc-header {
   margin-bottom: -21px;
@@ -1073,6 +1140,26 @@ Fullcalendar
 .portlet.calendar .fc-button.fc-state-disabled {
   color: #ddd;
 }
+.portlet.calendar .fc-button .fc-icon-left-single-arrow {
+  font-family: FontAwesome;
+  font-size: 16px;
+}
+.portlet.calendar .fc-button .fc-icon-left-single-arrow:after {
+  content: "";
+}
+.portlet.calendar .fc-button .fc-icon-left-single-arrow:before {
+  content: "\f104";
+}
+.portlet.calendar .fc-button .fc-icon-right-single-arrow {
+  font-family: FontAwesome;
+  font-size: 16px;
+}
+.portlet.calendar .fc-button .fc-icon-right-single-arrow:after {
+  content: "";
+}
+.portlet.calendar .fc-button .fc-icon-right-single-arrow:before {
+  content: "\f105";
+}
 .portlet.calendar .fc-text-arrow {
   font-size: 22px;
   font-family: "Courier New", Courier, monospace;
@@ -1083,17 +1170,17 @@ Fullcalendar
   background-color: #69a4e0;
   color: #fff;
 }
-.portlet.calendar .fc-event .fc-event-inner {
+.portlet.calendar .fc-event .fc-content {
   border: 0px;
 }
-.portlet.calendar .fc-event .fc-event-time {
+.portlet.calendar .fc-event .fc-time {
   float: left;
   text-align: left;
   color: #fff;
   font-size: 13px;
   font-weight: 300;
 }
-.portlet.calendar .fc-event .fc-event-title {
+.portlet.calendar .fc-event .fc-title {
   text-align: left;
   float: left;
   color: #fff;
@@ -1112,6 +1199,24 @@ Fullcalendar
   background-color: #eeeeee;
   text-transform: uppercase;
   font-weight: 300;
+}
+.portlet.calendar.light .fc-button {
+  top: -60px;
+  color: #666;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding-bottom: 35px;
+}
+.portlet.calendar.light .fc-button .fc-text-arrow {
+  margin-top: -6px;
+  display: inline-block;
+}
+.portlet.calendar.light .fc-button.fc-state-active, .portlet.calendar.light .fc-button.fc-state-hover {
+  color: #333;
+  border-bottom: 2px solid #45b6af;
+}
+.portlet.calendar.light .fc-button.fc-state-disabled {
+  color: #aaa;
 }
 .portlet.calendar .mobile .fc-button {
   padding: 0px 6px 20px 6px;
@@ -1651,7 +1756,7 @@ Color variants
 
 .noUi-warning.noUi-connect,
 .noUi-warning .noUi-connect {
-  background: #ecbc29;
+  background: #dfba49;
 }
 
 .noUi-danger.noUi-connect,
@@ -1748,6 +1853,7 @@ Select2 Plugin
   webkit-appearance: none !important;
   color: #333333;
   outline: 0;
+  box-shadow: none;
   height: auto !important;
   min-height: 26px;
   padding: 6px 6px !important;
@@ -1870,44 +1976,44 @@ Color variants
 ***/
 .has-warning .select2-container .select2-choice,
 .has-warning .select2-container .select2-choices {
-  border-color: #ecbc29;
+  border-color: #faebcc;
 }
 
 .has-warning .select2-container.select2-dropdown-open .select2-choice,
 .has-warning .select2-container.select2-dropdown-open .select2-choices {
-  border-color: #e5e5e5;
+  border-color: #faebcc;
 }
 
 .has-warning .select2-container.select2-dropdown-open .select2-choice > span {
-  color: #999999;
+  color: #faebcc;
 }
 
 .has-error .select2-container .select2-choice,
 .has-error .select2-container .select2-choices {
-  border-color: #f3565d;
+  border-color: #ebccd1;
 }
 
 .has-error .select2-container.select2-dropdown-open .select2-choice,
 .has-error .select2-container.select2-dropdown-open .select2-choices {
-  border-color: #e5e5e5;
+  border-color: #ebccd1;
 }
 
 .has-error .select2-container.select2-dropdown-open .select2-choice > span {
-  color: #999999;
+  color: #ebccd1;
 }
 
 .has-success .select2-container .select2-choice,
 .has-success .select2-container .select2-choices {
-  border-color: #45b6af;
+  border-color: #d6e9c6;
 }
 
 .has-success .select2-container.select2-dropdown-open .select2-choice,
 .has-success .select2-container.select2-dropdown-open .select2-choices {
-  border-color: #e5e5e5;
+  border-color: #d6e9c6;
 }
 
 .has-success .select2-container.select2-dropdown-open .select2-choice > span {
-  color: #999999;
+  color: #d6e9c6;
 }
 
 /* Fix z-index when select2 opened in modals*/
@@ -1950,4 +2056,121 @@ div.radio,
 div.checker {
   margin-right: 0;
   margin-left: 3px;
+}
+
+/***
+Morris Charts
+***/
+.portlet-body-morris-fit {
+  margin-right: -20px;
+  margin-left: -20px;
+  margin-bottom: -15px;
+}
+
+.morris-hover.morris-default-style .morris-hover-row-label {
+  text-align: left;
+  font-weight: 400;
+  font-size: 15px;
+  color: #7D8C9D;
+  font-family: "Open Sans", sans-serif;
+}
+.morris-hover.morris-default-style .morris-hover-point {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+}
+
+/***
+iCheck
+***/
+.icheck-list > label {
+  display: block;
+  margin-bottom: 8px;
+}
+.icheck-list > label:last-child {
+  margin-bottom: 0;
+}
+
+.form-horizontal .icheck-inline {
+  margin-top: 8px;
+}
+.icheck-inline > label {
+  display: inline-block;
+  margin-left: 15px;
+}
+.icheck-inline > label:first-child {
+  margin-left: 0;
+}
+
+div[class*='icheckbox_'],
+div[class*='iradio_'] {
+  margin-right: 5px;
+  top: -1px !important;
+}
+
+.icheck-colors {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.icheck-colors > li {
+  padding: 0;
+  margin: 4px;
+  float: left;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background: #000000;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.icheck-colors > li:first-child {
+  margin-left: 0;
+}
+.icheck-colors > li:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  cursor: pointer;
+}
+.icheck-colors > li.active {
+  height: 26px;
+  margin-top: 0;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.icheck-colors > li.red {
+  background: #d54e21;
+}
+.icheck-colors > li.green {
+  background: #78a300;
+}
+.icheck-colors > li.blue {
+  background: #0e76a8;
+}
+.icheck-colors > li.aero {
+  background: #9cc2cb;
+}
+.icheck-colors > li.grey {
+  background: #73716e;
+}
+.icheck-colors > li.orange {
+  background: #f70;
+}
+.icheck-colors > li.yellow {
+  background: #fc0;
+}
+.icheck-colors > li.pink {
+  background: #ff66b5;
+}
+.icheck-colors > li.purple {
+  background: #6a5a8c;
+}
+
+/***
+AngularJS UI-select
+***/
+.ui-select-match-close {
+  margin-top: 5px !important;
+  margin-left: 5px !important;
 }

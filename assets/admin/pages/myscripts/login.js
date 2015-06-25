@@ -1,18 +1,22 @@
+/**
+ * Script para loguarse en el sistemas y
+ * hacer las funciones el panel de logueo
+ */
 var Login = function () {
 
 	/*
-	* Esta funcion la agruego yo
-	* @autor Luis Macias
+	* Funcion para loguiarse al sistema
+	* mediante ajax
 	 */
 	function login() {
 		var username	= $('[name="username"]').val();
 		var password	= $('[name="password"]').val();
 		var remember	= $('[name="remember"]').is(':checked');
-		var controller	= $('#login').attr('name');
 		var notice		= $('#notice');
 		var message 	= notice.html();
+		// Hacemos la peticion ajax
 		$.ajax({
-			url: '/'+controller+'/validation',
+			url: '/validation',
 			type: 'post',
 			dataType: 'json',
 			cache: false,
@@ -24,9 +28,10 @@ var Login = function () {
 			success: function (response) {
 				if (response.respuesta) {
 					notice.html('<i class="fa fa-unlock"></i> '+response.mensaje);
-					notice.attr('style', 'color: green; text-shadow: 0px 0px 5px rgba(0, 200, 0, 0.4)')
+					notice.attr('style', 'color: green; text-shadow: 0px 0px 5px rgba(0, 200, 0, 0.4)');
 					setTimeout(function() {
-						window.location = '/';
+						// window.location = '/';
+						window.location.replace(response.url);
 					}, 2500);
 				} else {
 					notice.attr('style', 'color: #d30000; text-shadow: 0px 0px 5px rgba(200, 0, 0, 0.4)')
@@ -41,6 +46,7 @@ var Login = function () {
 		});
 	}
 
+	// Valores requeridos para el logueo
 	var handleLogin = function() {
 		$('.login-form').validate({
 			errorElement: 'b', //default input error message container
@@ -93,6 +99,7 @@ var Login = function () {
 		});
 	}
 
+	// Validacion para cuando se olvida la contraseña
 	var handleForgetPassword = function () {
 
 		$('.forget-form').validate({
@@ -108,7 +115,8 @@ var Login = function () {
 			},
 			messages: {
 				email: {
-					required: "Email is required."
+					required: "El email es requerido.",
+					email: "Dirección email no válida."
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
@@ -124,7 +132,34 @@ var Login = function () {
 				error.insertAfter(element.closest('.input-icon'));
 			},
 			submitHandler: function (form) {
-				form.submit();
+				var email 		= $('input.email').val();
+				var notice		= $('#notice_email');
+				var message 	= notice.html();
+				// Hacemos la peticion ajax
+				$.ajax({
+					url: '/recordar',
+					type: 'post',
+					dataType: 'json',
+					cache: false,
+					data: {email: email},
+					beforeSend: function() {
+						notice.html('<i class="fa fa-envelope"></i> Revisando...')
+								.attr('style', 'color: white; text-shadow: 0px 0px 5px rgba(200, 200, 200, 0.4)');
+					},
+					error: function(jqXHR, status, error) {
+						console.log("ERROR: "+error);
+						alert('ERROR: revisa la consola del navegador para más detalles.');
+					},
+					success: function (response) {
+						if (response.exito) {
+							notice.html('<i class="fa fa-envelope"></i> '+response.mensaje)
+								.attr('style', 'color: green; text-shadow: 0px 0px 5px rgba(0, 200, 0, 0.4)');
+						} else {
+							notice.attr('style', 'color: #d30000; text-shadow: 0px 0px 5px rgba(200, 0, 0, 0.4)')
+								.html('<i class="fa fa-ban"></i> '+response.mensaje);
+						};
+					}
+				});
 			}
 		});
 
@@ -148,6 +183,7 @@ var Login = function () {
 		});
 	}
 
+	// Validaciones para el registro
 	var handleRegister = function () {
 
 		function format(state) {
