@@ -128,7 +128,7 @@ var FormValidationCliente = function () {
 					required: true
 				},
 				no_interior: {
-					maxlength: 5,
+					maxlength: 11,
 				},
 				colonia: {
 					maxlength: 50,
@@ -258,7 +258,7 @@ var FormValidationCliente = function () {
 					required: "Escribe el no. exterior"
 				},
 				no_interior: {
-					maxlength: "Debe tener menos de 5 caracteres",
+					maxlength: "Debe tener 11 o menos caracteres",
 				},
 				colonia: {
 					maxlength: "La colonia debe tener menos de 50 caracteres",
@@ -442,7 +442,7 @@ var FormValidationCliente = function () {
 					required: true
 				},
 				no_interior: {
-					maxlength: 5
+					maxlength: 11
 				},
 				colonia: {
 					maxlength: 50,
@@ -505,7 +505,7 @@ var FormValidationCliente = function () {
 					required: "Escribe el no. exterior"
 				},
 				no_interior: {
-					maxlength: "Menos de 5 digitos",
+					maxlength: "Debe tener 11 o menos caracteres",
 				},
 				colonia: {
 					required: "Escribe la colonia",
