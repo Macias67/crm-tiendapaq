@@ -168,7 +168,7 @@ class Caso extends AbstractAccess {
 					$detalle_caso,
 					array(
 						'descripcion' => $listado->descripcion,
-						'observacion' => ucfirst(mb_strtolower($listado->observacion, 'UTF-8'))
+						'observacion' => ucfirst(strtolower($listado->observacion))
 					)
 				);
 			}
