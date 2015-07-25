@@ -9,14 +9,14 @@
 |	http://codeigniter.com/user_guide/general/hooks.html
 |
 */
-$hook['post_controller_constructor'] = array(
+$hook['post_controller_constructor'][] = array(
 	'class'		=> 'Hook',
 	'function' 	=> 'caducidadEvento',
 	'filename' 	=> 'Hook.php',
 	'filepath' 	=> 'hooks'
 );
 
-$hook['post_controller_constructor'] = array(
+$hook['post_controller_constructor'][] = array(
 	'class'		=> 'Hook',
 	'function' 	=> 'caducidadEncuesta',
 	'filename' 	=> 'Hook.php',
