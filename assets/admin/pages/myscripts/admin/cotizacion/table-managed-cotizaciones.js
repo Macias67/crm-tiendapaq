@@ -193,7 +193,7 @@ var TableManagedCotizaciones = function () {
 				$('.email_contacto').val($('#select_contacto').val());
 			});
 
-			$('.btn_reenviar_cotizacion').on('click', function() {
+			$('#ajax-contactos-reenvio .btn_reenviar_cotizacion').click(function() {
 				var folio = $('#folio').val();
 				var email = $('.email_contacto').val();
 

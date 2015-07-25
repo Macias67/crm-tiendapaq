@@ -147,7 +147,7 @@ var FormValidation = function () {
 								Metronic.removeLoader();
 								verificarInfo.modal('hide');
 								bootbox.alert(data.msg, function() {
-									window.location.replace(data.url);
+									window.location.href = data.url;
 								});
 							} else {
 								error.html(data.msg);

@@ -27,7 +27,7 @@
 										<th>Folio</th>
 										<th>Cliente</th>
 										<th>Ejecutivo</th>
-										<th>Fecha de pago</th>
+										<th>Se le cotizó</th>
 										<th>Vigencia</th>
 										<th></th>
 									</tr>
