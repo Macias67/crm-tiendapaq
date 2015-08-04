@@ -46,9 +46,7 @@ var TableManaged = function () {
 			"order": [ 0, 'asc' ] // set first column as a default sort by asc
 		});
 
-		var modal = $('#ajax-asignar-ejecutivo');
-		modal.on('shown.bs.modal', function (e) {
-			$('.btn_asignar_caso').on('click', function () {
+			$(document).on('click','.btn_asignar_caso', function () {
 				var id_caso 			= $('#id_caso').val();
 				var id_ejecutivo 	= $('#select_ejecutivo').val();
 				var ejecutivo_text 	= $("#select_ejecutivo option:selected").html()
@@ -69,7 +67,6 @@ var TableManaged = function () {
 					}
 				});
 			});
-		});
 	}
 
 	var DetallesCaso = function () {

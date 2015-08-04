@@ -76,14 +76,14 @@ class Encuesta extends AbstractController {
 				$puntos2 = 15;
 			}
 
-			// Pregunta 3 - 10 - 30pts
+			// Pregunta 3 - 1-10 - 30pts
 			$pregunta3 = (int)$pregunta3;
 			$puntos3 	= ($pregunta3*30)/10;
 			$puntaje 	+= $puntos3;
 
-			// Pregunta 4 - 10 - 30pts
+			// Pregunta 4 - 1-10 - 20pts
 			$pregunta4 = (int)$pregunta4;
-			$puntos4 	= ($pregunta4*30)/10;
+			$puntos4 	= ($pregunta4*20)/10;
 			$puntaje 	+= $puntos4;
 
 			// Pregunta 5 - 10,5,0
