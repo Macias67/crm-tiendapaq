@@ -140,14 +140,14 @@ var FormValidation = function () {
 						data: param,
 						error: function(jqXHR, status, error) {
 							console.log("ERROR: "+error);
-							alert('ERROR: revisa la consola del navegador para más detalles.');
+							xalert('ERROR: revisa la consola del navegador para más detalles.');
 						},
 						success: function(data, textStatus, xhr) {
 							if (data.exito) {
 								Metronic.removeLoader();
 								verificarInfo.modal('hide');
 								bootbox.alert(data.msg, function() {
-									window.location.replace(data.url);
+									window.location.href = data.url;
 								});
 							} else {
 								error.html(data.msg);

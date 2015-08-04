@@ -168,7 +168,7 @@ class Caso extends AbstractAccess {
 					$detalle_caso,
 					array(
 						'descripcion' => $listado->descripcion,
-						'observacion' => ucfirst(mb_strtolower($listado->observacion, 'UTF-8'))
+						'observacion' => ucfirst($listado->observacion, 'UTF-8')
 					)
 				);
 			}
@@ -523,7 +523,7 @@ class Caso extends AbstractAccess {
 
 		// creo un objeto donde almacenare el id el nombre y el apellido de los ejecutivos
 		$ejecutivos_origen_destino = new stdClass();
-		
+
 		// lleno mi objeto con los datos deseados del ejecutivo
 		foreach ($ejecutivos as $key => $value) {
 
