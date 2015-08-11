@@ -83,6 +83,6 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" data-dismiss="modal" class="btn btn-default btn-circle">Cancelar</button>
-		<button type="submit" id="btn_guardar_equipo" class="btn green btn-circle">Guardar</button>
+		<button type="submit" id="btn_guardar_equipo" class="btn green btn-circle btn_guardar_contacto">Guardar</button>
 	</div>
 </form>

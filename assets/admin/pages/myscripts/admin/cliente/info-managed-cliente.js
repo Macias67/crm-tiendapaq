@@ -111,8 +111,8 @@ var InfoManagedCliente = function() {
 		});
 
 		// Validaciones para editar cliente
-		var modal = $('#ajax_form_contacto');
-		modal.on('shown.bs.modal', function (e) {
+		$(document).on('click','.btn_guardar_contacto', function () {
+			var modal = $('#ajax_form_contacto');
 			maskTelefono();
 			var form = $('#form-contacto');
 			var error = $('.alert-danger', form);
