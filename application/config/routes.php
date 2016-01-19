@@ -62,6 +62,8 @@ $route['cursos/(:any)']	= $PUBLICO."evento/$1";
 $route['encuesta/(:any)']	= $PUBLICO."encuesta/form/$1";
 $route['encuesta/validar']	= $PUBLICO."encuesta/validar";
 $route['encuesta/correo']	= $PUBLICO."encuesta/correo";
+// Tickets
+$route['abre-ticket']		= $PUBLICO."ticket";
 
 /*
 | -------------------------------------------------------------------------

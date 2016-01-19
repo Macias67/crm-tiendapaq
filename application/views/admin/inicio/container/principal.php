@@ -98,6 +98,11 @@
 							<i class="fa fa-arrow-circle-o-up"></i>
 							<div>Abrir Caso</div>
 						</a>
+						<!-- Tickets -->
+						<a href="#" id="tareas_pendiente" class="icon-btn">
+							<i class="fa fa-list"></i>
+							<div>&nbsp;&nbsp;Tickets&nbsp;&nbsp;</div>
+						</a>
 						<!-- Revision de casos -->
 						<!-- <a href="<?php echo site_url('caso/revisar') ?>"  id="casos_revisar" class="icon-btn">
 							<i class="fa  fa-briefcase"></i>

@@ -8,3 +8,4 @@ assets/admin/pages/media/eventos/*
 assets/admin/pages/media/tareas/*
 tmp/*
 clientes/*
+.idea/*
