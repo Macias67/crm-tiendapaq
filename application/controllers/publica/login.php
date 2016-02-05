@@ -153,7 +153,7 @@ class Login extends AbstractController {
 				// Envio del email
 				$this->load->library('email');
 				$this->email->set_mailtype("html");
-				$this->email->from('recovery@moz67.com', 'Sistema de Recuperación');
+				$this->email->from('recovery@soipaq.com', 'Sistema de Recuperación');
 				//$this->email->to($ejecutivo->email);
 				//$this->email->cc('another@example.com');
 				//$this->email->bcc('and@another.com');

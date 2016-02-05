@@ -350,7 +350,7 @@ class Cotizador extends AbstractAccess {
 			$this->load->library('email');
 			$this->load->helper('formatofechas');
 			$this->email->set_mailtype('html');
-			$this->email->from('cotizacion@moz67.com','Cotización TiendaPAQ');
+			$this->email->from('cotizacion@soipaq.com','Cotización TiendaPAQ');
 			$this->email->to($cliente['email']);
 			//$this->email->cc('another@example.com');
 			//$this->email->bcc('and@another.com');
@@ -358,7 +358,7 @@ class Cotizador extends AbstractAccess {
 			// Contenido del correo
 			$this->data['usuario'] 		= $data_cliente[0]->usuario;
 			$this->data['password'] 	= $data_cliente[0]->password;
-			$this->data['folio'] 			= $folio;
+			$this->data['folio'] 			= $cotizacion['folio'];
 			$this->data['fecha'] 		= fecha_completa(date('Y-m-d H:i:s'));
 			$this->data['vigencia'] 		= fecha_completa($vigencia);
 			$this->data['contacto'] 	= $cliente['contacto'];

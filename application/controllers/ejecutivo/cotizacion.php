@@ -398,7 +398,7 @@ class Cotizacion extends AbstractAccess {
 
 					//Envio Email con el PDF
 					$this->email->set_mailtype('html');
-					$this->email->from('cotizacion@moz67.com', 'Ventas - TiendaPAQ');
+					$this->email->from('cotizacion@soipaq.com', 'Ventas - TiendaPAQ');
 					$this->email->to($cotizacion->email_contacto);
 					$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
 
@@ -471,7 +471,7 @@ class Cotizacion extends AbstractAccess {
 									}
 
 									$this->email->set_mailtype('html');
-									$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+									$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
 									$this->email->to($contacto->email_contacto);
 
 									$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
@@ -540,7 +540,7 @@ class Cotizacion extends AbstractAccess {
 							}
 
 							$this->email->set_mailtype('html');
-							$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+							$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
 							$this->email->to($contacto->email_contacto);
 
 							$this->email->subject('Pago irregular de evento - TiendaPAQ');
@@ -634,7 +634,7 @@ class Cotizacion extends AbstractAccess {
 							$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
 							//Envio Email con el PDF
 							$this->email->set_mailtype('html');
-							$this->email->from('cotizacion@moz67.com', 'Ventas - TiendaPAQ');
+							$this->email->from('cotizacion@soipaq.com', 'Ventas - TiendaPAQ');
 							$this->email->to($cotizacion->email_contacto);
 
 							$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
@@ -737,7 +737,7 @@ class Cotizacion extends AbstractAccess {
 				$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
 				//Envio Email con el PDF
 				$this->email->set_mailtype('html');
-				$this->email->from('cotizacion@moz67.com', 'Reenvio/Cotización - TiendaPAQ');
+				$this->email->from('cotizacion@soipaq.com', 'Reenvio/Cotización - TiendaPAQ');
 				$this->email->to($email);
 				//$this->email->cc('another@example.com');
 				//$this->email->bcc('and@another.com');

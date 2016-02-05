@@ -311,7 +311,7 @@ class Caso extends AbstractAccess {
 						$lider = $caso->primer_nombre.' '.$caso->apellido_paterno;
 						//Envio Email
 						$this->email->set_mailtype('html');
-						$this->email->from('notificacion@moz67.com', 'Soporte Técnico - TiendaPAQ');
+						$this->email->from('notificacion@soipaq.com', 'Soporte Técnico - TiendaPAQ');
 						$this->email->to($contacto->email_contacto);
 						//$this->email->cc('another@example.com');
 						//$this->email->bcc('and@another.com');
@@ -437,7 +437,7 @@ class Caso extends AbstractAccess {
 				$lider = $caso->primer_nombre.' '.$caso->apellido_paterno;
 				//Envio Email
 				$this->email->set_mailtype('html');
-				$this->email->from('notificacion@moz67.com', 'Apertura de Caso - TiendaPAQ');
+				$this->email->from('notificacion@soipaq.com', 'Apertura de Caso - TiendaPAQ');
 				$this->email->to($cliente->email);
 				//$this->email->cc('another@example.com');
 				//$this->email->bcc('and@another.com');

@@ -646,7 +646,7 @@ class Tarea extends AbstractAccess {
 						$this->load->library('email');
 
 						$this->email->set_mailtype('html');
-						$this->email->from('encuestas@moz67.com', 'Encuesta TiendaPaq - Caso Terminado');
+						$this->email->from('encuestas@soipaq.com', 'Encuesta TiendaPaq - Caso Terminado');
 						$this->email->to($email);
 
 						$this->email->subject($asunto);

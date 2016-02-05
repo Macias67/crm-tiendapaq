@@ -734,7 +734,7 @@ class Evento extends AbstractAccess {
 
 						// Configuración del email
 						$this->email->set_mailtype('html');
-						$this->email->from('eventos@moz67.com', 'Eventos TiendaPAQ');
+						$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
 						$this->email->to($participante->email_contacto);
 						$this->email->subject('Recordatorio del evento: "'.$evento->titulo.'"');
 

@@ -190,7 +190,7 @@ class Encuesta extends AbstractController {
 			$asunto .= ($caso->folio_cotizacion) ? 'Folio: '.$caso->folio_cotizacion.' - ' : 'Sin Cotización - ';
 			$asunto .= $cliente->razon_social;
 
-			$this->email->from('encuestas@moz67.com',  'Encuestas TiendaPAQ');
+			$this->email->from('encuestas@soipaq.com',  'Encuestas TiendaPAQ');
 			$this->email->to($lider->email);
 			$this->email->cc('encuestas@tiendapaq.com.mx');
 
