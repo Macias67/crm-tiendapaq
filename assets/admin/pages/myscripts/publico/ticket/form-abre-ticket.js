@@ -63,9 +63,10 @@ var FormAbreTicket = function() {
 		$('input[name="telefono1"]').val(cliente.telefono1);
 		$('input[name="telefono2"]').val(cliente.telefono2);
 
-		$('input[name="usuario"]').val(cliente.usuario);
-		$('input[name="password"]').val(cliente.password);
-		$('input[name="conf_password"]').val(cliente.password);
+		// Estos datos no se muestran
+//		$('input[name="usuario"]').val(cliente.usuario);
+//		$('input[name="password"]').val(cliente.password);
+//		$('input[name="conf_password"]').val(cliente.password);
 	}
 
 	// Mascaras para los campos de telefono
@@ -201,6 +202,13 @@ var FormAbreTicket = function() {
 				},
 				puesto_contacto: {
 					maxlength: 20
+				},
+				// Ticket
+				sistemas: {
+					required: true
+				},
+				ticket: {
+					required: true
 				}
 			},
 			messages: {
@@ -290,6 +298,13 @@ var FormAbreTicket = function() {
 				},
 				puesto_contacto: {
 					maxlength: "El puesto del contacto debe tener menos de 20 caracteres"
+				},
+				// Ticket
+				sistemas: {
+					required: "Selecciona un sistema"
+				},
+				ticket: {
+					required: "Escribe el detalle de tu ticket"
 				}
 			},
 			invalidHandler: function (event, validator) { //display error alert on form submit
@@ -311,34 +326,35 @@ var FormAbreTicket = function() {
 				.closest('.form-group').removeClass('has-error'); // set success class to the control group
 			},
 			submitHandler: function (form) {
-				$.ajax({
-					url: $('#form-cliente-completo').attr('action'),
-					type: 'post',
-					cache: false,
-					dataType: 'json',
-					data: $('#form-cliente-completo').serialize(),
-					beforeSend: function () {
-						Metronic.showLoader();
-					},
-					error: function(jqXHR, status, error) {
-						bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
-							Metronic.removeLoader();
-						});
-					},
-					success: function(data) {
-						if (data.registrado) {
-							Metronic.removeLoader();
-							bootbox.alert("<h3>"+data.mensaje+"<h3>", function() {
-								window.location.replace("/cursos");
-							});
-						} else {
-							bootbox.alert("<h3>"+data.msgerror+"<h3>", function() {
-								$('body').animate({ scrollTop: 0 }, 600);
-								Metronic.removeLoader();
-							});
-						}
-					}
-				});
+				form.submit();
+//				$.ajax({
+//					url: $('#form-cliente-completo').attr('action'),
+//					type: 'post',
+//					cache: false,
+//					dataType: 'json',
+//					data: $('#form-cliente-completo').serialize(),
+//					beforeSend: function () {
+//						Metronic.showLoader();
+//					},
+//					error: function(jqXHR, status, error) {
+//						bootbox.alert('ERROR: revisa la consola del navegador para más detalles.', function() {
+//							Metronic.removeLoader();
+//						});
+//					},
+//					success: function(data) {
+//						if (data.registrado) {
+//							Metronic.removeLoader();
+//							bootbox.alert("<h3>"+data.mensaje+"<h3>", function() {
+//								window.location.replace("/cursos");
+//							});
+//						} else {
+//							bootbox.alert("<h3>"+data.msgerror+"<h3>", function() {
+//								$('body').animate({ scrollTop: 0 }, 600);
+//								Metronic.removeLoader();
+//							});
+//						}
+//					}
+//				});
 			}
 		});
 	}

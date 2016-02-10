@@ -99,9 +99,14 @@
 							<div>Abrir Caso</div>
 						</a>
 						<!-- Tickets -->
-						<a href="#" id="tareas_pendiente" class="icon-btn">
+						<a href="<?php echo site_url('tickets/revisar') ?>" id="tickets_pendiente" class="icon-btn">
 							<i class="fa fa-list"></i>
 							<div>&nbsp;&nbsp;Tickets&nbsp;&nbsp;</div>
+							<?php if ($tickets_asignar!=0): ?>
+								<span class="badge badge-danger">
+										<?php echo $tickets_asignar ?>
+									</span>
+							<?php endif ?>
 						</a>
 						<!-- Revision de casos -->
 						<!-- <a href="<?php echo site_url('caso/revisar') ?>"  id="casos_revisar" class="icon-btn">

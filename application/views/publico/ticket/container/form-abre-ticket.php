@@ -40,8 +40,9 @@
 							</div>
 						</div>
 						<div class="portlet-body form-horizontal">
+							<?php if(isset($validation)) { echo $validation; }?>
 							<!-- BEGIN FORM-->
-							<form action="<?php echo site_url('cursos/registro') ?>" id="form-cliente-completo" accept-charset="utf-8">
+							<?php echo form_open_multipart('ticket/registro', ['id' => 'form-cliente-completo', 'accept-charset' => 'utf-8']) ?>
 								<div class="form-body">
 									<!-- ALERTS -->
 									<div class="alert alert-danger display-hide">
@@ -63,7 +64,6 @@
 											<div class="input-icon">
 												<i class="fa fa-barcode"></i>
 												<input type="hidden" name="id_cliente">
-												<input type="hidden" name="id_evento" value="<?php echo $evento->id_evento ?>">
 												<input type="text" class="form-control" placeholder="R.F.C." name="rfc">
 											</div>
 										</div>
@@ -333,14 +333,22 @@
 									<!-- Mensaje -->
 									<h4><strong>Mensaje</strong></h4>
 
-									<!-- Mensaje -->
+
+									<div class="form-group">
+										<label class="col-md-4 control-label">
+											Sistema: <span class="required" aria-required="true">*</span>
+										</label>
+										<div class="col-md-8">
+											<?php echo form_dropdown('asunto', $sistemas, '', 'class= "form-control"') ?>
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-md-4 control-label">
 											Descripción del Ticket: <span class="required" aria-required="true">*</span>
 										</label>
 										<div class="col-md-8">
-											<textarea class="form-control autosizeme" rows="4" placeholder="Autosizeme..."></textarea>
-											<p class="help-block"> Escribe a detalle tu mensaje. </p>
+											<textarea name="ticket" class="form-control autosizeme" rows="4"></textarea>
+											<p class="help-block"> Por favor proporcione tanto detalle como sea posible para poder ayudarle mejor y de preferencia envíe imágenes de la pantalla o documentación. </p>
 										</div>
 									</div>
 									<div class="form-group">
@@ -349,6 +357,18 @@
 										</label>
 										<div class="col-md-8">
 											<input type="file" id="exampleInputFile1">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-4 control-label"></label>
+										<div class="col-md-8">
+											<input type="file" id="exampleInputFile2">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-4 control-label"></label>
+										<div class="col-md-8">
+											<input type="file" id="exampleInputFile3">
 										</div>
 									</div>
 

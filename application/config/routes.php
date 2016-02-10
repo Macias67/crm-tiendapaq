@@ -64,6 +64,7 @@ $route['encuesta/validar']	= $PUBLICO."encuesta/validar";
 $route['encuesta/correo']	= $PUBLICO."encuesta/correo";
 // Tickets
 $route['abre-ticket']		= $PUBLICO."ticket";
+$route['ticket/registro']		= $PUBLICO."ticket/registro";
 
 /*
 | -------------------------------------------------------------------------
@@ -129,6 +130,9 @@ $route['tareas']				= $EJECUTIVO."tarea";
 $route['tarea/(:any)']			= $EJECUTIVO."tarea/$1";
 // Funciones para el manejo de notas en tareas
 $route['nota/(:any)']			= $EJECUTIVO."nota/$1";
+// Funciones para tickets
+$route['tickets']		= $EJECUTIVO."ticket";
+$route['tickets/(:any)']	= $EJECUTIVO."ticket/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

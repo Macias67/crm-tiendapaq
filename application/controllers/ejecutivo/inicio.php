@@ -24,6 +24,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('estatuscotizacionmodel');
 			$this->load->model('casoModel');
 			$this->load->model('clienteModel');
+			$this->load->model('ticketmodel');
 
 			//Helper
 			$this->load->helper('formatofechas');
@@ -40,6 +41,8 @@ class Inicio extends AbstractAccess {
 			$this->data['cotizaciones_revision'] = ($cotizaciones_revision + $cotizaciones_cxc);
 			//cantidad de casos por asignar
 			$this->data['casos_asignar'] = count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
+			//cantidad de tickets  por asignar
+			$this->data['tickets_asignar'] = count($this->ticketmodel->get(array('*'), array('id_estatus' => $this->estatusgeneralmodel->PENDIENTE)));
 			//variable para saber si el ejecutivo logeado puede asignar casos
 			$asignador_casos = $this->ejecutivomodel->get(array('asignador_casos'), array('id' => $this->usuario_activo['id']), null, 'ASC', 1);
 			$this->data['asignador_casos'] = $asignador_casos->asignador_casos;
@@ -81,6 +84,7 @@ class Inicio extends AbstractAccess {
 		$this->load->model('tareaModel');
 		$this->load->model('estatusGeneralModel');
 		$this->load->model('estatuscotizacionmodel');
+		$this->load->model('ticketmodel');
 
 		$comentarios_cotizacion 	= count($this->cotizacionModel->get(array('*'), array('visto' => 0)));
 		$cotizaciones_revision 		= count($this->cotizacionModel->get(array('*'), array('id_estatus_cotizacion' => $this->estatuscotizacionmodel->REVISION)));
@@ -89,6 +93,7 @@ class Inicio extends AbstractAccess {
 		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 3, 'id_lider' => $this->usuario_activo['id'])));
 		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 7, 'id_lider' => $this->usuario_activo['id'])));
 		$tareas_pendiente			= count($this->tareaModel->get(array('*'), array('id_ejecutivo' => $this->usuario_activo['id'],'id_estatus'  => $this->estatusGeneralModel->PENDIENTE)));
+		$tickets_pendiente = count($this->ticketmodel->get(array('*'), array('id_estatus' => $this->estatusgeneralmodel->PENDIENTE)));
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode(array(
@@ -96,7 +101,8 @@ class Inicio extends AbstractAccess {
 			             'cotizaciones_revision' 		=> ($cotizaciones_revision + $cotizaciones_cxc),
 			             'casos_asignar'				=> $casos_asignar,
 			             'lider_casos_pediente'		=> $lider_casos_pediente,
-			             'tareas_pendiente'			=> $tareas_pendiente
+			             'tareas_pendiente'			=> $tareas_pendiente,
+			             'tickets_pendiente' => $tickets_pendiente
 			             )));
 	}
 }

@@ -36,13 +36,21 @@ var FakeRealTime = function() {
 				$('#casos_pendiente span').remove();
 			}
 
+			// Tickets  pendiente
+			if (response.tickets_pendiente >= 1) {
+				$('#tickets_pendiente').append('<span class="badge badge-danger">'+response.tickets_pendiente+'</span>');
+			} else {
+				$('#tickets_pendiente span').remove();
+			}
+
 			// Tareas pendiente
 			if (response.tareas_pendiente >= 1) {
 				$('#tareas_pendiente').append('<span class="badge badge-danger">'+response.tareas_pendiente+'</span>');
 			} else {
 				$('#tareas_pendiente span').remove();
 			}
-			setTimeout(fakeRealTime, 1000);
+
+			setTimeout(fakeRealTime, 2000);
 		});
 	};
 
