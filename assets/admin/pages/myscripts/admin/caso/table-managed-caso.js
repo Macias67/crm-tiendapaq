@@ -51,7 +51,7 @@ var TableManaged = function () {
 			$('.btn_asignar_caso').on('click', function () {
 				var id_caso 			= $('#id_caso').val();
 				var id_ejecutivo 	= $('#select_ejecutivo').val();
-				var ejecutivo_text 	= $("#select_ejecutivo option:selected").html()
+				var ejecutivo_text 	= $("#select_ejecutivo option:selected").html();
 
 				bootbox.confirm('<h4>¿Seguro que quieres asignarle el caso a este ejecutivo?</h4>', function(response) {
 					if (response) {

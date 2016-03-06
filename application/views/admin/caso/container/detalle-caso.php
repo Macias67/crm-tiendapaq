@@ -169,6 +169,9 @@
 														<a href="<?php echo site_url('tarea/modal/editar/'.$tarea->id_tarea) ?>" class="btn btn-circle btn-xs red" data-target="#ajax_edita_tarea" data-toggle="modal">
 															<i class="fa fa-edit"></i> Editar
 														</a>
+<!--														<button class="btn btn-circle btn-xs red edita-tarea" url="--><?php //echo site_url('tarea/modal/editar/'.$tarea->id_tarea) ?><!--">-->
+<!--															<i class="fa fa-edit"></i> Editar-->
+<!--														</button>-->
 													</div>
 												</div>
 												<div class="col-md-9">

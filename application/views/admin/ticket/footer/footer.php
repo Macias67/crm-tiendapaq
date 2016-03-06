@@ -45,13 +45,15 @@
 	<script src="<?php echo $assets_admin_layout ?>scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php echo $assets_admin_layout ?>scripts/quick-sidebar.js" type="text/javascript"></script>
 	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'table-managed-tickets') ?>" type="text/javascript"></script>
+	<script src="<?php echo load_myscript($assets_admin_pages_myscripts, $privilegios, $controlador, 'detalle-ticket') ?>" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
-			QuickSidebar.init() // init quick sidebar
+			QuickSidebar.init(); // init quick sidebar
 			//MyScripts
 			TableManagedTickets.init(); //tabla de cotizaciones
+			DetalleTicket.init();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

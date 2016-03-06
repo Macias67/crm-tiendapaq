@@ -102,7 +102,8 @@ class Ticket extends AbstractController
 			//armo objeto de CONTACTO NUEVO e inserto a la BD
 			$contacto		= $this->contactosmodel->arrayToObject($id_cliente, $data);
 			$id_contacto 	= $this->contactosmodel->get_last_id_after_insert($contacto);
-		} elseif (!empty($id_cliente) && empty($id_contacto)) {
+		}
+		elseif (!empty($id_cliente) && empty($id_contacto)) {
 			// SI es vacio el id de contacto, y cliente NO, entonces contacto nuevo
 			$contacto		= $this->contactosmodel->arrayToObject($id_cliente, $data);
 			$id_contacto 	= $this->contactosmodel->get_last_id_after_insert($contacto);
@@ -175,13 +176,33 @@ class Ticket extends AbstractController
 				$asunto =  $this->input->post('asunto');
 
 				// Registro el ticket
-				$this->ticketmodel->insert([
+				$id_ticket = $this->ticketmodel->get_last_id_after_insert([
 					'id_cliente' => $id_cliente,
 					'id_contacto' => $id_contacto,
 					'mensaje' => trim($mensaje),
 					'id_estatus' => $this->estatusgeneralmodel->PENDIENTE,
-				        'asunto' => $asunto
+					'asunto' => $asunto
 				]);
+
+				if(!is_dir('clientes/'.$id_cliente.'/ticket/'.$id_ticket.'/'))
+				{
+					mkdir('clientes/'.$id_cliente.'/ticket/'.$id_ticket.'/', 0777, TRUE);
+				}
+
+				// Subida de archivos
+				$config['upload_path'] = 'clientes/'.$id_cliente.'/ticket/'.$id_ticket.'/';
+				$config['allowed_types'] = 'jpg|png|pdf';
+				$config['max_size']	= '2048';
+				$config['max_width']  = '2048';
+				$config['max_height']  = '2048';
+				$this->load->library('upload', $config);
+
+				$total_archivos = count($_FILES);
+				for($i=0; $i<$total_archivos; $i++) {
+					$this->upload->do_upload("userfile".$i);
+				}
+
+
 
 				$this->_vista('exito-ticket');
 

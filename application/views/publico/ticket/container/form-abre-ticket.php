@@ -339,7 +339,7 @@
 											Sistema: <span class="required" aria-required="true">*</span>
 										</label>
 										<div class="col-md-8">
-											<?php echo form_dropdown('asunto', $sistemas, '', 'class= "form-control"') ?>
+											<?php echo form_dropdown('sistemas', $sistemas, '', 'class= "form-control"') ?>
 										</div>
 									</div>
 									<div class="form-group">
@@ -356,19 +356,19 @@
 											Adjuntar archivo:
 										</label>
 										<div class="col-md-8">
-											<input type="file" id="exampleInputFile1">
+											<input type="file" id="exampleInputFile1" name="userfile0">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-4 control-label"></label>
 										<div class="col-md-8">
-											<input type="file" id="exampleInputFile2">
+											<input type="file" id="exampleInputFile2" name="userfile1">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-4 control-label"></label>
 										<div class="col-md-8">
-											<input type="file" id="exampleInputFile3">
+											<input type="file" id="exampleInputFile3" name="userfile2">
 										</div>
 									</div>
 
