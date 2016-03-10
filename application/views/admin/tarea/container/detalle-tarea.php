@@ -50,6 +50,9 @@
 								<span class="badge <?php echo $estatus_caso['class'] ?>"><b><?php echo $estatus_caso['estatus'] ?></b></span>
 							</div>
 						</div>
+						<div class="portlet light">
+								<a class="btn btn-circle blue btn-block" id="btn-ver-comprobantes" href="<?php echo site_url('caso/detalles/'.$caso->id_caso) ?>">Ir a detalles de caso</a>
+						</div>
 
 						<?php if(!is_null($caso->folio_cotizacion)): ?>
 						<!-- DETALLES COTIZACION -->

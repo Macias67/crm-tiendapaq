@@ -33,10 +33,10 @@
 							<div class="portlet-body">
 								<div class="row">
 									<div class="col-md-12">
-									<?php if ($encuesta->calificacion != "0"): ?>
+									<?php if ($encuesta != NULL && $encuesta->calificacion > 0): ?>
 										<h5>Evaluación: </h5>
 										<h4><b><?php echo $encuesta->calificacion ?> puntos</b></h4>
-									<?php elseif($encuesta->fecha_respuesta != "1000-01-01"): ?>
+									<?php elseif($encuesta != NULL && $encuesta->fecha_respuesta != "1000-01-01"): ?>
 										<h5><b>En espera de contestar encuesta.</b></h5>
 										<h5>Enviado: <b><?php echo fecha_completa($encuesta->fecha_enviado) ?></b></h5>
 									<?php endif ?>
@@ -81,7 +81,7 @@
 								<?php if ($boton_cerrar_caso&&$id_estatus_cotizacion==3): ?>
 								<div class="row">
 									<div class="col-md-12">
-										<button class="btn btn-circle red btn-block" id="cierra_caso">Cerrar Caso - Evaluación: <b><?php echo $encuesta->calificacion ?>%</b></button>
+										<button class="btn btn-circle red btn-block" id="cierra_caso">Cerrar Caso <?php echo ($encuesta->calificacion> 0) ? '- Evaluación: '.$encuesta->calificacion.' %' : '' ?> <b></b></button>
 									</div>
 								</div>
 								<?php endif ?>

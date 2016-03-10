@@ -173,7 +173,7 @@ class Ticket extends AbstractController
 				$this->load->model('estatusgeneralmodel');
 
 				$mensaje = $this->input->post('ticket');
-				$asunto =  $this->input->post('asunto');
+				$sistemas =  $this->input->post('sistemas');
 
 				// Registro el ticket
 				$id_ticket = $this->ticketmodel->get_last_id_after_insert([
@@ -181,7 +181,8 @@ class Ticket extends AbstractController
 					'id_contacto' => $id_contacto,
 					'mensaje' => trim($mensaje),
 					'id_estatus' => $this->estatusgeneralmodel->PENDIENTE,
-					'asunto' => $asunto
+					'asunto' => $sistemas,
+				        'fecha_creacion' => date('Y-m-d H:i:s')
 				]);
 
 				if(!is_dir('clientes/'.$id_cliente.'/ticket/'.$id_ticket.'/'))
@@ -191,7 +192,7 @@ class Ticket extends AbstractController
 
 				// Subida de archivos
 				$config['upload_path'] = 'clientes/'.$id_cliente.'/ticket/'.$id_ticket.'/';
-				$config['allowed_types'] = 'jpg|png|pdf';
+				$config['allowed_types'] = 'jpg|jpeg|png|pdf';
 				$config['max_size']	= '2048';
 				$config['max_width']  = '2048';
 				$config['max_height']  = '2048';
@@ -201,9 +202,6 @@ class Ticket extends AbstractController
 				for($i=0; $i<$total_archivos; $i++) {
 					$this->upload->do_upload("userfile".$i);
 				}
-
-
-
 				$this->_vista('exito-ticket');
 
 			} else {

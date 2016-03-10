@@ -37,17 +37,20 @@ var Portfolio = function () {
 			if(valoracion==undefined){
 				bootbox.alert('<h4>Selecciona una valoración.</h4>');
 			}else{
-
-				$.post('/cotizaciones/apertura', {folio:folio, tipo:tipo, valoracion:valoracion, cuentaporcobrar:cuentaporcobrar}, function(data, textStatus, xhr) {
-					if (data.exito) {
-						bootbox.alert(data.msg, function() {
-							window.location = '/';
-						});
-					} else {
-						bootbox.alert('<h3>'+data.msg+'</h3>');
+				bootbox.confirm("¿Estás seguro de la validación?", function(result) {
+					if(result)
+					{
+						$.post('/cotizaciones/apertura', {folio:folio, tipo:tipo, valoracion:valoracion, cuentaporcobrar:cuentaporcobrar}, function(data, textStatus, xhr) {
+							if (data.exito) {
+								bootbox.alert(data.msg, function() {
+									window.location = '/';
+								});
+							} else {
+								bootbox.alert('<h3>'+data.msg+'</h3>');
+							}
+						}, 'json');
 					}
-				}, 'json');
-
+				});
 			}
 		});
 	};

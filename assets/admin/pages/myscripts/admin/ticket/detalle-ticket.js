@@ -4,7 +4,6 @@
 var DetalleTicket = function() {
 
 	var asiganarLider = function() {
-		var modal = $('#ajax-asignar-ejecutivo');
 		$(document).on('click', ".btn_asignar_ticket", function(event) {
 				var id_ticket      = $('#id_ticket').val();
 				var id_ejecutivo   = $('#select_ejecutivo').val();
@@ -16,7 +15,7 @@ var DetalleTicket = function() {
 						$.post('/tickets/asignar/asignar/', {id_ticket: id_ticket, id_ejecutivo: id_ejecutivo}, function (data, textStatus, xhr) {
 							if (data.exito) {
 								bootbox.alert('<h4>Caso asignado a <b>' + ejecutivo_text + '</b> con éxito</h4>', function () {
-									parent.location.reload();
+									window.location.href  = '/tickets/revisar';
 								});
 							}
 							bootbox.alert(data.msg, function () {
@@ -41,7 +40,6 @@ var DetalleTicket = function() {
 			}, 'json');
 		});
 	}
-
 
 	var muestraPDFCliente = function() {
 		$('.muestra-pdf').on('click', function(event) {

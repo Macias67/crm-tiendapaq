@@ -127,6 +127,7 @@
 				<!-- END PEDIDOS CLIENTE PEDIENTES PORTLET-->
 
 				<a href="<?php echo site_url('cursos') ?>" class="btn default btn-block red" target="_blank"><b>¡Revisa nuestros próximos cursos!</b> </a>
+				<a href="<?php echo site_url('abre-ticket') ?>" class="btn default btn-block green" target="_blank"><b>Abre un nuevo ticket</b> </a>
 			</div>
 			<div class="col-md-4 col-sm-4">
 				<!-- BEGIN VIDEO TUTORIAL PORTLET-->

@@ -324,7 +324,7 @@ class Cotizacion extends AbstractAccess {
 		$this->load->model('encuestamodel');
 
 		$caso = $this->casomodel->get_where(array('folio_cotizacion'=>$folio));
-		$encuesta = $this->encuestamodel->get_where(array('id_caso' =>$caso->id));
+		$encuesta = ($caso != NULL) ? $this->encuestamodel->get_where(array('id_caso' =>$caso->id)) : NULL;
 
 		$response = array('exito' => FALSE, 'msg' => 'Error, revisa la consola para mas información.');
 
@@ -333,7 +333,7 @@ class Cotizacion extends AbstractAccess {
 		{
 			if ($valoracion == "aceptado") // Verifica que la cotización CXC sea aceptada.
 			{
-				if ($encuesta->id_caso != NULL) // Si la encuesta existe
+				if ($encuesta != NULL && $encuesta->id_caso != NULL) // Si la encuesta existe
 				{
 					if (($encuesta->fecha_respuesta != null) && ($encuesta->calificacion >= 80))
 					{

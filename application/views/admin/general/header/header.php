@@ -363,14 +363,6 @@
 					</ul>
 				</li>
 				<!-- END USER LOGIN DROPDOWN -->
-
-				<!-- BEGIN QUICK SIDEBAR TOGGLER -->
-				<li class="dropdown dropdown-quick-sidebar-toggler">
-					<a href="javascript:;" class="dropdown-toggle">
-					<i class="icon-logout"></i>
-					</a>
-				</li>
-				<!-- END QUICK SIDEBAR TOGGLER -->
 			</ul>
 		</div>
 		<!-- END TOP NAVIGATION MENU -->

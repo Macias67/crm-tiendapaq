@@ -20,7 +20,7 @@ class Inicio extends AbstractAccess {
 			$this->load->model('ejecutivomodel');
 			$this->load->model('actividadPendienteModel');
 			$this->load->model('pendienteModel');
-			$this->load->model('estatusGeneralModel');
+			$this->load->model('estatusgeneralmodel');
 			$this->load->model('estatuscotizacionmodel');
 			$this->load->model('casoModel');
 			$this->load->model('clienteModel');
@@ -82,7 +82,7 @@ class Inicio extends AbstractAccess {
 	{
 		$this->load->model('casoModel');
 		$this->load->model('tareaModel');
-		$this->load->model('estatusGeneralModel');
+		$this->load->model('estatusgeneralmodel');
 		$this->load->model('estatuscotizacionmodel');
 		$this->load->model('ticketmodel');
 
@@ -92,7 +92,7 @@ class Inicio extends AbstractAccess {
 		$casos_asignar 			= count($this->casoModel->get(array('*'), array('id_estatus_general' => 8)));
 		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 3, 'id_lider' => $this->usuario_activo['id'])));
 		$lider_casos_pediente 		= count($this->casoModel->get(array('*'), array('id_estatus_general' => 7, 'id_lider' => $this->usuario_activo['id'])));
-		$tareas_pendiente			= count($this->tareaModel->get(array('*'), array('id_ejecutivo' => $this->usuario_activo['id'],'id_estatus'  => $this->estatusGeneralModel->PENDIENTE)));
+		$tareas_pendiente			= count($this->tareaModel->get(array('*'), array('id_ejecutivo' => $this->usuario_activo['id'],'id_estatus'  => $this->estatusgeneralmodel->PENDIENTE)));
 		$tickets_pendiente = count($this->ticketmodel->get(array('*'), array('id_estatus' => $this->estatusgeneralmodel->PENDIENTE)));
 		$this->output
 			->set_content_type('application/json')

@@ -161,7 +161,7 @@ class Caso extends AbstractAccess {
 		if (!is_null($caso->folio_cotizacion)) {
 			$cotizacion 	= $this->cotizacionModel->get_cotizacion_cliente(array('*'), array('ejecutivos'), $caso->folio_cotizacion);
 			// Detalles de la cotizacion/caso
-			$detalles_cotizacion = json_decode($cotizacion->cotizacion);
+			$detalles_cotizacion = ($cotizacion != NULL) ? json_decode($cotizacion->cotizacion) : '';
 			$detalle_caso = array();
 			foreach ($detalles_cotizacion as $key => $listado) {
 				array_push(
@@ -173,10 +173,11 @@ class Caso extends AbstractAccess {
 				);
 			}
 			// URL para mostrar cotizacion
-			$this->data['url_cotizacion'] 		= $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio);
+			$this->data['url_cotizacion'] 		= ($cotizacion != NULL) ?  $this->cotizacionModel->get_url_cotizacion($cotizacion->id_cliente, $cotizacion->folio) : '';
 			$this->data['detalle_caso'] 		= $detalle_caso;
 			$this->data['cotizacion'] 			= $cotizacion;
-			$this->data['estatus_cotizacion'] 	= id_estatus_to_class_html($cotizacion->id_estatus_cotizacion);
+			$this->data['estatus_cotizacion'] 	= ($cotizacion != NULL) ?  id_estatus_to_class_html($cotizacion->id_estatus_cotizacion) : NULL;
+			$this->data['id_estatus_cotizacion'] 	= ($cotizacion != NULL) ? $cotizacion->id_estatus_cotizacion : '';
 		}
 
 		// Muestra boton tareas
@@ -249,7 +250,6 @@ class Caso extends AbstractAccess {
 		$this->data['caso'] 				= $caso;
 		$this->data['notas'] 				= $notas;
 		$this->data['casoreasignado'] 		= $casoreasignado;
-		$this->data['id_estatus_cotizacion'] 	= $cotizacion->id_estatus_cotizacion;
 		$this->_vista('detalle-caso');
 	}
 

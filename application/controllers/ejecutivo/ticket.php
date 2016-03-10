@@ -30,19 +30,24 @@ class Ticket extends AbstractAccess
 				'clientes.telefono1'
 			]);
 
-		//var_dump($this->data['tickets_revision']);
 		$this->_vista('tickets-revision');
 	}
 
 	public function revision($id_ticket)
 	{
-		if ($ticket = $this->ticketmodel->get(['*'], ['id_ticket' => $id_ticket]))
+		if ($ticket = $this->ticketmodel->get_where(['id_ticket' => $id_ticket]))
 		{
-			$this->data['ticket'] = $ticket[0];
+			$this->load->model('clientemodel');
+			$this->load->model('contactosmodel');
+			$this->load->helper('formatofechas');
 
+			$cliente = $this->clientemodel->get_where(['id' => $ticket->id_cliente]);
+			$contacto = $this->contactosmodel->get_where(['id' => $ticket->id_contacto]);
+
+			$this->data['ticket'] = $ticket;
 			$this->load->helper('directory');
 			$this->load->helper('file');
-			$ruta = '/clientes/'.$ticket[0]->id_cliente.'/ticket/'.$ticket[0]->id_ticket.'/';
+			$ruta = '/clientes/'.$ticket->id_cliente.'/ticket/'.$ticket->id_ticket.'/';
 			$archivos = directory_map('.'.$ruta, 1);
 
 			$imagenes 	= array();
@@ -61,9 +66,11 @@ class Ticket extends AbstractAccess
 				}
 			}
 
+			$this->data['contacto'] 	= $contacto;
+			$this->data['cliente'] 	= $cliente;
 			$this->data['imagenes'] 	= $imagenes;
-			$this->data['pdfs'] 			= $pdfs;
-			$this->data['ruta_pdf']		= $ruta;
+			$this->data['pdfs'] 		= $pdfs;
+			$this->data['ruta_pdf']	= $ruta;
 			$this->_vista('detalles');
 		}
 	}

@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						<h3 class="page-title">Ticket # - <?php echo $ticket->id_ticket ?></h3>
+						<h3 class="page-title">Ticket #<?php echo $ticket->id_ticket ?></h3>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
 				</div>
@@ -13,12 +13,23 @@
 
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
-					<div class="col-md-7">
-						<b>Detalles</b>
-						<p> <?php echo $ticket->mensaje ?></p>
-						<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/tickets/asignar/mostrar/'.$ticket->id_ticket) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal"><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
+					<div class="col-md-6">
+
+						<div class="portlet light">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-check font-grey-gallery"></i>
+									<span class="caption-subject bold font-grey-gallery uppercase"><?php echo $cliente->razon_social ?> | <?php echo $contacto->nombre_contacto.' '.$contacto->apellido_paterno ?> | <?php echo fecha_completa($ticket->fecha_creacion) ?></span>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<b><?php echo $ticket->asunto ?></b>
+								<p> <?php echo $ticket->mensaje ?></p>
+							</div>
+							<a class="btn green btn-circle btn-xs" href="<?php echo site_url('/tickets/asignar/mostrar/'.$ticket->id_ticket) ?>" data-target="#ajax-asignar-ejecutivo" data-toggle="modal"><i class="fa fa-arrow-circle-right"></i> Asignar Lider</a>
+						</div>
 					</div>
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<!-- BEGIN FILTER -->
 						<div class="filter-v1 margin-top-10">
 							<div class="row mix-grid thumbnails">

@@ -50,7 +50,7 @@ var FakeRealTime = function() {
 				$('#tareas_pendiente span').remove();
 			}
 
-			setTimeout(fakeRealTime, 2000);
+			setTimeout(fakeRealTime, 10000);
 		});
 	};
 

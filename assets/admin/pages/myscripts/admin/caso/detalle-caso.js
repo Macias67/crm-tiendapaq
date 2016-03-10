@@ -38,29 +38,6 @@ var DetalleCaso = function () {
 	};
 
 	var modalEditarTarea = function () {
-
-//		$('.edita-tarea').on('click', function() {
-//			var url = $(this).attr('url');
-//
-//			$.get(url, null, function(html){
-//				$('#ajax_edita_tarea').find('.modal-body').html(html);
-//				$('#ajax_edita_tarea').modal('show').on('shown.bs.modal', function() {
-//					// Slider avance
-//					$("#slider-snap-inc").slider({
-//						isRTL: Metronic.isRTL(),
-//						value: parseInt($("#slider-snap-inc").attr('avance')),
-//						min: 0,
-//						max: 100,
-//						step: 1,
-//						slide: function (event, ui) {
-//							$("#slider-snap-inc-amount").text(ui.value + "%");
-//						}
-//					});
-//				});
-//			});
-//		});
-
-
 		$('#ajax_edita_tarea').on('shown.bs.modal', function () {
 			setTimeout(function () {
 				// Form validation
@@ -161,7 +138,7 @@ var DetalleCaso = function () {
 						$("#slider-snap-inc-amount").text(ui.value + "%");
 					}
 				});
-			}, 3000);
+			}, 1500);
 		});
 	};
 
