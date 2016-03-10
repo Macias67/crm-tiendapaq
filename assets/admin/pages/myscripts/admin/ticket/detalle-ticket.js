@@ -28,9 +28,37 @@ var DetalleTicket = function() {
 		});
 	}
 
+	var previaPDF = function() {
+		$('.cotizacion-previa').on('click', function() {
+			// Datos cotizacion
+			var folio = $(this).attr('id');
+			var idcliente = $(this).attr('id-cliente');
+
+			$.post('/cotizaciones/previapdf', {folio:folio, idcliente:idcliente}, function(data) {
+				if (data.existe) {
+					window.open(data.ruta,'','height=800,width=800');
+				}
+			}, 'json');
+		});
+	}
+
+
+	var muestraPDFCliente = function() {
+		$('.muestra-pdf').on('click', function(event) {
+			/* Act on the event */
+			var file = $(this).attr('file');
+			var ruta = $(this).attr('ruta');
+			var cxc =  $(this).attr('cxc');
+			window.open(ruta+file,'','height=600,width=500');
+		});
+	}
+
 	return {
 		init : function() {
+			$('.mix-grid').mixitup();
 			asiganarLider();
+			previaPDF();
+			muestraPDFCliente();
 		}
 	}
 }();

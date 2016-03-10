@@ -39,6 +39,31 @@ class Ticket extends AbstractAccess
 		if ($ticket = $this->ticketmodel->get(['*'], ['id_ticket' => $id_ticket]))
 		{
 			$this->data['ticket'] = $ticket[0];
+
+			$this->load->helper('directory');
+			$this->load->helper('file');
+			$ruta = '/clientes/'.$ticket[0]->id_cliente.'/ticket/'.$ticket[0]->id_ticket.'/';
+			$archivos = directory_map('.'.$ruta, 1);
+
+			$imagenes 	= array();
+			$pdfs 		= array();
+
+			// SI hay archivos en la variable
+			if($archivos) {
+				// Descarto la carpeta de las thumnail
+				foreach ($archivos as $index => $archivo) {
+					$tipo = explode("/", get_mime_by_extension($archivos[$index]));
+					if ($archivos[$index] != 'thumbnail' && ($tipo[1] == 'png' || $tipo[1] == 'jpeg')) {
+						array_push($imagenes, $archivos[$index]);
+					} else if($archivos[$index] != 'thumbnail' && $tipo[1] == 'pdf') {
+						array_push($pdfs, $archivos[$index]);
+					}
+				}
+			}
+
+			$this->data['imagenes'] 	= $imagenes;
+			$this->data['pdfs'] 			= $pdfs;
+			$this->data['ruta_pdf']		= $ruta;
 			$this->_vista('detalles');
 		}
 	}
@@ -47,7 +72,7 @@ class Ticket extends AbstractAccess
 	 * Funcion para asignarle un caso a un ejecutivo
 	 *
 	 * @return json
-	 * @author Diego Rodriguez
+	 * @author Luis Macias
 	 **/
 	public function asignar($accion = null, $id_ticket = null)
 	{
