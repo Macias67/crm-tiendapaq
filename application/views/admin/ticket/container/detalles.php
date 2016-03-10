@@ -25,11 +25,11 @@
 								<?php foreach ($imagenes as $index => $imagen): ?>
 									<div class="col-md-4 col-sm-6 mix">
 										<div class="mix-inner">
-											<img class="img-responsive" src="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$imagen) ?>" alt="">
+											<img class="img-responsive" src="<?php echo site_url('clientes/'.$ticket->id_cliente.'/ticket/'.$ticket->id_ticket.'/'.$imagen) ?>" alt="">
 											<div class="mix-details">
 												<h3><?php echo $imagen ?></h3>
-												<a class="mix-link" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$imagen) ?>" target="_blank" title="Ampliar"><i class="fa fa-expand"></i></a>
-												<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$cotizacion->id_cliente.'/comprobantes/'.$cotizacion->folio.'/'.$imagen) ?>" title="Ver" data-rel="fancybox-button">
+												<a class="mix-link" href="<?php echo site_url('clientes/'.$ticket->id_cliente.'/ticket/'.$ticket->id_ticket.'/'.$imagen) ?>" target="_blank" title="Ampliar"><i class="fa fa-expand"></i></a>
+												<a class="mix-preview fancybox-button" href="<?php echo site_url('clientes/'.$ticket->id_cliente.'/ticket/'.$ticket->id_ticket.'/'.$imagen) ?>" title="Ver" data-rel="fancybox-button">
 													<i class="fa fa-search"></i>
 												</a>
 											</div>
