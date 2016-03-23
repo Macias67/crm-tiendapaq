@@ -78,7 +78,7 @@ class Cliente extends AbstractAccess {
 				break;
 
 			case 'activar':
-				$id 			= $this->input->post('id');
+				$id 		= $this->input->post('id');
 				$selected 	= $this->input->post('selected');
 				$activo 	= ($selected == 'true') ? 1 : 0;
 				$mensaje	= ($selected == 'true') ? '<h4>El cliente podrá acceder al sistema y aparecerá en los buscadores.</h4>' : '<h4>El cliente ya <b>NO</b> podrá acceder al sistema y desaparecerá de los buscadores del sistema.</h4>';
