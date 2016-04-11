@@ -132,82 +132,82 @@ class Ejecutivo extends AbstractAccess {
 	 **/
 	public function gestionar($accion=null, $id_ejecutivo=null)
 	{
-			//cargo los modelos a usar
-			$this->load->model('privilegiosModel');
-			$this->load->model('departamentoModel');
-			$this->load->model('oficinasModel');
+		//cargo los modelos a usar
+		$this->load->model('privilegiosModel');
+		$this->load->model('departamentoModel');
+		$this->load->model('oficinasModel');
 
-			switch ($accion)
-			{
-				case 'nuevo':
-					// Titulo header
-					$this->data['titulo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
-					//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
+		switch ($accion)
+		{
+			case 'nuevo':
+				// Titulo header
+				$this->data['titulo']	= $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+				//se extraen las filas de la bd que se mostraran en selects en el formulario de agregar usuario
+				$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
+				$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
+				$this->data['tablaoficinas'] 			= $this->oficinasModel->get(array('ciudad_estado'));
+				//se muestra el formulario
+				$this->_vista('form-nuevo-ejecutivo');
+			break;
+			case 'editar':
+				//obtenemos los datos del ejecutivo a ejecutar
+				$ejecutivo = $this->ejecutivoModel->get_where(array('id' => $id_ejecutivo));
+				if (!empty($ejecutivo))
+				{
+					// Datos a enviar a la vista
+					$this->data['ejecutivo']			= $ejecutivo;
 					$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
 					$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
-					$this->data['tablaoficinas'] 			= $this->oficinasModel->get(array('ciudad_estado'));
-					//se muestra el formulario
-					$this->_vista('form-nuevo-ejecutivo');
-				break;
-				case 'editar':
-					//obtenemos los datos del ejecutivo a ejecutar
-					$ejecutivo = $this->ejecutivoModel->get_where(array('id' => $id_ejecutivo));
-					if (!empty($ejecutivo))
-					{
-						// Datos a enviar a la vista
-						$this->data['ejecutivo']			= $ejecutivo;
-						$this->data['tablaprivilegios']		= $this->privilegiosModel->get(array('privilegios'));
-						$this->data['tabladepartamentos']	= $this->departamentoModel->get(array('area'));
-						$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
-						//Vista de formulario a mostrar
-						$this->_vista('editar-ejecutivo');
-					} else
-					{
-						show_error('No existe este ejecutivo.', 404);
-					}
-				break;
-				case 'eliminar':
-					$id = $this->input->post('id');
-					// Si existe ejecutivo
-					if ($this->ejecutivoModel->exist(array('id' => $id)) ) {
-						//Si no es el mismo quien esta logueado
-						if($id!=$this->usuario_activo['id']){
-							// NO tiene casos y pendientes creados o asignados
-							if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id)) && !$this->casoModel->exist(array('id_lider' => $id)))
-							{
-								if($this->ejecutivoModel->delete(array('id' => $id))) {
-									// Liberia para eliminar la carpeta correspondiente
-									$this->load->helper('directory');
-									$dir = './assets/admin/pages/media/profile/'.$id.'/';
-									$files_avatar = directory_map($dir);
-									$c = count($files_avatar);
-									// Si hay archivos, elmino uno por uno
-									if ($c > 0) {
-										for ($i=0; $i < $c; $i++) {
-											unlink($dir.$files_avatar[$i]);
-										}
+					$this->data['tablaoficinas']      		= $this->oficinasModel->get(array('ciudad_estado'));
+					//Vista de formulario a mostrar
+					$this->_vista('editar-ejecutivo');
+				} else
+				{
+					show_error('No existe este ejecutivo.', 404);
+				}
+			break;
+			case 'eliminar':
+				$id = $this->input->post('id');
+				// Si existe ejecutivo
+				if ($this->ejecutivoModel->exist(array('id' => $id)) ) {
+					//Si no es el mismo quien esta logueado
+					if($id!=$this->usuario_activo['id']){
+						// NO tiene casos y pendientes creados o asignados
+						if (!$this->pendienteModel->exist(array('id_creador' => $id, 'id_ejecutivo' => $id)) && !$this->casoModel->exist(array('id_lider' => $id)))
+						{
+							if($this->ejecutivoModel->delete(array('id' => $id))) {
+								// Liberia para eliminar la carpeta correspondiente
+								$this->load->helper('directory');
+								$dir = './assets/admin/pages/media/profile/'.$id.'/';
+								$files_avatar = directory_map($dir);
+								$c = count($files_avatar);
+								// Si hay archivos, elmino uno por uno
+								if ($c > 0) {
+									for ($i=0; $i < $c; $i++) {
+										unlink($dir.$files_avatar[$i]);
 									}
-									rmdir($dir);
-									$response = array('exito' => TRUE, 'msg' => '<h4>El ejecutivo se eleminó del sistema.<h4>');
 								}
-							} else {
-								$response = array('exito' => FALSE, 'msg' => '<h4>El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado.<h4>');
+								rmdir($dir);
+								$response = array('exito' => TRUE, 'msg' => '<h4>El ejecutivo se eleminó del sistema.<h4>');
 							}
-						}else{
-							$response = array('exito' => FALSE, 'msg' => '<h4>No puedes eliminarte a ti mismo del sistema.<h4>');
+						} else {
+							$response = array('exito' => FALSE, 'msg' => '<h4>El ejecutivo NO se puede eliminar, tiene algún pendiente o caso creado/asignado.<h4>');
 						}
+					}else{
+						$response = array('exito' => FALSE, 'msg' => '<h4>No puedes eliminarte a ti mismo del sistema.<h4>');
 					}
+				}
 
-					$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode($response));
-				break;
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($response));
+			break;
 
-				default:
-					$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('*'));
-					$this->_vista('gestionar');
-				break;
-			}
+			default:
+				$this->data['ejecutivos'] = $this->ejecutivoModel->get(array('*'));
+				$this->_vista('gestionar');
+			break;
+		}
 	}
 
 	/**
@@ -307,7 +307,9 @@ class Ejecutivo extends AbstractAccess {
 			$id_nuevo			= $this->ejecutivoModel->get_where(array('usuario' => $ejecutivo_nuevo->usuario));
 			$ruta				= './assets/admin/pages/media/profile/';
 			$ruta_completa	= $ruta.$id_nuevo->id.'/';
-			mkdir($ruta_completa, 0777, TRUE);
+			if (!is_dir($ruta_completa)) {
+				mkdir($ruta_completa, 0777, TRUE);
+			}
 
 			// Se copian las imagenes de la carpeta cliente a la capeta del nuevo usuario
 			$this->load->helper('directory');
