@@ -10,7 +10,7 @@
 		<div class="container">
 			<!-- BEGIN LOGO -->
 			<div class="page-logo">
-				<a href="<?php echo base_url('/cursos'); ?>"><img src="<?php echo $assets_admin_layout3 ?>img/logo-big.png" alt="logo" class="logo-default"></a>
+				<a href="<?php echo base_url('/cursos'); ?>"><img src="<?php echo $assets_admin_layout.$logo_app ?>" alt="logo" class="logo-default"></a>
 			</div>
 			<!-- END LOGO -->
 			<!-- BEGIN RESPONSIVE MENU TOGGLER -->

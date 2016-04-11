@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8">
-	<title>Cursos | Tiendapaq</title>
+	<title>Cursos | <?php echo $nombre_empresa ?></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<meta content="" name="description">

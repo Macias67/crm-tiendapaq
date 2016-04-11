@@ -123,11 +123,11 @@ class Ticket extends AbstractAccess
 							$lider = $caso->primer_nombre . ' ' . $caso->apellido_paterno;
 							//Envio Email
 							$this->email->set_mailtype('html');
-							$this->email->from('notificacion@soipaq.com', 'Soporte Técnico - TiendaPAQ');
+							$this->email->from($this->data['email_notificacion_server'], 'Soporte Técnico - '.$this->data['nombre_empresa']);
 							$this->email->to($cliente->email);
 							//$this->email->cc('another@example.com');
 							//$this->email->bcc('and@another.com');
-							$this->email->subject('Apertura de Caso - Origen Ticket no.' . $id_ticket . ' | TiendaPAQ');
+							$this->email->subject('Apertura de Caso - Origen Ticket no.' . $id_ticket . ' | '.$this->data['nombre_empresa']);
 							//Contenido del correo
 							$this->data['usuario'] = $cliente->usuario;
 							$this->data['password'] = $cliente->password;

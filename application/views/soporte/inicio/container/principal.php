@@ -196,7 +196,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title">
-					<b>Registrar prospecto - </b> <small>Registro de un cliente prospecto en TiendaPAQ</small>
+					<b>Registrar prospecto - </b> <small>Registro de un cliente prospecto en <?php echo $nombre_empresa ?></small>
 				</h3>
 			</div>
 			<form action="<?php echo site_url('cliente/nuevo') ?>" id ="form-nuevo-cliente" method="post" accept-charset="utf-8">

@@ -16,7 +16,7 @@
 						<table class="row note">
 						<tr>
 							<td class="wrapper last">
-								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> TiendaPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
+								<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> <?php echo $nombre_empresa ?> - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
 								<p>
 									 Adjuntamos a la cotización sus datos de inicio de sesión en nuestro sistema, aquí podrá verificar sus pagos de la cotización.
 								</p>
@@ -91,7 +91,7 @@
 								<table class="twelve columns">
 								<tr>
 									<td>
-										<img src="<?php echo $assets_admin_pages.'media/email/LogoTiendaPAQ.gif' ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
+										<img src="<?php echo $assets_admin_pages.$logo_email ?>" class="ie10-responsive" alt="" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: 100%;float: left;clear: both;display: block;">
 									</td>
 									<td>
 										<h4 style="font-size: 18px;display: block;margin: 5px 0 15px 0;"> Soporte técnico y capacitación. </h4>
@@ -136,12 +136,12 @@
 											<table class="four columns">
 											<tr>
 												<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-													<a href="https://www.facebook.com/Tiendapaq">
+													<a href="<?php echo $fan_page ?>">
 													<img src="<?php echo $assets_admin_pages.'media/email/social_facebook.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
 													</a>
 												</td>
 												<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;">
-													 &copy; TiendaPAQ 2015.
+													&copy; <?php echo $nombre_empresa.' '.date('Y') ?>.
 												</td>
 											</tr>
 											</table>

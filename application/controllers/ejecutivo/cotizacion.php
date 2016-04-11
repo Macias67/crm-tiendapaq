@@ -398,7 +398,7 @@ class Cotizacion extends AbstractAccess {
 
 					//Envio Email con el PDF
 					$this->email->set_mailtype('html');
-					$this->email->from('cotizacion@soipaq.com', 'Ventas - TiendaPAQ');
+					$this->email->from($this->data['email_cotizacion_server'], 'Ventas - '.$this->data['nombre_empresa']);
 					$this->email->to($cotizacion->email_contacto);
 					$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
 
@@ -471,10 +471,10 @@ class Cotizacion extends AbstractAccess {
 									}
 
 									$this->email->set_mailtype('html');
-									$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
+									$this->email->from($this->data['email_eventos_server'], 'Eventos '.$this->data['nombre_empresa']);
 									$this->email->to($contacto->email_contacto);
 
-									$this->email->subject('Su pago al curso ha sido aceptado - TiendaPAQ');
+									$this->email->subject('Su pago al curso ha sido aceptado - '.$this->data['nombre_empresa']);
 									// Contenido del correo
 									$this->data['titulo'] 		= $evento->titulo;
 									$this->data['descripcion'] 	= $evento->descripcion;
@@ -540,10 +540,10 @@ class Cotizacion extends AbstractAccess {
 							}
 
 							$this->email->set_mailtype('html');
-							$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
+							$this->email->from($this->data['email_eventos_server'], 'Eventos '.$this->data['nombre_empresa']);
 							$this->email->to($contacto->email_contacto);
 
-							$this->email->subject('Pago irregular de evento - TiendaPAQ');
+							$this->email->subject('Pago irregular de evento - '.$this->data['nombre_empresa']);
 							// Contenido del correo
 							$this->data['titulo'] 		= $evento->titulo;
 							$this->data['descripcion'] 	= $evento->descripcion;
@@ -634,7 +634,7 @@ class Cotizacion extends AbstractAccess {
 							$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
 							//Envio Email con el PDF
 							$this->email->set_mailtype('html');
-							$this->email->from('cotizacion@soipaq.com', 'Ventas - TiendaPAQ');
+							$this->email->from($this->data['email_cotizacion_server'], 'Ventas - '.$this->data['nombre_empresa']);
 							$this->email->to($cotizacion->email_contacto);
 
 							$this->email->subject('Pago irregular de cotización folio #'.$cotizacion->folio);
@@ -737,11 +737,11 @@ class Cotizacion extends AbstractAccess {
 				$contacto = $cotizacion->nombre_contacto.' '.$cotizacion->apellido_paterno.' '.$cotizacion->apellido_materno;
 				//Envio Email con el PDF
 				$this->email->set_mailtype('html');
-				$this->email->from('cotizacion@soipaq.com', 'Reenvio/Cotización - TiendaPAQ');
+				$this->email->from($this->data['email_cotizacion_server'], 'Reenvio/Cotización - '.$this->data['nombre_empresa']);
 				$this->email->to($email);
 				//$this->email->cc('another@example.com');
 				//$this->email->bcc('and@another.com');
-				$this->email->subject('Envío de Cotización TiendaPAQ');
+				$this->email->subject('Envío de Cotización '.$this->data['nombre_empresa']);
 				// Contenido del correo
 				$this->data['usuario'] 		= $cotizacion->usuario;
 				$this->data['password'] 	= $cotizacion->password;

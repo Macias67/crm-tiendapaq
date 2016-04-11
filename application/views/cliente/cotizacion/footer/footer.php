@@ -2,7 +2,7 @@
 	<!-- BEGIN FOOTER -->
 	<div class="page-footer">
 		<div class="page-footer-inner">
-			 2014 &copy; TiendaPaq.com
+			 <?php echo date('Y') ?>&copy; <?php echo $nombre_empresa ?>
 		</div>
 		<div class="page-footer-tools">
 			<span class="go-top">

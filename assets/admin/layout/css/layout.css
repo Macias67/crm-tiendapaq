@@ -212,7 +212,7 @@ Page Header
   position: absolute;
   top: 10px;
   right: 20px;
-  font-weight: 300px;
+  font-weight: 300;
   padding: 3px 6px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:focus {
@@ -337,11 +337,11 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .photo img {
   height: 40px;
   width: 40px;
-  -webkit-border-radius: 50% !important !important;
-  -moz-border-radius: 50% !important !important;
-  -ms-border-radius: 50% !important !important;
-  -o-border-radius: 50% !important !important;
-  border-radius: 50% !important !important;
+  -webkit-border-radius: 50%  !important;
+  -moz-border-radius: 50%  !important;
+  -ms-border-radius: 50%  !important;
+  -o-border-radius: 50%  !important;
+  border-radius: 50%  !important;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject {
   display: block;

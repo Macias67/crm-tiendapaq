@@ -350,11 +350,11 @@ class Cotizador extends AbstractAccess {
 			$this->load->library('email');
 			$this->load->helper('formatofechas');
 			$this->email->set_mailtype('html');
-			$this->email->from('cotizacion@soipaq.com','Cotización TiendaPAQ');
+			$this->email->from($this->data['email_cotizacion_server'],'Cotización '.$this->data['nombre_empresa']);
 			$this->email->to($cliente['email']);
 			//$this->email->cc('another@example.com');
 			//$this->email->bcc('and@another.com');
-			$this->email->subject('Envío de Cotización TiendaPAQ');
+			$this->email->subject('Envío de Cotización '.$this->data['nombre_empresa']);
 			// Contenido del correo
 			$this->data['usuario'] 		= $data_cliente[0]->usuario;
 			$this->data['password'] 	= $data_cliente[0]->password;

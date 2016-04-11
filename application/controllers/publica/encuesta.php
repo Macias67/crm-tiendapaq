@@ -181,7 +181,7 @@ class Encuesta extends AbstractController {
 			);
 
 			// Envio encuestas al lider del caso
-			// y al correo de encuestas de TiendaPAQ - encuestas@tiendapaq.com.mx
+			// y al correo de encuestas de la empresa - $this->data['email_empresa_encuesta']
 			$this->load->library('email');
 
 			$this->email->set_mailtype('html');
@@ -190,9 +190,9 @@ class Encuesta extends AbstractController {
 			$asunto .= ($caso->folio_cotizacion) ? 'Folio: '.$caso->folio_cotizacion.' - ' : 'Sin Cotización - ';
 			$asunto .= $cliente->razon_social;
 
-			$this->email->from('encuestas@soipaq.com',  'Encuestas TiendaPAQ');
+			$this->email->from($this->data['email_encuestas_server'],  'Encuestas '.$this->data['nombre_empresa']);
 			$this->email->to($lider->email);
-			$this->email->cc('encuestas@tiendapaq.com.mx');
+			$this->email->cc($this->data['email_empresa_encuesta']);
 
 			$this->email->subject($asunto);
 

@@ -722,7 +722,8 @@ Page Header
   float: left;
   display: block;
   width: 255px;
-  height: 75px;
+  height: 100%;
+  padding-bottom: 15px;
 }
 .page-header .page-header-top .page-logo .logo-default {
   margin: 29.5px 0 0 0;

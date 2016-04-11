@@ -51,7 +51,7 @@
 	<!-- BEGIN LOGO -->
 	<div class="logo" style="margin-top: 20px">
 		<a href="<?php echo site_url() ?>">
-			<img src="<?php echo $assets_admin_layout ?>img/logo-big.png" alt=""/>
+			<img src="<?php echo $assets_admin_layout.$logo_app ?>" alt=""/>
 		</a>
 	</div>
 	<!-- END LOGO -->
@@ -457,7 +457,7 @@
 	<!-- END LOGIN -->
 
 	<!-- BEGIN COPYRIGHT -->
-	<div class="copyright"><?php echo date('Y') ?> &copy; TiendaPAQ</div>
+	<div class="copyright"><?php echo date('Y') ?> &copy; <?php echo $nombre_empresa ?></div>
 	<!-- END COPYRIGHT -->
 
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

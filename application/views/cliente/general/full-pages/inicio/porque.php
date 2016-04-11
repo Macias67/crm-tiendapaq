@@ -5,7 +5,7 @@
 <div class="modal-body">
 	<div class="row">
 		<div class="col-md-12">
-			<p><h4>En <b>TiendaPAQ</b> nos preocupamos por brindarte el mejor servicio,
+			<p><h4>En <b><?php echo $nombre_empresa ?></b> nos preocupamos por brindarte el mejor servicio,
 				por lo cual es necesario contar con tus datos actualizados.</h4></p>
 		</div>
 	</div>

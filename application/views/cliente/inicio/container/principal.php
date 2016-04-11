@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-				<h3 class="page-title"> Bienvenido a CRM TiendaPAQ - <small><?php echo $usuario_activo['razon_social'] ?></small></h3>
+				<h3 class="page-title"> Bienvenido a CRM <?php echo $nombre_empresa ?> - <small><?php echo $usuario_activo['razon_social'] ?></small></h3>
 				<!-- END PAGE TITLE & BREADCRUMB-->
 			</div>
 		</div>

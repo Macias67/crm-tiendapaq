@@ -32,7 +32,7 @@
 											<div class="col-md-12">
 												<h5>
 													El archivo debe ser formato <strong>.TXT</strong> y debe tener el <strong>mismo patrón</strong>
-													señalado por <strong>CRM TiendaPAQ</strong>. Este archivo es exportado desde <strong>CONTPAQi Comercial®</strong>.
+													señalado por <strong>CRM <?php echo $nombre_empresa ?></strong>. Este archivo es exportado desde <strong>CONTPAQi Comercial®</strong>.
 												</h5>
 												<br>
 												<div class="fileinput fileinput-new" data-provides="fileinput">

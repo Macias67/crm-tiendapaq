@@ -272,7 +272,7 @@ class Evento extends AbstractController {
 										$this->load->helper('formatofechas');
 
 										$this->email->set_mailtype('html');
-										$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
+										$this->email->from($this->data['email_eventos_server'], 'Eventos '.$this->data['nombre_empresa']);
 										$this->email->to($contacto->email_contacto);
 
 										$this->email->subject('Inscripción a evento: '.$evento->titulo);
@@ -430,10 +430,10 @@ class Evento extends AbstractController {
 										}
 
 										$this->email->set_mailtype('html');
-										$this->email->from('eventos@soipaq.com', 'Eventos TiendaPAQ');
+										$this->email->from($this->data['email_eventos_server'], 'Eventos '.$this->data['nombre_empresa']);
 										$this->email->to($contacto->email_contacto);
 
-										$this->email->subject('Inscripción a evento TiendaPAQ');
+										$this->email->subject('Inscripción a evento '.$this->data['nombre_empresa']);
 										// Contenido del correo
 										$this->data['titulo'] 		= $evento->titulo;
 										$this->data['descripcion'] 	= $evento->descripcion;

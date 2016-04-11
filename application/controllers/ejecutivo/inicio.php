@@ -53,7 +53,7 @@ class Inicio extends AbstractAccess {
 			//los pendientes de los demas usuarios
 			$this->data['pendientes_generales'] = $this->pendienteModel->get_pendientes_generales(array('id_pendiente','ejecutivos.primer_nombre','ejecutivos.apellido_paterno','clientes.razon_social','id_estatus_general'), $this->usuario_activo['id']);
 			// Titulo header
-			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].self::TITULO_PATRON;
+			$this->data['titulo'] = $this->usuario_activo['primer_nombre'].' '.$this->usuario_activo['apellido_paterno'].' | '.$this->data['nombre_empresa'];
 
 			// Cargo los casos para tabla casos
 			$this->data['casos'] = $this->casoModel->get_casos_generales(

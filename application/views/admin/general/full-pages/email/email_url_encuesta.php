@@ -16,7 +16,7 @@
 								<table class="row note">
 									<tr>
 										<td class="wrapper last">
-											<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> TiendaPAQ - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
+											<h4 style="font-size: 22px;display: block;margin: 5px 0 15px 0;"> <?php echo $nombre_empresa ?> - DISTRIBUIDOR ASOCIADO MASTER CONTPAQi </h4>
 											<span class="devider" style="border-bottom: 1px solid #eee;margin: 15px -15px;display: block;"></span>
 											<p> Le notificamos que su caso quedó terminado, para dar por cerrado su caso le pedimos de favor que conteste este cuestionario.</p>
 											<!-- BEGIN: Note Panel -->
@@ -93,11 +93,11 @@
 														<table class="four columns">
 														<tr>
 															<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;padding: 0 2px !important;width: auto !important;">
-																<a href="https://www.facebook.com/Tiendapaq">
+																<a href="<?php echo $fan_page ?>">
 																<img src="<?php echo $assets_admin_pages.'media/email/social_facebook.png' ?>" alt="social icon" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;height: auto;max-width: none !important;float: left;clear: both;display: block;">
 																</a>
 															</td>
-															<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;"> TiendaPAQ <?php echo date('Y') ?>.</td>
+															<td class="vertical-middle" style="padding-top: 0;padding-bottom: 0;vertical-align: middle;color: #fff;"> <?php echo $nombre_empresa ?> <?php echo date('Y') ?>.</td>
 														</tr>
 														</table>
 													</td>

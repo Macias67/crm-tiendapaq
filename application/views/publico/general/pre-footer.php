@@ -29,7 +29,7 @@
 						<a href="javascript:;" data-original-title="rss" class="rss"></a>
 					</li> -->
 					<li>
-						<a href="https://www.facebook.com/Tiendapaq?fref=ts" target="_blank" data-original-title="facebook" class="facebook"></a>
+						<a href="<?php echo $fan_page ?>" target="_blank" data-original-title="facebook" class="facebook"></a>
 					</li>
 <!-- 					<li>
 						<a href="javascript:;" data-original-title="twitter" class="twitter"></a>
@@ -41,7 +41,7 @@
 						<a href="javascript:;" data-original-title="linkedin" class="linkedin"></a>
 					</li> -->
 					<li>
-						<a href="https://www.youtube.com/user/tiendapaq/videos" target="_blank" data-original-title="youtube" class="youtube"></a>
+						<a href="<?php echo $youtube_channel ?>" target="_blank" data-original-title="youtube" class="youtube"></a>
 					</li>
 <!-- 					<li>
 						<a href="javascript:;" data-original-title="vimeo" class="vimeo"></a>
@@ -52,7 +52,7 @@
 				<h2>Contactos</h2>
 				<address class="margin-bottom-40">
 				Teléfono: (392) 925-3808<br>
-				Email: <a href="mailto:ventas@tiendapaq.com.mx">ventas@tiendapaq.com.mx</a>
+				Email: <a href="mailto:<?php echo $email_empresa ?>"><?php echo $email_empresa ?></a>
 				</address>
 			</div>
 		</div>
