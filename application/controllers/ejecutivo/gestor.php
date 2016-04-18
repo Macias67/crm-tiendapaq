@@ -481,7 +481,7 @@ class Gestor extends AbstractAccess {
 			case 'nuevo':
 				$this->form_validation->set_rules('banco', 'Banco', 'trim|required|max_length[30]|strtoupper|xss_clean');
 				$this->form_validation->set_rules('sucursal', 'Sucursal', 'trim|required|max_length[8]|callback_numeros_check|xss_clean');
-				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|max_length[8]|callback_numeros_check|xss_clean');
+				$this->form_validation->set_rules('cta', 'Numero de Cuenta', 'trim|required|max_length[11]|callback_numeros_check|xss_clean');
 				$this->form_validation->set_rules('titular', 'Titular', 'trim|required|max_length[50]|strtoupper|xss_clean');
 				$this->form_validation->set_rules('cib', 'Clave Interbancaria', 'trim|required|min_length[18]|max_length[18]|callback_numeros_check|xss_clean');
 

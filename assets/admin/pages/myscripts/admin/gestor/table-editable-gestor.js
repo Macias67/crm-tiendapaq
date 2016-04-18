@@ -6,14 +6,14 @@ var TableEditable = function () {
 				"mask": "(999) 999-9999"
 			});
 
-			//mascara de sucursal 4 digitos
+			//mascara de sucursal 6 digitos
 			$(".sucursal").inputmask('mask', {
-				"mask": "9999"
+				"mask": "999999"
 			});
 
-			//mascara de cuenta 4 digitos
+			//mascara de cuenta 11 digitos
 			$(".cta").inputmask('mask', {
-				"mask": "9999"
+				"mask": "99999999999"
 			});
 			//mascara de clave interbancaria 18 digitos
 			$(".cib").inputmask('mask', {
