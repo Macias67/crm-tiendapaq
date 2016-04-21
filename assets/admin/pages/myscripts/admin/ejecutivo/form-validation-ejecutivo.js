@@ -255,7 +255,6 @@ var FormValidationEjecutivo = function () {
 				success1.hide();
 				error1.html("Tienes Errores en tu formulario");
 				error1.show();
-				Metronic.scrollTo(error, -600);
 			},
 			highlight: function (element) { // hightlight error inputs
 				$(element)
