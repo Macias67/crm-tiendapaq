@@ -296,7 +296,7 @@ abstract class AbstractAccess extends AbstractController
 	 **/
 	private function _admin()
 	{
-		$this->_no_cache();
+		//$this->_no_cache();
 		$this->_isLogin();
 	}
 }
